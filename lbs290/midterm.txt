@@ -1,0 +1,164 @@
+
+LBS290F                                                     Fall 1991
+
+                             MIDTERM EXAM - I
+
+Date: October 21, 1991
+
+
+Name:  _______________________________________________
+
+
+Student Number: __________________________________________
+
+Read all of the exam questions before starting.  You may want to 
+answer the questions out of order.
+
+This exam contains 8 questions on 4 pages.  This exam is closed book, 
+closed notes, one 3x5 card.  The total points for this exam is 50 points.
+
+
+
+(10 pts)
+1.      Write a complete C program that will prompt for an integer 
+        age, add two years to the age and print out the age two years
+        later.  An example run of the program would be:
+      
+        $ a.out
+        Enter your age: 18
+        Two years from now you will be: 20
+        $
+
+(7 pts)
+2.     Correct the errors in the following program.  There are at least
+       five errors in this program.
+
+       /* Why doesn't this program work? 
+
+       #include 
+
+       main ()
+       }
+       
+       int x;
+       float y;
+       float z
+       
+       /* Any problems so far? */
+       
+       x = 4;
+       y = x * 3;
+       z = y + 5.0;
+       
+       Printf(\n The value of z is %d\n", z);
+       }
+
+
+
+(10 pts)
+3.     Write a program that will ask for three double precision variables
+       and multiply them together, and print out the result.  The output
+       should look like: 
+
+       Enter the value for a: 5
+       Enter the value for b: 5
+       Enter the value for c: 5
+
+       The answer is 125.0
+
+(6 pts)
+4.     Consider the following UNIX session:
+
+       $ ls
+       arf.c
+       $ cc arf.c
+       $ a.out > glom
+       $ ls
+       arf.c
+       a.out
+       glom
+       $
+
+       Give a short description of what would be in the following files:
+
+
+       arf.c
+
+
+
+       a.out
+
+
+
+       glom
+
+
+
+
+
+(5 pts.)
+5.    Given an integer i and a floating variable f, what would each
+      of the assignment statements store into the variables?
+     
+
+ 
+      f = 1.0 + 2.0 * 3.0 / 4.0 + 5.0 / 6.0;      f ___________
+
+
+
+
+      i = 1 + 2 * 3 + 4 * 5 + 6;                  i ___________
+
+
+
+
+      i = 1 + ( 2 * 3 ) + 4 * (5 + 6);            i ___________
+
+
+
+
+      i = 107.0 / 109.01;                         i ___________
+
+
+
+      f = 1 / 10;                                 f ___________
+
+
+(3 pts)
+6.    Match the printf format codes with the correct C variable type:
+
+   
+      _____   %d          a.  char
+         
+                          b.  int
+      _____   %f
+                          c.  double
+   
+      _____   %lf         d.  float
+
+                          c.  triple
+
+
+(2 pts)
+7.    Which of the following is not a fundamental 
+      element of a programming language as described in class:
+
+      a.  Sequential statements
+      b.  Conditional statements
+      c.  Exponential statements
+      d.  Repetitive statements
+
+
+
+(7 pts.)
+8.    Choose one of the following questions and write a short 
+      answer.  Indicate which question you are answering by placing
+      an X by the question.
+
+      _____   What is the difference between a syntax error and a
+              run-time error?
+
+      _____   Explain what the compiler (cc) does and what is 
+              contained in the a.out file.
+
+      _____   What are the rules for legal variable names in C?

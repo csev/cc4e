@@ -1,0 +1,29 @@
+s/PRINT \*,\'/printf(\"/g
+s/READ \*,/scanf(\"%f\",\&/g
+s/\'/ %d\\n\"/g
+s/ELSE/} else {/
+s/THEN/{/
+s/ENDIF/}/
+s/REAL/float/
+s/INTEGER/int/
+s/^\*$//
+s/      ENDDO/  }/
+s/ DO/ for(/
+s/^      END/}/
+/^      /y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/
+/^      /s/$/;/
+s/^      /  /
+s/\.eq\./==/g
+s/\.ne\./!=/g
+s/\.le\./<=/g
+s/\.lt\./</g
+s/\.ge\./>=/g
+s/\.gt\./>/g
+s/\.or\./||/g
+s/\.and\./\&\&/g
+/^\*/s/$/ *\//
+s/^\*/\/\*/
+s/{;/{/
+s/};/}/
+/printf/s/;/);/
+/scanf/s/;/);/

@@ -1,0 +1,11 @@
+
+echo '% cat ' $1.C
+cat $1.C
+echo '% g++ -lm ' $1.C
+g++ -lm $1.C
+echo '% a.out '
+a.out
+echo '% '
+echo ' ====== creating script ======='
+cat > $1
+echo rm $1.C

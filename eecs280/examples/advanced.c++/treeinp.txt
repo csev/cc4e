@@ -1,0 +1,16 @@
+insert j
+insert f
+insert n
+insert b
+insert a
+insert c
+insert h
+insert g
+insert i
+insert l
+insert p
+insert k
+insert m 
+insert o
+insert q
+printpr

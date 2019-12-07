@@ -1,0 +1,30 @@
+
+/* Assignment 7 */
+
+/* To compile use     cc a7.c -lm */
+
+#include <stdio.h>
+#include <math.h>
+
+main()
+{
+  double a,b,c,x,x1;
+
+  printf("\nPlease enter the value for A:");
+  scanf("%lf",&a);
+  printf("\nPlease enter the value for B:");
+  scanf("%lf",&b);
+  printf("\nPlease enter the value for C:");
+  scanf("%lf",&c);
+
+/* Do calculations! */
+
+  x = (-b + ( sqrt ( (b*b) - (4*a*c) ) ) ) /(2*a);
+  x1 = (-b - (sqrt((b*b) - (4*a*c))))/(2*a);
+
+/* Print the output */
+
+  printf("\n\nThe First root is %.1lf\n",x);
+  printf("The Second root is %.1lf\n",x1);
+  printf("\n");
+}

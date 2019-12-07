@@ -1,0 +1,10 @@
+
+echo '% cat ' $1.c
+cat $1.c
+echo '% cc ' $2 $1.c
+cc $2 $1.c
+echo '% a.out '
+a.out
+echo '% '
+echo ' ====== creating script Please cut and paste ======='
+cat > ../$1.txt

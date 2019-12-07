@@ -1,0 +1,41 @@
+% cat  popen.c
+
+/* A program to demonstrate some of the nifty UNIX capabilities in C */
+
+#include <stdio.h>
+
+main()
+
+{
+  FILE *pipefp;
+  char tmp[100];
+
+  printf("Opening Pipe...\n");
+
+  pipefp = popen("ls -l","r");
+  if ( pipefp == NULL ) {
+    fprintf(stderr,"Unable to open pipe\n");
+    exit();
+  }
+
+  while(fgets(tmp,100,pipefp) != NULL ) {
+    printf("Line: %s",tmp);
+  }  /* End while */
+
+  pclose(pipefp);
+
+}
+% cc  popen.c
+% a.out 
+Opening Pipe...
+Line: -rwx------   1 crs      cl          4669 Aug 16 11:11 a.out
+Line: -rw-------   1 crs      cl           682 Aug 16 09:13 fun3.c
+Line: -rw-------   1 crs      cl          1652 Dec  7 1993  gradepretty.c
+Line: -rw-------   1 crs      cl           110 Dec  7 1993  gradepretty.dat
+Line: -rw-------   1 crs      cl           985 Dec  8 1993  grades.c
+Line: -rw-------   1 crs      cl           402 Aug 16 11:10 popen.c
+Line: -rw-------   1 crs      cl           442 Dec  7 1993  quad.c
+Line: -rw-------   1 crs      cl           810 Aug 16 10:43 quadfun.c
+Line: -rw-------   1 crs      cl          1009 Dec  7 1993  quadsub.C
+Line: -rw-------   1 crs      cl           578 Dec  7 1993  tempconv.c
+%

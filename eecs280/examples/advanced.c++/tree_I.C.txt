@@ -1,0 +1,49 @@
+// tree_I.C
+
+#include <stream.h>
+#include <String.h>
+
+#include "tree_I.h"
+
+main() {
+
+  String str;
+  String value;
+  Binary_Tree<String> stuff;
+  int flags[20];
+
+  while(1) {
+    cout << "Enter a command :";
+    cin >> str;
+    if ( cin.eof() ) break;
+
+    if ( str == "insert" ) {
+      cin >> value;
+      cout << "Inserting " << value << "\n";
+      stuff.Insert(value);
+    } else if ( str == "find" ) {
+      cin >> value;
+      cout << "Finding " << value << "\n";
+      stuff.Find(value);
+    } else if ( str == "findr" ) {
+      cin >> value;
+      cout << "Finding " << value << "\n";
+      stuff.Find_Recursive(value); 
+    } else if ( str == "inorder" ) {
+      stuff.Print_Inorder();
+    } else if ( str == "print" ) {
+      stuff.Print_Fancy(flags,0);
+    } else if ( str == "depth" ) {
+      cout << "Depth " << stuff.Depth() << "\n";
+    } else if ( str == "quit" ) {
+      break;
+    } else {
+      cout << "Error, please enter insert find findr or quit\n";
+    }
+    
+  } // End while
+
+  cout << "Thanks for playing\n" ; 
+
+}
+

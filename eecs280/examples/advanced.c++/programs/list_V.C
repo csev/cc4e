@@ -1,0 +1,100 @@
+
+/** Linked list V - Using an object and operators to do the dirty work */
+
+   // ~cps330/Examples/list_V.C 
+
+#include <stream.h>
+#include <String.h>
+
+class Data_line {
+  public:
+    String contents;
+    Data_line *next;
+  }; // End of Data_list class
+
+class Data_list {
+  private:
+    Data_line *top;            // Will point to the top element
+
+  public:
+    Data_list() { top = NULL; cout << "List constructed\n"; }
+    ~Data_list() { cout << "List destructing\n" ; }
+  
+    void operator += (String str);  
+    friend ostream & operator << ( ostream & os, const Data_list & listval);
+    friend istream & operator >> ( istream & is, const Data_list & listval);
+} ;
+  
+void Data_list::operator += (const String str) 
+
+{
+
+  Data_line *ptr;            // Will point to the new element
+  Data_line *prev;           // Previous element (during search)
+  Data_line *curr;           // Current element (during search)
+
+  ptr = new Data_line;  // Allocate an object
+  cout << "Allocated a new string at " << form("%x",ptr) << "\n";
+
+  ptr->contents = str;    // Copy string into new space
+
+  // Find the position in the list
+    
+  curr = top;
+  prev = NULL;
+  while(curr != NULL ) {
+    if ( curr->contents > str ) break;
+    prev = curr;
+    curr = curr->next;
+  }
+
+  if ( prev == NULL ) {
+     cout << "Adding before the first element\n";
+     ptr->next = top;
+     top = ptr;
+  } else {
+     cout << "Adding between " << form("%x",prev) ;
+     cout << " and " << form("%x",curr) << "\n";
+     ptr->next = curr;
+     prev->next = ptr;
+  }
+} // End of Data_list::operator += 
+
+ostream & operator << ( ostream & os, const Data_list & listval) {
+  Data_line *ptr;
+  ptr = listval.top; 
+  while ( ptr != NULL ) {
+    os << ptr->contents << "\n";
+    ptr = ptr->next;
+  }
+  return os;
+}
+
+istream & operator >> ( istream & is, Data_list & listval) {
+  String input_string;
+  cout << "Enter a list element\n";
+  readline(is,input_string);
+  if ( is.eof() ) return is;
+  listval += input_string;
+  return is;
+}
+
+main() {
+
+  String input_string;       // Used to store string
+  Data_list stuff;          // Our ADT
+
+  cout << "Welcome to the beginning of the program\n";
+
+  while(1) { 
+    cout << "Enter a string \n";
+    cin >> stuff;
+    if ( cin.eof() ) break;
+  }
+
+  cout << "\n";
+  cout << "Here is your list...\n";
+  cout << stuff;
+  cout << "End of the program\n";
+
+}

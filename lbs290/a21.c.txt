@@ -1,0 +1,128 @@
+#include <stdio.h>
+main ()  {
+   int i; 
+   double x, exact, area, error, nrec,dx, lastx;
+   double f();
+   
+/* Exact area */
+   x = 1.0;  
+   exact = ((x*x)*x) / 3.0;
+   printf ("Exact area = %lf\n", exact);
+
+/* Area between 100 rectangles */
+
+   area = 0.0;
+   nrec = 100.0;
+   dx = 1.0 / nrec;
+   for (x=dx; x<=1.0; x = x + dx) {
+      area = area + dx*f(x);
+      lastx = x;
+   }
+   error = exact - area;
+   printf ("Area for %lf rectangles = %lf\n", nrec, area);
+   printf ("Error for %lf rectangles = %lf\n", nrec, error);
+   printf ("Lastx value = %.15lf\n\n",lastx);
+
+/* Area with 100 trapezoids */
+
+   area = 0.0;
+   nrec = 100.0;
+   dx = 1.0 / nrec;
+   for (x=dx; x<=1.0; x = x + dx) {
+      area = area + dx*f(x-dx) + ( (1.0/2.0) * dx * (f(x) - f(x-dx)) );
+      lastx = x;
+   }
+   error = exact - area;
+   printf ("Area for %lf trapezoids = %lf\n", nrec, area);
+   printf ("Error for %lf trapezoids = %lf\n", nrec, error);
+   printf ("Lastx value = %.15lf\n\n",lastx);
+
+/* Area with 123 trapezoids */
+
+   area = 0.0;
+   nrec = 123.0;
+   dx = 1.0 / nrec;
+   for (x=dx; x<=1.0; x = x + dx) {
+      area = area + dx*f(x-dx) + ( (1.0/2.0) * dx * (f(x) - f(x-dx)) );
+      lastx = x;
+   }
+   error = exact - area;
+   printf ("Area for %lf trapezoids = %lf\n", nrec, area);
+   printf ("Error for %lf trapezoids = %lf\n", nrec, error);
+   printf ("Lastx value = %.15lf\n\n",lastx);
+
+/* Area with 128 trapezoids */
+
+   area = 0.0;
+   nrec = 128.0;
+   dx = 1.0 / nrec;
+   for (x=dx; x<=1.0; x = x + dx) {
+      area = area + dx*f(x-dx) + ( (1.0/2.0) * dx * (f(x) - f(x-dx)) );
+      lastx = x;
+   }
+   error = exact - area;
+   printf ("Area for %lf trapezoids = %lf\n", nrec, area);
+   printf ("Error for %lf trapezoids = %lf\n", nrec, error);
+   printf ("Lastx value = %.15lf\n\n",lastx);
+
+/* Area with 129 trapezoids */
+
+   area = 0.0;
+   nrec = 129.0;
+   dx = 1.0 / nrec;
+   for (x=dx; x<=1.0; x = x + dx) {
+      area = area + dx*f(x-dx) + ( (1.0/2.0) * dx * (f(x) - f(x-dx)) );
+      lastx = x;
+   }
+   error = exact - area;
+   printf ("Area for %lf trapezoids = %lf\n", nrec, area);
+   printf ("Error for %lf trapezoids = %lf\n", nrec, error);
+   printf ("Lastx value = %.15lf\n\n",lastx);
+
+/* Area with 512 trapezoids */
+
+   area = 0.0;
+   nrec = 512.0;
+   dx = 1.0 / nrec;
+   for (x=dx; x<=1.0; x = x + dx) {
+      area = area + dx*f(x-dx) + ( (1.0/2.0) * dx * (f(x) - f(x-dx)) );
+      lastx = x;
+   }
+   error = exact - area;
+   printf ("Area for %lf trapezoids = %lf\n", nrec, area);
+   printf ("Error for %lf trapezoids = %lf\n", nrec, error);
+   printf ("Lastx value = %.15lf\n\n",lastx);
+
+}  /* End Main */
+
+double f(m)  
+  double m;  
+{
+  return (m*m);
+} 
+
+Exact area = 0.333333
+Area for 100.000000 rectangles = 0.328350
+Error for 100.000000 rectangles = 0.004983
+Lastx value = 0.990000000000001
+
+Area for 100.000000 trapezoids = 0.323450
+Error for 100.000000 trapezoids = 0.009884
+Lastx value = 0.990000000000001
+
+Area for 123.000000 trapezoids = 0.325280
+Error for 123.000000 trapezoids = 0.008053
+Lastx value = 0.991869918699189
+
+Area for 128.000000 trapezoids = 0.333344
+Error for 128.000000 trapezoids = -0.000010
+Lastx value = 1.000000000000000
+
+Area for 129.000000 trapezoids = 0.325651
+Error for 129.000000 trapezoids = 0.007682
+Lastx value = 0.992248062015505
+
+Area for 512.000000 trapezoids = 0.333334
+Error for 512.000000 trapezoids = -0.000001
+Lastx value = 1.000000000000000
+

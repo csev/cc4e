@@ -1,0 +1,23 @@
+process (abc)
+
+   char abc[100];
+{  int i;
+   printf("String:%s\n",abc);
+
+   for(i=0;i<101;i++){
+     if (abc[i]=='\0')
+       break;
+  }
+   printf("Count=%d\n",i);
+
+     if (i>10)
+      printf("The ninth character is: %c\n",abc[8]);
+
+   for (i=0;i<101;i++){
+     
+    if(abc[i]==' ')
+      abc[i]='-';
+}
+   printf("String:%s\n",abc); 
+       
+}

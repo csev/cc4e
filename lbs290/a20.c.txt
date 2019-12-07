@@ -1,0 +1,60 @@
+
+main() {
+
+  int i;
+  double root,z;
+  double l,r,m;
+  double eps;
+  double f();
+
+  eps = 0.0000001;
+
+  z = f(0.0);
+
+  for (root = 1.0; root < 100.0; root = root + 10.0 ) {
+   printf("f(%lf) = %lf\n",root,f(root));
+  }
+
+  printf("\n");
+
+  for (root = 1.0; root < 100.0; root = root + 1.0) {
+   if ( f(root) * z < 0.0 ) break;
+  } /* End for root */
+  printf("root = %lf\n",root);
+
+  for (root = 1.0; root < 100.0; root = root + 0.1) {
+   if ( f(root) * z < 0.0 ) break;
+  } /* End for root */
+  printf("root = %lf\n",root);
+
+  for (root = 1.0; root < 100.0; root = root + 0.01) {
+   if ( f(root) * z < 0.0 ) break;
+  } /* End for root */
+  printf("root = %lf\n",root);
+
+}
+
+double f(x,n)
+
+  double x;
+
+{
+
+  return( 25.629291 - (x / 1.65) ) ;
+
+}
+
+f(1.000000) = 25.023230
+f(11.000000) = 18.962624
+f(21.000000) = 12.902018
+f(31.000000) = 6.841412
+f(41.000000) = 0.780806
+f(51.000000) = -5.279800
+f(61.000000) = -11.340406
+f(71.000000) = -17.401012
+f(81.000000) = -23.461618
+f(91.000000) = -29.522224
+
+root = 43.000000
+root = 42.300000
+root = 42.290000

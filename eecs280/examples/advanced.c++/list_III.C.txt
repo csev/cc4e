@@ -1,0 +1,65 @@
+
+/** Linked list III - Adding at the end of the list */
+
+   // ~cps330/Examples/list_III.C 
+
+#include <stream.h>
+#include <String.h>
+
+class Data_line {
+  public:
+    String contents;
+    Data_line *next;
+  };
+
+main() {
+  String input_string;       // Used to store string
+  Data_line *top;            // Will point to the top element
+  Data_line *ptr;            // Will point to the new element
+  Data_line *prev;           // Previous element (during search)
+  Data_line *curr;           // Current element (during search)
+
+  top = NULL;    // Indicate that the list is empty
+
+  while(1) { // Prompt for lines
+    cout << "Enter a string \n";
+    readline(cin,input_string);
+    if ( cin.eof() ) break;
+
+    ptr = new Data_line;  // Allocate an object
+    cout << "Allocated a new string at " << form("%x",ptr) << "\n";
+
+    ptr->contents = input_string;    // Copy string into new space
+
+    // Find the position in the list
+    
+    curr = top;
+    prev = NULL;
+    while(curr != NULL ) {
+      if ( curr->contents > input_string ) break;
+      prev = curr;
+      curr = curr->next;
+    }
+
+    if ( prev == NULL ) {
+       cout << "Adding before the first element\n";
+       ptr->next = top;
+       top = ptr;
+    } else {
+       cout << "Adding between " << form("%x",prev) ;
+       cout << " and " << form("%x",curr) << "\n";
+       ptr->next = curr;
+       prev->next = ptr;
+    }
+  }
+
+  cout << " ---------------  Print the list ------------------\n";
+  cout << "Top: " << form("%x",top) << "\n";
+
+  ptr = top; 
+  while ( ptr != NULL ) {
+    cout<<"Address:"<<form("%x",ptr)<<" ->next "<<form("%x",ptr->next);
+    cout<<" String:" << ptr->contents << "\n";
+    ptr = ptr->next;
+  }
+}

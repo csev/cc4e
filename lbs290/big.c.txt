@@ -1,0 +1,149 @@
+/* Assignment 4 */
+
+/* Program which requires fixing some syntax errors */
+
+#include "stdio.h"
+
+main () {
+
+  char c;
+  int 1value;
+  int i;
+  flat x;
+
+  printf("Hello there and welcome to the program\n);
+
+  i = 10;
+
+  x = 2.50;
+
+  x = x + 1.L;
+
+  1value = 15;
+
+/* This is a comment
+
+  printf("This statement should print out, why doesn't it? \n");
+
+/* And another comment */
+
+  printf("This statement does print out, yay!\n");
+
+}
+
+-----------------------------------------------------------------------
+
+/* Assignment 5 */
+
+/* Program to print out converted temperatures */
+
+main () {
+
+  float faren;
+  float celsius;
+
+  faren = 68.0;
+
+  /* Your code is added here */
+
+  celsius = ( faren - 32.0 ) * ( 5.0 / 9.0 ) ;
+
+  printf("Farenheight= %f\n", faren);
+  printf("Celsius= %f\n", celsius);
+  
+}
+
+
+
+/* Assignment 6 */
+
+/* To compile use     cc a6.c -lm */
+
+#include <stdio.h>
+#include <math.h>
+
+double sqrt();
+
+main()
+{
+double a,b,c,x,x1;
+
+a=1.0;
+b=-3.0;
+c=2.0;
+
+printf("\n\nValue for a:%.1lf\n",a);
+printf("Value for b:%.1lf\n",b);
+printf("Value for c:%.1lf\n",c);
+
+/* Do calculations! */
+
+x = (-b + (sqrt((b*b) - (4*a*c))))/(2*a);
+x1 = (-b - (sqrt((b*b) - (4*a*c))))/(2*a);
+
+/* Print Solutions */
+
+printf("\n\nThe First root is %.1f\n",x);
+printf("The Second root is %.1f\n",x1);
+printf("\n");
+}
+
+
+
+
+/* Assignment 7 */
+
+/* To compile use     cc a7.c -lm */
+
+#include <stdio.h>
+#include <math.h>
+
+main()
+{
+  double a,b,c,x,x1;
+
+  printf("\nPlease enter the value for A:");
+  scanf("%lf",&a);
+  printf("\nPlease enter the value for B:");
+  scanf("%lf",&b);
+  printf("\nPlease enter the value for C:");
+  scanf("%lf",&c);
+
+/* Do calculations! */
+
+  x = (-b + ( sqrt ( (b*b) - (4*a*c) ) ) ) /(2*a);
+  x1 = (-b - (sqrt((b*b) - (4*a*c))))/(2*a);
+
+/* Print the output */
+
+  printf("\n\nThe First root is %.1lf\n",x);
+  printf("The Second root is %.1lf\n",x1);
+  printf("\n");
+}
+
+-----------------------------------------------------------------------
+
+/* Assignment 8 */
+
+#include<stdio.h>
+#include<math.h>
+
+main()
+{
+float a, b, c, d, e, total, average;
+
+  printf("Enter the first number: ");
+  scanf("%f", &a);
+  printf("Enter the second number: ");
+  scanf("%f", &b);
+  printf("Enter the third number: ");
+  scanf("%f", &c);
+  printf("Enter the fourth number: ");
+  scanf("%f", &d);
+  printf("Enter the fifth number: ");
+  scanf("%f", &e);
+
+  total = a+b+c+d+e;
+  average = total/5.0;
+  printf("\nThe total is: %.1f\nThe average is: %.1f\n", total, average);
+}

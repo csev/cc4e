@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+main()
+{
+int ar[10];
+int count;
+int count1 = 0;
+
+for (count=0;count < 10;count++)
+        {
+        printf("Enter a Number: "); 
+        scanf("%d",&ar[count]);
+        }
+
+printf("\n");
+
+for (count=9;count>=0;count--)
+        {
+        printf("numb[%d] = %d\n",count,ar[count]);
+        }
+
+printf("\n\nSearching for entries equal to 100\n\n");
+
+for (count=0;count<10;count++)
+        {
+        if (ar[count] == 100)
+                {
+                printf("Found 100 at %d\n",count);
+                count1++;
+                }
+        }
+
+printf("Found %d entries with 100\n",count1);
+}
+

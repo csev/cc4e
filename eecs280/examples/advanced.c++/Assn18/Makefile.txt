@@ -1,0 +1,12 @@
+a.out:	main.o graph.o hash.o
+	g++ main.o graph.o hash.o
+
+main.o:	main.cc graph.h hash.h list.h
+	g++ -c main.cc
+
+graph.o: graph.cc graph.h hash.h list.h
+	g++ -c graph.cc
+
+hash.o:	hash.cc hash.h list.h
+	g++ -c hash.cc
+

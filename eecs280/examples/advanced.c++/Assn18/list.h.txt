@@ -1,0 +1,60 @@
+//	This is our old friend the list class.
+
+template <class Etype> 
+class LNode
+{
+	Etype value;
+	LNode *next;
+//	it is very important that X is passed by reference
+//	otherwise a copy constructor is needed
+	LNode(const Etype & X, LNode *n=NULL) { next=n; value=X; };
+	friend class List<Etype>;
+};
+
+template <class Etype>
+class List
+{
+	LNode<Etype> *head;
+	LNode<Etype> *current;
+	const Etype nulltype;			// a user specified value
+						// that indicates a null value
+
+	public:
+	List() { current=head=NULL; };
+	List(const Etype & nt) :  nulltype(nt) { current=head=NULL;};
+	Etype First() { current=head; return current ? current->value : nulltype;};
+	Etype operator++();
+	Etype operator()() { return current ? current->value : nulltype; }; 
+	void Insert(const Etype &);
+	int Find(Etype);
+	int IsCurrent() { return current ? 1: 0; };
+};
+
+template <class Etype>
+Etype List<Etype>::operator++()
+{
+	if (current)
+		current=current->next;
+	return current ? current->value : nulltype;
+}
+
+template <class Etype>
+void List<Etype>::Insert(const Etype & X)
+{
+	current=new LNode<Etype>(X,head);
+	head=current;
+}
+
+template <class Etype>
+int List<Etype>::Find(Etype X)
+{
+	current=head;
+	while (current)
+	{
+		if (X==current->value)
+			break;
+		else
+			current=current->next;
+	}
+	return (current!=NULL);		
+}

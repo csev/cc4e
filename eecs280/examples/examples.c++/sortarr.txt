@@ -1,0 +1,105 @@
+% cat  sortarr.C
+
+/* Program sortarr - Sort an array, computet the mean, median, max and mi */
+
+/* Program can handle up to 100 values */
+
+/* Written by - Charles Severance  - Tue Dec  7 22:46:36 EST 1993 */
+
+#include <iostream.h>
+#include <stdlib.h>
+
+main() {
+
+  float values[100],mean,median,max,min,tmp,total;
+  int i,j,count;
+
+/* Read in the values counting how many we got */
+
+  count = 0;
+  while(count<100) {
+    cin >> tmp;
+    if ( cin.eof() ) break;
+    values[count] = tmp;
+    count = count + 1;
+  }
+
+  cout << "read in " << count << " values\n";
+
+  if ( count == 0 ) {
+    cout << "program has read no data... \n";
+    exit(-1);
+  }
+
+/*  Sort the array */
+
+  for( i=0; i<count-1; i++ ) {
+    for( j=i+1; j<count; j++ ) {
+      if ( values[i]>values[j] ) {
+        tmp = values[i];
+        values[i] = values[j];
+        values[j] = tmp;
+      }
+    }
+  }
+
+/* Print out the sorted values */
+
+  for( i=0; i<count; i++ ) {
+    cout << values[i] << "\n";
+  }
+
+/* Find the maximum and minimum and total */
+
+  max = values[0];
+  min = values[0];
+  total = 0.0;
+  for( i=0; i<count; i++ ) {
+    if ( values[i] > max ) max = values[i];
+    if ( values[i] < min ) min = values[i];
+    total = total + values[i];
+  }
+  mean = total/count;
+
+/* Find the median.  The median is different whether the total number */
+/* is even or odd.  We use the MOD function which gives us the remainder */
+/* of an integer division to determine if the value is even or odd. */
+
+  if ( (count % 2) == 1 ) {
+    median = values[ count/2 + 1 ];
+  } else {
+    median = (values[count/2] + values[count/2+1]) / 2;
+  }
+
+/* Print everything out */
+
+  cout << "\n";
+  cout << "mean =  " << mean << "\n";
+  cout << "median =  " << median << "\n";
+  cout << "minimum =  " << min << "\n";
+  cout << "maximum =  " << max << "\n";
+
+}
+% g++  sortarr.C
+% a.out 
+43
+12
+32
+8
+88
+17
+14
+read in 7 values
+8
+12
+14
+17
+32
+43
+88
+
+mean =  30.5714
+median =  32
+minimum =  8
+maximum =  88
+% 

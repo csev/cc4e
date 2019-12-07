@@ -1,0 +1,93 @@
+LBS290F                                                      Fall 1991
+
+                     ASSIGNMENT 22 - PHYSICS/HEAT FLOW
+
+Due Date: 11:59 PM Tuesday 12/3/91
+
+The purpose of this program is to simulate heat flow in a solid metal bar.
+
+The bar to be simulated will be 100 centimeters long.  The bar will start
+at 30.0 degrees Celsius across the whole bar.
+
+There will be heat and cold sources placed at various points on the bar 
+as follows:
+
+  Position     Temperature of source
+  ----------------------------------
+    1cm           100.0 Celsius (Boiling)
+    16cm          10.0 Celsius
+    65cm          80.0 Celsius
+    100cm          0.0 Celsius
+
+We are to simulate the flow of heat from these sources as a function of
+time and calculate the temperature at all the positions of the bar for
+successive time steps.
+
+You are to print out the temperature at the following positions on the
+bar:
+
+   25cm, 50cm, 75cm, and 99cm
+
+Print out these positions after 1, 5, 40, 50, and 100 time steps.
+
+The output of the program should be as follows (your numbers might
+be slightly different):
+
+Time step 1 bar[25] = 30.00 bar[50] = 30.00 bar[75] = 30.00 bar[99] = 20.00
+Time step 5 bar[25] = 29.94 bar[50] = 30.00 bar[75] = 30.06 bar[99] = 10.37
+Time step 40 bar[25] = 26.50 bar[50] = 30.46 bar[75] = 36.70 bar[99] = 3.77
+Time step 50 bar[25] = 25.59 bar[50] = 31.11 bar[75] = 38.78 bar[99] = 3.38
+Time step 100 bar[25] = 22.45 bar[50] = 35.96 bar[75] = 46.17 bar[99] = 2.43
+
+The back of this handout shows how an example of this might work.
+
+
+
+            EXAMPLE OF HEAT FLOW IN A 10 CM BAR
+
+The following will show how the program needs to work assuming a 10 cm bar
+with 100.0 degree Celsius heat source at 1 cm and 10.0 degree Celsius heat 
+source at 8 cm and 10.0 degree Celsius heat source at 10 cm.  The rest 
+of the bar is at 30.0 degrees Celsius initially.
+
+Before time step 0, the bar will have the following temperatures:
+
+Temp    100.0   30.0   30.0   30.0   30.0   30.0  30.0  10.0  30.0   10.0
+        -----------------------------------------------------------------
+Pos       1      2      3      4      5      6     7     8     9     10
+
+For each time step go from positions 2 through 9 and calculate the new
+temperature at the poition based on the average of the old temperature 
+at the position, and the temperature of the positions at the 
+immediate left and right.
+
+So for time step 1, the temperature at position 2 is:
+
+   ( 100.0 + 30.0 + 30.0 ) / 3.0  or 53.33
+Pos    1       2     3
+
+The temperature at position 3 is:
+
+   ( 53.33 + 30.0 + 30.0 ) / 3.0 or 37.78
+Pos    2      3       4
+
+Note that the new temperature at position 3 is used in the calculation.
+
+This calculation is not done for positions 1, 8, or 10 because these are 
+assumed to be infinite sources of heat able to keep their section of the
+bar at 100.0 and 10.0 degrees regardless of heat flow.
+
+After the time step 1, the bar will have the following temperatures:
+
+Temp    100.00 53.33  37.78 32.59  30.86  30.29  23.43  10.00  16.67  10.00 
+        -----------------------------------------------------------------
+Pos       1      2      3      4      5      6     7      8      9     10
+
+
+After the time step 2, the bar will have the following temperatures:
+
+Temp    100.00 63.70  44.69  36.05  32.40  28.71 20.71  10.00  12.22  10.00  
+        -----------------------------------------------------------------
+Pos       1      2      3      4      5      6     7      8      9     10
+
+Note that positions 1, 8, and 10 do not change.

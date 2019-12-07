@@ -1,0 +1,60 @@
+#include <stdio.h>
+
+main()
+{
+int parts[10],input[25];
+char oper;
+int units,part,count;
+
+for (count=0;count<10;count++) 
+        {
+        parts[count]=0;
+        }
+
+printf("Setting all inventory records to zero\n");
+
+while(1){
+        printf("Enter: ");
+
+        if (gets(input) == NULL) break;
+
+        count=sscanf(input,"%c %d %d",&oper,&part,&units);
+        if(tolower(oper) == 'x') break;
+        if(tolower(oper) == 'l')
+                {
+                printf("\nPart    Units\n-------------\n");
+                for (count=0;count<10;count++)
+                        {
+                        if (parts[count] > 0)
+                                {
+                                printf("  %d      %d\n",count,parts[count]);
+                                }
+                        }
+                printf("\n");
+                continue;
+                }
+        if (count != 3) 
+                {
+                printf("Invalid number of parameters\n");
+                continue;
+                }
+
+        switch(tolower(oper))
+                {
+                case 'p': 
+                        parts[part]+=units;
+                        break;
+                case 's':
+                        if (units > parts[part])
+                                {
+                                printf("Part number only has %d units\n",parts[part]);
+                                break;
+                                }
+                        parts[part]-=units;
+                        break;
+                default:
+                        printf("ERROR: Invalid Command %c\n",oper);
+                        break;
+                }
+        }
+}

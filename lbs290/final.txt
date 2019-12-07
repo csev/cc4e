@@ -1,0 +1,299 @@
+LBS290F                   Fall 1991                      Final Exam
+
+
+
+
+Name: ______________________________________________
+
+
+
+
+Student number: ______________________________________
+
+
+Please put your student number in the upper right hand corner of each
+of the pages of this exam.
+
+Please read the exam carefully and note the point values for each of
+the questions.  Partial credit will be given for reasonable attempts
+to complete a problem.
+
+This exam is closed book, closed notes, one 3x5 card is permitted.
+
+
+(10 pts)
+1.  What is the output of the following program:
+
+
+    main() {
+
+      int i,j,k;
+
+      for(i=0;i<3;i++) {
+        printf("i=%d\n",i);
+      }
+      printf("I after loop is:%d\n",i);
+
+      i = 0;
+      for(k=0;k<=2;k=k+1) {
+        printf("k=%d\n",k);
+        for(j=k;j<3;j++) {
+          printf("j=%d k=%d\n",j,k);
+          i = i + k;
+        }
+        printf("end k=%d\n",k);
+      }
+    }
+
+(6 pts)
+2.   What will the following program print out?
+
+     main() {
+
+      int i;
+      int j;
+      float f;
+      double d;
+
+      i = 1 + 2 * 3 + 4 * 5;
+
+      j = (1 + 2) * 3 + ( 4 * 5 );
+
+      f = i / 1000;
+
+      d = j / 1000.0;
+
+      printf("i=%d j=%d f=%f d=%lf\n",i,j,f,d);
+
+     }
+
+(10 pts)
+3.  What will the following program print out
+
+    main() {
+
+     int arr[5];
+     int i,j;
+
+     arr[0] = 14;
+     arr[1] = 3;
+     arr[2] = 7;
+     arr[3] = 10;
+     arr[4] = 7;
+
+     for(i=0;i<3;i++) {
+       printf("i=%d\n",i);
+
+       for(j=0;j<5;j++) {
+         if ( arr[j] > 10 ) {
+           arr[j] = arr[j] - 5;
+         } else {
+           arr[j] = arr[j] + 3;
+         }
+       }
+     }
+
+     for(i=0; i<5; i++ ) {
+       printf("arr %d %d\n",i,arr[i]);
+     }
+   }
+
+(10 pts)
+4.     What will the following C program print out?  Show the output below
+       in the correct order.
+
+       int a;
+       
+       main() {
+
+         int i,j,k;
+
+         a = 19;
+         i = 5;
+         j = 3;
+         k = 2;
+         printf("Main-1 %d %d %d %d\n",a,i,j,k);
+         k = funca(i,j);
+         printf("Main-2 %d %d %d %d\n",a,i,j,k);
+         funcb(&i,j);
+         printf("Main-3 %d %d %d %d\n",a,i,j,k);
+       
+       }
+       
+       funca(m,n)
+         int m;
+         int n;
+       {
+         int a;
+       
+         a = m + n;
+         printf("funca-1 %d %d %d\n",a,m,n);
+         m = n - 1;
+         n = 0;
+         printf("funca-2 %d %d %d\n",a,m,n);
+         return a;
+       }
+       
+       funcb(m,n)
+         int *m;
+         int n;
+       {
+         a = *m + n;
+         printf("funcb-1 %d %d %d\n",a,*m,n);
+         *m = 17;
+       }
+
+       ------------- Show Printout Below --------------------
+
+(8 pts)
+5. What is wrong with the following code
+
+
+
+   /* Can we get this right once this term?
+
+   main() {
+
+    integer a;
+    float arr[5];
+    int i,j;
+    float zonk();
+
+    arr[1] = 2.0;
+    arr[2] = 3.0;
+    arr[3] = 3.0;
+    arr[4] = 3.0;
+    arr[5] = 3.0;
+
+    for(i=1;i<=5;i++) arr[i] = arr[i] + 2.5;
+
+    for(i=0; i<5; j++ ) {
+      printf("i=%d arr[i]=%d\n",i,arr[i]);
+    }
+
+    zark(arr);
+
+    for(i=0;i<5;i++) arr[i] = zonk(i);
+
+    }
+
+    zork(abc)
+
+     int abc[5];
+
+    {
+     int i;
+     for(i=0;i<5;i++)abc[i] = 0;
+    }
+
+    double zonk(k)
+     int k;
+    {
+      float x;
+
+      y = k * k + 100;
+
+    }
+
+(6 pts)
+6.  What is the difference between a double and a float variable?
+    Give an example of a type of computer application which cannot use
+    floating point numbers?  Why are floating point numbers bad for
+    this application?
+
+
+
+
+
+
+
+
+
+(15 pts)
+7.  Write a program to find the area under the curve 
+
+                 2
+         Y  =  X
+
+    between 2.0 and 3.0 using 100 rectangles to approximate the area.
+
+
+(15 pts)
+8.     You are to write a function to calculate the rate of pay for an
+       employee.  Your function will be called as follows:
+
+         float pay;
+         float rate;
+         float hours;
+         int emptype;
+
+         calcpay(&pay,rate,hours,emptype);
+
+       There are three types of employees.  The variable emptype tells
+       you the type of employee:
+
+       emptype=1 Exempt employee - Paid for 40 hours regardless of how
+       much time they work.
+
+       emptype=2 Hourly employee - Paid time and a half for hours > 40
+
+       emptype=3 Union employee - Paid double time for hours > 40
+
+       If you are passed an invalid employee type, set the pay to 0.0.
+
+
+(20 pts)
+9.   This program will keep track of an inventory of computer parts for
+     computer part company.
+
+     The program will be able to handle up to 10 part numbers ranging from
+     0 through 9.
+     
+     The program will repeatedly prompt for inventory control records
+     which describe the purchases and sales of the company.
+     
+     The format of the inventory control records are as follows:
+     
+          Record        Action
+     
+          P 3 100       Purchased 100 units of part 3
+          S 1 2         Sold 2 units of part 1
+          End-of-file   Exit
+     
+     The program must print an error if there is an attempt to sell 
+     more units than are inventory.  The program must print an error
+     message if an illegal part number is entered.  The program should
+     print an error message if the wrong command is entered.
+     
+     An example run of the program is as follows:
+     
+          $ a.out
+          
+          Setting all inventory records to zero
+          
+          Enter: Z 6 1
+          ERROR: Invalid command Z
+          
+          Enter: P 100 1
+          ERROR: Invalid part number
+          
+          Enter: S 1 2
+          ERROR: Part number only has 0 units
+          
+          Enter: P 3 100
+          Enter: P 1 10
+          Enter: S 3 50
+          Enter: P 3 20
+          Enter: (Control-D) (end of file)
+          
+            Part    Units
+            -------------
+              1      10
+              3      70
+          
+     $
+     
+       ----- Space for the solution is on the next page ------
+
+
+Solution to problem 9

@@ -1,0 +1,10 @@
+
+echo '% cat ' $1.C
+cat $1.C
+echo '% g++ ' $2 $1.C
+g++ $2 $1.C
+echo '% a.out '
+a.out
+echo '% '
+echo ' ====== creating script ======='
+cat > ../$1.txt

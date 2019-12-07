@@ -1,0 +1,53 @@
+                                 /*assn16.c*/
+#include <stdio.h>
+
+main()
+{
+
+char a;
+float acc,i;
+ acc = 0.0;
+
+while(1)
+ {
+  printf("\nACC = %.1f\n",acc);
+  printf("\nEnter:");
+   scanf("%c %f",&a,&i);
+ 
+  if(a == '=')
+   {
+    acc = i;
+    printf("Setting accumulator to %.1f\n",i);
+   }
+  else if(a == '+')
+   {
+    acc = acc + i;
+    printf("Adding %.1f to accumulator\n",i);
+   }
+  else if(a == '-')
+   {
+    acc = acc - i;
+    printf("Subtracting%.1f from accumulator\n",i);
+   }
+  else if(a == '*')
+   {
+    acc = acc * i;
+    printf("Multiplying the accumulator by %.1f\n",i);
+   }
+  else if(a == '/')
+   {
+    acc = acc / i;
+    printf("Dividing the accumulator by %.1f\n",i);
+   }
+  else if(a == 's')
+   { 
+     break;
+   }  
+    else 
+      { 
+       printf("\nError:%c in not a valid comand to the clculator program",a);
+      }
+   
+ }/*end while*/ 
+}/*end main*/
+

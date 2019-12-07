@@ -1,0 +1,38 @@
+% cat atoi.C
+
+#include <String.h>
+#include <stdlib.h>
+
+/* Demonstration of atoi (and automatic type casting)
+
+   Written by: Charles Severance Sun Feb 19 12:32:07 EST 1995
+*/
+
+main() {
+
+  String str;
+  int i;
+
+  while (! cin.eof() ) {
+    cout << "Enter something ";
+    cin >> str;
+    if ( str == "end" ) break;
+    i = atoi(str);
+    cout << "atoi(" << str << ") returns " << i << endl;
+  }
+
+} 
+% g++  atoi.C
+% a.out 
+Enter something 123
+atoi(123) returns 123
+Enter something -123
+atoi(-123) returns -123
+Enter something ralph
+atoi(ralph) returns 0
+Enter something amy
+atoi(amy) returns 0
+Enter something 0
+atoi(0) returns 0
+Enter something end
+% 

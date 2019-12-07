@@ -1,0 +1,88 @@
+#include <stdlib.h>		// included so we can use exit()
+#include <stream.h>
+#include <fstream.h>
+#include <String.h>
+#include "graph.h"
+
+main(int argc, char* argv[])
+{
+	ifstream input_file;	// ifstream is defined in fstream.h
+	Vertex newnode;
+	String command;
+	String node1,node2;
+	int distance;
+	Graph G;
+
+	if (argc!=2)
+	{
+		cout << "Correct usage: " << argv[0] << " filename\n";
+		exit(EXIT_FAILURE);
+	}
+
+//	attempt to open the file 
+	input_file.open(argv[1]);
+	if (!input_file.is_open())
+	{
+		cout << "Unable to open file " << argv[1] << endl;
+		exit(EXIT_FAILURE);
+	}
+
+
+//	Read in vertices and insert into graph
+	while(1)
+	{
+		input_file >> newnode.name;
+		if (newnode.name=="**end-of-nodes**")
+			break;
+		input_file >> newnode.ELoc;
+		input_file >> newnode.SLoc;
+		input_file >> newnode.purpose;
+		G.AddVertex(newnode);
+	}
+
+//	Read in edges and insert into graph
+	input_file >> node1;
+	while(!input_file.eof())
+	{
+		input_file >> node2;
+		input_file >> distance;
+		G.AddEdge(node1,node2,distance);	
+		input_file >> node1;
+	}
+
+	input_file.close();	// we are done using input_file
+
+	cout << "Enter Command: ";
+	while (cin>>command)
+	{
+		if (command=="Namednode")
+		{
+			cin >> node1;
+			G.PrintVertex(node1);
+		}
+		else if (command=="Numberednode")
+		{
+			int n;
+			cin >> n;
+			G.PrintVertex(n);
+		}
+		else if (command=="Namededges")
+		{
+			cin >> node1;
+			G.PrintNamedEdges(node1);
+		}	
+		else if (command=="Numberededges")
+		{
+			int n;
+			cin >> n;
+			G.PrintNumberedEdges(n);
+		}
+		else if (command=="Bestpath")
+		{
+			cin >> node1;
+			cin >> node2;
+			G.FindBestPath(node1,node2);
+		}
+		cout << "Enter Command: ";
+	}
+}

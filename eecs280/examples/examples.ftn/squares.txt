@@ -1,0 +1,55 @@
+
+*
+* squares - Print a table of squares from 1 to 10
+*
+*  Written by: C. Severance 16Mar92
+*
+* Declare the variables:
+*
+      INTEGER I
+      REAL X,XSQ
+*
+* Generate the table using a DO LOOP
+*
+      PRINT *,'The first table'
+      DO I=1,10
+        X = I
+        XSQ = X ** 2
+        PRINT *,I,XSQ
+      ENDDO
+*
+* Print out the table a different way - Use a real number for the index
+*
+      PRINT *,'The second table'
+      DO X=1.0,10.0
+        XSQ = X ** 2
+        PRINT *,X,XSQ
+      ENDDO
+      END
+
+
+
+$ a.out
+ The first table
+ 1   1.00000000 
+ 2   4.00000000 
+ 3   9.00000000 
+ 4   1.600000000E+001 
+ 5   2.500000000E+001 
+ 6   3.600000000E+001 
+ 7   4.900000000E+001 
+ 8   6.400000000E+001 
+ 9   8.100000000E+001 
+ 10   1.000000000E+002 
+ The second table
+  1.00000000   1.00000000 
+  2.00000000   4.00000000 
+  3.00000000   9.00000000 
+  4.00000000   1.600000000E+001 
+  5.00000000   2.500000000E+001 
+  6.00000000   3.600000000E+001 
+  7.00000000   4.900000000E+001 
+  8.00000000   6.400000000E+001 
+  9.00000000   8.100000000E+001 
+  1.000000000E+001   1.000000000E+002 
+$ 

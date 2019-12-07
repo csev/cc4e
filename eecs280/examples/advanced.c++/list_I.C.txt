@@ -1,0 +1,45 @@
+
+/** Linked list I - Adding at the begining of the list */
+
+   // ~cps330/Examples/list_I.C 
+
+#include <stream.h>
+#include <String.h>
+
+class data_line {
+  public:
+    String string;
+    data_line *next;
+  };
+
+main() {
+  String input_string;       // Used to store string
+  data_line *top;
+  data_line *ptr;
+
+  top = NULL;    // Indicate that the list is empty
+
+  while(1) { // Prompt for lines
+    cout << "Enter a string \n";
+    readline(cin,input_string);
+    if ( cin.eof() ) break;
+
+    ptr = new data_line;  // Allocate an object
+    cout << "Allocated a new string at " << form("%x",ptr) << "\n";
+
+    ptr->string = input_string;    // Copy string into new space
+
+    ptr->next = top;  // Link the string in at the beginning
+    top = ptr;
+  }
+
+  cout << " ---------------  Print the list ------------------\n";
+  cout << "Top: " << form("%x",top) << "\n";
+
+  ptr = top; 
+  while ( ptr != NULL ) {
+    cout<<"Address:"<<form("%x",ptr)<<" ->next "<<form("%x",ptr->next);
+    cout<<" String:" << ptr->string << "\n";
+    ptr = ptr->next;
+  }
+}

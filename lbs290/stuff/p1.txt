@@ -1,0 +1,17 @@
+
+Write a program to prompt for numbers until -1 is entered.  For each number
+add 20 to the number and print it out.  An example execution of the program
+would be as follows:
+
+
+  $ a.out
+  Enter: 10
+  New number 30
+  Enter: 16
+  New number 36
+  Enter: 100
+  New number 130
+  Enter -1
+  Program terminated
+  $
+

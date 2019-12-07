@@ -1,0 +1,217 @@
+
+/** Program CALC - Calculate Final LBS290 Grades 
+
+  Written by: C. Severance 6Dec90
+
+  This program takes an input file consisting of student numbers and
+  grades and calculates the final grade.  Histograms for the
+  final exam and the overall class percentage are also produced.
+
+*/
+
+#include <stdio.h>
+
+#define TITLE  "LBS290 - Fall 1991"
+
+main() {
+
+#define MAX_MID    100      /* Points for the mid-term */
+#define MAX_FINAL  100      /* Points for the final*/
+#define MAX_HOME   110      /* Points for the labs */
+
+int f_freq[101];            /* Hold the frequency for the exam */
+int c_freq[101];
+
+int labs;                   /* These variables are the totals */
+int midterm;
+int final;
+int quizzes;
+int index;
+
+float lper;                /* These variables are percentages */
+float mper;
+float fper;
+float qper;
+float totper;
+
+float gpa;                /* These variables are used for GPA */
+float gpaf;
+float gpaflat(float, float);
+float gpacurve(float, float);
+
+float totgpa;            /* Used for average GPA */
+int countgpa;
+
+char sn[20];             /* Student name */
+
+#define MAXGRADES 28
+
+int grades[MAXGRADES];
+
+int i,j,k;
+
+/* Set the frequency counters to zero */
+
+for(i=0; i<=100; i++ ) {
+  f_freq[i] = 0;
+  c_freq[i] = 0;
+}
+
+totgpa = 0.0;
+countgpa = 0;
+
+/* Print out the title information */
+
+printf("\n%s\n\nGrade information\n\n",TITLE);
+
+/* Scan the records each record has a student name and some grades */
+
+while( scanf("%s ",sn) != EOF ) {
+
+  for(i=0; i<MAXGRADES; i++ ) {
+    if ( scanf("%d",&grades[i]) != 1 ) {
+      printf("****** ERROR BAD GRADE ******\n");
+      exit();
+    }
+  }
+
+/* Student number and grades scanned in. Figure the points and
+   percentages for each type of score. */
+
+/* The one homework assignment grades[4] is just part of
+   quizzes. */
+
+  midterm = grades[12] + grades[17];
+  mper = (float) midterm / MAX_MID;
+
+  final = grades[27];
+  fper = (float) final / MAX_FINAL;
+
+  labs = 0;
+  for ( i=0; i<=11; i++ ) {
+    labs = labs + grades[i];
+  }
+  for ( i=13; i<=16; i++ ) {
+    labs = labs + grades[i];
+  }
+  for ( i=18; i<=26; i++ ) {
+    labs = labs + grades[i];
+  }
+  lper = (float) labs / MAX_HOME;
+
+/* Calculate the total percentage for the applying the 
+   syllabus weights.  Instructor discretion is fixed at 10% */
+
+  totper = ( lper * 0.35 ) + ( mper * 0.30 ) + ( fper * 0.35 );
+
+/* Accumulate the exam distribution and the course distribution */
+
+  index = ( fper * 100 ) ;
+  if ( index < 40 ) index = 40;
+  f_freq[index]++;
+  index = ( totper * 100 ) ;
+  if ( index < 40 ) index = 40;
+  c_freq[index]++;
+
+/* Calculate the final grade using the gpacurve function */
+
+  gpa = gpacurve(fper,totper);
+
+/* Print out the output line */
+
+  printf("\n");
+  printf("%s  %f %f \n",sn,totper,gpa);
+  printf("  Final grade=%d percentage=%f\n",grades[27],fper);
+  printf("  Midterm grades=%d %d perentage=%f\n",grades[12],grades[17],mper);
+  printf("  Homework total=%d percentage=%f\n",labs,lper);
+  printf(" ");
+  for(i=0;i<27;i++) if ( i != 12 && i != 17 ) printf(" %02d",grades[i]);
+  printf("\n");
+
+  totgpa = totgpa + gpa;
+  countgpa++;
+
+} /* End while */
+
+printf("\nAverage class grade: %f\n",totgpa/countgpa);
+
+/* Now print out the frequence distributions */
+
+printf("\f");  /* Form feed */
+
+printf("%s\n\nFrequency distribution for the final\n",TITLE);
+printf ("\n");
+
+for(i=100; i>40; i--) {
+  printf("%3d | ",i);
+  k = f_freq[i];
+  if ( k > 60 ) k = 60;
+  for(j=0; j<k; j++ ) printf("*");
+  printf("\n");
+}
+
+printf("<40 | (%d)\n",f_freq[40]);
+
+printf("\f");  /* Form feed */
+
+printf("%s\n\nFrequency distribution for the class\n",TITLE);
+printf ("\n");
+
+for(i=100; i>40; i--) {
+  printf("%3d | ",i);
+  k = c_freq[i];
+  if ( k > 60 ) k = 60;
+  for(j=0; j<k; j++ ) printf("*");
+  printf("\n");
+}
+
+printf("<40 | (%d)\n",c_freq[40]);
+
+}
+
+/** GPAFLAT - Calculate the final straight scale grade
+
+  Written by :C. Severance 6Dec90
+
+*/
+
+float gpaflat(float fper, float totper)
+
+{
+
+if ( totper >= 0.90 ) return(4.0);
+if ( totper >= 0.85 ) return(3.5);
+if ( totper >= 0.80 ) return(3.0);
+if  (totper >= 0.75 ) return(2.5);
+if ( totper >= 0.70 ) return(2.0);
+if ( totper >= 0.65 ) return(1.5);
+if ( totper >= 0.60 ) return(1.0);
+
+return(0.0);
+
+}
+
+/** GPACURVE - Calculate the final Grade for the course
+
+  Written by C. Severance 6Dec90
+
+  Algorithm:  These rules are curved based on looking at the
+  grade point distribution charts.
+
+*/
+
+float gpacurve(float fper, float totper)
+
+{
+
+if ( totper >= 0.91 ) return(4.0);
+if ( totper >= 0.87 ) return(3.5);
+if ( totper >= 0.82 ) return(3.0);
+if  (totper >= 0.77 ) return(2.5);
+if ( totper >=  0.70) return(2.0);
+if ( totper >=  0.67) return(1.5);
+
+return(0.0);
+
+}
+

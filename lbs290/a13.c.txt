@@ -1,0 +1,42 @@
+
+/* Assignment 13 - subroutines - call by value */
+
+main () {
+  int empno;
+  float rate;
+  float hours;
+  float pay;
+
+  while (1) {
+  
+    printf("Enter time record:");
+
+    scanf("%d %f %f", &empno, &rate, &hours);
+  
+    if (empno == 0) break;
+  
+    calcpay(&pay, rate, hours);
+
+    printf("\Employee= %d  Hours= %.1f Rate= %.2f Pay= %.2f\n", 
+             empno, hours, rate, pay);
+
+  } /* End while */
+
+} /* End main */
+
+/* Function to calculate pay given rate and hours */
+
+calcpay(p,r,h)
+
+  float *p;     /* Pass by location - calculated in this function */
+  float r;
+  float h;
+{
+  if (h <= 40.0)
+  {
+    *p = r * h;
+  } else {
+    *p = (40.0 * r) + ((h - 40.0) * (1.5 * r));
+  } 
+}
+

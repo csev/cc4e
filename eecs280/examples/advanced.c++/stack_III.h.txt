@@ -1,0 +1,43 @@
+
+// ~cps330/Examples/stack_III.h
+// Using a template to create a stack which is "typeless"
+
+#define MAX 10
+
+template <class T>
+class Stack {
+  private:
+    int top;
+    T values[10];
+
+  public:  
+    Stack() { top=0; cout <<"I am being constructed...\n"; }
+    ~Stack() { cout <<"I am being destructed...\n"; }
+
+    int depth() { return top; } ;
+
+    void push(T i) {
+      if ( top >= 10 ) {
+        cout << "Error, stack overflow\n";
+      } else {
+        values[top++] = i;
+      }
+    } // End push
+
+    T pop() {
+      T retval;
+      if ( top <= 0 ) {
+        cout << "Error, stack underflow\n";
+      } else {
+        retval = values[--top];
+      }
+      return retval;
+    }
+
+    void print() {
+      int i;
+      cout << "Stack contents:\n";
+      for(i=top-1; i>=0; i-- ) cout << values[i] << "\n";
+    }
+
+};  // End of the class

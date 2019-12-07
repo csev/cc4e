@@ -1,0 +1,95 @@
+#include <stdio.h>
+#include <ctype.h>
+
+main()
+{
+int echo, conv,count, loc, loc1, loc2;
+char func, oper;
+int ever=1;
+char tmp[100];
+int mem[100];
+echo = 0;
+
+for(count=0;count<100;count++)
+        {
+        mem[count]=0;
+        tmp[count]=0;
+        }
+
+for(;ever;)
+        {
+        printf("Enter: ");              
+        if (gets(tmp) == NULL) break;
+        if (tolower(tmp[0]) == 'x') break;
+        if (echo) printf("\nCommand: %s\n\n",tmp);
+        if (isdigit(tmp[0]))
+                {
+                conv=sscanf(tmp,"%d %c %d %c %d",&loc,&func,&loc1,&oper,&loc2);         
+                switch(tolower(func))
+                        {
+                        case 's':
+                                if (conv != 3)
+                                        {
+                                        printf("Incorrect number of parameters\n");
+                                        continue;
+                                        }
+                                mem[loc]=loc1;
+                                continue;
+                        case '=':
+                                if (conv != 5)
+                                        {
+                                        printf("Incorrect number of parameters\n");
+                                        continue;
+                                        }
+                                switch(oper)
+                                        {
+                                        case '+':
+                                                mem[loc]=mem[loc1] + mem[loc2];
+                                                break;
+                                        case '-':
+                                                mem[loc]=mem[loc1] - mem[loc2];
+                                                break;
+                                        case '/':
+                                                mem[loc]=mem[loc1] / mem[loc2];
+                                                break;
+                                        case '*':
+                                                mem[loc]=mem[loc1] * mem[loc2];
+                                                break;
+                                        default:
+                                                printf("Illegal Operator!\n");
+                                                continue;
+                                        }
+                                break;
+                        default:
+                                printf("Illegal Character!\n");
+                                continue;
+                        }
+                }
+        else
+                {
+                switch(tolower(tmp[0]))   
+                        {
+                        case '*':
+                                printf("%s\n",tmp);
+                                break;
+                        case 'e':
+                                echo = 1;
+                                break;
+                        case 'n':
+                                echo = 0;
+                                break;
+                        default:
+                                printf("\nFirst letter illegal!\n\n");
+                                break;
+                        }
+                }
+        }
+
+printf("\n\nAddress\tValue\n");
+printf("-----------------------\n");
+for(count=0;count<100;count++)
+        {
+        if(mem[count]>0) printf("%d\t%d\n",count,mem[count]);
+        }
+printf("\n");
+}

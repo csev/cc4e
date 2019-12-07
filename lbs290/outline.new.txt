@@ -1,0 +1,44 @@
+
+Revised Outline - Fall term 1991 - LBS290
+
+--- Week 7 ------
+
+Mon 11/11    Midterm-2
+
+Wed 11/13    I/O Arrays                Calculator          11.1, 11.2
+
+Fri 11/15    Error Checking            Inventory           11.1 - 11.3
+             Formatted Output                              gets (pp 468)
+
+--- Week 8 ------
+                                    
+Mon 11/18    How Compilers             Machine Lang 1      11.3, 11.4
+             Work / Files
+
+Wed 11/20    Programming               Machine Lang 2      Handout
+             Languages
+                                    
+Fri 11/22    Algebra                   Finding roots       6.16
+             Applications
+                                    
+--- Week 9 ------                                    
+                                    
+Mon 11/25    Calculus                  Integration         Handout
+             Applications
+                                    
+Wed 11/27    Physics                   Heat Flow           Handout
+             Applications
+                                    
+Fri 11/29    Holiday                                    
+                                    
+--- Week 10 ------                                    
+                                    
+Mon 12/2       Sorting                 Sorting            6.7, 6.81
+                                    
+Wed 12/4       Recursion               Recursion          C 5.15
+                                    
+Fri 12/6                                    
+                                    
+--- Week 11 (Finals Week) ---
+
+Final Exam: Wednesday December 11, 1991 3:00-5:00PM

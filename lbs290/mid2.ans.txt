@@ -1,0 +1,92 @@
+LBS290F - Novembet 11, 1991 - Answers Midterm - II
+
+2.    main() {
+        int i,j;
+        j = 0;
+        for(i=1; i<=9; i++ ) {
+          j = j + i;
+          printf("%d\n",j);
+        }
+      } 
+
+3.    calcpay(p,r,h,t)
+       float *p;
+       float r;
+       float h;
+       int t;
+      {
+        if ( t == 1 ) {
+          *p = r * 40.0;
+           return;
+        }
+        if ( t == 2 ) {
+          if ( h > 40 ) {
+            *p = (40.0 * r ) + (h - 40.0) * r * 1.5;
+          } else {
+             *p = r *40.0;
+          }
+          return;
+        }
+        if ( t == 3 ) {
+          if ( h > 40 ) {
+            *p = (40.0 * r ) + (h - 40.0) * r * 2.0;
+          } else {
+             *p = r *40.0;
+          }
+          return;
+        }
+        *p = 0.0;
+      }
+          
+4.    Missing /*
+      need float func1(); in main
+      integer should be int
+      a and b passed in as floats, used as ints
+      missing declaration for tmp
+      m not passed by location
+
+5.    Formal parameters are the parameter names used inside the function.
+      Actual parameters are the parameters used in the function call.
+
+6.    Main-1 19 5 3 2
+      funca-1 8 5 3
+      funca-2 8 2 0
+      Main-2 19 5 3 8
+      funcb-1 8 5 3
+      Main-3 8 17 3 8
+
+7.    *b = 9 is the offending line
+
+8.    strlen(str)
+       char str[];
+      {
+        int i;
+        for(i=0; str[i] != '\0'; i++ ) ;
+        return i;
+      }
+
+9.    main() {
+
+        int numb[5];
+        int i,j,k,min;
+        
+        for(i=0;i<5;i++) {
+          printf("enter a number");
+          scanf("%d",&numb[i]);
+        }
+  
+        min = numb[0];
+        for(i=0;i<5;i++) {
+          if ( numb[i] < min ) min = numb[i];
+        }
+
+        printf("Minimum=%d\n",min);
+        
+        for(i=0;i<5;i++) {
+          if ( numb[i] < 0 ) numb[i] = 0;
+        }
+        
+        for(i=0;i<5;i++) {
+          printf("%d\n",numb[i]);
+        }
+      }

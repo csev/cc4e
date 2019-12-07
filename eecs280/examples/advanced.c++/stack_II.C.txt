@@ -1,0 +1,76 @@
+#include <stream.h>
+#include <String.h>
+
+// ~cps330/Examples/Stack_II.C
+// Create a stackint  class with member functions - add error checking
+
+#define MAX 10
+
+class Stackint {
+  private:
+    int top;
+    int values[10];
+
+  public:  
+    Stackint() { top=0; cout <<"I am being constructed...\n"; }
+    ~Stackint() { cout <<"I am being destructed...\n"; }
+
+    int depth() { return top; } ;
+
+    void push(int i) {
+      if ( top >= 10 ) {
+        cout << "Error, stack overflow\n";
+      } else {
+        values[top++] = i;
+      }
+    } // End push
+
+    int pop() {
+      int retval = 0;
+      if ( top <= 0 ) {
+        cout << "Error, stack underflow\n";
+      } else {
+        retval = values[--top];
+      }
+      return retval;
+    }
+
+    void print() {
+      int i;
+      cout << "Stack contents:\n";
+      for(i=top-1; i>=0; i-- ) cout << values[i] << "\n";
+    }
+
+};  // End of the class
+
+main() {
+
+  String str;
+  int i;
+  Stackint stuff;
+
+  while(1) {
+    cout << "Enter a command (" << stuff.depth() << ") :";
+    cin >> str;
+    if ( cin.eof() ) break;
+
+    if ( str == "push" ) {
+      cin >> i;
+      cout << "Pushing " << i << "\n";
+      stuff.push(i);
+    } else if ( str == "print" ) {
+      stuff.print();
+    } else if ( str == "pop" ) {
+      cout << "Popping " << stuff.pop() << "\n";
+    } else if ( str == "quit" ) {
+      break;
+    } else {
+      cout << "Error, please enter push, pop, quit, or print\n";
+    }
+    
+  } // End while
+
+  cout << "Thanks for playing\n" ; 
+
+}
+

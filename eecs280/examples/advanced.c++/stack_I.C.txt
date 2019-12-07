@@ -1,0 +1,44 @@
+#include <stream.h>
+#include <String.h>
+
+// ~cps330/Examples/stack_I.C
+// No class - direct implementation
+
+#define MAX 10
+
+main() {
+
+  String str;
+  int i;
+  int top;
+  int stack[MAX];
+
+  top = 0;
+
+  while(1) {
+    cout << "Enter a command (" << top << ") :";
+    cin >> str;
+    if ( cin.eof() ) break;
+
+    if ( str == "push" ) {
+      cin >> i;
+      cout << "Pushing " << i << "\n";
+      stack[top++] = i;
+    } else if ( str == "print" ) {
+      cout << "Stack contents:\n";
+      for(i=top-1; i>=0; i-- ) cout << stack[i] << "\n";
+    } else if ( str == "pop" ) {
+      cout << "Popping " << stack[--top] << "\n";
+    } else if ( str == "quit" ) {
+      break;
+    } else {
+      cout << "Error, please enter push, pop, or print\n";
+    }
+    
+  } // End while
+
+  cout << "Thanks for playing\n" ; 
+
+}
+
+

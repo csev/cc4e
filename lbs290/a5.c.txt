@@ -1,0 +1,19 @@
+/* Assignment 5 */
+
+/* Program to print out converted temperatures */
+
+main () {
+
+  float faren;
+  float celsius;
+
+  faren = 68.0;
+
+  /* Your code is added here */
+
+  celsius = ( faren - 32.0 ) * ( 5.0 / 9.0 ) ;
+
+  printf("Farenheight= %f\n", faren);
+  printf("Celsius= %f\n", celsius);
+  
+}

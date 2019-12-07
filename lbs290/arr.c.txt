@@ -1,0 +1,51 @@
+
+/* Example of working with an array */
+
+main ()
+
+{
+
+  int i,j,k,max,min,tot,count,ave;
+
+  int numb[10];
+
+  for(i=0; i<10; i++) {
+    printf("Enter a number:");
+    scanf("%d",&j);
+   numb[i] = j;
+  }
+
+  printf("\n");
+
+  max = numb[0];
+  for(i=1; i<10; i++) {
+    if ( numb[i] > max ) max = numb[i];
+  }
+
+  printf("Maximum = %d\n",max); 
+
+/* Go through backwards - just for fun */
+
+  min = numb[9];
+  for(i=8; i>=0; i--) {
+    if ( numb[i] < min ) min = numb[i];
+  }
+
+  printf("Mimimum = %d\n",min); 
+
+  tot = 0;
+  count = 0;
+
+  for ( i=0; i<10; i++ ) {
+    count = count + 1;
+    tot = tot + numb[i];
+  }
+
+  printf("Total=%d count=%d\n",tot,count);
+
+  ave = tot/count;
+
+  printf("Average=%d\n",ave);
+
+}
+

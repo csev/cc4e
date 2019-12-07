@@ -1,0 +1,54 @@
+% cat  squares.c
+
+/* squares - Print a table of squares from 1 to 10 */
+
+/*  Written by: C. Severance  - Tue Dec  7 22:58:26 EST 1993 */
+
+main() {
+
+  int i;
+  float x,xsq;
+
+/* Generate the table using a loop */
+
+  printf("the first table\n");
+  for( i=1; i<=10; i++ ) {
+    x = i;
+    xsq = x * x;
+    printf("%5d %f\n",i,xsq);
+  }
+
+/* Print out the table a different way - Use a real number for the index */
+
+  printf("the second table\n");
+  for( x=1.0; x<=10.0; x = x + 1.0 ) {
+    xsq = x * x;
+    printf("%f %f\n",x,xsq);
+  }
+
+}
+% cc  squares.c
+% a.out 
+the first table
+    1 1.000000
+    2 4.000000
+    3 9.000000
+    4 16.000000
+    5 25.000000
+    6 36.000000
+    7 49.000000
+    8 64.000000
+    9 81.000000
+   10 100.000000
+the second table
+1.000000 1.000000
+2.000000 4.000000
+3.000000 9.000000
+4.000000 16.000000
+5.000000 25.000000
+6.000000 36.000000
+7.000000 49.000000
+8.000000 64.000000
+9.000000 81.000000
+10.000000 100.000000
+% 

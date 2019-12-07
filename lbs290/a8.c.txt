@@ -1,0 +1,26 @@
+
+/* Assignment 8 */
+
+#include<stdio.h>
+#include<math.h>
+
+main()
+{
+float a, b, c, d, e, total, average;
+
+  printf("Enter the first number: ");
+  scanf("%f", &a);
+  printf("Enter the second number: ");
+  scanf("%f", &b);
+  printf("Enter the third number: ");
+  scanf("%f", &c);
+  printf("Enter the fourth number: ");
+  scanf("%f", &d);
+  printf("Enter the fifth number: ");
+  scanf("%f", &e);
+
+  total = a+b+c+d+e;
+  average = total/5.0;
+  printf("\nThe total is: %.1f\nThe average is: %.1f\n", total, average);
+}
+

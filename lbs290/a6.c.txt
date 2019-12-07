@@ -1,0 +1,35 @@
+
+/* Assignment 6 */
+
+/* To compile use     cc a6.c -lm */
+
+#include <stdio.h>
+#include <math.h>
+
+double sqrt();
+
+main()
+{
+double a,b,c,x,x1;
+
+a=1.0;
+b=-3.0;
+c=2.0;
+
+printf("\n\nValue for a:%.1lf\n",a);
+printf("Value for b:%.1lf\n",b);
+printf("Value for c:%.1lf\n",c);
+
+/* Do calculations! */
+
+x = (-b + (sqrt((b*b) - (4*a*c))))/(2*a);
+x1 = (-b - (sqrt((b*b) - (4*a*c))))/(2*a);
+
+/* Print Solutions */
+
+printf("\n\nThe First root is %.1f\n",x);
+printf("The Second root is %.1f\n",x1);
+printf("\n");
+}
+
+

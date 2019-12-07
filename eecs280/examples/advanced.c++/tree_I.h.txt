@@ -1,0 +1,236 @@
+
+// tree_I.h
+
+template <class T>
+class Binary_Tree_Node {
+  T Element;
+  Binary_Tree_Node *Left;
+  Binary_Tree_Node *Right;
+
+  Binary_Tree_Node() { Left = NULL; Right= NULL; }
+  Binary_Tree_Node(T value) { Element = value; Left = NULL; Right= NULL; }
+
+  friend class Binary_Tree<T>;
+
+};
+
+template <class T>
+class Binary_Tree {
+  private:
+
+    Binary_Tree_Node<T> *Root;
+
+  public:  
+
+    Binary_Tree() { Root=NULL; }
+
+    ~Binary_Tree() { 
+      if ( Root == NULL ) return; 
+      Empty_Subtree(Root); 
+      delete Root;
+      Root = NULL;
+    }
+
+    void Binary_Tree<T>::Empty_Subtree(Binary_Tree_Node<T> * ptr);
+
+    void Binary_Tree<T>::Print_Inorder(Binary_Tree_Node<T> * ptr);
+
+    void Binary_Tree<T>::Print_Inorder() { Print_Inorder(Root); };
+
+    void Binary_Tree<T>::Insert(const T & Value );
+
+    Binary_Tree_Node<T> * Binary_Tree<T>::Find(const T & Value);
+
+    Binary_Tree_Node<T> * 
+      Binary_Tree<T>::
+      Find_Recursive(Binary_Tree_Node<T> * ptr, const T & Value);
+
+    Binary_Tree_Node<T> * 
+      Binary_Tree<T>::
+      Find_Recursive(const T & Value) { return(Find_Recursive(Root,Value));};
+
+    Binary_Tree_Node<T> * Binary_Tree<T>::Find_Parent(const T & Value);
+
+    int Binary_Tree<T>::Depth() { return(Depth(Root)); };
+    int Binary_Tree<T>::Depth(Binary_Tree_Node<T> * ptr);
+    void Binary_Tree<T>::
+      Print_Fancy(int flags[],int depth,Binary_Tree_Node<T> * ptr);
+    void Binary_Tree<T>::
+      Print_Fancy(int flags[],int depth) { Print_Fancy(flags,depth,Root);};
+
+};  // End of the class
+
+template <class T>
+void Binary_Tree<T>::Print_Inorder(Binary_Tree_Node<T> * ptr) {
+
+  if ( ptr == NULL ) return;
+  Print_Inorder(ptr->Left);
+  cout << ptr->Element << "\n";
+  Print_Inorder(ptr->Right);
+}
+
+template <class T>
+Binary_Tree_Node<T> * Binary_Tree<T>::Find(const T & Value) {
+
+  Binary_Tree_Node<T> *ptr;
+
+  ptr = Root;
+  while(ptr != NULL ) {
+    if (ptr->Element == Value ) break;
+    if (Value < ptr->Element) {
+      ptr = ptr->Left;
+    } else {
+      ptr = ptr->Right;
+    }
+  }
+
+  return(ptr);
+
+}
+
+template <class T>
+Binary_Tree_Node<T> * 
+Binary_Tree<T>::
+Find_Recursive(Binary_Tree_Node<T> * ptr, const T & Value) {
+
+  Binary_Tree_Node<T> * retval;
+
+  if ( ptr == NULL ) {
+    retval = NULL;
+  } else if (ptr->Element == Value ) {
+    retval = ptr;
+  } else if (Value < ptr->Element) {
+    retval = Find_Recursive(ptr->Left,Value);
+  } else {
+    retval = Find_Recursive(ptr->Right,Value);
+  }
+
+  return(retval);
+
+}
+
+template <class T>
+Binary_Tree_Node<T> * Binary_Tree<T>::Find_Parent(const T & Value) {
+
+  Binary_Tree_Node<T> *ptr;
+  Binary_Tree_Node<T> *savptr;
+
+  ptr = Root;
+  savptr = Root;
+  while(ptr != NULL ) {
+    savptr = ptr;
+    if (ptr->Element == Value ) break;
+    if (Value < ptr->Element) { 
+      ptr = ptr->Left;
+    } else {
+      ptr = ptr->Right;
+    }
+  }
+
+  return(savptr);
+
+}
+
+template <class T>
+void Binary_Tree<T>::Insert(const T & Value) {
+
+  Binary_Tree_Node<T> * parent;
+  Binary_Tree_Node<T> * tmp;
+
+  parent = Find_Parent(Value);  
+
+  if ( parent != NULL ) { // Check for equality
+     if ( parent->Element == Value ) return;
+  }
+
+  tmp = new Binary_Tree_Node<T>;
+  tmp->Element = Value;
+
+  if ( parent == NULL ) {
+     cout << "Inserting as the Root";
+     Root = tmp;
+  } else if ( Value < parent->Element ) {
+     cout << "Inserting to the Left of " << parent->Element << "\n";
+     parent->Left = tmp;
+  } else {
+     cout << "Inserting to the right of " << parent->Element << "\n";
+     parent->Right = tmp;
+  }
+
+}
+
+template <class T>
+int Binary_Tree<T>::Depth(Binary_Tree_Node<T> * ptr) {
+  int dl,dr;
+
+  if ( ptr == NULL ) return 0 ;
+
+  dl = Depth(ptr->Left);
+  dr = Depth(ptr->Right);
+
+  if ( dl > dr ) return(dl);
+  return(dr);
+}
+
+template <class T>
+void Binary_Tree<T>::Empty_Subtree(Binary_Tree_Node<T> * ptr) {
+
+  if ( ptr == NULL ) return;
+
+  Empty_Subtree(ptr->Left);
+  if ( ptr->Left != NULL ) delete ptr->Left;
+  Empty_Subtree(ptr->Right);
+  if ( ptr->Right != NULL ) delete ptr->Right;
+
+}
+
+template <class T>
+void Binary_Tree<T>::
+Print_Fancy(int flags[],int depth,Binary_Tree_Node<T> * ptr) {
+
+  int i;
+
+  if ( ptr == NULL ) return;
+
+  cout << "- " << ptr->Element << " -" ;
+
+  if ( ptr->Right == NULL ) { 
+     cout << "\n";
+  }
+
+  flags[depth] = ptr->Left != NULL;
+  depth++;
+
+  if (ptr->Right != NULL ) {
+     Print_Fancy(flags,depth,ptr->Right);
+  }
+
+  if ( ptr->Left == NULL ) return;
+
+  cout << "  ";
+  for(i=0;i<depth;i++) {
+    if ( flags[i] ) {
+      cout << "|    " ;
+    } else {
+      cout << "     " ;
+    }
+  }
+
+  cout << "\n";
+  cout << "  ";
+
+  for(i=0;i<depth-1;i++) {
+    if ( flags[i] ) {
+      cout << "|    " ;
+    } else {
+      cout << "     " ;
+    }
+  }
+
+  if ( depth > 0 ) cout << "|--";
+
+  if ( depth > 0 ) flags[depth-1] = 0;
+  
+  Print_Fancy(flags,depth,ptr->Left);
+
+}

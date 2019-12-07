@@ -1,0 +1,121 @@
+LBS290F - Using mail
+
+$ mail
+From seger Tue Oct  1 20:52 EDT 1991
+Hello my name is Jeff Seger
+I really would rather learn a text editor like vi
+rather than using cat to create files.
+
+? ?
+usage
+#               display message number #
+-               print previous
++               next (no delete)
+! cmd           execute cmd
+a               position at and read newly arrived mail
+dq              delete current message and exit
+d [#]           delete message # (default current message)
+h a             display all headers
+h d             display headers of letters scheduled for deletion
+h [#]           display headers around # (default current message)
+m user          mail (and delete) current message to user
+n               next (no delete)
+p               print
+q               quit
+r [args]        reply to (and delete) current letter via mail [args]
+s [file]        save (and delete) current message (default mbox)
+u [#]           undelete message # (default current message)
+w [file]        save (and delete) current message without header
+x               exit without changing mail
+y [file]        save (and delete) current message (default mbox)
+? h
+6 letters found in /usr/mail/crs, 0 scheduled for deletion, 0 newly arrived
+>   6     155    seger       Tue Oct  1 20:52 EDT 1991
+    5     415    henrich     Tue Oct  1 20:01 EDT 1991
+    4     181    hessc       Tue Oct  1 19:54 EDT 1991
+    3     183    hessc       Tue Oct  1 19:46 EDT 1991
+    2     185    youngl      Tue Oct  1 19:23 EDT 1991
+    1     86     youngl      Tue Oct  1 19:23 EDT 1991
+? 1
+From youngl Tue Oct  1 19:23 EDT 1991
+Terminate the cat command with Cotrol-D
+ls
+
+? 6
+From seger Tue Oct  1 20:52 EDT 1991
+Hello my name is Jeff Seger
+I really would rather learn a text editor like vi
+rather than using cat to create files.
+
+? d 3
+? h
+6 letters found in /usr/mail/crs, 1 scheduled for deletion, 0 newly arrived
+>   6     155    seger       Tue Oct  1 20:52 EDT 1991
+    5     415    henrich     Tue Oct  1 20:01 EDT 1991
+    4     181    hessc       Tue Oct  1 19:54 EDT 1991
+    3  d  183    hessc       Tue Oct  1 19:46 EDT 1991
+    2     185    youngl      Tue Oct  1 19:23 EDT 1991
+    1     86     youngl      Tue Oct  1 19:23 EDT 1991
+? x
+
+$ mail
+From seger Tue Oct  1 20:52 EDT 1991
+Hello my name is Jeff Seger
+I really would rather learn a text editor like vi
+rather than using cat to create files.
+
+? h
+6 letters found in /usr/mail/crs, 0 scheduled for deletion, 0 newly arrived
+>   6     155    seger       Tue Oct  1 20:52 EDT 1991
+    5     415    henrich     Tue Oct  1 20:01 EDT 1991
+    4     181    hessc       Tue Oct  1 19:54 EDT 1991
+    3     183    hessc       Tue Oct  1 19:46 EDT 1991
+    2     185    youngl      Tue Oct  1 19:23 EDT 1991
+    1     86     youngl      Tue Oct  1 19:23 EDT 1991
+? d 3
+? 6
+From seger Tue Oct  1 20:52 EDT 1991
+Hello my name is Jeff Seger
+I really would rather learn a text editor like vi
+rather than using cat to create files.
+
+? r
+mail  seger
+Homework 1 correct 5 points
+
+/crs
+? h
+6 letters found in /usr/mail/crs, 2 scheduled for deletion, 0 newly arrived
+    6  r  155    seger       Tue Oct  1 20:52 EDT 1991
+>   5     415    henrich     Tue Oct  1 20:01 EDT 1991
+    4     181    hessc       Tue Oct  1 19:54 EDT 1991
+    3  d  183    hessc       Tue Oct  1 19:46 EDT 1991
+    2     185    youngl      Tue Oct  1 19:23 EDT 1991
+    1     86     youngl      Tue Oct  1 19:23 EDT 1991
+? u 5
+? h
+6 letters found in /usr/mail/crs, 1 scheduled for deletion, 0 newly arrived
+    6     155    seger       Tue Oct  1 20:52 EDT 1991
+>   5     415    henrich     Tue Oct  1 20:01 EDT 1991
+    4     181    hessc       Tue Oct  1 19:54 EDT 1991
+    3  d  183    hessc       Tue Oct  1 19:46 EDT 1991
+    2     185    youngl      Tue Oct  1 19:23 EDT 1991
+    1     86     youngl      Tue Oct  1 19:23 EDT 1991
+? 4
+From hessc Tue Oct  1 19:54 EDT 1991
+Hello my name is Cheryl Hess
+My account name is hessc
+I really would rather learn a text editor like vi
+rather than using cat to create files.
+
+? w cher
+? q
+$ ls
+assn1
+cher
+$ cat cher
+Hello my name is Cheryl Hess
+My account name is hessc
+I really would rather learn a text editor like vi
+rather than using cat to create files.
+$

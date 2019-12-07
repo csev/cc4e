@@ -1,0 +1,57 @@
+
+LBS290F                                                     Fall 1991
+
+                 ASSIGNMENT 12 - SCOPING RULES
+
+Due Date: Before Lecture 10/30/91
+
+Type in the following program and get it to run.  Add a comment to every
+int stantement and every assignment statement whether the variable in use is
+a local variable or a global variable.  Five of the comments have already
+been added.
+
+#include <stdio.h>
+
+int a;   /* global */
+int b;   /* global */
+
+main() {
+
+  int x;   /* local */
+
+  a = 1;
+  b = 2;   /* global */
+  x = 3;
+
+  printf("Main-1 a=%d b=%d x=%d\n",a,b,x);
+
+  sub1(x);
+
+  printf("Main-2 a=%d b=%d x=%d\n",a,b,x);
+
+  sub2(x);
+
+  printf("Main-3 a=%d b=%d x=%d\n",a,b,x);
+}
+
+sub1(q)
+  int q;   /* local */
+{
+  int b;
+
+  a = 11;
+  b = 12;
+  q = 50;
+
+  printf("In sub1 a=%d b=%d q=%d\n",a,b,q);
+}
+
+sub2(x)
+  int x;
+{
+  printf("In sub2 before assignment x=%d\n",x);
+  x = 1000;
+  printf("In sub2 after assignment x=%d\n",x);
+}
+
+

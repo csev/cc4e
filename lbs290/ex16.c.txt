@@ -1,0 +1,59 @@
+
+main () {
+  int empno;
+  int emptype;
+  float rate;
+  float hours;
+  float pay;
+  int i;
+
+  while (1) {
+  
+    printf("Enter time record:");
+    i = scanf("%d %d %f %f", &empno, &emptype, &rate, &hours);
+    if ( i <= 0 ) break;
+    if (empno == 0) break;
+
+/* Calculate pay */
+
+    if ( emptype == 1 ) {
+      pay = rate * 40.0;
+    } else if ( emptype == 2 ) {
+      if ( hours > 40 ) {
+        pay = (40.0 * rate ) + (hours - 40.0) * rate * 1.5;
+      } else {
+         pay = rate *40.0;
+      }
+    } else if ( emptype == 3 ) {
+      if ( hours > 40 ) {
+        pay = (40.0 * rate ) + (hours - 40.0) * rate * 2.0;
+      } else {
+         pay = rate *40.0;
+      }
+    } else {
+       printf("Error, employee type of %d is bad\n",emptype);
+       pay = 0.0;
+    }
+          
+    printf("\nEmployee= %d  Hours= %.1f Rate= %.2f Pay= %.2f\n", 
+             empno, hours, rate, pay);
+
+  } /* End while */
+
+} /* End main */
+
+$ a.out
+Enter time record:6 1 5 20
+
+Employee= 4  Hours= 20.0 Rate= 5.00 Pay= 200.00
+Enter time record:4 4 5 20
+Error, employee type of 4 is bad
+
+Employee= 4  Hours= 20.0 Rate= 5.00 Pay= 0.00
+Enter time record:9 2 5 50
+
+Employee= 9  Hours= 50.0 Rate= 5.00 Pay= 275.00
+Enter time record:9 3 5 50
+
+Employee= 9  Hours= 50.0 Rate= 5.00 Pay= 300.00
+Enter time record:  [CTRL-D]

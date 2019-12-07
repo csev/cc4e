@@ -1,0 +1,49 @@
+
+LBS290F                                                     Fall 1991
+
+                 ASSIGNMENT 14 - ARRAYS
+
+Due Date: Before Lecture 11/06/91
+
+The purpose of this program is to work with arrays.
+
+The program will create a 10 element array and read in 10 integers
+into the array.  Then the program will print the integers backwards.
+Then the program will scan for entries in the array which contain the
+value 100 and print out the index of the entries with the number 100.
+The program will also count the number of entries which equal 100.
+The program should work even if there are no entries which equal 100.
+
+An example run will look as follows:
+
+$ a.out
+Enter a number:  9
+Enter a number:  5
+Enter a number:  100
+Enter a number:  16
+Enter a number:  18
+Enter a number:  20
+Enter a number:  6
+Enter a number:  100
+Enter a number:  1
+Enter a number:  77
+
+numb[9] = 77
+numb[8] = 1
+numb[7] = 100
+numb[6] = 6
+numb[5] = 20 
+numb[4] = 18 
+numb[3] = 16
+numb[2] = 100
+numb[1] = 5
+numb[0] = 9
+
+Searching for entries equal to 100
+
+Found 100 at 2
+Found 100 at 7
+
+Found 2 entries with 100
+
+$

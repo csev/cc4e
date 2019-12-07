@@ -1,0 +1,48 @@
+
+This directory contains a working solution for assignment 18.
+
+The program is broken up into 6 files.
+
+	main.cc		this contains the main loop.  It builds the graph
+				and handles interactive commands
+	graph.h		this contains the graph class
+	graph.cc	this contains all of the graph member functions.
+	hash.h		this contains the hash table class
+	hash.cc		this contains all of the hash member functions.
+	list.h		this contains a template for a list class
+
+
+hash.h, hash.cc and list.h should all be real familiar by now.  All of
+the stuff pertinent to the graphs is in graph.cc.
+
+
+Here are some things you should notice about this solution:
+
+	The graph class contains all of the information about the graph.
+	The graph member functions are all fairly small (except for
+		 shortest path).	 
+	The graph class contains a hash table and lists, but it does not
+		know about the details of either.
+	The hash table and the lists do not know about the graph class. 
+	There are two types of lists.  Using templates makes this easy.
+
+
+
+This is only one possible solution.
+
+This solution is not perfect.  The output could be improved.  Arguments
+could be made against the class design.  However it is relatively short,
+relatively straightforward, and it produces correct answers (I think :) ).
+
+
+A Makefile is also included.  In case you do not know about make, try
+using the command 'man make'.  Briefly 'make' lets you easily compile a
+project that is broken up into several files. If you copy all of these files 
+into your own directory (including the Makefile), 'make' will compile all
+of the files for you.  Feel free to look at Makefile.
+
+
+If you have questions about any thing, email wagners5@cps.msu.edu .
+
+
+	-stephen wagner	cps330TA		April 28 1994

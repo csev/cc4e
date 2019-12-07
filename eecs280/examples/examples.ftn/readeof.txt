@@ -1,0 +1,118 @@
+*
+* readeof - Program which demonstrates the read loop for processing
+* an unknown number of input lines
+*
+* This program reads any number of values from input until end of file
+* is reached.  The count, total, and average of the values is printed.
+*
+* Written by: Charles Severance 10Mar92
+*
+      INTEGER COUNT
+      REAL VALUE,SUM,AVERAGE
+*
+* Set the sum and count to zero at the beginning
+*
+      SUM = 0.0
+      COUNT = 0.0
+*
+* Top of the read loop.  Read the values.  If end of file is encountered
+* we go to line 20.  In the read statement the first asterisk is where
+* to read from and the second is the FORMAT of the input.
+*
+* NOTE that on UNIX systems like briggs1 End of file can be entered
+* by pressing CTRL-D when the program is reading from the terminal.
+*
+10    CONTINUE
+      PRINT *,'Enter a value or End of File -'
+      READ (*,*,END=20) VALUE
+*
+* Accumulate the running total in TOTAL and COUNT in count
+*
+      TOTAL = TOTAL + VALUE
+      COUNT = COUNT + 1
+*
+      PRINT *,'Value = ', VALUE
+      PRINT *,'Running total = ',TOTAL
+      PRINT *,'Count = ', COUNT
+      GOTO 10
+*
+* Loop exit when end of file is reached - calculate average and print out
+*
+   20 CONTINUE
+      PRINT *,'We got End of FILE!!'
+      AVERAGE = TOTAL/COUNT
+      PRINT *,'Average = ', AVERAGE
+      END
+
+
+$ f77 readeof.f
+File readeof.f:
+    MAIN:
+$ a.out
+ Enter a value or End of File -
+6
+ Value =   6.00000000 
+ Running total =   6.00000000 
+ Count =  1 
+ Enter a value or End of File -
+2
+ Value =   2.00000000 
+ Running total =   8.00000000 
+ Count =  2 
+
+ Enter a value or End of File -
+9
+ Value =   9.00000000 
+ Running total =   1.700000000E+001 
+ Count =  3 
+ Enter a value or End of File -
+                                  (CTRL-D) typed
+ We got End of FILE!!
+ Average =   5.66666651 
+$ cat readeof.dat
+10
+20
+14
+13
+8
+9
+1
+28
+$ a.out < readeof.dat
+ Enter a value or End of File -
+ Value =   1.000000000E+001 
+ Running total =   1.000000000E+001 
+ Count =  1 
+ Enter a value or End of File -
+ Value =   2.000000000E+001 
+ Running total =   3.000000000E+001 
+ Count =  2 
+ Enter a value or End of File -
+ Value =   1.400000000E+001 
+ Running total =   4.400000000E+001 
+ Count =  3 
+ Enter a value or End of File -
+ Value =   1.300000000E+001 
+ Running total =   5.700000000E+001 
+ Count =  4 
+ Enter a value or End of File -
+ Value =   8.00000000 
+ Running total =   6.500000000E+001 
+ Count =  5 
+ Enter a value or End of File -
+ Value =   9.00000000 
+ Running total =   7.400000000E+001 
+ Count =  6 
+ Enter a value or End of File -
+ Value =   1.00000000 
+ Running total =   7.500000000E+001 
+ Count =  7 
+ Enter a value or End of File -
+ Value =   2.800000000E+001 
+ Running total =   1.030000000E+002 
+ Count =  8 
+ Enter a value or End of File -
+ We got End of FILE!!
+ Average =   1.287500000E+001 
+$ 
+Script done Sun Mar 15 16:40:24 1992

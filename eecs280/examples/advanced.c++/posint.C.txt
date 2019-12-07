@@ -1,0 +1,111 @@
+
+#include <iostream.h>
+
+/** pos_int - Create positive integers class
+
+  Written by: Charles Severance - Thu Dec 23 17:02:01 EST 1993
+
+*/
+
+class Posint {
+  private:
+    int value;
+  public:
+    Posint(int initial = 0) { value = initial; } // Constructor 
+
+    void operator = (int i) { 
+      cout << "Assigning a value=" << i << "\n"; 
+      if ( i < 0 ) {
+        cout << "Error value less than zero\n";
+        value = 0;
+      } else {
+        value = i;
+      }
+    }
+
+    operator int () const { return(this->value); }  // Converting to integer
+
+    void operator = (Posint pi) { 
+      cout << "Copying " << pi.value<< " into a posint\n";
+      value = pi.value;
+    }
+
+    Posint operator + (int i) {
+      int tmp;
+      Posint tpos;
+      cout << "Adding " << i << " to a posint\n";
+      tmp = value + i;
+      tpos.value = 0;
+      if ( tmp < 0 ) {
+        cout << "Error result less than zero\n";
+      } else {
+        tpos.value = tmp;
+      }
+      return tpos;
+    }
+
+    Posint operator + (Posint pi) {
+      Posint tpos;
+      cout << "Adding two Posints\n";
+      tpos = value + pi.value;
+      return ( tpos );
+    }
+
+    int operator < (int i) {
+      cout << "Comparing a posint = " << this->value ;
+      cout << " and an int = " << i << "\n";
+      return ( this->value < i ) ;
+    }
+
+ 
+    friend ostream & operator << ( ostream & os, const Posint pi);
+    friend istream & operator >> ( istream & is, Posint & pi);
+
+  };
+
+ostream & operator << ( ostream & os, const Posint pi) {
+  os << "[" << pi.value << "]" ;
+  return os;
+}
+
+istream & operator >> ( istream & is, Posint & pi) {
+  int tmp;
+  is >> tmp;
+  while( tmp < 0 ) {
+    cout << "Error, please enter a positive number\n";
+    is >> tmp;
+  }
+  pi.value = tmp;
+  return is;
+}
+main () {
+
+  Posint pi,pj;
+  int i;
+ 
+  pi = 1;
+
+  pi = -1;
+
+  pi = 4;
+
+  pj = pi + 5;
+
+  i = 2 + pi;
+
+  cout << "A Posint value" << pj << "\n";
+
+  cout << " Enter a Posint ";
+ 
+  cin >> pi;
+
+  cout << "You typed " << pi << "\n";
+
+  cout << "\n";
+
+  for(pi=0; pi < 10; pi = pi + 2 ) {
+    cout << "Looping - current value = " << pi << "\n" ;
+  }
+
+}
+

@@ -1,0 +1,39 @@
+#include <stream.h>
+#include <String.h>
+
+// ~cps330/Examples/stack_III.C
+// Using a template to create a stack which is "typeless"
+
+#include "stack_III.h"
+
+main() {
+
+  String str;
+  int i;
+  Stack<int> stuff;
+
+  while(1) {
+    cout << "Enter a command (" << stuff.depth() << ") :";
+    cin >> str;
+    if ( cin.eof() ) break;
+
+    if ( str == "push" ) {
+      cin >> i;
+      cout << "Pushing " << i << "\n";
+      stuff.push(i);
+    } else if ( str == "print" ) {
+      stuff.print();
+    } else if ( str == "pop" ) {
+      cout << "Popping " << stuff.pop() << "\n";
+    } else if ( str == "quit" ) {
+      break;
+    } else {
+      cout << "Error, please enter push, pop, quit, or print\n";
+    }
+    
+  } // End while
+
+  cout << "Thanks for playing\n" ; 
+
+}
+

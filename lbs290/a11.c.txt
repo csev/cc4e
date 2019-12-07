@@ -1,0 +1,44 @@
+/*program to calculate the roots of a quadratic formula without blowing up*/
+/*program 11*/
+
+#include <stdio.h>
+#include <math.h>
+
+ double det (a,b,c)
+  double a;
+  double b;
+  double c;
+
+{ double part;
+  part=((b*b)-4*a*c);
+  return part; 
+}
+
+main (){ 
+  double a;
+  double b;
+  double c;
+  double  fr;
+  double sr;
+  double part;
+  int loop;
+ 
+
+  for(loop=0; loop<3; loop++){ 
+   printf("Enter the value for a:  "), scanf("%lf",&a);
+   printf("Enter the value for b:  "), scanf("%lf",&b);
+   printf("Enter the value for c:  "), scanf("%lf",&c);
+   printf("\n");
+  part=det(a,b,c);
+    if (part<0)
+      printf("Negative determinant - no roots found \n");
+    else
+    { fr= (-b + sqrt(part))/(2*a);
+     sr= (-b - sqrt(part))/(2*a);
+    
+    printf("First root:  %.2lf\n",fr);
+    printf("Second root: %.2lf\n",sr);}
+    printf("\n");   
+}}
+ 
+

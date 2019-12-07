@@ -1,0 +1,38 @@
+#include <String.h>
+#include "list.h"
+
+//	This is just straightforward Hash table stuff.
+//	This hash table was specifically designed to hold
+//	NumNamePair's.  Most of the work is done by the List class
+//	however, which uses templates and will work for any object
+
+class NumNamePair
+{
+	private:
+	String name;
+	int num;
+
+	public:
+	NumNamePair() {num=-1;};
+	NumNamePair(NumNamePair & n) : name(n.name), num(n.num) {};
+	operator==(const NumNamePair & n) { return(name==n.name); };
+	NumNamePair & operator=(const NumNamePair & n) { name=n.name; num=n.num;
+			return *this; }; 
+	friend class HashTable;
+};
+
+
+class HashTable
+{
+	List<NumNamePair> *buckets;
+	int Hsize;
+	int Hash(const NumNamePair &);	
+	int last_bucket;
+	
+	public:
+	HashTable(int n=53) {Hsize=n; buckets=new List<NumNamePair>[n];
+			last_bucket=0; };
+	int Find(const String & s);		// returns yes or no
+	int GetLastFind();			// returns node # of last find
+	void Insert(const String & s, int n);
+};

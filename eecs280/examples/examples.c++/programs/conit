@@ -1,0 +1,5 @@
+
+sed -f sed.stuff $1.c > $1.C
+vi $1.C
+echo g++ $1.C
+g++ -lm $1.C

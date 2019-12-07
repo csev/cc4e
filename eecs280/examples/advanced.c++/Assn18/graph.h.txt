@@ -1,0 +1,83 @@
+#include "hash.h"
+#include "String.h"
+
+#define NOTAVERTEX (-1)
+
+//	The edge class.
+class Edge
+{
+	int node, distance;
+	public:
+	Edge() { node=NOTAVERTEX; distance= 0; };
+	operator==(const Edge & e) { return node==e.node; };
+
+	friend class Graph;
+};
+
+
+//	The vertex class.  All the info about a node goes here 
+class Vertex 
+{
+	public:
+	String name;
+	int ELoc,SLoc;
+	String purpose;
+
+	Vertex() { ELoc=SLoc=0; };
+	Vertex(Vertex & v) : name(v.name), ELoc(v.ELoc), SLoc(v.SLoc),
+		purpose(v.purpose) {};
+	Vertex & operator=(const Vertex &v) { name=v.name; purpose=v.purpose; 
+			ELoc=v.ELoc; SLoc=v.SLoc; return *this; };
+};
+
+
+//	This is used in Dijkstra's algorithm
+class DTableEntry
+{
+	int known;
+	unsigned int dist;
+	int path;
+
+	friend class Graph;
+};
+
+
+//	The graph class.  This is the big one.  It contains everything
+//	there is to know about a graph.
+	
+class Graph
+{
+	Vertex *vertices;			// array containing node info
+	List<Edge> *adjacencies;		// adjacency lists
+	HashTable name_table;			// hash table 
+	int num_vertices;
+	int max_vertices;
+	DTableEntry *pathinfo;			// table for Dijkstra's
+
+	int mindist();				// these routines are used
+	void print_path(int);			// in Dijkstra's
+	void init_table(int);
+	void dijkstra();
+
+	public:
+	Graph(int n=200);
+	int NameToNum(const String &);
+	String NumToName(int);
+
+	Vertex GetVertexInfo(const String &);	// get vertex info by name
+	Vertex GetVertexInfo(int);		// get vertex info by num
+
+	void PrintVertex(const String &);
+	void PrintVertex(int);
+
+	int AddVertex(const Vertex &);		// add vertex
+	int AddEdge(const String &, const String &, int);
+
+	void PrintNamedEdges(const String &);
+	void PrintNumberedEdges(int);
+
+	Edge FirstEdge(int);
+	Edge NextEdge(int);
+
+	void FindBestPath(const String &, const String &);
+};

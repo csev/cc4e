@@ -1,0 +1,220 @@
+
+LBS290F                                                     Fall 1991
+
+                             MIDTERM EXAM - II
+
+Date: November 11, 1991
+
+
+Name:  _______________________________________________
+
+
+Student Number: __________________________________________
+
+Read all of the exam questions before starting.  You may want to 
+answer the questions out of order.
+
+This exam contains 8 questions on 4 pages.  This exam is closed book, 
+closed notes, one 3x5 card.  The total points for this exam is 50 points.
+
+
+
+(1 pt)
+1.      Please answer the following questions:
+
+        Number of computer classes before LBS290 
+
+        In High School __________
+
+        In College _________
+
+        List the programming languages you knew before the class:
+
+
+
+        ____________________________________________________________
+
+(5 pts)
+2.     Write a program using a for loop to print out the 
+       following numbers.  You must use only one printf
+       statement.
+
+       1
+       3
+       6
+       10
+       15
+       21
+       28
+       36
+       45
+
+
+(10 pts)
+3.     You are to write a function to calculate the rate of pay for an
+       employee.  Your function will be called as follows:
+
+         float pay;
+         float rate;
+         float hours;
+         int emptype;
+
+         calcpay(&pay,rate,hours,emptype);
+
+       There are three types of employees.  The variable emptype tells
+       you the type of employee:
+
+       emptype=1 Exempt employee - Paid for 40 hours regardless of how
+       much time they work.
+
+       emptype=2 Hourly employee - Paid time and a half for hours > 40
+
+       emptype=3 Union employee - Paid double time for hours > 40
+
+       If you are passed an invalid employee type, set the pay to 0.0.
+
+
+(7 pts)
+4.     Correct the errors in the following program.  There are at least
+       seven errors in this program.
+
+
+          Why doesn't this program work? */
+
+       #include <stdio.h>
+
+       main ()
+       {
+       
+         integer x;
+         float y;
+         float z;
+       
+         x = 9;
+         y = 7;
+         z = func1(&x,&y);
+         func2(y,z);
+       }
+
+       float func1(a,b);
+         int *a;
+         int *b;
+       {
+         tmp = (*a + *b) / 2;
+         *a = tmp + 1;
+
+         return 100.0;
+       }
+       
+       func2(m,n)
+        float *m;
+        float n;
+       {
+          *m = n + 1;
+       }
+
+
+(3 pts)
+5.    Explain the difference between an formal parameter and an actual
+      parameter.
+
+
+
+
+   
+
+(8 pts)
+6.     What will the following C program print out?  Show the output below
+       in the correct order.
+
+       int a;
+       
+       main() {
+
+         int i,j,k;
+
+         a = 19;
+         i = 5;
+         j = 3;
+         k = 2;
+         printf("Main-1 %d %d %d %d\n",a,i,j,k);
+         k = funca(i,j);
+         printf("Main-2 %d %d %d %d\n",a,i,j,k);
+         funcb(&i,j);
+         printf("Main-3 %d %d %d %d\n",a,i,j,k);
+       
+       }
+       
+       funca(m,n)
+         int m;
+         int n;
+       {
+         int a;
+       
+         a = m + n;
+         printf("funca-1 %d %d %d\n",a,m,n);
+         m = n - 1;
+         n = 0;
+         printf("funca-2 %d %d %d\n",a,m,n);
+         return a;
+       }
+       
+       funcb(m,n)
+         int *m;
+         int n;
+       {
+         a = *m + n;
+         printf("funcb-1 %d %d %d\n",a,*m,n);
+         *m = 17;
+       }
+
+       ------------- Show Printout Below --------------------
+
+
+(2 pts.)
+7.    The following program will blow up on briggs1 with the following
+      message:
+
+      EMT trap - core dumped
+
+      What line of the following program will be executing when this
+      message comes out?
+
+
+      main() {
+        int a;
+        select(&a);
+      }
+      
+      select(b)
+        int *b;
+      {
+        b = 5;
+        printf("%d\n",b);
+        *b = 9;
+       }
+
+(9 pts.)
+8.    You are to write a function called mystrlen.  This function will
+      count the number of characters in a string and return the 
+      count.
+
+      Your function would be called as follows:
+
+        char str[100];
+
+        i = mystrlen(str);
+
+      Do NOT use the function strlen from C - you are to write this
+
+(5 pts)
+9.     Write a program to do the following:
+
+       1.  Read in a 5 element integer array
+
+       2.  Find the minimum number in the array and print it out
+
+       3.  Go through the array and set all array elements that are
+           less than zero to zero.
+     
+       4.  Print out the array.

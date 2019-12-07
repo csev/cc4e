@@ -1,0 +1,36 @@
+#include "hash.h"
+//	Hash table stuff.  This should be very familar by now. 
+
+int HashTable::Find(const String & s)
+{
+	NumNamePair nnp;
+	nnp.name=s;
+	last_bucket=Hash(nnp);
+	return buckets[last_bucket].Find(nnp);
+}
+
+void HashTable::Insert(const String &s, int n)
+{
+	NumNamePair nnp;
+	nnp.name=s;
+	nnp.num=n;
+	last_bucket=Hash(nnp);
+	buckets[last_bucket].Insert(nnp);
+}
+
+int HashTable::GetLastFind()
+{
+	NumNamePair nnp=buckets[last_bucket]();
+	return nnp.num;	
+}
+
+int HashTable::Hash(const NumNamePair &n)
+{
+	unsigned int HashVal=0;
+	const char *kptr=n.name;
+	while (*kptr)
+	{
+		HashVal=(HashVal<<5)+*kptr++;
+	}
+	return HashVal%Hsize;
+}

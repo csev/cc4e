@@ -1,0 +1,82 @@
+
+/* rootsub - Find the roots of a function using subroutines and functions */
+
+/*  Written by: C. Severance  - Tue Dec  7 22:44:26 EST 1993 */
+
+#include <stdio.h>
+#include <iostream.h>
+
+void calcroot(int &,float &,float, float, float) ;
+
+main() {
+  float root;
+  int found;
+
+/* Do the printout's differently showing iostream and stdio too */
+
+  calcroot(found,root,-3.0,0.0,0.1);
+  cout << "found = " << found << " root = " << root << "\n";
+
+  calcroot(found,root,-3.0,0.0,0.01);
+  cout << "found = " << found << " root = " << root << "\n";
+
+  calcroot(found,root,0.0,5.0,0.1);
+  printf("found = %d root=%f\n",found,root);
+
+  calcroot(found,root,0.0,5.0,0.01);
+  printf("found = %d root=%f\n",found,root);
+
+  calcroot(found,root,5.0,10.0,0.01);
+  printf("found = %d root=%f\n",found,root);
+
+}
+
+/* Routine calcroot */
+
+void calcroot(int &good,float &rt,float start,float end,float delta)
+
+{
+  float tmp,x;
+  float func(float);
+
+  printf("Scanning from %f to %f by %f\n",start,end,delta);
+
+  good = 0;
+  rt = 0.0;
+
+/* Check the input parameters */
+
+  if ( start>end || delta <= 0.0 ) {
+    printf("error in parameters - no root calculated\n");
+    return;
+  }
+
+/* Calculate the function value at the start and then loop until */
+/* The function changes sign.  This point is returned as the root. */
+
+  tmp = func(start);
+
+  for( x=start; x<=end; x+=delta) {
+    if ( tmp*func(x) < 0 ) {
+      rt = x;
+      good = 1;
+      return;
+    }
+  }
+
+/* No root found */
+
+  return;
+}
+
+/* The function to be evaluated */
+
+float func(float val)
+
+{
+  float retval;
+
+  retval = (val*val*val) - 0.15 *(val*val) - 2.8449 * val + 0.704975;
+
+  return(retval);
+}

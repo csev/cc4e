@@ -1,0 +1,95 @@
+
+LBS 290F - Important Questions for the first mid-term
+
+Introduction to Computing
+
+  What is the difference between a personal computer and a multi-user
+  computer?
+
+  What type of computer is briggs1?
+
+  What is an example of a command which only would make sense to have
+  on a multi-user computer?
+
+Introduction to UNIX
+
+  What is a file? 
+
+  What is the command to look at the contents of a file under UNIX?
+  What is the command to create a file under UNIX?
+  What is the command to delete a file under UNIX?
+  What is the command to copy a file under UNIX?
+
+  What is the command to find out which other users are on the system?
+
+  How do you re-direct the output of a command to a file?
+
+Introduction to C
+
+  What is the purpose of a programming language?
+  
+  How are programming languages created?
+
+  What are data structures used for in a programming language?
+
+  What is a variable?  What does "type" mean in reference to a variable?
+
+  What is the purpose of the executable statements in a programming
+  language?
+
+  What are the four types of executable statements?
+
+  What is the difference between sequential, input-output, conditional,
+  and repetitive statements?
+
+  Be able to identify which statements of a C program are data structures 
+  and which are executable statements.
+
+C Syntax and Operator Precedence
+
+  What are legal variable names?
+
+  When is ; to be used in a program?
+
+  Is end-of-line significant in C?  Give a case where end of line
+  is significant.
+  
+  What is a keyword and what are you prohibited from using keywords for?
+
+  What is the general syntax for integer, floating point, and string
+  constants?
+
+  What is operator precedence between the + -  / * operators?
+
+  Be able to compute the value of an expression without parenthesis.
+
+  How do parenthesis affect operator precedence?
+
+C Data Types
+
+  Understand the following types: char, int, short, long, unsigned,
+  float, double.
+
+  What is the legal range of values for int and unsigned int?
+
+  What is the legal range of values for float and double?
+
+  How many digits of precision are there in float and double?
+
+  How is type conversion performed among int, float, and double?
+
+C I/O Statements
+
+  What needs to be at the beginning of every program which does 
+  input-output?
+
+  How do getchar and putchar work?
+
+  How does printf work for %f and %i formats?
+
+  How does scanf work for %f and %i formats?
+
+  What value does scanf return when there is no data?
+
+  What value does scanf return on end of file?
+

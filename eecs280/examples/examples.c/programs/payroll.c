@@ -1,0 +1,30 @@
+
+/* payroll - calculate pay given time and a half for overtime
+
+*  Written by: C. Severance - Tue Dec  7 22:18:41 EST 1993
+
+*/
+
+main() {
+
+  float rate,hours,pay;
+
+/* Prompt the user for hours and the rate */
+
+  printf("enter the hours worked - \n");
+  scanf("%f",&hours);
+  printf("enter the pay per hour -\n");
+  scanf("%f",&rate);
+
+/* Calculate the pay compensating for overtime */
+
+  if ( hours > 40.0 ) {
+    pay = rate * 40.0 + ( rate * 1.5 * (hours - 40.0));
+  } else {
+    pay = rate * hours;
+  }
+
+/* Print out the pay */
+
+  printf("pay is -  %f\n",pay);
+}

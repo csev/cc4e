@@ -1,0 +1,21 @@
+s/stdio.h/iostream.h/
+/scanf/s/) /;/
+s/scanf("%.",&/cin >> /
+s/%.//g
+s/^main()/#include <iostream.h>\
+\
+main()/
+s/sqrt()/sqrt(double)/
+/printf/s/,/ << /
+/printf/s/);/;/
+/\\n/s/;/ << "QRSTUV";/
+s/\\n//
+s/QRSTUV/\\n/
+s/printf(/cout << /
+/EOF/s/if ( //
+/EOF/s/if (//
+/EOF/s/if(//
+s/== EOF/\
+    if ( cin.eof()/
+/cin >>/s/);/;/
+/cout/s/,/ << " " << /g

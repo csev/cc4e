@@ -1,0 +1,44 @@
+
+#include <stdio.h>
+
+main()
+{
+float acum, tmp;
+char oper,garbage;
+printf("Enter:");
+scanf("%c%f%c",&oper,&tmp,&garbage);
+
+while((tolower(oper)) != 's')
+        {
+        switch(oper)
+                {
+                case '=':
+                        printf("Setting acumulator to %f\n\n",tmp);
+                        acum=tmp;
+                        break;
+                case '+':
+                        printf("Adding %f to accumulator\n\n",tmp);
+                        acum+=tmp;
+                        break;
+                case '-':
+                        printf("Subtracting %f from accumulator\n\n",tmp);
+                        acum-=tmp;
+                        break;
+                case '/':
+                        printf("Dividing acumulator by %f\n\n",tmp);
+                        acum/=tmp;
+                        break;
+                case '*':
+                        printf("Multiplying accumulator by %f\n\n",tmp);
+                        acum*=tmp;
+                        break;
+                default:
+                        printf("ERROR: %c is NOT a valid operation!\n\n",oper);
+                }
+        printf("\tAcc=%.1f\n",acum);
+        printf("Enter :");
+scanf("%c%f%c",&oper,&tmp,&garbage);
+        }
+printf("\nCalculator Program finished\n");
+}
+

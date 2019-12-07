@@ -1,0 +1,27 @@
+
+/* tempconv - Converts temperature from Farenheight to Centigrade */
+/* and Kelvin */
+
+/*  Written by: C. Severance  - Tue Dec  7 23:01:34 EST 1993 */
+
+#include  <iostream.h>
+
+main() {
+
+  float cent,faren,kelvin;
+
+/* Prompt the user for the Farenheight temperature */
+
+  cout << "enter the farenheight temperature -";
+  cin >> faren;
+
+/* Calculate the centigrade temperature  */
+
+  cent = ( faren - 32.0 ) * ( 5.0 / 9.0 ) ;
+  cout << "centigrade temperature is - " << cent << "\n";
+
+/* Calculate the kelvin temperature */
+
+  kelvin = cent + 273.0;
+  cout << "kelvin temperature is - " << kelvin << "\n";
+}

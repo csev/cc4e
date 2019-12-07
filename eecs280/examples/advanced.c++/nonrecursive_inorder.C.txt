@@ -1,0 +1,78 @@
+// Program to traverse BST using a stack of pointers
+// Written by GCS for CPS330, Feb 1994
+
+#include <iostream.h>
+#include <String.h>
+
+class Tree_Node  //Binary tree node with word and word count
+{
+   public:  
+      String Word;
+         int Count, Pred_Count;
+      Tree_Node *Left, *Right;
+};
+ 
+// This function does an inorder traversal without recursion.
+// It uses its own stack to keep track of which nodes it visits.
+// (No checks are made for overflow, tree cannot have height>9.)
+
+void nonrecursive_inorder(Tree_Node *Root)
+{
+  Tree_Node * Roots [10];  // Roots of subtrees being processed
+  int         States[10];  // States of reaching the roots
+  int State; int Top; 
+  Tree_Node *T;
+  enum { LEFT, ROOT, RIGHT };
+
+  Top = 0; State = LEFT;
+  Roots[Top] = Root; States[Top] = State;
+
+  while ( Top >= 0 ) // more tree to process
+    {
+     // pop the pointer and state off the stack
+     T = Roots[Top]; State = States[Top];
+     Top--; 
+
+     switch (State)  //perform proper processing and stacking
+     {
+        case LEFT: //first time reaching this node, stack it and go left
+               if (T==NULL) break;
+               Top++; Roots[Top] = T; States[Top] = ROOT; 
+               Top++; Roots[Top] = T->Left; States[Top] = LEFT;
+               break;
+        case ROOT: //second time reaching this node, print node content
+                //and push right subtree in stack
+               for(int K=0; K<=Top; K++)  cout << "  ";  
+               cout << T->Word << "  " << T->Count << "\n";  
+                Top++; Roots[Top] = T; States[Top] = RIGHT;
+                Top++; Roots[Top] = T->Right; States[Top] = LEFT; 
+                break; 
+        case RIGHT: //third time reaching this node , nothing to do but pop up
+                break; 
+     } // end of switch
+    } // end while which controls the stack
+}; // end of function nonrecursive_inorder 
+
+
+
+
+
+
+main ()  // Build a 3-node tree and then traverse it
+{
+  Tree_Node *P,*Q,*Root;
+
+  Root = new Tree_Node;
+  Root->Word = "baker"; Root->Count = 3;
+  
+  P = new Tree_Node;
+  P->Word = "able"; P->Count = 5;
+  P->Left = NULL; P->Right = NULL; Root->Left = P;
+
+  P = new Tree_Node;
+  P->Word = "cain"; P->Count = 4;
+  P->Left = NULL;  P->Right = NULL; Root->Right = P;
+
+  nonrecursive_inorder(Root);
+}
+

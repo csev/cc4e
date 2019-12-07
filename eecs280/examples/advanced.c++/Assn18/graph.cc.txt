@@ -1,0 +1,246 @@
+#include "graph.h"
+
+//	These are the member functions for the graph class.
+//	This is all that had to be written from scratch.
+//
+ 	
+const unsigned int INFINITY = ~0;
+
+//  Graph constructor.  Create a graph with room for n vertices
+Graph::Graph(int n)
+{
+	max_vertices=n;
+	vertices=new Vertex[n];
+	adjacencies=new List<Edge>[n];		// a list of edges
+	pathinfo=new DTableEntry[n];
+	num_vertices=0;
+}
+
+//  Given the name of a node, return its number 
+int Graph::NameToNum(const String &s)
+{
+	if (name_table.Find(s))
+	{
+		return name_table.GetLastFind();
+	}
+	else
+		return NOTAVERTEX;
+}
+
+//  Given the number of a node, return its name
+String Graph::NumToName(int n)
+{
+	if (n>=0 && n<num_vertices)
+		return vertices[n].name;
+	else
+		return "";
+}
+
+//  Add a vertex to the graph
+int Graph::AddVertex(const Vertex & v)
+{
+	if (num_vertices<max_vertices)
+	{
+		vertices[num_vertices]=v;	// add vertex info to array
+		name_table.Insert(v.name,num_vertices);	// add num/name to hashtable
+		++num_vertices;
+		return(1);
+	}
+	else
+		return(0);
+}
+			
+//  Add an edge to the graph
+int Graph::AddEdge(const String & s1, const String & s2, int dist)
+{
+	int v1,v2;
+	Edge e;
+
+	v1=NameToNum(s1);			// get number of each vertex
+	v2=NameToNum(s2);
+	if (v1!=NOTAVERTEX && v2!=NOTAVERTEX)
+	{
+		e.distance=dist;
+		e.node=v1;
+		adjacencies[v2].Insert(e);	// add edges to adjacency list
+		e.node=v2;
+		adjacencies[v1].Insert(e);
+		return(1);
+	}
+	else
+		return(0);
+}	
+
+// print vertex info given a number
+void Graph::PrintVertex(int n)
+{
+	Vertex v;
+	v=GetVertexInfo(n);
+	cout << '\t' << v.name << '\t' << v.ELoc << '\t' 
+		<< v.SLoc << '\t' << v.purpose << endl;
+}
+
+// print vertex info given a string 
+void Graph::PrintVertex(const String &s)
+{
+	PrintVertex(NameToNum(s));
+}
+
+// return vertex info.	This is never used.
+Vertex Graph:: GetVertexInfo(const String &s)
+{
+	return GetVertexInfo(NameToNum(s));
+}
+
+// return vertex info	If an illegal number is sent, 
+//	info about the 0th vertex is returned
+Vertex Graph:: GetVertexInfo(int n)
+{
+	if (n>=0 && n<num_vertices)
+		return vertices[n];
+	else
+		return vertices[0];
+}
+
+// return the first edge adjacent to vertex vnum
+Edge Graph::FirstEdge(int vnum)
+{
+	return adjacencies[vnum].First();
+}
+
+// return the next edge adjacent to vertex vnum
+Edge Graph::NextEdge(int vnum)
+{
+	++adjacencies[vnum];
+	return adjacencies[vnum]();
+}
+
+// print edges adjacent to named node
+void Graph::PrintNamedEdges(const String &s)
+{
+	int v;
+	Edge e;
+	cout << "Places Adjacent to " << s << ":\n";
+	v=NameToNum(s);
+	if (v!=NOTAVERTEX)
+	{
+		e=FirstEdge(v);
+		while (e.node!= NOTAVERTEX)
+		{
+			cout << "\t" << NumToName(e.node) << "\t\t\t" 
+				<< e.distance << endl;
+			e=NextEdge(v);
+		}
+	}
+	else
+		cout << "Unknown node\n";
+}
+
+// print edges adjacent to numbered node
+void Graph::PrintNumberedEdges(int v)
+{
+	Edge e;
+	cout << "Places Adjacent to " << v << ":\n";
+	e=FirstEdge(v);
+	while (e.node!= NOTAVERTEX)
+	{
+		cout << "\t" << e.node << "\t" << e.distance << endl;
+		e=NextEdge(v);
+	}
+}
+
+
+// Dijkstra's algorithm
+
+void Graph::FindBestPath(const String & start, const String & end)
+{
+	int i,j;
+	int m;
+	int endv,startv;
+	Edge e;
+
+	startv=NameToNum(start);
+	endv=NameToNum(end);
+
+	if (startv==NOTAVERTEX || endv==NOTAVERTEX)
+	{
+		cout << "Unknown nodes\n";
+		return;
+	}
+	init_table(startv);
+
+	while (1)
+	{
+		m=mindist();
+		if (m==NOTAVERTEX)
+			break;
+		e=FirstEdge(m);
+		while (e.node!=NOTAVERTEX)
+		{
+			if (pathinfo[e.node].known==0 && 
+				pathinfo[m].dist!=INFINITY)
+			{
+				if (pathinfo[e.node].dist >
+					pathinfo[m].dist+e.distance)
+				{
+					pathinfo[e.node].dist=pathinfo[m].dist+
+						e.distance;
+					pathinfo[e.node].path=m;
+				}
+			}
+			e=NextEdge(m);
+		}
+		pathinfo[m].known=1;
+	}
+
+	if (pathinfo[endv].dist!=INFINITY)
+	{		
+		cout << "The best path from " << start << " to " << 
+				end << " is\n";
+		print_path(endv);
+		cout << "\nThe distance is " << pathinfo[endv].dist << endl;
+	}
+	else
+		cout << "No path exists between " << start << " and " << end 
+			<< endl;
+}
+
+void Graph::init_table(int start)
+{
+	int i;
+	for (i=0; i<num_vertices; ++i)
+	{
+		pathinfo[i].known=0;
+		pathinfo[i].dist=INFINITY;
+		pathinfo[i].path= NOTAVERTEX;
+	}
+	pathinfo[start].dist=0;
+}
+
+
+void Graph::print_path(int n)
+{
+	if (pathinfo[n].path!=NOTAVERTEX)
+	{
+		print_path(pathinfo[n].path);
+		cout << " to ";
+	}
+	cout << NumToName(n);
+} 
+
+// Brute force method to find minimum.  This makes the algorithm 
+//	|V| squared regardless of the # of edges
+
+int Graph::mindist()
+{
+	int i,j;
+	int min;
+
+	min=INFINITY;
+	j=NOTAVERTEX;
+	for (i=0; i<num_vertices; ++i)
+		if (!pathinfo[i].known && pathinfo[i].dist<min)
+			min=pathinfo[i].dist,j=i;
+	return j;
+}
+

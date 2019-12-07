@@ -1,0 +1,33 @@
+
+#include <stream.h>
+#include <fstream.h>
+#include <String.h>
+#include <libc.h>
+
+/** file_io.C - This program shows how to open and read a file in C++ */
+
+main () {
+
+  int i;
+  String str1,str2;
+
+  cout << "Please enter a File name ";
+  cin >> str1;
+
+  ifstream data(str1);  // Calls the constructor for the stream
+
+  if ( ! data ) {
+    cout << "Error unable to open " << str1 << "\n";
+    exit(1);
+  }
+
+  i = 0;
+
+  while ( ! data.eof() ) {
+     data >> str2; 
+     i++;
+  }
+
+  cout << "There were " << i << " words in the file " << str1 << "\n";
+
+}

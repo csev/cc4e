@@ -1,0 +1,39 @@
+#include <stream.h>
+#include <String.h>
+
+// ~cps330/Examples/stack_IV.C
+// Using the same class to make a stack of strings
+
+#include "stack_III.h"
+
+main() {
+
+  String str;
+  String value;
+  Stack<String> stuff;
+
+  while(1) {
+    cout << "Enter a command (" << stuff.depth() << ") :";
+    cin >> str;
+    if ( cin.eof() ) break;
+
+    if ( str == "push" ) {
+      cin >> value;
+      cout << "Pushing " << value << "\n";
+      stuff.push(value);
+    } else if ( str == "print" ) {
+      stuff.print();
+    } else if ( str == "pop" ) {
+      cout << "Popping " << stuff.pop() << "\n";
+    } else if ( str == "quit" ) {
+      break;
+    } else {
+      cout << "Error, please enter push, pop, quit, or print\n";
+    }
+    
+  } // End while
+
+  cout << "Thanks for playing\n" ; 
+
+}
+

@@ -1,0 +1,55 @@
+
+/** Linked list II - Adding at the end of the list */
+
+   // ~cps330/Examples/list_II.C 
+
+#include <stream.h>
+#include <String.h>
+
+class data_line {
+  public:
+    String string;
+    data_line *next;
+  };
+
+main() {
+  String input_string;       // Used to store string
+  data_line *top;            // Will point to the top element
+  data_line *tail;           // Will point to the last element
+  data_line *ptr;            // Will point to the currnet element
+
+  top = NULL;    // Indicate that the list is empty
+  tail = NULL;   // Indicate that there is no end element
+
+  while(1) { // Prompt for lines
+    cout << "Enter a string \n";
+    readline(cin,input_string);
+    if ( cin.eof() ) break;
+
+    ptr = new data_line;  // Allocate an object
+    cout << "Allocated a new string at " << form("%x",ptr) << "\n";
+
+    ptr->string = input_string;    // Copy string into new space
+
+    ptr->next = NULL;  // Will always be at the end of the list
+    if ( top == NULL ) {
+       cout << "Adding the first element\n";
+       top = ptr;
+    } else {
+       cout << "Adding line after element " << form("%x",tail) << "\n";
+       tail->next = ptr;  // Add at the end 
+    }
+    tail = ptr;  // The entry just added is the new last entry
+  }
+
+  cout << " ---------------  Print the list ------------------\n";
+  cout << "Top: " << form("%x",top);
+  cout << "  Tail: " << form("%x",tail) << "\n";
+
+  ptr = top; 
+  while ( ptr != NULL ) {
+    cout<<"Address:"<<form("%x",ptr)<<" ->next "<<form("%x",ptr->next);
+    cout<<" String:" << ptr->string << "\n";
+    ptr = ptr->next;
+  }
+}

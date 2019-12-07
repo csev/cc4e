@@ -1,0 +1,41 @@
+
+#include <math.h>
+#include <iostream.h>
+
+#include "time.C"
+
+main() {
+
+  int i,j,k,numser,signval;
+  double nfac;
+  double x,powval,result,r;
+  double sin();
+  double start,end,et;
+
+powval=.001;
+  while(1) {
+  
+	
+    cout << "Computing Multiplication 20000 times...\n";
+	cout << powval << "\n";
+    start = msu_cpu();
+
+    for(j=1;j<20000;j++ ) { /* To make the time noticable */
+      nfac = 8;
+      signval = 1; 
+      result = 0;
+  
+	r=result;
+        result =  powval / nfac  ;
+ 
+      }
+    end = msu_cpu();
+    et = end - start;
+
+	cout << "Value: " << powval << "  Time: " << et << "\n";
+	powval=powval/100000;
+  }
+
+}
+
+

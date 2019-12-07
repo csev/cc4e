@@ -1,0 +1,64 @@
+LBS290F - October 21, 1991 - Midterm I answers
+
+1.    #include <stdio.h>
+      main() {
+        int age;
+        scanf("%d",&age);
+        age = age + 2;
+        printf("%d",age);
+      }
+
+2.     /* Why doesn't this program work?        Missing */
+       #include                                 Missing <stdio.h>
+       main ()
+       }                                        Bracket wrong
+       int x;
+       float y;
+       float z                                  Missing semicolon
+       /* Any problems so far? */
+       x = 4;
+       y = x * 3;
+       z = y + 5.0;
+       Printf(\n The value of z is %d\n", z);   Missing "
+                                                Printf should be printf
+       }
+
+3.    #include <stdio.h>
+      main() {
+        double a,b,c,d;
+        printf("Enter the value for a:");
+        scanf("%lf",&a);
+        printf("Enter the value for b:");
+        scanf("%lf",&b);
+        printf("Enter the value for c:");
+        scanf("%lf",&c);
+        d = a * b * c;
+        printf("The answer is %lf\n",d);
+      }
+
+4.     arf.c - source code - readable by humans - input to the comiler
+       a.out - executable machine code - produced by the compiler
+       glom - program output - readable by people
+
+5.    f = 1.0 + 2.0 * 3.0 / 4.0 + 3.0 / 6.0;      f 3.0
+      i = 1 + 2 * 3 + 4 * 5 + 6;                  i 33
+      i = 1 + ( 2 * 3 ) + 4 * (5 + 6);            i 45
+      i = 107.0 / 109.01;                         i 0
+      f = 1 / 10;                                 f 0.0
+
+6.    %d - Integer
+      %f - float
+      %lf - double
+
+7.   c.  Exponential statements
+
+8.  Syntax error will be detected by the compiler. No a.out will be produces.
+run time errors are not caught by the compiler.  The program just produces 
+incorrect results.
+
+The compiler translates a program in a programming language such as C into 
+machine language.  a.out contains the machine language for the program.  It
+is only readable by the computer.
+
+Variable names must start with a letter or underscore.  Variables can 
+have letters, numbers or underscores. 

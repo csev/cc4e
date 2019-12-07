@@ -1,0 +1,29 @@
+template <class T>
+void Binary_Tree<T>::
+Print_Fancy(int & flags[],int depth,Binary_Tree_Node<T> * ptr) {
+
+  int i;
+
+  if ( ptr == NULL ) return;
+
+  cout << " - " << ptr->Element << " - " ;
+
+  if ( ptr->Right == NULL ) { 
+     cout << "\n";
+  }
+
+  flags[depth] = ptr->Left != NULL;
+  depth++;
+
+  if (ptr->Right != NULL ) {
+     Print_Fancy(flags,depth,ptr->Right);
+  }
+
+  if ( ptr->left == NULL ) return;
+
+  for(i=0;i<depth;i++) cout << "|    ";
+  if ( depth > 0 ) cout << "-----";
+  
+  Print_Fancy(flags,depth,ptr->left);
+
+}

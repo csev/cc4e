@@ -1,0 +1,37 @@
+% cat  system.c
+
+/* A program to demonstrate some of the nifty UNIX capabilities in C */
+
+#include <stdio.h>
+
+main()
+
+{
+  char tmp[100];
+
+  printf("About to call the system command, press enter");
+  gets(tmp);
+
+  system("ls -l");
+
+  printf("Just came back from the system command\n");
+  
+}
+
+% cc  system.c
+% a.out 
+About to call the system command, press enter
+-rwx------   1 crs      cl          4669 Aug 16 11:11 a.out
+-rw-------   1 crs      cl           682 Aug 16 09:13 fun3.c
+-rw-------   1 crs      cl          1652 Dec  7 1993  gradepretty.c
+-rw-------   1 crs      cl           110 Dec  7 1993  gradepretty.dat
+-rw-------   1 crs      cl           985 Dec  8 1993  grades.c
+-rw-------   1 crs      cl           402 Aug 16 11:10 popen.c
+-rw-------   1 crs      cl           442 Dec  7 1993  quad.c
+-rw-------   1 crs      cl           810 Aug 16 10:43 quadfun.c
+-rw-------   1 crs      cl          1009 Dec  7 1993  quadsub.C
+-rw-------   1 crs      cl           578 Dec  7 1993  tempconv.c
+Just came back from the system command
+% 
+
+

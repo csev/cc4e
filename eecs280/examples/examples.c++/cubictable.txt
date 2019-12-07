@@ -1,0 +1,36 @@
+% cat  cubictable.C
+
+/* Program cubictable - print out the values for a cubic function
+
+* Written by - Charles Severance - Tue Dec  7 17:23:57 EST 1993
+*/
+
+#include <iostream.h>
+
+main() {
+
+  float x,fun;
+
+  for( x=-3.0; x<=3.0; x=x+0.4 ) {
+    fun = (x * x * x) + 2 * (x * x) - x - 2.0;
+    cout << " " << x << " " << fun << "\n";
+  }
+}
+% g++  cubictable.C
+% a.out 
+ -3 -8
+ -2.6 -3.456
+ -2.2 -0.767999
+ -1.8 0.448
+ -1.4 0.576
+ -1 -2.38419e-07
+ -0.6 -0.896
+ -0.2 -1.728
+ 0.2 -2.112
+ 0.6 -1.664
+ 1 7.15256e-07
+ 1.4 3.264
+ 1.8 8.512
+ 2.2 16.128
+ 2.6 26.496
+% 

@@ -1,0 +1,703 @@
+#include <string>
+#include <iostream>
+
+using namespace std;
+
+class Bob{
+   public:
+      Bob();
+      int getA();
+   private:
+
+      int A;
+      void Init( int );
+};
+
+
+Bob::Bob()
+{
+   A = 0;
+   Bob::Init(A);  // Line 0
+}
+
+void Bob::Init(int A)
+{
+   A = 1;
+   cout << "A is initialized to " << A << endl;
+}
+
+int Bob::getA()
+{
+   return A;
+}
+
+main ()
+{
+   Bob MyBob;  // Line 1
+
+   cout << "Value of A is: " << MyBob.getA() << endl;  // Line 2
+
+}
+
+Q1-
+Output after Line 1 executes is:
+a- Nothing.  Default constructor gets called which prints nothing.
+b- Nothing.  Syntax error on Line 0.
+c- A is initialized to 0.
+d- A is initialized to 1.
+
+Q2-
+Output after Line 2 executes is:
+a- Segmentation fault
+b- Value of A is: Segmentation fault
+c- Value of A is 0
+d- Value of A is 1
+e- We will get a syntax error on Line 2.
+
+Q3-
+Suppose we had the following lines in main():
+        Bob BobArray[20];
+        BobArray = BobArray + 1;
+When compiled and run, this program will:
+a- Produce a syntax error because the + operator is not overloaded for Bob.
+b- Does not give a syntax error, but its behavior is undefined because we
+   did not provide a copy constructor.
+c- Adds one more element to the Array.
+d- Shifts the address of the whole array in memory by 1.
+e- Adds one to BobArray[0].A
+f- Makes the first element of the array BobArray "disappear".
+
+
+/********************************************************/
+#include <string>
+#include <iostream>
+
+using namespace std;
+
+class Bob{
+   public:
+      Bob();
+      int getA();
+   private:
+      int A;
+      void Init( int );
+};
+
+Bob::Bob()
+{
+   A = 0;
+   Bob::Init(A);
+}
+
+void Bob::Init(int A)
+{
+   A = 1;
+   cout << "A is initialized to " << A << endl;
+}
+
+int Bob::getA()
+{
+   return A;
+}
+
+class NamedBob {
+   public:
+
+      NamedBob();
+      string Name;
+      Bob* thisBob;
+      int getA();
+   private:
+      int A;
+};
+
+NamedBob::NamedBob()
+{
+   Name = "";
+   A = 123;
+   cout << "NamedBob constructed" << endl;
+}
+
+int NamedBob::getA()
+{
+   return A;
+}
+
+main()
+{
+   NamedBob* MyNamedBob;
+   MyNamedBob = new NamedBob[2];  // Line 1
+
+   MyNamedBob->thisBob = new NamedBob::Bob;  // Line 2
+
+   cout << "A is: " << MyNamedBob->thisBob->getA() << endl;  // Line 3
+
+}
+
+
+Q3-
+Output after Line 1 executes is:
+a- NamedBob constructed
+   NamedBob constructed
+b- NamedBob constructed
+   A is initialized to *
+   NamedBob constructed
+   A is initialized to *
+  (where * is either 0 or 1)
+c- NamedBob constructed
+d- This program will give a syntax error on Line 1 because the [] operator is
+not overloaded for the NamedBob class.
+
+
+(Can use either Q4 or Q5 -- not both)
+Q4-
+(Erase Line 2)
+Assume any possible syntax errors on Line 1 are fixed such that MyNamedBob is
+an array of 2 NamedBob's.
+When the program is run, Line 3 produces a segmentation fault.  How can we fix
+the problem?
+a- We can't fix this problem because thisBob was not initialized in the
+constructor.
+b- On Line 2, put:
+        MyNamedBob->thisBob = new Bob;
+c- On Line 2, put:
+        MyNamedBob->thisBob = new NamedBob::Bob;
+d- On Line 2, put:
+        MyNamedBob.thisBob = new Bob;
+e- On Line 2, put:
+        Bob MyNamedBob->thisBob;
+        
+        
+Q5-
+(Leave Line 2 in as it is)
+After Line 3 executes, the output will be:
+a- A is *
+   (where * is either 0 or 1)
+b- A is 123
+c- Segmentation fault
+d- Line 3 will produce a syntax error.
+
+/********************************************************/
+
+/******************************
+
+main.cpp
+******************************/
+#include <iostream>
+#include <string>
+#include "bob.h"   // Line 1
+
+using namespace std;
+
+template <class T>
+bool operator > (Bob<T>& D1, Bob<T>& D2)
+{
+   if (D1.Value > D2.Value)
+      return true;
+   else
+      return false;
+}
+
+main()
+{
+   Bob<int> Bob1(10);
+   Bob<int> Bob2(10);
+   Bob1.Value = 4;
+   Bob2.Value = 40;
+   cout << Bob1.Value << endl;
+   if (Bob2 > Bob1)
+      cout << "Bob2 is greater" << endl;
+   else
+      cout << "It didn't work!" << endl;
+}
+
+
+/******************************
+bob.h
+******************************/
+#ifndef DYNARRAY_H
+#define DYNARRAY_H
+template <class T>
+class Bob{
+   public:
+      Bob(int initialvalue);
+      T Value;
+};
+#endif
+
+/******************************
+bob.cpp
+******************************/
+#include <iostream>
+#include <string>
+#include "bob.h"
+
+using namespace std;
+
+template <class T>
+Bob<T>::Bob(int initialvalue)
+{
+   Value = initialvalue;
+   cout << "Bob constructed\n";
+}
+
+Q6-
+(Change Line 1 to #include "bob.h")
+When compiled, we get the following output:
+        % g++ main.cpp bob.cpp
+        /usr/bin/ld: Unsatisfied symbols:
+           Bob<int>::Bob(int)(code)
+        collect2: ld returned 1 exit status
+        %
+How do we fix this problem (according to Dr. Chuck)?
+a- Change Line 1 to #include "bob.cpp"
+b- Change Line 1 to #include <bob.h>
+c- Make operator > (Bob<T>& , Bob<T>&) a member of the
+   class Bob.
+d- Make a default constructor for Bob.
+e- Make Value a private member variable of Bob.
+f- (a) and (c)
+g- None of the above.
+
+
+
+
+#include <string>
+#include <iostream>
+
+class Bob{
+        private:
+                int* Value;
+        public:
+                Bob();
+                Bob(int);
+                int getValue();
+};
+
+Bob::Bob()
+{
+        Value = new int(10);
+}
+Bob::Bob(int A)
+{
+        Value = new int(A);
+}
+
+int Bob::getValue()
+{
+        return *Value;
+}
+
+int main()
+{
+        Bob* Bob1 = new Bob;
+        Bob Bob2(*Bob1);  // Line 0
+        
+
+        cout << "Bob1 Value: " << (*Bob1).getValue() << endl; // Line 1
+        delete Bob1; // Line 2
+        cout << "Bob2 Value: " << Bob2.getValue() << endl; // Line 3
+}
+
+Q8 - (change Line1 to Bob1.getValue() )
+In the above program, Line 1 gives a synatx error.  We want this
+line to print out the value of *Value for Bob1.  How do we fix it?
+a- cout << "Bob1 Value: " << (*Bob1).getValue() << endl;
+b- cout << "Bob1 Value: " << *Bob1.getValue() << endl;
+c- cout << "Bob1 Value: " << *Bob1->getValue() << endl;
+d- cout << "Bob1 Value: " << (*Bob1)->getValue() << endl;
+
+Q9-
+Assume correction to Line 1 is made so that we do not get a syntax error
+on Line 1.
+What would this program do at run time?
+a- output  Bob1 Value: 10
+           Bob2 Value: 10
+   and will never produce a segmentation fault.
+b- Will output Bob1 Value: 10, but could produce a segmentation
+   fault on Line 3.
+c- We will get a syntax error on Line 0 because no copy constructor is defined.
+d- We will get a syntax error on Line 2 because no destructor is defined.
+
+(Could possibly add another answer having to do with the memory leak
+in the program).
+
+Q10-
+main is modified as follows:
+
+main()
+{
+        Bob Bob1;
+        Bob Bob2[2] = {Bob1, 3};  // Line 1
+
+        cout << "Bob2[0] is: " << Bob2[0].getValue() << endl;  // Line 2
+        cout << "Bob2[1] is: " << Bob2[1].getValue() << endl;  // Line 3
+}
+
+The above program when compiled and run will:
+a- Give a syntax error on Line 1 because we can not mix integers and type Bob in
+the same initialization.
+
+b- Will give a syntax error on Line 2 and Line 3.
+c- Will compile fine, and output:
+        Bob[0] is: 10
+        Bob[1] is: 3
+d- Will compile fine, and output:
+        Bob[0] is: 10
+        Bob[1] is: 10
+        
+
+
+
+Q1)  what is the output of the folowing code:
+
+class Bob
+{
+Bob()
+{
+cout<<"Bob constructor"<<endl;
+}
+~Bob()
+{
+cout<<"Bob destructor"<<endl;
+}
+};
+
+class Tina
+{
+Tina()
+{
+cout<<"Tina constructor"<<endl;
+}
+~Tina ()
+{
+cout<<"Tina destructor"<<endl;
+}
+};
+
+main()
+{
+tina t;
+cout<<"Hello"<<endl;
+}
+a) Bob constructor
+   Bob destructor
+   Hello
+   Tina constructor
+   Tina destructor
+
+b) Bob constructor
+   Tina constructor
+   Hello
+   Tina destructor
+   Bob destructor
+
+c) Tina constructor
+   Bob constructor
+   Hello
+   Bob destructor
+   Tina destructor
+
+d) Hello
+   Bob constructor
+   Tina constructor
+   Tina destructor
+   Bob destructor
+
+
+Q2)
+class Bob
+{
+public:
+void Bob()  //line1
+{
+x=0;
+}
+Bob(int param)  //line2
+{
+x=param;
+}
+private:
+int x;
+};
+
+  main()
+{
+        Bob b1();      //line3
+        Bob b2(12);
+        Bob b3(100.45); //line4
+}
+
+what lines produce a compiler eror in the above code:
+1)line1,line3,line4
+2)only line3
+3) only line1
+4)line1 , line3
+5)none.
+
+q3) Which is not generally true about clases?.
+a) All member  variables should be private
+b) member  functions should public
+c) Helper functions should be public.
+d) only public member functions can access any private members
+
+q4) which of the following operators cannot be overloaded?
+a) []
+b ) ->
+c) .
+d)>>
+
+q5) Which of the following is not true about friend function?.
+a) has access to private members
+b)  Must be named as a friend in the class definition
+c) is a member function.
+d) Functions can be friends of several classes
+e) A member function of one class can be friend of another
+
+
+Q6)
+class Bob
+{
+Bob()
+{
+x=0
+}
+
+private:
+int x;
+};
+
+main()
+{
+Bob *b;
+ //line1
+}
+which of the following is not wrong to put in line1
+
+a)(*b).x=5;
+b) b->x=5;
+c)b.x=5;
+d)*(b.x) =5;
+
+pick one:
+1) a, b
+2)c,d
+3)only c
+4)only d
+
+Q7)Cosider a class named bob which of the following is true:
+`+' is an overloaded operator.
+
+a)bob.xyx()-Must be a only member function
+b)xyz(bob) - must be  only a friend
+c)2 + bob  -Must be only a friend
+d)bob + 2  - Must be only a friend
+
+Q8) Which is true about stucture?
+a) structures have member variables as classes do
+b) structures have meber functions as classes do
+c) structures can instantiate variables of thier type as classes do
+d) all the above.
+
+
+Code for questions 1 and 2
+
+class bob 
+{
+public:
+
+bob()
+{
+cout<<"Hello"<<endl;
+name = "";
+}
+
+bob(string str1)
+{
+cout<<"Hello"<<endl;
+name = str1;
+}
+
+bob(const bob &b1)
+{
+name = b1.name;
+ cout<<name<<endl;
+}
+
+~bob()
+{
+  cout<<name<<endl;
+}
+
+string getname()
+{
+  cout<<"Getting.. "<<endl;
+return name;
+}
+private:
+
+string name;
+
+};
+
+string join(bob b1, bob b2)
+{
+string temp;
+temp = b1.getname() + b2.getname();
+return temp;
+}
+
+int main()
+{
+  bob bob1("Sam");             // Line 1  
+  bob bob2("Max");             // Line 2
+  string str1;                 // Line 3
+  str1 = join(bob1, bob2);     // Line 4
+  bob b3(str1);                // Line 5
+
+}
+
+
+1. What is the LAST line output after line 5?
+a. Sam
+b. Max
+c. SamMax
+d. MaxSam
+e. Blank line
+
+2. What is the LAST line output between lines 4 and 5?
+a. Hello
+b. Max
+c. Sam
+d. Blank line
+e. None of the above
+
+3. If you didn't want a copy constructor for a class, you would:
+
+a. Not declare one at all
+b. Avoid class declarations that would call the copy constructor
+c. Write a copy destructor that takes the same parameters
+
+d. Declare it as a private member and not implement it
+e. Declare it as a public member and not implement it
+
+Consider the following code:
+
+void func1(int &i1, int &i2)
+{
+ i1  = i1+i2;
+ i2 = i1-i2;
+ i1 = i1-i2;
+
+}
+
+int main()
+{
+int a = 1;
+int b = 5;
+
+ cout<<&a<<"  "<<&b<<endl;     // Line 1
+ func1(a,b);                   // Line 2
+ cout<<a<<"  "<<b<<endl;       // Line 3
+ cout<<&a<<"  "<<&b<<endl;     // Line 4
+
+}
+
+Assume the initial addresses of a and b are 0xeffff014 and 0xeffff010 respectively.
+
+4. What is output immediately after line 3?
+a.  0xeffff014  0xeffff010
+b.  1  5
+c.  -1  -4
+d.  -1  5
+e.  5  1
+
+5. What is output immediately after line 4?
+a.  1  5
+b.  0xeffff014  0xeffff010
+c.  5  1
+d.  0xeffff010  0xeffff014
+e.  None of the above
+
+
+6. In the declaration
+   int *a[10];
+a is:
+
+a. a pointer to the first element of an array of 10 integers
+b. a pointer to an array of 10 integers
+c. an array of 10 pointers to integers
+d. the value of the first element in an array of 10 integers
+e. a pointer to a pointer to an array of 10 integers
+
+
+7. Consider the array
+   a[10][10]
+
+the statement 
+   *(*(a+3)+5) = 22;
+would result in:
+
+a. Setting the address of the third row, fifth column to 22
+b. Setting the address of the fifth row, third column to 22
+c. Setting the value of the third row, fifth column to 22
+d. Setting the value of the fifth row, third column to 22
+e. Segmentation fault
+
+Consider the code
+int *p1;
+int *p2;
+*p1 = 10;
+ p2 = p1;
+ cout<<p1<<"  "<<p2<<endl;
+ cout<<*p1<<"  "<<*p2<<endl;
+ delete p2;
+ cout<<*p2<<endl;               // Line 1 
+ cout<<p1<<"  "<<p2<<endl;      // Line 2
+
+Assume the initial value for p1 is 0xeffff094
+
+8. What is output immediately after Line 1?
+a. 0xeffff094
+b. 10
+c. 0
+d. Segmentation fault
+
+9. What is output immediately after Line 2?
+a. 0xeffff094  0xeffff094
+b. 0xeffff094  0
+c. Line 2 never executes because of seg fault in Line 1
+d. Garbage
+e. 10
+
+10.
+int* p1,p2;
+int a = 10;
+int b = 6;
+p1 = &a;
+p2 = &b;
+cout<<p1<<"  "<<p2<<endl;   // Line 1
+a = b;
+cout<<a<<"  "<<b<<endl;     // Line 2
+cout<<p1<<"  "<<p2<<endl;   // Line 3
+
+Assume that post-compilation addresses would be  0xeffff094  and 0xeffff098.
+
+What is the output after Line 3?
+a.  0xeffff094  0xeffff098
+b.  0xeffff094  0xeffff094
+c. Segmentation fault
+d. Compiler error
+e. 6  6
+
+  
+
+11. The length of a pointer depends on:
+
+a. The data type it points to
+b. The largest hexadecimal value allowed by C++
+c. The addressable memory size of the instruction set
+d. a. and c.
+e. a., b. and c.
+f. None of the above
+

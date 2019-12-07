@@ -1,0 +1,56 @@
+
+LBS290F                                                     Fall 1991
+
+                 ASSIGNMENT 6 - Mathematics
+
+Write a program which will calculate the quadratic formula to find the
+roots of a ploynomial.
+
+Due Date: Before Lecture 10/14/91
+
+The formula for the value of x in a polynomial of the form:
+     
+           2
+       a x    +   b  x   +  c  = 0
+
+ 
+is:
+
+                     2
+         - b  +     b   - 4ac
+x  =    --------------------- 
+                  2a
+
+and
+
+                     2
+         - b  -     b   - 4ac
+x  =    --------------------- 
+                  2a
+
+
+Write a program which has three double precision variables
+a, b,  and c.  The program will calculate the values for x
+using the above formula.  The output of the program should look
+like:
+
+  Value for a: 1.0
+  Value for b: -3.0
+  Value for c: 2.0
+
+  First root: 2.0
+  Second root: 1.0
+
+Run the program for the values:
+
+a=1 b=-3 c=2
+a=1 b=2 c=1
+
+Also run the program with the values:
+
+a=1 b=2 c=8
+
+What happens?  Why does this happen?
+
+Hand in the program and program output using mailx.  See assignment 3 
+for details on how to hand in the program and its output.

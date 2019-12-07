@@ -1,0 +1,84 @@
+LBS290F                                                      Fall 1991
+
+                     ASSIGNMENT 19 - MACHINE LANGUAGE - II
+
+Due Date: Extra Credit 5 points - anytime before the final
+
+This program will implement a simple computer language.  This language is
+similar to the lowest level language actually executed by computer hardware.
+
+Your computer has 100 integer variables numbered from 1 through
+100.
+
+This language has the following statements:
+
+        Statement            Action
+        ---------            ----------------
+        * Comment            Simply print out the comment
+        E                    Echo every command
+        N                    Don't Echo every command
+        X or End of file     Exit
+        R 10                 Read an integer value from input and
+                             store in vars[10]
+        P 10                 Print the contents of vars[10]
+        10  S 100            Store 100 into vars[10]
+        10  Q  20            vars[10] = sqrt( vars[20] );
+        10  =  20  +  30     vars[10] = vars[20] + vars[30]
+        10  =  20  -  30     vars[10] = vars[20] - vars[30]
+        10  =  20  *  30     vars[10] = vars[20] * vars[30]
+        10  =  20  /  30     vars[10] = vars[20] / vars[30]
+
+The program should catch and print a message for the following errors:
+
+        Z                    First letter illegal
+        10 S                 Incorrect number of parameters
+        10 >  20  +  30      Illegal Character
+        10 =  20  >  30      Illegal operator
+
+The file /usr/usrs/crs/assn19 has the following program:
+
+  E
+  * This is a program to calculate the determinant
+  *
+  * location 1 will store a
+  * location 2 will store b
+  * location 3 will store a
+  * location 10 will be used for root 1
+  * locations 90  and above will be temporary variables
+  *
+  * Enter the value for a
+  R 1
+  * Enter the value for b
+  R 2
+  * Enter the value for c
+  R 3
+  * Figure out B squared
+  90 = 2 * 2
+  * Figure out 4AC
+  91 S 4
+  91 = 91 * 1
+  91 = 91 * 3
+  * Figure out B squared - 4ac
+  92 = 90 - 91
+  * Take the square root
+  92 Q 92
+  * Figure out the top of the equation
+  93 S -1
+  94 = 2 * 93
+  * Subtract the determinant
+  94 = 94 - 92
+  * Calculate 2 * A
+  95 S 2
+  95 = 95 * 1
+  10 = 94 / 95
+  P 10 
+  X
+
+When your program is running, try to execute this program using the
+following command:
+
+  $ a.out < /usr/usrs/crs/assn19
+
+When you are prompted for a, b, and c, use 1 7 and 12.
+
+The root printed should be 4.

@@ -1,0 +1,50 @@
+
+LBS290F                                                     Fall 1991
+
+                 ASSIGNMENT 9 - IF STATEMENTS
+
+Due Date: Before Lecture 10/23/91
+
+Like assignment 7, this program will prompt for three variables
+and calculate the roots of a quadratic formula.
+
+However it will check to see that the determinant:
+
+                   2
+  determinant  =  b  - 4ac
+
+Is greater than or equal zero before calling sqrt.  This will
+keep the program from getting a domain error.
+
+When the program has a negative determinant, it should print out:
+
+Negative determinant - no roots found
+
+In this version of the program it IS wrong to blow up with a domain
+error.
+
+
+Example executions:
+
+  $ a.out
+  Enter the value for a: 1.0
+  Enter the value for b: -3.0
+  Enter the value for c: 2.0
+
+  First root: 2.0
+  Second root: 1.0
+
+  $ a.out
+  Enter the value for a: 1.0
+  Enter the value for b: 2.0
+  Enter the value for c: 8.0
+
+  Negative determinant - no roots found
+
+Once again run the program for the values:
+
+a=1 b=-3 c=2
+a=1 b=2 c=1
+a=1 b=2 c=8
+
+Hand in only the program source code using mailx.

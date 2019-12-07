@@ -1,0 +1,35 @@
+/* Program to find two roots */
+
+#include <stdio.h>
+#include <math.h>
+
+main () {
+
+   float  a;
+   float  b;
+   float  c;
+   float  x;
+   int  lcv;    /* loop control variable */
+
+   for (lcv = 0; lcv < 3; lcv += 1)
+     { 
+      printf (" Enter value for a:");
+      scanf ("%f", &a);
+      printf ("\n Enter value for b:"); 
+      scanf ("%f", &b);
+      printf ("\n Enter value for c:"); 
+      scanf ("%f", &c);
+   
+      if ((b*b-(4.0 * a * c))> 0.0)
+         {
+          x = (-b - ( sqrt( b * b - ( 4.0 * a * c )))) / (2.0 * a);
+          printf ("\n First root : %.1f\n", x);
+ 
+          x = (-b + ( sqrt( b * b - ( 4.0 * a * c )))) / (2.0 * a);
+          printf (" Second root: %.1f\n\n\n", x);
+         }
+        else
+          printf("Negative determinant - no roots found\n\n\n"); 
+    } 
+}  
+

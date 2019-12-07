@@ -1,0 +1,83 @@
+
+Class Outline
+
+
+Date       Lecture topic             Homework            Reading
+
+--- Week 0 ------
+
+Fri 9/27   Syllabus                                      UNIX 2
+
+--- Week 1 ------
+
+Mon 9/30   Intro to Computing       Mail a message       Unix 5
+                                    Printer
+                                    Files
+
+Wed 10/2   Intro to UNIX            Use vi and mail      Unix 7
+ 
+Fri 10/4   Intro to vi              Program "hi there"   C 1.1-1.5
+
+--- Week 2 ------
+
+Mon 10/7   Intro to C               Syntax Errors        C 2
+
+Wed 10/9   C Syntax                 Calculation          C 3.1 - 3.6
+           Operator Precedence      Program          
+
+Fri 10/11  C Integer, Unsigned,     Math Program         C 3.6, 3.9, 3.10
+           Char, and strings
+
+--- Week 3 ------
+
+Mon 10/14  C Math Functions         I/O Program         C 1.5, 3.8
+           Floating Point                               11.1 11.2 (skim)
+           Type Conversion Rules 
+
+Wed
+
+
+
+Revised Outline - Fall term 1991 - LBS290
+
+--- Week 7 ------
+
+Mon 11/11    Midterm-2
+
+Wed 11/13    I/O Arrays                Calculator          11.1, 11.2
+
+Fri 11/15    Error Checking            Inventory           11.1 - 11.3
+             Formatted Output                              gets (pp 468)
+
+--- Week 8 ------
+                                    
+Mon 11/18    How Compilers             Machine Lang 1      11.3, 11.4
+             Work / Files
+
+Wed 11/20    Programming               Machine Lang 2      Handout
+             Languages
+                                    
+Fri 11/22    Algebra                   Finding roots       6.16
+             Applications
+                                    
+--- Week 9 ------                                    
+                                    
+Mon 11/25    Calculus                  Integration         Handout
+             Applications
+                                    
+Wed 11/27    Physics                   Heat Flow           Handout
+             Applications
+                                    
+Fri 11/29    Holiday                                    
+                                    
+--- Week 10 ------                                    
+                                    
+Mon 12/2       Sorting                 Sorting            6.7, 6.81
+                                    
+Wed 12/4       Recursion               Recursion          C 5.15
+                                    
+Fri 12/6                                    
+                                    
+--- Week 11 (Finals Week) ---
+
+Final Exam: Wednesday December 11, 1991 3:00-5:00PM

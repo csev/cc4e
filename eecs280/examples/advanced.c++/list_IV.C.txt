@@ -1,0 +1,91 @@
+
+/** Linked list IV - Using an object to do the dirty work */
+
+   // ~cps330/Examples/list_IV.C 
+
+#include <stream.h>
+#include <String.h>
+
+class Data_line {
+  public:
+    String contents;
+    Data_line *next;
+  }; // End of Data_list class
+
+class Data_list {
+  public:
+    Data_list() { top = NULL; cout << "List constructed\n"; }
+    ~Data_list() { cout << "List destructing\n" ; }
+  
+    void add(String str);  // Will define later
+
+    void print()
+      {
+        Data_line *ptr;
+        ptr = top; 
+        while ( ptr != NULL ) {
+          cout << ptr->contents << "\n";
+          ptr = ptr->next;
+        }
+      } // End of print
+
+  private:
+    Data_line *top;            // Will point to the top element
+
+} ;
+  
+void Data_list::add(String str) 
+
+{
+
+  Data_line *ptr;            // Will point to the new element
+  Data_line *prev;           // Previous element (during search)
+  Data_line *curr;           // Current element (during search)
+
+  ptr = new Data_line;  // Allocate an object
+  cout << "Allocated a new string at " << form("%x",ptr) << "\n";
+
+  ptr->contents = str;    // Copy string into new space
+
+  // Find the position in the list
+    
+  curr = top;
+  prev = NULL;
+  while(curr != NULL ) {
+    if ( curr->contents > str ) break;
+    prev = curr;
+    curr = curr->next;
+  }
+
+  if ( prev == NULL ) {
+     cout << "Adding before the first element\n";
+     ptr->next = top;
+     top = ptr;
+  } else {
+     cout << "Adding between " << form("%x",prev) ;
+     cout << " and " << form("%x",curr) << "\n";
+     ptr->next = curr;
+     prev->next = ptr;
+  }
+} // End of Data_list::add
+
+
+main() {
+  String input_string;       // Used to store string
+  Data_list stuff;          // Our ADT
+
+  cout << "Welcome to the beginning of the program\n";
+
+  while(1) { // Prompt for lines
+    cout << "Enter a string \n";
+    readline(cin,input_string);
+    if ( cin.eof() ) break;
+    stuff.add(input_string);
+  }
+
+  cout << "\n";
+  cout << "Here is your list...\n";
+  stuff.print();
+  cout << "End of the program\n";
+
+}
