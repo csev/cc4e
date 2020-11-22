@@ -1,6 +1,6 @@
 
-CC Programming for Everybody
-============================
+C Programming for Everybody
+===========================
 
 This is an emergent course with a the learning objective of seeing how system software
 like Linux or Python is built.  This course will cover either C or C++ and quickly work through
