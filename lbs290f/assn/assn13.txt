@@ -1,0 +1,19 @@
+LBS290F                                                     Spring 1992
+
+                  ASSIGNMENT 13 - Payroll Using Subroutines
+
+Due Date: May 4, 1992 11:59 PM
+
+The purpose of this program is to use subroutines.
+
+In this program you will perform exactly the same as program 9.  However
+in this program you must write and call a subroutine to calculate the
+gross pay, and taxes for the employee.
+
+The subroutine should be named CALCPAY.  The header for the subroutine
+should be as follows:
+
+      SUBROUTINE CALCPAY(GP,TAXES,RATE,HOURS)
+      REAL GP,RATE,HOURS
+
+The input and output for the program are the same as program 9.

@@ -1,0 +1,149 @@
+LBS290F                     STUDY GUIDE                       Winter 1992
+
+Date:  02/26/92
+
+
+1.    Find the syntax errors in the following program which would
+      cause the program not to compile.
+      
+            REAL X,Y,A(10)
+            INT I,J,K
+      *
+            FOR 10 I=1,10
+        10  A[10] = 30
+      *
+            IF ( Z.LT.100 ) THEN
+              Z = 100.0
+            END
+      
+            ELSE IF ( X.GT.100 ) THEN
+              Z = X - 1
+            ENDIF
+      
+            X = 100.0
+            Y = X - X ** 2
+            PRINT *, Y
+            READ(*,*,EMD=200)A
+            CALL SUB(X,Y)
+      200   PRINT *,A
+            END
+            SUBROUTIME (SUB,X,Y)
+            REAL X,Y
+            X = Y + 1
+            RETRUN
+            END
+
+
+2.     Write a program which will prompt for three values which are
+       the coefficients of a quadratic equation.  Then prompt for a value
+       for X.  Then evaluate the quadratic equation and print the value
+       of the equation.
+
+       Example execution of the program:
+
+         $ a.out
+          ENTER A,B,C
+          1 2 1
+          ENTER X
+          3
+          COMPUTED VALUE = 16
+         $
+
+LBS290F                          STUDY GUIDE                       Page 2
+
+
+3.     Find at least 4 logic errors in the following program:
+
+             REAL X,Y,Z,A(10),SUM
+             INTEGER I,J,K
+      *
+             READ *,A
+             DO 5 I=1,10
+             SUM = SUM + A(1)
+      5      CONTINUE
+             PRINT *,'THE SUM OF ALL OF THE ELEMENTS OF A IS ', SUM
+      *
+             DO 10 I=1,10
+      10     A(I) = (I ** 2) - 1
+      *
+             CALL SUB(X,Y)
+      *       
+             PRINT *,X,Y
+             Y = Y - SQRT(10.0 - A(10) )
+             WRITE(20,*)A
+      20     FORMAT(1X,10F7.2)
+             END
+             SUBROUTINE SUB(I,J)
+             INTEGER I,J
+             I = 0
+             J = -100
+             RETURN
+             END
+       
+
+4.     Write a program which will read an unlimited number of integers
+       until end of file and print the sum of the numbers and average
+       of the numbers.  Do not use an array.
+
+LBS290F                          STUDY GUIDE                       Page 3
+
+
+5.      What will the following program print out?
+
+
+            REAL X,Y,A,B(10),FUNC
+            INTEGER I
+            DO 10 I=1,10
+            B(I) = I ** 2
+      10    CONTINUE
+            DO 20 I=10,2,-1
+            B(I) = (B(I) + B(I-1)) / 2
+      20    CONTINUE
+            PRINT *,'B(5) is ',B(5)
+      *
+            X = 100.0
+            Y = 17.0
+            Z = 24.3
+            A = 10.0
+            Z = FUNC(X,Y,Z)
+            PRINT *,'BACK ',X,Y,Z,A
+            END
+            FUNCTION FUNC(Y,X,Z)
+            REAL X,Y,Z,A
+            PRINT *,'FIRST ',X,Y,Z
+            A = 35.0
+            Z = 32.0
+            X = 1.0
+            Y = 2.0
+            FUNC = -25.0
+            PRINT *,'SECOND ',X,Y,Z,A
+            RETURN
+            END
+     
+      
+
+
+LBS290F                          STUDY GUIDE                       Page 4
+
+6.   Write a program which will prompt the user for a single integer.
+     The program will find all of the values which can be evenly divided
+     into the number with no remainder.  If there are no numbers which 
+     can be evenly divided into the number, print 'THE NUMBER IS PRIME'.
+
+     Example executions:
+
+     $ a.out
+     ENTER A VALUE
+     20
+     FACTORS:
+      2
+      4
+      5
+      8
+     10 
+    $ a.out
+    ENTER A VALUE:
+    17
+    FACTORS:
+    THE NUMBER IS PRIME
+    $

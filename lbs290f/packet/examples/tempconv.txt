@@ -1,0 +1,42 @@
+*
+* tempconv - Converts temperature from Farenheight to Centigrade
+* and Kelvin
+*
+*  Written by: C. Severance 16Mar92
+*
+* Declare the variables:
+*
+      REAL CENT,FAREN,KELVIN
+*
+* Prompt the user for the Farenheight temperature
+*
+      PRINT *,'Enter the farenheight temperature - '
+      READ *,FAREN
+*
+* Calculate the centigrade temperature 
+*
+      CENT = ( FAREN - 32.0 ) * ( 5.0 / 9.0 ) 
+      PRINT *,'Centigrade temperature is - ',CENT
+*
+* Calculate the kelvin temperature
+*
+      KELVIN = CENT + 273.0
+      PRINT *,' Kelvin temperature is - ',KELVIN
+      END
+
+
+
+$ fort tempconv.f
+File tempconv.f:
+    MAIN:
+$ a.out
+ Enter the farenheight temperature - 
+63
+ Centigrade temperature is -   1.722222328E+001 
+  Kelvin temperature is -   2.902222290E+002 
+$ a.out
+ Enter the farenheight temperature - 
+32
+ Centigrade temperature is -   0.000000000E+000 
+  Kelvin temperature is -   2.730000000E+002 
+$ 

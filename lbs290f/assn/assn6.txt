@@ -1,0 +1,59 @@
+LBS290F                                                     Spring 1992
+
+                        ASSIGNMENT 6 - Looking for Roots
+
+Due Date: April 15, 1992 11:59PM
+
+Write a program which will evaluate the function
+
+           3         2
+      Y = X  - 0.15 X  - 2.8449 X  + 0.704975
+
+and find the approximate root of the function for the following
+ranges of the function using an increment of 0.1
+
+    -3 <= X <= 0.0
+    0.0 <= X <= 5.0
+    5.0 <= X <= 10.0
+
+When you find the root of the function print it out.  If no root
+is found in the range, print the following message:
+
+   No root found between 4.0 and 12.0
+
+The pseudo code for an algorithm to find a root of the function
+
+           2
+      Y = X   -  4
+
+between -6.0 <= X <= 6.0 using an increment of 0.1 is as follows:
+
+
+   X = -6.0
+   START = (X ** 2) - 4
+   FOUND = 0
+   WHILE(X < 6.0 and FOUND = 0 ) 
+     NEW = (X ** 2) - 4
+     IF ( NEW*START <= 0 ) THEN
+       FOUND = 1
+     ELSE
+       X = X + 0.1
+   ENDWHILE
+   IF ( FOUND = 1 ) THEN
+     PRINT 'Root is ',X
+   ELSE
+     PRINT 'No root found'
+   ENDIF
+
+Example execution:
+
+   $ a.out
+   Scanning from    -3.00 to     0.00 by      .10
+   Root=   -1.7000
+   Scanning from     0.00 to     5.00 by      .10
+   Root=     .3000
+   Scanning from     5.00 to    10.00 by      .01
+   No root found
+   $
+
+Your output may look slightly different.

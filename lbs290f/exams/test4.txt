@@ -1,0 +1,111 @@
+LBS290F                     TEST 4                       Winter 1992
+
+Date:  02/28/92
+
+
+
+Name: _______________________________________________
+
+
+Student Number: _____________________________________
+
+(4 pts)
+1.    Find the syntax errors in the following program which would
+      cause the program not to compile.
+
+             REAL X,Y,Z,A(10)
+             INTEGER I,J,X
+      *
+             This is a comment
+      *
+             DO 1000 I=1,10
+             A(I) = 0
+      100    X = X + I
+             IF ( X.LT.100 ) THEN
+               PRINT *,'TOO LOW
+             ENDIF
+             ELSE
+               PRINT *,'Just right'
+             ENDIF
+      *
+             A = 0
+             CALL SUBA(X,Y,Z)
+             PRINTF *,Z
+             END
+             SUBROUTINE SUBA(P,Q,R)
+             REAL P,Q,R
+             A(1) = 17
+             P = 0
+             Q = Q + 1
+             RETURN
+             END
+
+(4 pts)
+2.     Find at least 4 logic errors in the following program:
+
+             REAL A,B,C(10),FCN
+             INTEGER I,J,K(20)
+      *
+             B = -25.0
+             DO 10 I=1,20
+             C(I) = 100 + I
+      10     CONTINUE
+             A = FCN(B,C)       
+             PRINT 100,A
+      100    FORMAT(1X,I7)
+             A = A + B ** 0.5
+             WRITE(10,*)A
+             END
+             FUNCTION FCN(X,Y,Z)
+             INTEGER X,Y,Z
+             Z = -1
+             FCN = X + Y + Z
+             RETURN
+             END
+
+LBS290F                          TEST 4                       Page 2
+
+
+(4 pts)
+3.     Write a program which will print out a table of the squares and
+       cubes of the numbers from 1 to 100.  This program must have headings
+       and the output must line up neatly.  (i.e. use FORMAT statements)
+
+       Example output:
+
+             NUMBER       SQUARE        CUBE
+             ------       ------        ----
+               1.0          1.0          1.0
+               2.0          4.0          8.0
+               3.0          9.0         27.0
+                   .
+                   .
+             100.0      10000.0    1000000.0
+        
+
+LBS290F                          TEST 4                       Page 3
+
+(4 pts)
+4.      What will the following program print out?
+
+
+            INTEGER I
+            INTEGER J
+            REAL X
+      
+            X = 0.0
+            DO 10 I=1,3
+              DO 20 J=1,5,2
+              PRINT *,I,J,X
+                    X = X + (I * J)
+         20  CONTINUE
+         10 CONTINUE
+            PRINT *,'THE END'
+            PRINT *,X
+
+LBS290F                          TEST 4                       Page 4
+
+(4 pts)
+5.   Write a FORTRAN program which reads in 10 values into an array.
+     The program must use a subroutine to calculate the mean of the 
+     array.  The main program will print out the mean.

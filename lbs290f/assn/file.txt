@@ -1,0 +1,9 @@
+ Enter X
+ X is   1.50000000 
+ SIN(X) is   9.974949956E-001 
+ Taylor approximation using 2 terms is   9.375000000E-001 
+ Error using 2 terms is  -5.999499559E-002 
+ Taylor approximation using 3 terms is   1.00078130 
+ Error using 3 terms is   3.286302090E-003 
+ Taylor approximation using 4 terms is   9.973912239E-001 
+ Error using 4 terms is  -1.037716866E-004 

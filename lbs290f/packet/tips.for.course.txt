@@ -1,0 +1,80 @@
+
+                        TIPS FOR THE COURSE
+
+For those of you who are taking your first programming class, you will 
+have to work very hard during the first several weeks to "get the hang"
+of programming.  Programming is actually really easy to do and once you
+learn it you may actually like it.  However learning programming sometimes
+is a bit confusing at first.  You may feel as if you are walking around
+in a "fog".  There are some things you can do to make things better:
+
+  -  Ask questions.
+
+  -  Ask questions.
+
+  -  Don't skip class - during lecture - I will try to simplify things
+     and give you different ways to think about the material.  
+
+  -  Read the book before you come to class - if you come with questions
+     you will be way ahead.
+
+  -  When you find a portion of the text book difficult - read faster.
+     Skim over sections of the book which we have already covered and
+     those sections which we are about to cover then go back to the
+     hard section.
+
+  -  Much of computer programming is somewhat arbitrary - there is no
+     good reason that certain things are the way that they are.  
+
+  -  Don't let yourself get behind - come to my office hours or call
+     me on the phone - you may be hung up on something very simple.
+
+  -  Don't give up 
+     
+You will be quite capable of doing the work in this class regardless of
+your background.  Don't get discouraged because some other student with
+3 years of programming experience seems to understand everything the first
+time - they had to learn this stuff the first time too.
+
+
+                          TIPS ON GETTING HELP
+
+There will be students with a wide range of backgrounds in this course.
+It is tempting for students with less background to get a great deal of
+help in programming from the more advanced students.  While this may 
+seem like a good idea at the beginning of of the term - chances are 
+that by the middle of the term you will be so lost that you may 
+fail the course.
+
+It is important that you do your own work on the programming assignments.
+You should also work on your programming assignments early so that they
+are finished on-time and you have ample opportunity to ask questions if you
+have a problem.  
+
+It IS acceptable to ask (and answer) questions about things which you are
+confused about.  This is especially true at the beginning of class.  Often
+the person who best can answer is another student in the class.  Make sure
+to check the answers to the questions however.
+
+
+                            TIPS ON THE TEXTBOOK
+
+The Etter text for this course is very good with many worked out examples.
+Here are some tips for using it effectively:
+
+  -  FORTRAN statements are summarized on the inside covers.  At the end of 
+     each chapter is a summary of the statements covered in that chapter.
+  
+  -  Answers to the self-tests and to selected problems are in the back
+     of the book.
+
+  -  Appendix A lists the intrinsic functions such as square root, etc.
+
+  -  There is a glossary and an index
+
+Examples from the book have been typed in and are available on-line.  You
+can use the UNIX cp command to get a copy of the programs:
+
+  cp /usr/usrs/local/f77/prog2-5.f myprog.f
+
+Where myprog.f is the file name which will be stored in your directory.

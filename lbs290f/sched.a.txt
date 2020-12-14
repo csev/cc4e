@@ -1,0 +1,37 @@
+LBS290F                     SCHEDULE (Revised)                   Spring 1992
+
+------------------------ Week 5 (Apr 27-May 1) -------------------------
+
+Apr 27             Making the output line up - Using FORMAT statements
+                   Example: Pretty Student Grades
+                   Program 9 - "Pretty Payroll Program" - Due (pr 28)
+
+                   Read: 5-1 through 5-3
+
+Apr 29             One dimensional Arrays
+                   Logic Errors
+                   Example: Heat flow on a bar
+                   Program 10 - "Inventory Program" - Due
+
+                   Read: Chapter 5
+
+May 1              One dimensional arrays - sorting
+                   Example: Sorting, minimum, maximum, average
+                   Program 11 - "Sorting scores" - Due
+
+------------------------ Week 6 (May 4 - May 8) -------------------------
+
+May 4              Two dimensional arrays 
+                   Example: Candy Machine Inventory
+                   Program 12 - "Heat flow in a plate" - Due
+
+                   Read: Chapter 6
+
+May 6              Subroutines - Functions
+                   Example: Finding more roots
+                   Example: Yet another quadratic program
+                   Program 13 - "Finding max, min, sort, mean, again" - Due
+                   (Formerly program 14)
+
+May 8              Computer Science Test-II
+

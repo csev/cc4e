@@ -1,0 +1,96 @@
+Script started Sun Mar 15 15:12:39 1992
+$ cat quad.f
+*
+* Program quad - calculate the quadratic formula roots
+*
+* Logical error - precedence
+*
+* Written by - C. Severance 12Mar92
+*
+      REAL A,B,C,DET,ROOT1,ROOT2
+*
+      PRINT *,'Enter A,B,C -'
+      READ *,A,B,C
+*
+      DET = SQRT( B*B - 4 * A * C )
+      ROOT1 = -1.0*B + DET /  ( 2 * A )
+      ROOT2 = -1.0*B - DET /  ( 2 * A )
+*
+      PRINT *,'ROOT1 = ',ROOT1
+      PRINT *,'ROOT2 = ',ROOT2
+*
+      END
+$ fort quad.f
+File quad.f:
+    MAIN:
+$ a.out
+ Enter A,B,C -
+1 2 1
+ ROOT1 =  -2.00000000 
+ ROOT2 =  -2.00000000 
+$ ce quad.f
+$ cat quad.f
+*
+* Program quad - calculate the quadratic formula roots
+*
+* Logical error - precedence
+*
+* Written by - C. Severance 12Mar92
+*
+      REAL A,B,C,DET,ROOT1,ROOT2
+*
+      PRINT *,'Enter A,B,C -'
+      READ *,A,B,C
+*
+      DET = SQRT( B*B - 4 * A * C )
+      PRINT *,B,DET,A
+      ROOT1 = -1.0*B + DET /  ( 2 * A )
+      ROOT2 = -1.0*B - DET /  ( 2 * A )
+*
+      PRINT *,'ROOT1 = ',ROOT1
+      PRINT *,'ROOT2 = ',ROOT2
+*
+      END
+$ fort quad.f
+File quad.f:
+    MAIN:
+$ a.out
+ Enter A,B,C -
+1 2 1
+  2.00000000   0.000000000E+000   1.00000000 
+ ROOT1 =  -2.00000000 
+ ROOT2 =  -2.00000000 
+$
+
+$ ce quad.f
+$ cat quad.f
+*
+* Program quad - calculate the quadratic formula roots
+*
+* Logical error - precedence - Fixed
+*
+* Written by - C. Severance 12Mar92
+*
+      REAL A,B,C,DET,ROOT1,ROOT2
+*
+      PRINT *,'Enter A,B,C -'
+      READ *,A,B,C
+*
+      DET = SQRT( B*B - 4 * A * C )
+      ROOT1 = ( -1.0*B + DET ) /  ( 2 * A )
+      ROOT2 = ( -1.0*B - DET ) /  ( 2 * A )
+*
+      PRINT *,'ROOT1 = ',ROOT1
+      PRINT *,'ROOT2 = ',ROOT2
+*
+      END
+$ fort quad.f
+File quad.f:
+    MAIN:
+$ a.out
+ Enter A,B,C -
+1 2 1
+ ROOT1 =  -1.00000000 
+ ROOT2 =  -1.00000000 
+$ 
+Script done Sun Mar 15 15:14:51 1992

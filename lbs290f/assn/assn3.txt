@@ -1,0 +1,65 @@
+LBS290F                                                     Spring 1992
+
+                        ASSIGNMENT 3 - Taylor Series
+
+****** REVISED VERSION - Thanks to Dr. Hamelink *********
+
+Due Date: April 8, 1992 11:59PM
+
+This program will calculate a simple Taylor Approximation for the SIN 
+function from trigonometry.
+
+The Taylor approximation of the SIN function is an infinite series expressed
+by the following summation:
+
+                   oo
+                 ------                   (2i - 1)
+                 \            (i+1)     X
+    sin(x)   =    >       (-1)       ---------------
+                 /                      (2i - 1) !
+                 ------
+                  i = 1
+
+On computers to approximate the SIN function, some fixed number of the terms
+of this sum are computed.  As more terms of the sum which are used, 
+the more accurate the approximation will become.  For example if three
+terms of the Taylor Series are used, the approximation will be:
+
+                          3         5  
+           ~             X         X    
+   sin(x)  =     X  -  -----  +  -----
+                         3!        5!
+
+If five terms of the Taylor Series were used the approximation would be:
+
+                          3         5         7         9 
+           ~             X         X         X         X   
+   sin(x)  =     X  -  -----  +  -----  -  -----  +  -----
+                         3!        5!        7!        9! 
+
+Your program will prompt for a value for X between 0 and 2.0.  The program
+will then compute the actual value for SIN(X) using the intrinsic function
+SIN in FORTRAN. The program will also calculate the Taylor approximation
+for SIN using 2, 3, and 4 terms.  The program will print out the actual
+SIN and both approximations.  The program will also print out the difference
+between the actual value for SIN(X) and each of the approximations.
+
+Example execution:
+
+  $ a.out
+   Enter X
+  1.5
+   X is   1.50000000 
+   SIN(X) is   9.974949956E-001 
+   Taylor approximation using 2 terms is   9.375000000E-001 
+   Error using 2 terms is  -5.999499559E-002 
+   Taylor approximation using 3 terms is   1.00078130 
+   Error using 3 terms is   3.286302090E-003 
+   Taylor approximation using 4 terms is   9.973912239E-001 
+   Error using 4 terms is  -1.037716866E-004 
+  $ 
+
+Hint:  Use the value for 2 terms of the Taylor series to computer the
+3 term value.  Use the 3 term value to compute the 4 term value.
+
+Note:  n! = 1 x 2 x 3 ... x n-1 x n        5! = 1 x 2 x 3 x 4 x 5 = 120

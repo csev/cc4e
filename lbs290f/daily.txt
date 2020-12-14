@@ -1,0 +1,49 @@
+
+April 1, 1992
+
+Discussed the syllabus, programming assignments, and schedule - 40 minutes.
+
+What is a program?  What is a variable? Simple  assignment statements.
+
+Write "What is a Program"  Handout.
+
+Did not have the class list yet  -- AAARGH.
+
+April 3, 1992
+
+FORTRAN SYNTAX - Get cards to hand out
+  -  Label - won't need for a while
+  -  Continuation - stay out
+  -  Instruction - stops at 72
+  -  Comment
+
+Go over average3 program - what is variable, what is instruction - hand
+execution.
+
+Program development process.
+
+Log on to the UNIX system.
+  - Where
+  - break
+  - dial briggs1
+  - account and password
+  - log in crud
+  - stty erase
+
+Create a file prog1.f using the ce text editor.
+
+   -  Move around with cursor keys
+   -  Type in text
+   -  Save text with ESC 1
+   -  Quit with no save ESC 6
+
+Compilation process - What is a compiler?
+  -   Looks at program
+      -  High level language - looks nice but won't execute
+  -   First checks for screw-ups - syntax errors - a program with
+      syntax errors cannot be run - it will not compile.
+  -   If there are syntax errors - you must fix them and re-compile.
+  -   If no syntax errors - compiler generates machine code in the
+      file a.out - looks terrible - executes nicely.
+  -   Program actually runs when a.out is typed.
+

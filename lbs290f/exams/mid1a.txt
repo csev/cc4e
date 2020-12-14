@@ -1,0 +1,96 @@
+
+LBS 290 - FORTRAN          MIDTERM EXAM I                    Spring 1992
+
+
+
+NAME: _________________________________________
+
+
+
+Signature: ________________________________________
+
+
+
+STUDENT NUMBER:  ________________________________
+
+
+There are 4 questions on this exam on 4 pages.  The first question is
+at the bottom of this page and is worth 10 points.  The rest of the questions
+are each worth 30 points.
+
+This exam is closed book, closed notes, no note card, no calculators,
+no cellular phone, no roomate to help.
+
+Keep your eyes on your own paper.  
+
+
+1.  Answer some questions about yourself
+
+
+    How many computer classes have you had at College other than the 
+    current class?
+
+
+
+    
+    How many computer classes have you had at High School other than the 
+    current class?
+
+
+
+
+    What other computer languages do you know?
+
+
+LBS290 Midterm I Page 2
+
+2.  This program will prompt the user for a homework percentage,
+    test percentage, and a program percentage.  The program will 
+    calculate and print the students overall grade and percentage
+    for the class.
+
+    The overall percentage is 30% programs, 50% tests and 20% homework.
+
+    Grades are assigned based on the following scale:
+
+     >0.90 4.0
+     >0.80 3.0
+     >0.70 2.0
+     <0.60 0.0
+
+
+
+LBS290 Midterm I Page 3
+
+3.  This program will print out a table of factorials from 1 through 10.
+    Remember that 3! = 3 * 2 * 1 = 6 and 5! = 5 * 4 * 3 * 2 * 1 = 120 etc.
+    This program must use 2 nested loops to compute the table.
+
+
+
+LBS290 Midterm I Page 4
+
+4.  This program will read an un-limited number of lines until end of file
+    is reached.  Each line will contain a single integer.  At the end of the
+    program the total of all of the numbers, count of the numbers, and the
+    average of the numbers is to be printed.  In addition the largest number
+    which was read should be printed.
+
+    Example output:
+  
+    $ a.out
+    Enter
+    2
+    Enter
+    6
+    Enter
+    3
+    Enter
+    4
+    Enter
+    (CTRL-D)
+    Largest number was 6
+    Total was 15
+    Count was 4
+    Average was 3.7
+

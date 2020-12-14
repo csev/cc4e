@@ -1,0 +1,69 @@
+
+LBS290F                     TEST 2                       Winter 1992
+
+Date:  01/24/92
+
+
+
+Name: _______________________________________________
+
+
+Student Number: _____________________________________
+
+1.  What will the following code print out?
+
+       INTEGER I
+       REAL X
+       X = 100.0001
+       I = 75
+       PRINT 100,I,X
+   100 FORMAT(1X,'I=',I4,3X,'X=',F6.2)
+
+
+     
+   __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ 
+
+   ^ Column 1
+
+
+2.  What will the following program print out?
+
+
+    INTEGER I
+    INTEGER J
+    REAL X
+
+    X = 0.0
+    DO 10 I=1,3
+      DO 20 J=1,5,2
+      PRINT *,I,J,X
+      X = X + (I * J)
+ 20  CONTINUE
+ 10 CONTINUE
+    PRINT *,'THE END'
+    PRINT *,X
+
+3.  Draw a flow chart for the following FORTRAN program:
+
+    INTEGER I,J
+    REAL X,Y
+    PRINT *,'ENTER I'
+    READ *,I
+    IF ( I .LT. 0 ) THEN
+      PRINT *,'I IS TOO LOW, SETTING I TO 10'
+      I = 1
+    ENDIF
+    X = 0.0
+    DO 10 J=1,I
+      X = X + J
+      IF (X.LE.10) THEN
+        PRINT *,J
+      ELSE
+        K = J
+      ENDIF
+      Y = J
+10  CONTINUE
+    PRINT *,X,Y
+    END
+   
+    

@@ -1,0 +1,21 @@
+*
+* Program quad - calculate the quadratic formula roots
+*
+* Logical error - precedence
+*
+* Written by - C. Severance 12Mar92
+*
+      REAL A,B,C,DET,ROOT1,ROOT2
+*
+      PRINT *,'Enter A,B,C -'
+      READ *,A,B,C
+*
+      DET = SQRT( B*B - 4 * A * C )
+      PRINT *,B,DET,A
+      ROOT1 = -1.0*B + DET /  ( 2 * A )
+      ROOT2 = -1.0*B - DET /  ( 2 * A )
+*
+      PRINT *,'ROOT1 = ',ROOT1
+      PRINT *,'ROOT2 = ',ROOT2
+*
+      END

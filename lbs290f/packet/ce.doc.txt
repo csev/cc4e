@@ -1,0 +1,112 @@
+From henrich Mon Mar 16 20:36:37 1992
+Received: by crs.cl.msu.edu (NeXT-1.0 (From Sendmail 5.52)/4.7)  id AA15549; Mon, 16 Mar 92 20:36:36 GMT-0500
+From: Chuck Henrich <henrich>
+Subject: no subject (file transmission)
+To: crs (Charles Severance)
+Date: Mon, 16 Mar 92 20:36:35 EST
+X-Mailer: ELM [version 2.3 PL0]
+Status: OR
+
+CE Text Editor v1.1a Beta                    (c)1991 Charles Henrich
+
+1.0 Introduction
+
+    Welcome to CE.  This editor was written with you in mind.  The
+    editor was written with one goal in mind, and that was to be very
+    very easy to use.  I think I have achieved this goal, and it is
+    hoped that you will be able to use this editor like an expert within
+    ten minutes of its first use.
+
+3.0 Getting Started
+
+    There are two ways to start the CE editor, the first is to just type
+    its name, and the second is to type its name as well as a file name,
+    like so:
+
+    ce assignment1.f 
+
+    If the file assignment1.c exists, it will be loaded into the editor, if
+    not, the editor will come up as if you had typed no name.
+    For a quick reference of all commands in CE, just type ESC then h.
+
+3.0 Commands in CE
+
+    How to save text, and exit CE 
+  
+        FKEY 1    Save text and exit immediatly
+        FKEY 2    Save text and resume editing
+        FKEY 5    Prompt for filename, then save text and exit.
+        FKEY 6    Exit CE _WITHOUT_ saving text.
+
+    How to move around text
+
+        Arrow Keys    Move Cursor around screen
+        Control F     Page forward through document, and beep on last page
+        Control B     Page backward through document
+        Control G     Goto a specific line number 
+        Control Z     Move cursor to beginning of line
+        Control X     Move cursor to middle of line
+        Control C     Move cursor to end of line
+
+    How to search for text in CE
+
+        Control R     Enter key words to search for
+
+    How to cut & paste text in CE
+
+        FKEY 8        Begin marking text.  Use up and down arrow keys
+                      to extend the marked region.
+        FKEY 10       Clear marked text.
+        FKEY 11       Copy marked text to current location.
+        FKEY 12       Move marked text to current location.
+
+    How to delete text
+
+        Control N     Delete marked text.
+        Control D     Delete current line.
+        Control W     Wipeout character under cursor
+          (DEL)       Wipeout character under cursor
+        Control E     Erase many characters under, and to the right of the
+                      cursor.
+
+    How to insert text
+
+        Control P     Insert blank line at current location
+        Control K     Insert many lines at current location
+        Control T     Toggle between INSERT/OVERWRITE mode
+
+    How to undelete text
+
+        Control A     Insert the last line deleted at current location
+
+    Misc. Commands
+
+        ESC h         A list of all commands in CE
+        Control Y     Read another file into current document, at current
+                      location
+        Control V     Display vital statistics on file.      
+                       (Number of lines, current line #, filename etc..)
+        Control L     Immediatly redisplay screen
+        Control U     Join the current line, and the next into one line
+        FKEY 4        Save current text, and run it through the C compiler
+
+4.0 Comments, Suggestions, Bug-Fixes
+
+    All comments and suggestions are welcome, to get them to me, just mail
+    them off to
+
+    henrich@crs.cl.msu.edu
+
+    and I will get back to you as soon as possible.  If you find any bugs with
+    the editor, by all means mail me *RIGHT-O-WAY* so I can fix them.  I have
+    been testing for quite a while now, but some bugs may still be lurking....
+    If you have any problems with the editor, first ask Charles Severance for
+    help then if that fails, send me email, and Ill see what I can do.
+
+    I hope you find this easy to use, as that was my original intention.
+
+    Charles Henrich
+    Michigan State University
+
+    henrich@crs.cl.msu.edu
+

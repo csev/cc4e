@@ -1,0 +1,23 @@
+LBS290                       DEBUGGING PROGRAMS
+
+There are a number of techniques wihch you can use to find errors in your
+program when it executes.  The best technique is to write clean well
+structured programs using good style and clear variable names.
+
+However the best programs can have small errors which are hard to find.
+An excellent techinque to find these errors is to add extra print statements
+to your program in the area which seems to have the problem.  This
+technique is called "debugging printouts".  Hopefully you will be able
+to narrow the possible locations of the problem to a single statement
+quite quickly.
+
+Another excellent technique for quickly developing programs is to start 
+with a simple subset of the program and get it working with debugging 
+printouts as necessary.  Test the simple subset of the program and once
+the initial part is working begin to add details slowly.  Carefully
+test each added feature and then you should be able to evolve your
+program to satisfy the complete set of requirements for the problem.
+
+It is much easier to get a 30 line program to work than a 200 line 
+program. Once the 30 line program works - it is quite easy to add 10
+lines and keep the program working.

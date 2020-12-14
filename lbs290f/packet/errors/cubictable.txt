@@ -1,0 +1,30 @@
+Script started Sun Mar 15 15:05:22 1992
+$ cat cubictable.f
+*
+* Program cubictable - print out the values for a cubic function
+*
+* Written by - Charles Severance 12Mar92
+*
+      REAL X,FUN
+*
+      DO X=-3.0,3.0,0.4
+*
+* Calculate the function
+*
+       FUN = (X ** 3) + 2 * (X ** 2) - X - 2.0
+       PRINT *,X,FUN
+      EMD DO
+      END
+$ fort cubictable.f
+File cubictable.f:
+    MAIN:
+	cubictable.f(14):	Syntax error: "left-hand-side" followed by "newline":
+	     	emddo
+	     	^
+
+	cubictable.f(15):	Syntax error: "END" followed by "left-hand-side":
+
+2 errors diagnosed in file cubictable.f
+
+$ 
+Script done Sun Mar 15 15:05:41 1992

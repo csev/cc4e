@@ -1,0 +1,65 @@
+
+LBS290F                     TEST 3                       Winter 1992
+
+Date:  01/31/92
+
+
+
+Name: _______________________________________________
+
+
+Student Number: _____________________________________
+
+(5 points)
+1.  What will the following code print out?
+
+      REAL A(10),X                                         zap contents:
+      INTEGER I,J                                                
+                                                            10            
+      OPEN(UNIT=1,FILE='zap',STATUS='OLD')                  12       
+                                                            9           
+      DO 10 I = 1,10                                        7       
+   10 READ(1,*)A(I)                                         8      
+                                                            3             
+      X = A(10)                                             16 
+      J = 10                                                5
+      DO 20 I=9,1,-1                                        10        
+      IF ( A(I).GT.X ) THEN                                 9               
+        X = A(I)                                            
+        J = I                                                
+      ENDIF
+   20 CONTINUE
+      PRINT *,'FIRST ',X,J
+
+      X = 0.0
+      DO 30 I=1,10
+      X = X + A(I)
+   30 CONTINUE
+      PRINT *,'SECOND ',X
+       
+
+(5 points)
+2.  What will the following program print out?
+
+
+    INTEGER I
+    INTEGER J
+
+    DO 10 I=1,3
+      PRINT *,'I start ',I
+      DO 20 J=1,5,2
+        PRINT *,I,J
+ 20   CONTINUE
+      PRINT *,'I end ',I
+ 10 CONTINUE
+
+3.  Write a program which will open a file called data1.  This file
+    will contain one number per line.  For each line in the file 
+    the  program should print out the number and the number squared.
+    Your program should read an unlimited number of lines from the file
+    until end-of-file is reached.
+
+    Example input:         Example output:
+
+    2                      2 4
+    6                      6 36

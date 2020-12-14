@@ -1,0 +1,18 @@
+LBS290F                                                     Spring 1992
+
+                        ASSIGNMENT 7 - Table of Factorials
+
+Due Date: April 17, 1992 11:59PM
+
+The purpose of this program is to print out a table of the factorials
+of the numbers from 1 to 20.  The factorial of a number is defined as
+the product f all numbers from 1 to the number.  The factorial of 4
+is 1 * 2 * 3 * 4 or 24.  The output of the program should look as
+follows:
+
+        NUMBER        FACTORIAL
+        ------        ---------
+          1              1
+          2              2
+          3              6
+          4             24

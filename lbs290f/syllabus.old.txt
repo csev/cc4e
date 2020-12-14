@@ -1,0 +1,230 @@
+Syllabus           LBS290F - FORTRAN with Applications        Spring 1992
+
+Course Description:  This "team taught" course is designed to teach 
+programming principles using the FORTRAN language and to provide experience
+with applications tailored to biology or calculus.
+
+Prerequisites: Section 2 - LBS140 or one term of college biology.  
+Section 3 - LBS 113 or concurrent enrollment.
+
+Instructors:
+Computer Science:  Charles Severance, Office E-190, Phone 353-1759.
+                   Office Hours: MW 6PM-7:30PM, Thurs 1:00-2:00
+
+Biology:           Hagerman, Office is W-36, 353-4763
+                  
+Calculus:          Simpson, Office is E-186, 336-1509
+
+Textbook: Structured FORTRAN 77 for Engineers and Scientists, Third 
+Edition, by D.M. Etter, Benjamin Cummings, 1990.  Suggested is Introducing
+UNIX System V, Morgan & McGilton, McGraw-Hill 1987.  There is a course packet
+from Kinkos.  The course packet contains required materials.
+
+
+The course is broken down into four basic sections:
+
+  Part I (4 weeks)      Problem analysis and programming in FORTRAN.
+                        Algorithms, control structures, simple data
+                        Structures and Input-Output.
+
+  Part II (2 weeks)     Application specific section (Biology/Calculus)
+
+  Part III (2 weeks)    More data structures and Input-Output.
+                        Functions and Subroutines.
+
+  Part IV (2 weeks)     Application Specific Section
+
+Parts I and III are taught by the computer science instructor as a common
+lecture to both sections in room C104.  Parts II and IV are taught as 
+separate sections by the biology (C104) and calculus (C103) instructors.  
+The computer science instructor will be available during parts II and 
+IV for assistance with the FORTRAN language and other computing questions.
+
+The grades for the class is broken down as follows:
+
+  Computer Science:
+  Programming Assignments                        20%
+  In-Class Tests (2)                             40%
+
+  Application Area (biology/calculus)            40%
+
+Turning in another person's assignment as your own is NOT allowed and 
+if a student turns in a copy of someone else's assignment both students 
+will receive a zero for that assignment.
+
+Final Grades will be computed based on the overall average as follows:
+    93%     4.0        83%    3.0         73%   2.0
+    88%     3.5        78%    2.5         Below 0.0
+
+LBS290F                     SCHEDULE                        Spring 1992
+
+------------------------ Week 1 -------------------------
+
+Apr 1              Syllabus - USING UNIX - using ce
+
+                   Read: Chapter 1
+
+Apr 3              What is a computer - What is a program?
+                   Program 0 - "Getting to know you" - Due
+    
+                   Read: Chapter 2 (skim formatted output)
+
+------------------------ Week 2 -------------------------
+
+Apr 6              Introduction to FORTRAN - Variables, Constants
+                   READ, PRINT, Assignment Statements
+                   Program 1 - "Read - Calculate - Print" Due
+
+Apr 8              Calculation, Operator Precedence, Expressions
+                   Program 2 - "More Calculations" - Due
+
+                   Read: Chapter 3
+
+Apr 10             What is an algorithm - Where do you find them?
+                   Conditional Constructs
+                   IF-THEN, IF-THEN-ELSE, IF-THEN-ELSEIF
+                   Program 3 - "More intelligent calculations" - Due
+
+------------------------ Week 3 -------------------------
+
+Apr 13             Looping Constructs
+                   DO-WHILE DO-LOOP, Nested DO LOOPS
+                   Program 4 - "Many intelligent calculations" - Due
+
+Apr 15             Looping Continued - Why we use loops 
+                   Programs with little - or - no input
+                   Program 5 - "Looking for roots" - Due
+
+                   Read: Chapter 4 (4-1 through 4-3)
+ 
+Apr 17             Programs with lots and lots of input
+                   Reading Data Files - Reading until End of File
+                   Program 6 - "Payroll Program" - Due
+
+                   Read: Chapter 1, formatted output and 4-5
+
+------------------------ Week 4 -------------------------
+
+Apr 20             Making the output line up - Using FORMAT statements
+                   Program 7 - "Pretty Payroll Program" - Due
+
+                   Read: 5-1 through 5-3
+
+Apr 22             One dimensional Arrays
+                   Program 8 - "Inventory Program" - Due
+
+Apr 24             Computer Science Test-I
+
+LBS290F                     SCHEDULE (continued)            Spring 1992
+
+
+------------------------ Week 5 (Apr 27-May 1) -------------------------
+
+                   Biology/Calculus
+
+------------------------ Week 6 (May 4 - May 8) -------------------------
+
+                   Biology/Calculus
+
+------------------------ Week 7 -------------------------
+
+                   Read: Chapter 5
+
+May 11             One dimensional arrays - sorting
+                   Program 8 - "Sorting" - Due
+
+                   Read: Chapter 6
+
+May 13             Two dimensional arrays 
+                   Program 9 - "Heat flow in a plate" - Due
+
+May 15             Subroutines
+                   Program 10 - "Yet another Payroll Program" - Due
+
+------------------------ Week 8 -------------------------
+
+May 18 *           Subroutines and Functions
+                   Program 11 - "Finding more roots" - Due
+
+May 20 *           Subroutines and Functions
+                   Program 12 - "Still more algebra" - Due
+
+May 22 *           Computer Science Test-II
+
+------------------------ Week 9 (May 25 - May 29) -------------------------
+
+                   Biology/Calculus
+
+------------------------ Week 10 (June 1 - June 5) -------------------------
+
+                   Biology/Calculus
+
+There is NO Final exam.
+
+
+LBS290F                  HANDING IN PROGRAMS
+
+Programs will be graded as follows:
+
+  20%   Documentation.  Comments are required for your name, program 
+        number, and student number.  You must have a general description
+        of your program at the beginning of the program.
+
+  20%   Style.  Good variable name, indenting, and the overall readability
+        of your program and its output.
+
+  60%   Correctness.  Your program must work and produce the correct output.
+        You must choose data so as to test the program completely.
+
+Programs are due at 11:59PM (Just before midnight) on the date indicated
+in the syllabus.   Programs are marked off by 10% per day for each day late.
+
+You are to hand in your programs from the computer science portion using 
+an electronic grading program.  
+
+The automatic grade program will return your grade to you via E-MAIL.  Make
+sure to check the returned message for any errors.
+
+To hand in a program, you must prepare the program and it must be syntax
+error free and working correctly.  Your program must have adequate comments. 
+The following comments must be in every program:
+
+  Program title
+  Program number
+  Your name
+  Date written
+  
+The following is an example program:
+
+*
+* This program converts degrees F to Celsius
+*
+* Program 1
+*
+* Author: Charles Severance
+* 
+* Written: 01/27/91
+*
+      REAL F,C
+      PRINT *,'ENTER DEGREES F -'
+      READ *,F
+      C = ( F - 32.0 ) * 5.0 / 9.0
+      PRINT *,'DEGREES IN CELSUIS - ',C
+      END
+
+To submit your program run the command lbs290-prog and enter the file
+name containing your program and program number when you are prompted.
+
+The following is an example:
+
+$ lbs290-prog
+
+Welcome to the program which grades LBS290 programs
+
+Enter file name containing program (i.e. file.f)-assn3.f
+Enter the program number-1
+Compiling program to check for syntax errors...
+Program compiled successfully.
+Submitting the program...
+Program 1 submitted - expect mail in 1 minute or less...
+$

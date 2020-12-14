@@ -1,0 +1,479 @@
+
+LBS290                  POSSIBLE PROGRAMMING PROBLEMS
+
+These are a set of programming problems which may be used as assignments
+or as exam questions for the course.
+
+
+   ----------------------------------------------------------------------
+
+The purpose of this program is to print out a table of the factorials
+of the numbers from 1 to 20.  The factorial of a number is defined as
+the product f all numbers from 1 to the number.  The factorial of 4
+is 1 * 2 * 3 * 4 or 24.  The output of the program should look as
+follows:
+
+        NUMBER        FACTORIAL
+        ------        ---------
+          1              1
+          2              2
+          3              6
+          4             24
+
+The purpose of this program is to repeatedly prompt the user for
+numbers.  For each number calculate the factorial of the number and
+print it out.  Use the program (or write another program) and find the
+largest number for which the factorial can be computed on the system.
+Add code to the program to check to see if the number is too large and
+print out a message rather than computing the factorial for numbers
+for which the factorial can be computed.  The program should terminate
+either when a negative number is entered or end of file.
+
+Example execution:
+
+   $ a.out
+   Welcome to the factorial program written by Jane Student
+
+   ENTER A NUMBER
+   4
+   The factorial of 4 is 24
+
+   ENTER A NUMBER
+   1000
+   The factorial of 1000 cannot be computed on this computer
+   Please select a smaller number.
+
+   ENTER A NUMBER
+   -1
+   Thank you for using the factorial program
+   $
+
+   ----------------------------------------------------------------------
+
+The purpose of this program is to print out all of the common factors
+of two numbers.  The common factors are those numbers which can be
+evenly divided into both of the umbers.  If the numbers have no common
+factors print out a message.  Terminate the program when a negative
+number is entered.  At the end of the program print the total number
+of pairs processed and the number of common factors found.
+
+Example execution:
+
+   $ a.out
+   Welcome to the common factors program written by - Arun Student
+
+   ENTER TWO NUMBERS
+   16,48
+   Common Factors of 16 and 48
+    2
+    4
+    8
+   16
+   The numbers 16 and 48 have 4 common factors
+
+   ENTER TWO NUMBERS
+   63,71
+   Common Factors of 63 and 71
+   These numbers have no common factors
+
+   ENTER TWO NUMBERS
+   -1,-1
+   Thank you for using the common factors program.
+   Pairs processed: 2
+   Factors found: 4
+   $
+
+
+   ----------------------------------------------------------------------
+
+The purpose of this program is to list the numbers from 1 to 50
+and determine if each number is prime or composite.  A composite
+number is a number which can be evenly divisible by another number.
+A prime number is one which cannot be evenly divided by any other
+number.  The program will print out the number of prime numbers and
+the number of composite numbers between 1 and 50.
+
+Example output:
+
+    NUMBER     TYPE
+    ------     ----
+        1      PRIME
+        2      PRIME
+        3      PRIME
+        4      COMPOSITE
+        5      PRIME
+
+    TOTAL PRIME NUMBERS: 14
+    TOTAL COMPOSITE NUMBERS: 36
+
+
+
+
+   ----------------------------------------------------------------------
+
+The purpose of this program is to list the numbers from 1 to 50
+and determine if each number is prime or composite.  A composite
+number is a number which can be evenly divisible by another number.
+A prime number is one which cannot be evenly divided by any other
+number.  The program will print out the number of prime numbers and
+the number of composite numbers between 1 and 50.  Write a function
+which will determine if a given number is prime.  The function should
+be integer.  It should return 0 for prime and 1 for composite. The
+function header would be as follows:
+
+     FUNCTION ISPRIME(N)
+     INTEGER ISPRIME,N
+
+The function call would be as follows:
+
+     IF ( ISPRIME(K).EQ.0 ) THEN
+        PRINT *,K,' is a prime number'
+     ELSE
+        PRINT *,K,' is a composite number'
+     ENDIF
+
+Example output:
+
+    NUMBER     TYPE
+    ------     ----
+        1      PRIME
+        2      PRIME
+        3      PRIME
+        4      COMPOSITE
+        5      PRIME
+
+    TOTAL PRIME NUMBERS: 14
+    TOTAL COMPOSITE NUMBERS: 36
+
+
+   ----------------------------------------------------------------------
+
+The purpose of this program is to print the fibonacci numbers from 1
+to 50.  The definition of the fibonacci number for a particular number
+is defined on the two previous fibonacci numbers.  Fibonacci numbers
+are defined as follows:
+
+     FIB(1) = 1
+     FIB(2) = 1
+     FIB(3) = FIB(2) + FIB(1) = 3
+     FIB(4) = FIB(3) + FIB(2) = 4
+     FIB(5) = FIB(4) + FIB(3) = 7
+
+Write a program which will print the fibonacci numbers from 1 to 20.
+
+Example output:
+
+     Fibonacci numbers from 1 to 20 - written by Hal Student
+
+     FIB(1) = 1
+     FIB(2) = 1
+     FIB(3) = 3
+     FIB(4) = 4
+     FIB(5) = 7
+
+
+   ----------------------------------------------------------------------
+
+Write a program which will print the value for the function Y = X ** 2
+in the range -2 <= X <= 2 at increments of 0.1.  Example output:
+
+      X VALUE       X ** 2
+      -------       ------
+        -2.0         4.00
+        -1.9         3.61
+
+
+   ----------------------------------------------------------------------
+
+Write a program which will print the value for the function
+
+           3      2
+      Y = X  + 2 X  - X  - 2
+
+in the range -3 <= X <=3 at increments of 0.1.
+
+
+   ----------------------------------------------------------------------
+
+
+Write a program which will evaluate the function
+
+           3      2
+      Y = X  + 2 X  - X  - 2
+
+in the range -3 <= X <=3 at increments of 0.1 and print the highest
+and lowest point of the function in that range.  Also print all the
+points where the absolute value of the function is less than 0.1.
+Do the same exercise with increment of 0.01 and 0.3.  Example output:
+
+     Function scanning program - writen by Hetal Student
+
+     Scanning function from -3.0 to 3.0 by 0.1
+
+     Close to zero, X=-1.0 Y=0.0
+     Close to zero, X=1.0 Y=0.0
+     Close to zero, X=2.0 Y=0.0
+
+     Highest point X=3.0 Y=29.0
+     Lowest point X=-1.3 Y=-17.0
+
+     Scanning function from -3.0 to 3.0 by 0.01
+
+     ...
+
+
+   ----------------------------------------------------------------------
+
+DATA PROCESSING
+
+Write a program which will print a table of compounded interest over
+10 years.  The program will prompt for a principal and interest rate.
+The program will compute compound interest for 10 years and print it
+out.  Example output:
+
+
+     $ a.out
+     Enter principal and interest rate
+     100,0.10
+
+     Initial principal=100.0
+     Interest rate=0.10 per period
+
+       NEW BALANCE  END OF PERIOD
+       -----------  -------------
+          110.00         1
+          121.00         2
+          133.10         3
+
+       ...
+
+
+   ----------------------------------------------------------------------
+
+Write a program which will compute how long it will take for a
+principal to double with compounded interest.  The program will prompt
+for an interest rate.  Example execution:
+
+   $ a.out
+   ENTER INTEREST RATE
+   0.06
+   AT 0.06 interest rate principal will double in 6.0 years
+   $
+
+
+   ----------------------------------------------------------------------
+
+Write a program to process payroll checks.  The input will consist of
+a list of records containing employee numbers, pay rates, and number
+of hours worked.  Compute the pay for each employee and print out a
+paycheck.  Taxes are withheld from eahc paycheck at a rate of 10%.
+At the end of the program print out the total gross pay, total taxes
+withheld, and total net pay.  Example execution:
+
+   $ a.out
+   Enter employee,rate,hours
+   1,5.0,40.0
+
+   Employee 1 Gross pay  200.00  Taxes  20.00  Net Pay  180.00
+
+   Enter employee,rate,hours
+   2,7.0,20.0
+
+   Employee 2 Gross pay  140.00  Taxes  14.00  Net Pay  126.00
+
+   Enter employee,rate,hours
+   (CTRL-D)
+
+   Total Gross: 340.00
+   Total Taxes:  34.00
+   Total Net:   306.00
+
+
+
+   ----------------------------------------------------------------------
+
+Do the same as the above giving time and a half for hours worked above
+40.
+
+   ----------------------------------------------------------------------
+
+
+Write a program which will read up to 100 numbers into an array, sort
+the numbers and print them back out.  Also print out the
+largest and smallest number in the list. Example execution:
+
+   $ a.out
+   Enter number of values to sort
+   5
+   Enter value 1
+   10
+   Enter value 2
+   6
+   Enter value 3
+   9
+   Enter value 4
+   2
+   Enter value 5
+   -1
+
+   Sorted values:
+
+   -1
+   2
+   6
+   9
+   10
+
+   Largest value: 10
+   Smallest value: -1
+   Thank you for using the number sorting program
+   $
+
+
+   ----------------------------------------------------------------------
+
+
+Write a program which will compute a student's final grade based on
+a percentage for programs, tests, and projects.  The grade is broken
+down as follows:
+
+       Programs    30%
+       Tests       45%
+       Projects    25%
+
+The program will prompt for the student number and percentage (out of
+100%) for each of the areas.  The program will compute an overall
+percentage for the course and assign a grade using the following
+scale:
+
+      Percentage   Grade
+
+      > 95.0        4.0
+      > 90.0        3.5
+      > 85.0        3.0
+      > 80.0        2.5
+      > 75.0        2.0
+      < 75.0        0.0
+
+Example run:
+
+    $ a.out
+    Enter student number
+    123456
+    Enter percentage for programs
+    0.95
+    Enter percentage for tests
+    0.70
+    Enter percentage for projects
+    0.85
+
+    Student number: 123456
+
+    Overall percentage: 0.8125
+    Final grade: 2.5
+    $
+
+
+   ----------------------------------------------------------------------
+
+
+Write a program which will read an unlimited number of student numbers
+and percentages.  Assign numeric grades as follows:
+
+      Percentage   Grade
+
+      > 95.0        4.0
+      > 90.0        3.5
+      > 85.0        3.0
+      > 80.0        2.5
+      > 75.0        2.0
+      < 75.0        0.0
+
+For each student print the student number, percentage and numeric
+grade.  At the end of the program print out the total number of
+students, mean of the percentages, the highest percentage, lowest
+percentage, and the mean course grade.
+
+Example output:
+
+    $ a.out
+      Welcome to the grading program - written by -  Mark Student
+
+      Enter number, percent
+      123456,94.9
+
+         123456         94.9          3.5
+
+      Enter number, percent
+      121111,69.0
+
+         121111         69.0          0.0
+
+      Enter number, percent
+      911121,84.1
+
+         911121         84.1          2.5
+
+      Enter number, percent
+      (CTRL-D)
+
+      Total number of students: 3
+      Average percentage: 81.73
+      High percentage: 94.9
+      Low percentage: 69.0
+      Average grade: 2.0
+      $
+
+
+
+   ----------------------------------------------------------------------
+
+
+Write a program which will read in up to 100 student numbers
+and grades.  Sort the grades into decending order (i.e.
+highest grade at the top). Calculate and print the mean and median of
+the grades.  Print the student grades out in sorted order.  Assign
+student grades as follows:
+
+      Percentage   Grade
+
+      > 95.0        4.0
+      > 90.0        3.5
+      > 85.0        3.0
+      > 80.0        2.5
+      > 75.0        2.0
+      < 75.0        0.0
+
+
+Also calculate and print the average grade assigned for the
+students.
+
+Example output:
+
+      $ a.out
+      Welcome to the grading program - written by -  Danida Student
+
+      Enter number of students
+      3
+      Enter number, percent
+      123456,94.9
+      Enter number, percent
+      121111,69.0
+      Enter number, percent
+      911121,84.1
+
+      Sorting students...
+
+      Mean: 81.73
+      Median: 84.1
+
+         STUDENT      PERCENTAGE     GRADE
+         -------      ----------     -----
+         123456         94.9          3.5
+         911121         84.1          2.5
+         121111         69.0          0.0
+
+      Average grade: 2.0
+      $
+
+

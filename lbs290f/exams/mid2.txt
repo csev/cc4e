@@ -1,0 +1,140 @@
+
+LBS290F                   MIDTERM EXAM - II                  Spring 1992
+
+
+
+
+NAME:   ____________________________________________________
+
+
+
+STUDENT NUMBER: ______________________
+
+
+
+SIGNATURE: _____________________________________________
+
+This exam is closed book, closed notes.  There are 4 questions on 5 pages.
+This exam is worth 20% of your final grade.  The questions are equally
+weighted.  Each is worth 25 points.
+
+
+1.    Assume the following variables:
+
+      Variable   Contents             Type
+      ---------------------------------------
+      EMPNO      Employee Number      INTEGER
+      RATE       Pay Rate             REAL
+      HOURS      Hours worked         REAL
+      GROSS      Gross Pay            REAL
+      TAXES      Taxes withheld       REAL
+      NETPAY     Net Pay              REAL
+
+      Write a print statement and format statement which would print the
+      values out in the following columns:
+
+           EMPNO      RATE     HOURS      GROSS     TAXES     NETPAY 
+
+
+          7       12.50     40.00      500.00    125.00    375.00
+   
+      123456789012345678901234567890123456789012345678901234567890
+      Columns  1         2         3         4         5         6
+
+      Your code must be able to handle real numbers up to 9999.99
+      and employee numbers up to 9999.  
+
+      NOTE: The answer to this question is NOT a whole program.  It is
+      just two FORTRAN statements.  You do not have to read or calculate
+      the values for this question - just print them out in the correct
+      format.
+
+2.    Complete the following program by writing the appropriate
+      SUBROUTINE to calculate gross pay and taxes given rate and hours.
+
+      Gross pay is calculated by multiplying the rate times the number
+      of hours allowing time and a half for worked over 40.
+
+      The tax table is as follows:
+
+          Gross Pay     Taxes
+         ---------------------
+         0 < pay < 200    - 0 - 
+         pay >= 200      50% of the amount over 200
+
+      For example the taxes on $250.00 would be $25.00.
+
+      Program:
+
+         REAL PAY,RATE,HOURS,GROSS,TAXES
+
+         PRINT *,'Enter the values-'
+         READ *,RATE,HOURS
+
+         CALL CALCPAY(GROSS,TAXES,RATE,HOURS)
+
+         NET = GROSS - TAXES
+         PRINT *,'Gross is   ',GROSS
+         PRINT *,'Taxes are  ',TAXES
+         PRINT *,'Net Pay is ',NET
+         END
+
+3.   READ this question carefully.  There are some small differences 
+     between this question and the previously assigned program.
+
+     The purpose of this program is to track an inventory of 
+     a small business.
+
+     The program will track up to 10 parts with part numbers ranging from 1 
+     to 10.
+
+     Each line read by the program is an inventory control record.  The first
+     number indicates the type of transaction - 1 Stock 2 Sell.
+     The second number is the part number.  The last number is the number
+     of parts bought or sold.
+
+     Example input:
+
+      1 2 20  Stocked 20 of part 2
+      2 4 5  Sold 5 of part 4
+
+     The program must check for an illegal transaction type.  The program 
+     must check for an error in the part number.  The program also
+     must also not allow product to be sold if there is none in stock.
+
+     The program will print the ending inventory when CTRL-D is entered.
+
+     Example execution:
+
+      $ a.out
+      Enter the inventory control record: 3 0 0 
+      
+      Error - Illegal transaction type 
+      
+      Enter the inventory control record: 1 20 90 
+      
+      Error - Part number 20 too large
+      
+      Enter the inventory control record: 2 4 5
+      
+      Error - current inventory of part 4 is 0, cannot sell 5
+      
+      Enter the inventory control record: 1 2 20
+      Enter the inventory control record: 1 4 10
+      Enter the inventory control record: 2 2 5
+      Enter the inventory control record: (CTRL-D)
+      
+        PART   COUNT
+        ----   -----
+          2      15
+          4      10
+      
+      Thank you for using the inventory program.
+
+      Space provided on the following page for the answer.
+
+Answer to question 3.
+
+4.    This program will read in exactly 10 numbers into an array, sort
+      the array so that the larger numbers are at the top (decending
+      order) and print out the sorted array.

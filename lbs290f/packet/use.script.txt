@@ -1,0 +1,65 @@
+LBS290                    GETTING HELP (USING SCRIPT)
+
+When you are having trouble getting your program to compile or execute
+you may need to get help from the instructor or teaching assistant.
+
+You can make best use of your time if you bring printed information
+showing exactly what is going wrong.  To do this you use a program
+called script which records everything that is being sent to the screen on 
+a file which can then be printed on the printer and carried to the 
+instructor or TA.
+
+To use script you simply type
+
+  script filename
+
+Then execute your program causing the problem. When finished, type exit
+to terminate the script and you can print out the file containing your session.
+With a little experimenting you will find this to be a useful tool.
+
+Example use of script:
+
+$ fort dowhile.f
+File dowhile.f:
+    MAIN:
+	dowhile.f(12):	Missing closing quote
+	dowhile.f(29):	Syntax error: "END" followed by "left-hand-side":
+
+2 errors diagnosed in file dowhile.f
+
+$ ce dowhile.f
+
+ ---- Try to figure out the errors ---
+
+$ fort dowhile.f
+File dowhile.f:
+    MAIN:
+	dowhile.f(12):	Missing closing quote
+	dowhile.f(29):	Syntax error: "END" followed by "left-hand-side":
+
+2 errors diagnosed in file dowhile.f
+
+ ---- Still unable to figure things out ---
+
+$ script scrfile      (Record everything in the file scrfile )
+Recording...
+Exit shell to stop
+Script started Sun Mar 15 16:50:38 1992
+$ fort dowhile.f
+File dowhile.f:
+    MAIN:
+	dowhile.f(12):	Missing closing quote
+	dowhile.f(29):	Syntax error: "END" followed by "left-hand-side":
+
+2 errors diagnosed in file dowhile.f
+
+$ exit
+Script done, file is scrfile
+$ ls
+dowhile.f
+scrfile
+$ spool scrfile
+$ spool dowhile.f
+$
+
+--- Go pick up output from the printer ---

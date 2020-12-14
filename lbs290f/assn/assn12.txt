@@ -1,0 +1,89 @@
+LBS290F                                                     Spring 1992
+
+                        ASSIGNMENT 12 - Heat Flow in a Plate
+
+Due Date: April 29, 1992 11:59 PM
+
+The purpose of this program is to simulate heat flow in a solid metal 
+plate.
+
+The plate to be simulated will be 10 centimeters by 10 centimeters.  
+The plate will start at 30.0 degrees Celsius across the whole plate.
+
+There will be heat and cold sources placed at various points on the plate 
+as follows:
+
+  Y-Position   X-Position       Temperature
+  ------------------------------------------
+    1cm           1cm            100.0 Celsius (Boiling)
+    6cm           3cm             10.0 Celsius
+    5cm           1cm            80.0 Celsius
+    10cm         10cm             0.0 Celsius
+
+We are to simulate the flow of heat from these sources as a function of
+time and calculate the temperature at all the positions of the plate for
+successive time steps.
+
+You will have to write 5 loops to perform the heat flow calculation.  One loop
+for each edge, and one for the central portion.  For the top edge of
+the plate each cell will be calculated by the average of the three
+neighboring cells.  For example, to compute the new temperature of 
+position  1cm, 3cm you would average the temperatures of the cells at
+1,2  1,3  1,4 and 2,3.
+
+Left
+Edge
+
+        -------------------------------------------------  Top Edge
+        | 1,1       | 1,2      | 1,3      | 1,4     |
+        |           |          |          |         |
+        |           |          |          |         |
+        |           |          |          |         |
+        - - - - - - - - - - - - - - - - - - - - - - - - -
+        | 2,1       | 2,2      | 2,3      | 2,4     |
+        |           |          |          |         |
+        |           |          |          |         |
+        |           |          |          |         |
+        - - - - - - - - - - - - - - - - - - - - - - - - -
+        | 3,1       | 3,2      | 3,3      | 3,4     |
+        |           |          |          |         |
+
+
+To compute the new temperature of one of the interior cells you 
+average the temperature of the cell and its four neighbors.
+
+In the following example cell 2,3 would be computed as the average of cells
+
+1,3 2,2 2,3 2,4 and 3,3
+
+
+Left
+Edge
+
+        -------------------------------------------------  Top Edge
+        | 1,1       | 1,2      | 1,3      | 1,4     |
+        |           |          |          |         |
+        |           |          |          |         |
+        |           |          |          |         |
+        - - - - - - - - - - - - - - - - - - - - - - - - -
+        | 2,1       | 2,2      | 2,3      | 2,4     |
+        |           |          |          |         |
+        |           |          |          |         |
+        |           |          |          |         |
+        - - - - - - - - - - - - - - - - - - - - - - - - -
+        | 3,1       | 3,2      | 3,3      | 3,4     |
+        |           |          |          |         |
+
+
+It is important NOT to change the temperature of the fixed temperature 
+cells specified above.
+
+Run the simulation for 10 time steps and print out the temperature at 
+the following positions on the plate after each time step.
+
+  Y-Position   X-Position
+  -----------------------
+    2cm           2cm
+    10cm          1cm
+    4cm           2cm
+

@@ -1,0 +1,66 @@
+
+LBS290F                                                     Spring 1992
+
+                 ASSIGNMENT 1 - Average three numbers
+
+Due Date: April 3, 1992 11:59PM
+
+The purpose of this program is to simply type in the following FORTRAN
+program and run the program.  Then turn the program in using the automated 
+grade program.  Use the handout titled "Using the FORTRAN Compiler" for 
+more details.
+
+*
+* average3 - Computes the average of three numbers
+*
+*  Written by: C. Severance 16Mar92
+*
+* Declare the variables:
+*
+      REAL A,B,C,TOT,AVE
+*
+* Welcome the user
+*
+      PRINT *,'Welcome to the automatic average program'
+*
+* Prompt the user for the three variables
+*
+      PRINT *,'Enter the first number -'
+      READ *,A
+      PRINT *,'Enter the second number -'
+      READ *,B
+      PRINT *,'Enter the third number -'
+      READ *,C
+*
+* Print the numbers out
+*
+      PRINT *,'The numbers are -',A,B,C
+*
+* Calculate the total and average
+*
+      TOT = A + B + C
+      AVE = TOT / 3.0
+*
+* Print the values out and end the program
+*
+      PRINT *,'Total - ',TOT
+      PRINT *,'Average - ',AVE
+      END
+
+---- Example Execution -----
+
+$ fort average3.f
+File average3.f:
+    MAIN:
+$ a.out
+Welcome to the automatic average program
+ Enter the first number -
+12
+ Enter the second number -
+20
+ Enter the third number -
+19
+ The numbers are -  1.200000000E+001   2.000000000E+001   1.900000000E+001 
+ Total -   5.100000000E+001 
+ Average -   1.700000000E+001 
+$ 

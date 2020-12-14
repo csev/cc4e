@@ -1,0 +1,45 @@
+LBS290F                                                     Spring 1992
+
+                        ASSIGNMENT 9 - Pretty Payroll Program
+
+Due Date: April 22, 1992 11:59PM
+
+This program is identical to program 8 except that the output format
+of the program must be very nicely lined up with headings and totals
+in the proper format.  Also add totals for hours and net pay.
+
+In addition, we will run the program using data stored in a file rather
+than from the terminal.
+
+Example execution typing in the data manually would be as follows:
+
+   $ a.out
+
+     EMPLOYEE    RATE     HOURS    GROSS    TAXES      NET PAY
+     --------    ----     -----    -----    -----      -------
+   1 7.00 40.00
+          1      7.00      40.0   280.00    40.00       240.00
+   3 5.00 45.00
+          3      5.00      45.0   237.50    18.75       218.75
+   1 7.00 20.00
+          1      7.00      20.0   140.00     0.00       140.00
+   (CTRL-D)
+     --------    ----     -----    -----    -----      -------
+     Totals               105.0   657.50    58.75       598.75
+   $
+
+This looks sort of strange because the input typed at the terminal
+is mixed with the program output. 
+
+To run the program with a data file as input, use the following command:
+
+   $ a.out < /usr/usr/crs/public/payroll.data
+
+     EMPLOYEE    RATE     HOURS    GROSS    TAXES      NET PAY
+     --------    ----     -----    -----    -----      -------
+          1      7.00      40.0   280.00    40.00       240.00
+          3      5.00      45.0   237.50    18.75       218.75
+          1      7.00      20.0   140.00     0.00       140.00
+     --------    ----     -----    -----    -----      -------
+     Totals               105.0   657.50    58.75       598.75
+   $

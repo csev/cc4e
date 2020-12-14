@@ -1,0 +1,7 @@
+April 3
+  *** Get some chalk ****
+  Hand out accounts
+  Discuss how compiler works
+  Move due date of assn1
+  What is a program - variables and instructions
+  Discuss average3

@@ -1,0 +1,37 @@
+
+LBS290F  Course Packet Table of Contents
+
+-  Tips for the course
+
+-  How to use ce - A text editor
+
+-  How to use vi - another text editor
+
+-  How to compile FORTRAN programs
+
+-  How to use script
+
+-  How to debug programs
+
+-  How to use MAIL on UNIX systems
+
+-  UNIX Tutorial
+
+-  Example Programs 
+
+-  Syntax errors and Logical Errors
+
+-  Previous Exams
+
+-  Additional problems
+
+
+
+
+
+To the Student:
+
+I hope you find this packet useful.  Please let me know if there is anything
+you can thing of which woud make the packet more useful.
+
+Charles Severance, March 1992

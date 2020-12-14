@@ -1,0 +1,34 @@
+LBS290F                                                     Spring 1992
+
+             ASSIGNMENT 14 - Finding Max, Min, Mean, Mean and Sort Again
+
+Due Date: May 6, 1992 11:59 PM
+
+The purpose of this program is to use functions and subroutines.
+
+In this program you will read in an array of up to 20 numbers.
+
+You will write and call the following functions:
+
+   REAL FUNCTION FINDMAX(ARR,N)
+   REAL ARR(20)
+   INTEGER N
+
+   REAL FUNCTION FINDMIN(ARR,N)
+   REAL ARR(20)
+   INTEGER N
+
+   REAL FUNCTION CALCMEAN(ARR,N)
+   REAL ARR(20)
+   INTEGER N
+
+   SUBROUTINE SORTNUM(ARR,N)
+   REAL ARR(20)
+   INTEGER N
+
+You must use these functions to calculate the max, min, and mean of 
+the numbers.    The main program should print out the max, mean, and
+min of the numbers.  After the main program has done these calculations
+it should call your subroutine to sort the numbers.  After the
+subroutine returns, the main program should print out the sorted 
+numbers.

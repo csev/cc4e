@@ -1,0 +1,122 @@
+LBS                       USING THE FORTRAN COMPILER
+
+A compiler is a program which converts your program written in a high
+level language like FORTRAN to machine language.  The machine language
+is what is actually executed on the computer.
+
+To run a FORTRAN program you must a text editor such as 'ce' to create
+a file containing your program.  The name of the file must end with '.f'.
+
+This file containing the source code cannot be executed - it must first
+be run through the compiler - to do this you use the command fort.
+
+The FORTRAN compiler (fort) checks the 'syntax' of the program before it 
+is actually compiled.  The syntax is the rules of the language.  For example
+in FORTRAN statements must begin in column 7.  (Except for labels and 
+continuation lines).  If you violate one of the rules of syntax you will get
+an error message from the compiler and no machine language will be generated.
+
+The fort command produces a file called 'a.out'.  This file contains 
+the machine language.  This file is unreadable by humans.  It contains the
+actual instructions executed by the Central Processing Unit.
+
+Once there are no syntax errors the machine language produced may not be what
+you want.   When the code you have written executes but gives incorrect
+results - that is called a logic error.
+
+The following is an example of writing a FORTRAN program on briggs1:
+
+$ stty erase
+$ ls
+$ ce test.f
+
+$ cat test.f
+*
+*  Test program - Show how the compiler works
+*
+*  Written by: Charles Severance 01/10/92
+*
+      integer age,newage
+*
+      print *,'Enter your age'
+ read *,age
+      print *,'Your old age is ',age
+* Compute the new age
+*
+      newage = age + 2
+      print *,'Your new age is ',age
+      end
+$ ls
+test.f
+$ fort test.f
+File test.f:
+    MAIN:
+        test.f(9):      Illegal character in label field
+        test.f(9):      Syntax error: "PRINT " followed by "*":
+                *, age
+                ^
+2 errors diagnosed in file test.f
+
+### "no implicit type for variable" means you did not declare it.
+
+$ ls
+test.f
+$ ce test.f
+
+$ cat test.f
+*
+*  Test program - Show how the compiler works
+*
+*  Written by: Charles Severance 01/10/92
+*
+      integer age,newage
+*
+      print *,'Enter your age'
+      read *,age
+      print *,'Your old age is ',age
+*
+* Compute the new age
+*
+      newage = age + 2
+      print *,'Your new age is ',age
+      end
+$ fort test.f
+File test.f:
+    MAIN:
+$ ls
+a.out
+test.f
+test.f.bak
+$ a.out
+ Enter your age
+10
+ Your old age is  10 
+ Your new age is  10 
+$ ce test.f
+
+$ cat test.f
+*
+*  Test program - Show how the compiler works
+*
+*  Written by: Charles Severance 01/10/92
+*
+      integer age,newage
+*
+      print *,'Enter your age'
+      read *,age
+      print *,'Your old age is ',age
+*
+* Compute the new age
+*
+      newage = age + 2
+      print *,'Your new age is ',newage
+      end
+$ fort test.f
+File test.f:
+    MAIN:
+$ a.out
+ Enter your age
+10
+ Your old age is  10 
+ Your new age is  12 
+$

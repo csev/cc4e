@@ -1,0 +1,200 @@
+Tue Feb 18 19:04:08 GMT-0500 1992
+
+TO: Paul Pendred
+FR: Charles Severance
+SU: Substitute Teaching
+
+Thanks for sub-teaching for my LBS 290F Section.
+
+The room is: C-104 Holmes
+
+The Time is 1:50-2:40
+
+I am moving my office hours and review session to Thursday evening...
+
+Office Hours: Thursday 6-8 
+Review session: Thursday 8-9
+
+Don't try to deal with grading problems - have them come to my office hours.
+
+They are working on two different programs - one with means and standard
+deviations - it should be easy for you to find bugs in those.  The other
+is a calculus program which does a newton-method for finding a polynomial
+through certain x,y points - it is pretty tricky - you might find it hard 
+to help the calculus students.
+
+
+
+2/19/92 
+
+OUTLINE
+
+Two Dimensional arrays
+
+
+Difference between a 2-D array and a 1-D array
+
+  Syntax
+    Declaration     REAL A(6,4)
+    Usage           A(2,2) = 25.3
+     - 2-D array references can be used anywhere a 1-D array 
+       reference can be used.
+      
+     Left hand side:   A(2,2) = X + 1
+     Right Hand side:  X = A(4,1) + A(1,3)
+     I/O:              PRINT *,A(2,3)
+
+    Statements like:   A = 0
+             and       A(1) = 0
+    are meaningless
+
+  Pictorial representation - first dimension is row and second dimension is
+  column.  - Draw a picture of a 1-D array and a 2-D array - point out some
+  elements - emphasize that each of the cells is like a variable.
+
+  Why do we use 2-D arrays?
+
+    - Sometimes we want several one-dimensional arrays
+    - Sometimes we want to represent some physical relationship using
+      a 2-D array.
+
+  Go over the example programs.
+
+
+Write a program which will read up 10 sets of 3 numbers - print the numbers
+out and along side each row, print the row total, and below each column 
+print the column total.
+
+Input:
+
+1 2 4
+2 2 5
+6 1 2
+8 8 2
+1 8 2
+8 2 6
+7 3 4
+1 9 3
+2 3 5
+7 4 0
+
+Program:
+
+      INTEGER DAT(10,3),ROWSUM(10),COLSUM(3)
+      INTEGER ROW,COL
+*
+      DO 10 ROW=1,10
+        READ *,DAT(ROW,1),DAT(ROW,2),DAT(ROW,3)
+  10  CONTINUE
+*
+* Compute the row sums
+*
+      DO 30 ROW = 1,10
+        ROWSUM(ROW) = 0
+        DO 20 COL=1,3
+          ROWSUM(ROW) = ROWSUM(ROW) + DAT(ROW,COL)
+20      CONTINUE
+30    CONTINUE
+*
+* Compute the column sums
+*
+      DO 50 COL=1,3
+        COLSUM(COL) = 0
+        DO 40 ROW=1,10
+          COLSUM(COL) = COLSUM(COL) + DAT(ROW,COL)
+   40   CONTINUE
+   50 CONTINUE
+*
+      DO 70 ROW=1,10
+        PRINT 5,DAT(ROW,1),DAT(ROW,2),DAT(ROW,3),ROWSUM(ROW)
+70    CONTINUE
+      PRINT 5,COLSUM(1),COLSUM(2),COLSUM(3)
+5     FORMAT(1X,I5,1X,I5,1X,I5,1X,I5)
+      END
+
+Output:
+     1     2     4     7
+     2     2     5     9
+     6     1     2     9
+     8     8     2    18
+     1     8     2    11
+     8     2     6    16
+     7     3     4    14
+     1     9     3    13
+     2     3     5    10
+     7     4     0    11
+    43    42    33
+
+Write a program to simulate heat flow in a plate.  The plate is 100 cm by
+100 cm.  The whole plate starts at 30 degrees celsius.  At position X=20,Y=10
+there is a 100 degree celsius candle.  At position X=60, Y=40 there is
+a 0-degree celsius ice cube.  We can simulate the heat flow in a single time
+step by taking the average of all of the neighboring cells.  All of the edges
+of the plate stay at 30 degrees. Find the heat at point X=50,Y=40 after 
+30 time steps.   
+
+No input
+
+Program:
+
+      REAL PLATE(100,100)
+      INTEGER X,Y
+      INTEGER TS
+*
+      DO 10 X=1,100
+        DO 10 Y=1,100
+          PLATE(X,Y) = 30.0
+   10 CONTINUE
+*
+      PLATE(20,10) = 100.0
+      PLATE(60,40) = 0.0
+*
+      DO 50 TS=1,30
+        DO 40 X=2,98
+          DO 30 Y=2,98
+             IF ( X.EQ.20.AND.Y.EQ.10 ) THEN
+                PLATE(X,Y) = 100.0
+             ELSE IF ( X.EQ.60.AND.Y.EQ.40 ) THEN
+                PLATE(X,Y) = 0.0
+             ELSE
+                PLATE(X,Y) = ( PLATE(X,Y) 
+     !              + PLATE(X-1,Y-1) + PLATE(X-1,Y) + PLATE(X-1,Y+1)
+     !              + PLATE(X,Y-1) + PLATE(X,Y) + PLATE(X,Y+1)
+     !              + PLATE(X+1,Y-1) + PLATE(X+1,Y) + PLATE(X+1,Y+1) ) 
+     !              /10.0
+             ENDIF
+30        CONTINUE
+40      CONTINUE
+50    CONTINUE
+*
+      PRINT *,'HEAT AT X=50, Y=40 AFTER 30 TIME STEPS ',PLATE(50,40)
+      END
+
+Output:
+
+ HEAT AT X=50, Y=40 AFTER 30 TIME STEPS   2.974749756E+001 
+
+
+Two Dimensional arrays
+
+  Syntax
+    Declaration     REAL A(6,4)
+    Usage           
+     Left hand side:   A(2,2) = X + 1
+     Right Hand side:  X = A(4,1) + A(1,3)
+     I/O:              PRINT *,A(2,3)
+
+  Statements like:   A = 0
+           and       A(1) = 0
+  are meaningless (syntax errors)
+
+  First dimension is row and second dimension is
+  column.
+
+  Why do we use 2-D arrays?
+
+    - Sometimes we want several 
+      one-dimensional arrays
+    - Sometimes we want to represent 
+      some physical relationship using
+      a 2-D array.

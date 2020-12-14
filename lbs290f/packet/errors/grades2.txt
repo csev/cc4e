@@ -1,0 +1,83 @@
+Script started Sun Mar 15 15:07:52 1992
+$ cat grades2.f
+*
+* grades - Calculate student grades based on partial scores
+*
+* Logical error 
+*
+* The final grade is 30% programs, 50% tests and 20% homework
+*
+* Grades are assigned based on the following scale:
+*
+*    >0.90 4.0
+*    >0.80 3.0
+*    >0.70 2.0
+*    <0.60 0.0
+*
+*  Written by: C. Severance 16Mar92
+*
+* Declare the variables:
+*
+      REAL PPER,TPER,HPER,TOTAL
+*
+* Prompt the user for the three percentages
+*
+      PRINT *,'Enter the program percentage -'
+      READ *,QPER
+      PRINT *,'Enter the test percentage -'
+      READ *,TPER
+      PRINT *,'Enter the homework percentage -'
+      READ *,HPER
+*
+* Calculate the total percentage
+*
+      TOTAL = PPER * 0.30 + TPER * 0.50 + HPER * 0.20
+      PRINT *,'Total percentage is ', TOTAL
+*
+* Determine the final grade
+*
+      IF ( TOTAL .GE. 0.90 ) THEN
+        PRINT *,'Grade is 4.0'
+      ELSE IF ( TOTAL .GE. 0.80 ) THEN
+        PRINT *,'Grade is 3.0'
+      ELSE IF ( TOTAL .GE. 0.70 ) THEN
+        PRINT *,'Grade is 2.0'
+      ELSE
+        PRINT *,'Grade is 0.0'
+      ENDIF
+      END
+
+$ fort grades2.f
+File grades2.f:
+    MAIN:
+$ a.out
+ Enter the program percentage -
+0.70
+ Enter the test percentage -
+0.70
+ Enter the homework percentage -
+0.70
+ Total percentage is   4.900000095E-001 
+ Grade is 0.0
+$ a.out
+ Enter the program percentage -
+0.70
+ Enter the test percentage -
+0.00
+ Enter the homework percentage -
+0.00
+ Total percentage is   0.000000000E+000 
+ Grade is 0.0
+$ a.out
+ Enter the program percentage -
+0.00
+ Enter the test percentage -
+0.70
+ Enter the homework percentage -
+0.00
+ Total percentage is   3.499999940E-001 
+ Grade is 0.0
+$ 
+^F: not found
+$ 
+Script done Sun Mar 15 15:09:36 1992

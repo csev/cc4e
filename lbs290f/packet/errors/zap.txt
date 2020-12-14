@@ -1,0 +1,6 @@
+lpr -Plw301 cubictable
+lpr -Plw301 dowhile
+lpr -Plw301 grades
+lpr -Plw301 grades2
+lpr -Plw301 quad
+lpr -Plw301 quad1

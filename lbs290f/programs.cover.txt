@@ -1,0 +1,99 @@
+LBS290F                  PROGRAMMING ASSIGNMENTS
+
+This describes the policies and procedures for programming assignments 
+for LBS290.
+
+GENERAL POLICIES
+
+Programs will be graded as follows:
+
+  20%   Documentation.  Comments are required for your name, program 
+        number, and student number.  You must have a general description
+        of your program at the beginning of the program.  Each major
+        section of code must have descriptive comments.  See the example
+        programs in the course packet for examples of adequate documentation.
+
+  20%   Style.  Good variable name, indenting, and the overall readability
+        of your program and its output.
+
+  60%   Correctness.  Your program must work and produce the correct output.
+        You must choose data so as to test the program completely.
+
+Programs are due at 11:59PM (Just before midnight) on the date indicated
+in programming assignment.   Programs are marked off by 10% per day for 
+each day late.  
+
+PROGRAMS FOR COMPUTER SCIENCE PORTION OF THE CLASS
+
+There will be a total of 14 programming assignments for the first 6
+weeks of the class.  These assignments will be worth 10 points each.
+Expect to spend 3 hours on each assignment until you get the hang
+of programming.
+
+An extra-credit point awarded for completely correct programs handed in at 
+least 2 days early causing these programs to have a possible maximum 
+possible point value of 11 points.
+
+The percentage for the computer science programming assignments will be
+calculated based on 120 points.   
+
+Given that there will be a possible of 154 points on programming assignments 
+(assuming all correct and early) there will be no exceptions on deadlines 
+except in the case of a medical situation lasting more than one day.
+
+The computer system which is used for this course is expected to have 
+load problems and to crash at times.  This is built into the lenient grading 
+of the programming assignments so unless there is an outage of MORE than 
+24 hours continuously, the due dates for programs will NOT be adjusted.
+
+The simple solution to this is to get ahead and stay ahead on the 
+programming assignments.  This will make sure that you are prepared for a
+very busy system or a system crash or an important midterm in another class.
+
+You are to hand in your programs from the computer science portion using 
+an electronic grading program.  
+
+The automatic grade program will return your grade to you via E-MAIL.  Make
+sure to check the returned message for any errors.
+
+LBS290F                  PROGRAMMING ASSIGNMENTS (continued)
+
+
+To hand in a program, you must prepare the program and it must be syntax
+error free and working correctly.  Your program must have adequate comments. 
+The following comments must be in every program:
+
+  Program title
+  Program number
+  Your name
+  Date written
+  
+To submit your program run the command lbs290-prog and enter the file
+name containing your program and program number when you are prompted.
+
+The following is an example:
+
+$ lbs290-prog
+
+Welcome to the program which grades LBS290 programs
+
+Enter file name containing program (i.e. file.f)-assn3.f
+Enter the program number-1
+Compiling program to check for syntax errors...
+Program compiled successfully.
+Submitting the program...
+Program 1 submitted - expect mail in 1 minute or less...
+$
+
+THE APPLICATION PORTION OF THE CLASS
+
+The biology/calculus programming assignments will be handed out by the
+instructors during that portion of the course.
+
+Each of these assignments will be graded on a 20 point scale.  Again,
+late points are charged at 10% per day.
+
+The programming assignments for the biology/calculus assignments 
+are to be handed in on paper with associated graphs, etc.  The 
+biology/calculus assignments are NOT to be turned in to
+the automatic grading program.

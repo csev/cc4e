@@ -1,0 +1,104 @@
+LBS                       vi Command Reference                       CPS
+
+Your terminal type (e.g., vt100) must be set correctly for vi to work.
+
+When vi is in command mode, what you type is interpreted as commands to
+vi. Some vi commands (a, i, c, et cetera) place vi in insert mode. In
+insert mode, what you type goes in the buffer. Pressing ESC ends insert
+mode and places vi in command mode. Most commands take a leading number
+as a repetition factor, e.g., "5dd" deletes five lines.
+
+:w          Save buffer changes in the file you are editing.
+:wq         Exit and save buffer changes in the file you are editing.
+:q!         Exit without saving changes (since the last :w) in the file.
+:sh         Start a sub-shell. Ctrl-D to return to the editor.
+
+:r file     Insert file into buffer following current line.
+:r !cmd     Insert output of cmd into buffer follwing current line,
+            e.g., ":r !date" inserts a line with the date and time.
+
+:m,nw file  Write lines m through n to file (n and m are numbers).
+
+Ctrl-G      Show filename, current line number, total lines in file.
+nG          Go to line n. "G" alone goes to end of file.
+
+h           Move cursor left one character.
+j           Move cursor down one line.
+k           Move cursor up one line.
+l           Move cursor right one character (space bar does this also).
+
+0           Move cursor to start of current line (zero).
+$           Move cursor to end of current line.
+b           Move cursor to start of previous word.
+e           Move cursor to end of next word.
+w           Move cursor to start of next word.
+
+i           Enter insert mode before cursor.
+a           Enter insert mode after cursor.
+o           Enter insert mode on new line below current line (litle oh).
+O           Enter insert mode on new line above current line (big oh).
+
+x           Delete character under cursor.
+dd          Delete line.
+dw          Delete word.
+D           Delete to end of line.
+
+u           Undo last command. "U" restores line to original state.
+.           Repeat last command that changes text.
+
+fc          Search forward in line for character c.
+Fc          Search backward in line for character c.
+
+/str        Find str (search for a string within the file).
+n           Repeat last "/" in the forward direction.
+N           Repeat last "/" in the backward direction.
+J           Join next line to current line.
+
+yy          Yank (copy) line into special buffer.
+nyy         Yank n lines into special buffer.
+p           Copy yanked line(s) after cursor.
+P           Copy yanked line(s) before cursor.
+            Note: text deleted with the "x", "dd", "dw", or "D" commands
+             may be retrieved with the "p" and "P" commands.
+
+rc          Replace the character under the cursor with the character c.
+s           Replace the character under the cursor with all the text typed
+	     until an ESC is typed.
+cw          Replace word with all the text typed until ESC.
+C           Replace to end of lien with all the text typed until ESC.
+R           Replace characters until an ESC is typed.
+
+:n,ms/str1/str2/opt
+            Search from n to m for str1. Replace str1 with str2. If opt
+             is g, all occurences of str1 within range of the search are
+             replaced. If opt is c, you are queried to confirm the change
+             (y to change). If opt is p, changes are displayed.
+
+&           Repeat last "s" command.
+
+:g/str/cmd  Run cmd on all lines in the file that contain str. For
+             example, ":g/wrongo/dd" deletes all lines that contain the
+             string "wrongo".
+
+:v/str/cmd  Run cmd on all lines that do not contain the string str.
+
+:g/str1/s/str2/str3/opt
+            For all lines containing str1, replace str2 with str3. Same
+             options as "s" command. If str2 is null, the value of str1
+             is used, e.g., :g/str1/s//str3/g replaces all instances of
+             str1 with str3 in entire file.
+
+            In search commands, the string searched for may contain
+             general regular expressions (see UNIX manual entries for the
+             ed and sed editors for full details). A few useful
+             constructs are:
+
+            ^str        str at beginning of line, so g/^/s//   / inserts
+                        three spaces at start of every line in the file.
+            str$        str at end of line.
+            .           wildcard for any character.
+            *           wildcard for any string.
+
+:l          Display control characters in current line.
+
+ -- lees, Thu Jan 16 15:12:04 EST 1992

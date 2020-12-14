@@ -1,0 +1,62 @@
+LBS290F                                                     Spring 1992
+
+                        ASSIGNMENT 4 - A Smarter Quadratic
+
+Due Date: April 10, 1992 11:59PM
+
+The purpose of this program is to compute the roots of a polynomial
+using the quadratic formula.
+
+This formula solves for the value of x in a polynomial of the form:
+     
+           2
+       a x    +   b  x   +  c  = 0
+
+ 
+is:
+
+                     2
+         - b  +     b   - 4ac
+x  =    --------------------- 
+                  2a
+
+and
+
+                     2
+         - b  -     b   - 4ac
+x  =    --------------------- 
+                  2a
+
+Write a program which prompts for the the values of a, b, and c.
+and calculate the roots of a quadratic formula.
+
+The program must check to see that the determinant:
+
+                   2
+  determinant  =  b  - 4ac
+
+Is greater than or equal zero before calculating the square root.  This will
+keep the program from getting a domain error.
+
+When the program has a negative determinant, it should print out:
+
+Negative determinant - no roots found
+
+In this program it IS wrong to blow up with a domain error.
+
+Example executions:
+
+  $ a.out
+  Enter the value for a: 1.0
+  Enter the value for b: -3.0
+  Enter the value for c: 2.0
+
+  First root: 2.0
+  Second root: 1.0
+
+  $ a.out
+  Enter the value for a: 1.0
+  Enter the value for b: 2.0
+  Enter the value for c: 8.0
+
+  Negative determinant - no roots found

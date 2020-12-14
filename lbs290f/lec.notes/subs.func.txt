@@ -1,0 +1,102 @@
+
+2/19/92 
+
+OUTLINE
+
+Subroutines and Functions
+
+Purposes
+
+Write code once
+Reduced size of code
+Increased reliability
+Improve readability
+
+
+Write a program which repeatedly prompts the user for two sides of
+a right triangle.  Terminate the program when the user has entered zeros
+for the sides of the triangles.  Write a subroutine which computes the
+hypotenuse of the triangle.  In the main program print out the hypotenuse.
+
+      REAL A,B,H
+*
+      PRINT *,'Enter 2 sides of a triangle'
+      READ *,A,B
+*
+   10 IF ( A.GT.0.AND.B.GT.0 ) THEN
+        CALL HYP(H,A,B)
+        PRINT *,'Hypotenuse is ',H
+*
+        PRINT *,'Enter 2 sides of a triangle'
+        READ *,A,B
+        GOTO 10 
+      ENDIF
+      END
+      SUBROUTINE HYP(Q,X,Y)
+      REAL Q,X,Y
+      Q = SQRT(X**2+Y**2)
+      RETURN
+      END
+
+Execution:
+
+$ a.out
+ Enter 2 sides of a triangle
+3 4
+ Hypotenuse is   5.00000000 
+ Enter 2 sides of a triangle
+10 20 
+ Hypotenuse is   2.236067963E+001 
+ Enter 2 sides of a triangle
+16 12
+ Hypotenuse is   2.561249733E+001 
+ Enter 2 sides of a triangle
+0,0
+$ 
+
+Write the same program as before using a function instead of a subroutine.
+
+      REAL A,B,H
+      REAL HYP
+*     
+      PRINT *,'Enter 2 sides of a triangle'
+      READ *,A,B
+*
+   10 IF ( A.GT.0.AND.B.GT.0 ) THEN
+        H = HYP(A,B)
+        PRINT *,'Hypotenuse is ',H
+*
+        PRINT *,'Enter 2 sides of a triangle'
+        READ *,A,B
+        GOTO 10 
+      ENDIF
+      END
+      FUNCTION HYP(X,Y)
+      REAL HYP,X,Y
+      HYP = SQRT(X**2+Y**2)
+      RETURN
+      END
+
+Write the same program using a statement function.
+
+
+      REAL A,B,H
+      REAL HYP
+*
+      HYP(X,Y) = SQRT(X**2+Y**2)
+*     
+      PRINT *,'Enter 2 sides of a triangle'
+      READ *,A,B
+*
+   10 IF ( A.GT.0.AND.B.GT.0 ) THEN
+        H = HYP(A,B)
+        PRINT *,'Hypotenuse is ',H
+*
+        PRINT *,'Enter 2 sides of a triangle'
+        READ *,A,B
+        GOTO 10 
+      ENDIF
+      END
+
+All of these three implementations will produce exactly the same results.
+

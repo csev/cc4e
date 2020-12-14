@@ -1,0 +1,49 @@
+LBS290F                                                     Spring 1992
+
+                        ASSIGNMENT 8 - Payroll Program
+
+Due Date: April 20, 1992 11:59PM
+
+The purpose of this program is to implement a simple payroll for 
+a small company.  The input records consist of an employee number
+rate, and number of hours.  The following is an example record:
+
+  1 7.30 40.0
+
+The program will calculate the pay for each employee, allowing time 
+and a half for worked over 40.
+
+The program will also calculate federal taxes for the person.  The tax table
+is as follows:
+
+    Gross Pay     Taxes
+   ---------------------
+   0 < pay < 200    - 0 - 
+   pay >= 200      50% of the amount over 200
+
+For example the taxes on $250.00 would be $25.00.
+
+As each record is read, print out the employee, rate, gross pay, taxes,
+and net pay.
+
+Use end-of-file to terminate the program.
+
+At the end of the program, print out the total gross pay and total 
+taxes withheld for the year.
+
+Example execution:
+
+$ a.out
+Enter: 1 7.00 40.00
+Emp=1 Rate=7.00 Hours=40.0 Gross=280.00 Taxes=40.00 Net=240.00
+Enter: 3 5.00 45.00
+Emp=3 Rate=5.00 Hours=45.0 Gross=237.50 Taxes=18.75 Net=218.75
+Enter: 1 7.00 20.00
+Emp=1 Rate=7.00 Hours=20.0 Gross=140.00 Taxes=0.00 Net=140.00
+Enter: (CTRL-D)
+
+Year End Summary
+
+Total Gross Pay: 657.50
+Total Taxes: 58.75
+$

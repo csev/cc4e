@@ -1,0 +1,34 @@
+
+LBS290F                                                     Spring 1992
+
+                 ASSIGNMENT 2 - Speed Conversion
+
+Due Date: April 6, 1992 11:59PM
+
+The purpose of this program is to prompt for a number of miles per hour,
+convert it to feet per second, and print out the converted speed in
+feet per second.
+
+Useful numbers:
+
+  5280  feet per mile
+  3600  seconds per hour
+
+One technique might be to convert from miles per hour to feet per hour
+and then convert from feet per hour to feet per second.
+
+
+Example execution:
+
+   $ a.out
+   Welcome to the speed conversion program
+   This program was written by: (Your name goes here)
+   Enter speed in miles per hour - 60.0
+   Converting from miles per hour to feet per second
+   Speed is 8.800000000E+001 feet per second
+   Thank you for using the speed conversion program
+   $
+
+The output of your program must look EXACTLY the same as the above 
+program.  Put in your own name where indicated.
+

@@ -1,0 +1,62 @@
+Syllabus           LBS290F - FORTRAN with Applications        Spring 1992
+
+Course Description:  This "team taught" course is designed to teach 
+programming principles using the FORTRAN language and to provide experience
+with applications tailored to biology or calculus.
+
+Prerequisites: Section 2 - LBS140 or one term of college biology.  
+Section 3 - LBS 113 or concurrent enrollment.
+
+Instructors:
+Computer Science:  Charles Severance, Office E-190, Phone 353-1759.
+                   Office Hours: MW 6PM-7:30PM, Thurs 1:00-2:00
+
+Biology:           Hagerman, Office is W-36, 353-4763
+                  
+Calculus:          Hamelink, Office is E-184, 353-9526
+
+Teaching Assistant: Mikala Keating, Office Hours Tue, Thu 6-8PM
+
+Textbook: Structured FORTRAN 77 for Engineers and Scientists, Third 
+Edition, by D.M. Etter, Benjamin Cummings, 1990.  Suggested is Introducing
+UNIX System V, Morgan & McGilton, McGraw-Hill 1987.  There is a course packet
+from Kinkos.  The course packet contains required materials.  The couse packet
+number is 84.
+
+The course is broken down into two basic sections:
+
+  Part I (6 weeks)      Problem analysis and programming in FORTRAN.
+                        Algorithms, control structures, simple data
+                        Structures and Input-Output.
+                        Functions and Subroutines.
+
+  Part II (4 weeks)     Application specific section (Biology/Calculus)
+
+Part I is taught by the computer science instructor as a common
+lecture to both sections in room C104.  Part II is taught as 
+separate sections by the biology (C104) and calculus (C103) instructors.  
+The computer science instructor will be available during part II and 
+IV for assistance with the FORTRAN language and other computing questions.
+
+The final grade for the class is broken down as follows:
+
+  Computer Science:
+  Programming Assignments                        20%
+  In Class Test I                                20%
+  In Class Test II                               20%
+
+  Application Area:
+  Programming Assignments                        20%
+  In Class Tests                                 20%
+
+Make up tests will only be scheduled with verified medical excuses. 
+Requests for make-up tests must be submitted in writing with a Physician's
+excuse.
+
+Turning in another person's assignment as your own is NOT allowed and 
+if a student turns in a copy or slightly modified copy of someone 
+else's assignment both students will receive a zero for that assignment.
+
+Final Grades will be computed based on the overall average as follows:
+    93%     4.0        83%    3.0         73%   2.0
+    88%     3.5        78%    2.5         Below 0.0

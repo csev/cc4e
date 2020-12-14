@@ -1,0 +1,52 @@
+*
+* average3 - Computes the average of three numbers
+*
+*  Written by: C. Severance 16Mar92
+*
+* Declare the variables:
+*
+      REAL A B,C
+      REEL TOT,AVE
+*
+* Prompt the user for the three variables
+*
+      PRINT *,'Enter the first number -'
+      READ *,A
+      PRINT *,'Enter the second number -'
+      READ *,B
+      PRINT *,'Enter the third number -'
+      READ *,C
+*
+* Print the numbers out
+*
+     PRINT *,'The numbers are -',A,B,C
+*
+* Calculate the total and average
+*
+      TOT = A + B + C
+      AVE = TOT / 3.0
+*
+* Print the values out and end the program
+*
+      PRINT *,'Total -  ,TOT
+      PRINT *,'Average - ',AVE
+      END
+$ fort average3.f
+File average3.f:
+    MAIN:
+	average3.f(12):	Syntax error: "left-hand-side" followed by ", ":
+	     	reeltot, ave
+	     	       ^
+
+	average3.f(25):	Syntax error: "*" followed by ", ":
+	     	READ *, crint*, 'The numbers are -', a, b, c
+	     	              ^
+
+	average3.f(31):	Missing closing quote
+	average3.f(31):	2 appearances of '=' control in a print statement
+	average3.f(31):	2 appearances of '=' control in a print statement
+	average3.f(33): warning:	Local variable ab not used
+
+5 errors diagnosed in file average3.f
+
+$ 

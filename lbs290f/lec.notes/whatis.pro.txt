@@ -1,0 +1,181 @@
+LBS290                WHAT IS A PROGRAM - Lecture Notes
+
+What is a program?
+-  Executed instructions/series of steps - program instructions are done
+   in a specific order.
+-  Variables which are manipulated by the instructions
+
+What is an instruction?
+-  A specific step with an action to be taken
+-  A command
+-  An order
+-  A demand
+i.e. "Go to the grocery store" is an example instruction.
+
+  Go to the grocery store
+  Buy bread
+  Buy milk
+  Pay the Cashier
+  Go Home
+
+This is a program - it has a series of steps each of which has an
+action to be taken.  It is "executed" in the order of the steps as
+exactly as they are written down. No later step starts until the
+preceeding step finishes.
+
+What is a variable?
+-  A variable is a "cubbyhole" or a place you can put things and
+   retrieve them back later.
+-  A variable has a label or name
+
+The following is a "program" with three variables - the variables are
+chalkboards - only ONE number can be on the board at a time - when a
+new value is placed on a board the previous one is erased.
+
+  You have 3 chalkboards labelled "A" "B" and "C"
+  Write 12 on board A
+  Write 7 on board B
+  Write 6 on board B
+  Write 5 on board C
+  Look at board B, add 5 to the number and store the sum on board C
+  Look at board A, look at board C, add the numbers and store the result
+    on board B
+  Tell me the contents of board B
+
+Enough about chalkboards - What is a FORTRAN program?
+
+This chalkboard example is the same as the following FORTRAN program:
+
+      REAL A,B,C
+      A = 12
+      B = 7
+      B = 6
+      C = 5
+      C = B + 5
+      B = A + C
+      PRINT *,B
+      END
+
+In this FORTRAN program there are three kinds of statements.  The
+first type is a variable declaration statement.  These come at the
+beginning of a program and determine the names of the variables the
+program will use.  REAL A,B,C is an example of this type of statement.
+
+The next type of statement is the ASSIGNMENT statement - it is
+important to note that the FORTRAN assignment statement
+
+      x = y
+
+is quite different from the Algebraic expression
+
+      x = y
+
+In algebra this means "by definition, for the rest of this problem x
+always has the same value as y"
+
+If this is a FORTRAN assignment statement it means the following,
+"look up the contents of the cubbyhole named Y.  Find cubbyhole X and
+wipe out the contents of X and store the value you found in Y in X."
+
+It is important to note that Y is unchanged by this operation - you
+can look at the contents of a variable as much as you like without
+changing the contents of Y.
+
+Also the following is legal in algebra but NOT legal in FORTRAN:
+
+      x + 7 = y + 12
+
+The left hand side of the assignment MUST be a variable.  The right
+hand side can be a single variable, constant value, or expression
+using variables and/or constants.  For example
+
+      X = 2
+      Y = A
+      Z = X + 2
+      A = (X + 12) * (Y / 990)
+
+It is important to be aware that the right hand side (or expression)
+is completely evaluated BEFORE the resulting value is placed in the
+variable named in the left hand side.  Consider the following code:
+
+      X = 23
+      Y = 12
+      X = X + 7
+
+What ends up in X?  30? or does it just keep going up forever, adding
+7 to itself?  The answer is 30 - the left hand side is evaluated
+completely using the OLD value of X.  This expression evaluates to 30.
+The 30 is then stored into X wiping out the 23 but it doesn't matter
+because the expression has already been calculated.
+
+The third type of FORTRAN statement is called an "INPUT-OUTPUT"
+statement.  The PRINT statement in our example looks up the contents
+of a variable and displays it on the screen for the user.
+
+Without print statements we could do all this nifty calculation but
+never know what the final numbers were.
+
+In addition to the PRINT statement which shows us the contents of
+a variable, there is a statement called READ which allows us to enter a
+number which will be stored in a variable.
+
+One very unique feature of the READ statement is that while the READ
+statement is executing waiting for the human user to type input, the
+program is completely stopped waiting for the READ to complete.
+
+An example program using the READ statement is as follows:
+
+      REAL AGE,NEW
+      NEW = 2
+      READ *,AGE
+      AGE = AGE + NEW
+      PRINT *,AGE
+      END
+
+When this program executes 2 will be stored in NEW.  The the program
+will stop and wait for you to type a number.  You type in 21.  The
+program then stores 21 in the AGE variable and execution continues.
+AGE is added to NEW and stored back into AGE.   Then AGE is printed
+out and then the program terminates.
+
+Note that because of the read statement, the program can work with
+different data each time it runs.  Without READ statements, computers
+would only be glorified hand calculators.
+
+One additional concept is that of printing human readable messages.
+The syntax for this is:
+
+      PRINT *,'Human Readable Message Blah Blah Blah'
+
+We can make the previous program run a little nicer by addiing a few
+messages.
+
+      REAL AGE,NEW
+      NEW = 2
+      PRINT *,'Enter your current age '
+      READ *,AGE
+      AGE = AGE + NEW
+      PRINT *,'Soon you will be ',AGE
+      END
+
+It makes a program nicer when you are reading data to have a PRINT
+immediately before the read which tells the user what data is being
+read.  This is called the "prompt" because the user is being
+"prompted" for a value to enter.
+
+When this program stats up, the following will appear and the program
+will wait for the data:
+
+Enter your current age
+
+Once the number has been entered the program continue.
+
+For example the lbs290-prog which you run to turn in your programming
+homework probably has some code like:
+
+      PRINT *,'Enter the program number -'
+      READ *,PROGNO
+
+Now real programs have many more instructions than these programs but
+these basic concepts do not change even in large programs.
+

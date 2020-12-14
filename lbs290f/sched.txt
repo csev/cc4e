@@ -1,0 +1,101 @@
+LBS290F                     SCHEDULE                        Spring 1992
+
+------------------------ Week 1 -------------------------
+
+Apr 1              Syllabus - USING UNIX - using ce
+
+                   Read: Chapter 1
+
+Apr 3              What is a computer - What is a program?
+                   Program 1 - "Average 3 numbers" - Due
+    
+                   Read: Chapter 2 (skim formatted output)
+
+------------------------ Week 2 -------------------------
+
+Apr 6              Introduction to FORTRAN - Variables, Constants
+                   READ, PRINT, Assignment Statements
+                   Types of Errors
+                   Example: Temperature conversion
+                   Program 2 - "Speed Conversion" Due
+
+Apr 8              Calculation, Operator Precedence, Expressions
+                   Example: Quadratic formula and Pythagorean Theorem
+                   Program 3 - "Taylor Series" - Due
+
+                   Read: Chapter 3
+
+Apr 10             Conditional Constructs
+                   Logic Errors
+                   IF-THEN, IF-THEN-ELSE, IF-THEN-ELSEIF
+                   Example: Student Grades
+                   Program 4 - "A Smarter Quadratic" - Due
+
+------------------------ Week 3 -------------------------
+
+Apr 13             Looping Constructs
+                   DO-WHILE DO-LOOP
+                   Example: Table of Squares, DO-WHILE, ENDDO
+                   Program 5 - "Table of Fibonacci Numbers" - Due
+
+Apr 15             Looping Continued - Why we use loops 
+                   Programs with little - or - no input
+                   Example: Doing some calculus
+                   Program 6 - "Looking for roots" - Due
+
+Apr 17             Nested DO LOOPS, Flags
+                   Example: Table of Primes
+                   Program 7 - "Table of Factorials"
+
+
+LBS290F                     SCHEDULE (continued)            Spring 1992
+------------------------ Week 4 -------------------------
+
+                   Read: Chapter 4 (4-1 through 4-3)
+ 
+Apr 20             Programs with lots and lots of input
+                   Reading Data Files - Reading until End of File
+                   Example: Average, count and total and readeof
+                   Program 8 - "Payroll Program" - Due
+
+                   Read: Chapter 1, formatted output and 4-5
+
+Apr 22             Making the output line up - Using FORMAT statements
+                   Example: Pretty Student Grades
+                   Program 9 - "Pretty Payroll Program" - Due
+
+Apr 24             Computer Science Test-I
+
+------------------------ Week 5 (Apr 27-May 1) -------------------------
+
+                   Read: 5-1 through 5-3
+
+Apr 27             One dimensional Arrays
+                   Logic Errors
+                   Example: Heat flow on a bar
+                   Program 10 - "Inventory Program" - Due
+
+                   Read: Chapter 5
+
+Apr 29             One dimensional arrays - sorting
+                   Example: Sorting, minimum, maximum, average
+                   Program 11 - "Sorting scores" - Due
+
+May 1              Two dimensional arrays 
+                   Example: Candy Machine Inventory
+                   Program 12 - "Heat flow in a plate" - Due
+
+------------------------ Week 6 (May 4 - May 8) -------------------------
+
+                   Read: Chapter 6
+
+May 4              Subroutines
+                   Example: Yet another quadratic program
+                   Program 13 - "Yet another Payroll Program" - Due
+
+May 6              Functions
+                   Example: Finding more roots
+                   Program 14 - "Finding max, min, sort, mean, again" - Due
+
+May 8              Computer Science Test-II
+
