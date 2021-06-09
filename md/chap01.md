@@ -205,8 +205,8 @@ C provides several other basic data types besides int and float:
     long long integer
     double double-precision floating point
 
-The sizes of these objects are also machine-dependent; details are in Chapter
-2. There are also _arrays_, _structures_ and _unions_ of these basic types, _pointers_
+The sizes of these objects are also machine-dependent; details are in Chapter 2.
+There are also _arrays_, _structures_ and _unions_ of these basic types, _pointers_
 to them, and _functions_ that return them, all of which we will meet in due
 course.
 
