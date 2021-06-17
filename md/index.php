@@ -83,7 +83,6 @@ function onSelect() {
 <p>
 This is a work in progress start here: 
 <a href="chap01.md">Chapter 1</a>,
-</p>
 Please feel free to improve this text in 
 <a href="https://github.com/csev/cc4e/tree/main/md" target="_blank">Github</a>.
 </p>

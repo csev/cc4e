@@ -16,3 +16,8 @@ Enter the unlock code
 <p>
 Here is the 
 <a href="md/chap01.md">book in progress</a>.
+</p>
+<p>
+Please feel free to improve this text in
+<a href="https://github.com/csev/cc4e/" target="_blank">Github</a>.
+</p>
