@@ -1,4 +1,5 @@
-CHAPTER 5 POINTERS AND ARRAYS 105
+CHAPTER 5 POINTERS AND ARRAYS
+=============================
 
 An array is initialized by a list of initializers in braces; each row of a
 two-dimensional array is initialized by a corresponding sub-list. We started

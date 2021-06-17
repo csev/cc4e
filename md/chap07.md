@@ -1,7 +1,9 @@
-CHAPTER _7:_ INPUT AND OUTPUT
+CHAPTER 7: INPUT AND OUTPUT
+===========================
 
 Input and output facilities are not part of the C language, so we have
-de-emphasized them in our presentation thus far. Nonetheless, real programs do interact with their environment in much more complicated ways
+de-emphasized them in our presentation thus far. Nonetheless, real programs
+do interact with their environment in much more complicated ways
 than those we have shown before. In this chapter we will describe "the
 standard I/O library," a set of functions designed to provide a standard I/O
 system for C programs. The functions are intended to present a convenient

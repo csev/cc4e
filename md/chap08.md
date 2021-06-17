@@ -30,7 +30,7 @@ to inform the system of your intent to do so, a process called "opening" the
 file. If you are going to write on a file it may also be necessary to create it.
 The system checks your right to do so (Does the file exist? Do you have
 permission to access it?), and if all is well, returns to the program a small
-positive integer called a _file descriPtor._ Whenever I/O is to be done on the
+positive integer called a _file descriptor._ Whenever I/O is to be done on the
 file, the file descriptor is used instead of the name to identify the file. (This
 is roughly analogous to the use of READ(5,...) and WRITE(6,...) in Fortran.)
 All information about an open file is maintained by the system; the user
