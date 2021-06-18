@@ -1,5 +1,6 @@
 a.out
 *.swp
+*.o
 .DS_Store
 cc4e-private
 
