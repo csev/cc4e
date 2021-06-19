@@ -93,6 +93,25 @@ function onSelect() {
     $lines = explode("\n",$contents);
     $newcontent = array();
     foreach($lines as $line) {
+        if ( strpos($line, "[comment]: <> (page") === 0 ) {
+            $pieces = preg_split("/[\s,(){}]+/", $line);
+            $page = false;
+            $numb = false;
+            foreach($pieces as $piece) {
+                if ( $piece == 'page') {
+                    $page = true;
+                    continue;
+                }
+                if ( $page ) {
+                    $numb = $piece;
+                    break;
+                }
+            }
+            if ( $page ) {
+                $pno = substr('000'.$page, -3);
+                $newcontent[] = '<a style="float:right;" href="pages/page_'.$pno.'.jpg" target="_blank">Page '.($numb+0).'</a>'."\n";
+            }
+        }
         if ( strpos($line, "[comment]: <> (code") === 0 ) {
             $pieces = preg_split("/[\s,(){}]+/", $line);
             $code = false;
