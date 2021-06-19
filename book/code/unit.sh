@@ -1,4 +1,8 @@
 
+# Chapter 7
+
+gcc -ansi -Wno-return-type c_154_01.c
+
 # Chapter 8
 
 gcc -ansi c_161_01.c
