@@ -90,7 +90,7 @@ A surprising number of programs read only one input stream and write
 only one output stream; for such programs I/O with getchar, putchar,
 and printf may be entirely adequate, and is certainly enough to get
 
-CHAPTER 7 INPUT AND OUTPUT 145
+[comment]: <> (page 145 , 145 THE C PROGRAMMING LANGUAGE CHAPTER 7 )
 
 started. This is particularly true given file redirection and a pipe facility for
 connecting the output of one program to the input of the next. For example, consider the program _lower,_ which maps its input to lower case:
@@ -187,7 +187,7 @@ converted to decimal notation of the form
 [—] m. nnnnnnE [±] xx where the length of the string
 of n's is specified by the precision. The default precision is 6.
 
-CHAPTER 7 INPUT AND OUTPUT 147
+[comment]: <> (page 147 , 147 THE C PROGRAMMING LANGUAGE CHAPTER 7 )
 
 f The argument is taken to be a float or double and
 converted to decimal notation of the form
@@ -288,7 +288,7 @@ skip over white space characters is suppressed in this
     case; to read the next non-white space character, use
 %1 S.
 
-CHAPTER 7 INPUT AND OUTPUT 149
+[comment]: <> (page 149 , 149 THE C PROGRAMMING LANGUAGE CHAPTER 7 )
 
 a character string is expected; the corresponding argument should be a character pointer pointing to an array
 of characters large enough to accept the string and a
@@ -401,7 +401,7 @@ sscanf does the reverse conversions — it scans the string according
 to the format in control, and places the resulting values in argl , arg2,
 etc. These arguments must be pointers. The call
 
-CHAPTER 7 INPUT AND OUTPUT 151
+[comment]: <> (page 151 , 151 THE C PROGRAMMING LANGUAGE CHAPTER 7 )
 
     sscanf (name, "temp%d", &n);
 
@@ -509,7 +509,7 @@ With these preliminaries out of the way, we are now in a position to
 write the program _cat_ to concatenate files. The basic design is one that has
 been found convenient for many programs: if there are command-line arguments, they are processed in order. If there are no arguments, the standard
 
-CHAPTER 7 INPUT AND OUTPUT 153
+[comment]: <> (page 153 , 153 THE C PROGRAMMING LANGUAGE CHAPTER 7 )
 
 input is processed. This way the program can be used stand-alone or as part
 of a larger process.
@@ -633,11 +633,10 @@ program can be tested by another program that uses this one as a subprocess. By 
 
 exit calls fclose for each open output file, to flush out any buffered
 output, then calls a routine named \_exit. The function \_exit causes
-
-CHAPTER 7 INPUT AND OUTPUT 155
-
 immediate termination without any buffer flushing; of course it may be
 called directly if desired.
+
+[comment]: <> (page 155 , 155 THE C PROGRAMMING LANGUAGE CHAPTER 7 )
 
 7.8 Line Input and Output
 -------------------------
@@ -718,14 +717,15 @@ Character Class Testing and Conversion
 
 Several macros perform character tests and conversions:
 
-    | isalpha(c)
-    isupper(c)
-    islower(c)
-    isdigit(c)
-    isspace(c)
-    toupper(c)
-tolower(c) | non-zero if c is alphabetic, 0 if not.non-zero if c is upper case, 0 if not.non-zero if c is lower case, 0 if not.non-zero if c is digit, 0 if not.non-zero if c is blank, tab or newline, 0 if not.convert c to upper case.convert c to lower case. |
-| --- | --- |
+function    | return value
+------------|--------------------------------------
+isalpha(c)  | non-zero if c is alphabetic, 0 if not.
+isupper(c)  | non-zero if c is upper case, 0 if not.
+islower(c)  | non-zero if c is lower case, 0 if not.
+isdigit(c)  | non-zero if c is digit, 0 if not.
+isspace(c)  | non-zero if c is blank, tab or newline, 0 if not.
+toupper(c)  | convert c to upper case.
+tolower(c)  | convert c to lower case.
 
 Ungetc
 
@@ -736,17 +736,20 @@ ungetch which we wrote in Chapter 4; it is called ungetc.
 
 pushes the character c back onto file f p. Only one character of pushback is
 allowed per file. ungetc may be used with any of the input functions and
-
-CHAPTER 7 INPUT AND OUTPUT 157
-
 macros like scanf, getc, or getchar.
- System Call
 
-The function system (s) executes the command contained in the character string s, then resumes execution of the current program. The contents of s depend strongly on the local operating system. As a trivial example, on UNIX, the line
+System Call
+
+[comment]: <> (page 157 , 157 THE C PROGRAMMING LANGUAGE CHAPTER 7 )
+
+The function system (s) executes the command contained in the character
+string s, then resumes execution of the current program. The contents
+of s depend strongly on the local operating system. As a trivial example, on UNIX, the line
 
     system ("date");
 
 causes the program date to be run; it prints the date and time of day.
+
 Storage Management
 
 The function calloc is rather like the alloc we have used in previous chapters.
@@ -759,7 +762,7 @@ The pointer has the proper alignment for the object in question, but it
 should be cast into the appropriate type, as in
 
     char *calloc();
-     int *ip;
+    int *ip;
 
     ip = (int *) calloc (n, sizeof (int) ) ;
 
