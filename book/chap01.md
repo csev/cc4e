@@ -784,9 +784,9 @@ representation of the digits. For example, the test
 determines whether the character in c is a digit. If it is, the numeric value
 of that digit is
 
-    c — 'O'
+    c — '0'
 
-This works only if 'O', '1', etc., are positive and in increasing order, and
+This works only if '0', '1', etc., are positive and in increasing order, and
 iF there is nothing but digits between 0 and 9'. Fortunately, this is true
 for all conventional character sets.
 
