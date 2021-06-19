@@ -108,7 +108,7 @@ function onSelect() {
                 }
             }
             if ( $page ) {
-                $pno = substr('000'.$page, -3);
+                $pno = substr('000'.$numb, -3);
                 $newcontent[] = '<a style="float:right;" href="pages/page_'.$pno.'.jpg" target="_blank">Page '.($numb+0).'</a>'."\n";
             }
         }
