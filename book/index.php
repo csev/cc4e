@@ -52,6 +52,17 @@ center {
         display: none;
     }
 }
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+tr:nth-child(even) {
+  background-color: lightgray;
+}
+
+
 </style>
 <?php
 
