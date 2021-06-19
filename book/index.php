@@ -106,22 +106,24 @@ function onSelect() {
                         $newcontent[] = '    '.$co;
                     }
                      */
-                    $first = 0;
+                    $first = -1;
                     $last = 0;
                     $clines = explode("\n",$code);
                     for($i=0; $i<count($clines); $i++ ) {
                         $cl = $clines[$i];
                         if (trim($cl) != "" ) {
-                            if ( $first == 0 ) $first = $i;
+                            if ( $first == -1 ) $first = $i;
                             $last = $i+1;
                         }
                     }
 
-                    $newcontent[] = "~~~~~~~~~~~~~~~~~~~~~";
-                    for($i= $first; $i<$last; $i++) {
-                        $newcontent[] = $clines[$i];
+                    if ( $first >=0 && $last >= 0 ) {
+                        $newcontent[] = "~~~~~~~~~~~~~~~~~~~~~";
+                        for($i=$first; $i<$last; $i++) {
+                            $newcontent[] = $clines[$i];
+                        }
+                        $newcontent[] = "~~~~~~~~~~~~~~~~~~~~~";
                     }
-                    $newcontent[] = "~~~~~~~~~~~~~~~~~~~~~";
                 }
                 continue;
             }
@@ -131,9 +133,13 @@ function onSelect() {
     }
     $contents = implode("\n", $newcontent);
 
-    // echo "<pre>\n".$contents."\n</pre>\n";
+    $debug = false;
     $Parsedown = new ParsedownExtra();
-    echo $Parsedown->text($contents);
+    if ( $debug ) {
+        echo "<pre>\n".$contents."\n</pre>\n";
+    } else {
+        echo $Parsedown->text($contents);
+    }
 } else {
 ?>
 <p>

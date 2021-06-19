@@ -1,6 +1,7 @@
 
 # Chapter 7
 
+gcc -ansi c_145_01.c -o lower
 gcc -ansi -Wno-return-type c_154_01.c
 
 # Chapter 8

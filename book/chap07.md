@@ -34,15 +34,14 @@ usual double quotes directs the compiler to search for the file in a directory
     containing standard header information (on UNIX, typically _lusrlinclude)._
 
 Furthermore, it may be necessary when loading the program to specify
-the library explicitly; for example, on the PDP-11 UNIX system, the command to compile a program would be
-
-143
+the library explicitly; for example, on the PDP-11 UNIX system, the
+command to compile a program would be
 
 [comment]: <> (page 144 , 144 THE C PROGRAMMING LANGUAGE CHAPTER 7 )
 
-_cc source files, etc._ -is
+    cc source files, etc. -lS
 
-where -is indicates loading from the standard library. (The character 1 is
+where -lS indicates loading from the standard library. (The character l is
 the letter ell.)
 
 7.2 Standard Input and Output — Getchar and Putchar
@@ -52,15 +51,15 @@ The simplest input mechanism is to read a character at a time from the
 "standard input," generally the user's terminal, with getchar.
 getchar () returns the next input character each time it is called. In most
 environments that support C, a file may be substituted for the terminal by
-using the \&lt; convention: if a program _prog_ uses getchar, then the command line
+using the &lt; convention: if a program _prog_ uses getchar, then the command line
 
-prog \&lt;infile
+    prog <infile
 
 causes _prog_ to read inf lie instead of the terminal. The switching of the
 input is done in such a way that _prog_ itself is oblivious to the change; in particular, the string "\&lt;inf le" is not included in the command-line arguments in argv. The input switching is also invisible if the input comes
 from another program via a pipe mechanism; the command line
 
-otherprog I prog
+    otherprog | prog
 
 runs the two programs _otherprog_ and _prog,_ and arranges that the standard
 input for _prog_ comes from the standard output of _otherprog._
@@ -71,14 +70,14 @@ written in terms of EOF, not -1, so as to be independent of the specific
 value.
 
 For output, putchar (c) puts the character c on the "standard output," which is also by default the terminal. The output can be directed to a
-file by using \&gt;: if _prog_ uses putchar,
+file by using &gt;: if _prog_ uses putchar,
 
-prog \&gt;outfile
+    prog >outfile
 
 will write the standard output onto outfile instead of the terminal. On
 the UNIX system, a pipe can also be used:
 
-prog I anotherprog
+    prog | anotherprog
 
 puts the standard output of _prog_ into the standard input of _otherprog._ Again,
 _prog_ is not aware of the redirection.
@@ -86,25 +85,18 @@ _prog_ is not aware of the redirection.
 Output produced by printf also finds its way to the standard output,
 and calls to putchar and printf may be interleaved.
 
+[comment]: <> (page 145 , 145 THE C PROGRAMMING LANGUAGE CHAPTER 7 )
+
 A surprising number of programs read only one input stream and write
 only one output stream; for such programs I/O with getchar, putchar,
 and printf may be entirely adequate, and is certainly enough to get
-
-[comment]: <> (page 145 , 145 THE C PROGRAMMING LANGUAGE CHAPTER 7 )
-
 started. This is particularly true given file redirection and a pipe facility for
-connecting the output of one program to the input of the next. For example, consider the program _lower,_ which maps its input to lower case:
+connecting the output of one program to the input of the next. For example,
+consider the program _lower,_ which maps its input to lower case:
 
-    #include <stdio.h>
+[comment]: <> (code c_145_01.c)
 
-    main() /* convert input to lower case */
-    int c;
-
-    while ((c = getchar()) != EOF)
-
-    putchar(isupper(c) ? tolower(c) : c);
-
-The "functions" i supper and tolower are actually macros defined in
+The "functions" isupper and tolower are actually macros defined in
 stdio . h. The macro isupper tests whether its argument is an upper
 case letter, returning non-zero if it is, and zero if not. The macro tolower
 converts an upper case letter to lower case. Regardless of how these functions are implemented on a particular machine, their external behavior is the
@@ -113,7 +105,7 @@ same, so programs that use them are shielded from knowledge of the character set
 To convert multiple files, you can use a program like the UNIX utility
 _cat_ to collect the files:
 
-cat filel fi1e2 ... I lower \&gt;output
+    cat filel fi1e2 ... | lower >output
 
 and thus avoid learning how to access files from a program. _(cat_ is
 presented later in this chapter.)
@@ -130,7 +122,7 @@ quantities. They also allow generation or interpretation of formatted lines.
 We have used printf informally throughout the previous chapters; here is
 a more complete and precise description.
 
-    printf (control, argl, arg2, ...)
+    printf (control, arg1, arg2, ...)
 
 printf converts, formats, and prints its arguments on the standard output
 under control of the string control. The control string contains two types
@@ -151,7 +143,8 @@ A digit string specifying a minimum field width. The converted number
 will be printed in a field at least this wide, and wider if necessary. If the
 converted argument has fewer characters than the field width it will be
 padded on the left (or right, if the left adjustment indicator has been
-given) to make up the field width. The padding character is blank normally and zero if the field width was specified with a leading zero (this
+given) to make up the field width. The padding character is blank normally
+and zero if the field width was specified with a leading zero (this
 zero does not imply an octal field width).
 
 A period, which separates the field width from the next digit string.
