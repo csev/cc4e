@@ -53,17 +53,17 @@ a specific example, on the UNIX operating system you must create the
 source program in a file whose name ends in ".c", such as _hello.c,_ then
 compile it with the command
 
-_CC hello.c_
+    CC hello.c
 
 If you haven't botched anything, such as omitting a character or misspelling
 something, the compilation will proceed silently, and make an executable
 file called _a.out._ Running that by the command
 
-_a.out_
+    a.out
 
 will produce
 
-hello, world
+    hello, world
 
 as its output. On other systems, the rules will be different; check with a
 local expert.
@@ -89,7 +89,6 @@ DO-END of PL/I, or the begin—end of Algol, Pascal, and so on. A function is in
 [comment]: <> (page 7 , CHAPTER I A TUTORIAL INTRODUCTION _7_ )
 
 There is no CALL statement as there is in Fortran or PL/I. The parentheses
-
 must be present even if there are no arguments.
 
 The line that says
