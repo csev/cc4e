@@ -189,11 +189,10 @@ is specified by the precision. The default precision is 6.
 Note that the precision does not determine the number
 of significant digits printed in f format.
 
-    g Use %e or %f, whichever is shorter; non-significant
-zeros are not printed.
+g Use %e or %f, whichever is shorter; non-significant zeros are not printed.
 
 If the character after the % is not a conversion character, that character is
-    printed; thus % may be printed by %%.
+printed; thus % may be printed by %%.
 
 Most of the format conversions are obvious, and have been illustrated
 in earlier chapters. One exception is precision as it relates to strings. The
@@ -201,16 +200,13 @@ following table shows the effect of a variety of specifications in printing
 "hello, world" (12 characters). We have put colons around each field so
 you can see its extent.
 
-| :%10s:
-:%-10s:
-:%20s:
-:%-20 s :
-: %20 .1 Os:
-:%-20 .10s:
-:%.1 Os: | :hello,
-:hello,:hello,:hello,
-:hello, | world:world:hello, world:worldhello, wor:worwor: |
-| --- | --- | --- |
+    :%10s:       :hello, world:
+    :%-10s:      :hello, world:
+    :%20s:       :hello, world:
+    :%-20s:      :        hello, world:
+    :%20.10s:    :hello, world        :
+    :%-20.10s:   :          hello, wor:
+    :%.10s:      :hello, wor          :
 
 A warning: printf uses its first argument to decide how many arguments follow and what their types are. It will get confused, and you will get
 nonsense answers, if there are not enough arguments or if they are the
