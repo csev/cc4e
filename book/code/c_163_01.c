@@ -1,5 +1,6 @@
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #define BUFSIZE 512
 #define PMODE 0644 /* RW for owner, R for group, others */
@@ -20,7 +21,7 @@ char *argv[];
     while ((n = read(f1, buf, BUFSIZE)) > 0)
         if (write(f2, buf, n) != n)
             error("cp: write error", NULL);
-    exit (0);
+    exit(0);
 }
 
 error(s1, s2) /* print error message and die */
