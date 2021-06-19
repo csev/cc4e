@@ -2,10 +2,10 @@ CHAPTER 8: THE UNIX SYSTEM INTERFACE
 ====================================
 
 The material in this chapter is concerned with the interface between C
-programs and the UNIXt operating system. Since most C users are on UNIX
+programs and the UNIX[^1] operating system. Since most C users are on UNIX
 systems, this should be helpful to a majority of readers. Even if you use C
 on a different machine, however, you should be able to glean more insight
-    into C programming from studying these examples.
+into C programming from studying these examples.
 
 The chapter is divided into three major areas: input/output, file system,
 and a storage allocator. The first two parts assume a modest familiarity with
@@ -35,9 +35,7 @@ file, the file descriptor is used instead of the name to identify the file. (Thi
 is roughly analogous to the use of READ(5,...) and WRITE(6,...) in Fortran.)
 All information about an open file is maintained by the system; the user
 
-t UNIX is a Trademark of Bell Laboratories.
-
-159
+[^1]: UNIX is a Trademark of Bell Laboratories.
 
 [comment]: <> (page 160 , 160 THE C PROGRAMMING LANGUAGE CHAPTER 8 )
 
@@ -49,9 +47,9 @@ error output. All of these are normally connected to the terminal, so if a
 program reads file descriptor 0 and writes file descriptors 1 and 2, it can do
 terminal I/O without worrying about opening the files.
 
-The user of a program can _redirect_ I/O to and from files with \&lt; and \&gt;:
+The user of a program can _redirect_ I/O to and from files with &lt; and &gt;:
 
-prog \&lt;infile \&gt;outfile
+    prog <infile >outfile
 
 In this case, the shell changes the default assignments for file descriptors 0
 and 1 from the terminal to the named files. Normally file descriptor 2
@@ -69,8 +67,9 @@ output is done by two functions called read and write. For both, the first
 argument is a file descriptor. The second argument is a buffer in your program where the data is to come from or go to. The third argument is the
 number of bytes to be transferred. The calls are
 
-    n\_read = read(fd, buf, n);
-     n\_written = write(fd, buf, n);
+    n_read = read(fd, buf, n);
+ 
+    n_written = write(fd, buf, n);
 
 Each call returns a byte count which is the number of bytes actually
 transferred. On reading, the number of bytes returned may be less than the
@@ -92,15 +91,7 @@ input to its output, the equivalent of the file copying program written for
 Chapter 1. In UNIX, this program will copy anything to anything, since the
 input and output can be redirected to any file or device.
 
-    #define BUFSIZE 512 /* best size for PDP-11 UNIX */
-
-    main() /* copy input to output */
-
-    char buf[BUFSIZE];
-     jilt n;
-
-    while ((n = read(0, buf, BUFSIZE)) > 0)
-    write(1, buf, n);
+[comment]: <> (code c_161_01.c)
 
 If the file size is not a multiple of BUFSIZE, some read will return a
 smaller number of bytes to be written by write; the next call to read after
@@ -110,42 +101,19 @@ It is instructive to see how read and write can be used to construct
 higher level routines like getchar, putchar, etc. For example, here is a
 version of getchar which does unbuffered input.
 
-    #define CMASK 0377 /* for making char's > 0 */
-    getchar() /* unbuffered single character input */
-
-    char c;
-
-return((read(0, &amp;c, 1) \&gt; 0) ? c &amp; CMASK : Eor);
+[comment]: <> (code c_161_02.c)
 
 c _must_ be declared char, because read accepts a character pointer. The
 character being returned must be masked with 0377 to ensure that it is
 positive; otherwise sign extension may make it negative. (The constant
 0377 is appropriate for the PDP-11 but not necessarily for other machines.)
----------------------------------------------------------------------------
 
 The second version of getchar does input in big chunks, and hands
 out the characters one at a time.
 
 [comment]: <> (page 162 , 162 THE C PROGRAMMING LANGUAGE CHAPTER 8 )
 
-    #define CMASK 0377 /* for making char's > 0 */
-    #define BUFSIZE 512
-
-    getchar() /* buffered version */
-
-    static char buf [BUFSIZE];
-
-    static char *bufp = buf;
-
-    static int n = 0;
-
-    if (n == 0) ( /* buffer is empty */
-
-    n = read(0, buf, BUFSIZE);
-
-    bufp = buf;
-
-    return((--n >= 0) ? *bufp++ & CMASK : EOF);
+[comment]: <> (code c_162_01.c)
 
 8.3 Open, Creat, Close, Unlink
 ------------------------------
@@ -156,7 +124,7 @@ entry points for this, open and creat [sic].
 
 open is rather like the fopen discussed in Chapter 7, except that
 instead of returning a file pointer, it returns a file descriptor, which is just an
-    int.
+int.
 
     int fd;
 
@@ -191,43 +159,7 @@ To illustrate, here is a simplified version of the UNIX utility _cp,_ a program 
 version copies only one file, and does not permit the second argument to be
 a directory.)
 
-    #define NULL 0
-
-    #define BUFSIZE 512
-
-    #define PMODE 0644 /* RW for owner, R for group, others */
-
-    main(argc, argv) /* cp: copy f1 to f2 */
-
-    int argc;
-
-    char *argv[];
-
-    int f1, f2, n;
-     char buf [BUFSIZE];
-
-    if (argc != 3)
-
-    error("Usage: cp from to", NULL);
-    if ((f1 = open(argv[1], 0)) == -1)
-
-    error("cp: can't open %s", argv[1]);
-    if ((f2 = creat(argv[2], PMODE)) == -1)
-    error("cp: can't create %s", argv[2]);
-
-    while ((n = read(f1, buf, BUFSIZE)) > 0)
-    if (write(f2, buf, n) != n)
-
-    error("cp: write error", NULL);
-
-    exit (0)
-
-    error(s1, s2) /* print error message and die */
-    char *s1, *s2;
-
-    printf(s1, s2);
-     printf("\n");
-     exit(1);
+[comment]: <> (code c_163_01.c)
 
 There is a limit (typically 15-25) on the number of files which a program
 may have open simultaneously. Accordingly, any program which intends to

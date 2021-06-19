@@ -1,6 +1,7 @@
 <?php
 
 require_once "Parsedown.php";
+require_once "ParsedownExtra.php";
 
 if ( !isset($_COOKIE['secret']) || $_COOKIE['secret'] != '42' ) {
     header("Location: ../index.php");
@@ -76,7 +77,62 @@ function onSelect() {
 </select>
 </div>
 <?php
-    $Parsedown = new Parsedown();
+
+    // Lets do some post processing
+    $lines = explode("\n",$contents);
+    $newcontent = array();
+    foreach($lines as $line) {
+        if ( strpos($line, "[comment]: <> (code") === 0 ) {
+            $pieces = preg_split("/[\s,(){}]+/", $line);
+            $code = false;
+            $file = false;
+            foreach($pieces as $piece) {
+                if ( $piece == 'code') {
+                    $code = true;
+                    continue;
+                }
+                if ( $code ) {
+                    $file = $piece;
+                    break;
+                }
+            }
+            if ( $file ) {
+                $newcontent[] = $line;
+                $fn = "code/".$file;
+                $code = file_get_contents($fn);
+                if ( is_string($code) ) {
+                    /*
+                    foreach(explode("\n",$code) as $co) {
+                        $newcontent[] = '    '.$co;
+                    }
+                     */
+                    $first = 0;
+                    $last = 0;
+                    $clines = explode("\n",$code);
+                    for($i=0; $i<count($clines); $i++ ) {
+                        $cl = $clines[$i];
+                        if (trim($cl) != "" ) {
+                            if ( $first == 0 ) $first = $i;
+                            $last = $i+1;
+                        }
+                    }
+
+                    $newcontent[] = "~~~~~~~~~~~~~~~~~~~~~";
+                    for($i= $first; $i<$last; $i++) {
+                        $newcontent[] = $clines[$i];
+                    }
+                    $newcontent[] = "~~~~~~~~~~~~~~~~~~~~~";
+                }
+                continue;
+            }
+        }
+        $newcontent[] = $line;
+        
+    }
+    $contents = implode("\n", $newcontent);
+
+    // echo "<pre>\n".$contents."\n</pre>\n";
+    $Parsedown = new ParsedownExtra();
     echo $Parsedown->text($contents);
 } else {
 ?>
