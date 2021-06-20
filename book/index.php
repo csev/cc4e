@@ -110,7 +110,7 @@ function onSelect() {
             }
             if ( $page ) {
                 $pno = substr('000'.$numb, -3);
-                $newcontent[] = '<a style="float:right;" href="pages/page_'.$pno.'.jpg" target="_blank">Page '.($numb+0).'</a>'."\n";
+                $newcontent[] = '<a style="float:right;" href="pages/page_'.$pno.'.jpg" target="_blank">Page '.($numb+0).'</a><br clear="all">'."\n";
             }
         }
         if ( strpos($line, "[comment]: <> (code") === 0 ) {
