@@ -258,17 +258,20 @@ blanks around operators. The position of braces is less important; we have
 chosen one of several popular styles. Pick a style that suits you, then use it
 consistently.
 
-Most of the work gets done in the body of the loop. The Celsius temperature is computed and assigned to celsius by the statement
+Most of the work gets done in the body of the loop. The Celsius temperature is
+computed and assigned to celsius by the statement
 
     celsius = (5.0/9.0) * (fahr-32.0);
 
 The reason for using 5.0/9.0 instead of the simpler looking 5/9 is that in C,
 as in many other languages, integer division _truncates,_ so any fractional part
-is discarded. Thus 5/9 is zero and of course so would be all the temperatures. A decimal point in a constant indicates that it is floating point, so
+is discarded. Thus 5/9 is zero and of course so would be all the temperatures. A
+decimal point in a constant indicates that it is floating point, so
 5.0/9.0 is 0.555..., which is what we want.
 
 We also wrote 32.0 instead of 32, even though since `fahr` is a float,
-32 would be automatically converted to float (to 32.0) before the subtraction. As a matter of style, it's wise to write floating point constants with
+32 would be automatically converted to float (to 32.0) before the
+subtraction. As a matter of style, it's wise to write floating point constants with
 explicit decimal points even when they have integral values; it emphasizes
 their floating point nature for human readers, and ensures that the compiler
 will see things your way too.
@@ -322,7 +325,8 @@ printf, except that it reads input instead of writing output.
 **Exercise 1-4.** Write a program to print the corresponding Celsius to
 Fahrenheit table.
 
-**1.3 The For Statement**
+1.3 The For Statement
+---------------------
 
 As you might expect, there are plenty of different ways to write a program; let's try a variation on the temperature converter.
 
@@ -377,7 +381,8 @@ in one place.
 **Exercise 1-5.** Modify the temperature conversion program to print the table
 in reverse order, that is, from 300 degrees to 0.
 
-**1.4 Symbolic Constants**
+1.4 Symbolic Constants
+----------------------
 
 A final observation before we leave temperature conversion forever.
 It's bad practice to bury "magic numbers" like 300 and 20 in a program;
@@ -409,7 +414,8 @@ that there is no semicolon at the end of a definition. Since the whole line
 after the defined name is substituted, there would be too many semicolons
 in the for.
 
-**1.5 A Collection of Useful Programs**
+1.5 A Collection of Useful Programs
+-----------------------------------
 
 We are now going to consider a family of related programs for doing
 simple operations on character data. You will find that many programs are
