@@ -1,6 +1,8 @@
 CHAPTER 1: A TUTORIAL INTRODUCTION
 ==================================
 
+[comment]: <> (page 5 , 5 THE C PROGRAMMING LANGUAGE CHAPTER I )
+
 Let us begin with a quick introduction to C. Our aim is to show the
 essential elements of the language in real programs, but without getting
 bogged down in details, formal rules, and exceptions. At this point, we are
