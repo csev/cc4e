@@ -8,7 +8,9 @@ Bold the "Exercise 1-17" bits.
 
 Switch all variables mentioned in the narrative to back-quote (markdown style).
 
-At times they use italics in pseudo-code - remove the italics and just leafe this as indented pre-formatted text
+Enclose all reserved words like `if`, `for`, `while`, etc. in back-quotes.
+
+At times K&R use italics in pseudo-code - remove the italics and just leave this as indented pre-formatted text
 without styling.
 
 Extract all complete code sequences (with and without a main) and place in the `code`
@@ -17,7 +19,8 @@ folder in a file named:
     c_123_01.c
 
 Where '123' is the original page number and '01' is the position within page in case there is more than
-one code sequence on a page.
+one code sequence on a page.  These will likely need some `#include` lines in the code - we add these and include
+them in the book.  Things need to compile when copy and pasted from the book.
 
 Add the compilation instructions to the `code/unit.sh' so they are test compiled.  Eventually this
 will have sample inputs and outputs so as to be a real live compiile and run unit test.
@@ -26,9 +29,9 @@ Then remove the code from the markdown file and replace it with a line that look
 
     [comment]: <> (code c_123_01.c)
 
-This code will only show up when viewed through PHP - it won't show up on github.
+The code in these files will only show up when viewed through PHP - it won't show up on github.
 
-Fragments that won't compile that are being described can be left in as indented pre-formatted text.
+Short fragments that won't compile that are being described can be left in as indented pre-formatted text.
 
 
 Scanning Details

@@ -53,7 +53,7 @@ The modern minimal version of this needs a bit more syntax:
 
     #include <stdio.h>
     main() {
-    printf("hello, world\n");
+        printf("hello, world\n");
     }
 
 Just how to run this program depends on the system you are using. As
@@ -65,7 +65,7 @@ compile it with the command
 
 On modern systems, we use the `gcc` compiler:
 
-    gcc hello.c
+    gcc -ansi hello.c
 
 If you haven't botched anything, such as omitting a character or misspelling
 something, the compilation will proceed silently, and make an executable
@@ -190,15 +190,15 @@ _type_ and a list of variables which have that type, as in
     int lower, upper, step;
     float fahr, celsius;
 
-The type int implies that the variables listed are _integers;_ float stands for
+The type `int` implies that the variables listed are _integers;_ `float` stands for
 _floating point,_ i.e., numbers which may have a fractional part. The precision
-of both int and float depends on the particular machine you are using.
-On the PDP-11, for instance, an int is a 16-bit signed number, that is, one
+of both `int` and `float` depends on the particular machine you are using.
+On the PDP-11, for instance, an `int` is a 16-bit signed number, that is, one
 which lies between —32768 and +32767. A float number is a 32-bit
 quantity, which amounts to about seven significant digits, with magnitude
 between about 10-38 and 10+38. Chapter 2 lists sizes for other machines.
 
-C provides several other basic data types besides int and float:
+C provides several other basic data types besides `int` and float:
 
     char character — a single byte
     short short integer
@@ -228,12 +228,12 @@ repeats once per line; this is the purpose of the while statement
         ...
     }
 
-The condition in parentheses is tested. If it is true (fahr is less than or
-equal to upper), the body of the loop (all of the statements enclosed by
+The condition in parentheses is tested. If it is true (`fahr` is less than or
+equal to `upper`), the body of the loop (all of the statements enclosed by
 
 the braces ( and is executed. Then the condition is re-tested, and if
-true, the body is executed again. When the test becomes false (fahr
-exceeds upper) the loop ends, and execution continues at the statement
+true, the body is executed again. When the test becomes false (`fahr`
+exceeds `upper`) the loop ends, and execution continues at the statement
 that follows the loop. There are no further statements in this program, so it
 terminates.
 
@@ -265,7 +265,7 @@ as in many other languages, integer division _truncates,_ so any fractional part
 is discarded. Thus 5/9 is zero and of course so would be all the temperatures. A decimal point in a constant indicates that it is floating point, so
 5.0/9.0 is 0.555..., which is what we want.
 
-We also wrote 32.0 instead of 32, even though since fahr is a float,
+We also wrote 32.0 instead of 32, even though since `fahr` is a float,
 32 would be automatically converted to float (to 32.0) before the subtraction. As a matter of style, it's wise to write floating point constants with
 explicit decimal points even when they have integral values; it emphasizes
 their floating point nature for human readers, and ensures that the compiler
@@ -280,7 +280,7 @@ and the test
 
     while (fahr <= upper)
 
-both work as expected — the int is converted to float before the operation is done.
+both work as expected — the `int` is converted to float before the operation is done.
 
 This example also shows a bit more of how printf works. printf is
 actually a general-purpose format conversion function, which we will
@@ -333,7 +333,7 @@ As you might expect, there are plenty of different ways to write a program; let'
     }
 
 This produces the same answers, but it certainly looks different. One major
-change is the elimination of most of the variables; only fahr remains, as an
+change is the elimination of most of the variables; only `fahr` remains, as an
 int (to show the %d conversion in printf). The lower and upper limits
 and the step size appear only as constants in the for statement, itself a new
 construction, and the expression that computes the Celsius temperature now
@@ -552,21 +552,23 @@ The statement
 
     ++nc;
 
-shows a new operator, ++, which means _increment by one._ You could write
-`nc = nc + 1` but ++nc is more concise and often more efficient. There
-is a corresponding operator -- to decrement by 1. The operators ++ and -can be either prefix operators (++nc) or postfix (nc++); these two forms
+shows a new operator, `++`, which means _increment by one._ You could write
+`nc = nc + 1` but `++nc` is more concise and often more efficient. There
+is a corresponding operator -- to decrement by 1. The operators `++` and
+can be either prefix operators (`++nc`) or postfix (`nc++`); these two forms
 have different values in expressions, as will be shown in Chapter 2, but
-++nc and nc++ both increment nc. For the moment we will stick to
+`++nc` and `nc++` both increment `nc`. For the moment we will stick to
 prefix.
 
-The character counting program accumulates its count in a long variable instead of an int. On a PDP-11 the maximum value of an int is
+The character counting program accumulates its count in a `long` variable
+instead of an `int`. On a PDP-11 the maximum value of an `int` is
 32767, and it would take relatively little input to overflow the counter if it
-were declared int; in Honeywell and IBM C, long and int are
-synonymous and much larger. The conversion specification %ld signals to
+were declared `int`; in Honeywell and IBM C, `long` and `int` are
+synonymous and much larger. The conversion specification `%ld` signals to
 printf that the corresponding argument is a long integer.
 
-To cope with even bigger numbers, you can use a double (double
-length float). We will also use a for statement instead of a while, to
+To cope with even bigger numbers, you can use a `double` (double
+length float). We will also use a `for` statement instead of a `while`, to
 illustrate an alternative way to write the loop.
 
     main() /* count characters in input */
@@ -578,7 +580,7 @@ illustrate an alternative way to write the loop.
         printf("%.0f\n", nc);
     }
 
-printf uses %f for both float and double; %.0f suppresses printing of the non-existent fraction part.
+`printf` uses %f for both float and double; `%.0f` suppresses printing of the non-existent fraction part.
 
 The body of the for loop here is _empty,_ because all of the work is done
 in the test and re-initialization parts. But the grammatical rules of C require
@@ -616,14 +618,15 @@ appended to every line written out.
         printf("%d\n", nl);
     }
 
-The body of the while now consists of an if, which in turn controls
-the increment ++nl. The if statement tests the parenthesized condition,
-and if it is true, does the statement (or group of statements in braces) that
+The body of the `while` now consists of an `if`, which in turn controls
+the increment `++nl`. The `if` statement tests the parenthesized condition,
+and if it is `true`, does the statement (or group of statements in braces) that
 follows. We have again indented to show what is controlled by what.
 
-The double equals sign == is the C notation for "is equal to" (like
-Fortran's .EQ.). This symbol is used to distinguish the equality test from
-the single = used for assignment. Since assignment is about twice as frequent as equality testing in typical C programs, it's appropriate that the
+The double equals sign `==` is the C notation for "is equal to" (like
+Fortran's `.EQ.`). This symbol is used to distinguish the equality test from
+the single `=` used for assignment. Since assignment is about twice as
+frequent as equality testing in typical C programs, it's appropriate that the
 operator be half as long.
 
 Any single character can be written between single quotes, to produce a
@@ -647,6 +650,8 @@ The topic of strings versus characters is discussed further in Chapter 2.
 **Exercise 1-7.** Write a program to copy its input to its output, replacing cad
 string of one or more blanks by a single blank.
 
+[comment]: <> (todo - redo this exercise so it works on non-printer)
+
 **Exercise 1-8.** Write a program to replace each tab by the three-character
 sequence \&gt;, _backspace, —,_ which prints as \&gt;, and each backspace by the
 similar sequence 4E. This makes tabs and backspaces visible.
@@ -655,36 +660,16 @@ Word Counting
 -------------
 
 The fourth in our series of useful programs counts lines, words, and
-characters, with the loose definition that a word is any sequence of characters that does not contain a blank, tab or newline. (This is a bare-bones
-version of the UNIX utility we.)
+characters, with the loose definition that a word is any sequence of
+characters that does not contain a blank, tab or newline. (This is
+a bare-bones version of the UNIX utility `wc`.)
 
-    #define YES 1
-    #define NO
-
-    main() /* count lines, words, chars in input */
-    {
-        int c, nl, nw, nc, inword;
-
-        inword = NO;
-        nl = nw = nc = 0;
-        while ((c = getchar()) I= EOF) {
-            ++nc;
-            if (c == '\n' )
-                ++nl;
-            if (c == ' ' || c == '\n' || c == '\t' )
-                inword = NO;
-            else if ( inword == NO ) {
-                inword = YES;
-                ++nw;
-            }
-        }
-        printf("%d %d %d\n", nl, nw, nc);
-    }
+[comment]: <> (code c_018_01.c)
 
 Every time the program encounters the first character of a word, it
 counts it. The variable inword records whether the program is currently in
-a word or not; initially it is "not in a word," which is assigned the value NO.
-We prefer the symbolic constants YES and NO to the literal values 1 and
+a word or not; initially it is "not in a word," which is assigned the value `NO`.
+We prefer the symbolic constants `YES` and `NO` to the literal values 1 and
 because they make the program more readable. Of course in a program as
 tiny as this, it makes little difference, but in larger programs, the increase in
 clarity is well worth the modest extra effort to write it this way originally.
@@ -703,20 +688,21 @@ left. It's really as if we had written
 
     nc = (n1 = (nw = O));
 
-The operator `||` means OR, so the line
+The operator `||` means _OR_, so the line
 
     if (c == ' ' || c == '\n' || c == '\t' )
 
-says "if c is a blank _or c_ is a newline _or c is_ a tab ...". (The escape
-sequence \t is a visible representation of the tab character.) There is a
+says "if c is a blank _or_ c is a newline _or_ c is a tab ...". (The escape
+sequence `\t` is a visible representation of the tab character.) There is a
 corresponding operator `&&` for AND. Expressions connected by `&&` or `||`
 are evaluated left to right, and it is guaranteed that evaluation will stop as
-soon as the truth or falsehood is known. Thus if c contains a blank, there is
+soon as the truth or falsehood is known. Thus if `c` contains a blank, there is
 no need to test whether it contains a newline or tab, so these tests are _not_
 made. This isn't particularly important here, but is very significant in more
 complicated situations, as we will soon see.
 
-The example also shows the C else statement, which specifies an alternative action to be done if the condition part of an if statement is false.
+The example also shows the C `else` statement, which specifies an alternative
+action to be done if the condition part of an `if` statement is false.
 The general form is
 
     if (expression)
@@ -745,7 +731,8 @@ begins with a letter.
 ----------
 
 Let us write a program to count the number of occurrences of each
-digit, of white space characters (blank, tab, newline), and all other characters. This is artificial, of course, but it permits us to illustrate several
+digit, of white space characters (blank, tab, newline), and all other
+characters. This is artificial, of course, but it permits us to illustrate several
 aspects of C in one program.
 
 There are twelve categories of input, so it is convenient to use an array
@@ -758,13 +745,13 @@ The declaration
 
     int ndigit[10];
 
-declares ndigit to be an array of 10 integers. Array subscripts always start
+declares `ndigit` to be an array of 10 integers. Array subscripts always start
 at zero in C (rather than 1 as in Fortran or PL/I, so the elements are
-ndigit[0], ndigit[1], ... ndigit [9]. This is reflected in the for
+`ndigit[0]`, `ndigit[1]`, ... `ndigit[9]`. This is reflected in the `for`
 loops which initialize and print the array.
 
 A subscript can be any integer expression, which of course includes
-integer variables like i, and integer constants.
+integer variables like `i`, and integer constants.
 
 This particular program relies heavily on the properties of the character
 representation of the digits. For example, the test
@@ -773,21 +760,21 @@ representation of the digits. For example, the test
 
 [comment]: <> (page 21 , CHAPTER 1 A TUTORIAL INTRODUCTION 21 )
 
-determines whether the character in c is a digit. If it is, the numeric value
+determines whether the character in `c` is a digit. If it is, the numeric value
 of that digit is
 
     c — '0'
 
 This works only if '0', '1', etc., are positive and in increasing order, and
-If there is nothing but digits between 0 and 9'. Fortunately, this is true
+if there is nothing but digits between 0 and 9. Fortunately, this is true
 for all conventional character sets.
 
-By definition, arithmetic involving char's and it's converts every-
-it before proceeding, so char variables and constants are essen-
-tiall identical to it's in arithmetic contexts. This is quite natural and
-convenient; for example, c — '0' is an integer expression with a value
-between 0 and 9 corresponding to the character 'O' to '9' stored in c, and
-is thus, a valid subscript for the array ndigit.
+By definition, arithmetic involving char's and int's converts every-
+it before proceeding, so `char` variables and constants are essen-
+tiall identical to int's in arithmetic contexts. This is quite natural and
+convenient; for example, `c — '0'` is an integer expression with a value
+between 0 and 9 corresponding to the character 'O' to '9' stored in `c`, and
+is thus, a valid subscript for the array `ndigit`.
 
 The decision as to whether a character is a digit, a white space, or some-
 else is made with the sequence
@@ -813,29 +800,30 @@ code is simply read from the top until some _condition_ is satisfied; at that
 point the corresponding _statement_ part is executed, and the entire construction
 is finished. (Of course _statement_ can be several statements enclosed in
 braces.) If none of the conditions is satisfied, the _statement_ after the final
-else is executed if it is present. If the final else and _statement_ are omitted
+`else` is executed if it is present. If the final else and _statement_ are omitted
 (as in the word count program), no action takes place. There can be an
 arbitrary number of
 
     else if (condition)
         statement
 
-groups between the initial if and the final else. As a matter of style, it is
-advisable to formal this construction as we have shown, so that long decisions do not
+groups between the initial `if` and the final `else`. As a matter of style, it is
+advisable to format this construction as we have shown, so that long decisions do not
 march off the right side of the page.
 
 [comment]: <> (page 22 , 22 THE C PROGRAMMING LANGUAGE CHAPTER I )
 
-The switch statement, to be discussed in Chapter 3, provides another
+The `switch` statement, to be discussed in Chapter 3, provides another
 way to write a multi-way branch that is particularly suitable when the condition
 being tested is simply whether some integer or character expression
-matches one of a set of constants. For contrast, we will present a switch
+matches one of a set of constants. For contrast, we will present a `switch`
 version of this program in Chapter 3.
 
 **Exercise 1-12.** Write a program to print a histogram of the lengths of words
 in its input. It is easiest to draw the histogram horizontally; a vertical orientation is more challenging. E
 
-**1.7 Functions**
+1.7 Functions
+-------------
 
 In C, a _function_ is equivalent to a subroutine or function in Fortran, or a
 procedure in **PL/I,** Pascal, etc. A function provides a convenient way to
@@ -852,7 +840,7 @@ So far we have used only functions like `printf`, `getchar` and
 our own. Since C has no exponentiation operator like the `**` of Fortran or
 PL/I, let us illustrate the mechanics of function definition by writing a
 function `power(m, n)` to raise an integer in to a positive integer power n.
-That is, the value of power (2, 5) is 32. This function certainly doesn't
+That is, the value of `power(2, 5)` is 32. This function certainly doesn't
 do the whole job of `**` since it handles only positive powers of small
 integers, but it's best to confuse only one issue at a time.
 
@@ -872,19 +860,21 @@ Each function has the same form:
 
 The functions can appear in either order, and in one source file or in two.
 Of course if the source appears in two files, you will have to say more to
-compile and load it than if it all appears in one, but that is an operating system matter, not a language attribute. For the moment, we will assume that
-both functions are in the same file, so whatever you have learned about running C programs will not change.
+compile and load it than if it all appears in one, but that is an operating
+system matter, not a language attribute. For the moment, we will assume that
+both functions are in the same file, so whatever you have learned about running
+C programs will not change.
 
-The function power is called twice in the line
+The function `power` is called twice in the line
 
     printf("%d %d %d\n", i, power(2,i), power(-2,i));
 
-Each call passes two arguments to power, which each time returns an
-integer to be formatted and printed. In an expression, power (2 , i) is an
-integer just as 2 and i are. (Not all functions produce an integer value; we
+Each call passes two arguments to `power`, which each time returns an
+integer to be formatted and printed. In an expression, `power(2, i)` is an
+integer just as `2` and `i` are. (Not all functions produce an integer value; we
 will take this up in Chapter 4.)
 
-In power the arguments have to be declared appropriately so their types
+In `power` the arguments have to be declared appropriately so their types
 are known. This is done by the line
 
     int x, n;
@@ -893,22 +883,23 @@ that follows the function name. The argument declarations go between the
 argument list and the opening left brace; each declaration is terminated by a
 semicolon. The names used by power for its arguments are purely _local_ to
 power, and not accessible to any other function: other routines can use the
-same names without conflict. This is also true of the variables i and p: the
+same names without conflict. This is also true of the variables `i` and `p`: the
 `i` in `power` is unrelated to the `i` in `main`.
 
 [comment]: <> (page 24 , **24** THE C PROGRAMMING LANGUAGE CHAPTER I )
 
-The value that power computes is returned to main by the return
-statement, which is just as in PL/I. Any expression may occur within the
-parentheses. A function need not return a value; a return statement with
+The value that `power` computes is returned to main by the return
+statement, which is just as in **PL/I**. Any expression may occur within the
+parentheses. A function need not return a value; a `return` statement with
 no expression causes control, but no useful value, to be returned to the
 caller, as does "falling off the end" of a function by reaching the terminating right brace.
 
 **Exercise 1-13.** Write a program to convert its input to lower case, using a
-function **lower** (c) which returns **c** if **c** is not a letter, and the lower case
-value of c if it is a letter.
+function `lower(c)` which returns `c` if `c` is not a letter, and the lower case
+value of `c` if it is a letter.
 
-**1.8 Arguments — Call by Value**
+1.8 Arguments — Call by Value
+-----------------------------
 
 One aspect of C functions may be unfamiliar to programmers who are
 used to other languages, particularly Fortran and **PL/I.** In C, all function
@@ -919,8 +910,8 @@ than are seen with "call by reference" languages like Fortran and PL/I, in
 which the called routine is handed the address of the argument, not its
 value.
 
-The main distinction is that in C the called function _cannot_ alter a variable in the
-calling function; it can only alter its private, temporary copy.
+The main distinction is that in C the called function _cannot_ alter a
+variable in the calling function; it can only alter its private, temporary copy.
 
 Call by value is an asset, however, not a liability. It usually leads to
 more compact programs with fewer extraneous variables, because arguments
@@ -929,9 +920,9 @@ For example, here is a version of power which makes use of this fact.
 
 [comment]: <> (code c_024_01.c)
 
-The argument n is used as a temporary variable, and is counted down until
-it becomes zero; there is no longer a need for the variable i. Whatever is
-done to n inside power has no effect on the argument that power was originally called with.
+The argument `n` is used as a temporary variable, and is counted down until
+it becomes zero; there is no longer a need for the variable `i`. Whatever is
+done to `n` inside power has no effect on the argument that power was originally called with.
 
 When necessary, it is possible to arrange for a function to modify a variable in
 a calling routine. The caller must provide the _address_ of the variable
@@ -965,28 +956,28 @@ One piece gets a new line, another tests it, another saves it, and the rest
 controls the process.
 
 Since things divide so nicely, it would be well to write them that way
-too. Accordingly, let us first write a separate function getline to fetch the
+too. Accordingly, let us first write a separate function `get_line` to fetch the
 _next line_ of input; this is a generalization of getchar. To make the function
 useful in other contexts, we'll try to make it as flexible as possible. At
-the minimum, getline has to return a signal about possible end of file; a
+the minimum, `get_line` has to return a signal about possible end of file; a
 more generally useful design would be to return the length of the line, or
 zero if end of file is encountered. Zero is never a valid line length since
 every line has at least one character; even a line containing only a newline
 has length 1.
 
 When we find a line that is longer than the previous longest, it must be
-saved somewhere. This suggests a second function, copy, to copy the new
+saved somewhere. This suggests a second function, `copy`, to copy the new
 line to a safe place.
 
-Finally, we need a main program to control getline and copy. Here
+Finally, we need a main program to control `get_line` and `copy`. Here
 is the result.
 
 [comment]: <> (page 26 , 26 THE C PROGRAMMING LANGUAGE CHAPTER I )
 
 [comment]: <> (code c_026_01.c)
 
-main and getline communicate both through a pair of arguments and
-a returned value. In getline, the arguments are declared by the lines
+`main` and `get_line` communicate both through a pair of arguments and
+a returned value. In `get_line`, the arguments are declared by the lines
 
 [comment]: <> (page 27 , CHAPTER I A TUTORIAL INTRODUCTION 27 )
 
@@ -994,12 +985,12 @@ a returned value. In getline, the arguments are declared by the lines
     int lim;
 
 which specify that the first argument is an array, and the second is an
-integer. The length of the array s is not specified in getline since it is
-determined in main. getline uses return to send a value back to the
-caller, just as the function power did. Some functions return a useful
+integer. The length of the array `s` is not specified in `get_line` since it is
+determined in `main`. `get_line` uses return to send a value back to the
+caller, just as the function `power` did. Some functions return a useful
 value; others, like copy, are only used for their effect and return no value.
 
-getline puts the character \0 (the _null character,_ whose value is zero)
+`get_line` puts the character \0 (the _null character,_ whose value is zero)
 at the end of the array it is creating, to mark the end of the string of characters
 This convention is also used by the C compiler: when a string constant like
 
@@ -1012,28 +1003,28 @@ as printf can detect the end:
 | h | e | l | l | o | \n | \0 |
 |---|---|---|---|---|----|----|
 
-The %s format specification in printf expects a string represented in this
-form. If you examine copy, you will discover that it too relies on the fact
-that its input argument sl is terminated by \0, and it copies this character
-onto the output argument s2. (All of this implies that \0 is not a part of
+The `%s` format specification in `printf` expects a string represented in this
+form. If you examine `copy`, you will discover that it too relies on the fact
+that its input argument `s1` is terminated by `\0`, and it copies this character
+onto the output argument `s2`. (All of this implies that `\0` is not a part of
 normal text.)
 
 It is worth mentioning in passing that even a program as small as this
 one presents some sticky design problems. For example, what should main
-do if it encounters a line which is bigger than its limit? getline works
+do if it encounters a line which is bigger than its limit? `get_line` works
 properly, in that it stops collecting when the array is full, even if no newline
 has been seen. By testing the length and the last character returned, main
 can determine whether the line was too long, and then cope as it wishes. In
 the interests of brevity, we have ignored the issue.
 
-There is no way for a user of getline to know in advance how long an
-input line might be, so getline checks for overflow. On the other hand,
-the user of copy already knows (or can find out) how big the strings are, so
+There is no way for a user of `get_line` to know in advance how long an
+input line might be, so `get_line` checks for overflow. On the other hand,
+the user of `copy` already knows (or can find out) how big the strings are, so
 we have chosen not to add error checking to it.
 
-**Exercise 1-14.** Revise the main routine of the longest-line program so it
+**Exercise 1-14.** Revise the `main` routine of the longest-line program so it
 will correctly print the length of arbitrarily long input lines, and as much as
-possible of the text. 7
+possible of the text.
 
 **Exercise 1-15.** Write a program to print all lines that are longer than 80
 characters.
@@ -1043,8 +1034,8 @@ each line of input, and to delete entirely blank lines.
 
 [comment]: <> (page 28 , 28 THE C PROGRAMMING LANGUAGE CHAPTER I )
 
-**Exercise 1-17.** Write a function reverse (s) which reverses the character
-string **s.** Use it to write a program which reverses its input a line at a time.
+**Exercise 1-17.** Write a function `reverse(s)` which reverses the character
+string `s`. Use it to write a program which reverses its input a line at a time.
 
 1.10 Scope; External Variables
 ------------------------------
@@ -1052,7 +1043,7 @@ string **s.** Use it to write a program which reverses its input a line at a tim
 The variables in `main` (`line`, `save`, etc.) are private or local to `main`:
 because they are declared within `main`, no other function can have direct
 access to them. The same is true of the variables in other functions; for
-example, the variable `i` in `getline` is unrelated to the `i` in `copy`. Each
+example, the variable `i` in `get_line` is unrelated to the `i` in `copy`. Each
 local variable in a routine comes into existence only when the function is
 called, and _disappears_ when the function is exited. It is for this reason that
 such variables are usually known as _automatic_ variables, following terminology
@@ -1071,7 +1062,8 @@ like Fortran COMMON or **PL/I** EXTERNAL.) Because external variables are
 globally accessible, they can be used instead of argument lists to communicate
 data between functions. Furthermore, because external variables
 remain in existence permanently, rather than appearing and disappearing as
-functions are called and exited, they retain their values even after the functions that set them are done.
+functions are called and exited, they retain their values even after the
+functions that set them are done.
 
 An external variable has to be _defined_ outside of any function; this
 allocates actual storage for it. The variable must also be _declared_ in
@@ -1087,7 +1079,7 @@ functions.
 
 [comment]: <> (page 30 , 30 THE C PROGRAMMING LANGUAGE CHAPTER I )
 
-The external variables in main, getline and copy are _defined_ by the
+The external variables in main, `get_line` and copy are _defined_ by the
 first lines of the example above, which state their type and cause storage to
 be allocated for them. Syntactically, external definitions are just like the
 declarations we have used previously, but since they occur outside of functions,
@@ -1099,9 +1091,9 @@ declaration is the same as before except for the added keyword extern.
 In certain circumstances, the extern declaration can be omitted: if the
 external definition of a variable occurs in the source file _before_ its use in a
 particular function, then there is no need for an extern declaration in the
-function. The extern declarations in main, getline and copy are thus
+function. The extern declarations in main, `get_line` and copy are thus
 redundant. In fact, common practice is to place definitions of all external
-variables at the beginning of the source file, and then omit all extern
+variables at the beginning of the source file, and then omit all `extern`
 declarations.
 
 If the program is on several source files, and a variable is defined in,
@@ -1115,7 +1107,7 @@ refers to the place where the variable is actually created or assigned storage;
 "declaration" refers to places where the nature of the variable is stated but
 no storage is allocated.
 
-By the way, there is a tendency to make everything in sight an extern
+By the way, there is a tendency to make everything in sight an `extern`
 variable because it appears to simplify communications — argument lists are
 short and variables are always there when you want them. But external variables are
 always there even when you don't want them. This style of coding
@@ -1129,7 +1121,7 @@ manipulate.
 
 [comment]: <> (page 31 , CHAPTER I A TUTORIAL INTRODUCTION 31 )
 
-**Exercise 1-18.** The test in the for statement of getline above is rather
+**Exercise 1-18.** The test in the for statement of `get_line` above is rather
 ungainly. Rewrite the program to make it clearer, but retain the same
 behavior at end of file or buffer overflow. Is this behavior the most reasonable?
 
@@ -1152,12 +1144,12 @@ apparent.
 with the proper number of blanks to space to the next tab stop. Assume a
 fixed set of tab stops, say every _n_ positions.
 
-**Exercise 1-20.** Write the program entab which replaces strings of blanks
+**Exercise 1-20.** Write the program `entab` which replaces strings of blanks
 by the minimum number of tabs and blanks to achieve the same spacing.
-Use the same tab stops as for detab.
+Use the same tab stops as for `detab`.
 
 **Exercise 1-21.** Write a program to "fold" long input lines after the last
-non-blank character that occurs before the n-th column of input, where _n is_
+non-blank character that occurs before the n-th column of input, where _n_ is
 a parameter. Make sure your program does something intelligent with very
 long lines, and if there are no blanks or tabs before the specified column.
 
