@@ -10,7 +10,8 @@ you can write useful programs, and to do that we have to concentrate on the
 basics: variables and constants, arithmetic, control flow, functions, and the
 rudiments of input and output. We are quite intentionally leaving out of
 this chapter features of C which are of vital importance for writing bigger
-programs. These include pointers, structures, most of C's rich set of operators, several control flow statements, and myriad details.
+programs. These include pointers, structures, most of C's rich set of
+operators, several control flow statements, and myriad details.
 
 This approach has its drawbacks, of course. Most notable is that the
 complete story on any particular language feature is not found in a single
@@ -30,34 +31,45 @@ detailed descriptions that begin in Chapter 2.
 1.1 Getting Started
 -------------------
 
-The only way to learn a new programming language is by writing programs in it. The first program to write is the same for all languages:
+The only way to learn a new programming language is by writing programs in
+it. The first program to write is the same for all languages:
 
 Print the words
 
-hello, world
-
-This is the basic hurdle; to leap over it you have to be able to create the
+    hello, world
 
 [comment]: <> (page 6 , 6 THE C PROGRAMMING LANGUAGE CHAPTER I )
 
+This is the basic hurdle; to leap over it you have to be able to create the
 program text somewhere, compile it successfully, load it, run it, and find out
 where your output went. With these mechanical details mastered, everything else is comparatively easy.
 
-In C, the program to print "hello, world" is
+In traditional C, the program to print "hello, world" is
 
     main()
     printf("hello, world\n");
 
+The modern minimal version of this needs a bit more syntax:
+
+    #include <stdio.h>
+    main() {
+    printf("hello, world\n");
+    }
+
 Just how to run this program depends on the system you are using. As
 a specific example, on the UNIX operating system you must create the
-source program in a file whose name ends in ".c", such as _hello.c,_ then
+source program in a file whose name ends in ".c", such as `hello.c`, then
 compile it with the command
 
     CC hello.c
 
+On modern systems, we use the `gcc` compiler:
+
+    gcc hello.c
+
 If you haven't botched anything, such as omitting a character or misspelling
 something, the compilation will proceed silently, and make an executable
-file called _a.out._ Running that by the command
+file called `a.out.` Running that by the command
 
     a.out
 
@@ -68,7 +80,7 @@ will produce
 as its output. On other systems, the rules will be different; check with a
 local expert.
 
-Exercise 1-1. Run this program on your system. Experiment with leaving
+**Exercise 1-1.** Run this program on your system. Experiment with leaving
 out parts of the program, to see what error messages you get.
 
 Now for some explanations about the program itself. A C program,
@@ -76,15 +88,18 @@ whatever its size, consists of one or more "functions" which specify the
 actual computing operations that are to be done. C functions are similar to
 the functions and subroutines of a Fortran program or the procedures of
 PL/I, Pascal, etc. In our example, main is such a function. Normally you
-are at liberty to give functions whatever names you like, but main is a special name — your program begins executing at the beginning of main. This
+are at liberty to give functions whatever names you like, but main is
+ a special name — your program begins executing at the beginning of main. This
 means that every program _must_ have a main somewhere. main will usually
-invoke other functions to perform its job, some coming from the same program, and others from libraries of previously written functions.
+invoke other functions to perform its job, some coming from the same
+program, and others from libraries of previously written functions.
 
 One method of communicating data between functions is by arguments.
 The parentheses following the function name surround the argument list;
 here main is a function of no arguments, indicated by C) . The braces ( )
 enclose the statements that make up the function; they are analogous to the
-DO-END of PL/I, or the begin—end of Algol, Pascal, and so on. A function is invoked by naming it, followed by a parenthesized list of arguments.
+DO-END of PL/I, or the begin—end of Algol, Pascal, and so on. A function
+is invoked by naming it, followed by a parenthesized list of arguments.
 
 [comment]: <> (page 7 , CHAPTER I A TUTORIAL INTRODUCTION _7_ )
 
@@ -95,7 +110,7 @@ The line that says
 
     printf ("hello, world\n");
 
-is a function call, which calls a function named printf, with the argument
+is a function call, which calls a function named `printf`, with the argument
 "hello, world\n". printf is a library function which prints output on
 the terminal (unless some other destination is specified). In this case it
 prints the string of characters that make up its argument.
@@ -105,11 +120,11 @@ is called a _character string_ or _string constant._ For the moment our
 only use of character strings will be as arguments for printf and other
 functions.
 
-The sequence \n in the string is C notation for the _newline character,_
+The sequence `\n` in the string is C notation for the _newline character,_
 which when printed advances the terminal to the left margin on the next
-line. If you leave out the \n (a worthwhile experiment), you will find that
+line. If you leave out the `\n` (a worthwhile experiment), you will find that
 your output is not terminated by a line feed. The only way to get a newline
-character into the printf argument is with \n; if you try something like
+character into the printf argument is with `\n`; if you try something like
 
     printf ("hello, world
     ");
@@ -126,17 +141,18 @@ well have been written
 
 to produce an identical output.
 
-Notice that \n represents only a single character. An _escape sequence_
-like \n provides a general and extensible mechanism for representing hard-
+Notice that `\n` represents only a single character. An _escape sequence_
+like `\n` provides a general and extensible mechanism for representing hard-
 to-get or invisible characters. Among the others that C provides are \t for
 tab, \b for backspace, \." for the double quote, and \\ for the backslash
 itself.
 
-Exercise 1-2. Experiment to find out what happens when printf's argument string contains \x, where x is some character not listed above.
+**Exercise 1-2.** Experiment to find out what happens when printf's argument string contains \x, where x is some character not listed above.
 
 [comment]: <> (page 8 , S THE C PROGRAMMING LANGUAGE CHAPTLR )
 
-**1.2 Variables and Arithmetic**
+1.2 Variables and Arithmetic
+----------------------------
 
 The next program prints the following table of Fahrenheit temperatures
 and their centigrade or Celsius equivalents, using the formula
@@ -586,7 +602,7 @@ Line Counting
 -------------
 
 The next program counts _lines_ in its input. Input lines are assumed to
-be terminated by the newline character \n that has been religiously
+be terminated by the newline character `\n` that has been religiously
 appended to every line written out.
 
     main() /* count lines in input */
@@ -618,7 +634,7 @@ A. Of course 'A' is to be preferred over 65: its
 meaning is obvious, and it is independent of a particular character set.
 
 The escape sequences used in character strings are also legal in character
-constants, so in tests and arithmetic expressions, '\n' stands for the value
+constants, so in tests and arithmetic expressions, `\n` stands for the value
 of the newline character. You should note carefully that '\n' is a single
 character, and in expressions is equivalent to a single integer; on the other
 hand, "\n" is a character string which happens to contain only one character.
@@ -626,12 +642,12 @@ The topic of strings versus characters is discussed further in Chapter 2.
 
 [comment]: <> (page 18 , IS THE C PROGRAMMING LANGUAGE CHAPTER )
 
-Exercise 1-6. Write a program to count blanks, tabs, and newlines. C
+**Exercise 1-6.** Write a program to count blanks, tabs, and newlines. C
 
-Exercise 1-7. Write a program to copy its input to its output, replacing cad
+**Exercise 1-7.** Write a program to copy its input to its output, replacing cad
 string of one or more blanks by a single blank.
 
-Exercise 1-8. Write a program to replace each tab by the three-character
+**Exercise 1-8.** Write a program to replace each tab by the three-character
 sequence \&gt;, _backspace, —,_ which prints as \&gt;, and each backspace by the
 similar sequence 4E. This makes tabs and backspaces visible.
 
@@ -713,13 +729,13 @@ done. If the _expression_ is true, _statement-1_ is executed; if not, _statement
 executed. Each _statement_ can in fact be quite complicated. In the word
 count program, the one after the else is an if that controls two statements in braces.
 
-Exercise 1-9. How would you test the word count program? What are
+**Exercise 1-9.** How would you test the word count program? What are
 some boundaries?
 
-Exercise 1-10. Write a program which prints the words in its input, one per
+**Exercise 1-10.** Write a program which prints the words in its input, one per
 line.
 
-Exercise 1-11. Revise the word count program to use a better definition of
+**Exercise 1-11.** Revise the word count program to use a better definition of
 "word," for example, a sequence of letters, digits and apostrophes that
 begins with a letter.
 
@@ -1015,14 +1031,14 @@ input line might be, so getline checks for overflow. On the other hand,
 the user of copy already knows (or can find out) how big the strings are, so
 we have chosen not to add error checking to it.
 
-Exercise 1-14. Revise the main routine of the longest-line program so it
+**Exercise 1-14.** Revise the main routine of the longest-line program so it
 will correctly print the length of arbitrarily long input lines, and as much as
 possible of the text. 7
 
-Exercise 1-15. Write a program to print all lines that are longer than 80
+**Exercise 1-15.** Write a program to print all lines that are longer than 80
 characters.
 
-Exercise 1-16. Write a program to remove trailing blanks and tabs from
+**Exercise 1-16.** Write a program to remove trailing blanks and tabs from
 each line of input, and to delete entirely blank lines.
 
 [comment]: <> (page 28 , 28 THE C PROGRAMMING LANGUAGE CHAPTER I )
@@ -1030,15 +1046,17 @@ each line of input, and to delete entirely blank lines.
 **Exercise 1-17.** Write a function reverse (s) which reverses the character
 string **s.** Use it to write a program which reverses its input a line at a time.
 
-**1.10 Scope; External Variables**
+1.10 Scope; External Variables
+------------------------------
 
-The variables in **main (line, save,** etc.) are private or local to **main:**
-because they are declared within main, no other function can have direct
+The variables in `main` (`line`, `save`, etc.) are private or local to `main`:
+because they are declared within `main`, no other function can have direct
 access to them. The same is true of the variables in other functions; for
-example, the variable i in getline is unrelated to the i in copy. Each
+example, the variable `i` in `getline` is unrelated to the `i` in `copy`. Each
 local variable in a routine comes into existence only when the function is
 called, and _disappears_ when the function is exited. It is for this reason that
-such variables are usually known as _automatic_ variables, following terminology in other languages. We will use the term automatic henceforth to refer
+such variables are usually known as _automatic_ variables, following terminology
+in other languages. We will use the term automatic henceforth to refer
 to these dynamic local variables. (Chapter 4 discusses the static storage
 class, in which local variables do retain their values between function invocations.)
 
@@ -1050,13 +1068,16 @@ As an alternative to automatic variables, it is possible to define variables
 which are _external_ to all functions, that is, global variables which can be
 accessed by name by any function that cares to. (This mechanism is rather
 like Fortran COMMON or **PL/I** EXTERNAL.) Because external variables are
-globally accessible, they can be used instead of argument lists to communicate data between functions. Furthermore, because external variables
+globally accessible, they can be used instead of argument lists to communicate
+data between functions. Furthermore, because external variables
 remain in existence permanently, rather than appearing and disappearing as
 functions are called and exited, they retain their values even after the functions that set them are done.
 
-An external variable has to be _defined_ outside of any function; this allocates actual storage for it. The variable must also be _declared_ in each function that wants to access it; this may be done either by an explicit extern
+An external variable has to be _defined_ outside of any function; this
+allocates actual storage for it. The variable must also be _declared_ in
+each function that wants to access it; this may be done either by an explicit `extern`
 declaration or implicitly by context. To make the discussion concrete, let us
-rewrite the longest-line program with line, save and **max** as external variables.
+rewrite the longest-line program with `line`, `save` and `max` as external variables.
 This requires changing the calls, declarations, and bodies of all three
 functions.
 
@@ -1108,7 +1129,7 @@ manipulate.
 
 [comment]: <> (page 31 , CHAPTER I A TUTORIAL INTRODUCTION 31 )
 
-Exercise 1-18. The test in the for statement of getline above is rather
+**Exercise 1-18.** The test in the for statement of getline above is rather
 ungainly. Rewrite the program to make it clearer, but retain the same
 behavior at end of file or buffer overflow. Is this behavior the most reasonable?
 
@@ -1127,23 +1148,23 @@ effort to read on, for the features covered in the next few chapters are
 where the power and expressiveness of the language begin to become
 apparent.
 
-Exercise 1-19. Write a program detab which replaces tabs in the input
+**Exercise 1-19.** Write a program detab which replaces tabs in the input
 with the proper number of blanks to space to the next tab stop. Assume a
 fixed set of tab stops, say every _n_ positions.
 
-Exercise 1-20. Write the program entab which replaces strings of blanks
+**Exercise 1-20.** Write the program entab which replaces strings of blanks
 by the minimum number of tabs and blanks to achieve the same spacing.
 Use the same tab stops as for detab.
 
-Exercise 1-21. Write a program to "fold" long input lines after the last
+**Exercise 1-21.** Write a program to "fold" long input lines after the last
 non-blank character that occurs before the n-th column of input, where _n is_
 a parameter. Make sure your program does something intelligent with very
 long lines, and if there are no blanks or tabs before the specified column.
 
-Exercise 1-22. Write a program to remove all comments from a C program.
+**Exercise 1-22.** Write a program to remove all comments from a C program.
 Don't forget to handle quoted strings and character constants properly.
 
-Exercise 1-23. Write a program to check a C program for rudimentary syntax errors
+**Exercise 1-23.** Write a program to check a C program for rudimentary syntax errors
 like unbalanced parentheses, brackets and braces. Don't forget
 about quotes, both single and double, and comments. (This program is hard
 if you do it in full generality.)

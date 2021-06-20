@@ -64,7 +64,7 @@ of this book) do not even know the PDP-11 assembly language.
 Although C matches the capabilities of many computers, it is independent of
 any particular machine architecture, and so with a little care it is
 easy to write "portable" programs, that is, programs which can be run
-without change on a variety of hardware. It is now routine in our 
+without change on a variety of hardware. It is now routine in our
 environment that software developed on UNIX is transported to the local
 Honeywell, IBM and Interdata systems. In fact, the C compilers and runtime
 support on these four machines are much more compatible than the
@@ -77,7 +77,7 @@ of the assembly language support and the I/O device handlers is about 95
 percent identical.
 
 For programmers familiar with other languages, it may prove helpful to
-mention a few historical, technical, and philosophical aspects of C, for 
+mention a few historical, technical, and philosophical aspects of C, for
 contrast and comparison.
 
 Many of the most important ideas of C stem from the considerably
@@ -91,13 +91,13 @@ the PDP-7.
 Although it shares several characteristic features with BCPL, C is in no
 sense a dialect of it. BCPL and B are "typeless" languages: the only data
 type is the machine word, and access to other kinds of objects is by special
-operators or function calls. In C, the fundamental data objects are 
-characters, integers of several sizes, and floating point numbers. In 
-addition, there is a hierarchy of derived data types created with 
+operators or function calls. In C, the fundamental data objects are
+characters, integers of several sizes, and floating point numbers. In
+addition, there is a hierarchy of derived data types created with
 pointers, arrays, structures, unions, and functions.
 
 C provides the fundamental flow-control constructions required for
-well-structured programs: statement grouping; decision making (if); looping 
+well-structured programs: statement grouping; decision making (if); looping
 with the termination test at the top (while, for), or at the bottom
 (do); and selecting one of a set of possible cases (switch). (All of these
 were provided in **BCPL** as well, though with somewhat different syntax; that
@@ -112,18 +112,18 @@ passed explicitly, and the function may change the object to which the
 pointer points. Array names are passed as the location of the array origin,
 so array arguments are effectively call by reference.
 
-Any function may be called recursively, and its local variables are 
+Any function may be called recursively, and its local variables are
 typically "automatic," or created anew with each invocation. Function
 definitions may not be nested but variables may be declared in a block-
 structured fashion. The functions of a C program may be compiled
 separately. Variables may be internal to a function, external but known only
 within a single source file, or completely global. Internal variables may be
 automatic or static. Automatic variables may be placed in registers for
-increased efficiency, but the register declaration is only a hint to 
+increased efficiency, but the register declaration is only a hint to
 the compiler, and does not refer to specific machine registers.
 
 C is not a strongly-typed language in the sense of Pascal or Algol 68. It
-is relatively permissive about data conversion, although it will not 
+is relatively permissive about data conversion, although it will not
 automatically convert data types with the wild abandon of **PL/I.** Existing compilers
 provide no run-time checking of array subscripts, argument types, etc.
 
@@ -143,44 +143,44 @@ other _lint_ capabilities as the occasion arises.
 Finally, C, like any other language, has its blemishes. Some of the
 operators have the wrong precedence; some parts of the syntax could be
 better; there are several versions of the language extant, differing in minor
-ways. Nonetheless, C has proven to be an extremely effective and expressive 
+ways. Nonetheless, C has proven to be an extremely effective and expressive
 language for a wide variety of programming applications.
 
 The rest of the book is organized as follows. Chapter 1 is a tutorial
 introduction to the central part of C. The purpose is to get the reader
 started as quickly as possible, since we believe strongly that the only way to
 learn a new language is to write programs in it. The tutorial does assume a
-working knowledge of the basic elements of programming; there is no 
+working knowledge of the basic elements of programming; there is no
 explanation of computers, of compilation, nor of the meaning of an expression
-like n=n+1. Although we have tried where possible to show useful 
+like n=n+1. Although we have tried where possible to show useful
 programming techniques, the book is not intended to be a reference work on
-data structures and algorithms; when forced to a choice, we have 
+data structures and algorithms; when forced to a choice, we have
 concentrated on the language.
 
 Chapters 2 through 6 discuss various aspects of C in more detail, and
 rather more formally, than does Chapter 1, although the emphasis is still on
 examples of complete, useful programs, rather than isolated fragments.
 Chapter 2 deals with the basic data types, operators and expressions.
-Chapter 3 treats control flow: if—else, while, for, etc. Chapter 4 covers 
+Chapter 3 treats control flow: if—else, while, for, etc. Chapter 4 covers
 functions and program structure — external variables, scope rules, and
-so on. Chapter 5 discusses pointers and address arithmetic. Chapter 6 
+so on. Chapter 5 discusses pointers and address arithmetic. Chapter 6
 contains the details of structures and unions.
 
-Chapter 7 describes the standard C I/O library, which provides a common 
+Chapter 7 describes the standard C I/O library, which provides a common
 interface to the operating system. This I/O library is supported on all
 machines that support C, so programs which use it for input, output, and
 other system functions can be moved from one system to another essentially
 without change.
 
 Chapter 8 describes the interface between C programs and the UNIX
-operating system, concentrating on input/output, the file system, and 
+operating system, concentrating on input/output, the file system, and
 portability. Although some of this chapter is UNIX-specific, programmers who
 are not using a UNIX system should still find useful material here, including
 some insight into how one version of the standard library is implemented,
 and suggestions on achieving portable code.
 
 Appendix A contains the C reference manual. This is the "official"
-statement of the syntax and semantics of C, and (except for one's own 
+statement of the syntax and semantics of C, and (except for one's own
 compiler) the final arbiter of any ambiguities and omissions from the earlier
 chapters.
 
