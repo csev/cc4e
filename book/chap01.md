@@ -736,31 +736,7 @@ There are twelve categories of input, so it is convenient to use an array
 to hold the number of occurrences of each digit, rather than ten individual
 variables. Here is one version of the program:
 
-    main() /* count digits, white space, others */
-    {
-        int c, 1, nwhite, nother;
-        int ndigit[10];
-
-        nwhite = nother = 0;
-        for (i = 0; i < 10; ++i)
-            ndigit[i] = 0;
-
-         while ((c = getchar()) != EOF) {
-            if (c >= '0' && c <= '9')
-                ++ndigit[c-'0'];
-            else if (c == ' ' || c == '\n' || c == '\t')
-                ++nwhite;
-            else
-                ++nother;
-
-        printf("digits =");
-
-        for (i = 0; i < 10; ++i)
-            printf(" %d", ndigit[i]);
-
-        printf("\nwhite space = %d, other = %d\n",
-            nwhite, nother);
-    }
+[comment]: <> (code c_020_01.c)
 
 The declaration
 
@@ -787,7 +763,7 @@ of that digit is
     c — '0'
 
 This works only if '0', '1', etc., are positive and in increasing order, and
-iF there is nothing but digits between 0 and 9'. Fortunately, this is true
+If there is nothing but digits between 0 and 9'. Fortunately, this is true
 for all conventional character sets.
 
 By definition, arithmetic involving char's and it's converts every-
@@ -855,10 +831,10 @@ is done is sufficient. C is designed to make the use of functions easy,
 convenient and efficient; you will often see a function only a few lines long
 called only once, just because it clarifies some piece of code.
 
-So far we have used only functions like **printf, getchar and**
-putchar that have been provided for us; now it's time to write a few of
+So far we have used only functions like `printf`, `getchar` and
+`putchar` that have been provided for us; now it's time to write a few of
 our own. Since C has no exponentiation operator like the `**` of Fortran or
-**PL/I,** let us illustrate the mechanics of function definition by writing a
+PL/I, let us illustrate the mechanics of function definition by writing a
 function `power(m, n)` to raise an integer in to a positive integer power n.
 That is, the value of power (2, 5) is 32. This function certainly doesn't
 do the whole job of `**` since it handles only positive powers of small
@@ -935,15 +911,7 @@ more compact programs with fewer extraneous variables, because arguments
 can be treated as conveniently initialized local variables in the called routine.
 For example, here is a version of power which makes use of this fact.
 
-    power(x, n) /* raise x to n-th power; n > 0 */
-    int x, n;
-    {
-        int i,p;
-
-        for (p = 1; n > 0; --n)
-            p = p * x;
-        return (p);
-    }
+[comment]: <> (code c_024_01.c)
 
 The argument n is used as a temporary variable, and is counted down until
 it becomes zero; there is no longer a need for the variable i. Whatever is
@@ -999,50 +967,7 @@ is the result.
 
 [comment]: <> (page 26 , 26 THE C PROGRAMMING LANGUAGE CHAPTER I )
 
-    #define MAXLINE 1000 /* maximum input line size */
-
-    main() /* find longest line */
-    {
-        int len; /* current line length */
-        int max; /* maximum length seen so far */
-        char line[MAXLINE]; /* current input line */
-        char save[MAXLINE]; /* longest line, saved */
-
-        max = 0;
-        while ((len = getline(line, MAXLINE)) > 0) {
-            if (len > max) {
-                max = len;
-                copy(line, save);
-            }
-            if (max > 0) /* there was a line */
-            printf("%s", save);
-    }
-
-    getline(s, lim) /* get line into s, return length */
-    char s[];
-    int lim;
-    {
-        int c, i;
-
-        for (i=0; i<lim-1 && (c=getchar())!=EOF && cl='\n'; ++i)
-            s[i] = c;
-        if (c == '\n') {
-            s[i] = c;
-            ++i;
-        }
-        s[i] = '\0';
-        return(i);
-    }
-
-    copy(s1, s2) /* copy s1 to s2; assume s2 big enough */
-    char sl[], s2[];
-    {
-        int i;
-
-        i = 0;
-        while ((s2[i] = s1[i]) != '\0')
-            ++i;
-    }
+[comment]: <> (code c_026_01.c)
 
 main and getline communicate both through a pair of arguments and
 a returned value. In getline, the arguments are declared by the lines
@@ -1058,22 +983,23 @@ determined in main. getline uses return to send a value back to the
 caller, just as the function power did. Some functions return a useful
 value; others, like copy, are only used for their effect and return no value.
 
-getline puts the character \ (the _null character,_ whose value is zero)
+getline puts the character \0 (the _null character,_ whose value is zero)
 at the end of the array it is creating, to mark the end of the string of characters
 This convention is also used by the C compiler: when a string constant like
 
     "hello\n"
 
 is written in a C program, the compiler creates an array of characters containing
-the characters of the string, and terminates it with a '\O' so that functions such
+the characters of the string, and terminates it with a '\0' so that functions such
 as printf can detect the end:
 
-    ![](RackMultipart20210526-4-195acth_html_1579513ce5caf48a.gif)1 1 \n \
+| h | e | l | l | o | \n | \0 |
+|---|---|---|---|---|----|----|
 
 The %s format specification in printf expects a string represented in this
 form. If you examine copy, you will discover that it too relies on the fact
-that its input argument sl is terminated by \O, and it copies this character
-onto the output argument s2. (All of this implies that \O is not a part of
+that its input argument sl is terminated by \0, and it copies this character
+onto the output argument s2. (All of this implies that \0 is not a part of
 normal text.)
 
 It is worth mentioning in passing that even a program as small as this
@@ -1136,54 +1062,7 @@ functions.
 
 [comment]: <> (page 29 , CHAPTER I A TUTORIAL INTRODUCTION 29 )
 
-    #define MAXLINE 1000 /* maximum input line size */
-
-    char line[MAXLINE]; /* input line */
-    char save[MAXLINE]; /* longest line saved here */
-    int max; /* length of longest line seen so far */
-
-    main() /* find longest line; specialized version */
-    {
-        int len;
-        extern int max;
-        extern char save[];
-        max = 0;
-        while ((len = getline()) > 0)
-
-        if (len > max) {
-            max = len;
-            copy();
-        }
-
-        if (max > 0) /* there was a line */
-            printf("%s", save);
-    }
-
-    getline() /* specialized version */
-    {
-        int c, i;
-        extern char line[];
-
-        for (i = 0; i < MAXLINE-1
-            && (c=getchar()) != EOF && c != '\n'; ++i)
-                line[i] = c;
-        if (c == '\n') (
-            line [i] = c;
-            ++i;
-        }
-        line[i] = '\0';
-        return(i);
-    }
-
-    copy() /* specialized version */
-    {
-        int i;
-        extern char line[], save[];
-
-        i = 0;
-        while ((save[i] = line[i]) != '\0')
-            ++i;
-    }
+[comment]: <> (code c_029_01.c)
 
 [comment]: <> (page 30 , 30 THE C PROGRAMMING LANGUAGE CHAPTER I )
 
