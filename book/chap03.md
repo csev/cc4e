@@ -632,7 +632,7 @@ The continue statement is often used when the part of the loop that follows is
 complicated, so that reversing a test and indenting another level
 would nest the program too deeply.
 
-Exercise 3-6. Write a program which copies its input to its output, except
+**Exercise 3-6.** Write a program which copies its input to its output, except
 that it prints only one instance from each group of adjacent identical lines.
 (This is a simple version of the UNIX utility uniq.)
 
