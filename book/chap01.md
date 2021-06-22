@@ -445,7 +445,8 @@ available.
 
 [comment]: <> (page 14 , 14 THE C PROGRAMMING LANGUAGE CHAPTER I )
 
-**File Copying**
+File Copying
+------------
 
 Given getchar and putchar, you can write a surprising amount of
 useful code without knowing anything more about I/O. The simplest example is a program which copies its input to its output one character at a time.
@@ -537,7 +538,8 @@ This has the undesired effect of setting c to 0 or 1, depending on whether
 or not the call of getchar encountered end of file. (More on this in
 Chapter 2.)
 
-**Character Counting**
+Character Counting
+------------------
 
 The next program counts characters; it is a small elaboration of the copy
 program.
@@ -606,7 +608,8 @@ through the loop body. Programs should act intelligently when handed input
 like "no characters." The while and for statements help ensure that they
 do reasonable things with boundary conditions.
 
-**Line Counting**
+Line Counting
+-------------
 
 The next program counts _lines_ in its input. Input lines are assumed to
 be terminated by the newline character `\n` that has been religiously
@@ -661,7 +664,8 @@ string of one or more blanks by a single blank.
 sequence \&gt;, _backspace, —,_ which prints as \&gt;, and each backspace by the
 similar sequence 4E. This makes tabs and backspaces visible.
 
-**Word Counting**
+Word Counting
+-------------
 
 The fourth in our series of useful programs counts lines, words, and
 characters, with the loose definition that a word is any sequence of
@@ -731,7 +735,7 @@ begins with a letter.
 
 [comment]: <> (page 20 , 20 THE C PROGRAMMING LANGUAGE CHAPTER I )
 
-**1.6 Arrays**
+1.6 Arrays
 ----------
 
 Let us write a program to count the number of occurrences of each
@@ -942,7 +946,7 @@ the next section.
 
 [comment]: <> (page 25 , CHAPTER I A TUTORIAL INTRODUCTION 25 )
 
-**1.9 Character Arrays**
+1.9 Character Arrays
 --------------------
 
 Probably the most common type of array in C is the array of characters.
@@ -1129,7 +1133,7 @@ manipulate.
 ungainly. Rewrite the program to make it clearer, but retain the same
 behavior at end of file or buffer overflow. Is this behavior the most reasonable?
 
-**1.11 Summary**
+1.11 Summary
 ------------
 
 At this point we have covered what might be called the conventional
@@ -1164,3 +1168,5 @@ Don't forget to handle quoted strings and character constants properly.
 like unbalanced parentheses, brackets and braces. Don't forget
 about quotes, both single and double, and comments. (This program is hard
 if you do it in full generality.)
+
+
