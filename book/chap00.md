@@ -191,4 +191,3 @@ problems, and to warn of potential difficulties. When in doubt, however, we
 have generally chosen to describe the PDP-11 UNIX situation, since that is
 the environment of the majority of C programmers. Appendix A also
 describes implementation differences on the major C systems.
-
