@@ -300,7 +300,7 @@ default here) even though it's logically unnecessary. Some day when
 another case gets added at the end, this bit of defensive programming will
 save you.
 
-Exercise 3-1. Write a function expand (s, t) which converts characters
+**Exercise 3-1.** Write a function expand (s, t) which converts characters
 like newline and tab into visible escape sequences like \n and \t as it
 copies the string s to t. Use a switch.
 
@@ -713,4 +713,3 @@ perhaps at the price of some repeated tests or an extra variable. For example, t
 
 Although we are not dogmatic about the matter, it does seem that goto
 statements should be used sparingly, if at all.
-
