@@ -68,7 +68,7 @@ hello, world
 as its output. On other systems, the rules will be different; check with a
 local expert.
 
-Exercise 1-1. Run this program on your system. Experiment with leaving
+**Exercise 1-1.** Run this program on your system. Experiment with leaving
 out parts of the program, to see what error messages you get.
 
 Now for some explanations about the program itself. A C program,
@@ -133,11 +133,12 @@ to-get or invisible characters. Among the others that C provides are \t for
 tab, \b for backspace, \." for the double quote, and \\ for the backslash
 itself.
 
-Exercise 1-2. Experiment to find out what happens when printf's argument string contains \x, where x is some character not listed above.
+**Exercise 1-2.** Experiment to find out what happens when printf's argument string contains \x, where x is some character not listed above.
 
 [comment]: <> (page 8 , S THE C PROGRAMMING LANGUAGE CHAPTLR )
 
 **1.2 Variables and Arithmetic**
+--------------------------------
 
 The next program prints the following table of Fahrenheit temperatures
 and their centigrade or Celsius equivalents, using the formula
@@ -321,6 +322,7 @@ printf, except that it reads input instead of writing output.
 Fahrenheit table.
 
 **1.3 The For Statement**
+------------------------
 
 As you might expect, there are plenty of different ways to write a program; let's try a variation on the temperature converter.
 
@@ -376,6 +378,7 @@ in one place.
 in reverse order, that is, from 300 degrees to 0.
 
 **1.4 Symbolic Constants**
+------------------------------
 
 A final observation before we leave temperature conversion forever.
 It's bad practice to bury "magic numbers" like 300 and 20 in a program;
@@ -408,6 +411,7 @@ after the defined name is substituted, there would be too many semicolons
 in the for.
 
 **1.5 A Collection of Useful Programs**
+--------------------------------------
 
 We are now going to consider a family of related programs for doing
 simple operations on character data. You will find that many programs are
@@ -437,8 +441,7 @@ available.
 
 [comment]: <> (page 14 , 14 THE C PROGRAMMING LANGUAGE CHAPTER I )
 
-File Copying
-------------
+**File Copying**
 
 Given getchar and putchar, you can write a surprising amount of
 useful code without knowing anything more about I/O. The simplest example is a program which copies its input to its output one character at a time.
@@ -530,8 +533,7 @@ This has the undesired effect of setting c to 0 or 1, depending on whether
 or not the call of getchar encountered end of file. (More on this in
 Chapter 2.)
 
-Character Counting
-------------------
+**Character Counting**
 
 The next program counts characters; it is a small elaboration of the copy
 program.
@@ -598,8 +600,7 @@ through the loop body. Programs should act intelligently when handed input
 like "no characters." The while and for statements help ensure that they
 do reasonable things with boundary conditions.
 
-Line Counting
--------------
+**Line Counting**
 
 The next program counts _lines_ in its input. Input lines are assumed to
 be terminated by the newline character \n that has been religiously
@@ -642,17 +643,16 @@ The topic of strings versus characters is discussed further in Chapter 2.
 
 [comment]: <> (page 18 , IS THE C PROGRAMMING LANGUAGE CHAPTER )
 
-Exercise 1-6. Write a program to count blanks, tabs, and newlines. C
+**Exercise 1-6.** Write a program to count blanks, tabs, and newlines. C
 
-Exercise 1-7. Write a program to copy its input to its output, replacing cad
+**Exercise 1-7.** Write a program to copy its input to its output, replacing cad
 string of one or more blanks by a single blank.
 
-Exercise 1-8. Write a program to replace each tab by the three-character
+**Exercise 1-8.** Write a program to replace each tab by the three-character
 sequence \&gt;, _backspace, —,_ which prints as \&gt;, and each backspace by the
 similar sequence 4E. This makes tabs and backspaces visible.
 
-Word Counting
--------------
+**Word Counting**
 
 The fourth in our series of useful programs counts lines, words, and
 characters, with the loose definition that a word is any sequence of characters that does not contain a blank, tab or newline. (This is a bare-bones
@@ -729,19 +729,19 @@ done. If the _expression_ is true, _statement-1_ is executed; if not, _statement
 executed. Each _statement_ can in fact be quite complicated. In the word
 count program, the one after the else is an if that controls two statements in braces.
 
-Exercise 1-9. How would you test the word count program? What are
+**Exercise 1-9.** How would you test the word count program? What are
 some boundaries?
 
-Exercise 1-10. Write a program which prints the words in its input, one per
+**Exercise 1-10.** Write a program which prints the words in its input, one per
 line.
 
-Exercise 1-11. Revise the word count program to use a better definition of
+**Exercise 1-11.** Revise the word count program to use a better definition of
 "word," for example, a sequence of letters, digits and apostrophes that
 begins with a letter.
 
 [comment]: <> (page 20 , 20 THE C PROGRAMMING LANGUAGE CHAPTER I )
 
-1.6 Arrays
+**1.6 Arrays**
 ----------
 
 Let us write a program to count the number of occurrences of each
@@ -860,6 +860,7 @@ version of this program in Chapter 3.
 in its input. It is easiest to draw the histogram horizontally; a vertical orientation is more challenging. E
 
 **1.7 Functions**
+------------------
 
 In C, a _function_ is equivalent to a subroutine or function in Fortran, or a
 procedure in **PL/I,** Pascal, etc. A function provides a convenient way to
@@ -950,6 +951,7 @@ function **lower** (c) which returns **c** if **c** is not a letter, and the low
 value of c if it is a letter.
 
 **1.8 Arguments — Call by Value**
+----------------------------------
 
 One aspect of C functions may be unfamiliar to programmers who are
 used to other languages, particularly Fortran and **PL/I.** In C, all function
@@ -996,7 +998,7 @@ the next section.
 
 [comment]: <> (page 25 , CHAPTER I A TUTORIAL INTRODUCTION 25 )
 
-1.9 Character Arrays
+**1.9 Character Arrays**
 --------------------
 
 Probably the most common type of array in C is the array of characters.
@@ -1122,14 +1124,14 @@ input line might be, so getline checks for overflow. On the other hand,
 the user of copy already knows (or can find out) how big the strings are, so
 we have chosen not to add error checking to it.
 
-Exercise 1-14. Revise the main routine of the longest-line program so it
+**Exercise 1-14.** Revise the main routine of the longest-line program so it
 will correctly print the length of arbitrarily long input lines, and as much as
 possible of the text. 7
 
-Exercise 1-15. Write a program to print all lines that are longer than 80
+**Exercise 1-15.** Write a program to print all lines that are longer than 80
 characters.
 
-Exercise 1-16. Write a program to remove trailing blanks and tabs from
+**Exercise 1-16.** Write a program to remove trailing blanks and tabs from
 each line of input, and to delete entirely blank lines.
 
 [comment]: <> (page 28 , 28 THE C PROGRAMMING LANGUAGE CHAPTER I )
@@ -1138,6 +1140,7 @@ each line of input, and to delete entirely blank lines.
 string **s.** Use it to write a program which reverses its input a line at a time.
 
 **1.10 Scope; External Variables**
+------------------------------------
 
 The variables in **main (line, save,** etc.) are private or local to **main:**
 because they are declared within main, no other function can have direct
@@ -1262,11 +1265,11 @@ manipulate.
 
 [comment]: <> (page 31 , CHAPTER I A TUTORIAL INTRODUCTION 31 )
 
-Exercise 1-18. The test in the for statement of getline above is rather
+**Exercise 1-18.** The test in the for statement of getline above is rather
 ungainly. Rewrite the program to make it clearer, but retain the same
 behavior at end of file or buffer overflow. Is this behavior the most reasonable?
 
-1.11 Summary
+**1.11 Summary**
 ------------
 
 At this point we have covered what might be called the conventional
@@ -1281,25 +1284,23 @@ effort to read on, for the features covered in the next few chapters are
 where the power and expressiveness of the language begin to become
 apparent.
 
-Exercise 1-19. Write a program detab which replaces tabs in the input
+**Exercise 1-19.** Write a program detab which replaces tabs in the input
 with the proper number of blanks to space to the next tab stop. Assume a
 fixed set of tab stops, say every _n_ positions.
 
-Exercise 1-20. Write the program entab which replaces strings of blanks
+**Exercise 1-20.** Write the program entab which replaces strings of blanks
 by the minimum number of tabs and blanks to achieve the same spacing.
 Use the same tab stops as for detab.
 
-Exercise 1-21. Write a program to "fold" long input lines after the last
+**Exercise 1-21.** Write a program to "fold" long input lines after the last
 non-blank character that occurs before the n-th column of input, where _n is_
 a parameter. Make sure your program does something intelligent with very
 long lines, and if there are no blanks or tabs before the specified column.
 
-Exercise 1-22. Write a program to remove all comments from a C program.
+**Exercise 1-22.** Write a program to remove all comments from a C program.
 Don't forget to handle quoted strings and character constants properly.
 
-Exercise 1-23. Write a program to check a C program for rudimentary syntax errors
+**Exercise 1-23.** Write a program to check a C program for rudimentary syntax errors
 like unbalanced parentheses, brackets and braces. Don't forget
 about quotes, both single and double, and comments. (This program is hard
 if you do it in full generality.)
-
-
