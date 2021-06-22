@@ -331,7 +331,7 @@ It's hard to generalize about which form is better. Constructions like
 ! inword read quite nicely ("if not in word"), but more complicated ones
 can be hard to understand.
 
-Exercise 2-1. Write a loop equivalent to the for loop above without using
+**Exercise 2-1.** Write a loop equivalent to the for loop above without using
 &&. LI
 
 2.7 Type Conversions
@@ -384,16 +384,16 @@ If the character is not an upper case letter, lower returns it unchanged.
     else
 
         return(c);
- 
+
 This works for ASCII because corresponding upper case and lower case
-letters are a fixed distance apart as numeric values and each alphabet is 
-contiguous — there is nothing but letters between _A_ and _Z._ This latter 
+letters are a fixed distance apart as numeric values and each alphabet is
+contiguous — there is nothing but letters between _A_ and _Z._ This latter
 observation is _not_ true of the EBCDIC character set (IBM 360/370), so this code
 fails on such systems — it converts more than letters.
 
 There is one subtle point about the conversion of characters to integers.
 The language does not specify whether variables of type char are signed or
-unsigned quantities. When a char is converted to an int, can it ever 
+unsigned quantities. When a char is converted to an int, can it ever
 produce a _negative_ integer? Unfortunately, this varies from machine to
 machine, reflecting differences in architecture. On some machines (PDP-11,
 for instance), a char whose leftmost bit is 1 will be converted to a negative
@@ -511,12 +511,12 @@ nonsense if inadvertently handed something else.  So if n is an integer,
 
     sqrt ( (double) n)
 
-converts n to double before passing it to sqrt. (Note that the cast produces 
+converts n to double before passing it to sqrt. (Note that the cast produces
 the _value_ of n in the proper type; the actual content of n is not
-altered.) The cast operator has the same precedence as other unary 
+altered.) The cast operator has the same precedence as other unary
 operators, as summarized in the table at the end of this chapter.
 
-Exercise 2-2. Write the function htoi (s ) , which converts a string of
+**Exercise 2-2.** Write the function htoi (s ) , which converts a string of
 hexadecimal digits into its equivalent integer value. The allowable digits are
 0 through 9, a through f, and A through F.
 
@@ -559,7 +559,7 @@ in
     nl++;
 
 choose prefix or postfix according to taste. But there are situations where
-one or the other is specifically called for. For instance, consider the 
+one or the other is specifically called for. For instance, consider the
 function squeeze (s, c) which removes all occurrences of the character c
 from the string s.
 
@@ -634,11 +634,11 @@ As each character is copied from t to s, the postfix ++ is applied to both i
 and j to make sure that they are in position for the next pass through the
 loop.
 
-Exercise 2-3. Write an alternate version of squeeze (s1, s2) which
+**Exercise 2-3.** Write an alternate version of squeeze (s1, s2) which
 deletes each character in s1 which matches any character in the _string_ s2.
 ID
 
-Exercise 2-4. Write the function any (s1, s2) which returns the first
+**Exercise 2-4.** Write the function any (s1, s2) which returns the first
 location in the string s1 where any character from the string s2 occurs, or
 —1 if s1 contains no characters from s2. El
 
@@ -713,28 +713,29 @@ adjusted.
 x >> (p+1  - n) moves the desired field to the right end of the word.
 Declaring the argument x to be unsigned ensures that when it is right-
 shifted, vacated bits will be filled with zeros, not sign bits, regardless of the
-machine the program is run on. -0 is all 1-bits; shifting it left n bit 
+machine the program is run on. -0 is all 1-bits; shifting it left n bit
 positions with -0 << n creates a mask with zeros in the rightmost n bits and
 ones everywhere else; complementing that with - makes a mask with ones
 in the rightmost n bits.
 
 [comment]: <> (page 46 , 46 THE C PROGRAMMING LANGUAGE CHAPTER 2 )
 
-Exercise 2-5. Modify getbits to number bits from left to right. 
+**Exercise 2-5.** Modify getbits to number bits from left to right.
 
-Exercise 2-6. Write a function word length ( ) which computes the word
+**Exercise 2-6.** Write a function word length ( ) which computes the word
 length of the host machine, that is, the number of bits in an int. The
 function should be portable, in the sense that the same source code works
 on all machines.
 
-Exercise 2-7. Write the function rightrot (n)  b) which rotates the
+**Exercise 2-7.** Write the function rightrot (n)  b) which rotates the
 integer n to the right by b bit positions.
 
-Exercise 2-8. Write the function invert (x)  p, n) which inverts (i.e.,
+**Exercise 2-8.** Write the function invert (x)  p, n) which inverts (i.e.,
 changes 1 into 0 and vice versa) the n bits of x that begin at position p,
 leaving the others unchanged.
 
 2.10 Assignment Operators and Expressions
+-------------------------------------------
 
 Expressions such as
 
@@ -817,7 +818,7 @@ occur in expressions, although it is a less frequent occurrence.
 
 The type of an assignment expression is the type of its left operand.
 
-Exercise 2-9. In a 2's complement number system, x & ( x-1 ) deletes the
+**Exercise 2-9.** In a 2's complement number system, x & ( x-1 ) deletes the
 rightmost 1-bit in x. (Why?) Use this observation to write a faster version
 of bitcount.
 
@@ -873,7 +874,7 @@ A newline is printed after every tenth element, and after the N-th. All other
 elements are followed by one blank. Although this might look tricky, it's
 instructive to try to write it without the conditional expression.
 
-Exercise 2-10. Rewrite the function lower, which converts upper case
+**Exercise 2-10.** Rewrite the function lower, which converts upper case
 letters to lower case, with a conditional expression instead of if — else. El
 
 2.12 Precedence and Order of Evaluation
@@ -918,8 +919,8 @@ must be fully parenthesized to give proper results.
 
 As mentioned before, expressions involving one of the associative and
 commutative operators (, +, &, ^, I ) can be rearranged even when
-parenthesized. In most cases this makes no difference whatsoever; in 
-situations where it might, explicit temporary variables can be used 
+parenthesized. In most cases this makes no difference whatsoever; in
+situations where it might, explicit temporary variables can be used
 to force a particular order of evaluation.
 
 C, like most languages, does not specify in what order the operands of
@@ -966,5 +967,3 @@ of evaluation is a bad programming practice in any language. Naturally, it is
 necessary to know what things to avoid, but if you don't know _how_ they are
 done on various machines, that innocence may help to protect you. (The C
 verifier _lint_ will detect most dependencies on order of evaluation.)
-
-
