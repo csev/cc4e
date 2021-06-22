@@ -1251,7 +1251,7 @@ thus avoiding the overhead of a function call per character processed.
 
 Other capabilities of the macro processor are described in Appendix A.
 
-Exercise 4-9. Define a macro swap (x, y) which interchanges its two int
-    arguments. (Block structure will help.)
+**Exercise 4-9.** Define a macro swap (x, y) which interchanges its two int
+arguments. (Block structure will help.)
 
 
