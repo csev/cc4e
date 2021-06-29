@@ -19,6 +19,11 @@ FROM httpd:alpine
 RUN apk add --no-cache build-base php7 php7-apache2 vim bash bash-completion git
 RUN apk add --no-cache lynx
 COPY start-apache.sh /usr/local/bin/
+COPY prepare-gcc.sh /usr/local/bin/
+
+# Install.
+RUN bash /usr/local/bin/prepare-gcc.sh
+
 # ENTRYPOINT ["/usr/local/apache2/bin/apachectl", "start"]
 # ENTRYPOINT ["sh"]
 
