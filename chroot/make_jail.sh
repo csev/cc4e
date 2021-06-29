@@ -16,9 +16,7 @@ cp -r /usr/libexec/* usr/libexec
 mkdir usr/include
 cp -r /usr/include/* usr/include
 
-mkdir usr/lib
 cp -r /usr/lib/* usr/lib
 
-mkdir lib
 cp -r /lib/* lib
 
