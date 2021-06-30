@@ -1,6 +1,9 @@
 # GCC Autograder Docker image
 
 # docker build . --tag gcc_base
+# If git repo changes
+# docker build . --no-cache --tag gcc_base
+
 # docker run -p 8080:80 -dit gcc_base:latest
 
 # docker exec -it 8e4251ace0b04003c52ec59b9ea822b908da792e3b07c75b4a5f6c373ff6d6c2 /bin/sh
@@ -23,9 +26,6 @@ COPY prepare-gcc.sh /usr/local/bin/
 
 # Install.
 RUN bash /usr/local/bin/prepare-gcc.sh
-
-# ENTRYPOINT ["/usr/local/apache2/bin/apachectl", "start"]
-# ENTRYPOINT ["sh"]
 
 # WORKDIR /root
 EXPOSE 80
