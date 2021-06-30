@@ -171,7 +171,7 @@ _cc main.c getline.o index.o_
 
 The _cc_ command uses the _".c"_ versus _".o"_ naming convention to distinguish source files from object files.
 
-Exercise 4-1. Write the function rindex t) , which returns the posi-
+**Exercise 4-1.** Write the function rindex t) , which returns the posi-
 
 tion of the _rightmost_ occurrence of t in s, or —1 if there is none. o
 
@@ -298,7 +298,7 @@ part, as discussed in Chapter 2.)
 
 [comment]: <> (page 71 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 71 )
 
-Exercise 4-2. Extend atof so it handles scientific notation of the form
+**Exercise 4-2.** Extend atof so it handles scientific notation of the form
 123.45e-6
 
 where a floating point number may be followed by e or E and an optionally
@@ -596,7 +596,7 @@ in which the popped operands are combined is irrelevant, but for the — and
 
 [comment]: <> (page 76 , 76 THE C PROGRAMMING LANGUAGE CHAPTER 4 )
 
-Exercise 4-3. Given the basic framework, it's straightforward to extend the
+**Exercise 4-3.** Given the basic framework, it's straightforward to extend the
     calculator. Add the modulus (%) and unary minus operators. Add an
 "erase" command which erases the top entry on the stack. Add commands
 for handling variables. (Twenty-six single-letter variable names is easy.) o
@@ -813,16 +813,16 @@ must retain their values between calls, they must be external to both routines. 
 We have used an array for the pushback, rather than a single character,
 since the generality may come in handy later.
 
-Exercise 4-4. Write a routine ungets ( s ) which will push back an entire
+**Exercise 4-4.** Write a routine ungets ( s ) which will push back an entire
 string onto the input. Should ungets know about buf and bufp, or
 should it just use ungetch?
 
-Exercise 4-5. Suppose that there will never be more than one character of
+**Exercise 4-5.** Suppose that there will never be more than one character of
 pushback. Modify getch and ungetch accordingly. El
 
 [comment]: <> (page 80 , 80 THE C PROGRAMMING LANGUAGE CHAPTER 4 )
 
-Exercise 4-6. Our getch and ungetch do not handle a pushed-back EOF
+**Exercise 4-6.** Our getch and ungetch do not handle a pushed-back EOF
 in a portable way. Decide what their properties ought to be if an EOF is
 pushed back, then implement your design. 0
 
@@ -1143,12 +1143,12 @@ stack of the values being processed has to be maintained. Nor will it be faster.
 understand. Recursion is especially convenient for recursively defined data
 structures like trees; we will see a nice example in Chapter 6.
 
-Exercise 4-7. Adapt the ideas of printd to write a recursive version of
+**Exercise 4-7.** Adapt the ideas of printd to write a recursive version of
 itoa; that is, convert an integer into a string with a recursive routine.
 
 [comment]: <> (page 86 , 86 THE C PROGRAMMING LANGUAGE CHAPTER 4 )
 
-Exercise 4-8. Write a recursive version of the function reverse (s),
+**Exercise 4-8.** Write a recursive version of the function reverse (s),
 which reverses the string s.
 
 4.11 The C Preprocessor
@@ -1253,5 +1253,3 @@ Other capabilities of the macro processor are described in Appendix A.
 
 **Exercise 4-9.** Define a macro swap (x, y) which interchanges its two int
 arguments. (Block structure will help.)
-
-

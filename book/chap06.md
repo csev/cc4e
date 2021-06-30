@@ -506,13 +506,13 @@ macros called isalpha and isdigit which operate in this manner.
 
 [comment]: <> (page 128 , 128 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
 
-Exercise 6-1. Make this modification to getword and measure the change
+**Exercise 6-1.** Make this modification to getword and measure the change
 in speed of the program. 0
 
-Exercise 6-2. Write a version of type which is independent of character
+**Exercise 6-2.** Write a version of type which is independent of character
 set. 0
 
-Exercise 6-3. Write a version of the keyword-counting program which does
+**Exercise 6-3.** Write a version of the keyword-counting program which does
 not count occurrences contained within quoted strings. 0
 
 6.4 Pointers to Structures
@@ -840,15 +840,15 @@ as
 This is more than is needed for current compilers, but represents the safest
 course for the future.
 
-Exercise 6-4. Write a program which reads a C program and prints in alphabetical order each group of variable names which are identical in the first 7
+**Exercise 6-4.** Write a program which reads a C program and prints in alphabetical order each group of variable names which are identical in the first 7
 characters, but different somewhere thereafter. (Make sure that 7 is a
 parameter). 0
 
-Exercise 6-5. Write a basic cross-referencer: a program which prints a list of
+**Exercise 6-5.** Write a basic cross-referencer: a program which prints a list of
 all words in a document, and, for each word, a list of the line numbers on
 which it occurs. El
 
-Exercise 6-6. Write a program which prints the distinct words in its input
+**Exercise 6-6.** Write a program which prints the distinct words in its input
 sorted into decreasing order of frequency of occurrence. Precede each word
 by its count. LI
 
@@ -991,10 +991,10 @@ Since calls to alloc and free may occur in any order, and since alignment
 matters, the simple version of alloc in Chapter 5 is not adequate here; see
 Chapters 7 and 8.
 
-Exercise 6-7. Write a routine which will remove a name and definition from
+**Exercise 6-7.** Write a routine which will remove a name and definition from
 the table maintained by lookup and install. El
 
-Exercise 6-8. Implement a simple version of the #define processor suitable for use with C programs, based on the routines of this section. You
+**Exercise 6-8.** Implement a simple version of the #define processor suitable for use with C programs, based on the routines of this section. You
 may also find getch and ungetch helpful. 0
 
 6.7 Fields
@@ -1285,5 +1285,3 @@ one declared only as a pointer to a complicated structure.
 Finally, there is always the possibility that in the future the compiler or
 some other program such as _lint_ may make use of the information contained
 in typedef declarations to perform some extra checking of a program.
-
-
