@@ -25,7 +25,10 @@ $descriptorspec = array(
 );
 
 $cwd = '/tmp';
-$env = array('some_option' => 'aeiou');
+$env = array(
+    'some_option' => 'aeiou',
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+);
 
 $process = proc_open('gcc -ansi -x c -c -', $descriptorspec, $pipes, $cwd, $env);
 
