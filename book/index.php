@@ -44,6 +44,10 @@ function x_sel($file) {
 
 ?>
 <style>
+body {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
 center {
     padding-bottom: 10px;
 }
@@ -110,7 +114,7 @@ function onSelect() {
             }
             if ( $page ) {
                 $pno = substr('000'.$numb, -3);
-                $newcontent[] = '<a style="padding-left: 5px; float:right;" href="pages/page_'.$pno.'.jpg" target="_blank">Page '.($numb+0).'</a>'."\n";
+                $newcontent[] = '<div style="padding-left: 5px; padding-bottom: 0.5em; float:right;"><a href="pages/page_'.$pno.'.jpg" target="_blank">Page '.($numb+0).'</a></div>'."\n";
             }
         }
         if ( strpos($line, "[comment]: <> (code") === 0 ) {

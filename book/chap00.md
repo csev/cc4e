@@ -19,7 +19,7 @@ implemented by actual machines.
 
 C provides no operations to deal directly with composite objects such as
 character strings, sets, lists, or arrays considered as a whole. There is no
-analog, for example, of the **PIM** operations which manipulate an entire
+analog, for example, of the **PL/I** operations which manipulate an entire
 array or string. The language does not define any storage allocation facility
 other than static definition and the stack discipline provided by the local
 variables of functions: there is no heap or garbage collection like that provided
