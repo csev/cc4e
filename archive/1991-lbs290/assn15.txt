@@ -1,0 +1,90 @@
+LBS290F                                                      Fall 1991
+
+                     ASSIGNMENT 15 - Strings
+
+Due Date: Before Lecture 11/06/91
+
+The purpose of this program is to work with strings (arrays of characters).
+
+In this program you will not write the main program - you will only
+write a function to process strings.  The name of the function is
+process.  A main program will be provided which will call your
+function.
+
+The main program will call your function as follows:
+
+   main() {
+
+     char str[100];
+
+     /* Other code */
+
+     process(str);
+
+     /* Other code */
+   }
+
+You could write a simple version of process that just printed the
+string as follows:
+
+   process(abc)
+
+     char abc[100];
+
+   {
+
+     printf("abc=%s\n",abc);
+
+   }
+
+You are to perform the following steps in our function process:
+
+1.  Print out the string you are passed.
+
+2.  Count the number of characters in the string.
+
+3.  If there are more than 10 characters in the string print out the
+    9th character.
+
+4.  Go through the string and replace every blank with a dash '-'
+
+5.  Print out the new string with dashes.
+
+The following would be an example execution of the program:
+
+  $ a.out
+
+  Calling function process
+
+  String: Hi there and welcome to LBS290
+  Count=30
+  The ninth character is: a
+  String: Hi-there-and-welcome-to-LBS290
+
+  Back from function process
+
+  Calling function process
+
+  String: I love C
+  Count=8
+  String: I-love-C
+
+  Back from function process
+
+  Program finished
+
+  $
+
+The main program may call you with other strings - process should be able
+to accept any string and process it.
+
+To compile and run your program, use the following command:
+
+  $ cc assn15.c /usr/usrs/crs/drv15.o
+  $ a.out | more
+
+More should be used because the program will generate several 
+pages of output.
+
+Hand in only the source code via mailx.
+

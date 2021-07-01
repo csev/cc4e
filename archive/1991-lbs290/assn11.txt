@@ -1,0 +1,61 @@
+
+LBS290F                                                     Fall 1991
+
+                 ASSIGNMENT 11 - FUNCTIONS
+
+Due Date: Before Lecture 10/28/91
+
+This assignment is a modification to assignment 10.  Instead of
+computing the determinant in the main program, write a function
+to compute the determinant.
+
+Name the function det and pass it three double precision parameters.
+The function header for det should be as follows:
+
+double det (a, b, c)
+
+ double a;
+ double b;
+ double c;
+
+{
+
+  /* Insert your code here */
+
+}
+
+Your program should prompt for three sets of numbers and check for
+negative determinants like the previous programs.
+
+Example execution:
+
+  $ a.out
+  Enter the value for a: 1.0
+  Enter the value for b: -3.0
+  Enter the value for c: 2.0
+
+  First root: 2.0
+  Second root: 1.0
+
+  Enter the value for a: 1.0
+  Enter the value for b: 2.0
+  Enter the value for c: 8.0
+
+  Negative determinant - no roots found
+
+  Enter the value for a: 1.0
+  Enter the value for b: 2.0
+  Enter the value for c: 1.0
+
+  First root: -1.0
+  Second root: -1.0
+
+  $
+
+Run the program for the values:
+
+a=1 b=-3 c=2
+a=1 b=2 c=8
+a=1 b=2 c=1
+
+Hand in only the program source code using mailx.

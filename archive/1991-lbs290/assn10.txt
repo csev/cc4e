@@ -1,0 +1,48 @@
+
+LBS290F                                                     Fall 1991
+
+                 ASSIGNMENT 10 - LOOPING
+
+Due Date: Before Lecture 10/25/91
+
+This assignment is a modification to assignment 9.  Add a for loop
+to your program to prompt for three sets of numbers each time
+the program is run.
+
+You should calculate the roots as before.
+
+Like assignment 9 it IS wrong to blow up with a domain error.
+
+
+Example execution:
+
+  $ a.out
+  Enter the value for a: 1.0
+  Enter the value for b: -3.0
+  Enter the value for c: 2.0
+
+  First root: 2.0
+  Second root: 1.0
+
+  Enter the value for a: 1.0
+  Enter the value for b: 2.0
+  Enter the value for c: 8.0
+
+  Negative determinant - no roots found
+
+  Enter the value for a: 1.0
+  Enter the value for b: 2.0
+  Enter the value for c: 1.0
+
+  First root: -1.0
+  Second root: -1.0
+
+  $
+
+Run the program for the values:
+
+a=1 b=-3 c=2
+a=1 b=2 c=8
+a=1 b=2 c=1
+
+Hand in only the program source code using mailx.

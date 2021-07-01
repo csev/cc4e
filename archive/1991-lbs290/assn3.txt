@@ -1,0 +1,58 @@
+
+LBS290F                                                     Fall 1991
+
+                 ASSIGNMENT 3 - THE FIRST C PROGRAM
+
+Enter the program in section 1.3 of the textbook into the file assn3.c
+using vi (or cat if you like).
+
+Due: Before lecture 10/7/91
+
+You may get a printed copy of the file using the command:
+
+  spool assn3.c
+
+To execute this program you must run it through the C language compiler
+using the following command:
+
+  cc assn3.c
+
+If you don't get any errors from the cc command you can run the
+program by typing:
+
+  a.out
+
+The program should produce the correct output as described in the book.o
+
+If you get errors when you run the C-compiler, you must fix them before
+continuing.  The following is an example of an error:
+
+   $ cc assn3.c
+   "assn3.c", line 8: syntax error
+   "assn3.c", line 10: moles undefined
+   $ 
+
+This error message is indicating that something is wrong on lines
+8 and 10 of the program.  A semi-colon was missnig on line 8 and 
+miles was mis-spelled on line 10.
+
+Edit the program in assn3.c until it compiles with no errors.
+
+Run the program using a.out and make sure it produces the proper output.
+
+To turn in the program once it works use the following commands:
+
+  rm assn3.handin
+  cp assn3.c assn3.handin
+  a.out >> assn3.handin
+
+The output of the a.out command will not appear on the terminal.  You
+can check the contents of assn3.handin as follows:
+
+  more assn3.handin
+
+You should see both the program and the results of executing the 
+program.  To hand it in, type:
+
+  mailx crs < assn3.handin
+

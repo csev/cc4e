@@ -1,0 +1,40 @@
+LBS290F                                                      Fall 1991
+
+                     ASSIGNMENT 20 - ALGEBRA
+
+Due Date: 11:59 PM 11/25/91
+
+The purpose of this program is to use bisection to find the roots of 
+a function to within an epsilon of 0.00001.  Use double precision
+variables.  The root falls somewhere between 1.0 and 100.0.
+
+The book shows a technique called recursion to find the roots.  You may 
+use recursion if you like.  You can do bisection without recursion using
+the following pseudo-code:
+
+  Set left and right to the area to be searched
+  Make sure the root is really between left and right
+  for(i=0; i<20; i++) {
+    check to see if f(left) or f(right) is zero - if so, set root and quit
+    compute root guess to be halfway between left and right
+    check to see if left and right are closer than epsilon.  If so quit
+
+    if the real root is between left and root guess, set right to the 
+     root guess
+    if the real root is between right and root guess, set left to the 
+     root guess
+  }
+  print root
+
+A function will be provided for you to use.  To use the function type:
+
+  $ cc assn20.c /usr/usrs/crs/f.o
+  $ a.out
+
+The header for function f is as follows:
+
+  double f(x)
+   double x;
+  {
+  }
+  
