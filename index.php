@@ -73,13 +73,13 @@ and
 <a href="https://en.wikipedia.org/wiki/Dennis_Ritchie" title="Dennis Ritchie">Dennis Ritchie</a>.
 </p>
 <p>
-You can write and compile some C code below. Executing code needs more security and is coming soon.
+You can write and compile some C code below.
 </p>
 <p>
 <?php
 if ( $return_value !== False ) {
     if ( $return_value === 0 ) {
-        echo('<p style="color:green;">Your code compiled successfully.</p>'."\n");
+        echo('<p style="color:green;">Your code compiled successfully.  </p>'."\n");
     } else {
         echo('<pre style="color:white; background-color:black;">'."\n");
         echo("$ gcc -ansi hello.c\n");
@@ -105,6 +105,7 @@ main() {
 </textarea>
 <input type="submit" value="Compile">
 </form>
+Executing code needs more security and is coming soon.
 </p>
 <p>
 This book is the foundation of all modern computing and advanced the notion that one programming language
