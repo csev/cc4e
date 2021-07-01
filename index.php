@@ -120,7 +120,7 @@ be used in conjunction with this course under Fair Use.
 <p>
 Here is our copy of the
 <a href="book/chap01.md">book in progress</a> for your use in this course.
-Please feel free to improve this text in
+You can help us recover and present this historically important book in
 <a href="https://github.com/csev/cc4e/" target="_blank">Github</a>.
 </p>
 <script type="text/javascript" src="static/codemirror-5.62.0/lib/codemirror.js"></script>
