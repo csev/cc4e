@@ -17,7 +17,7 @@ $stdout = False;
 $stderr = False;
 $return_value = False;
 
-if ( isset($_POST['code']) ) { 
+if ( isset($_POST['code']) ) {
 $descriptorspec = array(
    0 => array("pipe", "r"),  // stdin is a pipe that the child will read from
    1 => array("pipe", "w"),  // stdout is a pipe that the child will write to
@@ -71,12 +71,6 @@ C Programming</a> book by
 <a href="https://en.wikipedia.org/wiki/Brian_Kernighan" title="Brian Kernighan">Brian Kernighan</a>
 and
 <a href="https://en.wikipedia.org/wiki/Dennis_Ritchie" title="Dennis Ritchie">Dennis Ritchie</a>.
-This book is the foundation of all modern computing and advanced the notion that one programming language
-could be used to develop high performance systems-level code that was portable across multiple
-computer architectures.  In a sense it is like a 
-<a href="https://en.wikipedia.org/wiki/Rosetta_Stone" target="_blank">Rosetta Stone</a>
-that connects the early hardware-centered phase of computing
-with today's software-centered phase of computing.
 </p>
 <p>
 You can write and compile some C code below. Executing code needs more security and is coming soon.
@@ -113,10 +107,18 @@ main() {
 </form>
 </p>
 <p>
-Since the book for this course is out of print, otherwise unavailable, and being presented in a historical context,
-we are providing a copy to 
-be used in conjunction with this course under Fair Use.  Here is 
-our copy of the
+This book is the foundation of all modern computing and advanced the notion that one programming language
+could be used to develop high performance systems-level code that was portable across multiple
+computer architectures.  In a sense it is like a 
+<a href="https://en.wikipedia.org/wiki/Rosetta_Stone" target="_blank">Rosetta Stone</a>
+that connects the early hardware-centered phase of computing
+with today's software-centered phase of computing.
+Since the book for this course is out of print, otherwise unavailable, and being
+presented in a historical context, we are providing a copy to
+be used in conjunction with this course under Fair Use.
+</p>
+<p>
+Here is our copy of the
 <a href="book/chap01.md">book in progress</a> for your use in this course.
 Please feel free to improve this text in
 <a href="https://github.com/csev/cc4e/" target="_blank">Github</a>.
