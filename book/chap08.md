@@ -68,7 +68,7 @@ argument is a file descriptor. The second argument is a buffer in your program w
 number of bytes to be transferred. The calls are
 
     n_read = read(fd, buf, n);
- 
+
     n_written = write(fd, buf, n);
 
 Each call returns a byte count which is the number of bytes actually
@@ -172,7 +172,7 @@ the file system.
 
 [comment]: <> (page 164 , 164 THE C PROGRAMMING LANGUAGE CHAPTER 8 )
 
-Exercise 8-1. Rewrite the program cat from Chapter 7 using read,
+**Exercise 8-1.** Rewrite the program cat from Chapter 7 using read,
 write, open and close instead of their standard library equivalents. Perform experiments to determine the relative speeds of the two versions. El
 
 8.4 Random Access — Seek and Lseek
@@ -234,7 +234,7 @@ file requires two seeks, first one which selects the block, then one which has
 
 origin equal to 1 and moves to the desired byte within the block.
 
-Exercise 8-2. Clearly, seek can be written in terms of lseek, and vice
+**Exercise 8-2.** Clearly, seek can be written in terms of lseek, and vice
 versa. Write each in terms of the other. 0
 
 8.5 Example — An Implementation of Fopen and Getc
@@ -466,11 +466,11 @@ FILE \_iob[\_NFILE] =(
 The initialization of the \_flag part of the structure shows that stdin is to
 be read, stdout is to be written, and stderr is to be written unbuffered.
 
-Exercise 8-3. Rewrite f open and \_fillbuf with fields instead of explicit
+**Exercise 8-3.** Rewrite f open and \_fillbuf with fields instead of explicit
 bit operations. 0
 
-Exercise 8-4. Design and write the routines \_flushbuf and fclose. 0
-Exercise 8-5. The standard library provides a function
+**Exercise 8-4.** Design and write the routines \_flushbuf and fclose. 0
+**Exercise 8-5.** The standard library provides a function
 
     fseek(fp, offset, 'origin)
 
@@ -923,18 +923,16 @@ a badly-designed system interface. Even though the details here are related
 to storage allocation, the general approach is applicable to other situations as
 well.
 
-Exercise 8-6. The standard library function ca (n, size) returns a
+**Exercise 8-6.** The standard library function ca (n, size) returns a
 
 pointer to n objects of size size, with the storage initialized to zero. Write
 ca 3.1oc, using alloc either as a model or as a function to be called. 0
 
-Exercise 8-7. alloc accepts a size request without checking its plausibility;
+**Exercise 8-7.** alloc accepts a size request without checking its plausibility;
 free believes that the block it is asked to free contains a valid size field.
 Improve these routines to take more pains with error checking. 0
 
-Exercise 8-8. Write a routine bfree (p, n) which will free an arbitrary
+**Exercise 8-8.** Write a routine bfree (p, n) which will free an arbitrary
 block p of n characters into the free list maintained by alloc and free.
 By using bfree, a user can add a static or external array to the free list at
 any time. 0
-
-

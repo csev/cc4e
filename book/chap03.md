@@ -465,7 +465,7 @@ the string s in place.
 The commas that separate function arguments, variables in declarations,
 etc., are _not_ comma operators, and do _not_ guarantee left to right evaluation.
 
-Exercise 3-2. Write a function expand (s1 , s2) which expands shorthand notations
+**Exercise 3-2.** Write a function expand (s1 , s2) which expands shorthand notations
 like a-z in the string s1 into the equivalent complete list
 abc...xyz in s2. Allow for letters of either case and digits, and be
 prepared to handle cases like a-b-c and a-z0-9 and -a-z. (A useful
@@ -533,16 +533,16 @@ used braces around the single statement that makes up the body of the
 do-while, even though they are unnecessary, so the hasty reader will not
 mistake the while part for the _beginning_ of a while loop.
 
-Exercise 3-3. In a 2's complement number representation, our version of
+**Exercise 3-3.** In a 2's complement number representation, our version of
 itoa does not handle the largest negative number, that is, the value of _n_
 equal to -(2wordsize-1). Explain why not. Modify it to print that value
 correctly, regardless of the machine it runs on. 0
 
-Exercise 3-4. Write the analogous function itob (n, s) which converts
+**Exercise 3-4.** Write the analogous function itob (n, s) which converts
 the unsigned integer n into a binary character representation in s. Write
 itoh, which converts an integer to hexadecimal representation. 0
 
-Exercise 3-5. Write a version of itoa which accepts three arguments
+**Exercise 3-5.** Write a version of itoa which accepts three arguments
 instead of two. The third argument is a minimum field width; the converted
 number must be padded with blanks on the left if necessary to make it wide
 enough. 0

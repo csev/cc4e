@@ -35,7 +35,9 @@ without parentheses, the declaration
 **int \*day\_tab [1 3] ;**
 
 is an array of 13 pointers to integers, as we shall see in the next section.
-**5.8 Pointer Arrays; Pointers to Pointers**
+
+5.8 Pointer Arrays; Pointers to Pointers
+----------------------------------------
 
 Since pointers are variables themselves, you might expect that there
 would be uses for arrays of pointers. This is indeed the case. Let us illustrate by writing a program that will sort a set of text lines into alphabetic
@@ -237,7 +239,7 @@ difference.
 In Chapter 1 we pointed out that because **while and for loops test the**
 **termination condition** _before_ executing the loop body even once, they help
 
-CHAPTER 5 POINTERS AND ARRAYS 109
+<!-- CHAPTER 5 POINTERS AND ARRAYS 109 -->
 
 to ensure that programs will work at their boundaries, in particular with no
 input. It is illuminating to walk through the functions of the sorting program, checking what happens if there is no input text at all.
@@ -246,7 +248,8 @@ input. It is illuminating to walk through the functions of the sorting program, 
 **main,** rather than calling **anoc** to maintain storage. How much faster is
 the program? o
 
-**5.9 Initialization of Pointer Arrays**
+5.9 Initialization of Pointer Arrays
+-------------------------------------
 
 Consider the problem of writing a function **month\_name** (n) , which
 returns a pointer to a character string containing the name of the n-th
@@ -299,7 +302,8 @@ the correct number.
 
 [comment]: <> (page 110 , 110 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
-**5.10 Pointers vs. Multi-dimensional Arrays**
+5.10 Pointers vs. Multi-dimensional Arrays
+--------------------------------------------
 
 Newcomers to C are sometimes confused about the difference between a
 two-dimensional array and an array of pointers, such as **name** in the example above. Given the declarations
@@ -327,7 +331,8 @@ the most frequent use of arrays of pointers is like that shown in
 **Exercise 5-6.** Rewrite the routines day\_of \_year and month\_day with
 pointers instead of indexing. D
 
-**5.11 Command-line Arguments**
+5.11 Command-line Arguments
+-----------------------------
 
 In environments that support C, there is a way to pass command-line
 arguments or parameters to a program when it begins executing. When
@@ -346,7 +351,7 @@ is given, the output is
 
 **hello, world**
 
-CHAPTER 5 POINTERS AND ARRAYS 111
+<!-- CHAPTER 5 POINTERS AND ARRAYS 111 -->
 
 **By convention, argv [0] is the name by which the program was invoked,**
 **so argc is at least 1. In the example above, argc is 3, and argv [01,**
@@ -461,7 +466,7 @@ actually present. In particular, the call to **index** should not refer to
 **argv [21** when there was a single flag argument and to **argv [11** when
 there wasn't. Furthermore, it is convenient for users if option arguments
 
-CHAPTER 5 POINTERS AND ARRAYS **113**
+<!-- CHAPTER 5 POINTERS AND ARRAYS **113** -->
 
 **can be concatenated, as in**
 
@@ -575,7 +580,8 @@ unreasonable the input or the value of _n._ Write the program so it makes
 the best use of available storage: lines should be stored as in **sort,** not in a
 two-dimensional array of fixed size.
 
-**5.12 Pointers to Functions**
+5.12 Pointers to Functions
+---------------------------
 
 In C, a function itself is not a variable, but it is possible to define a
 _pointer to a function,_ which can be manipulated, passed to functions, placed
@@ -592,7 +598,7 @@ the approach taken in our new sort.
 The lexicographic comparison of two lines is done by **strcmp** and swapping by **swap** as before; we will also need a routine **numcmp** which compares two lines on the basis of numeric value and returns the same kind of
 condition indication as **strcmp** does. These three functions are declared in
 
-**CHAPTER 5 POINTERS AND ARRAYS**  **115**
+<!-- **CHAPTER 5 POINTERS AND ARRAYS**  **115** -->
 
 **main and pointers to them are passed to sort. sort in turn calls the**
 **functions via the pointers. We have skimped on error processing for argu­**
@@ -700,7 +706,7 @@ associated.
 We have already shown **strcmp,** which compares two strings. Here is
 numcmp, which compares two strings on a leading numeric value:
 
-**CHAPTER 5 POINTERS AND ARRAYS** 117
+<!-- **CHAPTER 5 POINTERS AND ARRAYS** 117 -->
 
     **numcmp(s1, s2) /* compare s1 and s2 numerically */**
 **char \*s1, \*s2;**
@@ -754,5 +760,3 @@ entire case of the alphabet. 0
 fields within lines, each field according to an independent set of options.
 (The index for this book was sorted with **—**** df **** for the index category and —n**
 **for the page numbers.)**
-
-

@@ -212,7 +212,7 @@ A warning: printf uses its first argument to decide how many arguments follow an
 nonsense answers, if there are not enough arguments or if they are the
 wrong type.
 
-Exercise 7-1. Write a program which will print arbitrary input in a sensible
+**Exercise 7-1.** Write a program which will print arbitrary input in a sensible
 way. As a minimum, it should print non-graphic characters in octal or hex
     (according to local custom), and fold long lines. 0
 
@@ -396,7 +396,7 @@ etc. These arguments must be pointers. The call
 
 sets n to the value of the string of digits following temp in name.
 
-Exercise 7-2. Rewrite the desk calculator of Chapter 4 using scanf and/or
+**Exercise 7-2.** Rewrite the desk calculator of Chapter 4 using scanf and/or
 sscanf to do the input and number conversion. CI
 
 7.6 File Access
@@ -685,15 +685,15 @@ while (--n \&gt; 0 &amp;&amp; (c = getc(iop)) != EOF)
     while (c = *s++)
      putc(c, lop);
 
-Exercise 7-3. Write a program to compare two files, printing the first line
+**Exercise 7-3.** Write a program to compare two files, printing the first line
 and character position where they differ. 0
 
-Exercise 7-4. Modify the pattern finding program of Chapter 5 to take its
+**Exercise 7-4.** Modify the pattern finding program of Chapter 5 to take its
 input from a set of named files or, if no files are named as arguments, from
 the standard input. Should the file name be printed when a matching line is
 found? 0
 
-Exercise 7-5. Write a program to print a set of files, starting each new one
+**Exercise 7-5.** Write a program to print a set of files, starting each new one
 on a new page, with a title and a running page count for each file. 0
 
 7.9 Some Miscellaneous Functions
@@ -716,7 +716,7 @@ isspace(c)  | non-zero if c is blank, tab or newline, 0 if not.
 toupper(c)  | convert c to upper case.
 tolower(c)  | convert c to lower case.
 
-Ungetc
+**Ungetc**
 
 The standard library provides a rather restricted version of the function
 ungetch which we wrote in Chapter 4; it is called ungetc.
@@ -727,7 +727,7 @@ pushes the character c back onto file f p. Only one character of pushback is
 allowed per file. ungetc may be used with any of the input functions and
 macros like scanf, getc, or getchar.
 
-System Call
+**System Call**
 
 [comment]: <> (page 157 , 157 THE C PROGRAMMING LANGUAGE CHAPTER 7 )
 
@@ -739,7 +739,7 @@ of s depend strongly on the local operating system. As a trivial example, on UNI
 
 causes the program date to be run; it prints the date and time of day.
 
-Storage Management
+**Storage Management**
 
 The function calloc is rather like the alloc we have used in previous chapters.
 
@@ -762,5 +762,3 @@ by calling calloc.
 
 Chapter 8 shows the implementation of a storage allocator like calloc,
 in which allocated blocks may be freed in any order.
-
-
