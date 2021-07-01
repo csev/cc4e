@@ -113,9 +113,10 @@ computer architectures.  In a sense it is like a
 <a href="https://en.wikipedia.org/wiki/Rosetta_Stone" target="_blank">Rosetta Stone</a>
 that connects the early hardware-centered phase of computing
 with today's software-centered phase of computing.
-Since the book for this course is out of print, otherwise unavailable, and being
-presented in a historical context, we are providing a copy to
-be used in conjunction with this course under Fair Use.
+Since the book for this course is out of print, otherwise unavailable, not available in an accessable format,
+and being presented in a historical context, we are providing a copy to
+be used in conjunction with this course under
+<a href="https://en.wikipedia.org/wiki/Fair_use" target="_blank">Fair Use</a>.
 </p>
 <p>
 Here is our copy of the
