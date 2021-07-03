@@ -222,7 +222,7 @@ which set the variables to their starting values. Individual statements are
 terminated by semicolons.
 
 Each line of the table is computed the same way, so we use a loop which
-repeats once per line; this is the purpose of the while statement
+repeats once per line; this is the purpose of the `while` statement
 
     while (fahr <= upper) {
         ...
@@ -317,6 +317,8 @@ won't talk much about I/O until [Chapter 7](chap07.md). In particular, we will d
 of the function `scanf` in [Chapter 7](chap07.md), section 7.4. `scanf` is much like
 `printf`, except that it reads input instead of writing output.
 
+[comment]: <> (note n_011_01.md)
+
 **Exercise 1-3.** Modify the temperature conversion program to print a heading above the table.
 
 **Exercise 1-4.** Write a program to print the corresponding Celsius to
@@ -370,6 +372,8 @@ clearer. The `for` is usually appropriate for loops in which the initialization
 and re-initialization are single statements and logically related, since it is
 more compact than `while` and keeps the loop control statements together
 in one place.
+
+[comment]: <> (note n_012_01.md)
 
 **Exercise 1-5.** Modify the temperature conversion program to print the table
 in reverse order, that is, from 300 degrees to 0.
@@ -428,8 +432,6 @@ will appear in the order in which the calls are made.
 As with `printf`, there is nothing special about `getchar` and
 `putchar`. They are not part of the C language, but they are universally
 available.
-
-[comment]: <> (note, Separation of concerns w.r.t. library / language )
 
 [comment]: <> (note n_013_01.md)
 
@@ -554,8 +556,6 @@ To cope with even bigger numbers, you can use a `double` (double
 length float). We will also use a `for` statement instead of a `while`, to
 illustrate an alternative way to write the loop.
 
-[comment]: <> (note n_016_02.md)
-
 `printf` uses `%f` for both `float` and `double`; `%.0f` suppresses
 printing of the non-existent fraction part.
 
@@ -668,6 +668,8 @@ soon as the truth or falsehood is known. Thus if `c` contains a blank, there is
 no need to test whether it contains a newline or tab, so these tests are _not_
 made. This isn't particularly important here, but is very significant in more
 complicated situations, as we will soon see.
+
+[comment]: <> (note n_019_01.md)
 
 The example also shows the C `else` statement, which specifies an alternative
 action to be done if the condition part of an `if` statement is false.

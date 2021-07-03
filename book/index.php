@@ -53,7 +53,7 @@ center {
 }
 
 .note {
-    border: 1px solid black;
+    border: 1px solid blue;
     padding-left: 1em;
     padding-right: 1em;
 }
@@ -211,7 +211,9 @@ function myCopy(me) {
         $md = str_replace('class="note">', 'class="note"><p>', $md);
         $md = str_replace('<p></div></p>', '</div>', $md);
         // $md = str_replace('class="language-', 'class="code" id="', $md);
-        $md = str_replace('<pre><code class="language-', '<pre class="code"><button style="float:right; margin:0.5em;" onclick="myCopy(this);return false;">Copy</button><code class="language-c" id="', $md);
+        $copy_button = '<button style="float:right; margin:0.5em;" onclick="myCopy(this);return false;">Copy</button>';
+        $edit_button = '<button style="float:right; margin:0.5em;" onclick="alert(\'Coming soon\');return false;">Edit</button>';
+        $md = str_replace('<pre><code class="language-', '<pre class="code">'.$edit_button.$copy_button.'<code class="language-c" id="', $md);
         echo($md);
     }
 } else {
