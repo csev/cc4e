@@ -200,10 +200,12 @@ between about 10-38 and 10+38. [Chapter 2](chap02.md) lists sizes for other mach
 
 C provides several other basic data types besides `int` and float:
 
-    char character — a single byte
-    short short integer
-    long long integer
-    double double-precision floating point
+| Type | Description |
+| ---- | ----------- |
+| char | character — a single byte |
+| short | short integer |
+| long | long integer |
+| double | double-precision floating point |
 
 The sizes of these objects are also machine-dependent; details are in [Chapter 2](chap02.md).
 There are also _arrays_, _structures_ and _unions_ of these basic types, _pointers_
