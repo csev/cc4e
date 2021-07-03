@@ -55,15 +55,20 @@ if ( $prev || $next ) {
     echo('<div style="float:right">');
 }
 if ( $prev ) {
-    echo('<a href="'.$prev.'">Prev</a> ');
+    echo('<a href="'.$prev.'"><button>Prev</button></a> ');
 }
 echo(' Page '.$pageno.' ');
 if ( $next ) {
-    echo('<a href="'.$next.'">Next</a> ');
+    echo('<a href="'.$next.'"><button>Next</button></a> ');
 }
 if ( $prev || $next ) {
     echo("</div>\n");
 }
 ?>
+<script>
+if ( window.opener ) {
+    document.write('<button onclick="window.close();">Close</button><br/>');
+}
+</script>
 <img class="scan" src='<?= $file ?>'>
 </body>
