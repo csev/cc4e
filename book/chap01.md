@@ -613,6 +613,8 @@ character, and in expressions is equivalent to a single integer; on the other
 hand, "\n" is a character string which happens to contain only one character.
 The topic of strings versus characters is discussed further in [Chapter 2](chap02.md).
 
+[comment]: <> (note n_017_01.md)
+
 [comment]: <> (page 18 , IS THE C PROGRAMMING LANGUAGE CHAPTER )
 
 **Exercise 1-6.** Write a program to count blanks, tabs, and newlines. C
