@@ -737,14 +737,14 @@ This works only if '0', '1', etc., are positive and in increasing order, and
 if there is nothing but digits between 0 and 9. Fortunately, this is true
 for all conventional character sets.
 
-By definition, arithmetic involving char's and int's converts every-
-it before proceeding, so `char` variables and constants are essen-
-tiall identical to int's in arithmetic contexts. This is quite natural and
+By definition, arithmetic involving char's and int's converts everything to
+`int` before proceeding, so `char` variables and constants are essentially
+identical to int's in arithmetic contexts. This is quite natural and
 convenient; for example, `c — '0'` is an integer expression with a value
-between 0 and 9 corresponding to the character 'O' to '9' stored in `c`, and
+between 0 and 9 corresponding to the character '0' to '9' stored in `c`, and
 is thus, a valid subscript for the array `ndigit`.
 
-The decision as to whether a character is a digit, a white space, or some-
+The decision as to whether a character is a digit, a white space, or something
 else is made with the sequence
 
     if (c >= '0' && c <= '9')
