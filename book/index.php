@@ -54,7 +54,14 @@ center {
 
 .note {
     border: 1px solid black;
-    padding-left: 2em;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.code {
+    border: 1px solid gray;
+    padding-left: 1em;
+    clear: both;
 }
 
 @media print {
@@ -165,11 +172,11 @@ function onSelect() {
                     }
 
                     if ( $first >=0 && $last >= 0 ) {
-                        $newcontent[] = $code ? "~~~~~~~~~~~~~~~~~~~~~" : '-----lt----div id="'.$file.'" class="note"-----gt----';
+                        $newcontent[] = $code ? "~~~ ".$file."" : '-----lt----div id="'.$file.'" class="note"-----gt----';
                         for($i=$first; $i<$last; $i++) {
                             $newcontent[] = $clines[$i];
                         }
-                        $newcontent[] = $code ? "~~~~~~~~~~~~~~~~~~~~~" : '-----lt----/div-----gt----';
+                        $newcontent[] = $code ? "~~~" : '-----lt----/div-----gt----';
                     }
                 }
                 continue;
@@ -191,6 +198,8 @@ function onSelect() {
         $md = str_replace('<p><div', '<div', $md);
         $md = str_replace('class="note">', 'class="note"><p>', $md);
         $md = str_replace('<p></div></p>', '</div>', $md);
+        // $md = str_replace('class="language-', 'class="code" id="', $md);
+        $md = str_replace('<pre><code class="language-', '<pre class="code"><code class="language-c" id="', $md);
         echo($md);
     }
 } else {
