@@ -103,6 +103,11 @@ function myCopy(me) {
     document.execCommand("copy");
     $temp.remove();
 }
+function myEdit(me) {
+    var code = me.nextSibling.nextSibling.id;
+    console.log('code', code);
+    window.open("code/"+code);
+}
 </script>
 <div style="float:right">
 <select id="chapters" onchange="onSelect();">
@@ -212,7 +217,7 @@ function myCopy(me) {
         $md = str_replace('<p></div></p>', '</div>', $md);
         // $md = str_replace('class="language-', 'class="code" id="', $md);
         $copy_button = '<button style="float:right; margin:0.5em;" onclick="myCopy(this);return false;">Copy</button>';
-        $edit_button = '<button style="float:right; margin:0.5em;" onclick="alert(\'Coming soon\');return false;">Edit</button>';
+        $edit_button = '<button style="float:right; margin:0.5em;" onclick="myEdit(this);return false;">Edit</button>';
         $md = str_replace('<pre><code class="language-', '<pre class="code">'.$edit_button.$copy_button.'<code class="language-c" id="', $md);
         echo($md);
     }
