@@ -76,7 +76,7 @@ body {
     font-family: Courier, monospace;
 }
   .CodeMirror { height: auto; border: 1px solid #ddd; }
-  .CodeMirror-scroll { max-height: <?= intval(($lines/15)*20) ?>em; }
+  .CodeMirror-scroll { max-height: <?= intval(($lines/13)*20) ?>em; }
 
 </style>
 </head>
