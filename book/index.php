@@ -91,6 +91,18 @@ function onSelect() {
     console.log($('#chapters').val());
     window.location = $('#chapters').val();
 }
+// https://www.w3schools.com/howto/howto_js_copy_clipboard.asp
+// https://stackoverflow.com/questions/22581345/click-button-copy-to-clipboard-using-jquery
+function myCopy(me) {
+    var code = me.nextSibling;
+    console.log('code', code);
+    console.log(code.textContent);
+    var $temp = $("<textarea>");
+    $("body").append($temp);
+    $temp.val(code.textContent).select();
+    document.execCommand("copy");
+    $temp.remove();
+}
 </script>
 <div style="float:right">
 <select id="chapters" onchange="onSelect();">
@@ -199,7 +211,7 @@ function onSelect() {
         $md = str_replace('class="note">', 'class="note"><p>', $md);
         $md = str_replace('<p></div></p>', '</div>', $md);
         // $md = str_replace('class="language-', 'class="code" id="', $md);
-        $md = str_replace('<pre><code class="language-', '<pre class="code"><code class="language-c" id="', $md);
+        $md = str_replace('<pre><code class="language-', '<pre class="code"><button style="float:right; margin:0.5em;" onclick="myCopy(this);return false;">Copy</button><code class="language-c" id="', $md);
         echo($md);
     }
 } else {
