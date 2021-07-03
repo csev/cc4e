@@ -152,7 +152,7 @@ started as quickly as possible, since we believe strongly that the only way to
 learn a new language is to write programs in it. The tutorial does assume a
 working knowledge of the basic elements of programming; there is no
 explanation of computers, of compilation, nor of the meaning of an expression
-like n=n+1. Although we have tried where possible to show useful
+like `n=n+1`. Although we have tried where possible to show useful
 programming techniques, the book is not intended to be a reference work on
 data structures and algorithms; when forced to a choice, we have
 concentrated on the language.

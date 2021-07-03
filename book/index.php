@@ -51,6 +51,12 @@ body {
 center {
     padding-bottom: 10px;
 }
+
+.note {
+    border: 1px solid black;
+    padding-left: 2em;
+}
+
 @media print {
     #chapters {
         display: none;
@@ -117,33 +123,39 @@ function onSelect() {
                 $newcontent[] = '<div style="padding-left: 5px; padding-bottom: 0.5em; float:right;"><a href="pages/page_'.$pno.'.jpg" target="_blank">Page '.($numb+0).'</a></div>'."\n";
             }
         }
-        if ( strpos($line, "[comment]: <> (code") === 0 ) {
+        if ( strpos($line, "[comment]: <> (code") === 0 || 
+             strpos($line, "[comment]: <> (note") === 0 ) {
             $pieces = preg_split("/[\s,(){}]+/", $line);
             $code = false;
+            $note = false;
             $file = false;
             foreach($pieces as $piece) {
                 if ( $piece == 'code') {
                     $code = true;
                     continue;
                 }
-                if ( $code ) {
+                if ( $piece == 'note') {
+                    $note = true;
+                    continue;
+                }
+                if ( $code || $note ) {
                     $file = $piece;
                     break;
                 }
             }
             if ( $file ) {
                 $newcontent[] = $line;
-                $fn = "code/".$file;
-                $code = file_get_contents($fn);
-                if ( is_string($code) ) {
+                $fn = $code ? "code/".$file : "notes/".$file;
+                $include = file_get_contents($fn);
+                if ( is_string($include) ) {
                     /*
-                    foreach(explode("\n",$code) as $co) {
+                    foreach(explode("\n",$include) as $co) {
                         $newcontent[] = '    '.$co;
                     }
                      */
                     $first = -1;
                     $last = 0;
-                    $clines = explode("\n",$code);
+                    $clines = explode("\n",$include);
                     for($i=0; $i<count($clines); $i++ ) {
                         $cl = $clines[$i];
                         if (trim($cl) != "" ) {
@@ -153,11 +165,11 @@ function onSelect() {
                     }
 
                     if ( $first >=0 && $last >= 0 ) {
-                        $newcontent[] = "~~~~~~~~~~~~~~~~~~~~~";
+                        $newcontent[] = $code ? "~~~~~~~~~~~~~~~~~~~~~" : '-----lt----div id="'.$file.'" class="note"-----gt----';
                         for($i=$first; $i<$last; $i++) {
                             $newcontent[] = $clines[$i];
                         }
-                        $newcontent[] = "~~~~~~~~~~~~~~~~~~~~~";
+                        $newcontent[] = $code ? "~~~~~~~~~~~~~~~~~~~~~" : '-----lt----/div-----gt----';
                     }
                 }
                 continue;
@@ -173,7 +185,13 @@ function onSelect() {
     if ( $debug ) {
         echo "<pre>\n".$contents."\n</pre>\n";
     } else {
-        echo $Parsedown->text($contents);
+        $md = $Parsedown->text($contents);
+        $md = str_replace('-----lt----', '<', $md);
+        $md = str_replace('-----gt----', '>', $md);
+        $md = str_replace('<p><div', '<div', $md);
+        $md = str_replace('class="note">', 'class="note"><p>', $md);
+        $md = str_replace('<p></div></p>', '</div>', $md);
+        echo($md);
     }
 } else {
 ?>
