@@ -3,12 +3,29 @@ if ( isset($_POST['secret']) && $_POST['secret'] == '42' ) {
     setCookie('secret', '42', time() + 15 * 3600 * 24);
 } else if ( !isset($_COOKIE['secret']) || $_COOKIE['secret'] != '42' ) {
 ?>
+<body style="font-family: Courier,monospace; width: 80%; max-width:500px;margin-left: auto; margin-right: auto;">
+<center>
+<h1>CC4E - C Programming<br/> for Everybody</h1>
 <form method="post">
-Enter the unlock code below.  The unlock code is a number (a very specific, particular and important number) that
-was featured throughout Dr. Chuck's other courses (Python, Django, PHP, and PostgreSQL).<br/>
 <input type="text" name="secret">
-<input type="submit" value="Check Unlock Number">
+<input type="submit" value="Unlock">
+<p>
+The unlock code is a number.  
+It is not very big. 
+It is a very significant number with that
+made an appearance throughout Dr. Chuck's other online courses 
+(<a href="https://www.py4e.com" target="_blank">Python</a>, 
+<a href="https://www.py4e.com" target="_blank">Django</a>, 
+<a href="https://www.py4e.com" target="_blank">PHP</a>, and 
+<a href="https://www.py4e.com" target="_blank">PostgreSQL</a>).
+</p>
+<p>
+If you are having trouble guessing the number, you can take
+a fun break and look at some cool pictures of
+<a href="https://www.sakaiger.com/sakaicar/" target="_blank">Dr. Chuck's Race Car</a>.
+</p>
 </form>
+</center>
 <?php
     return;
 }
