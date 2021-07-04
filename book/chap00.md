@@ -79,6 +79,8 @@ machines. Within the operating system itself, the 7000 lines of code outside
 of the assembly language support and the I/O device handlers is about 95
 percent identical.
 
+[comment]: <> (note n_002_02.md)
+
 For programmers familiar with other languages, it may prove helpful to
 mention a few historical, technical, and philosophical aspects of C, for
 contrast and comparison.
@@ -140,6 +142,8 @@ potential portability difficulties, and the like. Programs which pass
 unscathed through _lint_ enjoy, with few exceptions, freedom from type errors
 about as complete as do, for example, Algol 68 programs. We will mention
 other _lint_ capabilities as the occasion arises.
+
+[comment]: <> (note n_003_01.md)
 
 [comment]: <> (page 4 , 4 THE C PROGRAMMING LANGUAGE CHAPTER 0 )
 
