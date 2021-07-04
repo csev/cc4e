@@ -91,7 +91,7 @@ program, and others from libraries of previously written functions.
 
 One method of communicating data between functions is by arguments.
 The parentheses following the function name surround the argument list;
-here main is a function of no arguments, indicated by C) . The braces ( )
+here main is a function of no arguments, indicated by C) . The braces `{` `}`
 enclose the statements that make up the function; they are analogous to the
 DO-END of PL/I, or the begin—end of Algol, Pascal, and so on. A function
 is invoked by naming it, followed by a parenthesized list of arguments.
@@ -100,6 +100,8 @@ is invoked by naming it, followed by a parenthesized list of arguments.
 
 There is no CALL statement as there is in Fortran or PL/I. The parentheses
 must be present even if there are no arguments.
+
+[comment]: <> (note n_007_01.md)
 
 The line that says
 
@@ -198,7 +200,7 @@ between about 10-38 and 10+38. [Chapter 2](chap02.md) lists sizes for other mach
 
 [comment]: <> (note n_009_01.md)
 
-C provides several other basic data types besides `int` and float:
+C provides several other basic data types besides `int` and `float`:
 
 | Type | Description |
 | ---- | ----------- |
@@ -262,18 +264,20 @@ computed and assigned to `celsius` by the statement
 
     celsius = (5.0/9.0) * (fahr-32.0);
 
-The reason for using 5.0/9.0 instead of the simpler looking 5/9 is that in C,
+The reason for using `5.0/9.0` instead of the simpler looking `5/9` is that in C,
 as in many other languages, integer division _truncates,_ so any fractional part
-is discarded. Thus 5/9 is zero and of course so would be all the temperatures. A
+is discarded. Thus `5/9` is zero and of course so would be all the temperatures. A
 decimal point in a constant indicates that it is floating point, so
-5.0/9.0 is 0.555..., which is what we want.
+`5.0/9.0` is 0.555..., which is what we want.
 
-We also wrote 32.0 instead of 32, even though since `fahr` is a `float`,
-32 would be automatically converted to `float` (to 32.0) before the
+We also wrote `32.0` instead of `32`, even though since `fahr` is a `float`,
+`32` would be automatically converted to `float` (to `32.0`) before the
 subtraction. As a matter of style, it's wise to write floating point constants with
 explicit decimal points even when they have integral values; it emphasizes
 their floating point nature for human readers, and ensures that the compiler
 will see things your way too.
+
+[comment]: <> (note n_010_01.md)
 
 The detailed rules for when integers are converted to floating point are
 in [Chapter 2](chap02.md). For now, notice that the assignment
@@ -387,7 +391,7 @@ A final observation before we leave temperature conversion forever.
 It's bad practice to bury "magic numbers" like 300 and 20 in a program;
 they convey little information to someone who might have to read the program later,
 and they are hard to change in a systematic way. Fortunately, C
-provides a way to avoid such magic numbers. With the #define construction,
+provides a way to avoid such magic numbers. With the `#define` construction,
 at the beginning of a program you can define a _symbolic name_
 or _symbolic constant_ to be a particular string of characters. Thereafter, the compiler
 will replace all unquoted occurrences of the name by the corresponding
@@ -493,17 +497,17 @@ experienced C programmers. In C, any assignment, such as
 
 can be used in an expression; its value is simply the value being assigned to
 the left hand side. If the assignment of a character to c is put inside the
-test part of a while, the file copy program can be written
+test part of a `while`, the file copy program can be written
 
 [comment]: <> (code c_015_01.c)
 
-The program gets a character, assigns it to c, and then tests whether the
-character was the end of file signal. If it was not, the body of the while is
-executed, printing the character. The while then repeats. When the end
-of the input is finally reached, the while terminates and so does main.
+The program gets a character, assigns it to `c`, and then tests whether the
+character was the end of file signal. If it was not, the body of the `while` is
+executed, printing the character. The `while` then repeats. When the end
+of the input is finally reached, the `while` terminates and so does `main`.
 
 This version centralizes the input — there is now only one call to
-getchar — and shrinks the program. Nesting an assignment in a test is
+`getchar` — and shrinks the program. Nesting an assignment in a test is
 one of the places where C permits a valuable conciseness. (It's possible to
 get carried away and create impenetrable code, though, a tendency that we
 will try to curb.)
