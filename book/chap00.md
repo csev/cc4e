@@ -4,12 +4,13 @@ CHAPTER 0: INTRODUCTION
 
 [comment]: <> (page 1 , 1 ' THE C PROGRAMMING LANGUAGE CHAPTER 0 )
 
-C is a general-purpose programming language. It has been closely associated with the UNIX system, since it was developed on that system, and
+C is a general-purpose programming language. It has been closely associated
+with the UNIX system, since it was developed on that system, and
 since UNIX and its software are written in C. The language, however, is not
 tied to any one operating system or machine; and although it has been called
 a "system programming language" because it is useful for writing operating
-systems, it has been used equally well to write major numerical, text-
-processing, and data-base programs.
+systems, it has been used equally well to write major numerical,
+text-processing, and data-base programs.
 
 C is a relatively "low level" language. This characterization is not
 pejorative; it simply means that C deals with the same sort of objects that
@@ -60,6 +61,8 @@ UNIX operating system itself, which is written almost entirely in C. Of
 in assembler. In addition, essentially all of UNIX applications software is
 written in C; the vast majority of UNIX users (including one of the authors
 of this book) do not even know the PDP-11 assembly language.
+
+[comment]: <> (note n_002_01.md)
 
 Although C matches the capabilities of many computers, it is independent of
 any particular machine architecture, and so with a little care it is
