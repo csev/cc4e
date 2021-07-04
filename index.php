@@ -13,7 +13,7 @@ if ( isset($_POST['secret']) && $_POST['secret'] == '42' ) {
 The unlock code is a number.  
 It is not very big. 
 It is a very significant number with that
-made an appearance throughout Dr. Chuck's other online courses 
+makes an appearance throughout Dr. Chuck's other online courses 
 (<a href="https://www.py4e.com" target="_blank">Python</a>, 
 <a href="https://www.py4e.com" target="_blank">Django</a>, 
 <a href="https://www.py4e.com" target="_blank">PHP</a>, and 
