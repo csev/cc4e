@@ -34,3 +34,8 @@ to compile your C programs was `CC` - which stood for
 `CC` to compile and run their first "hello world" programs
 in C.
 
+Welcome to the course.
+
+Charles Russell Severance (Dr. Chuck)
+Mon Jul  5 11:31:52 EDT 2021
+
