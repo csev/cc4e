@@ -82,16 +82,16 @@ Now for some explanations about the program itself. A C program,
 whatever its size, consists of one or more "functions" which specify the
 actual computing operations that are to be done. C functions are similar to
 the functions and subroutines of a Fortran program or the procedures of
-PL/I, Pascal, etc. In our example, main is such a function. Normally you
-are at liberty to give functions whatever names you like, but main is
- a special name — your program begins executing at the beginning of main. This
-means that every program _must_ have a main somewhere. main will usually
+PL/I, Pascal, etc. In our example, `main` is such a function. Normally you
+are at liberty to give functions whatever names you like, but `main` is
+ a special name — your program begins executing at the beginning of `main`. This
+means that every program _must_ have a `main` somewhere. `main` will usually
 invoke other functions to perform its job, some coming from the same
 program, and others from libraries of previously written functions.
 
 One method of communicating data between functions is by arguments.
 The parentheses following the function name surround the argument list;
-here main is a function of no arguments, indicated by C) . The braces `{` `}`
+here `main` is a function of no arguments, indicated by C) . The braces `{` `}`
 enclose the statements that make up the function; they are analogous to the
 DO-END of PL/I, or the begin—end of Algol, Pascal, and so on. A function
 is invoked by naming it, followed by a parenthesized list of arguments.
@@ -866,7 +866,7 @@ same names without conflict. This is also true of the variables `i` and `p`: the
 
 [comment]: <> (page 24 , **24** THE C PROGRAMMING LANGUAGE CHAPTER I )
 
-The value that `power` computes is returned to main by the return
+The value that `power` computes is returned to `main` by the return
 statement, which is just as in **PL/I**. Any expression may occur within the
 parentheses. A function need not return a value; a `return` statement with
 no expression causes control, but no useful value, to be returned to the
@@ -988,10 +988,10 @@ onto the output argument `s2`. (All of this implies that '\0' is not a part of
 normal text.)
 
 It is worth mentioning in passing that even a program as small as this
-one presents some sticky design problems. For example, what should main
+one presents some sticky design problems. For example, what should `main`
 do if it encounters a line which is bigger than its limit? `get_line` works
 properly, in that it stops collecting when the array is full, even if no newline
-has been seen. By testing the length and the last character returned, main
+has been seen. By testing the length and the last character returned, `main`
 can determine whether the line was too long, and then cope as it wishes. In
 the interests of brevity, we have ignored the issue.
 
@@ -1057,7 +1057,7 @@ functions.
 
 [comment]: <> (page 30 , 30 THE C PROGRAMMING LANGUAGE CHAPTER I )
 
-The external variables in main, `get_line` and copy are _defined_ by the
+The external variables in `main`, `get_line` and copy are _defined_ by the
 first lines of the example above, which state their type and cause storage to
 be allocated for them. Syntactically, external definitions are just like the
 declarations we have used previously, but since they occur outside of functions,
@@ -1069,7 +1069,7 @@ declaration is the same as before except for the added keyword `extern`.
 In certain circumstances, the `extern` declaration can be omitted: if the
 external definition of a variable occurs in the source file _before_ its use in a
 particular function, then there is no need for an `extern` declaration in the
-function. The `extern` declarations in main, `get_line` and copy are thus
+function. The `extern` declarations in `main`, `get_line` and copy are thus
 redundant. In fact, common practice is to place definitions of all external
 variables at the beginning of the source file, and then omit all `extern`
 declarations.

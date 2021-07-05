@@ -111,6 +111,7 @@ function myEdit(me) {
 </script>
 <div style="float:right">
 <select id="chapters" onchange="onSelect();">
+  <option <?= x_sel("about.md") ?>>About</option>
   <option <?= x_sel("chap00.md") ?>>Chapter 0</option>
   <option <?= x_sel("chap01.md") ?>>Chapter 1</option>
   <option <?= x_sel("chap02.md") ?>>Chapter 2</option>
