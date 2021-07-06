@@ -60,8 +60,6 @@ compile it with the command
 
     CC hello.c
 
-[comment]: <> (note n_006_02.md)
-
 If you haven't botched anything, such as omitting a character or misspelling
 something, the compilation will proceed silently, and make an executable
 file called `a.out.` Running that by the command
@@ -74,6 +72,8 @@ will produce
 
 as its output. On other systems, the rules will be different; check with a
 local expert.
+
+[comment]: <> (note n_006_02.md)
 
 **Exercise 1-1.** Run this program on your system. Experiment with leaving
 out parts of the program, to see what error messages you get.
@@ -182,7 +182,7 @@ appear anywhere a blank or newline can.
 
 In C, _all_ variables must be declared before use, usually at the beginning
 of the function before any executable statements. If you forget a
-declaration,you will get a diagnostic from the compiler. A declaration consists of a
+declaration, you will get a diagnostic from the compiler. A declaration consists of a
 _type_ and a list of variables which have that type, as in
 
 [comment]: <> (page 9 , CHAPTER I A TUTORIAL INTRODUCTION 9 )
@@ -235,16 +235,16 @@ repeats once per line; this is the purpose of the `while` statement
 The condition in parentheses is tested. If it is true (`fahr` is less than or
 equal to `upper`), the body of the loop (all of the statements enclosed by
 the braces { and } is executed). Then the condition is re-tested, and if
-true, the body is executed again. When the test becomes false (`fahr`
+`true`, the body is executed again. When the test becomes `false` (`fahr`
 exceeds `upper`) the loop ends, and execution continues at the statement
 that follows the loop. There are no further statements in this program, so it
 terminates.
 
+[comment]: <> (page 10 , ID THE C PROGRAMMING LANGUAGE CHAPTER I )
+
 The body of a `while` can be one or more statements enclosed in
 braces, as in the temperature converter, or a single statement without
 braces, as in
-
-[comment]: <> (page 10 , ID THE C PROGRAMMING LANGUAGE CHAPTER I )
 
     while (i < j)
         i = 2 * i;
@@ -258,6 +258,8 @@ recommend writing only one statement per line, and (usually) leaving
 blanks around operators. The position of braces is less important; we have
 chosen one of several popular styles. Pick a style that suits you, then use it
 consistently.
+
+[comment]: <> (note n_010_01.md)
 
 Most of the work gets done in the body of the loop. The Celsius temperature is
 computed and assigned to `celsius` by the statement
@@ -277,7 +279,7 @@ explicit decimal points even when they have integral values; it emphasizes
 their floating point nature for human readers, and ensures that the compiler
 will see things your way too.
 
-[comment]: <> (note n_010_01.md)
+[comment]: <> (note n_010_02.md)
 
 The detailed rules for when integers are converted to floating point are
 in [Chapter 2](chap02.md). For now, notice that the assignment
@@ -368,7 +370,7 @@ This condition is evaluated; if it is true, the body of the loop (here a single
 
     fahr = fahr + 20
 
-is done, and the condition re-evaluated. The loop terminates when the condition 
+is done, and the condition re-evaluated. The loop terminates when the condition
 becomes false. As with the `while`, the body of the loop can be a
 single statement, or a group of statements enclosed in braces. The initialization
 and re-initialization parts can be any single expression.
@@ -623,7 +625,7 @@ The topic of strings versus characters is discussed further in [Chapter 2](chap0
 
 **Exercise 1-6.** Write a program to count blanks, tabs, and newlines. C
 
-**Exercise 1-7.** Write a program to copy its input to its output, replacing cad
+**Exercise 1-7.** Write a program to copy its input to its output, replacing each
 string of one or more blanks by a single blank.
 
 [comment]: <> (todo - redo this exercise so it works on non-printer)
@@ -643,7 +645,7 @@ a bare-bones version of the UNIX utility `wc`.)
 [comment]: <> (code c_018_01.c)
 
 Every time the program encounters the first character of a word, it
-counts it. The variable inword records whether the program is currently in
+counts it. The variable `inword` records whether the program is currently in
 a word or not; initially it is "not in a word," which is assigned the value `NO`.
 We prefer the symbolic constants `YES` and `NO` to the literal values 1 and
 because they make the program more readable. Of course in a program as
@@ -688,7 +690,7 @@ The general form is
     else
         statement-2
 
-One and only one of the two statements associated with an if—else is
+One and only one of the two statements associated with an if-else is
 done. If the _expression_ is true, _statement-1_ is executed; if not, _statement-2_ is
 executed. Each _statement_ can in fact be quite complicated. In the word
 count program, the one after the else is an if that controls two statements in braces.
@@ -750,7 +752,7 @@ for all conventional character sets.
 By definition, arithmetic involving char's and int's converts everything to
 `int` before proceeding, so `char` variables and constants are essentially
 identical to int's in arithmetic contexts. This is quite natural and
-convenient; for example, `c — '0'` is an integer expression with a value
+convenient; for example, `c - '0'` is an integer expression with a value
 between 0 and 9 corresponding to the character '0' to '9' stored in `c`, and
 is thus, a valid subscript for the array `ndigit`.
 
@@ -798,7 +800,8 @@ matches one of a set of constants. For contrast, we will present a `switch`
 version of this program in [Chapter 3](chap03.md).
 
 **Exercise 1-12.** Write a program to print a histogram of the lengths of words
-in its input. It is easiest to draw the histogram horizontally; a vertical orientation is more challenging. E
+in its input. It is easiest to draw the histogram horizontally; a vertical
+orientation is more challenging.
 
 1.7 Functions
 -------------
@@ -822,7 +825,7 @@ That is, the value of `power(2, 5)` is 32. This function certainly doesn't
 do the whole job of `**` since it handles only positive powers of small
 integers, but it's best to confuse only one issue at a time.
 
-Here is the function power and a main program to exercise it, so you
+Here is the function `power` and a `main` program to exercise it, so you
 can see the whole structure at once.
 
 [comment]: <> (page 23 , CHAPTER I A TUTORIAL INTRODUCTION 23 )
@@ -859,7 +862,7 @@ are known. This is done by the line
 
 that follows the function name. The argument declarations go between the
 argument list and the opening left brace; each declaration is terminated by a
-semicolon. The names used by power for its arguments are purely _local_ to
+semicolon. The names used by `power` for its arguments are purely _local_ to
 power, and not accessible to any other function: other routines can use the
 same names without conflict. This is also true of the variables `i` and `p`: the
 `i` in `power` is unrelated to the `i` in `main`.
@@ -894,13 +897,15 @@ variable in the calling function; it can only alter its private, temporary copy.
 Call by value is an asset, however, not a liability. It usually leads to
 more compact programs with fewer extraneous variables, because arguments
 can be treated as conveniently initialized local variables in the called routine.
-For example, here is a version of power which makes use of this fact.
+For example, here is a version of `power` which makes use of this fact.
 
 [comment]: <> (code c_024_01.c)
 
 The argument `n` is used as a temporary variable, and is counted down until
 it becomes zero; there is no longer a need for the variable `i`. Whatever is
 done to `n` inside power has no effect on the argument that power was originally called with.
+
+Yada
 
 When necessary, it is possible to arrange for a function to modify a variable in
 a calling routine. The caller must provide the _address_ of the variable
@@ -913,6 +918,8 @@ the function is actually the location or address of the beginning of the array.
 (There is _no_ copying of array elements.) By subscripting this value, the
 function can access and alter any element of the array. This is the topic of
 the next section.
+
+Yada
 
 [comment]: <> (page 25 , CHAPTER I A TUTORIAL INTRODUCTION 25 )
 
@@ -964,7 +971,7 @@ a returned value. In `get_line`, the arguments are declared by the lines
 
 which specify that the first argument is an array, and the second is an
 integer. The length of the array `s` is not specified in `get_line` since it is
-determined in `main`. `get_line` uses return to send a value back to the
+determined in `main`. `get_line` uses `return` to send a value back to the
 caller, just as the function `power` did. Some functions return a useful
 value; others, like copy, are only used for their effect and return no value.
 
@@ -1010,10 +1017,10 @@ characters.
 **Exercise 1-16.** Write a program to remove trailing blanks and tabs from
 each line of input, and to delete entirely blank lines.
 
-[comment]: <> (page 28 , 28 THE C PROGRAMMING LANGUAGE CHAPTER I )
-
 **Exercise 1-17.** Write a function `reverse(s)` which reverses the character
 string `s`. Use it to write a program which reverses its input a line at a time.
+
+[comment]: <> (page 28 , 28 THE C PROGRAMMING LANGUAGE CHAPTER I )
 
 1.10 Scope; External Variables
 ------------------------------
@@ -1075,7 +1082,7 @@ variables at the beginning of the source file, and then omit all `extern`
 declarations.
 
 If the program is on several source files, and a variable is defined in,
-say, and used in _fi1e2,_ then an `extern` declaration is needed in _fi1e2_ to
+say, and used in _file2,_ then an `extern` declaration is needed in _file2_ to
 connect the two occurrences of the variable. This topic is discussed at
 length in [Chapter 4](chap04.md).
 
@@ -1118,7 +1125,7 @@ effort to read on, for the features covered in the next few chapters are
 where the power and expressiveness of the language begin to become
 apparent.
 
-**Exercise 1-19.** Write a program detab which replaces tabs in the input
+**Exercise 1-19.** Write a program `detab` which replaces tabs in the input
 with the proper number of blanks to space to the next tab stop. Assume a
 fixed set of tab stops, say every _n_ positions.
 
