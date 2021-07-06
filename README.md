@@ -18,7 +18,7 @@ Python lists and dictionaries.
 * Pointers
 * Linked lists
 * Hashing
-* Implementating lists and dictionaries
+* Implementing lists and dictionaries
 
 
 Reference Materials
