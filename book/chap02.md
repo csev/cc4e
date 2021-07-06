@@ -3,7 +3,7 @@ CHAPTER 2: TYPES, OPERATORS AND EXPRESSIONS
 
 Variables and constants are the basic data objects manipulated in a program. Declarations list the variables to be used, and state what type they
 have and perhaps what their initial values are. Operators specify what is to
-be do'ne to them. Expressions combine variables and constants to produce
+be done to them. Expressions combine variables and constants to produce
 new values. These are the topics of this chapter.
 
 2.1 Variable Names
@@ -333,7 +333,7 @@ digits into its numeric equivalent.
         return (n);
       }
 
-As we discussed in Chapter 1, the expression
+As we discussed in [Chapter 1](chap01.md), the expression
 
       s[i] - '0'
 
@@ -547,7 +547,7 @@ equivalent to
         }
 
 Another example of a similar construction comes from the getline
-function which we wrote in Chapter I, where we can replace
+function which we wrote in [Chapter 1](chap01.md), where we can replace
 
       if (c == '\n')
           s[i] = c;
@@ -839,7 +839,7 @@ which is higher than that of + and —.
 | ,  [Chapter 3](chap03.md) | left to right |
 
 The operators -> and . are used to access members of structures; they will
-be covered in Chapter 6, along with sizeof (size of an object). Chapter 5
+be covered in [Chapter 6](chap06.md), along with sizeof (size of an object). [Chapter 5](chap05.md)
 discusses  (indirection) and & (address of).
 
 Note that the precedence of the bitwise logical operators &, ^ and | falls
