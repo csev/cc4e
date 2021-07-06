@@ -182,7 +182,7 @@ appear anywhere a blank or newline can.
 
 In C, _all_ variables must be declared before use, usually at the beginning
 of the function before any executable statements. If you forget a
-declaration,you will get a diagnostic from the compiler. A declaration consists of a
+declaration, you will get a diagnostic from the compiler. A declaration consists of a
 _type_ and a list of variables which have that type, as in
 
 [comment]: <> (page 9 , CHAPTER I A TUTORIAL INTRODUCTION 9 )
