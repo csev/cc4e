@@ -15,6 +15,7 @@ somewhere unexpected. With discipline, however, pointers can also be used
 to achieve clarity and simplicity. This is the aspect that we will try to illustrate.
 
 **5.1 Pointers and Addresses**
+------------------------------
 
 Since a pointer contains the address of an object, it is possible to access
 the object "indirectly" through the pointer. Suppose that x is a variable,
@@ -123,6 +124,7 @@ copies the contents of px into py, thus making py point to whatever px
 points to.
 
 **5.2 Pointers and Function Arguments**
+---------------------------------------
 
 Since C passes arguments to functions by "call by value," there is no
 direct way for the called function to alter a variable in the calling function.
@@ -245,6 +247,7 @@ character that must be read can be pushed back onto the input.
 What type does get f loat return as its function value? 0
 
 **5.3 Pointers and Arrays**
+---------------------------
 
 **In** C, there is a strong relationship between pointers and arrays, strong
 enough that pointers and arrays really should be treated simultaneously.
@@ -380,6 +383,7 @@ So as far as **f** is concerned, the fact that the argument really refers to par
 a larger array is of no consequence.
 
 **5.4 Address Arithmetic**
+--------------------------
 
 **If**  **p** is a pointer, then p++ increments **p** to point to the next element of
 whatever kind of object p points to, and p+=i increments p to point i elements beyond where it currently does. These and similar constructions are
@@ -553,6 +557,7 @@ In its declaration, **p** is initialized to **s,** that is, to point to the firs
 **them.**
 
 **5.5 Character Pointers and Functions**
+----------------------------------------
 
 **A** _ **string constant,** _ **written as**
 
@@ -705,6 +710,7 @@ showed in Chapter 2: **strcat(s, t)** copies the string t to the end of s.
 3, and **4), reverse (Chapter** 3), and **index and getop (Chapter 4).**
 
 **5.6 Pointers are not Integers**
+---------------------------------
 
 You may notice in older C programs a rather cavalier attitude toward
 copyifig pointers. It has generally been true that on most machines a pointer
@@ -751,6 +757,7 @@ for the particular compiler you use. It's wiser to be complete in all declaratio
 in inadvertently.)
 
 **5.7 Multi-Dimensional Arrays**
+--------------------------------
 
 C provides for rectangular multi-dimensional arrays, although in practice
 they tend to be much less used than arrays of pointers. In this section, we
