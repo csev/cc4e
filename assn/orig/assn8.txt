@@ -1,0 +1,25 @@
+
+LBS290F                                                     Fall 1991
+
+                 ASSIGNMENT 8 - CALCULATING AN AVERAGE
+
+Due Date: Before Lecture 10/18/91
+
+This program will prompt for 5 floating point numbers.  The program will
+print out the total of the five numbers and also print out the average.
+
+The program output will execute as follows:
+
+  $ a.out 
+  Enter the first number: 10.0
+  Enter the second number: 5.0
+  Enter the third number: 15.0
+  Enter the fourth number: 20.0
+  Enter the fifth number: 10.0
+
+  The total is: 60.0
+  The average is: 12.0
+
+Hand in the source code only via mailx.
+
+  

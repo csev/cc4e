@@ -4,12 +4,13 @@ CHAPTER 0: INTRODUCTION
 
 [comment]: <> (page 1 , 1 ' THE C PROGRAMMING LANGUAGE CHAPTER 0 )
 
-C is a general-purpose programming language. It has been closely associated with the UNIX system, since it was developed on that system, and
+C is a general-purpose programming language. It has been closely associated
+with the UNIX system, since it was developed on that system, and
 since UNIX and its software are written in C. The language, however, is not
 tied to any one operating system or machine; and although it has been called
 a "system programming language" because it is useful for writing operating
-systems, it has been used equally well to write major numerical, text-
-processing, and data-base programs.
+systems, it has been used equally well to write major numerical,
+text-processing, and data-base programs.
 
 C is a relatively "low level" language. This characterization is not
 pejorative; it simply means that C deals with the same sort of objects that
@@ -19,7 +20,7 @@ implemented by actual machines.
 
 C provides no operations to deal directly with composite objects such as
 character strings, sets, lists, or arrays considered as a whole. There is no
-analog, for example, of the **PIM** operations which manipulate an entire
+analog, for example, of the **PL/I** operations which manipulate an entire
 array or string. The language does not define any storage allocation facility
 other than static definition and the stack discipline provided by the local
 variables of functions: there is no heap or garbage collection like that provided
@@ -61,6 +62,8 @@ in assembler. In addition, essentially all of UNIX applications software is
 written in C; the vast majority of UNIX users (including one of the authors
 of this book) do not even know the PDP-11 assembly language.
 
+[comment]: <> (note n_002_01.md)
+
 Although C matches the capabilities of many computers, it is independent of
 any particular machine architecture, and so with a little care it is
 easy to write "portable" programs, that is, programs which can be run
@@ -75,6 +78,8 @@ assembler, and debugger, the software written in C is identical on both
 machines. Within the operating system itself, the 7000 lines of code outside
 of the assembly language support and the I/O device handlers is about 95
 percent identical.
+
+[comment]: <> (note n_002_02.md)
 
 For programmers familiar with other languages, it may prove helpful to
 mention a few historical, technical, and philosophical aspects of C, for
@@ -138,6 +143,8 @@ unscathed through _lint_ enjoy, with few exceptions, freedom from type errors
 about as complete as do, for example, Algol 68 programs. We will mention
 other _lint_ capabilities as the occasion arises.
 
+[comment]: <> (note n_003_01.md)
+
 [comment]: <> (page 4 , 4 THE C PROGRAMMING LANGUAGE CHAPTER 0 )
 
 Finally, C, like any other language, has its blemishes. Some of the
@@ -152,7 +159,7 @@ started as quickly as possible, since we believe strongly that the only way to
 learn a new language is to write programs in it. The tutorial does assume a
 working knowledge of the basic elements of programming; there is no
 explanation of computers, of compilation, nor of the meaning of an expression
-like n=n+1. Although we have tried where possible to show useful
+like `n=n+1`. Although we have tried where possible to show useful
 programming techniques, the book is not intended to be a reference work on
 data structures and algorithms; when forced to a choice, we have
 concentrated on the language.

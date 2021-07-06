@@ -1,0 +1,53 @@
+LBS290F                                                      Fall 1991
+
+                     ASSIGNMENT 23 - SORTING
+
+Due Date: 11:59 PM Wednesday 12/4/91
+
+The purpose of this assignment is to sort a list of grades and 
+print the mean and median of the numbers.
+
+The input to the program will be 10 grade records.  Each grade record will
+have a student number and a grade value.
+
+Read the numbers into two arrays.  Sort the arrays by the grade from
+highest to lowest grade.  Then print out the sorted arrays.
+
+Calculate the mean of the scores.
+
+The median of the scores if the fifth score.  Print out the median score
+and the student number of the student who had the median score.
+
+Example execution:
+
+$ a.out
+Enter the student records
+111111 90
+123456 50
+333333 70
+202020 60
+101020 75
+123123 85
+161161 95
+262262 85
+191819 90
+888888 65
+
+Student records sorted by grade:
+
+  161161   95
+  111111   90
+  191819   90
+  123123   85
+  262262   85
+  101020   75
+  333333   70
+  888888   65
+  202020   60
+  123456   50
+
+Median grade 85 student 262262
+
+Mean grade 76.5
+
+Mail in the source code using mailx

@@ -3,12 +3,29 @@ if ( isset($_POST['secret']) && $_POST['secret'] == '42' ) {
     setCookie('secret', '42', time() + 15 * 3600 * 24);
 } else if ( !isset($_COOKIE['secret']) || $_COOKIE['secret'] != '42' ) {
 ?>
+<body style="font-family: Courier,monospace; width: 80%; max-width:500px;margin-left: auto; margin-right: auto;">
+<center>
+<h1>CC4E - C Programming<br/> for Everybody</h1>
 <form method="post">
-Enter the unlock code below.  The unlock code is a number (a very specific, particular and important number) that
-was featured throughout Dr. Chuck's other courses (Python, Django, PHP, and PostgreSQL).<br/>
 <input type="text" name="secret">
-<input type="submit" value="Check Unlock Number">
+<input type="submit" value="Unlock">
+<p>
+The unlock code is a number.  
+It is not very big. 
+It is a very significant number with that
+makes an appearance throughout Dr. Chuck's other online courses 
+(<a href="https://www.py4e.com" target="_blank">Python</a>, 
+<a href="https://www.py4e.com" target="_blank">Django</a>, 
+<a href="https://www.py4e.com" target="_blank">PHP</a>, and 
+<a href="https://www.py4e.com" target="_blank">PostgreSQL</a>).
+</p>
+<p>
+If you are having trouble guessing the number, you can take
+a fun break and look at some cool pictures of
+<a href="https://www.sakaiger.com/sakaicar/" target="_blank">Dr. Chuck's Race Car</a>.
+</p>
 </form>
+</center>
 <?php
     return;
 }
@@ -17,7 +34,7 @@ $stdout = False;
 $stderr = False;
 $return_value = False;
 
-if ( isset($_POST['code']) ) { 
+if ( isset($_POST['code']) ) {
 $descriptorspec = array(
    0 => array("pipe", "r"),  // stdin is a pipe that the child will read from
    1 => array("pipe", "w"),  // stdout is a pipe that the child will write to
@@ -25,7 +42,10 @@ $descriptorspec = array(
 );
 
 $cwd = '/tmp';
-$env = array('some_option' => 'aeiou');
+$env = array(
+    'some_option' => 'aeiou',
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+);
 
 $process = proc_open('gcc -ansi -x c -c -', $descriptorspec, $pipes, $cwd, $env);
 
@@ -68,21 +88,15 @@ C Programming</a> book by
 <a href="https://en.wikipedia.org/wiki/Brian_Kernighan" title="Brian Kernighan">Brian Kernighan</a>
 and
 <a href="https://en.wikipedia.org/wiki/Dennis_Ritchie" title="Dennis Ritchie">Dennis Ritchie</a>.
-This book is the foundation of all modern computing and advanced the notion that one programming language
-could be used to develop high performance systems-level code that was portable across multiple
-computer architectures.  In a sense it is like a 
-<a href="https://en.wikipedia.org/wiki/Rosetta_Stone" target="_blank">Rosetta Stone</a>
-that connects the early hardware-centered phase of computing
-with today's software-centered phase of computing.
 </p>
 <p>
-You can write and compile some C code below. Executing code needs more security and is coming soon.
+You can write and compile some C code below.
 </p>
 <p>
 <?php
 if ( $return_value !== False ) {
     if ( $return_value === 0 ) {
-        echo('<p style="color:green;">Your code compiled successfully.</p>'."\n");
+        echo('<p style="color:green;">Your code compiled successfully.  </p>'."\n");
     } else {
         echo('<pre style="color:white; background-color:black;">'."\n");
         echo("$ gcc -ansi hello.c\n");
@@ -108,14 +122,24 @@ main() {
 </textarea>
 <input type="submit" value="Compile">
 </form>
+Executing code needs more security and is coming soon.
 </p>
 <p>
-Since the book for this course is out of print, otherwise unavailable, and being presented in a historical context,
-we are providing a copy to 
-be used in conjunction with this course under Fair Use.  Here is 
-our copy of the
+This book is the foundation of all modern computing and advanced the notion that one programming language
+could be used to develop high performance systems-level code that was portable across multiple
+computer architectures.  In a sense it is like a 
+<a href="https://en.wikipedia.org/wiki/Rosetta_Stone" target="_blank">Rosetta Stone</a>
+that connects the early hardware-centered phase of computing
+with today's software-centered phase of computing.
+Since the book for this course is out of print, otherwise unavailable, not available in an accessable format,
+and being presented in a historical context, we are providing a copy to
+be used in conjunction with this course under
+<a href="https://en.wikipedia.org/wiki/Fair_use" target="_blank">Fair Use</a>.
+</p>
+<p>
+Here is our copy of the
 <a href="book/chap01.md">book in progress</a> for your use in this course.
-Please feel free to improve this text in
+You can help us recover and present this historically important book in
 <a href="https://github.com/csev/cc4e/" target="_blank">Github</a>.
 </p>
 <script type="text/javascript" src="static/codemirror-5.62.0/lib/codemirror.js"></script>

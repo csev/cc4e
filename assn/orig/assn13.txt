@@ -1,0 +1,86 @@
+
+LBS290F                                                     Fall 1991
+
+                 ASSIGNMENT 13 - CALL BY VALUE SUBROUTINE
+
+Due Date: Before Lecture 11/04/91
+
+This program has nothing to do with polynomials.  This program has two
+purposes:
+
+1)  Write a different program than a polynomial program from scratch
+(with a few hints)
+
+2) Explore how subroutines do pass by location (instead of pass by
+value).
+
+This program will read an un-specified number of employee time
+records from input.  Each time record will contain an employee number 
+(integer), an employee rate per hour (float) and number of hours
+worked.
+
+You are to print out the amount each employee should be paid.  Employees 
+are paid time-and-a-half for hours worked above 40 hours.
+
+The program would run as follows:
+
+$ a.out
+Enter time record: 123 5.00 40
+
+Employee=123  Hours=40.0   Rate=5.00  Pay=200.00
+
+Enter time record: 100 4.00 45
+
+Employee=123  Hours=40.0   Rate=5.00  Pay=190.00
+
+Enter time record: 199 5.25 10
+
+Employee=123  Hours=40.0   Rate=5.00  Pay=52.20
+
+Enter time record: 0 0 0 
+
+$
+
+The program should terminate when an employee number of zero is entered.
+
+You must use a function to calculate the pay.  The function should have no
+return value and must not use any global variables.  The calculated pay
+should be passed out of the function using call by location.
+
+The following is an outline of the program:
+
+main() {
+  int empno;
+  float rate;
+  float hours;
+  float pay;
+
+  while(1) {
+
+    printf("Enter time record:");
+
+    scanf("%d %f %f",&empno,&rate,&hours);
+ 
+    if ( empno == 0 ) continue;
+
+    /* Call function calcpay */ 
+
+    /* Print out the output */
+
+  }  /* End while */
+
+} /* End main */
+
+/* Function calcpay */
+
+calcpay(p,r,h)
+
+float *p;   /* Returned calculated pay */
+float r;
+float h;
+
+{ /* Beginning of routine calcpay */
+
+
+} /* End of routine calcpay */
+

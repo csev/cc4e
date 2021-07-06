@@ -1,0 +1,101 @@
+LBS290F                                                      Fall 1991
+
+                     ASSIGNMENT 18 - MACHINE LANGUAGE - I
+
+Due Date: Before Midnight 11/20/91
+
+This program will implement a simple computer language.  This language is
+similar to the lowest level language actually executed by computer hardware.
+
+Your computer has 100 integer variables numbered from 1 through
+100.
+
+This language has the following statements:
+
+        Statement            Action
+        ---------            ----------------
+        * Comment            Simply print out the comment
+        E                    Echo every command
+        N                    Don't Echo every command
+        X or End of file     Exit
+        10  S 100            Store 100 into vars[10]
+        10  =  20  +  30     vars[10] = vars[20] + vars[30]
+        10  =  20  -  30     vars[10] = vars[20] - vars[30]
+        10  =  20  *  30     vars[10] = vars[20] * vars[30]
+        10  =  20  /  30     vars[10] = vars[20] / vars[30]
+
+The program should catch and print a message for the following errors:
+
+        Z                    First letter illegal
+        10 S                 Incorrect number of parameters
+        10 >  20  +  30      Illegal Character
+        10 =  20  >  30      Illegal operator
+        
+This program will be extended in assignment 19 so make the program
+as clear and clean as possible.
+
+The following is one possible pseudo code for the program:
+
+   while(1)  {
+     read data and check for EOF
+     check for comment
+     check for 'E'
+     check for 'N'
+     check for 'X'
+     check if first character between 0 and 9 - otherwise error
+     use sscanf to get second token
+     token == 'S'
+       use sscanf to parse
+       perform store
+     else if token == '='
+       use sscanf to parse
+       process operator '+'
+       process operator '-'
+       process operator '*'
+       process operator '/'
+     else 
+       error
+  }
+  dump out memory
+
+An example execution follows:
+
+$ a.out
+
+Enter: * This is a comment
+* This is a comment
+Enter: 10 S 300
+Enter: 11 S 50
+Enter: E
+Enter: 12 S 65
+
+Command: 12 S 65
+
+Enter: 13 S 1000
+
+Command: 13 S 1000
+
+Enter: 20 = 10 + 11
+
+Command: 20 = 10 + 11
+
+Enter: N
+Enter: 21 = 12 - 11
+Enter: 22 = 11 * 12
+Enter: 23 = 13 / 11
+Enter: X
+
+  Address      Value
+ --------------------
+    10           300
+    11           50
+    12           65
+    13           1000
+    20           350
+    21           15
+    22           3250
+    23           20
+$
+
+
+

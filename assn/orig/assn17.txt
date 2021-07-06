@@ -1,0 +1,65 @@
+LBS290F                                                      Fall 1991
+
+                     ASSIGNMENT 17 - AN INVENTORY PROGRAM
+
+Due Date: Before Midnight 11/18/91
+
+This program will keep track of an inventory of computer parts for
+computer part company.
+
+The program will be able to handle up to 10 part numbers ranging from
+1 through 10.
+
+The program will repeatedly prompt for inventory control records
+which describe the purchases and sales of the company.
+
+The format of the inventory control records are as follows:
+
+     Record        Action
+
+     P 3 100       Purchased 100 units of part 3
+     S 1 2         Sold 2 units of part 1
+     L             Print out the inventory by part number for
+                   the non-zero entries
+     X             Exit
+     End-of-file   Exit
+
+The program must be able to handle the following errors:
+
+     Z 6 1         Illegal command
+     P 3           Improper number of parameters
+
+The program must also detect if there is an attempt to sell more units than
+are inventory.
+
+An example run of the program is as follows:
+
+     $ a.out
+     
+     Setting all inventory records to zero
+     
+     Enter: Z 6 1
+     ERROR: Invalid command Z
+     
+     Enter: P 3
+     ERROR: Invalid number of parameters
+     
+     Enter: S 1 2
+     ERROR: Part number only has 0 units
+     
+     Enter: P 3 100
+     Enter: P 1 10
+     Enter: S 3 50
+     Enter: P 3 20
+     Enter: L
+     
+       Part    Units
+       -------------
+         1      10
+         3      70
+     
+     Enter: X
+
+     Program terminated.
+
+     $

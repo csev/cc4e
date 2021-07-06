@@ -1,0 +1,59 @@
+LBS290F                                                      Fall 1991
+
+                 ASSIGNMENT 24 - PUTTING IT ALL TOGETHER
+
+Due Date: 5 points Extra Credit Due 12/12/91 Noon
+
+The purpose of this program is to implement a simple payroll for 
+a small company.  The input records consist of an employee number
+rate, and number of hours.  The following is an example record:
+
+  1 7.30 40.0
+
+The program will calculate the pay for each employee, allowing time 
+and a half for worked over 40.
+
+The program will also calculate federal taxes for the person.  The tax table
+is as follows:
+
+    Gross Pay     Taxes
+   ---------------------
+   0 < pay < 200    - 0 - 
+   pay >= 200      50% of the amount over 200
+
+For example the taxes on $250.00 would be $25.00.
+
+As each record is read, print out the employee, rate, gross pay, taxes,
+and net pay.
+
+There will be multiple pay records per person.  As each pay record is 
+printed, you must save the gross pay and taxes for the employee (hint:
+the employee number will always be between 0 and 9).
+
+Use end-of-file to terminate the program.
+
+At the end of the program, print out a list of all of the employees
+who have been paid throughout the year and show their total gross pay
+and total taxes withheld for the year.
+
+If you get an illegal employee number, print a message and do no 
+pay calculation.
+
+Example execution:
+
+$ a.out
+Enter: 1 7.00 40.00
+Emp=1 Rate=7.00 Hours=40.0 Gross=280.00 Taxes=40.00 Net=240.00
+Enter: 3 5.00 45.00
+Emp=3 Rate=5.00 Hours=45.0 Gross=237.50 Taxes=18.75 Net=218.75
+Enter: 1 7.00 20.00
+Emp=1 Rate=7.00 Hours=20.0 Gross=140.00 Taxes=0.00 Net=140.00
+Enter: (CTRL-D)
+
+Year End Summary
+
+Employee  Gross      Taxes
+--------------------------
+    1      420.00    40.00
+    3      237.50    18.75
+$

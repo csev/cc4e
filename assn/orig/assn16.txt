@@ -1,0 +1,66 @@
+LBS290F                                                      Fall 1991
+
+                     ASSIGNMENT 16 - A CALCULATOR
+
+Due Date: Before Midnight 11/15/91
+
+In this program you will write a program which simulates a simple
+hand calculator which can add, subtract, multiply, and divide.
+
+The calculator will work with floating point numbers.
+
+The calculator program has a single display where the answer is 
+always displayed after each number is entered.  This display is
+called the "accumulator" (in computerese).
+
+The calculator will repeatedly prompt for calculator commands until
+the S (Stop command).  The calculator will accept the following commands:
+
+     Command         Action
+
+     = 1.23          Sets the accumulator to 1.23
+     + 5.0           Adds 5.0 to the accumulator
+     / 2.0           Divides accumulator by 2.0
+     * 6.3           Multiplies the accumulator by 6.3
+     - 4.0           Subtracts 4.0 from the accumulator
+     S 0.0           Stops the program
+
+There must be a space between the operator and the number.
+
+As each command is precessed the program will print out what it is
+doing and print the new accumulator value after each command has been
+processed.
+
+The program will also check for incorrect commands and print an error
+message out without changing the accumulator.
+
+An example run is as follows:
+
+     $ a.out
+
+            Acc=0.0
+     Enter: = 1.5
+     Setting accumulator to 1.5
+     
+            Acc=1.5
+     Enter: + 9.5
+     Adding 9.5 to the accumulator
+     
+            Acc=10.0
+     Enter: Z 9.75
+     ERROR: Z is not a valid command to the calculator program
+     
+            Acc=10.0
+     Enter: / 5.0
+     Dividing the accumulator by 5.0 
+     
+            Acc=2.0
+     Enter: * 1.35
+     Multiplying the accumulator by 1.35
+     
+            Acc=2.7
+     Enter: S 0.0
+     
+     Calculator program finished
+
+Hand in only the source code using mailx.

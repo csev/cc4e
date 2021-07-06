@@ -51,12 +51,7 @@ In traditional C, the program to print "hello, world" is
     main()
     printf("hello, world\n");
 
-The modern minimal version of this needs a bit more syntax:
-
-    #include <stdio.h>
-    main() {
-        printf("hello, world\n");
-    }
+[comment]: <> (note n_006_01.md)
 
 Just how to run this program depends on the system you are using. As
 a specific example, on the UNIX operating system you must create the
@@ -65,9 +60,7 @@ compile it with the command
 
     CC hello.c
 
-On modern systems, we use the `gcc` compiler:
-
-    gcc -ansi hello.c
+[comment]: <> (note n_006_02.md)
 
 If you haven't botched anything, such as omitting a character or misspelling
 something, the compilation will proceed silently, and make an executable
@@ -89,16 +82,16 @@ Now for some explanations about the program itself. A C program,
 whatever its size, consists of one or more "functions" which specify the
 actual computing operations that are to be done. C functions are similar to
 the functions and subroutines of a Fortran program or the procedures of
-PL/I, Pascal, etc. In our example, main is such a function. Normally you
-are at liberty to give functions whatever names you like, but main is
- a special name — your program begins executing at the beginning of main. This
-means that every program _must_ have a main somewhere. main will usually
+PL/I, Pascal, etc. In our example, `main` is such a function. Normally you
+are at liberty to give functions whatever names you like, but `main` is
+ a special name — your program begins executing at the beginning of `main`. This
+means that every program _must_ have a `main` somewhere. `main` will usually
 invoke other functions to perform its job, some coming from the same
 program, and others from libraries of previously written functions.
 
 One method of communicating data between functions is by arguments.
 The parentheses following the function name surround the argument list;
-here main is a function of no arguments, indicated by C) . The braces ( )
+here `main` is a function of no arguments, indicated by C) . The braces `{` `}`
 enclose the statements that make up the function; they are analogous to the
 DO-END of PL/I, or the begin—end of Algol, Pascal, and so on. A function
 is invoked by naming it, followed by a parenthesized list of arguments.
@@ -108,12 +101,14 @@ is invoked by naming it, followed by a parenthesized list of arguments.
 There is no CALL statement as there is in Fortran or PL/I. The parentheses
 must be present even if there are no arguments.
 
+[comment]: <> (note n_007_01.md)
+
 The line that says
 
-    printf ("hello, world\n");
+    printf("hello, world\n");
 
 is a function call, which calls a function named `printf`, with the argument
-"hello, world\n". `printf` is a library function which prints output on
+`"hello, world\n"`. `printf` is a library function which prints output on
 the terminal (unless some other destination is specified). In this case it
 prints the string of characters that make up its argument.
 
@@ -159,9 +154,10 @@ argument string contains `\x`, where x is some character not listed above.
 
 The next program prints the following table of Fahrenheit temperatures
 and their centigrade or Celsius equivalents, using the formula
+`C=(5/9)(F-32)`.
 
-| _C_ = (5/9)(F-32). |
-| --- |
+| Farenheight | Celsius |
+| --- | --- |
 | 0 | -17.8 |
 | 20 | -6.7 |
 | 40 | 4.4 |
@@ -202,12 +198,16 @@ which lies between —32768 and +32767. A `float` number is a 32-bit
 quantity, which amounts to about seven significant digits, with magnitude
 between about 10-38 and 10+38. [Chapter 2](chap02.md) lists sizes for other machines.
 
-C provides several other basic data types besides `int` and float:
+[comment]: <> (note n_009_01.md)
 
-    char character — a single byte
-    short short integer
-    long long integer
-    double double-precision floating point
+C provides several other basic data types besides `int` and `float`:
+
+| Type | Description |
+| ---- | ----------- |
+| char | character — a single byte |
+| short | short integer |
+| long | long integer |
+| double | double-precision floating point |
 
 The sizes of these objects are also machine-dependent; details are in [Chapter 2](chap02.md).
 There are also _arrays_, _structures_ and _unions_ of these basic types, _pointers_
@@ -226,7 +226,7 @@ which set the variables to their starting values. Individual statements are
 terminated by semicolons.
 
 Each line of the table is computed the same way, so we use a loop which
-repeats once per line; this is the purpose of the while statement
+repeats once per line; this is the purpose of the `while` statement
 
     while (fahr <= upper) {
         ...
@@ -264,18 +264,20 @@ computed and assigned to `celsius` by the statement
 
     celsius = (5.0/9.0) * (fahr-32.0);
 
-The reason for using 5.0/9.0 instead of the simpler looking 5/9 is that in C,
+The reason for using `5.0/9.0` instead of the simpler looking `5/9` is that in C,
 as in many other languages, integer division _truncates,_ so any fractional part
-is discarded. Thus 5/9 is zero and of course so would be all the temperatures. A
+is discarded. Thus `5/9` is zero and of course so would be all the temperatures. A
 decimal point in a constant indicates that it is floating point, so
-5.0/9.0 is 0.555..., which is what we want.
+`5.0/9.0` is 0.555..., which is what we want.
 
-We also wrote 32.0 instead of 32, even though since `fahr` is a `float`,
-32 would be automatically converted to `float` (to 32.0) before the
+We also wrote `32.0` instead of `32`, even though since `fahr` is a `float`,
+`32` would be automatically converted to `float` (to `32.0`) before the
 subtraction. As a matter of style, it's wise to write floating point constants with
 explicit decimal points even when they have integral values; it emphasizes
 their floating point nature for human readers, and ensures that the compiler
 will see things your way too.
+
+[comment]: <> (note n_010_01.md)
 
 The detailed rules for when integers are converted to floating point are
 in [Chapter 2](chap02.md). For now, notice that the assignment
@@ -321,6 +323,8 @@ won't talk much about I/O until [Chapter 7](chap07.md). In particular, we will d
 of the function `scanf` in [Chapter 7](chap07.md), section 7.4. `scanf` is much like
 `printf`, except that it reads input instead of writing output.
 
+[comment]: <> (note n_011_01.md)
+
 **Exercise 1-3.** Modify the temperature conversion program to print a heading above the table.
 
 **Exercise 1-4.** Write a program to print the corresponding Celsius to
@@ -331,18 +335,12 @@ Fahrenheit table.
 
 As you might expect, there are plenty of different ways to write a program; let's try a variation on the temperature converter.
 
-    main() /* Fahrenheit-Celsius table */
-    {
-        int fahr;
-
-        for (fahr = 0; fahr <= 300; fahr = fahr + 20)
-            printf("%4d %6.1f\n", fahr, (5.0/9.0)*(fahr-32));
-    }
+[comment]: <> (code c_011_01.c)
 
 This produces the same answers, but it certainly looks different. One major
 change is the elimination of most of the variables; only `fahr` remains, as an
 int (to show the `%d` conversion in `printf`). The lower and upper limits
-and the step size appear only as constants in the for statement, itself a new
+and the step size appear only as constants in the `for` statement, itself a new
 construction, and the expression that computes the Celsius temperature now
 appears as the third argument of `printf` instead of in a separate assignment statement.
 
@@ -351,11 +349,11 @@ appears as the third argument of `printf` instead of in a separate assignment st
 This last change is an instance of a quite general rule in C — in any
 context where it is permissible to use the value of a variable of some type,
 you can use an expression of that type. Since the third argument of
-printf has to be a floating point value to match the %6 .1f, any floating
+`printf` has to be a floating point value to match the `%6.1f`, any floating
 point expression can occur there.
 
-The for itself is a loop, a generalization of the while. If you compare
-it to the earlier while, its operation should be clear. It contains three
+The `for` itself is a loop, a generalization of the `while`. If you compare
+it to the earlier `while`, its operation should be clear. It contains three
 parts, separated by semicolons. The first part
 
     fahr = 0
@@ -366,18 +364,22 @@ or condition that controls the loop:
     fahr <= 300
 
 This condition is evaluated; if it is true, the body of the loop (here a single
-printf) is executed. Then the re-initialization step
+`printf`) is executed. Then the re-initialization step
 
     fahr = fahr + 20
 
-is done, and the condition re-evaluated. The loop terminates when the condition becomes false. As with the while, the body of the loop can be a
-single statement, or a group of statements enclosed in braces. The initialization and re-initialization parts can be any single expression.
+is done, and the condition re-evaluated. The loop terminates when the condition 
+becomes false. As with the `while`, the body of the loop can be a
+single statement, or a group of statements enclosed in braces. The initialization
+and re-initialization parts can be any single expression.
 
 The choice between `while` and `for` is arbitrary, based on what seems
 clearer. The `for` is usually appropriate for loops in which the initialization
 and re-initialization are single statements and logically related, since it is
 more compact than `while` and keeps the loop control statements together
 in one place.
+
+[comment]: <> (note n_012_01.md)
 
 **Exercise 1-5.** Modify the temperature conversion program to print the table
 in reverse order, that is, from 300 degrees to 0.
@@ -389,7 +391,7 @@ A final observation before we leave temperature conversion forever.
 It's bad practice to bury "magic numbers" like 300 and 20 in a program;
 they convey little information to someone who might have to read the program later,
 and they are hard to change in a systematic way. Fortunately, C
-provides a way to avoid such magic numbers. With the #define construction,
+provides a way to avoid such magic numbers. With the `#define` construction,
 at the beginning of a program you can define a _symbolic name_
 or _symbolic constant_ to be a particular string of characters. Thereafter, the compiler
 will replace all unquoted occurrences of the name by the corresponding
@@ -398,24 +400,14 @@ not limited to numbers.
 
 [comment]: <> (page 13 , CHAPTER 1 A TUTORIAL INTRODUCTION 13 )
 
-    #define LOWER 0 /* lower limit of table */
-    #define UPPER 300 /* upper limit */
-    #define STEP 20 /* step size */
-
-    main() /* Fahrenheit-Celsius table */
-    {
-        int fahr;
-
-        for (fahr = LOWER; fahr <= UPPER; fahr = fahr + STEP)
-            printf("%4d %6.1f\n", fahr, (5.0/9.0)\*(fahr-32));
-    }
+[comment]: <> (code c_013_01.c)
 
 The quantities LOWER, UPPER and STEP are constants, so they do not
 appear in declarations. Symbolic names are commonly written in upper case
 so they can be readily distinguished from lower case variable names. Notice
 that there is no semicolon at the end of a definition. Since the whole line
 after the defined name is substituted, there would be too many semicolons
-in the for.
+in the `for`.
 
 1.5 A Collection of Useful Programs
 -----------------------------------
@@ -447,7 +439,7 @@ As with `printf`, there is nothing special about `getchar` and
 `putchar`. They are not part of the C language, but they are universally
 available.
 
-[comment]: <> (note, Separation of concerns w.r.t. library / language )
+[comment]: <> (note n_013_01.md)
 
 [comment]: <> (page 14 , 14 THE C PROGRAMMING LANGUAGE CHAPTER I )
 
@@ -467,21 +459,12 @@ In outline,
 
 Converting this into C gives
 
-    main() /* copy input to output; 1st version */
-    {
-        int c;
-        c = getchar();
+[comment]: <> (code c_014_01.c)
 
-        while (c != EOF) (
-            putchar(s);
-            c = getchar();
-        }
-    }
-
-The relational operator != means "not equal to."
+The relational operator `!=` means "not equal to."
 
 The main problem is detecting the end of the input. By convention,
-getchar returns a value which is not a valid character when it encounters
+`getchar` returns a value which is not a valid character when it encounters
 the end of the input; in this way, programs can detect when they run out of
 input. The only complication, a serious nuisance, is that there
 are _two_ conventions in common use about what that end of file value really is. We
@@ -499,7 +482,7 @@ in order to work properly. By using the symbolic constant `EOF` to represent
 the value that `getchar` returns when end of file occurs, we are assured that
 only one thing in the program depends on the specific numeric value.
 
-[comment]: <> (note, Modern C compilers define this in stdio.h - so you should not define this)
+[comment]: <> (note n_014_01.md)
 
 We also declare `c` to be an `int`, not a `char`, so it can hold the value
 which `getchar` returns. As we shall see in [Chapter 2](chap02.md), this value is actually
@@ -514,30 +497,25 @@ experienced C programmers. In C, any assignment, such as
 
 can be used in an expression; its value is simply the value being assigned to
 the left hand side. If the assignment of a character to c is put inside the
-test part of a while, the file copy program can be written
+test part of a `while`, the file copy program can be written
 
-    main() /* copy input to output; 2nd version */
-    {
-        int c;
-        while ((c = getchar()) 1= EOF)
-            putchar(c);
-    }
+[comment]: <> (code c_015_01.c)
 
-The program gets a character, assigns it to c, and then tests whether the
-character was the end of file signal. If it was not, the body of the while is
-executed, printing the character. The while then repeats. When the end
-of the input is finally reached, the while terminates and so does main.
+The program gets a character, assigns it to `c`, and then tests whether the
+character was the end of file signal. If it was not, the body of the `while` is
+executed, printing the character. The `while` then repeats. When the end
+of the input is finally reached, the `while` terminates and so does `main`.
 
 This version centralizes the input — there is now only one call to
-getchar — and shrinks the program. Nesting an assignment in a test is
+`getchar` — and shrinks the program. Nesting an assignment in a test is
 one of the places where C permits a valuable conciseness. (It's possible to
 get carried away and create impenetrable code, though, a tendency that we
 will try to curb.)
 
 It's important to recognize that the parentheses around the assignment
-within the conditional are really necessary. The _precedence_ of != is higher
-than that of =, which means that in the absence of parentheses the relational
-test != would be done before the assignment =. So the statement
+within the conditional are really necessary. The _precedence_ of `!=` is higher
+than that of `=`, which means that in the absence of parentheses the relational
+test `!=` would be done before the assignment `=`. So the statement
 
     c = getchar() != EOF
 
@@ -545,8 +523,8 @@ is equivalent to
 
     c = (getchar() != EOF)
 
-This has the undesired effect of setting c to 0 or 1, depending on whether
-or not the call of getchar encountered end of file. (More on this in
+This has the undesired effect of setting `c` to 0 or 1, depending on whether
+or not the call of `getchar` encountered end of file. (More on this in
 [Chapter 2](chap02.md).)
 
 Character Counting
@@ -557,15 +535,7 @@ program.
 
 [comment]: <> (page 16 , 16 THE C PROGRAMMING LANGUAGE CHAPTER I )
 
-    main() /* count characters in input */
-    {
-        long nc;
-
-        nc = 0;
-        while (getchar() != EOF)
-            ++nc;
-        printf("%ld\n", nc);
-    }
+[comment]: <> (code c_016_01.c)
 
 The statement
 
@@ -573,7 +543,7 @@ The statement
 
 shows a new operator, `++`, which means _increment by one._ You could write
 `nc = nc + 1` but `++nc` is more concise and often more efficient. There
-is a corresponding operator -- to decrement by 1. The operators `++` and
+is a corresponding operator `--` to decrement by 1. The operators `++` and
 can be either prefix operators (`++nc`) or postfix (`nc++`); these two forms
 have different values in expressions, as will be shown in [Chapter 2](chap02.md), but
 `++nc` and `nc++` both increment `nc`. For the moment we will stick to
@@ -586,20 +556,11 @@ were declared `int`; in Honeywell and IBM C, `long` and `int` are
 synonymous and much larger. The conversion specification `%ld` signals to
 `printf` that the corresponding argument is a long integer.
 
-[comment]: <> (note, Again architecture and portability coming to the fore - evolved over time)
+[comment]: <> (note n_016_01.md)
 
 To cope with even bigger numbers, you can use a `double` (double
 length float). We will also use a `for` statement instead of a `while`, to
 illustrate an alternative way to write the loop.
-
-    main() /* count characters in input */
-    {
-        double nc;
-
-        for (nc = 0; getchar() != EOF; ++nc)
-            ;
-        printf("%.0f\n", nc);
-    }
 
 `printf` uses `%f` for both `float` and `double`; `%.0f` suppresses
 printing of the non-existent fraction part.
@@ -629,16 +590,7 @@ The next program counts _lines_ in its input. Input lines are assumed to
 be terminated by the newline character `\n` that has been religiously
 appended to every line written out.
 
-    main() /* count lines in input */
-    {
-        int c, nl;
-
-        nl = 0;
-        while ((c = getchar()) != EOF)
-            if (c == '\n')
-                ++nl;
-        printf("%d\n", nl);
-    }
+[comment]: <> (code c_017_01.c)
 
 The body of the `while` now consists of an `if`, which in turn controls
 the increment `++nl`. The `if` statement tests the parenthesized condition,
@@ -664,6 +616,8 @@ of the newline character. You should note carefully that '\n' is a single
 character, and in expressions is equivalent to a single integer; on the other
 hand, "\n" is a character string which happens to contain only one character.
 The topic of strings versus characters is discussed further in [Chapter 2](chap02.md).
+
+[comment]: <> (note n_017_01.md)
 
 [comment]: <> (page 18 , IS THE C PROGRAMMING LANGUAGE CHAPTER )
 
@@ -722,6 +676,8 @@ soon as the truth or falsehood is known. Thus if `c` contains a blank, there is
 no need to test whether it contains a newline or tab, so these tests are _not_
 made. This isn't particularly important here, but is very significant in more
 complicated situations, as we will soon see.
+
+[comment]: <> (note n_019_01.md)
 
 The example also shows the C `else` statement, which specifies an alternative
 action to be done if the condition part of an `if` statement is false.
@@ -791,14 +747,14 @@ This works only if '0', '1', etc., are positive and in increasing order, and
 if there is nothing but digits between 0 and 9. Fortunately, this is true
 for all conventional character sets.
 
-By definition, arithmetic involving char's and int's converts every-
-it before proceeding, so `char` variables and constants are essen-
-tiall identical to int's in arithmetic contexts. This is quite natural and
+By definition, arithmetic involving char's and int's converts everything to
+`int` before proceeding, so `char` variables and constants are essentially
+identical to int's in arithmetic contexts. This is quite natural and
 convenient; for example, `c — '0'` is an integer expression with a value
-between 0 and 9 corresponding to the character 'O' to '9' stored in `c`, and
+between 0 and 9 corresponding to the character '0' to '9' stored in `c`, and
 is thus, a valid subscript for the array `ndigit`.
 
-The decision as to whether a character is a digit, a white space, or some-
+The decision as to whether a character is a digit, a white space, or something
 else is made with the sequence
 
     if (c >= '0' && c <= '9')
@@ -910,7 +866,7 @@ same names without conflict. This is also true of the variables `i` and `p`: the
 
 [comment]: <> (page 24 , **24** THE C PROGRAMMING LANGUAGE CHAPTER I )
 
-The value that `power` computes is returned to main by the return
+The value that `power` computes is returned to `main` by the return
 statement, which is just as in **PL/I**. Any expression may occur within the
 parentheses. A function need not return a value; a `return` statement with
 no expression causes control, but no useful value, to be returned to the
@@ -1032,10 +988,10 @@ onto the output argument `s2`. (All of this implies that '\0' is not a part of
 normal text.)
 
 It is worth mentioning in passing that even a program as small as this
-one presents some sticky design problems. For example, what should main
+one presents some sticky design problems. For example, what should `main`
 do if it encounters a line which is bigger than its limit? `get_line` works
 properly, in that it stops collecting when the array is full, even if no newline
-has been seen. By testing the length and the last character returned, main
+has been seen. By testing the length and the last character returned, `main`
 can determine whether the line was too long, and then cope as it wishes. In
 the interests of brevity, we have ignored the issue.
 
@@ -1101,7 +1057,7 @@ functions.
 
 [comment]: <> (page 30 , 30 THE C PROGRAMMING LANGUAGE CHAPTER I )
 
-The external variables in main, `get_line` and copy are _defined_ by the
+The external variables in `main`, `get_line` and copy are _defined_ by the
 first lines of the example above, which state their type and cause storage to
 be allocated for them. Syntactically, external definitions are just like the
 declarations we have used previously, but since they occur outside of functions,
@@ -1113,7 +1069,7 @@ declaration is the same as before except for the added keyword `extern`.
 In certain circumstances, the `extern` declaration can be omitted: if the
 external definition of a variable occurs in the source file _before_ its use in a
 particular function, then there is no need for an `extern` declaration in the
-function. The `extern` declarations in main, `get_line` and copy are thus
+function. The `extern` declarations in `main`, `get_line` and copy are thus
 redundant. In fact, common practice is to place definitions of all external
 variables at the beginning of the source file, and then omit all `extern`
 declarations.

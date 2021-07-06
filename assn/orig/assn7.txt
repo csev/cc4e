@@ -1,0 +1,32 @@
+
+LBS290F                                                     Fall 1991
+
+                 ASSIGNMENT 7 - INPUT AND OUTPUT
+
+Due Date: Before Lecture 10/16/91
+
+Alter the program from assignment 6 to prompt for the values
+of a, b, and c using scanf.
+
+The program will execute as follows:
+
+  $ a.out
+  Enter the value for a: 1.0
+  Enter the value for b: -3.0
+  Enter the value for c: 2.0
+
+  First root: 2.0
+  Second root: 1.0
+
+Once again run the program for the values:
+
+a=1 b=-3 c=2
+a=1 b=2 c=1
+
+Also run the program with the values:
+
+a=1 b=2 c=8
+
+What happens?  Why does this happen?
+
+Hand in only the program source code using mailx.
