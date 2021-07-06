@@ -866,7 +866,7 @@ makes its name unknown outside of the file in which it is declared.
 
 In C, "static" connotes not only permanence but also a degree of
 what might be called "privacy." Internal static objects are known only
-    inside one function; external static objects (variables or functions) are
+inside one function; external static objects (variables or functions) are
 known only within the source file in which they appear, and their names do
 not interfere with variables or functions of the same name in other files.
 
@@ -892,23 +892,18 @@ which may result in smaller and faster programs.
 The register declaration looks like
 
     register int x;
-     register char c;
+    register char c;
 
 and so on; the int part may be omitted. register can only be applied to
 automatic variables and to the formal parameters of a function. In this latter
     case, the declaration looks like
 
     f(c, n)
-
     register int c, n;
-
-(
-
-    register int i;
-
-- • •
-
-)
+    {
+        register int i;
+        ...
+    }
 
 In practice, there are some restrictions on register variables, reflecting
 the realities of underlying hardware. Only a few variables in each function
@@ -925,54 +920,62 @@ C is not a block-structured language in the sense of PL/1 or Algol, in
 that functions may not be defined within other functions.
 
 On the other hand, variables can be defined in a block-structured
-    fashion. Declarations of variables (including initializations) may follow the
+fashion. Declarations of variables (including initializations) may follow the
 left brace that introduces _any_ compound statement, not just the one that
 begins a function. Variables declared in this way supersede any identically
 named variables in outer blocks, and remain in existence until the matching
 right brace. For example, in
 
-    ![](RackMultipart20210617-4-1jy5lqo_html_9e5ebb4d11d7a5f.png)
+[comment]: <> (page 82 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 82 )
 
-NG LANGUAGE CHAPTER 4
+    if (n > 0) {
+        int i; /* declare a new i */
+        for (i = 0; i < n; i++)
+         ...
+    }
 
-    /* declare a new i */
- = 0; i \&lt; n; i++)
+the scope of the variable i is the "true" branch of the if; this i is unrelated
+to any other i in the program. Block structure also applies to external
+variables. Given the declarations
 
-i is the "true" branch of the if; this i is unre-
+    int x;
+    f() {
+        double x;
+        ...
+    }
 
-the program.
+then within the function f, occurrences of x refer to the internal double variable; outside
+of f, they refer to the external integer. The same is true of the names of formal parameters:
 
-so applies to external variables. Given the declarations
+    int z;
+    f(z)
+    double z;
+    {
+        ...
+    }
 
-    X;
+Within the function f, z refers to the formal parameter, not the external.
 
-ion f, occurrences of x refer to the internal double
-', they refer to the external integer. The same is true
-al parameters:
+4.9 Initialization
+------------------
 
-, z refers to the formal parameter, not the external.
+Initialization has been mentioned in passing many times so far, but always peripherally
+to some other topic. This section summarizes some of the rules, now that we
+have discussed the various storage classes. In the absence of explicit
+initialization, external and static variables are guaranteed to be initialized
+to zero; automatic and register variables have undefined (i.e., garbage) values.
+Simple variables (not arrays or structures) may be initialized when they are
+declared, by following the name with an equals sign and a constant expression:
 
-been mentioned in passing many times so far, but
-some other topic. This section summarizes some of
-have discussed the various storage classes.
-
-explicit initialization, external and static variables are
-ialized to zero; automatic and register variables have
-ge) values.
-
-    (not arrays or structures) may be initialized when they
-owing the name with an equals sign and a constant
-
-=
-
-    60 * 24; /* minutes in a day */
-
-c variables, the initialization is done once, conceptually
-    automatic and register variables, it is done each time
+int x = 1;
+char squote = '\'';
+long day = 60 * 24; /* minutes in a day */
 
 [comment]: <> (page 83 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 83 )
 
-the function or block is entered.
+For external and static variables, the initialization is done once, conceptually
+at compile time. For automatic and register variables, it is done each time the
+function or block is entered.
 
 For automatic and register variables, the initializer is not restricted to
 being a constant: it may in fact be any valid expression involving previously
@@ -991,7 +994,7 @@ binary search program in Chapter 3 could be written as
 
     int mid;
 
-- • •
+    ...
 
 )
 
@@ -1036,7 +1039,7 @@ program of Chapter 1, which began
 
     ndigit[i] = 0;
 
-- • •
+    ....
 
 )
 
@@ -1048,19 +1051,19 @@ can be written instead as
 
     int nother = 0;
 
-int ndigit[10] ={ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
+    int ndigit[10] ={ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
 
     main() /* count digits, white space, others */
     int c, i;
 
-- •
+    ...
 
 These initializations are actually unnecessary since all are zero, but it's good
 form to make them explicit anyway. If there are fewer initializers than the
 specified size, the others will be zero. It is an error to have too many initial-
 izers. Regrettably, there is no way to specify repetition of an initializer, nor
 to initialize an element in the middle of an array without supplying all the
-    intervening values as well.
+intervening values as well.
 
 Character arrays are a special case of initialization; a string may be used
 instead of the braces and commas notation:
