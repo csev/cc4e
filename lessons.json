@@ -1,0 +1,20 @@
+{
+"title": "C Programming for Everybody (PY4E)",
+"description" : "Hello and welcome to my site where you learn computer architecture by studying C.",
+"count": true,
+"required_modules": [
+    "https://github.com/tsugitools/gift",
+    "https://github.com/tsugitools/youtube",
+    "https://github.com/tsugitools/peer-grade",
+    "https://github.com/tsugitools/tdiscus"
+],
+"discussions" : [
+    {
+    "title" : "Welcome to C Programming for Everybody",
+    "launch" : "mod/tdiscus/",
+    "resource_link_id": "discussion_welcome"
+    }
+],
+"modules": [
+]
+}

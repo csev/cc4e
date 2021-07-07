@@ -14,11 +14,11 @@ $CFG->servicedesc = 'C Programming for Everybody';
 
 $CFG->context_title = "C Programming for Everybody";
 
-// $CFG->lessons = $CFG->dirroot.'/../lessons.json';
+$CFG->lessons = $CFG->dirroot.'/../lessons.json';
 
 // $CFG->youtube_url = $CFG->apphome . '/mod/youtube/';
 
-// $CFG->tdiscus = $CFG->apphome . '/mod/tdiscus/';
+$CFG->tdiscus = $CFG->apphome . '/mod/tdiscus/';
 
 // $CFG->launcherror = $CFG->apphome . "/launcherror";
 
