@@ -30,7 +30,7 @@ It is pretty awesome and he races in a series called
 <p>
 You can view the
 <a href="privacy" target="_new">Privacy policies</a> for this web site before you enter.
-We take privacy seriously.
+We take your privacy seriously.
 </p>
 </form>
 </center>
