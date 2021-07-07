@@ -153,7 +153,7 @@ better; there are several versions of the language extant, differing in minor
 ways. Nonetheless, C has proven to be an extremely effective and expressive
 language for a wide variety of programming applications.
 
-The rest of the book is organized as follows. Chapter 1 is a tutorial
+The rest of the book is organized as follows. [Chapter 1](chap01.md) is a tutorial
 introduction to the central part of C. The purpose is to get the reader
 started as quickly as possible, since we believe strongly that the only way to
 learn a new language is to write programs in it. The tutorial does assume a
@@ -167,19 +167,19 @@ concentrated on the language.
 Chapters 2 through 6 discuss various aspects of C in more detail, and
 rather more formally, than does Chapter 1, although the emphasis is still on
 examples of complete, useful programs, rather than isolated fragments.
-Chapter 2 deals with the basic data types, operators and expressions.
-Chapter 3 treats control flow: if—else, while, for, etc. Chapter 4 covers
+[Chapter 2](chap02.md) deals with the basic data types, operators and expressions.
+[Chapter 3](chap03.md) treats control flow: if—else, while, for, etc. [Chapter 4](chap04.md) covers
 functions and program structure — external variables, scope rules, and
-so on. Chapter 5 discusses pointers and address arithmetic. Chapter 6
+so on. [Chapter 5](chap05.md) discusses pointers and address arithmetic. [Chapter 6](chap06.md)
 contains the details of structures and unions.
 
-Chapter 7 describes the standard C I/O library, which provides a common
+[Chapter 7](chap07.md) describes the standard C I/O library, which provides a common
 interface to the operating system. This I/O library is supported on all
 machines that support C, so programs which use it for input, output, and
 other system functions can be moved from one system to another essentially
 without change.
 
-Chapter 8 describes the interface between C programs and the UNIX
+[Chapter 8](chap08.md) describes the interface between C programs and the UNIX
 operating system, concentrating on input/output, the file system, and
 portability. Although some of this chapter is UNIX-specific, programmers who
 are not using a UNIX system should still find useful material here, including
