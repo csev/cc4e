@@ -247,19 +247,18 @@ This web site
 book written by Brian Kernighan and
 Dennis Ritchie.  The book and the material this site used from the book
 is copyright all rights reserved by Prentice-Hall but is being used
-in this site under "fair use" because of the book's historical and scholarly significance
-and because it is not widely available in any form and in particular not
-available in any accessible form.
+in this site under "fair use" because of the book's historical and scholarly significance,
+its lack of availablity, and lack of an accessible version of the book.
 </p>
 <p>
 The book is augmented in places to help understand its rightful place in a historical
 context amidst the major changes of the 1970's and 1980's as Computer Science evolved from a
-vendor-centered / hardware-focused aproach to a software-centered approach where
+hardware-first / vendor-centered aproach to a software-centered approach where
 portable operating systems and applications written in C could run on any hardware.
 </p>
 <p>
-This is not the ideal book to learn C programming.  The 1978 edition does not reflect the modern
-C language - but that is the point of this effort - to take students back to 1978 and understand
+This is not the ideal book to learn C programming because the 1978 edition does not reflect the modern
+C language.  Using an obsolete book gives us an opportunity to take students back in time and understand
 how the C language was evolving as it laid the ground work for a future with portable applications.
 </p>
 <p>
