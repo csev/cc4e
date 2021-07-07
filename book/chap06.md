@@ -23,21 +23,22 @@ of several parts, such as the day, month, and year, and perhaps the day of
 the year and the month name. These five variables can all be placed into a
 single structure like this:
 
-    struct date (
+    struct date {
 
-    int day;
+        int day;
 
-    int month;
+        int month;
 
-    int year;
+        int year;
 
-    int yearday;
+        int yearday;
 
-    char mon\_name [4] ;
+        char mon_name[4];
+    };
 
-The keyword struct introduces a structure declaration, which is a list
+The keyword `struct` introduces a structure declaration, which is a list
 of declarations enclosed in braces. An optional name called a _structure tag_
-may follow the word struct (as with date here). The tag names this
+may follow the word `struct` (as with date here). The tag names this
 kind of structure, and can be used subsequently as a shorthand for the
 detailed declaration.
 
@@ -54,7 +55,7 @@ names only for closely related objects.
 The right brace that terminates the list of members may be followed by
 a list of variables, just as for any basic type. That is,
 
-    struct I ... I x, y, z;
+    struct { ... } x, y, z;
 
 is syntactically analogous to
 
@@ -71,60 +72,60 @@ date above,
 
     struct date d;
 
-defines a variable d which is a structure of type date. An external or static
+defines a variable `d` which is a structure of type date. An external or static
 structure can be initialized by following its definition with a list of initializers
     for the components:
 
-    struct date d =1 4, 7, 1776, 186, "Jul" );
+    struct date d = { 14, 7, 1776, 186, "Jul" };
 
 A member of a particular structure is referred to in an expression by a
     construction of the form
 
 _structure __-__ name. member_
 
-The structure member operator " " connects the structure name and the
-member name. To set leap from the date in structure d, for example,
+The structure member operator `.` connects the structure name and the
+member name. To set leap from the the date in structure `d`, for example    
 
-leap = d.year % 4 == 0 &amp;&amp; d.year % 100 != 0
-    II d.year % 400 == 0;
+    leap = d.year % 4 == 0 && d.year % 100 != 0 || d.year % 400 == 0;
 
 or to check the month name,
 
-    if (strcmp(d.mon\_name, "Aug") == 0) ...
+    if (strcmp(d.mon_name, "Aug") == 0) ...
 
 or to convert the first character of the month name to lower case,
 
-    d.mon\_name[0] = lower(d.mon\_name[0]);
+    d.mon_name[0] = lower(d.mon_name[0]);
 
 Structures can be nested; a payroll record might actually look like
 
 [comment]: <> (page 121 , CHAPTER6 STRUCTURES 121 )
 
-    struct person (
+    struct person {
 
-    char name[NAMESIZE];
+        char name[NAMESIZE];
 
-    char address[ADRSIZE];
+        char address[ADRSIZE];
 
-    long zipcode;
+        long zipcode;
 
-    long ss\_number;
+        long ss_number;
 
-    double salary;
+        double salary;
 
-    struct date birthdate;
+        struct date birthdate;
 
-    struct date hiredate;
+        struct date hiredate;
+    };
 
-The person structure contains two dates. If we declare emp as
+The person structure contains two dates. If we declare `emp` as
 
     struct person emp;
 
 then
 
-emp.birthdate.month
+    emp.birthdate.month
 
-refers to the month of birth. The structure member operator . associates
+refers to the month of birth. The structure member operator `.` associates
 left to right.
 
 6.2 Structures and Functions
@@ -141,48 +142,48 @@ automatic structures, like automatic arrays, cannot be initialized; only externa
 Let us investigate some of these points by rewriting the date conversion
 functions of the last chapter to use structures. Since the rules prohibit passing a structure to a function directly, we must either pass the components
 separately, or pass a pointer to the whole thing. The first alternative uses
-day\_of\_year as we wrote it in Chapter 5:
+`day_of_year` as we wrote it in [Chapter 5](chap05.md):
 
-d.yearday = day\_of\_year(d.year, d.month, d.day);
+    d.yearday = day_of_year(d.year, d.month, d.day);
 
-The other way is to pass a pointer. If we have declared hiredate as
+The other way is to pass a pointer. If we have declared `hiredate` as
 
     struct date hiredate;
 
-and re-written day\_of\_year, we can then say
+and re-written day_of_year, we can then say
 
-    hiredate.yearday = day\_of\_year(&hiredate);
+    hiredate.yearday = day_of_year(&hiredate);
 
-to pass a pointer to hiredate to day\_of\_year. The function has to be
+to pass a pointer to `hiredate` to `day_of_year`. The function has to be
 modified because its argument is now a pointer rather than a list of variables.
 
 [comment]: <> (page 122 , 122 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
 
-    day\_of\_year(pd) /* set day of year from month, day */
+    day_of_year(pd) /* set day of year from month, day */
     struct date *pd;
+    {
 
-    int i, day, leap;
+        int i, day, leap;
 
-    day = pd->day;
+        day = pd->day;
 
-leap = pd-\&gt;year % 4 == 0 &amp;&amp; pd-\&gt;year % 100 != 0
+        leap = pd->year % 4 == 0 && pd->year % 100 != 0 || pd->year % 400 == 0;
 
-    II pd->year % 400 == 0;
+        for (i = 1; i < pd->month; i++)
 
-    for (i = 1; i < pd->month; i++)
+            day += day_tab[leap][i];
 
-    day += day\_tab[leap][i];
-
-    return (day);
+        return (day);
+    }
 
 The declaration
 
     struct date *pd;
 
-says that pd is a pointer to a structure of type date. The notation
+says that pd is a pointer to a structure of type `date`. The notation
 exemplified by
 
-pd-\&gt;year
+    pd->year
 
 is new. If p is a pointer to a structure, then
 
@@ -1110,12 +1111,12 @@ storage and is stored in the same place regardless of its type. This is the
 purpose of a union — to provide a single variable which can legitimately
 hold any one of several types. As with fields, the syntax is based on structures.
 
-    union u\_tag (
+    union u\_tag {
      int ival;
      float fval;
      char *pval;
 
-    ) uval;
+    } uval;
 
 [comment]: <> (page 139 , CHAPTER 6 STRUCTURES 139 )
 
@@ -1140,44 +1141,44 @@ current type stored in uval, then one might see code such as
 
     if (utype == INT)
 
-    printf("%d\n", uval.ival);
+        printf("%d\n", uval.ival);
 
     else if (utype == FLOAT)
 
-    printf("%f\n", uval.fval);
+        printf("%f\n", uval.fval);
 
     else if (utype == STRING)
 
-    printf("%s\n", uval.pval);
+        printf("%s\n", uval.pval);
 
     else
 
-    printf("bad type %d in utype\n", utype);
+        printf("bad type %d in utype\n", utype);
 
 Unions may occur within structures and arrays and vice versa. The
 notation for accessing a member of a union in a structure (or vice versa) is
 identical to that for nested structures. For example, in the structure array
 defined by
 
-    struct (
+    struct {
 
-    char *name;
+        char *name;
 
-    int flags;
+        int flags;
 
-    int utype;
+        int utype;
 
-    union (
+        union {
 
-    int ival;
+            int ival;
 
-    float fval;
+            float fval;
 
-    char *pval;
+            char *pval;
 
-    ) uval;
+        } uval;
 
-    ) symtab[NSYM];
+       } symtab[NSYM];
 
 the variable iva 1 is referred to as
 
