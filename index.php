@@ -25,6 +25,10 @@ If you are having trouble guessing the number, you can take
 a fun break and look at some cool pictures of
 <a href="https://www.sakaiger.com/sakaicar/" target="_blank">Dr. Chuck's Race Car</a>.
 </p>
+<p>
+You can view the
+<a href="privacy" target="_new">Privacy policies</a> for this we site.
+</p>
 </form>
 </center>
 <?php
