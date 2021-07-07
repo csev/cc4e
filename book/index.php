@@ -239,6 +239,7 @@ Please feel free to improve this text in
 <hr/>
 <small>
 <blockquote>
+<a href="https://en.wikipedia.org/wiki/The_C_Programming_Language" target="_blank"><img src="pages/front.jpg" style="width:150px; float:right; padding-left: 10px;"></a>
 <p>
 This web site (www.cc4e.com) is based on the 1978 
 <a href="https://en.wikipedia.org/wiki/The_C_Programming_Language" target="_blank">"C Programming"</a>
