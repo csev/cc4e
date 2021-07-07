@@ -2,6 +2,7 @@
 if ( isset($_POST['secret']) && $_POST['secret'] == '42' ) {
     setCookie('secret', '42', time() + 15 * 3600 * 24);
     header("Location: index.php");
+    return;
 } else if ( !isset($_COOKIE['secret']) || $_COOKIE['secret'] != '42' ) {
 ?>
 <body style="font-family: Courier,monospace; width: 80%; max-width:500px;margin-left: auto; margin-right: auto;">
