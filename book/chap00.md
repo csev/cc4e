@@ -153,7 +153,7 @@ better; there are several versions of the language extant, differing in minor
 ways. Nonetheless, C has proven to be an extremely effective and expressive
 language for a wide variety of programming applications.
 
-The rest of the book is organized as follows. Chapter 1 is a tutorial
+The rest of the book is organized as follows. [Chapter 1](chap01.md) is a tutorial
 introduction to the central part of C. The purpose is to get the reader
 started as quickly as possible, since we believe strongly that the only way to
 learn a new language is to write programs in it. The tutorial does assume a
