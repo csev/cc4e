@@ -12,22 +12,25 @@ if ( isset($_POST['secret']) && $_POST['secret'] == '42' ) {
 <input type="submit" value="Unlock">
 <p>
 The unlock code is a number.  
-It is not very big. 
+It is not too long and has none of those funny hex (abcde) characters.
 It is a very significant number with that
-makes an appearance throughout Dr. Chuck's other online courses 
+makes a regular appearance throughout Dr. Chuck's other online courses 
 (<a href="https://www.py4e.com" target="_blank">Python</a>, 
 <a href="https://www.py4e.com" target="_blank">Django</a>, 
 <a href="https://www.py4e.com" target="_blank">PHP</a>, and 
 <a href="https://www.py4e.com" target="_blank">PostgreSQL</a>).
 </p>
 <p>
-If you are having trouble guessing the number, you can take
+If you get tired of trying to guess the number, you can take
 a fun break and look at some cool pictures of
 <a href="https://www.sakaiger.com/sakaicar/" target="_blank">Dr. Chuck's Race Car</a>.
+It is pretty awesome and he races in a series called 
+<a href="https://www.24hoursoflemons.com" target="_blank">24 Hours of Lemons</a>.
 </p>
 <p>
 You can view the
-<a href="privacy" target="_new">Privacy policies</a> for this we site.
+<a href="privacy" target="_new">Privacy policies</a> for this web site before you enter.
+We take privacy seriously.
 </p>
 </form>
 </center>
