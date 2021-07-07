@@ -18,7 +18,7 @@ $CFG->context_title = "C Programming for Everybody";
 
 // $CFG->youtube_url = $CFG->apphome . '/mod/youtube/';
 
-$CFG->tdiscus = $CFG->apphome . '/mod/tdiscus/';
+// $CFG->tdiscus = $CFG->apphome . '/mod/tdiscus/';
 
 // $CFG->launcherror = $CFG->apphome . "/launcherror";
 
