@@ -119,8 +119,8 @@ so array arguments are effectively call by reference.
 
 Any function may be called recursively, and its local variables are
 typically "automatic," or created anew with each invocation. Function
-definitions may not be nested but variables may be declared in a block-
-structured fashion. The functions of a C program may be compiled
+definitions may not be nested but variables may be declared in a
+block-structured fashion. The functions of a C program may be compiled
 separately. Variables may be internal to a function, external but known only
 within a single source file, or completely global. Internal variables may be
 automatic or static. Automatic variables may be placed in registers for
