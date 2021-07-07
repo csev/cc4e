@@ -27,6 +27,8 @@ if ( $pieces >= 2 ) {
    if ( ! $file || ! file_exists($file) ) $file = false;
 }
 
+if ( $file == false ) $file = 'chap01.md';
+
 if ( $file !== false ) {
     $contents = file_get_contents($file);
     $HTML_FILE = $file;
@@ -111,6 +113,7 @@ function myEdit(me) {
 </script>
 <div style="float:right">
 <select id="chapters" onchange="onSelect();">
+  <option <?= x_sel("..") ?>>CC4E</option>
   <option <?= x_sel("about.md") ?>>About</option>
   <option <?= x_sel("chap00.md") ?>>Chapter 0</option>
   <option <?= x_sel("chap01.md") ?>>Chapter 1</option>
@@ -232,3 +235,37 @@ Please feel free to improve this text in
 </p>
 <?php
 }
+?>
+<hr/>
+<small>
+<blockquote>
+<p>
+This web site (www.cc4e.com) is based on the 1978 
+<a href="https://en.wikipedia.org/wiki/The_C_Programming_Language" target="_blank">"C Programming"</a>
+book written by Brian Kernighan and
+Dennis Ritchie.  The book and the material this site used from the book
+is copyright all rights reserved by Prentice-Hall but is being used
+in this site under "fair use" because of the book's historical and scholarly significance
+and because it is not widely available in any form and in particular not
+available in any accessible form.
+</p>
+<p>
+The book is augmented in places to help understand its rightful place in a historical
+context amidst the major changes of the 1970's and 1980's as Computer Science evolved from a
+vendor-centered / hardware-focused aproach to a software-centered approach where
+portable operating systems and applications written in C could run on any hardware.
+</p>
+<p>
+This is not the ideal book to learn C programming.  The 1978 edition does not reflect the modern
+C language - but that is the point of this effort - to take students back to 1978 and understand
+how the C language was evolving as it laid the ground work for a future with portable applications.
+</p>
+<p>
+If you want to learn modern C programming from a book that reflects the modern C language,
+I suggest you use the
+<a href="https://amzn.to/3hNp6QH" target="_blank">C Programming Language, 2nd Edition</a>,
+also written by Brian W. Kernighan and Dennis M. Ritchie, initialluy published in 
+1988 and reflects the modern C language.
+</p>
+</blockquote>
+</small>
