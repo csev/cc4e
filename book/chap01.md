@@ -91,14 +91,14 @@ program, and others from libraries of previously written functions.
 
 One method of communicating data between functions is by arguments.
 The parentheses following the function name surround the argument list;
-here `main` is a function of no arguments, indicated by C) . The braces `{` `}`
+here `main` is a function of no arguments, indicated by `()`. The braces `{` `}`
 enclose the statements that make up the function; they are analogous to the
-DO-END of PL/I, or the begin—end of Algol, Pascal, and so on. A function
+`DO-END` of PL/I, or the `begin—end` of Algol, Pascal, and so on. A function
 is invoked by naming it, followed by a parenthesized list of arguments.
 
 [comment]: <> (page 7 , CHAPTER I A TUTORIAL INTRODUCTION _7_ )
 
-There is no CALL statement as there is in Fortran or PL/I. The parentheses
+There is no `CALL` statement as there is in Fortran or PL/I. The parentheses
 must be present even if there are no arguments.
 
 [comment]: <> (note n_007_01.md)
@@ -127,7 +127,7 @@ character into the `printf` argument is with `\n`; if you try something like
     ");
 
 the C compiler will print unfriendly diagnostics about missing quotes.
-printf never supplies a newline automatically, so multiple calls may
+`printf` never supplies a newline automatically, so multiple calls may
 be used to build up an output line in stages. Our first program could just as
 well have been written
 
@@ -139,13 +139,13 @@ well have been written
 to produce an identical output.
 
 Notice that `\n` represents only a single character. An _escape sequence_
-like `\n` provides a general and extensible mechanism for representing hard-
-to-get or invisible characters. Among the others that C provides are `\t` for
-tab, `\b` for backspace, `\"` for the double quote, and `\\` for the backslash
-itself.
+like `\n` provides a general and extensible mechanism for representing 
+hard-to-get or invisible characters. Among the others that C provides are `\t` 
+for tab, `\b` for backspace, `\"` for the double quote, and `\\` for the 
+backslash itself.
 
 **Exercise 1-2.** Experiment to find out what happens when printf's
-argument string contains `\x`, where x is some character not listed above.
+argument string contains `\x`, where `x` is some character not listed above.
 
 [comment]: <> (page 8 , S THE C PROGRAMMING LANGUAGE CHAPTLR )
 
@@ -234,7 +234,7 @@ repeats once per line; this is the purpose of the `while` statement
 
 The condition in parentheses is tested. If it is true (`fahr` is less than or
 equal to `upper`), the body of the loop (all of the statements enclosed by
-the braces { and } is executed). Then the condition is re-tested, and if
+the braces `{` and `}` is executed). Then the condition is re-tested, and if
 `true`, the body is executed again. When the test becomes `false` (`fahr`
 exceeds `upper`) the loop ends, and execution continues at the statement
 that follows the loop. There are no further statements in this program, so it
@@ -295,7 +295,7 @@ both work as expected — the `int` is converted to `float` before the operation
 This example also shows a bit more of how `printf` works. `printf` is
 actually a general-purpose format conversion function, which we will
 describe completely in [Chapter 7](chap07.md). Its first argument is a string of characters
-to be printed, with each % sign indicating where one of the other (second,
+to be printed, with each `%` sign indicating where one of the other (second,
 third, ...) arguments is to be substituted, and what form it is to be printed
 in. For instance, in the statement
 
@@ -306,7 +306,7 @@ in. For instance, in the statement
 the conversion specification `%4.0f` says that a floating point number is to be
 printed in a space at least four characters wide, with no digits after the
 decimal point. `%6.1f` describes another number to occupy at least six
-spaces, with 1 digit after the decimal point, analogous to the F6.1 of Fortran or the F **(6,1)** of PL/I. Parts
+spaces, with 1 digit after the decimal point, analogous to the `F6.1` of Fortran or the `F **(6,1)**` of PL/I. Parts
 of a specification may be omitted: `%6f`
 says that the number is to be at least six characters wide; `%.2f` requests two
 places after the decimal point, but the width is not constrained; and `%f`
@@ -341,7 +341,7 @@ As you might expect, there are plenty of different ways to write a program; let'
 
 This produces the same answers, but it certainly looks different. One major
 change is the elimination of most of the variables; only `fahr` remains, as an
-int (to show the `%d` conversion in `printf`). The lower and upper limits
+`int` (to show the `%d` conversion in `printf`). The lower and upper limits
 and the step size appear only as constants in the `for` statement, itself a new
 construction, and the expression that computes the Celsius temperature now
 appears as the third argument of `printf` instead of in a separate assignment statement.
@@ -426,7 +426,7 @@ called, and returns that character as its value. That is, after
 
     c = getchar()
 
-the variable c contains the next character of input. The characters normally
+the variable `c` contains the next character of input. The characters normally
 come from the terminal, but that need not concern us until [Chapter 7](chap07.md).
 
 The function `putchar(c)` is the complement of `getchar`:
@@ -564,6 +564,8 @@ To cope with even bigger numbers, you can use a `double` (double
 length float). We will also use a `for` statement instead of a `while`, to
 illustrate an alternative way to write the loop.
 
+[comment]: <> (code c_016_02.c)
+
 `printf` uses `%f` for both `float` and `double`; `%.0f` suppresses
 printing of the non-existent fraction part.
 
@@ -607,23 +609,23 @@ operator be half as long.
 
 Any single character can be written between single quotes, to produce a
 value equal to the numerical value of the character in the machine's character set;
-this is called a _character constant._ So, for example, 'A' is a character constant;
+this is called a _character constant._ So, for example, `'A'` is a character constant;
 in the ASCII character set its value is 65, the internal representation of the character
-A. Of course 'A' is to be preferred over 65: its
+A. Of course `'A'` is to be preferred over `65`: its
 meaning is obvious, and it is independent of a particular character set.
 
 The escape sequences used in character strings are also legal in character
 constants, so in tests and arithmetic expressions, `\n` stands for the value
-of the newline character. You should note carefully that '\n' is a single
+of the newline character. You should note carefully that `'\n'` is a single
 character, and in expressions is equivalent to a single integer; on the other
-hand, "\n" is a character string which happens to contain only one character.
+hand, `"\n"` is a character string which happens to contain only one character.
 The topic of strings versus characters is discussed further in [Chapter 2](chap02.md).
 
 [comment]: <> (note n_017_01.md)
 
 [comment]: <> (page 18 , IS THE C PROGRAMMING LANGUAGE CHAPTER )
 
-**Exercise 1-6.** Write a program to count blanks, tabs, and newlines. C
+**Exercise 1-6.** Write a program to count blanks, tabs, and newlines.
 
 **Exercise 1-7.** Write a program to copy its input to its output, replacing each
 string of one or more blanks by a single blank.
@@ -632,7 +634,7 @@ string of one or more blanks by a single blank.
 
 **Exercise 1-8.** Write a program to replace each tab by the three-character
 sequence \&gt;, _backspace, —,_ which prints as \&gt;, and each backspace by the
-similar sequence 4E. This makes tabs and backspaces visible.
+similar sequence \&lt;. This makes tabs and backspaces visible.
 
 Word Counting
 -------------
@@ -647,7 +649,7 @@ a bare-bones version of the UNIX utility `wc`.)
 Every time the program encounters the first character of a word, it
 counts it. The variable `inword` records whether the program is currently in
 a word or not; initially it is "not in a word," which is assigned the value `NO`.
-We prefer the symbolic constants `YES` and `NO` to the literal values 1 and
+We prefer the symbolic constants `YES` and `NO` to the literal values `1` and `0`
 because they make the program more readable. Of course in a program as
 tiny as this, it makes little difference, but in larger programs, the increase in
 clarity is well worth the modest extra effort to write it this way originally.
@@ -693,7 +695,7 @@ The general form is
 One and only one of the two statements associated with an if-else is
 done. If the _expression_ is true, _statement-1_ is executed; if not, _statement-2_ is
 executed. Each _statement_ can in fact be quite complicated. In the word
-count program, the one after the else is an if that controls two statements in braces.
+count program, the one after the `else` is an `if` that controls two statements in braces.
 
 **Exercise 1-9.** How would you test the word count program? What are
 some boundaries?
@@ -780,7 +782,7 @@ code is simply read from the top until some _condition_ is satisfied; at that
 point the corresponding _statement_ part is executed, and the entire construction
 is finished. (Of course _statement_ can be several statements enclosed in
 braces.) If none of the conditions is satisfied, the _statement_ after the final
-`else` is executed if it is present. If the final else and _statement_ are omitted
+`else` is executed if it is present. If the final `else` and _statement_ are omitted
 (as in the word count program), no action takes place. There can be an
 arbitrary number of
 
@@ -848,7 +850,7 @@ C programs will not change.
 
 The function `power` is called twice in the line
 
-    printf("%d %d %d\n", i, power(2,i), power(-2,i));
+    printf("%d %d %d\n", i, power(2,i), power(-3,i));
 
 Each call passes two arguments to `power`, which each time returns an
 integer to be formatted and printed. In an expression, `power(2, i)` is an
@@ -863,13 +865,13 @@ are known. This is done by the line
 that follows the function name. The argument declarations go between the
 argument list and the opening left brace; each declaration is terminated by a
 semicolon. The names used by `power` for its arguments are purely _local_ to
-power, and not accessible to any other function: other routines can use the
+`power`, and not accessible to any other function: other routines can use the
 same names without conflict. This is also true of the variables `i` and `p`: the
 `i` in `power` is unrelated to the `i` in `main`.
 
 [comment]: <> (page 24 , **24** THE C PROGRAMMING LANGUAGE CHAPTER I )
 
-The value that `power` computes is returned to `main` by the return
+The value that `power` computes is returned to `main` by the `return`
 statement, which is just as in **PL/I**. Any expression may occur within the
 parentheses. A function need not return a value; a `return` statement with
 no expression causes control, but no useful value, to be returned to the
@@ -1043,7 +1045,7 @@ set upon each entry. If they are not set, they will contain garbage.
 As an alternative to automatic variables, it is possible to define variables
 which are _external_ to all functions, that is, global variables which can be
 accessed by name by any function that cares to. (This mechanism is rather
-like Fortran COMMON or **PL/I** EXTERNAL.) Because external variables are
+like Fortran `COMMON` or **PL/I** `EXTERNAL`.) Because external variables are
 globally accessible, they can be used instead of argument lists to communicate
 data between functions. Furthermore, because external variables
 remain in existence permanently, rather than appearing and disappearing as
@@ -1064,7 +1066,7 @@ functions.
 
 [comment]: <> (page 30 , 30 THE C PROGRAMMING LANGUAGE CHAPTER I )
 
-The external variables in `main`, `get_line` and copy are _defined_ by the
+The external variables in `main`, `get_line` and `copy` are _defined_ by the
 first lines of the example above, which state their type and cause storage to
 be allocated for them. Syntactically, external definitions are just like the
 declarations we have used previously, but since they occur outside of functions,
@@ -1076,7 +1078,7 @@ declaration is the same as before except for the added keyword `extern`.
 In certain circumstances, the `extern` declaration can be omitted: if the
 external definition of a variable occurs in the source file _before_ its use in a
 particular function, then there is no need for an `extern` declaration in the
-function. The `extern` declarations in `main`, `get_line` and copy are thus
+function. The `extern` declarations in `main`, `get_line` and `copy` are thus
 redundant. In fact, common practice is to place definitions of all external
 variables at the beginning of the source file, and then omit all `extern`
 declarations.
