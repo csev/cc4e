@@ -241,6 +241,7 @@ bind very tightly. For example, given the declaration
     struct {
 
         int x;
+        
         int *Y;
 
     } *P;
@@ -267,14 +268,14 @@ array of integers for the counts. One possibility is to use two parallel arrays
 keyword and keycount, as in
 
     char *keyword[NKEYS];
-     int keycount[NKEYS];
+    int keycount[NKEYS];
 
 But the very fact that the arrays are parallel indicates that a different organization is possible. Each keyword entry is really a pair:
 
 [comment]: <> (page 124 , 124 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
 
     char *keyword;
-     int keycount;
+    int keycount;
 
 and there is an array of pairs. The structure declaration
 
@@ -284,7 +285,7 @@ and there is an array of pairs. The structure declaration
         
         int keycount;
      
-     } keytab[NKEYS);
+    } keytab[NKEYS);
 
 defines an array `keytab` of structures of this type, and allocates storage to
 them. Each element of the array is a structure. This could also be written
@@ -328,7 +329,7 @@ by a list of initializers enclosed in braces:
              
              "while", 0
         
-        } ;
+      };
 
 The initializers are listed in pairs corresponding to the structure members.
 It would be more precise to enclose initializers for each "row" or structure
