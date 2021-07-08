@@ -28,8 +28,8 @@ one code sequence on a page.  These will likely need some `#include` lines
 in the code - we add these and include them in the book.  Things need to
 compile when copy and pasted from the book.
 
-Add the compilation instructions to the `code/unit.sh' so they are test compiled.  Eventually this
-will have sample inputs and outputs so as to be a real live compiile and run unit test.
+Add the compilation instructions to the `code/unit.sh` so they are test compiled.  Eventually this
+will have sample inputs and outputs so as to be a real live compile and run unit test.
 
 Then remove the code from the markdown file and replace it with a line that looks like:
 
