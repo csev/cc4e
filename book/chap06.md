@@ -42,8 +42,6 @@ may follow the word `struct` (as with date here). The tag names this
 kind of structure, and can be used subsequently as a shorthand for the
 detailed declaration.
 
-119
-
 [comment]: <> (page 120 , 120 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
 
 The elements or variables mentioned in a structure are called _members._
@@ -165,11 +163,11 @@ modified because its argument is now a pointer rather than a list of variables.
 
         int i, day, leap;
 
-        day = pd->day;
+        day = pd—>day;
 
-        leap = pd->year % 4 == 0 && pd->year % 100 != 0 || pd->year % 400 == 0;
+        leap = pd—>year % 4 == 0 && pd—>year % 100 != 0 || pd—>year % 400 == 0;
 
-        for (i = 1; i < pd->month; i++)
+        for (i = 1; i < pd—>month; i++)
 
             day += day_tab[leap][i];
 
@@ -183,79 +181,83 @@ The declaration
 says that pd is a pointer to a structure of type `date`. The notation
 exemplified by
 
-    pd->year
+    pd—>year
 
 is new. If p is a pointer to a structure, then
 
-_p-\&gt;member-of-structure_
+`p—>member-of-structure`
 
-refers to the particular member. (The operator —\&gt; is a minus sign followed
-by \&gt;.)
+refers to the particular member. (The operator `—>` is a minus sign followed
+by >)
 
 Since pd points to the structure, the year member could also be
 referred to as
 
     (*pd).year
 
-but pointers to structures are so frequently used that the —\&gt; notation is provided as a convenient shorthand. The parentheses are necessary in
-(\*pd) .year because the precedence of the structure member operator . is
-higher than \*. Both —\&gt; and . associate from left to right, so
+but pointers to structures are so frequently used that the `—>` notation is provided as a convenient shorthand. The parentheses are necessary in
+`(*pd) .year` because the precedence of the structure member operator `.` is
+higher than `*`. Both `—>` and `.` associate from left to right, so
 
-p-\&gt;q-\&gt;memb
+    p—>q—>memb
 
-emp.birthdate.month
+    emp.birthdate.month
 
 are
 
-    (p->q)->memb
+    (p—>q)—>memb
 
     (emp.birthdate).month
 
-For completeness here is the other function, month\_day, rewritten to
+For completeness here is the other function, `month_day`, rewritten to
 use the structure.
 
 [comment]: <> (page 123 , CHAPTER 6 STRUCTURES 123 )
 
-    month\_day(pd) /* set month and day from day of year */
+    month_day(pd) /* set month and day from day of year */
+    
     struct date *pd;
+    
+    {
 
-    int i, leap;
+        int i, leap;
 
-leap = pd-\&gt;year % 4 == 0 &amp;&amp; pd-\&gt;year % 100 != 0
+        leap = pd—>year % 4 == 0 && pd—>year % 100 != 0 || pd—>year % 400 == 0;
 
-    II pd->year % 400 == 0;
+        pd—>day = pd—>yearday;
 
-    pd->day = pd->yearday;
+        for (i = 1; pd—>day > day_tab[leap][i]; i++)
 
-for (i = 1; pd-\&gt;day \&gt; day\_tab[leap][i]; i++)
+            pd—>day -= day_tab[leap][i];
 
-    pd->day -= day\_tab[leap][i];
+        pd—>month = i;
+    
+    }
 
-    pd->month = i;
-
-    The structure operators —> and . , together with ( ) for argument lists
-and [] for subscripts, are at the top of the precedence hierarchy and thus
+The structure operators `—>` and `.` , together with `( )` for argument lists
+and `[]` for subscripts, are at the top of the precedence hierarchy and thus
 bind very tightly. For example, given the declaration
 
-    struct (
+    struct {
 
-    int x;
-    int *Y;
+        int x;
+        
+        int *Y;
 
-    ) *P;
+    } *P;
 
 then
 
-++p-\&gt;x
+    ++p—>x
 
-increments x, not p, because the implied parenthesization is ++ (p—\&gt;x ) .
-Parentheses can be used to alter the binding: (++p) —\&gt;x increments p
-before accessing x, and (p++)—\&gt;x increments p afterward. (This last set
+increments `x`, not `p`, because the implied parenthesization is `++(p—>x)`.
+Parentheses can be used to alter the binding: `(++p) —>x` increments `p`
+before accessing `x`, and `(p++)—>x` increments `p` afterward. (This last set
 of parentheses is unnecessary. Why?)
 
-In the same way, \*p—\&gt;y fetches whatever y points to; \*p—\&gt;y++ increments y after accessing whatever it points to (just like \*s++); (\*p—\&gt;y) ++
-increments whatever y points to; and \*p++—\&gt;y increments p after accessing
-whatever y points to.
+In the same way, `*p—>y` fetches whatever `y` points to; `*p—>y++` increments `y` after accessing whatever it points to (just like `*s++`); (`*p—>y)++`
+increments whatever `y` points to; and `*p++—>y` increments `p` after accessing
+whatever `y` points to.
 
 6.3 Arrays of Structures
 ------------------------
@@ -266,109 +268,117 @@ array of integers for the counts. One possibility is to use two parallel arrays
 keyword and keycount, as in
 
     char *keyword[NKEYS];
-     int keycount[NKEYS];
+    int keycount[NKEYS];
 
 But the very fact that the arrays are parallel indicates that a different organization is possible. Each keyword entry is really a pair:
 
 [comment]: <> (page 124 , 124 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
 
     char *keyword;
-     int keycount;
+    int keycount;
 
 and there is an array of pairs. The structure declaration
 
-    struct key (
+    struct key {
+        
+        char *keyword;
+        
+        int keycount;
+     
+    } keytab[NKEYS);
 
-    char *keyword;
-     int keycount;
-     ) keytab[NKEYS);
-
-defines an array keytab of structures of this type, and allocates storage to
+defines an array `keytab` of structures of this type, and allocates storage to
 them. Each element of the array is a structure. This could also be written
 
-    struct key (
+    struct key {
 
-    char *keyword;
+        char *keyword;
 
-    int keycount;
+        int keycount;
 
-    ) ;
+    };
 
     struct key keytab[NKEYS];
 
-Since the structure keytab actually contains a constant set of names, it
+Since the structure `keytab` actually contains a constant set of names, it
 is easiest to initialize it once and for all when it is defined. The structure
 initialization is quite analogous to earlier ones — the definition is followed
 by a list of initializers enclosed in braces:
 
-    struct key (
+    struct key {
 
-    char *keyword;
-     int keycount;
-     ) keytab[l =(
+        char *keyword;
+       
+        int keycount;
+     
+     } keytab[] = {
 
-"break", 0,
+            "break", 0,
 
-"case", 0,
+            "case", 0,
 
-"char", 0,
+            "char", 0,
 
-"continue", 0,
- "default", 0,
+            "continue", 0,
+            
+            "default", 0,
 
-    /* ... */
+             /* ... */
 
-"unsigned", 0,
- "while", 0
-
-    } ;
+            "unsigned", 0,
+             
+             "while", 0
+        
+      };
 
 The initializers are listed in pairs corresponding to the structure members.
 It would be more precise to enclose initializers for each "row" or structure
 in braces, as in
 
-    ( "break", 0 ),
- { "case", 0 1,
+    { "break", 0 },
+    { "case", 0 },
 
-- • •
+    . . .
 
 but the inner braces are not necessary when the initializers are simple variables or character strings, and when all are present. As usual, the compiler
-will compute the number of entries in the array keytab if initializers are
-present and the [1 is left empty.
+will compute the number of entries in the array `keytab` if initializers are
+present and the [] is left empty.
 
 [comment]: <> (page 125 , CHAPTER 6 STRUCTURES 125 )
 
-The keyword-counting program begins with the definition of keytab.
-The main routine reads the input by repeatedly calling a function getword
+The keyword-counting program begins with the definition of `keytab`.
+The main routine reads the input by repeatedly calling a function `getword`
 that fetches the input one word at a time. Each word is looked up in
-keytab with a version of the binary search function that we wrote in
-Chapter 3. (Of course the list of keywords has to be given in increasing
+`keytab` with a version of the binary search function that we wrote in
+[Chapter 3](chap03.md). (Of course the list of keywords has to be given in increasing
 order for this to work.)
 
     #define MAXWORD 20
 
     main() /* count C keywords */
+    
+    {
 
-    int n, t;
+        int n, t;
 
-    char word[MAXWORD];
+        char word[MAXWORD];
 
-    while ((t = getword (word, MAXWORD)) != EOF)
+        while ((t = getword (word, MAXWORD)) != EOF)
 
-    if (t == LETTER)
+            if (t == LETTER)
 
-    if ((n = binary(word, keytab, NKEYS)) >= 0)
+                if ((n = binary(word, keytab, NKEYS)) >= 0)
 
-    keytab[n].keycount++;
+                    keytab[n].keycount++;
 
-    for (n = 0; n < NKEYS; n++)
+        for (n = 0; n < NKEYS; n++)
 
-    if (keytab[n].keycount > 0)
+            if (keytab[n].keycount > 0)
 
-    printf("%4d %s\n",
+                printf("%4d %s\n",keytab[n].keycount, keytab[n].keyword);
 
-    keytab[n].keycount, keytab[n].keyword);
-
+    }
+    
     binary(word, tab, n) /* find word in tab[0]...tab[n-1] */
 
     char *word;
@@ -376,33 +386,38 @@ order for this to work.)
     struct key tab[];
 
     int n;
+    
+    {
 
-    int low, high, mid, cond;
+        int low, high, mid, cond;
 
-    low = 0;
+        low = 0;
 
-    high = n - 1;
+        high = n - 1;
 
-    while (low <= high) (
+        while (low <= high) {
 
-    mid = (low+high) / 2;
+            mid = (low+high) / 2;
 
-    if ((cond = strcmp(word, tab[mid].keyword)) < 0)
+            if ((cond = strcmp(word, tab[mid].keyword)) < 0)
 
-    high = mid - 1;
+                high = mid - 1;
 
-    else if (cond > 0)
+            else if (cond > 0)
 
-    low = mid + 1;
+                low = mid + 1;
 
-    else
+            else
 
-    return (mid);
+                return (mid);
+        
+        }
 
-    return(-1);
+        return(-1);
+    }
 
-We will show the function getword in a moment; for now it suffices to say
-that it returns LETTER each time it finds a word, and copies the word into
+We will show the function `getword` in a moment; for now it suffices to say
+that it returns `LETTER` each time it finds a word, and copies the word into
 its first argument.
 
 [comment]: <> (page 126 , 126 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
