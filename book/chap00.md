@@ -29,6 +29,8 @@ are no READ or WRITE statements, and no wired-in file access methods.
 All of these higher-level mechanisms must be provided by explicitly-called
 functions.
 
+[comment]: <> (note n_001_01.md)
+
 Similarly, C offers only straightforward, single-thread control flow
 constructions: tests, loops, grouping, and subprograms, but not
 multiprogramming, parallel operations, synchronization, or coroutines.
