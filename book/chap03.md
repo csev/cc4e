@@ -175,7 +175,7 @@ occurrences of each digit, white space, and all other characters, using a
 sequence of if ... else if ... else. Here is the same program with a
 switch.
 
-[comment]: <> (code c_001_02.c)
+[comment]: <> (code c_055_01.c)
 
 The switch evaluates the integer expression in parentheses (in this
 program the character c) and compares its value to all the cases. Each case
@@ -447,7 +447,7 @@ The following program removes trailing blanks and tabs from the end of
 each line of input, using a break to exit from a loop when the rightmost
 non-blank, non-tab is found.
 
-[comment]: <> (code c_002_02.c)
+[comment]: <> (code c_061_01.c)
 
 getline returns the length of the line. The inner while loop starts at
 the last character of line (recall that --n decrements n before using the
