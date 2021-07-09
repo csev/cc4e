@@ -25,33 +25,24 @@ input that contains a particular "pattern" or string of characters. (This is a
 special case of the UNIX utility program _grep.)_ For example, searching for
 the pattern "the" in the set of lines
 
-Now is the time
-
+    Now is the time
     for all good
-
-men to come to the aid
-
-of their party.
+    men to come to the aid
+    of their party.
 
 will produce the output
 
-Now is the time
-
-men to come to the aid
-
-of their party.
+    Now is the time
+    men to come to the aid
+    of their party.
 
 The basic structure of the job falls neatly into three pieces:
 
-65
-
 [comment]: <> (page 66 , 66 THE C PROGRAMMING LANGUAGE CHAPTER 4 )
 
-    while _(there's another line)_
-
-    if _(the line contains the pattern)_
-
-_print it_
+      while (_there's another line_)
+        if (_the line contains the pattern_)
+          _print it_
 
 Although it's certainly possible to put the code for all of this in the main
 routine, a better way is to use the natural structure to advantage by making
@@ -61,10 +52,10 @@ and the chance of unwanted interactions minimized. And the pieces may
 even be useful in their own right.
 
 "While there's another line" is getline, a function that we wrote in
-Chapter 1, and "print it" is printf, which someone has already provided
+[Chapter 1](chap01.md), and "print it" is printf, which someone has already provided
 for us. This means we need only write a routine which decides if the line
 contains an occurrence of the pattern. We can solve that problem by stealing a design from PL/I: the function index (s, t) returns the position or
-index in the string s where the string t begins, or —1 if s doesn't contain t.
+index in the string s where the string t begins, or -1 if s doesn't contain t.
 We use 0 rather than 1 as the starting position in s because C arrays begin
 at position zero. When we later need more sophisticated pattern matching
 we only have to replace index; the rest of the code can remain the same.
@@ -73,59 +64,24 @@ Given this much design, filling in the details of the program is straightforward
 together. For now, the pattern to be searched for is a literal string in the
 argument of index, which is not the most general of mechanisms. We will
 return shortly to a discussion of how to initialize character arrays, and in
-Chapter 5 will show how to make the pattern a parameter that is set when
+[Chapter 5](chap05.md) will show how to make the pattern a parameter that is set when
 the program is run. This is also a new version of getline; you might find
-it instructive to compare it to the one in Chapter 1.
+it instructive to compare it to the one in [Chapter 1](chap01.md).
 
-    #define MAXLINE 1000
+[comment]: <> (code c_066_01.c)
 
-    main() /* find all lines matching a pattern */
-    char line[MAXLINE];
+Each function has the form
 
-    while (getline(line, MAXLINE) > 0)
-     if (index(line, "the") >= 0)
-
-    printf("%s", line);
-
-[comment]: <> (page 67 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 67 )
-
-    getline (s, urn) /* get line into s, return length */
-
-    char s[];
-     int urn;
-
-    int c, i;
-
-    **(c=getchar () )**
-
-    i = 0;
-
-    while (--lim > 0 &&
-
-    s[i++] = c;
-
-    if (c ==
-
-    s[i++] = c;
-
-s[i] =
-
-    return (i) ;
-
-!= EOF &amp;&amp; c !=
-
-    index (s, t) /* return index of t in s, -1 if none */
-    char s[], t () ;
-
-    int i, j, k;
-
-| for (i = 0; s[i] I= '\0'; i++)for (j=i, k=0; t[k]!='\0' &amp;&amp; s[j]==t[k];if (t[k] ==
- return(i);return (-1) ;Each function has the form_name (argument list, if any)
- argument declarations, if any_ _declarations and statements, if any_ | j++, k++) |
-| --- | --- |
+<!-- TODO -->
+      _name_ (_argument_ _list_, _if_ _any_)
+      _argument declarations, if any_
+      {
+        _declarations and statements, if any_
+      }
 
 As suggested, the various parts may be absent; a minimal function is
-    dummy() (I
+
+        dummy() {}
 
 which does nothing. (A do-nothing function is sometimes useful as a place
 holder during program development.) The function name may also be preceded by a type if the function returns something other than an integer
@@ -139,10 +95,10 @@ returned by the functions; it can also be via external variables. The functions 
 be split into multiple files, so long as no function is split.
 
 The return statement is the mechanism for returning a value from the
-
 called function to its caller. Any expression can follow return:
 
-    return _(expression)_
+<!-- TODO -->
+      return ( *expression* )
 
 The calling function is free to ignore the returned value if it wishes. Furthermore, there need be no expression after return; in that case, no value is
 returned to the caller. Control also returns to the caller with no value when
@@ -154,11 +110,11 @@ verifier _lint_ checks for such errors.
 
 The mechanics of how to compile and load a C program which resides
 on multiple source files vary from one system to the next. On the UNIX
-system, for example, the _cc_ command mentioned in Chapter 1 does the job.
+system, for example, the _cc_ command mentioned in [Chapter 1](chap01.md) does the job.
 Suppose that the three functions are on three files called _main.c, getline.c,_
 and _index.c._ Then the command
-
-_cc main.c getline.c index.c_
+<!-- TODO -->
+      _cc main.c getline.c index.c_
 
 compiles the three files, places the resulting relocatable object code in files
 _main.o, getline.o,_ and _index.o,_ and loads them all into an executable file
@@ -166,14 +122,14 @@ called _a.out._
 
 If there is an error, say in _main.c,_ that file can be recompiled by itself
 and the result loaded with the previous object files, with the command
-
-_cc main.c getline.o index.o_
+<!-- TODO -->
+      _cc main.c getline.o index.o_
 
 The _cc_ command uses the _".c"_ versus _".o"_ naming convention to distinguish source files from object files.
 
 **Exercise 4-1.** Write the function rindex t) , which returns the posi-
 
-tion of the _rightmost_ occurrence of t in s, or —1 if there is none. o
+tion of the _rightmost_ occurrence of t in s, or -1 if there is none.
 
 4.2 Functions Returning Non-Integers
 ------------------------------------
@@ -182,22 +138,22 @@ So far, none of our programs has contained any declaration of the type
 of a function. This is because by default a function is implicitly declared by
 its appearance in an expression or statement, such as
 
-    while (getline(line, MAXLINE) > 0)
+      while (getline(line, MAXLINE) > 0)
 
 If a name which has not been previously declared occurs in an expression
 and is followed by a left parenthesis, it is declared by context to be a function name. Furthermore, by default the function is assumed to return an
 int. Since char promotes to int in expressions, there is no need to
-declare functions that return char. These assumptions cover the majority
+declare functions that return char. These assumptions cover the majority of cases, including all of our examples so far.
 
 [comment]: <> (page 69 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 69 )
 
-of cases, including all of our examples so far.
+
 
 But what happens if a function must return some other type? Many
 numerical functions like sqrt, sin, and cos return double; other specialized functions return other types. To illustrate how to deal with this, let
 us write and use the function atof (s), which converts the string s to its
 double-precision floating point equivalent. atof is an extension of atoi,
-which we wrote versions of in Chapters 2 and 3; it handles an optional sign
+which we wrote versions of in [Chapters 2](chap02.md) and [3](chap03.md); it handles an optional sign
 and decimal point, and the presence or absence of either integer part or fractional part. (This is _not_ a high-quality input conversion routine; that would
 take more space than we care to use.)
 
@@ -207,37 +163,27 @@ no point to saying that atof returns float; we might as well make use of
 the extra precision and thus we declare it to return double. The type
 name precedes the function name, like this:
 
-    double atof(s) /* convert string s to double */
-    char s[];
+      double atof(s) /* convert string s to double */
+      char s[];
+      {
+        double val, power;
+        int i, sign;
 
-    double val, power;
-     int i, sign;
-
-for (i=0; s[i]==" II s[i]=='\n' II s[i]==1\t'; i++)
-
-    /* skip white space */
-
-    sign = 1;
-
-    if (s[i] == '+' II s[i] == '-') /* sign */
-
-    sign = (s[i++]=='+') ? 1 : -1;
-
-for (val = 0; s[i] \&gt;= '0' &amp;&amp; s[i] \&lt;= '9'; i++)
-
-    val = 10 * val + s[i] - '0';
-
-    if (s[i] ==
-
-    i++;
-
-for (power = 1; s[i] \&gt;= '0' &amp;&amp; s[i] \&lt;= '9'; i++) (
-
-    val = 10 * val + s[i] - '0';
-
-    power *= 10;
-
-    return(sign * val / power);
+        for (i=0; s[i]==' ' || s[i]=='\n' || s[i]=='\t'; i++)
+          ;     /* skip white space */
+        sign = 1;
+        if (s[i] == '+' || s[i] == '-') /* sign */
+          sign = (s[i++]=='+') ? 1 : -1;
+        for (val = 0; s[i] >= '0' && s[i] <= '9'; i++)
+          val = 10 * val + s[i] - '0';
+        if (s[i] == '.')
+          i++;
+        for (power = 1; s[i] >= '0' && s[i] <= '9'; i++) {
+          val = 10 * val + s[i] - '0';
+          power *= 10;
+        }
+        return(sign * val / power);
+      }
 
 Second, and just as important, the _calling_ routine must state that atof
 returns a non-it value. The declaration is shown in the following primitive desk calculator (barely adequate for check-book balancing), which reads
@@ -246,26 +192,14 @@ printing the sum after each input.
 
 [comment]: <> (page 70 , 70 THE C PROGRAMMING LANGUAGE CHAPTER 4 )
 
-    #define MAXLINE 100
-
-    main() /* rudimentary desk calculator */
-
-    double sum, atof();
-     char line[MAXLINE];
-
-    sum = 0;
-
-    while (getline(line, MAXLINE) > 0)
-
-    printf("\t%.2f\n", sum += atof (line));
+[comment]: <> (code c_070_01.c)
 
 The declaration
 
-    double sum, atof();
+      double sum, atof();
 
 says that sum is a double variable, and that atof is a function that returns
-
-a double value. As a mnemonic, it suggests that sum and atof ( ) are
+a double value. As a mnemonic, it suggests that sum and atof (...) are
  both double-precision floating point values.
 
 Unless atof is explicitly declared in both places, C assumes that it
@@ -279,22 +213,23 @@ separately, the mismatch would not be detected, atof would return a
 Given atof, we could in principle write atoi (convert a string to int)
 in terms of it:
 
-    atoi(s) /* convert string s to integer */
-    char s[];
+      atoi(s) /* convert string s to integer */
+      char s[];
+      {
+        double atof();
 
-    double atof();
-     return(atof(s));
-
+        return(atof(s));
+      }
 Notice the structure of the declarations and the return statement. The
 value of the expression in
-
-    return _(expression)_
+<!-- TODO -->
+      return _(expression)_
 
 is always converted to the type of the function before the return is taken.
 Therefore, the value of atof, a double, is converted automatically to int
 when it appears in a return, since the function atoi returns an int.
 (The conversion of a floating point value to int truncates any fractional
-part, as discussed in Chapter 2.)
+part, as discussed in [Chapter 2](chap02.md).
 
 [comment]: <> (page 71 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 71 )
 
@@ -302,19 +237,19 @@ part, as discussed in Chapter 2.)
 123.45e-6
 
 where a floating point number may be followed by e or E and an optionally
-    signed exponent. fl
+    signed exponent.
 
 4.3 More on Function Arguments
 ------------------------------
 
-In Chapter 1 we discussed the fact that function arguments are passed
+In [Chapter 1](chap01.md) we discussed the fact that function arguments are passed
 by value, that is, the called function receives a private, temporary copy of
 each argument, not its address. This means that the function cannot affect
 the original argument in the calling function. Within a function, each argument is in effect a local variable initialized to the value with which the function was called.
 
 When an array name appears as an argument to a function, the location
 of the beginning of the array is passed; elements are not copied. The function can alter elements of the array by subscripting from this location. The
-effect is that arrays are passed by reference. In Chapter 5 we will discuss the
+effect is that arrays are passed by reference. In [Chapter 5](chap05.md) we will discuss the
 use of pointers to permit functions to affect non-arrays in calling functions.
 
 By the way, there is no entirely satisfactory way to write a portable function that accepts a variable number of arguments, because there is no portable way for the called function to determine how many arguments were
@@ -355,7 +290,7 @@ between functions. Any function may access an external variable by referring to 
 
 If a large number of variables must be shared among functions, external
 variables are more convenient and efficient than long argument lists. As
-pointed out in Chapter 1, however, this reasoning should be applied with
+pointed out in [Chapter 1](chap01.md), however, this reasoning should be applied with
 some caution, for it can have a bad effect on program structure, and lead to
 programs with many data connections between functions.
 
@@ -371,29 +306,29 @@ and out via arguments.
 
 Let us examine this issue further with a larger example. The problem is
 to write another calculator program, better than the previous one. This one
-
-    permits +, *, /, and = (to print the answer). Because it is somewhat
+permits +, -, *, /, and = (to print the answer). Because it is somewhat
  easier to implement, the calculator will use reverse Polish notation instead
 of infix. (Reverse Polish is the scheme used by, for example, Hewlett-
 Packard pocket calculators.) In reverse Polish notation, each operator follows its operands; an infix expression like
 
-    (1 - 2) * (4 + 5) =
+      (1 - 2) * (4 + 5) =
 
 is entered as
 
-[comment]: <> (page 73 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 73 )
-
-1 2 — 4 5 + \* =
-----------------
+      1 2 — 4 5 + * =
 
 Parentheses are not needed.
+
+[comment]: <> (page 73 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 73 )
+
+
 
 The implementation is quite simple. Each operand is pushed onto a
 stack; when an operator arrives, the proper number of operands (two for
 binary operators) are popped, the operator applied to them, and the result
 pushed back onto the stack. In the example above, for instance, 1 and 2 are
-pushed, then replaced by their difference, —1. Next, 4 and 5 are pushed
-and then replaced by their sum, 9. The product of —1 and 9, which is —9,
+pushed, then replaced by their difference, -1. Next, 4 and 5 are pushed
+and then replaced by their sum, 9. The product of -1 and 9, which is -9,
 replaces them on the stack. The = operator prints the top element without
 removing it (so intermediate steps in a calculation can be checked).
 
@@ -403,23 +338,16 @@ better to put each in a separate function than to repeat the code throughout
 the whole program. And there should be a separate function for fetching
 the next input operator or operand. Thus the structure of the program is
 
-while _(next_ _operator or operand is not end offile)_
-
-    if _(number)_
-
-_push it_
-
-    else if _(operator)_
-
-_pop operands_
-
-_do operation_
-
-_push result_
-
-    else
-
-_error_
+<!-- TODO -->
+    while _(next_ _operator or operand is not end offile)_
+      if _(number)_
+        _push it_
+      else if _(operator)_
+        _pop operands_
+        _do operation_
+        _push result_
+      else
+        _error_
 
 The main design decision that has not yet been discussed is where the
 stack is, that is, what routines access it directly. One possibility is to keep it
@@ -430,168 +358,29 @@ So we have decided to make the stack and its associated information external var
 
 Translating this outline into code is easy enough. The main program is
 primarily a big switch on the type of operator or operand; this is perhaps a
-more typical use of switch than the one shown in Chapter 3.
+more typical use of switch than the one shown in [Chapter 3](chap03.md).
 
 [comment]: <> (page 74 , 74 THE C PROGRAMMING LANGUAGE CHAPTER4 )
 
-    #define MAXOP 20 /* max size of operand, operator */
+[comment]: <> (code c_074_01.c)
 
-    #define NUMBER '0' /* signal that number found */
-    #define TOOBIG '9' /* signal that string is too big */
-
-    main() /* reverse Polish desk calculator */
-
-(
-
-    int type;
-
-    char s[MAXOP];
-
-    double op2, atof(), pop(), push();
-
-    while ((type = getop(s, MAXOP)) != EOF)
-    switch (type) (
-
-    case NUMBER:
-
-    push(atof(s));
-
-    break;
-
-    case '+':
-
-    push(pop() + pop());
-
-    break;
-
-    case '*':
-
-    push(pop() * pop());
-
-    break;
-
-    case '-':
-
-    op2 = pop();
-
-    push(pop() - op2);
-
-    break;
-
-    case ,/,:
-
-    op2 = pop();
-
-    if (op2 != 0.0)
-
-    push(pop() / op2);
-
-    else
-
-    printf("zero divisor popped\n");
-
-    break;
-
-    case '=':
-
-    printf("\t%f\n", push(pop()));
-
-    break;
-
-    case 'c':
-
-    clear();
-
-    break;
-
-    case TOOBIG:
-
-    printf("%.20s ... is too long\n", s);
-
-    break;
-
-    default:
-
-    printf("unknown command %c\n", type);
-
-    break;
-
-)
-
-)
-
-[comment]: <> (page 75 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 75 )
-
-    #define MAXVAL 100 /* maximum depth of val stack */
-
-    int sp = 0; /* stack pointer */
-     double val[MAXVAL]; /* value stack */
-
-    double push(f) /* push f onto value stack */
-
-    double f;
-
-(
-
-    if (sp < MAXVAL)
-
-    return(val[sp++] = f);
-
-    else (
-
-    printf("error: stack full\n");
-
-    clear();
-
-    return(0);
-
-)
-
-)
-
-    double pop() /* pop top value from stack */
-
-(
-
-    if (sp > 0)
-
-    return(val(--spp;
-
-    else (
-
-    printf("error: stack empty\n");
-
-    clear();
-
-    return(0);
-
-)
-
-)
-
-    clear() /* clear stack */
-
-(
-
-    sp = 0;
-
-)
+[comment]: <> (code c_075_01.c )
 
 The command c clears the stack, with a function clear which is also used
 by push and pop in case of error. We'll return to ge top in a moment.
 
-As discussed in Chapter 1, a variable is external if it is defined outside
+As discussed in [Chapter 1](chap01.md), a variable is external if it is defined outside
 the body of any function. Thus the stack and stack pointer which must be
-shared by push, pop, and clear are defined outside of these three functions. But main itself does _not_ refer to the stack or stack pointer — the
+shared by push, pop, and clear are defined outside of these three functions. But main itself does _not_ refer to the stack or stack pointer - the
 representation is carefully hidden. Thus the code for the = operator must
 use
 
-    push(pop());
+      push(pop());
 
 to examine the top of the stack without disturbing it.
 
-Notice also that because + and \* are commutative operators, the order
-in which the popped operands are combined is irrelevant, but for the — and
+Notice also that because + and * are commutative operators, the order
+in which the popped operands are combined is irrelevant, but for the - and
 / operators, the left and right operands must be distinguished.
 
 [comment]: <> (page 76 , 76 THE C PROGRAMMING LANGUAGE CHAPTER 4 )
@@ -599,7 +388,7 @@ in which the popped operands are combined is irrelevant, but for the — and
 **Exercise 4-3.** Given the basic framework, it's straightforward to extend the
     calculator. Add the modulus (%) and unary minus operators. Add an
 "erase" command which erases the top entry on the stack. Add commands
-for handling variables. (Twenty-six single-letter variable names is easy.) o
+for handling variables. (Twenty-six single-letter variable names is easy.)
 
 4.5 Scope Rules
 ---------------
@@ -609,9 +398,8 @@ all be compiled at the same time; the source text of the program may be
 kept in several files, and previously compiled routines may be loaded from
 libraries. The two questions of interest are
 
-How are declarations written so that variables are properly declared during compilation?
-
-How are declarations set up so that all the pieces will be properly connected when the program is loaded?
+    How are declarations written so that variables are properly declared during compilation?
+    How are declarations set up so that all the pieces will be properly connected when the program is loaded?
 
 The _scope_ of a name is the part of the program over which the name is
 defined. For an automatic variable declared at the beginning of a function,
@@ -624,13 +412,14 @@ declared in a source file to the end of that file. For example, if val, sp,
 push, pop, and clear are defined in one file, in the order shown above,
 that is,
 
-    int sp = 0;
+      int sp = 0;
+      double val [MAXVAL] ;
 
-    double val [MAXVAL] ;
+      double push (f ) { ... }
 
-    double push (f ) (
-     double pop ( ) ( . . . )
-     clear ( ) (
+      double pop ( ) { ... }
+
+      clear ( ) { ... }
 
 then the variables val and sp may be used in push, pop and clear simply by naming them, no further declarations are needed.
 
@@ -644,17 +433,15 @@ lines
 
 [comment]: <> (page 77 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 77 )
 
-    int sp;
-
-    double val[MAXVAL];
+      int sp;
+      double val[MAXVAL];
 
 appear outside of any function, they _define_ the external variables sp and
 val, cause storage to be allocated, and also serve as the declaration for the
 rest of that source file. On the other hand, the lines
 
-    extern int sp;
-
-    extern double val[];
+      extern int sp;
+      extern double val[];
 
 _declare_ for the rest of the source file that sp is an int and that val is a
 double array (whose size is determined elsewhere), but they do not create
@@ -674,20 +461,19 @@ would be necessary to tie them together:
 
 _In file 1:_
 
-    int sp = 0; /* stack pointer */
-    double val[MAXVAL]; /* value stack */
+      int sp = 0; /* stack pointer */
+      double val[MAXVAL]; /* value stack */
 
 _In file 2:_
 
-    extern int sp;
+      extern int sp;
+      extern double val[];
 
-    extern double val[];
+      double push(f) { ... }
 
-    double push(f) ( )
+      double pop() { ... }
 
-    double pop() ( )
-
-    clear() ( )
+      clear() { ... }
 
 Because the extern declarations in _file 2_ lie ahead of and outside the three
 functions, they apply to all; one set of declarations suffices for all of _file 2._
@@ -713,57 +499,38 @@ NUMBER and the string of digits. If the number was too long, however,
 getop discards the rest of the input line so the user can simply retype the
 line from the point of error; it returns TOOBIG as the overflow signal.
 
-    getop(s, lim) /* get next operator or operand */
+      getop(s, lim) /* get next operator or operand */
+      char s[];
+      int lim;
+      {
+        int i, c;
 
-    char s[];
-
-    int lim;
-
-    int i, c;
-
-    while ((c = getch()) == " II c == '\t' II c == '\n')
-
-if (c != &amp;&amp; (c \&lt; '0' II c \&gt; '9'))
-
-    return(c);
-
-    s[0] = c;
-
-for (i = 1; (c = getchar()) \&gt;= '0' &amp;&amp; c \&lt;= '9'; i++)
-
-    if (i < lim)
-
-    s[i] = c;
-
-    if (c == '.1) /* collect fraction */
-
-    if (i < lim)
-
-    s[i] = c;
-
-for (i++; (c=getchar()) \&gt;= '0' &amp;&amp; c \&lt;= '9'; i++)
-
-    if (i < lim)
-
-    s[i] = c;
-
-    if (i < lim) /* number is ok */
-
-    ungetch(c);
-
-s[i] =
-
-    return (NUMBER)
-
-    ) else ( /* it's too big; skip rest of line */
-
-    while (c != '\n' && c != EOF)
-
-    c = getchar();
-
-s[lim-1] =
-
-    return(TOOBIG);
+        while ((c = getch()) == ' ' || c == '\t' || c == '\n')
+          ;
+        if (c != '.' && (c < '0' || c > '9'))
+          return(c);
+        s[0] = c;
+        for (i = 1; (c = getchar()) >= '0' && c <= '9'; i++)
+          if (i < lim)
+            s[i] = c;
+        if (c == '.') {  /* collect fraction */
+          if (i < lim)
+            s[i] = c;
+          for (i++; (c=getchar()) >= '0' && c <= '9'; i++)
+            if (i < lim)
+              s[i] = c;
+        }
+        if (i < lim) {  /* number is ok */
+          ungetch(c);
+          s[i] = '\0';
+          return (NUMBER);
+        } else { /* it's too big; skip rest of line */
+          while (c != '\n' && c != EOF)
+            c = getchar();
+          s[lim-1] = '\0';
+          return(TOOBIG);
+        }
+      }
 
 What are getch and ungetch? It is often the case that a program
 reading input cannot determine that it has read enough until it has read too
@@ -791,24 +558,7 @@ current character in the buffer.
 Since the buffer and the index are shared by getch and ungetch and
 must retain their values between calls, they must be external to both routines. Thus we can write getch, ungetch, and their shared variables as:
 
-    #define BUFSIZE 100
-
-    char buf[BUFSIZE]; /* buffer for ungetch */
-    int bufp = 0; /* next free position in buf */
-
-    getch() /* get a (possibly pushed back) character */
-    return((bufp > 0) ? buf[--bufp) : getchar());
-
-    ungetch (c) /* push character back on input */
-    int c;
-
-    if (bufp > BUFSIZE)
-
-    printf(nungetch: too many characters\n");
-
-    else
-
-    buf[bufp++] = c;
+[comment]: <> (code c_079_01.c)  
 
 We have used an array for the pushback, rather than a single character,
 since the generality may come in handy later.
@@ -818,13 +568,13 @@ string onto the input. Should ungets know about buf and bufp, or
 should it just use ungetch?
 
 **Exercise 4-5.** Suppose that there will never be more than one character of
-pushback. Modify getch and ungetch accordingly. El
+pushback. Modify getch and ungetch accordingly.
 
 [comment]: <> (page 80 , 80 THE C PROGRAMMING LANGUAGE CHAPTER 4 )
 
 **Exercise 4-6.** Our getch and ungetch do not handle a pushed-back EOF
 in a portable way. Decide what their properties ought to be if an EOF is
-pushed back, then implement your design. 0
+pushed back, then implement your design.
 
 4.6 Static Variables
 --------------------
@@ -846,13 +596,12 @@ shared, yet which should not be visible to users of getch and ungetch, so
 there is no possibility of conflict. If the two routines and the two variables
 are compiled in one file, as
 
-    static char buf[BUFSIZE]; /* buffer for ungetch */
+      static char buf[BUFSIZE]; /* buffer for ungetch */
+      static int bufp = 0; /* next free position in buf */
 
-    static int bufp = 0; /* next free position in buf */
+      getch() { ... }
 
-    getch() ( )
-
-    ungetch(c) ( )
+      ungetch(c) { ... }
 
 then no other routine will be able to access buf and bufp; in fact, they will
 not conflict with the same names in other files of the same program.
@@ -871,15 +620,15 @@ known only within the source file in which they appear, and their names do
 not interfere with variables or functions of the same name in other files.
 
 External static variables and functions provide a way to conceal data
-objects and any internal routines that manipulate them so that other routines
-
-[comment]: <> (page 81 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 81 )
-
-and data cannot conflict even inadvertently. For example, getch and
+objects and any internal routines that manipulate them so that other routines and data cannot conflict even inadvertently. For example, getch and
 ungetch form a "module" for character input and pushback; buf and
 bufp should be static so they are inaccessible from the outside. In the
 same way, push, pop and clear form a module for stack manipulation;
 val and sp should also be external static.
+
+[comment]: <> (page 81 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 81 )
+
+
 
 4.7 Register Variables
 ----------------------
@@ -891,26 +640,26 @@ which may result in smaller and faster programs.
 
 The register declaration looks like
 
-    register int x;
-    register char c;
+      register int x;
+      register char c;
 
 and so on; the int part may be omitted. register can only be applied to
 automatic variables and to the formal parameters of a function. In this latter
     case, the declaration looks like
 
-    f(c, n)
-    register int c, n;
-    {
-        register int i;
-        ...
-    }
+      f(c, n)
+      register int c, n;
+      {
+          register int i;
+          ...
+      }
 
 In practice, there are some restrictions on register variables, reflecting
 the realities of underlying hardware. Only a few variables in each function
 may be kept in registers, and only certain types are allowed. The word
 register is ignored for excess or disallowed declarations. And it is not
 possible to take the address of a register variable (a topic to be covered in
-Chapter 5). The specific restrictions vary from machine to machine; as an
+[Chapter 5](chap05.md)). The specific restrictions vary from machine to machine; as an
 example, on the PDP-11, only the first three register declarations in a function are effective, and the types must be int, char, or pointer.
 
 4.8 Block Structure
@@ -928,31 +677,33 @@ right brace. For example, in
 
 [comment]: <> (page 82 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 82 )
 
-    if (n > 0) {
-        int i; /* declare a new i */
-        for (i = 0; i < n; i++)
-         ...
-    }
+      if (n > 0) {
+          int i; /* declare a new i */
+          for (i = 0; i < n; i++)
+          ...
+      }
 
 the scope of the variable i is the "true" branch of the if; this i is unrelated
 to any other i in the program. Block structure also applies to external
 variables. Given the declarations
 
-    int x;
-    f() {
-        double x;
-        ...
-    }
+      int x;
+
+      f() {
+          double x;
+          ...
+      }
 
 then within the function f, occurrences of x refer to the internal double variable; outside
 of f, they refer to the external integer. The same is true of the names of formal parameters:
 
-    int z;
-    f(z)
-    double z;
-    {
-        ...
-    }
+      int z;
+
+      f(z)
+      double z;
+      {
+          ...
+      }
 
 Within the function f, z refers to the formal parameter, not the external.
 
@@ -967,9 +718,9 @@ to zero; automatic and register variables have undefined (i.e., garbage) values.
 Simple variables (not arrays or structures) may be initialized when they are
 declared, by following the name with an equals sign and a constant expression:
 
-int x = 1;
-char squote = '\'';
-long day = 60 * 24; /* minutes in a day */
+      int x = 1;
+      char squote = '\'';
+      long day = 60 * 24; /* minutes in a day */
 
 [comment]: <> (page 83 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 83 )
 
@@ -980,41 +731,28 @@ function or block is entered.
 For automatic and register variables, the initializer is not restricted to
 being a constant: it may in fact be any valid expression involving previously
 defined values, even function calls. For example, the initializations of the
-binary search program in Chapter 3 could be written as
+binary search program in [Chapter 3](chap03.md) could be written as
 
-    binary(x, v, n)
-
-    int x, v[], n;
-
-(
-
-    int low = 0;
-
-    int high = n - 1;
-
-    int mid;
-
-    ...
-
-)
+      binary(x, v, n)
+      int x, v[], n;
+      {
+        int low = 0;
+        int high = n - 1;
+        int mid;
+        ...
+      }
 
 instead of
 
-    binary(x, v, n)
+      binary(x, v, n)
+      int x, v[], n;
+      {
+        int low, high, mid;
 
-    int x, v[], n;
-
-(
-
-    int low, high, mid;
-
-    low = 0;
-
-    high = n - 1;
-
-...
-
-}
+        low = 0;
+        high = n - 1;
+        ...
+      }
 
 In effect, initializations of automatic variables are just shorthand for assignment statements. Which form to prefer is largely a matter of taste. We
 have generally used explicit assignments, because initializers in declarations
@@ -1023,40 +761,32 @@ are harder to see.
 Automatic arrays may not be initialized. External and static arrays may
 be initialized by following the declaration with a list of initializers enclosed
 in braces and separated by commas. For example, the character counting
-program of Chapter 1, which began
+program of [Chapter 1](chap01.md), which began
 
-    main() /* count digits, white space, others */
+      main() /* count digits, white space, others */
+      {
+        int c, i, nwhite, nother;
+        int ndigit[10];
 
-(
-
-    int c, i, nwhite, nother;
-
-    int ndigit[10];
-
-    nwhite = nother = 0;
-
-    for (i = 0; i < 10; i++)
-
-    ndigit[i] = 0;
-
-    ....
-
-)
+        nwhite = nother = 0;
+        for (i = 0; i < 10; i++)
+          ndigit[i] = 0;
+        ....
+      }
 
 can be written instead as
 
 [comment]: <> (page 84 , 84 THE C PROGRAMMING LANGUAGE CHAPTER 4 )
 
-    int nwhite = 0;
+      int nwhite = 0;
+      int nother = 0;
+      int ndigit[10] ={ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
 
-    int nother = 0;
-
-    int ndigit[10] ={ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
-
-    main() /* count digits, white space, others */
-    int c, i;
-
-    ...
+      main() /* count digits, white space, others */
+      {
+        int c, i;
+        ...
+      }
 
 These initializations are actually unnecessary since all are zero, but it's good
 form to make them explicit anyway. If there are fewer initializers than the
@@ -1068,11 +798,11 @@ intervening values as well.
 Character arrays are a special case of initialization; a string may be used
 instead of the braces and commas notation:
 
-    char pattern[] = "the";
+      char pattern[] = "the";
 
 This is a shorthand for the longer but equivalent
 
-    char pattern[] = ( 't', 'h', 'e', '\0' );
+      char pattern[] = ( 't', 'h', 'e', '\0' );
 
 When the size of an array of any type is omitted, the compiler will compute
 the length by counting the initializers. In this specific case, the size is 4
@@ -1088,63 +818,55 @@ digits, but they have to be printed the other way around.
 
 There are two solutions to this problem. One is to store the digits in an
 array as they are generated, then print them in the reverse order, as we did
-in Chapter 3 with itoa. The first version of printd follows this pattern.
+in [Chapter 3](chap03.md) with itoa. The first version of printd follows this pattern.
 
 [comment]: <> (page 85 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 85 )
 
-    printd(n) /* print n in decimal */
-     int n;
+      printd(n) /* print n in decimal */
+      int n;
+      {
+        char s[10];
+        int i;
 
-    char s[10];
-     int i;
-
-    if (n < 0) (
-
-    putchar('-');
-     n = -n;
-
-    i = 0;
- do (
-
-| s[i++] | = n % 10 | + '0'; | /\* get next char | \*/ |
-| --- | --- | --- | --- | --- |
-    | ) while ((n | /= 10) > | 0); /* | discard it */ |
- |
-    | while (--i | >= 0) |
- |
- |
- |
-
-    putchar(s[i]);
+        if (n < 0) {
+          putchar('-');
+          n = -n;
+        }
+        i = 0;
+        do {
+              s[i++]  = n % 10  + '0';  /* get next char  */
+        } while ((n  /= 10) >  0); /*  discard it */
+        while (--i >= 0)
+          putchar(s[i]);
+      }
 
 The alternative is a recursive solution, in which each call of printd
 first calls itself to cope with any leading digits, then prints the trailing digit.
 
-    printd(n) /* print n in decimal (recursive) */
-    int n;
+      printd(n) /* print n in decimal (recursive) */
+      int n;
+      {
+        int i;
 
-    int i;
-
-    if (n < 0) (
-
-    putchar('-');
-     n = -n;
-
-    if ((i = n/10) != 0)
-     printd(i);
-
-    putchar(n % 10 + '0');
+        if (n < 0) {
+          putchar('-');
+          n = -n;
+        }
+        if ((i = n/10) != 0)
+          printd(i);
+        putchar(n % 10 + '0');
+      }
 
 When a function calls itself recursively, each invocation gets a fresh set of
 all the automatic variables, quite independent of the previous set. Thus in
-printd (1 23) the first printd has n = 1 23. It passes 12 to a second
+printd (123) the first printd has n = 123. It passes 12 to a second
 printd, then prints 3 when that one returns. In the same way, the second
 printd passes 1 to a third (which prints it), then prints 2.
 
 Recursion generally provides no saving in storage, since somewhere a
 stack of the values being processed has to be maintained. Nor will it be faster. But recursive code is more compact, and often much easier to write and
 understand. Recursion is especially convenient for recursively defined data
-structures like trees; we will see a nice example in Chapter 6.
+structures like trees; we will see a nice example in [Chapter 6](chap06.md).
 
 **Exercise 4-7.** Adapt the ideas of printd to write a recursive version of
 itoa; that is, convert an integer into a string with a recursive routine.
@@ -1163,33 +885,32 @@ common of these extensions; another is the ability to include the contents
 of other files during compilation.
 
 File Inclusion
+---------------
 
 To facilitate handling collections of #define's and declarations (among
 other things) C provides a file inclusion feature. Any line that looks like
-
-#include _"filename"_
+<!-- TODO -->
+      #include _"filename"_
 
 is replaced by the contents of the file _filename._ (The quotes are mandatory.)
 Often a line or two of this form appears at the beginning of each source file,
-to include common #define statements and extern declarations for global variables. #include's may be nested.
-
-#include is the preferred way to tie the declarations together for a
+to include common #define statements and extern declarations for global variables. #include's may be nested. #include is the preferred way to tie the declarations together for a
 large program. It guarantees that all the source files will be supplied with
 the same definitions and variable declarations, and thus eliminates a particularly nasty kind of bug. Of course, when an included file is changed, all files
 that depend on it must be recompiled.
 
 Macro Substitution
+------------------
 
 A definition of the form
 
-    #define YES 1
+      #define YES 1
 
 calls for a macro substitution of the simplest kind — replacing a name by a
 string of characters. Names in #define have the same form as C
 identifiers; the replacement text is arbitrary. Normally the replacement text
 is the rest of the line; a long definition may be continued by placing a \ at
-the end of the line to be continued. The "scope" of a name defined with
-#define is from its point of definition to the end of the source file.
+the end of the line to be continued. The "scope" of a name defined with #define is from its point of definition to the end of the source file.
 Names may be redefined, and a definition may use previous definitions.
 Substitutions do not take place within quoted strings, so, for example, if
 YES is a defined name, there would be no substitution in
@@ -1201,35 +922,31 @@ defined. For example, Algol fans can say
 
 [comment]: <> (page 87 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 87 )
 
-    #define then
- #define begin (
-
-    #define end ; )
+      #define then
+      #define begin {
+      #define end ; }
 
 and then write
 
-    if (i > 0) then
- begin
-
-    a = 1;
-
-b = 2
-
-end
+      if (i > 0) then
+        begin
+          a = 1;
+          b = 2
+        end
 
 It is also possible to define macros with arguments, so the replacement
 text depends on the way the macro is called. As an example, define a macro
 called max like this:
 
-#define max(A, B) ((A) \&gt; (B) ? (A) : (B))
+      #define max(A, B) ((A) > (B) ? (A) : (B))
 
 Now the line
 
-    x = max(p+q, r+s);
+      x = max(p+q, r+s);
 
 will be replaced by the line
 
-x = ((p+q) \&gt; (r+s) ? (p+q) : (r+s));
+      x = ((p+q) > (r+s) ? (p+q) : (r+s));
 
 This provides a "maximum function" that expands into in-line code rather
 than a function call. So long as the arguments are treated consistently, this
@@ -1242,13 +959,13 @@ involve side effects like function calls and increment operators. Some care
 has to be taken with parentheses to make sure the order of evaluation is
 preserved. (Consider the macro
 
-    #define square(x) x * x
+      #define square(x) x * x
 
 when invoked as square (z+1 ) .) There are even some purely lexical problems: there can be no space between the macro name and the left
 parenthesis that introduces its argument list.
 
 Nonetheless, macros are quite valuable. One practical example is the
-standard I/O library to be described in Chapter 7, in which getchar and
+standard I/O library to be described in [Chapter 7](chap07.md), in which getchar and
 putchar are defined as macros (obviously putchar needs an argument),
 thus avoiding the overhead of a function call per character processed.
 
