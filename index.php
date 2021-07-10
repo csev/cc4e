@@ -81,7 +81,7 @@ progamming languages like Java, JavaScript, and Python.
 <p>
 In this course we will be reflecting on how C provided an important foundation for the creation of
 modern programming languages.  This is not a good place to start if you do not
-alreayd have some programming experience.  Some suggested pre-requisites include:
+already have some programming experience.  Some suggested pre-requisites include:
 <ul>
 <li><a href="https://www.py4e.com" target="_blank">Python for Everybody</a></li>
 <li><a href="https://www.dj4e.com" target="_blank">Django for Everybody</a></li>
