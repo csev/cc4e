@@ -12,9 +12,10 @@ if ( isset($_POST['secret']) && $_POST['secret'] == '42' ) {
 <input type="text" name="secret">
 <input type="submit" value="Unlock">
 <p>
-The unlock code is a number.  You won't be given the number.  It is a puzzle - 
-to prove you have the pre-requisite skills for this course - you need to figure
-the number out yourself.  There are clues in this page and the links from this page.
+The unlock code is a number.  You won't be given the number.  It is a puzzle
+where you prove that you have the pre-requisite skills for this course.
+You need to figure the number out yourself.  There are clues in this page
+and the links from this page.
 </p>
 <p>
 It is not too long and has none of those funny hex (abcde) characters.
