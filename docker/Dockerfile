@@ -1,38 +1,37 @@
-# GCC Autograder Docker image
 
-# docker build . --tag gcc_base
-# If git repo changes
-# docker build . --no-cache --tag gcc_base
+# Tsugi base PHP docker
 
-# docker run -p 8080:80 -dit gcc_base:latest
-
-# docker exec -it 8e4251ace0b04003c52ec59b9ea822b908da792e3b07c75b4a5f6c373ff6d6c2 /bin/sh
-# apachectl start
+# docker build --tag tsugi_base .
+# docker run -p 8080:80 -p 3306:3306 -e BOB=42 -dit tsugi_base:latest
 
 # To redo
 # docker container prune
-# docker image rm gcc_base:latest
+# docker image rm tsugi_dev:latest tsugi_mysql:latest tsugi_base:latest
 
-# https://hub.docker.com/_/alpine
+# Pull base image.
+FROM ubuntu:18.04
 
-FROM httpd:alpine
-# FROM php:7.4-apache
-# https://wiki.alpinelinux.org/wiki/GCC
-# FROM php:7.4-alpine
-RUN apk add --no-cache build-base php7 php7-apache2 vim bash bash-completion git
-RUN apk add --no-cache lynx
-COPY start-apache.sh /usr/local/bin/
-COPY prepare-gcc.sh /usr/local/bin/
+COPY tsugi-base-configure.sh /usr/local/bin/
+COPY tsugi-base-prepare.sh /usr/local/bin/
 
 # Install.
-RUN bash /usr/local/bin/prepare-gcc.sh
+RUN bash /usr/local/bin/tsugi-base-prepare.sh
 
-# WORKDIR /root
-EXPOSE 80
+#  apt-get install -y mailutils
 
-ENTRYPOINT ["bash", "/usr/local/bin/start-apache.sh"]
+# Setup files
+COPY monitor-apache.sh /usr/local/bin/
+COPY apache2.conf /etc/apache2
+
+# Set environment variables.
+ENV HOME /root
+
+# Define working directory.
+WORKDIR /root
+
+
+EXPOSE 80 443
+ENTRYPOINT ["bash", "/usr/local/bin/tsugi-base-configure.sh"]
 
 # Define default command.  (Should never get here)
 CMD ["bash"]
-
-
