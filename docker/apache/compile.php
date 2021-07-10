@@ -44,6 +44,7 @@ $env = array(
     'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
 );
 
+// $command = 'chroot /var/www/html/jail; mkdir '.$folder.'; gcc -ansi -x c -o a.out -';
 $command = 'gcc -ansi -x c -o a.out -';
 $process = proc_open($command, $descriptorspec, $pipes, $cwd, $env);
 
@@ -69,6 +70,7 @@ if (is_resource($process)) {
 
 if ( $retval->compile_status === 0 ) {
 
+$command = 'chroot /var/www/html/jail; cd '.$folder.'; ./a.out -';
 $command = './a.out';
 $process = proc_open($command, $descriptorspec, $pipes, $cwd, $env);
 
@@ -90,6 +92,7 @@ if (is_resource($process)) {
     // proc_close in order to avoid a deadlock
     $retval->run_status = proc_close($process);
 
+}
 }
 
 header("Content-type: application/json; charset=utf-8");
