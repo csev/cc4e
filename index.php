@@ -12,20 +12,20 @@ if ( isset($_POST['secret']) && $_POST['secret'] == '42' ) {
 <input type="text" name="secret">
 <input type="submit" value="Unlock">
 <p>
-The unlock code is a number.  
+The unlock code is a number.
 It is not too long and has none of those funny hex (abcde) characters.
 It is a very significant number with that
-makes a regular appearance throughout Dr. Chuck's other online courses 
-(<a href="https://www.py4e.com" target="_blank">Python</a>, 
-<a href="https://www.py4e.com" target="_blank">Django</a>, 
-<a href="https://www.py4e.com" target="_blank">PHP</a>, and 
+makes a regular appearance throughout Dr. Chuck's other online courses
+(<a href="https://www.py4e.com" target="_blank">Python</a>,
+<a href="https://www.py4e.com" target="_blank">Django</a>,
+<a href="https://www.py4e.com" target="_blank">PHP</a>, and
 <a href="https://www.py4e.com" target="_blank">PostgreSQL</a>).
 </p>
 <p>
 If you get tired of trying to guess the number, you can take
 a fun break and look at some cool pictures of
 <a href="https://www.sakaiger.com/sakaicar/" target="_blank">Dr. Chuck's Race Car</a>.
-It is pretty awesome and he races in a series called 
+It is pretty awesome and he races in a series called
 <a href="https://www.24hoursoflemons.com" target="_blank">24 Hours of Lemons</a>.
 </p>
 <p>
@@ -50,16 +50,35 @@ require_once "nav.php";
 <iframe width="400" height="225" src="https://www.youtube.com/embed/sQwkC5PBTfk?rel=0" frameborder="0" allowfullscreen></iframe>
 </div>
 <h1>C Programming for Everybody</h1>
+<blockquote>
+<p><b>Update:</b> I am planning on having this site ready to "Beta Teach" September 2021.
+To participate in that couse when it is ready, simply log in and you will be notified when
+I start teaching this material.
+I used this book to teach "LBS290 - Programming for Scientists" in September 1991 - almost
+30 years ago and if all goes well we will re-trace the syllabus of that course.
+</p>
+</blockquote>
 <p>
-This web site is dedicated to understanding computer architecture and low-level programming 
+This web site is dedicated to understanding computer architecture and low-level programming
 by studying the "classic" version of
 the C Programming language from the 1978 book written by Brian Kernighan and Dennis Ritchie.
 </p>
 <p>
 The K&amp;R book places the reader in the middle of the 1970's transition from
 a hardware-centered computer science to a focus on writing portable and efficient
-software.  C was used to develop operating systems like Unix, Minix, and Linux and 
+software.  C was used to develop operating systems like Unix, Minix, and Linux and
 progamming languages like Java, JavaScript, and Python.
+</p>
+<p>
+In this course we will be reflecting on how C provided an important foundation for the creation of
+modern programming languages.  This is not a good place to start if you do not
+alreayd have some programming experience.  Some suggested pre-requisites include:
+<ul>
+<li><a href="https://www.py4e.com" target="_blank">Python for Everybody</a></li>
+<li><a href="https://www.dj4e.com" target="_blank">Django for Everybody</a></li>
+<li><a href="https://www.pg4e.com" target="_blank">PostgreSQL for Everybody</a></li>
+<li><a href="https://www.wa4e.com" target="_blank">Web Applications for Everybody</a></li>
+</ul>
 </p>
 <p>
 This site uses <a href="http://www.tsugi.org" target="_blank">Tsugi</a>

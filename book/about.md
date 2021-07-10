@@ -26,7 +26,7 @@ were written in C.  And the first web browsers and web servers
 were written in C.
 
 Writing software in C enabled major advances in computer
-architecture.  Operating systems, compilers, and
+architecture and performance.  Operating systems, compilers, and
 utilities could be re-compiled to work a new hardware platform
 once we had a C compiler for the new hardware.
 

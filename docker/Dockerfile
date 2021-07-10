@@ -1,21 +1,24 @@
 
 # Tsugi base PHP docker
 
-# docker build --tag tsugi_base .
-# docker run -p 8080:80 -p 3306:3306 -e BOB=42 -dit tsugi_base:latest
+# docker build --tag gcc_base .
+# docker run -p 8080:80 -p 3306:3306 -e BOB=42 -dit gcc_base:latest
 
 # To redo
 # docker container prune
-# docker image rm tsugi_dev:latest tsugi_mysql:latest tsugi_base:latest
+# docker image rm gcc_dbase:latest
 
 # Pull base image.
 FROM ubuntu:18.04
 
 COPY tsugi-base-configure.sh /usr/local/bin/
 COPY tsugi-base-prepare.sh /usr/local/bin/
+COPY prepare-gcc.sh /usr/local/bin
+COPY configure-gcc.sh /usr/local/bin
 
 # Install.
 RUN bash /usr/local/bin/tsugi-base-prepare.sh
+RUN bash /usr/local/bin/prepare-gcc.sh
 
 #  apt-get install -y mailutils
 
@@ -31,7 +34,7 @@ WORKDIR /root
 
 
 EXPOSE 80 443
-ENTRYPOINT ["bash", "/usr/local/bin/tsugi-base-configure.sh"]
+ENTRYPOINT ["bash", "/usr/local/bin/configure-gcc.sh"]
 
 # Define default command.  (Should never get here)
 CMD ["bash"]
