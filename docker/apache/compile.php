@@ -71,6 +71,7 @@ if (is_resource($process)) {
 if ( $retval->compile_status === 0 ) {
 
 $command = 'chroot /var/www/html/jail; cd '.$folder.'; ./a.out -';
+$command = 'LD_PRELOAD=/var/www/html/EasySandbox/EasySandbox.so ./a.out';
 $command = './a.out';
 $process = proc_open($command, $descriptorspec, $pipes, $cwd, $env);
 
