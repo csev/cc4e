@@ -1,6 +1,7 @@
 a.out
 *.swp
 *.o
+*.s
 .DS_Store
 cc4e-private
 jail
