@@ -13,6 +13,8 @@ git pull
 cd /home/gcc/cc4e/chroot
 bash make_jail.sh
 
+cp -r /home/gcc/cc4e/docker/apache/* /var/www/html
+
 echo "---- Finished gcc jail setup  ----"
 
 # if COMPLETE
