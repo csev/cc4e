@@ -63,14 +63,16 @@ if ( $pipe1->status === 0 ) {
         }
         // These should be the remaining executable statements
         // Linux:
-        // 	movq	puts@GOTPCREL(%rip), %rax
         // 	call	puts@PLT
         // 	call	zap@PLT       ## External unknown
+        // 	call	zap           ## Internal known
+        // 	leaq	fun(%rip), %rax   # Internal known
+        // 	movq	puts@GOTPCREL(%rip), %rax   # External unknown
+
         // Mac:
         //  movq    _puts@GOTPCREL(%rip), %rax
         //  callq	_printf
         //  callq   _zap         ## Both local and external :(
-
         //  leaq	L_.str(%rip), %rdi
         //  leaq	_fun(%rip), %rax
 
