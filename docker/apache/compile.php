@@ -48,6 +48,33 @@ $retval->compile = false;
 $retval->run = false;
 
 if ( $pipe1->status === 0 ) {
+    $assembly = file_get_contents($folder . '/student.s');
+    $retval->assembly = $assembly;
+    $lines = explode("\n", $assembly);
+    $newlines = array();
+    foreach ( $lines as $line) {
+        if ( strlen($line) < 1                 // blank lines
+            || (! preg_match('/^\s/', $line))  // _main: 
+            || preg_match('/^\s+\./', $line)   // 	.cfi_startproc
+        ) {
+            $new[] = $line;
+            continue;
+        }
+        // These should be the remaining executable statements
+        // Linux:
+        // 	movq	puts@GOTPCREL(%rip), %rax
+        // 	call	puts@PLT
+        // Mac:
+        //  movq    _puts@GOTPCREL(%rip), %rax
+        //  callq	_printf
+        //  callq   _zap
+        //  leaq	L_.str(%rip), %rdi
+
+        echo($line."\n");
+    }
+}
+
+if ( $pipe1->status === 0 ) {
     $command = 'gcc -ansi student.c';
     $pipe2 = cc4e_pipe($command, $input, $folder, $env, 11.0);
     $retval->compile = $pipe2;
