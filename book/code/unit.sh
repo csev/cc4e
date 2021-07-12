@@ -15,6 +15,30 @@ gcc -ansi -c c_024_01.c
 gcc -ansi -Wno-return-type c_026_01.c
 gcc -ansi -Wno-return-type c_029_01.c
 
+# Chapter 3
+gcc -ansi c_055_01.c
+gcc -ansi c_061_01.c
+
+# Chapter 4
+gcc -ansi c_066_01.c
+gcc -ansi c_070_01.c
+gcc -ansi c_074_01.c
+gcc -ansi c_075_01.c
+gcc -ansi c_079_01.c
+gcc -ansi c_055_01.c
+gcc -ansi c_055_01.c
+
+# Chapter 5
+gcc -ansi c_097_01.c
+gcc -ansi c_106_01.c
+gcc -ansi c_107_01.c
+gcc -ansi c_111_01.c
+gcc -ansi c_111_02.c
+gcc -ansi c_111_03.c
+gcc -ansi c_112_01.c
+gcc -ansi c_113_01.c
+gcc -ansi c_115_01.c
+
 # Chapter 7
 
 gcc -ansi c_145_01.c -o lower
