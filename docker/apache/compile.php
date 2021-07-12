@@ -1,6 +1,7 @@
 <?php
 
 require_once "sandbox.php";
+require_once "enable.php";
 
 $ip = $_SERVER['REMOTE_ADDR'] ?? false;
 if ( ! is_string($ip) ) die('No REMOTE_ADDR');
