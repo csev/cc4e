@@ -56,6 +56,7 @@ if ( $pipe1->status === 0 ) {
         if ( strlen($line) < 1                 // blank lines
             || (! preg_match('/^\s/', $line))  // _main: 
             || preg_match('/^\s+\./', $line)   // 	.cfi_startproc
+            || preg_match('/^\s.#/', $line)    // comment
         ) {
             $new[] = $line;
             continue;
@@ -68,9 +69,13 @@ if ( $pipe1->status === 0 ) {
         //  movq    _puts@GOTPCREL(%rip), %rax
         //  callq	_printf
         //  callq   _zap
-        //  leaq	L_.str(%rip), %rdi
 
-        echo($line."\n");
+        //  leaq	L_.str(%rip), %rdi
+        //  leaq	_fun(%rip), %rax
+
+        // echo($line."\n");
+        $pieces = explode("\t", $line);
+        // var_dump($pieces);
     }
 }
 
