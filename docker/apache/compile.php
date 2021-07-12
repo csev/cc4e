@@ -65,10 +65,11 @@ if ( $pipe1->status === 0 ) {
         // Linux:
         // 	movq	puts@GOTPCREL(%rip), %rax
         // 	call	puts@PLT
+        // 	call	zap@PLT       ## External unknown
         // Mac:
         //  movq    _puts@GOTPCREL(%rip), %rax
         //  callq	_printf
-        //  callq   _zap
+        //  callq   _zap         ## Both local and external :(
 
         //  leaq	L_.str(%rip), %rdi
         //  leaq	_fun(%rip), %rax
