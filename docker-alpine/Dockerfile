@@ -14,10 +14,6 @@ FROM alpine
 # https://wiki.alpinelinux.org/wiki/GCC  (build-base)
 RUN apk add --no-cache build-base 
 
-# WORKDIR /root
-
-ENTRYPOINT ["/bin/ash"]
-
 # Define default command.  (Should never get here)
 CMD ["/bin/ash"]
 
