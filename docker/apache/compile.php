@@ -1,5 +1,7 @@
 <?php
 
+require_once "sandbox.php";
+
 $ip = $_SERVER['REMOTE_ADDR'] ?? false;
 if ( ! is_string($ip) ) die('No REMOTE_ADDR');
 
@@ -18,82 +20,42 @@ $input = $_POST['input'] ?? false;
 if ( ! is_string($code) ) die('No code');
 
 $folder = sys_get_temp_dir() . '/compile-' . md5(uniqid());
-mkdir($folder);
-
-$retval = new \stdClass();
-$retval->code = $code;
-$retval->input = $input;
-$retval->folder = $folder;
-$retval->compile_status = false;
-$retval->compile_out = false;
-$retval->compile_err = false;
-$retval->run_status = false;
-$retval->run_out = false;
-$retval->run_err = false;
-
-
-$descriptorspec = array(
-   0 => array("pipe", "r"),  // stdin is a pipe that the child will read from
-   1 => array("pipe", "w"),  // stdout is a pipe that the child will write to
-   2 => array("pipe", "w") // stderr is a file to write to
-);
-
-$cwd = $folder;
+$folder = '/tmp/compile';
+if ( file_exists($folder) ) {
+    system('rm $folder/*');
+} else {
+    mkdir($folder);
+}
 $env = array(
     'some_option' => 'aeiou',
     'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
 );
 
-// $command = 'chroot /var/www/html/jail; mkdir '.$folder.'; gcc -ansi -x c -o a.out -';
+$retval = new \stdClass();
+$retval->code = $code;
+$retval->input = $input;
+$retval->folder = $folder;
+$retval->compile = false;
+$retval->run = false;
+
 $command = 'gcc -ansi -x c -o a.out -';
-$process = proc_open($command, $descriptorspec, $pipes, $cwd, $env);
+$command = 'rm -rf * ; tee student.c | gcc -ansi -S student.c';
 
-if (is_resource($process)) {
-    // $pipes now looks like this:
-    // 0 => writeable handle connected to child stdin
-    // 1 => readable handle connected to child stdout
-    // Any error output will be appended to /tmp/error-output.txt
+$pipe1 = cc4e_pipe($command, $code, $folder, $env, 11.0);
+$retval->assembly = $pipe1;
+$retval->compile = false;
+$retval->run = false;
 
-    fwrite($pipes[0], $code);
-    fclose($pipes[0]);
-
-    $retval->compile_out = stream_get_contents($pipes[1]);
-    fclose($pipes[1]);
-    $retval->compile_err = stream_get_contents($pipes[2]);
-    fclose($pipes[2]);
-
-    // It is important that you close any pipes before calling
-    // proc_close in order to avoid a deadlock
-    $retval->compile_status = proc_close($process);
-
+if ( $pipe1->status === 0 ) {
+    $command = 'gcc -ansi student.c';
+    $pipe2 = cc4e_pipe($command, $input, $folder, $env, 11.0);
+    $retval->compile = $pipe2;
 }
 
-if ( $retval->compile_status === 0 ) {
-
-$command = 'chroot /var/www/html/jail; cd '.$folder.'; ./a.out -';
-$command = 'LD_PRELOAD=/var/www/html/EasySandbox/EasySandbox.so ./a.out';
-$command = './a.out';
-$process = proc_open($command, $descriptorspec, $pipes, $cwd, $env);
-
-if (is_resource($process)) {
-    // $pipes now looks like this:
-    // 0 => writeable handle connected to child stdin
-    // 1 => readable handle connected to child stdout
-    // Any error output will be appended to /tmp/error-output.txt
-
-    fwrite($pipes[0], $input);
-    fclose($pipes[0]);
-
-    $retval->run_out = stream_get_contents($pipes[1]);
-    fclose($pipes[1]);
-    $retval->run_err = stream_get_contents($pipes[2]);
-    fclose($pipes[2]);
-
-    // It is important that you close any pipes before calling
-    // proc_close in order to avoid a deadlock
-    $retval->run_status = proc_close($process);
-
-}
+if ( $pipe1->status === 0 ) {
+    $command = './a.out';
+    $pipe3 = cc4e_pipe($command, $input, $folder, $env, 11.0);
+    $retval->run = $pipe3;
 }
 
 header("Content-type: application/json; charset=utf-8");

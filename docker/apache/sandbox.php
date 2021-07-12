@@ -1,19 +1,13 @@
 <?php
 
 // https://blog.dubbelboer.com/2012/08/24/execute-with-timeout.html
-function cc4e_pipe($command, $context, $stdin, $cwd, $env)
+function cc4e_pipe($command, $stdin, $cwd, $env, $timeout)
 {
-$retval = new \stdClass();
-$retval->code = $code;
-$retval->input = $input;
-$retval->folder = $folder;
-$retval->compile_status = false;
-$retval->compile_out = false;
-$retval->compile_err = false;
-$retval->run_status = false;
-$retval->run_out = false;
-$retval->run_err = false;
 
+$retval = new \stdClass();
+$retval->stdout = false;
+$retval->stderr = false;
+$retval->status = false;
 
 $descriptorspec = array(
    0 => array("pipe", "r"),  // stdin is a pipe that the child will read from
@@ -21,13 +15,7 @@ $descriptorspec = array(
    2 => array("pipe", "w") // stderr is a file to write to
 );
 
-$cwd = $folder;
-$env = array(
-    'some_option' => 'aeiou',
-    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-);
-
-// $command = 'gcc -ansi -x c -o a.out -';
+// Pipes is set by proc_open
 $process = proc_open($command, $descriptorspec, $pipes, $cwd, $env);
 
 if (is_resource($process)) {
@@ -47,7 +35,7 @@ if (is_resource($process)) {
 
     // Output buffer.
     $stdout = '';
-    $stderro = '';
+    $stderr = '';
 
     if ( is_string($stdin) ) {
         fwrite($pipes[0], $stdin);
@@ -82,17 +70,21 @@ if (is_resource($process)) {
         $timeout -= (microtime(true) - $start) * 1000000;
     }
 
-    // Kill the process in case the timeout expired and it's still running.
-    // If the process already exited this won't do anything.
-    proc_terminate($process, 9);
+    // var_dump($status);
+    $retval->status = $status['exitcode'];
 
     // Close all streams.
-    fclose($pipes[0]);
     fclose($pipes[1]);
     fclose($pipes[2]);
 
+    // Kill the process in case the timeout expired and it's still running.
+    // If the process already exited this won't do anything.
+    // $retval->status = proc_get_status($process);
+    // $retval->status = proc_terminate($process, 9);
+
     // proc_close in order to avoid a deadlock
-    $retval->status = proc_close($process);
+    $retval->stdout = $stdout;
+    $retval->stderr = $stderr;
 
 }
 
