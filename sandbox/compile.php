@@ -65,6 +65,22 @@ $retval->docker = false;
 
 $allowed = false;
 
+// Linux check:
+// 	call	puts@PLT
+// 	call	zap@PLT       ## External unknown
+// 	movq	puts@GOTPCREL(%rip), %rax   # External unknown
+// Linux OK:
+// 	call	zap           ## Internal known
+// 	leaq	fun(%rip), %rax   # Internal known
+
+// Mac check:
+//  movq    _puts@GOTPCREL(%rip), %rax
+//  callq	_printf
+//  callq   _zap         ## Both local and external :(
+// Mac OK:
+//  leaq	L_.str(%rip), %rdi
+//  leaq	_fun(%rip), %rax
+
 if ( $pipe1->status === 0 ) {
     $assembly = $retval->assembly->stdout;
     $lines = explode("\n", $assembly);
@@ -75,11 +91,19 @@ if ( $pipe1->status === 0 ) {
     foreach ( $lines as $line) {
         $matches = array();
         if ( ! preg_match('/^(_[a-zA-Z0-9_]+):/', $line, $matches ) ) continue;
-        if ( count($matches) > 1 ) $symbol[] = $matches[1];
+        if ( count($matches) > 1 ) {
+            $match = $matches[1];
+            if ( strpos($match,'_') === 0 && strlen($match) > 1 ) $match = substr($match, 1);
+            $symbol[] = $match;
+        }
     }
     $retval->symbol = $symbol;
 
-    $legit = array(
+    $allowed_externals = array(
+        'puts', 'printf', 'putchar'
+    );
+
+    $minimum_externals = array(
         'puts', 'printf', 'putchar'
     );
 
@@ -94,44 +118,54 @@ if ( $pipe1->status === 0 ) {
             continue;
         }
 
-        // These should be the remaining executable statements
-        // Linux:
-        // 	call	puts@PLT
-        // 	call	zap@PLT       ## External unknown
-        // 	call	zap           ## Internal known
-        // 	leaq	fun(%rip), %rax   # Internal known
-        // 	movq	puts@GOTPCREL(%rip), %rax   # External unknown
-
-        // Mac:
-        //  movq    _puts@GOTPCREL(%rip), %rax
-        //  callq	_printf
-        //  callq   _zap         ## Both local and external :(
-        //  leaq	L_.str(%rip), %rdi
-        //  leaq	_fun(%rip), %rax
-
         $matches = array();
-        if ( preg_match('/^([a-zA-Z0-9_]+)@PLT/', $line, $matches) ) {
-            if ( count($matches) > 1 ) $externals[] = $matches[1];
+        if ( preg_match('/([a-zA-Z0-9_]+)@PLT/', $line, $matches) ) {
+            if ( count($matches) > 1 ) {
+                $external = $matches[1];
+                if ( strpos($external,'_') === 0 && strlen($external) > 1 ) $external = substr($external, 1);
+                $externals[] = $external;
+            }
         }
 
         $matches = array();
-        if ( preg_match('/^([a-zA-Z0-9_]+)@GOTPCREL/', $line, $matches) ) {
-            if ( count($matches) > 1 ) $externals[] = $matches[1];
+        if ( preg_match('/([a-zA-Z0-9_]+)@GOTPCREL/', $line, $matches) ) {
+            if ( count($matches) > 1 ) {
+                $external = $matches[1];
+                if ( strpos($external,'_') === 0 && strlen($external) > 1 ) $external = substr($external, 1);
+                $externals[] = $external;
+            }
         }
 
         $pieces = explode("\t", $line);
         // var_dump($pieces);
+
+        // Mac internal and external
+        //  callq	_printf
         if ( count($pieces) > 2 ) {
             if ( $pieces[1] == 'callq' ) {
-                $externals[] = $pieces[2];
+                $external = $pieces[2];
+                if ( strpos($external,'_') === 0 && strlen($external) > 1 ) {
+                    $external = substr($external, 1);
+                    $externals[] = $external;
+                }
             }
         }
     }
     $retval->externals = $externals;
+
+    // Run the check
+    $minimum = false;
     $allowed = true;
+    foreach($externals as $external) {
+        if ( in_array($external, $minimum_externals) ) $minimum = true;
+        if ( in_array($external, $retval->symbol) ) continue;
+        if ( ! in_array($external, $allowed_externals) ) $allowed = false;
+    }
+    $retval->minimum = $minimum;
+    $retval->allowed = $allowed;
 }
 
-if ( $allowed ) {
+if ( $allowed && $minimum ) {
     $script = "cd /tmp;\n";
     $script .= "cat > student.c << EOF\n";
     $script .= $code;
@@ -152,3 +186,9 @@ if ( $allowed ) {
     
 header("Content-type: application/json; charset=utf-8");
 echo(json_encode($retval, JSON_PRETTY_PRINT));
+
+$debug = true;
+if ( $debug && isset($retval->assembly->stdout) && is_string($retval->assembly->stdout) ) {
+    echo("\n");
+    echo($retval->assembly->stdout);
+}
