@@ -21,6 +21,7 @@ if ( U::get($_SESSION,'id', null) === null ) {
 require_once "sandbox.php";
 require_once "enable.php";
 
+/*
 $ip = $_SERVER['REMOTE_ADDR'] ?? false;
 if ( ! is_string($ip) ) die('No REMOTE_ADDR');
 
@@ -33,13 +34,14 @@ $public = filter_var(
 if ( is_string($public) ) {
 	die('bad address');
 }
+ */
 
 $code = $_POST['code'] ?? false;
 $input = $_POST['input'] ?? false;
 if ( ! is_string($code) ) die('No code');
 
-$folder = sys_get_temp_dir() . '/compile-' . md5(uniqid());
 $now = str_replace('@', 'T', gmdate("Y-m-d@H:i:s"));
+$folder = sys_get_temp_dir() . '/compile-' . $now . '-' . md5(uniqid());
 $folder = '/tmp/compile';
 if ( file_exists($folder) ) {
     system("rm -rf $folder/*");
@@ -57,7 +59,7 @@ $retval->now = $now;
 $retval->input = $input;
 $retval->folder = $folder;
 
-$command = 'rm -rf * ; tee student.c | gcc -ansi -S student.c ; [ -f student.s ] && cat student.s';
+$command = 'rm -rf * ; cat > student.c ; gcc -ansi -S student.c ; [ -f student.s ] && cat student.s';
 
 $pipe1 = cc4e_pipe($command, $code, $folder, $env, 11.0);
 $retval->assembly = $pipe1;
@@ -180,14 +182,14 @@ if ( $allowed && $minimum ) {
     }
 
     // echo("-----\n");echo($script);echo("-----\n");
-    $command = 'docker run --network none --rm -i alpine_gcc:latest "-"';
+    $command = $docker_command ?? 'docker run --network none --rm -i alpine_gcc:latest "-"';
     $retval->docker = cc4e_pipe($command, $script, $folder, $env, 11.0);
 }
     
 header("Content-type: application/json; charset=utf-8");
 echo(json_encode($retval, JSON_PRETTY_PRINT));
 
-$debug = true;
+$debug = false;
 if ( $debug && isset($retval->assembly->stdout) && is_string($retval->assembly->stdout) ) {
     echo("\n");
     echo($retval->assembly->stdout);
