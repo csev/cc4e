@@ -4,7 +4,6 @@ if ( !isset($_COOKIE['secret']) || $_COOKIE['secret'] != '42' ) {
     return;
 }
 
-
 use \Tsugi\Core\LTIX;
 use \Tsugi\Util\U;
 
