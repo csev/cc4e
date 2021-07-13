@@ -54,24 +54,18 @@ $retval = new \stdClass();
 $retval->code = $code;
 $retval->input = $input;
 $retval->folder = $folder;
-$retval->compile = false;
-$retval->run = false;
 
-$command = 'echo "echo Yada" | docker run --network none --rm -i alpine_gcc:latest "-"';
-$pipe0 = cc4e_pipe($command, $code, $folder, $env, 11.0);
-$retval->pipe0 = $pipe0;
-
-$command = 'gcc -ansi -x c -o a.out -';
-$command = 'rm -rf * ; tee student.c | gcc -ansi -S student.c ; cat student.s';
+$command = 'rm -rf * ; tee student.c | gcc -ansi -S student.c ; [ -f student.s ] && cat student.s';
 
 $pipe1 = cc4e_pipe($command, $code, $folder, $env, 11.0);
 $retval->assembly = $pipe1;
-$retval->compile = false;
-$retval->run = false;
+$retval->docker = false;
+
+$allowed = false;
 
 if ( $pipe1->status === 0 ) {
-    $assembly = file_get_contents($folder . '/student.s');
-    $retval->zap = $assembly;
+    // $assembly = file_get_contents($folder . '/student.s');
+    $assembly = $retval->assembly->stdout;
     $lines = explode("\n", $assembly);
     $newlines = array();
     foreach ( $lines as $line) {
@@ -102,19 +96,27 @@ if ( $pipe1->status === 0 ) {
         $pieces = explode("\t", $line);
         // var_dump($pieces);
     }
+    $allowed = true;
 }
 
-if ( $pipe1->status === 0 ) {
-    $command = 'gcc -ansi student.c';
-    $pipe2 = cc4e_pipe($command, $input, $folder, $env, 11.0);
-    $retval->compile = $pipe2;
-}
+if ( $allowed ) {
+    $script = "cd /tmp;\n";
+    $script .= "cat > student.c << EOF\n";
+    $script .= $code;
+    $script .= "\nEOF\n";
+    $script .= "/usr/bin/gcc -ansi student.c\n";
+    if ( is_string($input) && strlen($input) > 0 ) {
+        $script .= "[ -f a.out ] && ./a.out << EOF\n";
+        $script .= $input;
+        $script .= "\nEOF\n";
+    } else {
+        $script .= "[ -f a.out ] && ./a.out\n";
+    }
 
-if ( $pipe1->status === 0 ) {
-    $command = './a.out';
-    $pipe3 = cc4e_pipe($command, $input, $folder, $env, 11.0);
-    $retval->run = $pipe3;
+    // echo("-----\n");echo($script);echo("-----\n");
+    $command = 'docker run --network none --rm -i alpine_gcc:latest "-"';
+    $retval->docker = cc4e_pipe($command, $script, $folder, $env, 11.0);
 }
-
+    
 header("Content-type: application/json; charset=utf-8");
 echo(json_encode($retval, JSON_PRETTY_PRINT));
