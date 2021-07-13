@@ -123,7 +123,7 @@ function cc4e_compile($code, $input, $folder, $env, $docker_command)
     $retval->input = $input;
     $retval->folder = $folder;
 
-    $command = 'rm -rf * ; cat > student.c ; gcc -ansi -S student.c ; [ -f student.s ] && cat student.s';
+    $command = 'rm -rf * ; cat > student.c ; gcc -ansi -Dasm=error -D__asm__=error -fno-asm -S student.c ; [ -f student.s ] && cat student.s';
 
     $pipe1 = cc4e_pipe($command, $code, $folder, $env, 11.0);
     $retval->assembly = $pipe1;
@@ -220,7 +220,7 @@ function cc4e_compile($code, $input, $folder, $env, $docker_command)
         $script .= "cat > student.c << EOF\n";
         $script .= $code;
         $script .= "\nEOF\n";
-        $script .= "/usr/bin/gcc -ansi student.c\n";
+        $script .= "/usr/bin/gcc -ansi -Dasm=error -D__asm__=error -fno-asm student.c\n";
         if ( is_string($input) && strlen($input) > 0 ) {
             $script .= "[ -f a.out ] && ./a.out << EOF\n";
             $script .= $input;
