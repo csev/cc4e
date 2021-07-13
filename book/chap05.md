@@ -88,7 +88,7 @@ In expressions like
 
       y = *px + 1
 
-the unary operators `*` and `& bind more tightly than arithmetic operators, so
+the unary operators `*` and `&` bind more tightly than arithmetic operators, so
 this expression takes whatever `px` points at, adds 1, and assigns it to `y`. We
 will return shortly to what
 
