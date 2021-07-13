@@ -1,3 +1,22 @@
+<?php
+if ( !isset($_COOKIE['secret']) || $_COOKIE['secret'] != '42' ) {
+    header("Location: ../index.php");
+    return;
+}
+
+use \Tsugi\Core\LTIX;
+use \Tsugi\Util\U;
+
+if ( ! isset($CFG) ) {
+    if (!defined('COOKIE_SESSION')) define('COOKIE_SESSION', true);
+    require_once "../tsugi/config.php";
+    $LAUNCH = LTIX::session_start();
+}
+
+if ( U::get($_SESSION,'id', null) === null ) {
+    die('Must be logged in');
+}
+?>
 <h1>Test Harness</h1>
 <form method="POST" action="compile.php" target="output">
 <input type="submit">
