@@ -56,39 +56,40 @@ the pointer px is new.
 
       int *px;
 
-is intended as a mnemonic; it says that the combination *px is an int, that
-is, if px occurs in the context *px, it is equivalent to a variable of type
-int. In effect, the syntax of the declaration for a variable mimics the syntax of expressions in which the variable might appear. This reasoning is
+is intended as a mnemonic; it says that the combination `*px` is an int, that
+is, if `px` occurs in the context `*px`, it is equivalent to a variable of type
+`int`. In effect, the syntax of the declaration for a variable mimics the syntax of
+expressions in which the variable might appear. This reasoning is
 useful in all cases involving complicated declarations. For example,
 
       double atof(), *dp;
 
-says that in an expression atof ( ) and ** *dp** have values of type double.
+says that in an expression `atof()` and `*dp` have values of type `double`.
 You should also note the implication in the declaration that a pointer is
-    constrained to point to a particular kind of object.
+constrained to point to a particular kind of object.
 
-Pointers can occur in expressions. For example, if px points to the
-integer x, then *px can occur in any context where x could.
+Pointers can occur in expressions. For example, if `px` points to the
+integer x, then `*px` can occur in any context where `x` could.
 
-      y = \*px + 1
+      y = *px + 1
 
-sets y to 1 more than x;
+sets `y` to 1 more than `x`;
 
       printf("%d\n", *px)
 
-prints the current value of x; and
+prints the current value of `x`; and
 
       d = sqrt ((double) *px)
 
-produces in d the square root of x, which is coerced into a double before
-being passed to sqrt. (See [Chapter 2](chap02.md).)
+produces in `d` the square root of `x`, which is coerced into a double before
+being passed to `sqrt`. (See [Chapter 2](chap02.md).)
 
 In expressions like
 
       y = *px + 1
 
-the unary operators * and & bind more tightly than arithmetic operators, so
-this expression takes whatever px points at, adds 1, and assigns it to y. We
+the unary operators `*` and `& bind more tightly than arithmetic operators, so
+this expression takes whatever `px` points at, adds 1, and assigns it to `y`. We
 will return shortly to what
 
       y = *(px + 1)
