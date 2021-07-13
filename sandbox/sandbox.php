@@ -95,27 +95,28 @@ function cc4e_pipe($command, $stdin, $cwd, $env, $timeout)
 }
 
 // Linux check:
-// 	call	puts@PLT
-// 	call	zap@PLT                     ## External unknown
-// 	movq	puts@GOTPCREL(%rip), %rax   ## External unknown
+//     call    puts@PLT
+//     call    zap@PLT                     ## External unknown
+//     movq    puts@GOTPCREL(%rip), %rax   ## External unknown
 //
 // Linux OK:
-// 	call	zap                         ## Internal known
-// 	leaq	fun(%rip), %rax             ## Internal known
+//     call    zap                         ## Internal known
+//     leaq    fun(%rip), %rax             ## Internal known
 
 // Mac check:
 //  movq    _puts@GOTPCREL(%rip), %rax
-//  callq	_printf
+//  callq    _printf
 //  callq   _zap                        ## Both local and external :(
 //
 // Mac OK:
 // _zap:
-//	.cfi_startproc
+//    .cfi_startproc
 //  callq   _zap                        ## Both local and external :(
-//  leaq	L_.str(%rip), %rdi
-//  leaq	_fun(%rip), %rax
+//  leaq    L_.str(%rip), %rdi
+//  leaq    _fun(%rip), %rax
 function cc4e_compile($code, $input)
 {
+    global $CFG;
 
     $now = str_replace('@', 'T', gmdate("Y-m-d@H:i:s"));
     $folder = sys_get_temp_dir() . '/compile-' . $now . '-' . md5(uniqid());
@@ -175,7 +176,7 @@ function cc4e_compile($code, $input)
         foreach ( $lines as $line) {
             if ( strlen($line) < 1                 // blank lines
                 || (! preg_match('/^\s/', $line))  // _main:
-                || preg_match('/^\s+\./', $line)   // 	.cfi_startproc
+                || preg_match('/^\s+\./', $line)   //     .cfi_startproc
                 || preg_match('/^\s.#/', $line)    // comment
             ) {
                 $new[] = $line;
@@ -204,7 +205,7 @@ function cc4e_compile($code, $input)
             // var_dump($pieces);
 
             // Mac internal and external
-            //  callq	_printf
+            //  callq    _printf
             if ( count($pieces) > 2 ) {
                 if ( $pieces[1] == 'callq' ) {
                     $external = $pieces[2];

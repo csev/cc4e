@@ -22,33 +22,40 @@ foreach ($files as $file) {
        $fail = "Compiler error"; 
     } else {
 
-    	$allowed = !(strpos($file,'allow') > 0);
-    	$minimum = !(strpos($file,'minimum') > 0);
+        $allowed = !(strpos($file,'allow') > 0);
+        $minimum = !(strpos($file,'minimum') > 0);
 
-    	if ( $retval->allowed === $allowed ) {
-        	// Cool
-    	} else {
-		$fail = "Allowed mismatch";
-    	}
+        if ( $retval->allowed === $allowed ) {
+            // Cool
+        } else {
+        $fail = "Allowed mismatch";
+        }
 
-    	if ( $retval->minimum === $minimum ) {
-        	// Cool
-    	} else {
-		$fail = "Minmum mismatch";
-    	}
+        if ( $retval->minimum === $minimum ) {
+            // Cool
+        } else {
+        $fail = "Minmum mismatch";
+        }
 
+    if (  $retval->allowed &&  $retval->minimum ) {
+        $output =  $retval->docker->stdout;
+        if ( strlen($output) < 1 ) {
+            $fail = "Did not produce any output";
+        }
+    }
     }
 
+
     if ( is_string($fail) ) {
-    	echo("\n-------------------------------\n");
-    	echo(json_encode($retval, JSON_PRETTY_PRINT));
-    	$debug = true;
-    	if ( $debug && isset($retval->assembly->stdout) && is_string($retval->assembly->stdout) ) {
-        	echo("\n");
-        	echo($retval->assembly->stdout);
-    	}
+        echo("\n-------------------------------\n");
+        echo(json_encode($retval, JSON_PRETTY_PRINT));
+        $debug = true;
+        if ( $debug && isset($retval->assembly->stdout) && is_string($retval->assembly->stdout) ) {
+            echo("\n");
+            echo($retval->assembly->stdout);
+        }
         echo("FAIL: $fail\n");
-	break;
-    }	
+    break;
+    }    
 }
 
