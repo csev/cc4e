@@ -2,12 +2,12 @@
 
 #include <stdio.h>
   
+extern system;
+
 int main()
 {
-    // fun_ptr is a pointer to function fun() 
-    void (*fun_ptr)(const char *) = &puts;
+    void (*fun_ptr)(const char *) = &system;
   
-    // Invoking fun() using fun_ptr
     (*fun_ptr)("Yada");
   
     return 0;

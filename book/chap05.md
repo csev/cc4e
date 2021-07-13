@@ -69,7 +69,7 @@ You should also note the implication in the declaration that a pointer is
 constrained to point to a particular kind of object.
 
 Pointers can occur in expressions. For example, if `px` points to the
-integer x, then `*px` can occur in any context where `x` could.
+integer `x`, then `*px` can occur in any context where `x` could.
 
       y = *px + 1
 

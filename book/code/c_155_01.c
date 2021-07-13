@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 char *fgets(s, n, iop) /* get at most n chars from iop */
 char *s;
 int n;

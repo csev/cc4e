@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 main() /* count digits, white space, others */
 {
   int c, i, nwhite, nother, ndigit[10];
