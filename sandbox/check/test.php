@@ -14,37 +14,41 @@ foreach ($files as $file) {
     $input = false;
     echo($code);
     $retval = cc4e_compile($code, $input);
-    echo("\n-------------------------------\n");
-    echo(json_encode($retval, JSON_PRETTY_PRINT));
+
+    $fail = false;
 
     $compile = $retval->assembly->status == 0;
     if ( ! $compile ) {
-        die("Compiler error");
-    }
-
-    $allowed = !(strpos($file,'allow') > 0);
-    $minimum = !(strpos($file,'minimum') > 0);
-
-    if ( $retval->allowed === $allowed ) {
-        // Cool
+       $fail = "Compiler error"; 
     } else {
-        echo("*** Allowed mismatch\n");
-        die();
+
+    	$allowed = !(strpos($file,'allow') > 0);
+    	$minimum = !(strpos($file,'minimum') > 0);
+
+    	if ( $retval->allowed === $allowed ) {
+        	// Cool
+    	} else {
+		$fail = "Allowed mismatch";
+    	}
+
+    	if ( $retval->minimum === $minimum ) {
+        	// Cool
+    	} else {
+		$fail = "Minmum mismatch";
+    	}
+
     }
 
-    if ( $retval->minimum === $minimum ) {
-        // Cool
-    } else {
-        echo("*** Minimum mismatch\n");
-        die();
-    }
-
-
-    $debug = true;
-    if ( $debug && isset($retval->assembly->stdout) && is_string($retval->assembly->stdout) ) {
-        echo("\n");
-        echo($retval->assembly->stdout);
-    }
-
+    if ( is_string($fail) ) {
+    	echo("\n-------------------------------\n");
+    	echo(json_encode($retval, JSON_PRETTY_PRINT));
+    	$debug = true;
+    	if ( $debug && isset($retval->assembly->stdout) && is_string($retval->assembly->stdout) ) {
+        	echo("\n");
+        	echo($retval->assembly->stdout);
+    	}
+        echo("FAIL: $fail\n");
+	break;
+    }	
 }
 

@@ -2,11 +2,11 @@
 
 #include <stdio.h>
   
-extern system;
+extern int system();
 
 int main()
 {
-    void (*fun_ptr)(const char *) = &system;
+    void (*fun_ptr)(int) = &system;
   
     (*fun_ptr)("Yada");
   
