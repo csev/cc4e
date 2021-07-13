@@ -53,13 +53,13 @@ $env = array(
     'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
 );
 
-$docker_command = $docker_command ?? 'docker run --network none --rm -i alpine_gcc:latest "-"';
+$docker_command = $CFG->docker_command ?? 'docker run --network none --rm -i alpine_gcc:latest "-"';
 $retval = cc4e_compile($code, $input, $folder, $env, $docker_command);
     
 header("Content-type: application/json; charset=utf-8");
 echo(json_encode($retval, JSON_PRETTY_PRINT));
 
-$debug = true;
+$debug = false;
 if ( $debug && isset($retval->assembly->stdout) && is_string($retval->assembly->stdout) ) {
     echo("\n");
     echo($retval->assembly->stdout);
