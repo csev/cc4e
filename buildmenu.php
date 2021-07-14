@@ -8,7 +8,7 @@ function buildMenu() {
     $set = new \Tsugi\UI\MenuSet();
     $set->setHome($CFG->servicename, $CFG->apphome);
     // $set->addLeft('Lessons', $R.'lessons');
-    $set->addLeft('Lectures', 'https://audio.cc4e.com');
+    $set->addLeft('Podcast', $R . 'podcast');
     if ( isset($CFG->tdiscus) && $CFG->tdiscus ) $set->addLeft('Discussions', $R.'discussions');
     if ( isset($_SESSION['id']) ) {
         // $set->addLeft('Assignments', $R.'assignments');
@@ -17,7 +17,7 @@ function buildMenu() {
     }
     
     if ( isset($_SESSION['id']) ) {
-        $set->addLeft('Write Code', $R.'play.php');
+        $set->addLeft('Write Code', $R.'play');
         $submenu = new \Tsugi\UI\Menu();
         $submenu->addLink('Profile', $R.'profile');
         if ( isset($CFG->google_map_api_key) ) {
