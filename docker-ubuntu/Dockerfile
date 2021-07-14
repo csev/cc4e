@@ -2,7 +2,7 @@
 # Tsugi base PHP docker
 
 # docker build --tag ubuntu_gcc .
-# docker run -p 8080:80 -p 3306:3306 -e BOB=42 -dit ubuntu_gcc:latest
+# docker run -p 8080:80 -e BOB=42 -dit ubuntu_gcc:latest
 
 # To redo
 # docker container prune
