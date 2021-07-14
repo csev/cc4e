@@ -165,7 +165,7 @@ function cc4e_compile($code, $input)
         $retval->symbol = $symbol;
 
         $allowed_externals = array(
-            'puts', 'printf', 'putchar'
+            'puts', 'printf', 'putchar', 'sscanf', 'getchar', 'gets'
         );
 
         $minimum_externals = array(
