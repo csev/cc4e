@@ -24,22 +24,24 @@ add-apt-repository -y ppa:ondrej/apache2
 add-apt-repository -y universe
 add-apt-repository -y ppa:certbot/certbot
 apt-get update
-apt-get install -y apache2
-apt-get install -y php7.3
-apt-get install -y libapache2-mod-php7.3 php7.3-mysql php7.3-curl php7.3-json
-apt-get install -y php7.3-mbstring php7.3-zip php7.3-xml php7.3-gd
-apt-get install -y php7.3-apc
-apt-get install -y php7.3-intl
-apt-get install -y php-memcached php-memcache
-apt-get install -y mysql-client
-apt-get install -y nfs-common
-apt-get install -y certbot python-certbot-apache
-a2enmod -q rewrite dir expires headers
-phpenmod mysqlnd pdo_mysql intl
-echo ======= Installing Postfix
+echo ======= Cofigure Postfix
 echo "postfix postfix/mailname string example.com" | debconf-set-selections
 echo "postfix postfix/main_mailer_type string 'Internet Site'" | debconf-set-selections
-apt-get install -y mailutils
+apt-get install -y apache2 \
+                   php7.3 \
+                   libapache2-mod-php7.3 php7.3-mysql php7.3-curl php7.3-json \
+                   php7.3-mbstring php7.3-zip php7.3-xml php7.3-gd \
+                   php7.3-apc \
+                   php7.3-intl \
+                   php-memcached php-memcache \
+                   mysql-client \
+                   nfs-common \
+                   certbot python-certbot-apache \
+                   mailutils
+
+a2enmod -q rewrite dir expires headers
+phpenmod mysqlnd pdo_mysql intl
+
 echo ====== Check out build scripts if they are not already there
 if [ ! -d "/root/tsugi-build" ]; then
     git clone https://github.com/tsugiproject/tsugi-build.git /root/tsugi-build
