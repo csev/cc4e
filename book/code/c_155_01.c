@@ -1,4 +1,6 @@
-char *fgets(s, n, iop) /* get at most n chars from iop */
+#include <stdio.h>
+
+char *f_gets(s, n, iop) /* get at most n chars from iop */
 char *s;
 int n;
 register FILE *iop;
@@ -15,12 +17,12 @@ register FILE *iop;
   return((c == EOF && cs == s) ? NULL : s);
 }
 
-fputs(s, lop) /* put string s on file iop */
+f_puts(s, iop) /* put string s on file iop */
 register char *s;
 register FILE *iop;
 {
   register int c;
 
   while (c = *s++)
-    putc(c, lop);
+    putc(c, iop);
 }
