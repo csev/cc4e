@@ -24,7 +24,6 @@ require_once "sandbox/sandbox.php";
 
 $stdout = False;
 $stderr = False;
-$return_value = False;
 
 if ( isset($_POST['code']) ) {
     unset($_SESSION['retval']);
@@ -56,24 +55,10 @@ body {
 <body>
 <p>
 This the <a href="index.php">www.cc4e.com</a> code playground for writing C programs.
-Executing code needs more security and is coming soon.
 <p>
-<?php
-if ( $return_value !== False ) {
-    if ( $return_value === 0 ) {
-        echo('<p style="color:green;">Your code compiled successfully.  </p>'."\n");
-    } else {
-        echo('<pre style="color:white; background-color:black;">'."\n");
-        echo("$ gcc -ansi hello.c\n");
-        if ( strlen($stdout) > 0 ) echo(htmlentities($stdout));
-        if ( strlen($stderr) > 0 ) echo(htmlentities($stderr));
-        echo("\n</pre>\n");
-    }
-}
-?>
 <form method="post">
 <p>
-<input type="submit" value="Compile">
+<input type="submit" value="Run Code">
 <input type="submit" onclick="window.location='index.php'; return false;" value="Back to CC4E">
 </p>
 <?php
@@ -104,7 +89,7 @@ main() {
 </p>
 <?php
 if ( isset($retval->docker->stdout) ) {
-    echo "<pre>\n";
+    echo '<pre style="color: blue">'."\n";
     echo "Program output:\n\n";
     echo(htmlentities($retval->docker->stdout, ENT_NOQUOTES));
     echo("</pre>\n");

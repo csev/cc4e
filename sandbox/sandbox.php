@@ -118,9 +118,10 @@ function cc4e_compile($code, $input)
 {
     global $CFG;
 
-    $now = str_replace('@', 'T', gmdate("Y-m-d@H:i:s"));
-    $folder = sys_get_temp_dir() . '/compile-' . $now . '-' . md5(uniqid());
-    $folder = '/tmp/compile';
+    $now = str_replace('@', 'T', gmdate("Y-m-d@H-i-s"));
+    // $folder = sys_get_temp_dir() . '/compile-' . $now . '-' . md5(uniqid());
+    // $folder = '/tmp/compile';
+    $folder = '/tmp/compile-' . $now . '-' . md5(uniqid());
     if ( file_exists($folder) ) {
             system("rm -rf $folder/*");
     } else {
@@ -134,6 +135,7 @@ function cc4e_compile($code, $input)
     $docker_command = $CFG->docker_command ?? 'docker run --network none --rm -i alpine_gcc:latest "-"';
 
     $retval = new \stdClass();
+    $retval->now = $now;
     $retval->code = $code;
     $retval->input = $input;
     $retval->folder = $folder;
@@ -247,6 +249,17 @@ function cc4e_compile($code, $input)
         // echo("-----\n");echo($script);echo("-----\n");
         $retval->docker = cc4e_pipe($docker_command, $script, $folder, $env, 11.0);
     }
+
+    $cleanup = false;
+    $minimum = $retval->minimum ?? null;
+    $allowed = $retval->allowed ?? null;
+    if ( $minimum === false || $allowed === false ) {
+        $json = json_encode($retval, JSON_PRETTY_PRINT);
+        file_put_contents($folder . '/result.json', $json);
+    } else if ( $cleanup ) {
+        system("rm -rf $folder");
+    }
+
     return $retval;
 }
 
