@@ -9,7 +9,7 @@ and be more precise about the ones discussed before.
 3.1 Statements and Blocks
 -------------------------
 
-An _expression_ such as x = 0 or i++ or printf ( . .. ) becomes a
+An _expression_ such as `x = 0` or `i++` or `printf ( ... )` becomes a
 _statement_ when it is followed by a semicolon, as in
 
       x = 0;
@@ -23,42 +23,42 @@ The braces { and } are used to group declarations and statements
 together into a _compound statement_ or *block* so that they are syntactically
 equivalent to a single statement. The braces that surround the statements of
 a function are one obvious example; braces around multiple statements after
-an if, else, while or for are another. (Variables can actually be
+an `if`, `else`, `while` or `for` are another. (Variables can actually be
 declared inside _any_ block; we will talk about this in [Chapter 4](chap04.md).) There is
 never a semicolon after the right brace that ends a block.
 
 3.2 If-Else
 -----------
 
-The if—else statement is used to make decisions. Formally, the syntax is
+The `if—else` statement is used to make decisions. Formally, the syntax is
 
-<!-- TODO -->
-      if *(expression)*
-          *statement-1*
+
+      if (expression)
+          statement-1
       else
-          *statement-2*
+          statement-2
 
 
 [comment]: <> (page 52 , 52 THE C PROGRAMMING LANGUAGE CHAPTER 3 )
 
-where the else part is optional. The _expression_ is evaluated; if it is "true"
+where the `else` part is optional. The _expression_ is evaluated; if it is "true"
 (that is, if _expression_ has a non-zero value), _statement-1_ is done. If it is
-"false" _(expression_ is zero) and if there is an else part, _statement-2_ is executed instead.
+"false" _(expression_ is zero) and if there is an `else` part, _statement-2_ is executed instead.
 
 Since an if simply tests the numeric value of an expression, certain
 coding shortcuts are possible. The most obvious is writing
-<!-- TODO -->
-      if _(expression)_
+
+      if (expression)
 
 instead of
 
-      if _(expression != 0)_
+      if (expression != 0)
 
 Sometimes this is natural and clear; at other times it is cryptic.
 
-Because the else part of an if-else is optional, there is an ambiguity
-when an else is omitted from a nested if sequence. This is resolved in
-the usual way — the else is associated with the closest previous else-less
+Because the `else` part of an `if-else` is optional, there is an ambiguity
+when an `else` is omitted from a nested `if` sequence. This is resolved in
+the usual way — the `else` is associated with the closest previous `else`-less
     if. For example, in
 
       if (n > 0)
@@ -67,7 +67,7 @@ the usual way — the else is associated with the closest previous else-less
         else
             z = b;
 
-the else goes with the inner if, as we have shown by indentation. If that
+the `else` goes with the inner `if`, as we have shown by indentation. If that
 isn't what you want, braces must be used to force the proper association:
 
       if (n > 0) {
@@ -89,10 +89,10 @@ The ambiguity is especially pernicious in situations like:
         printf("error - n is zero\n");
 
 The indentation shows unequivocally what you want, but the compiler
-doesn't get the message, and associates the else with the inner if. This
+doesn't get the message, and associates the `else` with the inner `if`. This
 kind of bug can be very hard to find.
 
-By the way, notice that there is a semicolon after z = a in
+By the way, notice that there is a semicolon after `z = a` in
 
 [comment]: <> (page 53 , CHAPTER 3 CONTROL FLOW 53 )
 
@@ -101,31 +101,31 @@ By the way, notice that there is a semicolon after z = a in
       else
         z = b;
 
-This is because grammatically, a _statement_ follows the if, and an expression
-statement like z = a is always terminated by a semicolon.
+This is because grammatically, a _statement_ follows the `if`, and an expression
+statement like `z = a` is always terminated by a semicolon.
 
 3.3 Else-If
 -----------
 
 The construction
-<!-- TODO -->
 
-      if _(expression)_
-          _statement_
-      else if _(expression)_
-          _statement_
-      else if _(expression)_
-          _statement_
+
+      if (expression)
+          statement
+      else if (expression)
+          statement
+      else if (expression)
+          statement
       else
-          _statement_
+          statement
 
 occurs so often that it is worth a brief separate discussion. This sequence of
-if's is the most general way of writing a multi-way decision. The
+`if`'s is the most general way of writing a multi-way decision. The
 _expression's_ are evaluated in order; if any _expression_ is true, the _statement_
 associated with it is executed, and this terminates the whole chain. The
 code for each _statement_ is either a single statement, or a group in braces.
 
-The last else part handles the "none of the above" or default case
+The last `else` part handles the "none of the above" or default case
 where none of the other conditions was satisfied. Sometimes there is no
 explicit action for the default; in that case the trailing
 
@@ -135,9 +135,9 @@ explicit action for the default; in that case the trailing
 can be omitted, or it may be used for error checking to catch an "impossible" condition.
 
 To illustrate a three-way decision, here is a binary search function that
-decides if a particular value x occurs in the sorted array v. The elements of
-v must be in increasing order. The function returns the position (a number
-between 0 and n-1) if x occurs in v, and —1 if not.
+decides if a particular value `x` occurs in the sorted array `v`. The elements of
+`v` must be in increasing order. The function returns the position (a number
+between 0 and n-1) if `x` occurs in `v`, and —1 if not.
 
 [comment]: <> (page 54 , 54 THE C PROGRAMMING LANGUAGE CHAPTER 3 )
 
@@ -161,38 +161,38 @@ between 0 and n-1) if x occurs in v, and —1 if not.
         return(-1);
       }
 
-The fundamental decision is whether x is less than, greater than, or
-equal to the middle element v[mid] at each step; this is a natural for
-else—if.
+The fundamental decision is whether `x` is less than, greater than, or
+equal to the middle element `v[mid]` at each step; this is a natural for
+`else—if`.
 
 3.4 Switch
 ----------
 
-The switch statement is a special multi-way decision maker that tests
+The `switch` statement is a special multi-way decision maker that tests
 whether an expression matches one of a number of _constant_ values, and
 branches accordingly. In [Chapter 1](chap01.md) we wrote a program to count the
 occurrences of each digit, white space, and all other characters, using a
-sequence of if ... else if ... else. Here is the same program with a
-switch.
+sequence of `if ... else if ... else`. Here is the same program with a
+`switch`.
 
 [comment]: <> (code c_055_01.c)
 
-The switch evaluates the integer expression in parentheses (in this
+The `switch` evaluates the integer expression in parentheses (in this
 program the character c) and compares its value to all the cases. Each case
 must be labeled by an integer or character constant or constant expression.
 If a case matches the expression value, execution starts at that case. The
-case labeled default is executed if none of the other cases is satisfied. A
-default is optional; if it isn't there and if none of the cases matches, no
+case labeled `default` is executed if none of the other cases is satisfied. A
+`default` is optional; if it isn't there and if none of the cases matches, no
 action at all takes place. Cases and default can occur in any order. Cases
 must all be different.
 
 [comment]: <> (page 56 , 56 THE C PROGRAMMING LANGUAGE CHAPTER 3 )
 
-The break statement causes an immediate exit from the switch.
+The `break` statement causes an immediate exit from the `switch`.
 Because cases serve just as labels, after the code for one case is done,
 execution _falls through_ to the next unless you take explicit action to escape.
-break and return are the most common ways to leave a switch. A
-break statement can also be used to force an immediate exit from while,
+`break` and `return` are the most common ways to leave a `switch`. A
+`break` statement can also be used to force an immediate exit from `while`,
 for and do loops as well, as will be discussed later in this chapter.
 
 Falling through cases is a mixed blessing. On the positive side, it allows
@@ -203,44 +203,43 @@ case to another is not robust, being prone to disintegration when the program
 is modified. With the exception of multiple labels for a single computation,
 fall-throughs should be used sparingly.
 
-As a matter of good form, put a break after the last case (the
-default here) even though it's logically unnecessary. Some day when
+As a matter of good form, put a `break` after the last case (the
+`default` here) even though it's logically unnecessary. Some day when
 another case gets added at the end, this bit of defensive programming will
 save you.
 
-**Exercise 3-1.** Write a function expand (s, t) which converts characters
+**Exercise 3-1.** Write a function `expand(s, t)` which converts characters
 like newline and tab into visible escape sequences like \n and \t as it
-copies the string s to t. Use a switch.
+copies the string `s` to `t`. Use a `switch`.
 
 3.5 Loops — While and For
 -------------------------
 
 We have already encountered the while and for loops. In
 
-<!-- TODO -->
-      while (_expression_)
-          _statement_
+      while (expression)
+          statement
 
 the _expression_ is evaluated. If it is non-zero, _statement_ is executed and
 _expression_ is re-evaluated. This cycle continues until _expression_ becomes
 zero, at which point execution resumes after _statement._
 
-The for statement
-<!-- TODO -->
-      for ( *expr1* ; _expr2_ ; _expr3_)
-          _statement_
+The `for` statement
+
+      for ( expr1 ; expr2 ; expr3)
+          statement
 
 is equivalent to
-<!-- TODO -->
-      _expr1_ ;
-      while (_expr2_ ) {
-          _statement_
-          _expr3_;
+
+      expr1 ;
+      while (expr2) {
+          statement
+          expr3;
       }
 
 [comment]: <> (page 57 , CHAPTER 3 CONTROL FLOW 57 )
 
-Grammatically, the three components of a for are expressions. Most commonly,
+Grammatically, the three components of a `for` are expressions. Most commonly,
 _expr1_ and _expr3_ are assignments or function calls and _expr2_ is a
 relational expression. Any of the three parts can be omitted, although the
 semicolons must remain. If _expr1_ or _expr3_ is left out, i is simply dropped
@@ -251,17 +250,17 @@ from the expansion. If the test, _expr2,_ is not present, it is taken as permane
       }
 
 is an "infinite" loop, presumably to be broken by other means (such as a
-break or return).
+`break` or `return`).
 
-Whether to use while or for is largely a matter of taste. For example, in
+Whether to use `while` or `for` is largely a matter of taste. For example, in
 
       while ( (c = getchar () ) == ' ' || c == '\n' || c == '\t')
           ;   /* skip white space characters */
 
-there is no initialization or re-initialization, so the while seems most
+there is no initialization or re-initialization, so the `while` seems most
 natural.
 
-The for is clearly superior when there is a simple initialization and re-
+The `for` is clearly superior when there is a simple initialization and re-
 initialization, since it keeps the loop control statements close together and
 visible at the top of the loop. This is most obvious in
 
@@ -273,19 +272,19 @@ since the limits of a for loop can be altered from within the loop, and the
 controlling variable i retains its value when the loop terminates for any
 reason. Because the components of the for are arbitrary expressions, for
 loops are not restricted to arithmetic progressions. Nonetheless, it is bad
-style to force unrelated computations into a for; it is better reserved for
+style to force unrelated computations into a `for`; it is better reserved for
 loop control operations.
 
-As a larger example, here is another version of atoi for converting a
+As a larger example, here is another version of `atoi` for converting a
 string to its numeric equivalent. This one is more general; it copes with
 optional leading white space and an optional + or - sign. ([Chapter 4](chap04.md) shows
-atof, which does the same conversion for floating point numbers.)
+`atof`, which does the same conversion for floating point numbers.)
 
 The basic structure of the program reflects the form of the input:
 
-      _skip white space, if any_
-      _get sign, if any_
-      _get integer part, convert it_
+      skip white space, if any
+      get sign, if any
+      get integer part, convert it
 
 Each step does its part, and leaves things in a clean state for the next. The
 whole process terminates on the first character that could not be part of a
@@ -330,22 +329,22 @@ effectively becomes an adjacent interchange method.
         }
 
 There are three nested loops. The outermost loop controls the gap between
-compared elements, shrinking it from n/2 by a factor of two each pass until
+compared elements, shrinking it from `n/2` by a factor of two each pass until
 it becomes zero. The middle loop compares each pair of elements that is
-separated by gap; the innermost loop reverses any that are out of order.
-Since gap is eventually reduced to one, all elements are eventually ordered
-correctly. Notice that the generality of the for makes the outer loop fit the
+separated by `gap`; the innermost loop reverses any that are out of order.
+Since `gap` is eventually reduced to one, all elements are eventually ordered
+correctly. Notice that the generality of the `for` makes the outer loop fit the
 same form as the others, even though it is not an arithmetic progression.
 
 [comment]: <> (page 59 , CHAPTER 3 CONTROL FLOW 59 )
 
 One final C operator is the comma ",", which most often finds use in
-the for statement. A pair of expressions separated by a comma is
+the `for` statement. A pair of expressions separated by a comma is
 evaluated left to right, and the type and value of the result are the type and
-value of the right operand. Thus in a for statement, it is possible to place
+value of the right operand. Thus in a `for` statement, it is possible to place
 multiple expressions in the various parts, for example to process two indices
-in parallel. This is illustrated in the function reverse (s), which reverses
-the string s in place.
+in parallel. This is illustrated in the function `reverse(s)`, which reverses
+the string `s` in place.
 
       reverse (s) /* reverse string s in place */
       char s[];
@@ -362,18 +361,18 @@ the string s in place.
 The commas that separate function arguments, variables in declarations,
 etc., are _not_ comma operators, and do _not_ guarantee left to right evaluation.
 
-**Exercise 3-2.** Write a function expand (s1 , s2) which expands shorthand notations
-like a-z in the string s1 into the equivalent complete list
-abc...xyz in s2. Allow for letters of either case and digits, and be
-prepared to handle cases like a-b-c and a-z0-9 and -a-z. (A useful
+**Exercise 3-2.** Write a function `expand(s1 , s2)` which expands shorthand notations
+like `a-z` in the string s1 into the equivalent complete list
+`abc...xyz` in `s2`. Allow for letters of either case and digits, and be
+prepared to handle cases like `a-b-c` and `a-z0-9` and `-a-z`. (A useful
 convention is that a leading or trailing - is taken literally.)
 
 3.6 Loops — Do-while
 --------------------
 
-The while and for loops share the desirable attribute of testing the
+The `while` and `for` loops share the desirable attribute of testing the
 termination condition at the top, rather than at the bottom, as we discussed
-in [Chapter 1](chap01.md). The third loop in C, the do-while, tests at the bottom _after_
+in [Chapter 1](chap01.md). The third loop in C, the `do-while`, tests at the bottom _after_
 making each pass through the loop body; the body is always executed at
 least once. The syntax is
 
@@ -387,10 +386,10 @@ loop terminates.
 
 [comment]: <> (page 60 , 60 THE C PROGRAMMING LANGUAGE CHAPTER3 )
 
-As might be expected, do-while is much less used than while and
-for, accounting for perhaps five percent of all loops. Nonetheless, it is
-from time to time valuable, as in the following function itoa, which converts a number to
-a character string (the inverse of atoi). The job is
+As might be expected, `do-while` is much less used than `while` and
+`for`, accounting for perhaps five percent of all loops. Nonetheless, it is
+from time to time valuable, as in the following function `itoa`, which converts a number to
+a character string (the inverse of `atoi`). The job is
 slightly more complicated than might be thought at first, because the easy
 methods of generating the digits generate them in the wrong order. We
 have chosen to generate the string backwards, then reverse it.
@@ -413,22 +412,22 @@ have chosen to generate the string backwards, then reverse it.
         reverse(s);
       }
 
-The do-while is necessary, or at least convenient, since at least one character must
-be installed in the array s, regardless of the value of n. We also
+The `do-while` is necessary, or at least convenient, since at least one character must
+be installed in the array `s`, regardless of the value of `n`. We also
 used braces around the single statement that makes up the body of the
-do-while, even though they are unnecessary, so the hasty reader will not
-mistake the while part for the _beginning_ of a while loop.
+`do-while`, even though they are unnecessary, so the hasty reader will not
+mistake the `while` part for the _beginning_ of a `while` loop.
 
 **Exercise 3-3.** In a 2's complement number representation, our version of
-itoa does not handle the largest negative number, that is, the value of _n_
-equal to -(2wordsize-1). Explain why not. Modify it to print that value
+`itoa` does not handle the largest negative number, that is, the value of _n_
+equal to -(2<sup>wordsize-1</sup>). Explain why not. Modify it to print that value
 correctly, regardless of the machine it runs on.
 
-**Exercise 3-4.** Write the analogous function itob (n, s) which converts
-the unsigned integer n into a binary character representation in s. Write
-itoh, which converts an integer to hexadecimal representation.
+**Exercise 3-4.** Write the analogous function `itob(n, s)` which converts
+the unsigned integer `n` into a binary character representation in `s`. Write
+`itoh`, which converts an integer to hexadecimal representation.
 
-**Exercise 3-5.** Write a version of itoa which accepts three arguments
+**Exercise 3-5.** Write a version of `itoa` which accepts three arguments
 instead of two. The third argument is a minimum field width; the converted
 number must be padded with blanks on the left if necessary to make it wide
 enough.
@@ -439,25 +438,25 @@ enough.
 ---------
 
 It is sometimes convenient to be able to control loop exits other than by
-testing at the top or bottom. The break statement provides an early exit
-from for, while, and do, just as from switch. A break statement
-causes the innermost enclosing loop (or switch) to be exited immediately.
+testing at the top or bottom. The `break` statement provides an early exit
+from `for`, `while`, and `do`, just as from `switch`. A `break` statement
+causes the innermost enclosing loop (or `switch`) to be exited immediately.
 
 The following program removes trailing blanks and tabs from the end of
-each line of input, using a break to exit from a loop when the rightmost
+each line of input, using a `break` to exit from a loop when the rightmost
 non-blank, non-tab is found.
 
 [comment]: <> (code c_061_01.c)
 
-getline returns the length of the line. The inner while loop starts at
-the last character of line (recall that --n decrements n before using the
+`getline` returns the length of the line. The inner `while` loop starts at
+the last character of `line` (recall that `--n` decrements `n` before using the
 value), and scans backwards looking for the first character that is not a
 blank, tab or newline. The loop is broken when one is found, or when n
 becomes negative (that is, when the entire line has been scanned). You
 should verify that this is correct behavior even when the line contains only
 white space characters.
 
-An alternative to break is to put the testing in the loop itself:
+An alternative to `break` is to put the testing in the loop itself:
 
       while ((n = getline(line, MAXLINE)) > 0) {
         while (--n >= 0
@@ -475,11 +474,11 @@ generally be avoided.
 3.8 Continue
 ------------
 
-The continue statement is related to break, but less often used; it
-causes the _next iteration_ of the enclosing loop (for, while, do) to begin.
-In the while and do, this means that the test part is executed immediately;
-in the for, control passes to the re-initialization step. (continue applies
-only to loops, not to switch. A continue inside a switch inside a loop
+The `continue` statement is related to `break`, but less often used; it
+causes the _next iteration_ of the enclosing loop (`for`, `while`, `do`) to begin.
+In the `while` and `do`, this means that the test part is executed immediately;
+in the `for`, `control` passes to the re-initialization step. (`continue` applies
+only to loops, not to `switch`. A continue inside a `switch` inside a loop
 causes the next loop iteration.)
 
 As an example, this fragment processes only positive elements in the
@@ -491,7 +490,7 @@ array a; negative values are skipped.
           ... /* do positive elements */
       }
 
-The continue statement is often used when the part of the loop that follows is
+The `continue` statement is often used when the part of the loop that follows is
 complicated, so that reversing a test and indenting another level
 would nest the program too deeply.
 
@@ -502,13 +501,13 @@ that it prints only one instance from each group of adjacent identical lines.
 3.9 Goto's and Labels
 ---------------------
 
-C provides the infinitely-abusable goto statement, and labels to branch
-to. Formally, the goto is never necessary, and in practice it is almost
-always easy to write code without it. We have not used goto in this book.
+C provides the infinitely-abusable `goto` statement, and labels to branch
+to. Formally, the `goto` is never necessary, and in practice it is almost
+always easy to write code without it. We have not used `goto` in this book.
 
-Nonetheless, we will suggest a few situations where goto's may find a
+Nonetheless, we will suggest a few situations where `goto`'s may find a
 place. The most common use is to abandon processing in some deeply
-nested structure, such as breaking out of two loops at once. The break
+nested structure, such as breaking out of two loops at once. The `break`
 statement cannot be used directly since it leaves only the innermost loop.
 Thus:
 
@@ -528,7 +527,7 @@ Thus:
 This organization is handy if the error-handling code is non-trivial, and if
 errors can occur in several places. A label has the same form as a variable
 name, and is followed by a colon. It can be attached to any statement in the
-same function as the goto.
+same function as the `goto`.
 
 As another example, consider the problem of finding the first negative
 element in a two-dimensional array. (Multi-dimensional arrays are discussed
@@ -543,7 +542,7 @@ in [Chapter 5](chap05.md).) One possibility is
       /* found one at position i, j */
         ...
 
-Code involving a goto can always be written without one, though
+Code involving a `goto` can always be written without one, though
 perhaps at the price of some repeated tests or an extra variable. For example, the array search becomes
 
       found = 0;
@@ -557,5 +556,5 @@ perhaps at the price of some repeated tests or an extra variable. For example, t
         /* not found */
         ...
 
-Although we are not dogmatic about the matter, it does seem that goto
+Although we are not dogmatic about the matter, it does seem that `goto`
 statements should be used sparingly, if at all.
