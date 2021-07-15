@@ -115,9 +115,13 @@ function myCopy(me) {
     $temp.remove();
 }
 function myEdit(me) {
+<?php if ( U::get($_SESSION, 'id') ) { ?>
     var code = me.nextSibling.nextSibling.id;
     console.log('code', code);
     window.open("<?= $CFG->apphome ?>/play?sample="+code);
+<?php } else { ?>
+    alert('You must be logged in to edit code');
+<?php } ?>
 }
 </script>
 <div style="float:right">
