@@ -243,16 +243,17 @@ function cc4e_compile($code, $input)
         $retval->allowed = $allowed;
     }
 
+    $eof = 'EOF' . md5(uniqid());
     if ( $allowed && $minimum ) {
         $script = "cd /tmp;\n";
-        $script .= "cat > student.c << EOF\n";
+        $script .= "cat > student.c << $eof\n";
         $script .= $code;
-        $script .= "\nEOF\n";
+        $script .= "\n$eof\n";
         $script .= "/usr/bin/gcc -ansi -Wno-return-type -fno-asm student.c\n";
         if ( is_string($input) && strlen($input) > 0 ) {
-            $script .= "[ -f a.out ] && cpulimit --limit=25 --include-children ./a.out << EOF\n";
+            $script .= "[ -f a.out ] && cpulimit --limit=25 --include-children ./a.out << $eof\n";
             $script .= $input;
-            $script .= "\nEOF\n";
+            $script .= "\n$eof\n";
         } else {
             $script .= "[ -f a.out ] && cpulimit --limit=25 --include-children ./a.out\n";
         }
