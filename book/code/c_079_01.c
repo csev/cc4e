@@ -1,3 +1,4 @@
+#include<stdio.h>
 #define BUFSIZE 100
 
 char buf[BUFSIZE]; /* buffer for ungetch */
@@ -12,7 +13,7 @@ ungetch (c) /* push character back on input */
 int c;
 {
   if (bufp > BUFSIZE)
-    printf(nungetch: too many characters\n");
+    printf("ungetch: too many characters\n");
   else
     buf[bufp++] = c;
 }

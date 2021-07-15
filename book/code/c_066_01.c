@@ -4,27 +4,29 @@ main() /* find all lines matching a pattern */
 {
   char line[MAXLINE];
 
-  while (getline(line, MAXLINE) > 0)
-    if (index(line, "the") >= 0)
+  while (get_line(line, MAXLINE) > 0)
+    if (index_(line, "the") >= 0)
       printf("%s", line);
 }
 
-getline (s, urn) /* get line into s, return length */
+get_line(s, lim) /* get line into s, return length */
 char s[];
 int lim;
 {
-  int c, i;
+    int c, i;
 
-  i = 0;
-  while (--lim > 0 && (c=getchar()) != EOF && c != '\n')
-    s[i++] = c;
-  if (c == '\n')
-    s[i++] = c;
-  s[i] = '\0';
-  return (i) ;
+    for (i=0; i<lim-1 && (c=getchar())!=EOF && c!='\n'; ++i)
+        s[i] = c;
+    if (c == '\n') {
+        s[i] = c;
+        ++i;
+    }
+    s[i] = '\0';
+    return(i);
 }
 
-index (s, t) /* return index of t in s, -1 if none */
+
+index_ (s, t) /* return index of t in s, -1 if none */
 char s[], t[] ;
 {
   int i, j, k;
