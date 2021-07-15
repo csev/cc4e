@@ -49,7 +49,9 @@ where your output went. With these mechanical details mastered, everything else 
 In traditional C, the program to print "hello, world" is
 
     main()
-    printf("hello, world\n");
+    {
+        printf("hello, world\n");
+    }
 
 [comment]: <> (note n_006_01.md)
 
@@ -123,7 +125,7 @@ line. If you leave out the `\n` (a worthwhile experiment), you will find that
 your output is not terminated by a line feed. The only way to get a newline
 character into the `printf` argument is with `\n`; if you try something like
 
-    printf ("hello, world
+    printf("hello, world
     ");
 
 the C compiler will print unfriendly diagnostics about missing quotes.
@@ -132,9 +134,11 @@ be used to build up an output line in stages. Our first program could just as
 well have been written
 
     main()
-    printf ("hello, ");
-    printf ("world");
-    printf ("\n");
+    {
+        printf("hello, ");
+        printf("world");
+        printf("\n");
+    }
 
 to produce an identical output.
 
