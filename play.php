@@ -4,7 +4,6 @@ if ( !isset($_COOKIE['secret']) || $_COOKIE['secret'] != '42' ) {
     return;
 }
 
-
 use \Tsugi\Core\LTIX;
 use \Tsugi\Util\U;
 
@@ -33,14 +32,26 @@ if ( isset($_POST['code']) ) {
     return;
 }
 
-$code = U::get($_SESSION, 'code');
-$input = U::get($_SESSION, 'input');
-$retval = U::get($_SESSION, 'retval');
-
-if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
-    $retval = cc4e_compile($code, $input);
-    $_SESSION['retval'] = $retval;
+$sample = U::get($_REQUEST, 'sample');
+// if ( ! preg_match('/^[a-zA-Z_0-9]+.md$/', $sample) ) $sample = false;
+if ( is_string($sample) ) {
+    unset($_SESSION['code']);
+    unset($_SESSION['input']);
+    unset($_SESSION['retval']);
+    $code = file_get_contents('book/code/'.$sample);
+    $retval = null;
+    $input = null;  /* TODO - Get this as well */
+} else {
+    $code = U::get($_SESSION, 'code');
+    $input = U::get($_SESSION, 'input');
+    $retval = U::get($_SESSION, 'retval');
+    if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
+        $retval = cc4e_compile($code, $input);
+        $_SESSION['retval'] = $retval;
+    }
 }
+
+$lines = $code ? count(explode("\n", $code)) : 15;
 
 ?><html>
 <head>
@@ -50,6 +61,9 @@ if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
 body {
     font-family: Courier, monospace;
 }
+
+.CodeMirror { height: auto; border: 1px solid #ddd; }
+.CodeMirror-scroll { max-height: <?= intval(($lines/13)*20) ?>em; }
 </style>
 </head>
 <body>
@@ -59,7 +73,13 @@ This the <a href="index.php">www.cc4e.com</a> code playground for writing C prog
 <form method="post">
 <p>
 <input type="submit" value="Run Code">
-<input type="submit" onclick="window.location='index.php'; return false;" value="Back to CC4E">
+<script>
+if ( window.opener ) {
+    document.write('<button onclick="window.close();">Close</button>');
+} else {
+    document.write('<input type="submit" onclick="window.location=\'index.php\'; return false;" value="Back to CC4E">');
+}
+</script>
 </p>
 <?php
 if ( isset($retval->minimum) && $retval->minimum === false ) echo('<p style="color:red;">Your program did not produce any output</p>'."\n");
@@ -73,7 +93,7 @@ if ( is_string($compiler) && strlen($compiler) > 0 ) {
 }
 ?>
 <p>
-<textarea id="mycode" name="code" style="border: 1px black solid;">
+<textarea id="mycode" name="code" rows="<?= $lines ?>" style="height: <?= $lines ?>em; border: 1px black solid;">
 <?php
 if ( is_string($code) ) {
     echo(htmlentities($code));

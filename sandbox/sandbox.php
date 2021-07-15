@@ -140,7 +140,7 @@ function cc4e_compile($code, $input)
     $retval->input = $input;
     $retval->folder = $folder;
 
-    $command = 'rm -rf * ; cat > student.c ; gcc -ansi -fno-asm -S student.c ; [ -f student.s ] && cat student.s';
+    $command = 'rm -rf * ; cat > student.c ; gcc -ansi -Wno-return-type -fno-asm -S student.c ; [ -f student.s ] && cat student.s';
 
     $pipe1 = cc4e_pipe($command, $code, $folder, $env, 11.0);
     $retval->assembly = $pipe1;
@@ -157,17 +157,26 @@ function cc4e_compile($code, $input)
         $symbol = array();
         foreach ( $lines as $line) {
             $matches = array();
-            if ( ! preg_match('/^(_[a-zA-Z0-9_]+):/', $line, $matches ) ) continue;
-            if ( count($matches) > 1 ) {
-                $match = $matches[1];
-                if ( strpos($match,'_') === 0 && strlen($match) > 1 ) $match = substr($match, 1);
-                $symbol[] = $match;
+            if ( preg_match('/^(_[a-zA-Z0-9_]+):/', $line, $matches ) ) {
+                if ( count($matches) > 1 ) {
+                    $match = $matches[1];
+                    if ( strpos($match,'_') === 0 && strlen($match) > 1 ) $match = substr($match, 1);
+                    $symbol[] = $match;
+                }
+            }
+            if ( preg_match('/\t.comm\t(_[a-zA-Z0-9_]+),/', $line, $matches) ) {
+                if ( count($matches) > 1 ) {
+                    $match = $matches[1];
+                    if ( strpos($match,'_') === 0 && strlen($match) > 1 ) $match = substr($match, 1);
+                    $symbol[] = $match;
+                }
             }
         }
         $retval->symbol = $symbol;
 
         $allowed_externals = array(
-            'puts', 'printf', 'putchar', 'sscanf', 'getchar', 'gets'
+            'puts', 'printf', 'putchar', 'sscanf', 'getchar', 'gets',
+            '__stack_chk_guard', '__stack_chk_fail'
         );
 
         $minimum_externals = array(
@@ -213,7 +222,7 @@ function cc4e_compile($code, $input)
                     $external = $pieces[2];
                     if ( strpos($external,'_') === 0 && strlen($external) > 1 ) {
                         $external = substr($external, 1);
-                        $externals[] = $external;
+                        if ( ! in_array($external,$externals) ) $externals[] = $external;
                     }
                 }
             }
@@ -237,7 +246,7 @@ function cc4e_compile($code, $input)
         $script .= "cat > student.c << EOF\n";
         $script .= $code;
         $script .= "\nEOF\n";
-        $script .= "/usr/bin/gcc -ansi -fno-asm student.c\n";
+        $script .= "/usr/bin/gcc -ansi -Wno-return-type -fno-asm student.c\n";
         if ( is_string($input) && strlen($input) > 0 ) {
             $script .= "[ -f a.out ] && ./a.out << EOF\n";
             $script .= $input;
