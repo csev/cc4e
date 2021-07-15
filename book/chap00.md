@@ -157,7 +157,6 @@ language for a wide variety of programming applications.
 
 The rest of the book is organized as follows.
 
-
 [Chapter 1](chap01.md) is a tutorial
 introduction to the central part of C. The purpose is to get the reader
 started as quickly as possible, since we believe strongly that the only way to
@@ -180,11 +179,13 @@ expressions.
 variables, scope rules, and so on.  
 [Chapter 5](chap05.md) discusses pointers and address arithmetic.  
 [Chapter 6](chap06.md) contains the details of structures and unions.  
+
 [Chapter 7](chap07.md) describes the standard C I/O library, which provides 
 a common interface to the operating system. This I/O library is supported on 
 all machines that support C, so programs which use it for input, output, and
 other system functions can be moved from one system to another essentially
 without change.  
+
 [Chapter 8](chap08.md) describes the interface between C programs and the UNIX
 operating system, concentrating on input/output, the file system, and
 portability. Although some of this chapter is UNIX-specific, programmers who
