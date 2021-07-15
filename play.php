@@ -82,6 +82,7 @@ if ( window.opener ) {
 </script>
 </p>
 <?php
+if ( isset($retval->reject) && is_string($retval->reject) ) echo('<p style="color:red;">'.htmlentities($retval->reject).'</p>'."\n");
 if ( isset($retval->minimum) && $retval->minimum === false ) echo('<p style="color:red;">Your program did not produce any output</p>'."\n");
 if ( isset($retval->allowed) && $retval->allowed === false ) echo('<p style="color:red;">Your program used a disallowed function</p>'."\n");
 $compiler = $retval->assembly->stderr ?? false;

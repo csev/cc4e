@@ -118,7 +118,40 @@ function cc4e_compile($code, $input)
 {
     global $CFG;
 
+    $retval = new \stdClass();
     $now = str_replace('@', 'T', gmdate("Y-m-d@H-i-s"));
+    $retval->now = $now;
+    $retval->code = $code;
+    $retval->input = $input;
+    $retval->reject = false;
+
+    // Some sanity checks
+    if ( strlen($code) > 20000 ) {
+        $retval->reject = "Code too large";
+        return $retval;
+    }
+
+    if ( strlen($input) > 20000 ) {
+        $retval->reject = "Input too large";
+        return $retval;
+    }
+
+    for($i=0; $i<strlen($input); $i++) {
+        $ord = ord($input[$i]);
+        if ( $ord < 1 || $ord > 126 ) {
+            $retval->reject = "Input has non-ascii character: ".$ord;
+            return $retval;
+        }
+    }
+
+    for($i=0; $i<strlen($code); $i++) {
+        $ord = ord($code[$i]);
+        if ( $ord < 1 || $ord > 126 ) {
+            $retval->reject = "Code has non-ascii character: ".$ord;
+            return $retval;
+        }
+    }
+
     // $folder = sys_get_temp_dir() . '/compile-' . $now . '-' . md5(uniqid());
     // $folder = '/tmp/compile';
     $folder = '/tmp/compile-' . $now . '-' . md5(uniqid());
@@ -136,10 +169,6 @@ function cc4e_compile($code, $input)
 
     $docker_command = $CFG->docker_command ?? 'docker run --network none --rm -i alpine_gcc:latest "-"';
 
-    $retval = new \stdClass();
-    $retval->now = $now;
-    $retval->code = $code;
-    $retval->input = $input;
     $retval->folder = $folder;
 
     $command = 'rm -rf * ; cat > student.c ; gcc -ansi -Wno-return-type -fno-asm -S student.c ; [ -f student.s ] && cat student.s';
