@@ -144,7 +144,7 @@ function cc4e_compile($code, $input)
 
     $command = 'rm -rf * ; cat > student.c ; gcc -ansi -Wno-return-type -fno-asm -S student.c ; [ -f student.s ] && cat student.s';
 
-    $pipe1 = cc4e_pipe($command, $code, $folder, $env, 11.0);
+    $pipe1 = cc4e_pipe($command, $code, $folder, $env, 2.0);
     $retval->assembly = $pipe1;
     $retval->docker = false;
 
@@ -250,15 +250,15 @@ function cc4e_compile($code, $input)
         $script .= "\nEOF\n";
         $script .= "/usr/bin/gcc -ansi -Wno-return-type -fno-asm student.c\n";
         if ( is_string($input) && strlen($input) > 0 ) {
-            $script .= "[ -f a.out ] && ./a.out << EOF\n";
+            $script .= "[ -f a.out ] && cpulimit --limit=25 --include-children ./a.out << EOF\n";
             $script .= $input;
             $script .= "\nEOF\n";
         } else {
-            $script .= "[ -f a.out ] && ./a.out\n";
+            $script .= "[ -f a.out ] && cpulimit --limit=25 --include-children ./a.out\n";
         }
 
         // echo("-----\n");echo($script);echo("-----\n");
-        $retval->docker = cc4e_pipe($docker_command, $script, $folder, $env, 11.0);
+        $retval->docker = cc4e_pipe($docker_command, $script, $folder, $env, 2.0);
     }
 
     $cleanup = false;
