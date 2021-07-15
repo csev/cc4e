@@ -122,6 +122,8 @@ function cc4e_compile($code, $input)
     // $folder = sys_get_temp_dir() . '/compile-' . $now . '-' . md5(uniqid());
     // $folder = '/tmp/compile';
     $folder = '/tmp/compile-' . $now . '-' . md5(uniqid());
+    // TODO: Figure out why we need this
+    if ( is_dir('/zork') ) $folder = '/zork/compile-' . $now . '-' . md5(uniqid());
     if ( file_exists($folder) ) {
             system("rm -rf $folder/*");
     } else {
