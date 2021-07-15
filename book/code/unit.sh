@@ -22,10 +22,8 @@ gcc -ansi c_061_01.c
 gcc -ansi c_066_01.c
 gcc -ansi c_070_01.c
 gcc -ansi c_074_01.c
-gcc -ansi c_075_01.c
+# gcc -ansi c_075_01.c
 gcc -ansi c_079_01.c
-gcc -ansi c_055_01.c
-gcc -ansi c_055_01.c
 
 # Chapter 5
 gcc -ansi c_097_01.c
