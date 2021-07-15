@@ -122,6 +122,8 @@ function cc4e_compile($code, $input)
     // $folder = sys_get_temp_dir() . '/compile-' . $now . '-' . md5(uniqid());
     // $folder = '/tmp/compile';
     $folder = '/tmp/compile-' . $now . '-' . md5(uniqid());
+    // TODO: Figure out why we need this
+    if ( is_dir('/zork') ) $folder = '/zork/compile-' . $now . '-' . md5(uniqid());
     if ( file_exists($folder) ) {
             system("rm -rf $folder/*");
     } else {
@@ -140,9 +142,9 @@ function cc4e_compile($code, $input)
     $retval->input = $input;
     $retval->folder = $folder;
 
-    $command = 'rm -rf * ; cat > student.c ; gcc -ansi -fno-asm -S student.c ; [ -f student.s ] && cat student.s';
+    $command = 'rm -rf * ; cat > student.c ; gcc -ansi -Wno-return-type -fno-asm -S student.c ; [ -f student.s ] && cat student.s';
 
-    $pipe1 = cc4e_pipe($command, $code, $folder, $env, 11.0);
+    $pipe1 = cc4e_pipe($command, $code, $folder, $env, 2.0);
     $retval->assembly = $pipe1;
     $retval->docker = false;
 
@@ -157,17 +159,26 @@ function cc4e_compile($code, $input)
         $symbol = array();
         foreach ( $lines as $line) {
             $matches = array();
-            if ( ! preg_match('/^(_[a-zA-Z0-9_]+):/', $line, $matches ) ) continue;
-            if ( count($matches) > 1 ) {
-                $match = $matches[1];
-                if ( strpos($match,'_') === 0 && strlen($match) > 1 ) $match = substr($match, 1);
-                $symbol[] = $match;
+            if ( preg_match('/^(_[a-zA-Z0-9_]+):/', $line, $matches ) ) {
+                if ( count($matches) > 1 ) {
+                    $match = $matches[1];
+                    if ( strpos($match,'_') === 0 && strlen($match) > 1 ) $match = substr($match, 1);
+                    $symbol[] = $match;
+                }
+            }
+            if ( preg_match('/\t.comm\t(_[a-zA-Z0-9_]+),/', $line, $matches) ) {
+                if ( count($matches) > 1 ) {
+                    $match = $matches[1];
+                    if ( strpos($match,'_') === 0 && strlen($match) > 1 ) $match = substr($match, 1);
+                    $symbol[] = $match;
+                }
             }
         }
         $retval->symbol = $symbol;
 
         $allowed_externals = array(
-            'puts', 'printf', 'putchar', 'sscanf', 'getchar', 'gets'
+            'puts', 'printf', 'putchar', 'sscanf', 'getchar', 'gets',
+            '__stack_chk_guard', '__stack_chk_fail'
         );
 
         $minimum_externals = array(
@@ -213,7 +224,7 @@ function cc4e_compile($code, $input)
                     $external = $pieces[2];
                     if ( strpos($external,'_') === 0 && strlen($external) > 1 ) {
                         $external = substr($external, 1);
-                        $externals[] = $external;
+                        if ( ! in_array($external,$externals) ) $externals[] = $external;
                     }
                 }
             }
@@ -232,22 +243,23 @@ function cc4e_compile($code, $input)
         $retval->allowed = $allowed;
     }
 
+    $eof = 'EOF' . md5(uniqid());
     if ( $allowed && $minimum ) {
         $script = "cd /tmp;\n";
-        $script .= "cat > student.c << EOF\n";
+        $script .= "cat > student.c << $eof\n";
         $script .= $code;
-        $script .= "\nEOF\n";
-        $script .= "/usr/bin/gcc -ansi -fno-asm student.c\n";
+        $script .= "\n$eof\n";
+        $script .= "/usr/bin/gcc -ansi -Wno-return-type -fno-asm student.c\n";
         if ( is_string($input) && strlen($input) > 0 ) {
-            $script .= "[ -f a.out ] && ./a.out << EOF\n";
+            $script .= "[ -f a.out ] && cpulimit --limit=25 --include-children ./a.out << $eof\n";
             $script .= $input;
-            $script .= "\nEOF\n";
+            $script .= "\n$eof\n";
         } else {
-            $script .= "[ -f a.out ] && ./a.out\n";
+            $script .= "[ -f a.out ] && cpulimit --limit=25 --include-children ./a.out\n";
         }
 
         // echo("-----\n");echo($script);echo("-----\n");
-        $retval->docker = cc4e_pipe($docker_command, $script, $folder, $env, 11.0);
+        $retval->docker = cc4e_pipe($docker_command, $script, $folder, $env, 2.0);
     }
 
     $cleanup = false;

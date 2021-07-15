@@ -8,6 +8,15 @@ if ( !isset($_COOKIE['secret']) || $_COOKIE['secret'] != '42' ) {
     return;
 }
 
+use \Tsugi\Core\LTIX;
+use \Tsugi\Util\U;
+
+if ( ! isset($CFG) ) {
+    if (!defined('COOKIE_SESSION')) define('COOKIE_SESSION', true);
+    require_once "../tsugi/config.php";
+    $LAUNCH = LTIX::session_start();
+}
+
 if ( ! function_exists('endsWith') ) {
 function endsWith($haystack, $needle) {
     // search forward starting from end minus needle length characters
@@ -106,9 +115,13 @@ function myCopy(me) {
     $temp.remove();
 }
 function myEdit(me) {
+<?php if ( U::get($_SESSION, 'id') ) { ?>
     var code = me.nextSibling.nextSibling.id;
     console.log('code', code);
-    window.open("code/"+code);
+    window.open("<?= $CFG->apphome ?>/play?sample="+code);
+<?php } else { ?>
+    alert('You must be logged in to edit code');
+<?php } ?>
 }
 </script>
 <div style="float:right">
