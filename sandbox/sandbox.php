@@ -226,6 +226,9 @@ function cc4e_compile($code, $input)
         }
         $retval->symbol = $symbol;
 
+        $retval->hasmain = in_array('main', $symbol);
+        // var_dump($retval->hasmain); die();
+
         $allowed_externals = array(
             'puts', 'printf', 'putchar', 'scanf', 'sscanf', 'getchar', 'gets',
             '__stack_chk_guard', '__stack_chk_fail', '__isoc99_scanf', '__isoc99_sscanf',
@@ -298,7 +301,7 @@ function cc4e_compile($code, $input)
     }
 
     $eof = 'EOF' . md5(uniqid());
-    if ( $allowed && $minimum && ! $retval->reject ) {
+    if ( $retval->hasmain && $allowed && $minimum && ! $retval->reject ) {
         $script = "cd /tmp;\n";
         $script .= "cat > student.c << $eof\n";
         $script .= $code;

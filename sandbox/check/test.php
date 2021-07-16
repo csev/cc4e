@@ -49,7 +49,7 @@ foreach ($files as $file) {
             } else {
                 $fail = "Docker failure: ". $failure;
             }
-        } else if ( $retval->allowed &&  $retval->minimum ) {
+        } else if ( isset($retval->docker->stdout) )  {
             $output =  $retval->docker->stdout;
             if ( strlen($output) < 1 ) {
                 $fail = "Did not produce any output";
