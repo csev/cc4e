@@ -112,11 +112,22 @@ cc4e_play_header($lines);
         font-size:1.05em;
         line-height:1.333;
       }
+      .diff th{
+        padding:0.2em 0.667em;
+        vertical-align:top;
+        white-space:pre;
+        white-space:pre-wrap;
+        font-family:Consolas,'Courier New',Courier,monospace;
+        font-size:1.05em;
+        line-height:1.333;
+      }
       .diff td:first-child{
         width: 50%;
         max-width: 200px;
         overflow: hidden;
       }
+table td { border-left: 1px solid #000; padding: 2px;}
+table th { border-left: 1px solid #000; padding: 2px;}
 
       .diff span{
         display:block;
@@ -203,9 +214,9 @@ if ( is_string($input) && strlen($input) > 0 ) {
     $actual = isset($retval->docker->stdout) && strlen($retval->docker->stdout) > 0 ? $retval->docker->stdout : '';
     if ( is_string($actual) && is_string($output) ) {
         if ( trim($actual) == trim($output) ) {
-            echo "<p>Output matches!!!</p>\n";
+            echo '<p style="color:green;">Output matches!!!</p>'."\n";
         } else {
-            echo "<p>Output does not match.</p>\n";
+            echo '<p style="color:red;">Output does not match</p>'."\n";
             $diff = Diff::compare(trim($output), trim($actual));
             echo('<div style="border: 1px solid black;">');
             $table = Diff::toTable($diff);
