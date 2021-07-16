@@ -142,6 +142,7 @@ function cc4e_compile($code, $input)
     $retval->code = $code;
     $retval->input = $input;
     $retval->reject = false;
+    $retval->hasmain = false;
 
     // Some sanity checks
     if ( strlen($code) > 20000 ) {

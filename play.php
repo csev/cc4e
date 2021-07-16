@@ -82,18 +82,21 @@ if ( window.opener ) {
 </script>
 </p>
 <?php
-if ( isset($retval->allowed) && $retval->allowed === false ) echo('<p style="color:red;">Your program used a disallowed function</p>'."\n");
-if ( isset($retval->reject) && is_string($retval->reject) ) echo('<p style="color:red;">'.htmlentities($retval->reject).'</p>'."\n");
-
-if ( isset($retval->hasmain) && $retval->hasmain === false ) echo('<p style="color:blue;">Compile only: You need a main() for your code to be run</p>'."\n");
-else if ( isset($retval->minimum) && $retval->minimum === false ) echo('<p style="color:red;">Your program did not produce any output</p>'."\n");
-
 $compiler = $retval->assembly->stderr ?? false;
+
 if ( is_string($compiler) && strlen($compiler) > 0 ) {
     echo '<pre style="color:red;">'."\n";
     echo "Compiler errors:\n\n";
     echo(htmlentities($compiler, ENT_NOQUOTES));
     echo("</pre>\n");
+} else if ( isset($retval->reject) && is_string($retval->reject) ) {
+    echo('<p style="color:red;">'.htmlentities($retval->reject).'</p>'."\n");
+} else if ( isset($retval->allowed) && $retval->allowed === false ) {
+    echo('<p style="color:red;">Your program used a disallowed function</p>'."\n");
+} else if ( isset($retval->hasmain) && $retval->hasmain === false ) {
+    echo('<p style="color:blue;">Compile only: You need a main() for your code to be run</p>'."\n");
+} else if ( isset($retval->minimum) && $retval->minimum === false ) {
+    echo('<p style="color:red;">Your program did not produce any output</p>'."\n");
 }
 ?>
 <p>
@@ -129,8 +132,10 @@ if ( is_string($input) ) {
 </textarea>
 </p>
 </form>
-<p>This code page is under construction and has extensive security filters.  If you think
-that it is blocking code it should allow, please add a note in the 
+<p>This code execution environment has extensive security filters that
+start by blocking every function you might call and then
+having a precise "allowed functions" list.  As we gain experience, the list will be expanded.
+ If you think that it is blocking function calls that it should allow, please add a note in the
 <a href="<?= $CFG->apphome ?>/discussions">Discussions</a>
 area.
 </p>
