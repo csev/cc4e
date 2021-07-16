@@ -11,6 +11,9 @@ function cc4e_pipe($command, $stdin, $cwd, $env, $timeout)
     $retval->stdout = false;
     $retval->stderr = false;
     $retval->status = false;
+    $retval->failure = false;
+
+    $begin = microtime(true);
 
     $descriptorspec = array(
        0 => array("pipe", "r"),  // stdin is a pipe that the child will read from
@@ -46,6 +49,7 @@ function cc4e_pipe($command, $stdin, $cwd, $env, $timeout)
         fclose($pipes[0]);
 
         // While we have time to wait.
+        $retval->failure = 'timeout';
         while ($timeout > 0) {
             $start = microtime(true);
 
@@ -66,6 +70,7 @@ function cc4e_pipe($command, $stdin, $cwd, $env, $timeout)
 
             if (!$status['running']) {
                 // Break from this loop if the process exited before the timeout.
+                $retval->failure = false;
                 break;
             }
 
@@ -89,7 +94,10 @@ function cc4e_pipe($command, $stdin, $cwd, $env, $timeout)
         $retval->stdout = $stdout;
         $retval->stderr = $stderr;
 
+    } else {
+        $retval->failure = 'resurce';
     }
+    $retval->ellapsed = (microtime(true) - $begin);
 
     return $retval;
 }
@@ -176,6 +184,9 @@ function cc4e_compile($code, $input)
     $pipe1 = cc4e_pipe($command, $code, $folder, $env, 2.0);
     $retval->assembly = $pipe1;
     $retval->docker = false;
+    if ( is_string($pipe1->failure) ) {
+        $retval->reject = "pipe1 error: ". $pipe1->failure;
+    }
 
     $allowed = false;
 
@@ -273,7 +284,7 @@ function cc4e_compile($code, $input)
     }
 
     $eof = 'EOF' . md5(uniqid());
-    if ( $allowed && $minimum ) {
+    if ( $allowed && $minimum && ! $retval->reject ) {
         $script = "cd /tmp;\n";
         $script .= "cat > student.c << $eof\n";
         $script .= $code;
@@ -289,12 +300,16 @@ function cc4e_compile($code, $input)
 
         // echo("-----\n");echo($script);echo("-----\n");
         $retval->docker = cc4e_pipe($docker_command, $script, $folder, $env, 2.0);
+        if ( is_string($retval->docker->failure) ) {
+            $retval->reject = "docker error: ". $retval->docker->failure;
+        }
+
     }
 
     $cleanup = false;
     $minimum = $retval->minimum ?? null;
     $allowed = $retval->allowed ?? null;
-    if ( $minimum === false || $allowed === false ) {
+    if ( $minimum === false || $allowed === false || is_string($retval->reject) ) {
         $json = json_encode($retval, JSON_PRETTY_PRINT);
         file_put_contents($folder . '/result.json', $json);
     } else if ( $cleanup ) {
