@@ -66,7 +66,18 @@ function cc4e_pipe($command, $stdin, $cwd, $env, $timeout)
             // Read the contents from the stdout.
             // This function will always return immediately as the stream is non-blocking.
             $stdout .= stream_get_contents($pipes[1]);
+            if ( strlen($stdout) > 20000 ) {
+                $retval->failure = 'Output length exceeded';
+                $stdout = "";
+                break;
+            }
+
             $stderr .= stream_get_contents($pipes[2]);
+            if ( strlen($stderr) > 20000 ) {
+                $retval->failure = 'stderr length exceeded';
+                $stderr = "";
+                break;
+            }
 
             if (!$status['running']) {
                 // Break from this loop if the process exited before the timeout.
@@ -87,8 +98,7 @@ function cc4e_pipe($command, $stdin, $cwd, $env, $timeout)
 
         // Kill the process in case the timeout expired and it's still running.
         // If the process already exited this won't do anything.
-        // $retval->status = proc_get_status($process);
-        // $retval->status = proc_terminate($process, 9);
+        proc_terminate($process, 9);
 
         // proc_close in order to avoid a deadlock
         $retval->stdout = $stdout;
@@ -218,6 +228,7 @@ function cc4e_compile($code, $input)
 
         $allowed_externals = array(
             'puts', 'printf', 'putchar', 'scanf', 'sscanf', 'getchar', 'gets',
+            '__stack_chk_guard', '__stack_chk_fail', '__isoc99_scanf', '__isoc99_sscanf',
             '_stack_chk_guard', '_stack_chk_fail', '_isoc99_scanf', '_isoc99_sscanf',
         );
 
