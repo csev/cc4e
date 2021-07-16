@@ -1,8 +1,11 @@
 <?php
 
+require_once './class.Diff.php';
 require_once "../config.php";
 require_once "../../play_util.php";
+require_once "../../sandbox/sandbox.php";
 
+use \Tsugi\Util\U;
 use \Tsugi\Core\Settings;
 use \Tsugi\Core\LTIX;
 use \Tsugi\UI\SettingsForm;
@@ -61,10 +64,91 @@ if ( $LAUNCH->user->instructor ) {
 // Load up the assignment
 if ( $assn && isset($assignments[$assn]) ) {
     include($assn);
+    $instructions = ccauto_instructions($LAUNCH);
+    $sample = ccauto_sample($LAUNCH);
+    $input = ccauto_input($LAUNCH);
+    $output = ccauto_output($LAUNCH);
 }
+
+$stdout = False;
+$stderr = False;
+
+if ( isset($_POST['code']) ) {
+    unset($_SESSION['retval']);
+    $_SESSION['code'] = U::get($_POST, 'code', false);
+    header( 'Location: '.addSession('index.php') ) ;
+    return;
+}
+
+$code = U::get($_SESSION, 'code');
+$retval = U::get($_SESSION, 'retval');
+if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
+   $retval = cc4e_compile($code, $input);
+   $_SESSION['retval'] = $retval;
+}
+
+if ( !is_string($code) || strlen($code) < 1 ) $code = $sample;
+$lines = $code ? count(explode("\n", $code)) : 15;
+if ( $lines < 10 ) $lines = 10;
 
 // View
 $OUTPUT->header();
+cc4e_play_header($lines);
+
+// https://code.iamkate.com/php/diff-implementation/
+?>
+<style>
+    .diff table
+    {
+        table-layout: fixed;
+        width: 100px;
+    }
+      .diff td{
+        padding:0 0.667em;
+        vertical-align:top;
+        white-space:pre;
+        white-space:pre-wrap;
+        font-family:Consolas,'Courier New',Courier,monospace;
+        font-size:1.05em;
+        line-height:1.333;
+      }
+      .diff td:first-child{
+        width: 50%;
+        max-width: 200px;
+        overflow: hidden;
+      }
+
+      .diff span{
+        display:block;
+        min-height:1.333em;
+        margin-top:-1px;
+        padding:0 3px;
+      }
+
+      * html .diff span{
+        height:1.333em;
+      }
+
+      .diff span:first-child{
+        margin-top:0;
+      }
+
+      .diffDeleted span{
+        border:1px solid rgb(255,192,192);
+        background:rgb(255,224,224);
+      }
+
+      .diffInserted span{
+        border:1px solid rgb(192,255,192);
+        background:rgb(224,255,224);
+      }
+
+      #toStringOutput{
+        margin:0 2em 2em;
+      }
+</style>
+
+<?php
 $OUTPUT->bodyStart();
 $OUTPUT->topNav($menu);
 
@@ -73,7 +157,6 @@ SettingsForm::select("exercise", __('Please select an assignment'),$assignments)
 SettingsForm::dueDate();
 SettingsForm::done();
 SettingsForm::end();
-
 
 if ( isset($_SESSION['error']) ) {
     $RESULT->setNote($_SESSION['error']);
@@ -84,7 +167,7 @@ if ( isset($_SESSION['error']) ) {
 $OUTPUT->flashMessages();
 
 if ( ! $ASSIGNMENT ) {
-    if ( $USER->instructor ) {
+    if ( $LAUNCH->user->instructor ) {
         echo("<p>Please use settings to select an assignment for this tool.</p>\n");
     } else {
         echo("<p>This tool needs to be configured - please see your instructor.</p>\n");
@@ -92,8 +175,82 @@ if ( ! $ASSIGNMENT ) {
     $OUTPUT->footer();
     return;
 }
-        
-echo("Dude");
 
-$OUTPUT->footer();
+echo("<p>Instructions: ".$instructions."</p>\n");
+?>
+<form method="post">
+<p>
+<input type="submit" value="Run Code">
+<?php
+$errors = cc4e_play_errors($retval);
+cc4e_play_inputs($lines, $code);
+
+if ( is_string($input) && strlen($input) > 0 ) {
+?>
+<p>Input to your program:</p>
+<p>
+<textarea id="myinput" name="input" readonly style="width:100%; border: 1px black solid;">
+<?php
+    echo(htmlentities($input));
+?>
+</textarea>
+</p>
+<?php } ?>
+<?php
+
+    // https://code.iamkate.com/php/diff-implementation/
+
+    $actual = isset($retval->docker->stdout) && strlen($retval->docker->stdout) > 0 ? $retval->docker->stdout : '';
+    if ( is_string($actual) && is_string($output) ) {
+        if ( trim($actual) == trim($output) ) {
+            echo "<p>Output matches!!!</p>\n";
+        } else {
+            echo "<p>Output does not match.</p>\n";
+            $diff = Diff::compare(trim($output), trim($actual));
+            echo('<div style="border: 1px solid black;">');
+            $table = Diff::toTable($diff);
+            $header = '<tr class="header"><th>Expected Output</th><th>Your Output</th></tr>';
+            $table = str_replace('<table class="diff">', '<table class="diff" id="difftable">'.$header, $table);
+            echo($table);
+            echo('</div>');
+        }
+    }
+
+    echo '<form style="color: blue;">'."\n";
+    echo '<div style="color: green;">'."\n";
+    echo "Expected output from your program:\n\n";
+    echo '<textarea id="myouput" readonly name="expected" style="color: green; width:100%; border: 1px black solid;">';
+    echo(htmlentities($output, ENT_NOQUOTES));
+    echo("</textarea>\n");
+    echo("</div>\n");
+    echo("</form>\n");
+ cc4e_play_output($retval);
+?>
+</form>
+<?php
+
+cc4e_play_debug($retval);
+
+$OUTPUT->footerStart();
+cc4e_play_footer();
+?>
+<script>
+$(document).ready( function() {
+    var width = $('#difftable').parent().width();
+    console.log('yada', width);
+    $('td:first-child').width(width/2);
+    // $('.diff td:first-child').each(function(pos, tag) {
+    $('.diff td').each(function(pos, tag) {
+        var tdw = (width/2)+'px';
+        console.log('tag', pos, tag, width, tdw);
+        $(tag).css('width', tdw);
+        $(tag).css('max-width', tdw);
+        $(tag).css('min-width', tdw);
+        $(tag).css('overflow', 'hidden');
+
+    });
+});
+</script>
+<?php
+$OUTPUT->footerEnd();
 

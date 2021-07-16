@@ -22,9 +22,6 @@ if ( U::get($_SESSION,'id', null) === null ) {
 require_once "sandbox/sandbox.php";
 require_once "play_util.php";
 
-$stdout = False;
-$stderr = False;
-
 if ( isset($_POST['code']) ) {
     unset($_SESSION['retval']);
     $_SESSION['code'] = U::get($_POST, 'code', false);
@@ -54,7 +51,7 @@ if ( is_string($sample) ) {
 
 $lines = $code ? count(explode("\n", $code)) : 15;
 
-echo("<html>\n");
+echo("<html>\n</head>\n");
 cc4e_play_header($lines);
 ?>
 </head>
