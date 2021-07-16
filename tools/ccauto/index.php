@@ -10,6 +10,7 @@ use \Tsugi\Core\Settings;
 use \Tsugi\Core\LTIX;
 use \Tsugi\UI\SettingsForm;
 use \Tsugi\UI\Lessons;
+use \Tsugi\Grades\GradeUtil;
 
 $LAUNCH = LTIX::requireData();
 $p = $CFG->dbprefix;
@@ -214,7 +215,21 @@ if ( is_string($input) && strlen($input) > 0 ) {
     $actual = isset($retval->docker->stdout) && strlen($retval->docker->stdout) > 0 ? $retval->docker->stdout : '';
     if ( is_string($actual) && is_string($output) ) {
         if ( trim($actual) == trim($output) ) {
-            echo '<p style="color:green;">Output matches!!!</p>'."\n";
+            $grade = 1.0;
+            GradeUtil::gradeUpdateJson(json_encode(array("code" => $code)));
+            $debug_log = array();
+            $graderet = LTIX::gradeSend($grade, false, $debug_log);
+            // $OUTPUT->dumpDebugArray($debug_log);
+            if ( $graderet == true ) {
+                echo('<p style="color:green;">Output match - Grade sent to server</p>'."\n");
+            } else if ( is_string($graderet) ) {
+                echo('<p style="color:red;">Output match - Grade not sent: '.$graderet."</p>\n");
+            } else {
+                echo('<p style="color:red;">Internal send error</p>'."\n");
+                echo("<pre>\n");
+                var_dump($graderet);
+                echo("</pre>\n");
+            }
         } else {
             echo '<p style="color:red;">Output does not match</p>'."\n";
             $diff = Diff::compare(trim($output), trim($actual));
