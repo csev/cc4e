@@ -11,7 +11,7 @@ $files = glob("*.c");
 foreach ($files as $file) {
     echo("\n\n--------------- $file ----------------\n");
     $code = file_get_contents($file);
-    $input = false;
+    $input = "42 43 44\n45 46 47\n";
     echo($code);
     $retval = cc4e_compile($code, $input);
 

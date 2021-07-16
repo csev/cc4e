@@ -217,8 +217,8 @@ function cc4e_compile($code, $input)
         $retval->symbol = $symbol;
 
         $allowed_externals = array(
-            'puts', 'printf', 'putchar', 'sscanf', 'getchar', 'gets',
-            '__stack_chk_guard', '__stack_chk_fail'
+            'puts', 'printf', 'putchar', 'scanf', 'sscanf', 'getchar', 'gets',
+            '__stack_chk_guard', '__stack_chk_fail', '_isoc99_scanf'
         );
 
         $minimum_externals = array(
