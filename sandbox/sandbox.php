@@ -199,14 +199,14 @@ function cc4e_compile($code, $input)
         $symbol = array();
         foreach ( $lines as $line) {
             $matches = array();
-            if ( preg_match('/^(_[a-zA-Z0-9_]+):/', $line, $matches ) ) {
+            if ( preg_match('/^([a-zA-Z0-9_]+):/', $line, $matches ) ) {
                 if ( count($matches) > 1 ) {
                     $match = $matches[1];
                     if ( strpos($match,'_') === 0 && strlen($match) > 1 ) $match = substr($match, 1);
                     $symbol[] = $match;
                 }
             }
-            if ( preg_match('/\t.comm\t(_[a-zA-Z0-9_]+),/', $line, $matches) ) {
+            if ( preg_match('/\t.comm\t([a-zA-Z0-9_]+),/', $line, $matches) ) {
                 if ( count($matches) > 1 ) {
                     $match = $matches[1];
                     if ( strpos($match,'_') === 0 && strlen($match) > 1 ) $match = substr($match, 1);
@@ -218,7 +218,7 @@ function cc4e_compile($code, $input)
 
         $allowed_externals = array(
             'puts', 'printf', 'putchar', 'scanf', 'sscanf', 'getchar', 'gets',
-            '__stack_chk_guard', '__stack_chk_fail', '_isoc99_scanf'
+            '_stack_chk_guard', '_stack_chk_fail', '_isoc99_scanf', '_isoc99_sscanf',
         );
 
         $minimum_externals = array(
@@ -241,7 +241,7 @@ function cc4e_compile($code, $input)
                 if ( count($matches) > 1 ) {
                     $external = $matches[1];
                     if ( strpos($external,'_') === 0 && strlen($external) > 1 ) $external = substr($external, 1);
-                    $externals[] = $external;
+                    if ( ! in_array($external,$externals) ) $externals[] = $external;
                 }
             }
 
@@ -250,7 +250,7 @@ function cc4e_compile($code, $input)
                 if ( count($matches) > 1 ) {
                     $external = $matches[1];
                     if ( strpos($external,'_') === 0 && strlen($external) > 1 ) $external = substr($external, 1);
-                    $externals[] = $external;
+                    if ( ! in_array($external,$externals) ) $externals[] = $external;
                 }
             }
 
@@ -277,7 +277,10 @@ function cc4e_compile($code, $input)
         foreach($externals as $external) {
             if ( in_array($external, $minimum_externals) ) $minimum = true;
             if ( in_array($external, $retval->symbol) ) continue;
-            if ( ! in_array($external, $allowed_externals) ) $allowed = false;
+	    if ( ! in_array($external, $allowed_externals) ) {
+		    // var_dump($allowed_externals); echo("\n=============\n" . $external."\n");
+		    $allowed = false;
+	    }
         }
         $retval->minimum = $minimum;
         $retval->allowed = $allowed;
