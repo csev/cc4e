@@ -212,7 +212,7 @@ if ( is_string($input) && strlen($input) > 0 ) {
 
     // https://code.iamkate.com/php/diff-implementation/
 
-    $actual = isset($retval->docker->stdout) && strlen($retval->docker->stdout) > 0 ? $retval->docker->stdout : '';
+    $actual = isset($retval->docker->stdout) && strlen($retval->docker->stdout) > 0 ? $retval->docker->stdout : false;
     if ( is_string($actual) && is_string($output) ) {
         if ( trim($actual) == trim($output) ) {
             $grade = 1.0;
