@@ -126,6 +126,9 @@ if ( is_string($input) ) {
 </textarea>
 </p>
 </form>
+<p>This code page is under construction and has extensive security filters.  If you think
+that it is blocking code it should allow, please add a note in the Discussions area.
+</p>
 <?php if ( is_object($retval) ) { ?>
 <pre style="display:none;" id="debug">
 Debug output:
