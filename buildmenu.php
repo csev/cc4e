@@ -7,17 +7,16 @@ function buildMenu() {
     $adminmenu = isset($_COOKIE['adminmenu']) && $_COOKIE['adminmenu'] == "true";
     $set = new \Tsugi\UI\MenuSet();
     $set->setHome($CFG->servicename, $CFG->apphome);
-    // $set->addLeft('Lessons', $R.'lessons');
-    $set->addLeft('Lectures', $R . 'podcast');
+    $set->addLeft('Lessons', $R.'lessons');
     if ( isset($CFG->tdiscus) && $CFG->tdiscus ) $set->addLeft('Discussions', $R.'discussions');
     if ( isset($_SESSION['id']) ) {
-        // $set->addLeft('Assignments', $R.'assignments');
+        $set->addLeft('Assignments', $R.'assignments');
     } else {
         // $set->addLeft('OER', $R.'materials');
     }
     
     if ( isset($_SESSION['id']) ) {
-        $set->addLeft('Write Code', $R.'play');
+        $set->addLeft('Write C', $R.'play');
         $submenu = new \Tsugi\UI\Menu();
         $submenu->addLink('Profile', $R.'profile');
         if ( isset($CFG->google_map_api_key) ) {
@@ -55,6 +54,7 @@ function buildMenu() {
 
     $imenu->addLink('Instructor', 'http://www.dr-chuck.com');
     $imenu->addLink('Office Hours', 'http://www.dr-chuck.com/office/');
+    $imenu->addLink('Lecture podcast', $R . 'podcast');
     $set->addRight('Book', $R . 'book');
     $set->addRight('Instructor', $imenu);
 

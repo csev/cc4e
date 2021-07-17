@@ -20,9 +20,7 @@ if ( U::get($_SESSION,'id', null) === null ) {
 }
 
 require_once "sandbox/sandbox.php";
-
-$stdout = False;
-$stderr = False;
+require_once "play_util.php";
 
 if ( isset($_POST['code']) ) {
     unset($_SESSION['retval']);
@@ -53,18 +51,9 @@ if ( is_string($sample) ) {
 
 $lines = $code ? count(explode("\n", $code)) : 15;
 
-?><html>
-<head>
-<title>CC4E - Code Playground</title>
-<link href="static/codemirror-5.62.0/lib/codemirror.css" rel="stylesheet"/>
-<style>
-body {
-    font-family: Courier, monospace;
-}
-
-.CodeMirror { height: auto; border: 1px solid #ddd; }
-.CodeMirror-scroll { max-height: <?= intval(($lines/13)*20) ?>em; }
-</style>
+echo("<html>\n</head>\n");
+cc4e_play_header($lines);
+?>
 </head>
 <body>
 <p>
@@ -82,79 +71,29 @@ if ( window.opener ) {
 </script>
 </p>
 <?php
-if ( isset($retval->allowed) && $retval->allowed === false ) echo('<p style="color:red;">Your program used a disallowed function</p>'."\n");
-if ( isset($retval->reject) && is_string($retval->reject) ) echo('<p style="color:red;">'.htmlentities($retval->reject).'</p>'."\n");
-
-if ( isset($retval->hasmain) && $retval->hasmain === false ) echo('<p style="color:blue;">Compile only: You need a main() for your code to be run</p>'."\n");
-else if ( isset($retval->minimum) && $retval->minimum === false ) echo('<p style="color:red;">Your program did not produce any output</p>'."\n");
-
-$compiler = $retval->assembly->stderr ?? false;
-if ( is_string($compiler) && strlen($compiler) > 0 ) {
-    echo '<pre style="color:red;">'."\n";
-    echo "Compiler errors:\n\n";
-    echo(htmlentities($compiler, ENT_NOQUOTES));
-    echo("</pre>\n");
-}
-?>
-<p>
-<textarea id="mycode" name="code" rows="<?= $lines ?>" style="height: <?= $lines ?>em; border: 1px black solid;">
-<?php
-if ( is_string($code) ) {
-    echo(htmlentities($code));
-} else {
-?>
-#include <stdio.h>
-
-main() {
-  printf("Hello World\n");
-}
-<?php } ?>
-</textarea>
-</p>
-<?php
-if ( isset($retval->docker->stdout) ) {
-    echo '<pre style="color: blue">'."\n";
-    echo "Program output:\n\n";
-    echo(htmlentities($retval->docker->stdout, ENT_NOQUOTES));
-    echo("</pre>\n");
-}
+$errors = cc4e_play_errors($retval);
+cc4e_play_inputs($lines, $code);
 ?>
 <p>Input to your program:</p>
 <p>
-<textarea id="myinput" name="input" style="width:90%; border: 1px black solid;">
+<textarea id="myinput" name="input" style="width:100%; border: 1px black solid;">
 <?php
 if ( is_string($input) ) {
     echo(htmlentities($input));
 } ?>
 </textarea>
 </p>
+<?php cc4e_play_output($retval); ?>
 </form>
-<p>This code page is under construction and has extensive security filters.  If you think
-that it is blocking code it should allow, please add a note in the 
+<p>This code execution environment has extensive security filters that
+start by blocking every function you might call and then
+having a precise "allowed functions" list.  As we gain experience, the list will be expanded.
+ If you think that it is blocking function calls that it should allow, please add a note in the
 <a href="<?= $CFG->apphome ?>/discussions">Discussions</a>
 area.
 </p>
-<?php if ( is_object($retval) ) { ?>
-<pre style="display:none;" id="debug">
-Debug output:
-<?php
-echo(htmlentities(json_encode($retval, JSON_PRETTY_PRINT), ENT_NOQUOTES));
-
-if ( isset($retval->assembly->stdout) && is_string($retval->assembly->stdout) ) {
-    echo("\n\n------ Assembly --------\n");
-    echo(htmlentities($retval->assembly->stdout, ENT_NOQUOTES));
-}
+<?php 
+cc4e_play_debug($retval);
+cc4e_play_footer();
 ?>
-</pre>
-<?php } ?>
-<script type="text/javascript" src="static/codemirror-5.62.0/lib/codemirror.js"></script>
-<script type="text/javascript" src="static/codemirror-5.62.0/mode/clike/clike.js"></script>
-<script>
-  var myTextarea = document.getElementById("mycode");
-  var editor = CodeMirror.fromTextArea(myTextarea, {
-        lineNumbers: true,
-        matchBrackets: true,
-        mode: "text/x-csrc"
-  });
-</script>
 </body>
