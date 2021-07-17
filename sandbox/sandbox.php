@@ -186,7 +186,7 @@ function cc4e_compile($code, $input)
             'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
     );
 
-    $docker_command = $CFG->docker_command ?? 'docker run --network none --rm -i alpine_gcc:latest "-"';
+    $docker_command = $CFG->docker_command ?? 'docker run --network none --memory="200m" --memory-swap="200m" --rm -i alpine_gcc:latest "-"';
 
     $retval->folder = $folder;
 
@@ -234,6 +234,7 @@ function cc4e_compile($code, $input)
             'puts', 'printf', 'putchar', 'scanf', 'sscanf', 'getchar', 'gets',
             '__stack_chk_guard', '__stack_chk_fail', '__isoc99_scanf', '__isoc99_sscanf',
             '_stack_chk_guard', '_stack_chk_fail', '_isoc99_scanf', '_isoc99_sscanf',
+            'malloc', '__memset_chk',
         );
 
         $minimum_externals = array(
