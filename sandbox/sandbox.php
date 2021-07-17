@@ -234,7 +234,7 @@ function cc4e_compile($code, $input)
             'puts', 'printf', 'putchar', 'scanf', 'sscanf', 'getchar', 'gets',
             '__stack_chk_guard', '__stack_chk_fail', '__isoc99_scanf', '__isoc99_sscanf',
             '_stack_chk_guard', '_stack_chk_fail', '_isoc99_scanf', '_isoc99_sscanf',
-            'malloc', '__memset_chk',
+            'malloc', 'memset', '__memset_chk',
         );
 
         $minimum_externals = array(
