@@ -35,6 +35,10 @@
         {
             "title" : "Chapter 1: Introduction",
             "href" : "{apphome}/book/chap01.md"
+        },
+        {
+            "title" : "Podcast version of the lectures",
+            "href" : "https://audio.cc4e.com/"
         }
     ],
     "videos" : [
