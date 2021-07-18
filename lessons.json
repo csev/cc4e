@@ -18,8 +18,60 @@
     "title" : "Report Bugs in Course Material",
     "launch" : "mod/tdiscus/",
     "resource_link_id": "discussion_bugs"
+    },
+    {
+    "title" : "Problems in the Code Screen",
+    "launch" : "mod/tdiscus/",
+    "resource_link_id": "discussion_code"
     }
 ],
 "modules": [
+{
+    "title": "Hello World",
+    "anchor": "install",
+    "icon" : "fa-globe",
+    "description": "This whole area is under construction but you can write hello world in C.",
+    "references" : [
+        {
+            "title" : "Chapter 1: Introduction",
+            "href" : "{apphome}/book/chap01.md"
+        },
+        {
+            "title" : "Podcast version of the lectures",
+            "href" : "https://audio.cc4e.com/"
+        }
+    ],
+    "videos" : [
+        {
+            "title" : "Welcome to C Programming for Everybody",
+            "youtube" : "sQwkC5PBTfk"
+        },
+        {
+            "title" : "Chapter 0 - Preface",
+            "youtube" : "XSEGkAOxKZ4"
+        }
+    ],
+
+    "discussions" : [
+        {
+        "title" : "About Hello World",
+        "launch" : "mod/tdiscus/",
+        "resource_link_id": "discuss_00_hello"
+        }
+    ],
+     "lti" : [
+        {
+        "title" : "Autograder: Write Hello World",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_00_hello",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "00hello.php"
+            }
+        ]
+        }
+    ]
+}
 ]
 }

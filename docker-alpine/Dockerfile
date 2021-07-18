@@ -12,7 +12,7 @@
 FROM alpine
 
 # https://wiki.alpinelinux.org/wiki/GCC  (build-base)
-RUN apk add --no-cache build-base 
+RUN apk add --no-cache build-base cpulimit
 
 ENTRYPOINT ["/bin/ash"]
 

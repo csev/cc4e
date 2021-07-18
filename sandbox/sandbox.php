@@ -11,6 +11,9 @@ function cc4e_pipe($command, $stdin, $cwd, $env, $timeout)
     $retval->stdout = false;
     $retval->stderr = false;
     $retval->status = false;
+    $retval->failure = false;
+
+    $begin = microtime(true);
 
     $descriptorspec = array(
        0 => array("pipe", "r"),  // stdin is a pipe that the child will read from
@@ -46,6 +49,7 @@ function cc4e_pipe($command, $stdin, $cwd, $env, $timeout)
         fclose($pipes[0]);
 
         // While we have time to wait.
+        $retval->failure = 'timeout';
         while ($timeout > 0) {
             $start = microtime(true);
 
@@ -62,10 +66,22 @@ function cc4e_pipe($command, $stdin, $cwd, $env, $timeout)
             // Read the contents from the stdout.
             // This function will always return immediately as the stream is non-blocking.
             $stdout .= stream_get_contents($pipes[1]);
+            if ( strlen($stdout) > 20000 ) {
+                $retval->failure = 'Output length exceeded';
+                $stdout = "";
+                break;
+            }
+
             $stderr .= stream_get_contents($pipes[2]);
+            if ( strlen($stderr) > 20000 ) {
+                $retval->failure = 'stderr length exceeded';
+                $stderr = "";
+                break;
+            }
 
             if (!$status['running']) {
                 // Break from this loop if the process exited before the timeout.
+                $retval->failure = false;
                 break;
             }
 
@@ -82,14 +98,16 @@ function cc4e_pipe($command, $stdin, $cwd, $env, $timeout)
 
         // Kill the process in case the timeout expired and it's still running.
         // If the process already exited this won't do anything.
-        // $retval->status = proc_get_status($process);
-        // $retval->status = proc_terminate($process, 9);
+        proc_terminate($process, 9);
 
         // proc_close in order to avoid a deadlock
         $retval->stdout = $stdout;
         $retval->stderr = $stderr;
 
+    } else {
+        $retval->failure = 'resurce';
     }
+    $retval->ellapsed = (microtime(true) - $begin);
 
     return $retval;
 }
@@ -118,10 +136,46 @@ function cc4e_compile($code, $input)
 {
     global $CFG;
 
+    $retval = new \stdClass();
     $now = str_replace('@', 'T', gmdate("Y-m-d@H-i-s"));
+    $retval->now = $now;
+    $retval->code = $code;
+    $retval->input = $input;
+    $retval->reject = false;
+    $retval->hasmain = false;
+
+    // Some sanity checks
+    if ( strlen($code) > 20000 ) {
+        $retval->reject = "Code too large";
+        return $retval;
+    }
+
+    if ( strlen($input) > 20000 ) {
+        $retval->reject = "Input too large";
+        return $retval;
+    }
+
+    for($i=0; $i<strlen($input); $i++) {
+        $ord = ord($input[$i]);
+        if ( $ord < 1 || $ord > 126 ) {
+            $retval->reject = "Input has non-ascii character: ".$ord;
+            return $retval;
+        }
+    }
+
+    for($i=0; $i<strlen($code); $i++) {
+        $ord = ord($code[$i]);
+        if ( $ord < 1 || $ord > 126 ) {
+            $retval->reject = "Code has non-ascii character: ".$ord;
+            return $retval;
+        }
+    }
+
     // $folder = sys_get_temp_dir() . '/compile-' . $now . '-' . md5(uniqid());
     // $folder = '/tmp/compile';
     $folder = '/tmp/compile-' . $now . '-' . md5(uniqid());
+    // TODO: Figure out why we need this
+    if ( is_dir('/zork') ) $folder = '/zork/compile-' . $now . '-' . md5(uniqid());
     if ( file_exists($folder) ) {
             system("rm -rf $folder/*");
     } else {
@@ -132,19 +186,18 @@ function cc4e_compile($code, $input)
             'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
     );
 
-    $docker_command = $CFG->docker_command ?? 'docker run --network none --rm -i alpine_gcc:latest "-"';
+    $docker_command = $CFG->docker_command ?? 'docker run --network none --memory="200m" --memory-swap="200m" --rm -i alpine_gcc:latest "-"';
 
-    $retval = new \stdClass();
-    $retval->now = $now;
-    $retval->code = $code;
-    $retval->input = $input;
     $retval->folder = $folder;
 
-    $command = 'rm -rf * ; cat > student.c ; gcc -ansi -fno-asm -S student.c ; [ -f student.s ] && cat student.s';
+    $command = 'rm -rf * ; cat > student.c ; gcc -ansi -Wno-return-type -fno-asm -S student.c ; [ -f student.s ] && cat student.s';
 
-    $pipe1 = cc4e_pipe($command, $code, $folder, $env, 11.0);
+    $pipe1 = cc4e_pipe($command, $code, $folder, $env, 2.0);
     $retval->assembly = $pipe1;
     $retval->docker = false;
+    if ( is_string($pipe1->failure) ) {
+        $retval->reject = "pipe1 error: ". $pipe1->failure;
+    }
 
     $allowed = false;
 
@@ -157,17 +210,31 @@ function cc4e_compile($code, $input)
         $symbol = array();
         foreach ( $lines as $line) {
             $matches = array();
-            if ( ! preg_match('/^(_[a-zA-Z0-9_]+):/', $line, $matches ) ) continue;
-            if ( count($matches) > 1 ) {
-                $match = $matches[1];
-                if ( strpos($match,'_') === 0 && strlen($match) > 1 ) $match = substr($match, 1);
-                $symbol[] = $match;
+            if ( preg_match('/^([a-zA-Z0-9_]+):/', $line, $matches ) ) {
+                if ( count($matches) > 1 ) {
+                    $match = $matches[1];
+                    if ( strpos($match,'_') === 0 && strlen($match) > 1 ) $match = substr($match, 1);
+                    $symbol[] = $match;
+                }
+            }
+            if ( preg_match('/\t.comm\t([a-zA-Z0-9_]+),/', $line, $matches) ) {
+                if ( count($matches) > 1 ) {
+                    $match = $matches[1];
+                    if ( strpos($match,'_') === 0 && strlen($match) > 1 ) $match = substr($match, 1);
+                    $symbol[] = $match;
+                }
             }
         }
         $retval->symbol = $symbol;
 
+        $retval->hasmain = in_array('main', $symbol);
+        // var_dump($retval->hasmain); die();
+
         $allowed_externals = array(
-            'puts', 'printf', 'putchar', 'sscanf', 'getchar', 'gets'
+            'puts', 'printf', 'putchar', 'scanf', 'sscanf', 'getchar', 'gets',
+            '__stack_chk_guard', '__stack_chk_fail', '__isoc99_scanf', '__isoc99_sscanf',
+            '_stack_chk_guard', '_stack_chk_fail', '_isoc99_scanf', '_isoc99_sscanf',
+            'malloc', 'memset', '__memset_chk',
         );
 
         $minimum_externals = array(
@@ -190,7 +257,7 @@ function cc4e_compile($code, $input)
                 if ( count($matches) > 1 ) {
                     $external = $matches[1];
                     if ( strpos($external,'_') === 0 && strlen($external) > 1 ) $external = substr($external, 1);
-                    $externals[] = $external;
+                    if ( ! in_array($external,$externals) ) $externals[] = $external;
                 }
             }
 
@@ -199,7 +266,7 @@ function cc4e_compile($code, $input)
                 if ( count($matches) > 1 ) {
                     $external = $matches[1];
                     if ( strpos($external,'_') === 0 && strlen($external) > 1 ) $external = substr($external, 1);
-                    $externals[] = $external;
+                    if ( ! in_array($external,$externals) ) $externals[] = $external;
                 }
             }
 
@@ -213,7 +280,7 @@ function cc4e_compile($code, $input)
                     $external = $pieces[2];
                     if ( strpos($external,'_') === 0 && strlen($external) > 1 ) {
                         $external = substr($external, 1);
-                        $externals[] = $external;
+                        if ( ! in_array($external,$externals) ) $externals[] = $external;
                     }
                 }
             }
@@ -226,34 +293,42 @@ function cc4e_compile($code, $input)
         foreach($externals as $external) {
             if ( in_array($external, $minimum_externals) ) $minimum = true;
             if ( in_array($external, $retval->symbol) ) continue;
-            if ( ! in_array($external, $allowed_externals) ) $allowed = false;
+	    if ( ! in_array($external, $allowed_externals) ) {
+		    // var_dump($allowed_externals); echo("\n=============\n" . $external."\n");
+		    $allowed = false;
+	    }
         }
         $retval->minimum = $minimum;
         $retval->allowed = $allowed;
     }
 
-    if ( $allowed && $minimum ) {
+    $eof = 'EOF' . md5(uniqid());
+    if ( $retval->hasmain && $allowed && $minimum && ! $retval->reject ) {
         $script = "cd /tmp;\n";
-        $script .= "cat > student.c << EOF\n";
+        $script .= "cat > student.c << $eof\n";
         $script .= $code;
-        $script .= "\nEOF\n";
-        $script .= "/usr/bin/gcc -ansi -fno-asm student.c\n";
+        $script .= "\n$eof\n";
+        $script .= "/usr/bin/gcc -ansi -Wno-return-type -fno-asm student.c\n";
         if ( is_string($input) && strlen($input) > 0 ) {
-            $script .= "[ -f a.out ] && ./a.out << EOF\n";
+            $script .= "[ -f a.out ] && cpulimit --limit=25 --include-children ./a.out << $eof\n";
             $script .= $input;
-            $script .= "\nEOF\n";
+            $script .= "\n$eof\n";
         } else {
-            $script .= "[ -f a.out ] && ./a.out\n";
+            $script .= "[ -f a.out ] && cpulimit --limit=25 --include-children ./a.out\n";
         }
 
         // echo("-----\n");echo($script);echo("-----\n");
-        $retval->docker = cc4e_pipe($docker_command, $script, $folder, $env, 11.0);
+        $retval->docker = cc4e_pipe($docker_command, $script, $folder, $env, 2.0);
+        if ( is_string($retval->docker->failure) ) {
+            $retval->reject = "docker error: ". $retval->docker->failure;
+        }
+
     }
 
     $cleanup = false;
     $minimum = $retval->minimum ?? null;
     $allowed = $retval->allowed ?? null;
-    if ( $minimum === false || $allowed === false ) {
+    if ( $minimum === false || $allowed === false || is_string($retval->reject) ) {
         $json = json_encode($retval, JSON_PRETTY_PRINT);
         file_put_contents($folder . '/result.json', $json);
     } else if ( $cleanup ) {
