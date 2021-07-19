@@ -82,7 +82,7 @@ A member of a particular structure is referred to in an expression by a
 _structure __-__ name. member_
 
 The structure member operator `.` connects the structure name and the
-member name. To set leap from the the date in structure `d`, for example    
+member name. To set leap from the the date in structure `d`, for example
 
     leap = d.year % 4 == 0 && d.year % 100 != 0 || d.year % 400 == 0;
 
@@ -215,9 +215,9 @@ use the structure.
 [comment]: <> (page 123 , CHAPTER 6 STRUCTURES 123 )
 
     month_day(pd) /* set month and day from day of year */
-    
+
     struct date *pd;
-    
+
     {
 
         int i, leap;
@@ -231,7 +231,7 @@ use the structure.
             pd—>day -= day_tab[leap][i];
 
         pd—>month = i;
-    
+
     }
 
 The structure operators `—>` and `.` , together with `( )` for argument lists
@@ -241,7 +241,7 @@ bind very tightly. For example, given the declaration
     struct {
 
         int x;
-        
+
         int *Y;
 
     } *P;
@@ -280,11 +280,11 @@ But the very fact that the arrays are parallel indicates that a different organi
 and there is an array of pairs. The structure declaration
 
     struct key {
-        
+
         char *keyword;
-        
+
         int keycount;
-     
+
     } keytab[NKEYS);
 
 defines an array `keytab` of structures of this type, and allocates storage to
@@ -308,9 +308,9 @@ by a list of initializers enclosed in braces:
     struct key {
 
         char *keyword;
-       
+
         int keycount;
-     
+
      } keytab[] = {
 
             "break", 0,
@@ -320,15 +320,15 @@ by a list of initializers enclosed in braces:
             "char", 0,
 
             "continue", 0,
-            
+
             "default", 0,
 
              /* ... */
 
             "unsigned", 0,
-             
+
              "while", 0
-        
+
       };
 
 The initializers are listed in pairs corresponding to the structure members.
@@ -356,7 +356,7 @@ order for this to work.)
     #define MAXWORD 20
 
     main() /* count C keywords */
-    
+
     {
 
         int n, t;
@@ -378,7 +378,7 @@ order for this to work.)
                 printf("%4d %s\n",keytab[n].keycount, keytab[n].keyword);
 
     }
-    
+
     binary(word, tab, n) /* find word in tab[0]...tab[n-1] */
 
     char *word;
@@ -386,7 +386,7 @@ order for this to work.)
     struct key tab[];
 
     int n;
-    
+
     {
 
         int low, high, mid, cond;
@@ -410,7 +410,7 @@ order for this to work.)
             else
 
                 return (mid);
-        
+
         }
 
         return(-1);
@@ -459,35 +459,36 @@ itself if it is non-alphabetic.
     char *w;
 
     int lim;
+    (
+        int c, t;
 
-    int c, t;
+        if (type(c = *w++ = getch()) != LETTER) (
 
-    if (type(c = *w++ = getch()) != LETTER) (
+            *w = '\0';
 
-    *w = '\0';
+            return(c);
 
-    return(c);
+        )
 
-)
+        while (--lim > 0) (
 
-    while (--lim > 0) (
+            t = type(c = *w++ = getch());
 
-    t = type(c = *w++ = getch());
+            if (t != LETTER && t != DIGIT) (
 
-    if (t != LETTER && t != DIGIT) (
+                ungetch(c);
 
-    ungetch(c);
+                break;
 
-    break;
+        )
 
-)
+        *(w-1) = '\0';
 
-    *(w-1) = '\0';
-
-    return (LETTER);
-
+        return (LETTER);
+        )
+    )
 getword uses the routines getch and ungetch which we wrote in
-Chapter 4: when the collection of an alphabetic token stops, getword has
+[Chapter 4](chap04.md) : when the collection of an alphabetic token stops, getword has
 gone one character too far. The call to ungetch pushes that character back
 on the input for the next call.
 
@@ -496,29 +497,30 @@ of input. Here is a version _.for_ _the ASCII alphabet only._
 
     type(c) /* return type of ASCII character */
     int c;
+    (
+        if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z')
 
-if (c \&gt;= 'a' &amp;&amp; c \&lt;= 'z' II c \&gt;= 'A' &amp;&amp; c \&lt;= 'Z')
+        return (LETTER);
 
-    return (LETTER);
+        else if (c >= '0' && c <= '9')
 
-    else if (c >= '0' && c <= '9')
+        return (DIGIT);
 
-    return (DIGIT);
+        else
 
-    else
-
-    return(c);
+        return(c);
+    )
 
 The symbolic constants LETTER and DIGIT can have any values that do
 not conflict with non-alphanumeric characters and EOF; the obvious choices
 are
 
     #define LETTER 'a'
- #define DIGIT '0'
+    #define DIGIT  '0'
 
 getword can be faster if calls to the function type are replaced by
-references to an appropriate array type []. The standard C library provides
-macros called isalpha and isdigit which operate in this manner.
+references to an appropriate array `type []`. The standard C library provides
+macros called `isalpha` and `isdigit` which operate in this manner.
 
 [comment]: <> (page 128 , 128 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
 
