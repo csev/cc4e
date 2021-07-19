@@ -459,34 +459,34 @@ itself if it is non-alphabetic.
     char *w;
 
     int lim;
-    (
+    {
         int c, t;
 
-        if (type(c = *w++ = getch()) != LETTER) (
+        if (type(c = *w++ = getch()) != LETTER) {
 
             *w = '\0';
 
             return(c);
 
-        )
+        }
 
-        while (--lim > 0) (
+        while (--lim > 0) {
 
             t = type(c = *w++ = getch());
 
-            if (t != LETTER && t != DIGIT) (
+            if (t != LETTER && t != DIGIT) {
 
                 ungetch(c);
 
                 break;
 
-        )
+            }
 
         *(w-1) = '\0';
 
         return (LETTER);
-        )
-    )
+        }
+    }
 getword uses the routines getch and ungetch which we wrote in
 [Chapter 4](chap04.md) : when the collection of an alphabetic token stops, getword has
 gone one character too far. The call to ungetch pushes that character back
@@ -497,7 +497,7 @@ of input. Here is a version _.for_ _the ASCII alphabet only._
 
     type(c) /* return type of ASCII character */
     int c;
-    (
+    {
         if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z')
 
         return (LETTER);
@@ -509,7 +509,7 @@ of input. Here is a version _.for_ _the ASCII alphabet only._
         else
 
         return(c);
-    )
+    }
 
 The symbolic constants LETTER and DIGIT can have any values that do
 not conflict with non-alphanumeric characters and EOF; the obvious choices
@@ -544,6 +544,7 @@ The external declaration of keytab need not change, but main and
 binary do need modification.
 
     main() /* count C keywords; pointer version */
+    {
 
     int t;
 
@@ -563,7 +564,8 @@ binary do need modification.
 
     if (p->keycount > 0)
 
-printf("%4d %s\n", p-\&gt;keycount, p-\&gt;keyword);
+    printf("%4d %s\n", p-&gt;keycount, p-&gt;keyword);
+    }
 
 [comment]: <> (page 129 , CHAPTER6 STRUCTURES 129 )
 
@@ -575,13 +577,15 @@ printf("%4d %s\n", p-\&gt;keycount, p-\&gt;keyword);
 
     int n;
 
+    {
+
     int cond;
 
     struct key *low = &tab[0];
      struct key *high = &tab[n-1];
      struct key *mid;
 
-    while (low <= high) (
+    while (low <= high) {
 
     mid = low + (high-low) / 2;
 
@@ -596,8 +600,9 @@ printf("%4d %s\n", p-\&gt;keycount, p-\&gt;keyword);
     else
 
     return (mid);
-
+    }
     return (NULL)
+    }
 
 There are several things worthy of note here. First, the declaration of
 binary must indicate that it returns a pointer to the structure type key,
