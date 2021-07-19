@@ -28,7 +28,7 @@ gcc -ansi c_079_01.c
 # Chapter 5
 gcc -ansi c_097_01.c
 gcc -ansi c_106_01.c
-gcc -ansi c_107_01.c
+# gcc -ansi c_107_01.c
 gcc -ansi c_111_01.c
 gcc -ansi c_111_02.c
 gcc -ansi c_111_03.c
