@@ -18,27 +18,22 @@ bigger than many of the others in the book, but still of modest size.
 6.1 Basics
 ----------
 
-Let us revisit the date conversion routines of Chapter 5. A date consists
+Let us revisit the date conversion routines of [Chapter 5](chap05.md). A date consists
 of several parts, such as the day, month, and year, and perhaps the day of
 the year and the month name. These five variables can all be placed into a
 single structure like this:
 
     struct date {
-
         int day;
-
         int month;
-
         int year;
-
         int yearday;
-
         char mon_name[4];
     };
 
 The keyword `struct` introduces a structure declaration, which is a list
 of declarations enclosed in braces. An optional name called a _structure tag_
-may follow the word `struct` (as with date here). The tag names this
+may follow the word `struct` (as with `date` here). The tag names this
 kind of structure, and can be used subsequently as a shorthand for the
 detailed declaration.
 
@@ -59,7 +54,7 @@ is syntactically analogous to
 
     int x, y, z;
 
-in the sense that each statement declares x, y and z to be variables of the
+in the sense that each statement declares `x`, `y` and `z` to be variables of the
 named type and causes space to be allocated for them.
 
 A structure declaration that is not followed by a list of variables allocates
@@ -70,19 +65,19 @@ date above,
 
     struct date d;
 
-defines a variable `d` which is a structure of type date. An external or static
+defines a variable `d` which is a structure of type `date`. An external or static
 structure can be initialized by following its definition with a list of initializers
-    for the components:
+for the components:
 
     struct date d = { 14, 7, 1776, 186, "Jul" };
 
 A member of a particular structure is referred to in an expression by a
-    construction of the form
+construction of the form
 
-_structure __-__ name. member_
+    structure-name . member
 
 The structure member operator `.` connects the structure name and the
-member name. To set leap from the the date in structure `d`, for example
+member name. To set `leap` from the the date in structure `d`, for example    
 
     leap = d.year % 4 == 0 && d.year % 100 != 0 || d.year % 400 == 0;
 
@@ -99,19 +94,12 @@ Structures can be nested; a payroll record might actually look like
 [comment]: <> (page 121 , CHAPTER6 STRUCTURES 121 )
 
     struct person {
-
         char name[NAMESIZE];
-
         char address[ADRSIZE];
-
         long zipcode;
-
         long ss_number;
-
         double salary;
-
         struct date birthdate;
-
         struct date hiredate;
     };
 
@@ -133,12 +121,14 @@ There are a number of restrictions on C structures. The essential rules
 are that the only operations that you can perform on a structure are take its
 address with &amp;, and access one of its members. This implies that structures
 may not be assigned to or copied as a unit, and that they can not be passed
-to or returned from functions. (These restrictions will be removed in forthcoming versions.) Pointers to structures do not suffer these limitations,
+to or returned from functions. (These restrictions will be removed in
+forthcoming versions.) Pointers to structures do not suffer these limitations,
 however, so structures and functions do work together comfortably. Finally,
 automatic structures, like automatic arrays, cannot be initialized; only external or static structures can.
 
 Let us investigate some of these points by rewriting the date conversion
-functions of the last chapter to use structures. Since the rules prohibit passing a structure to a function directly, we must either pass the components
+functions of the last chapter to use structures. Since the rules prohibit passing a
+structure to a function directly, we must either pass the components
 separately, or pass a pointer to the whole thing. The first alternative uses
 `day_of_year` as we wrote it in [Chapter 5](chap05.md):
 
@@ -148,7 +138,7 @@ The other way is to pass a pointer. If we have declared `hiredate` as
 
     struct date hiredate;
 
-and re-written day_of_year, we can then say
+and re-written `day_of_year`, we can then say
 
     hiredate.yearday = day_of_year(&hiredate);
 
@@ -160,17 +150,12 @@ modified because its argument is now a pointer rather than a list of variables.
     day_of_year(pd) /* set day of year from month, day */
     struct date *pd;
     {
-
         int i, day, leap;
 
         day = pd—>day;
-
         leap = pd—>year % 4 == 0 && pd—>year % 100 != 0 || pd—>year % 400 == 0;
-
         for (i = 1; i < pd—>month; i++)
-
             day += day_tab[leap][i];
-
         return (day);
     }
 
@@ -178,60 +163,51 @@ The declaration
 
     struct date *pd;
 
-says that pd is a pointer to a structure of type `date`. The notation
+says that `pd` is a pointer to a structure of type `date`. The notation
 exemplified by
 
     pd—>year
 
-is new. If p is a pointer to a structure, then
+is new. If `p` is a pointer to a structure, then
 
-`p—>member-of-structure`
+    p—>member-of-structure
 
 refers to the particular member. (The operator `—>` is a minus sign followed
 by >)
 
-Since pd points to the structure, the year member could also be
+Since `pd` points to the structure, the year member could also be
 referred to as
 
     (*pd).year
 
-but pointers to structures are so frequently used that the `—>` notation is provided as a convenient shorthand. The parentheses are necessary in
+but pointers to structures are so frequently used that the `—>` notation is
+provided as a convenient shorthand. The parentheses are necessary in
 `(*pd) .year` because the precedence of the structure member operator `.` is
 higher than `*`. Both `—>` and `.` associate from left to right, so
 
     p—>q—>memb
-
     emp.birthdate.month
 
 are
 
     (p—>q)—>memb
-
     (emp.birthdate).month
+
+[comment]: <> (page 123 , CHAPTER 6 STRUCTURES 123 )
 
 For completeness here is the other function, `month_day`, rewritten to
 use the structure.
 
-[comment]: <> (page 123 , CHAPTER 6 STRUCTURES 123 )
-
     month_day(pd) /* set month and day from day of year */
-
     struct date *pd;
-
     {
-
         int i, leap;
 
         leap = pd—>year % 4 == 0 && pd—>year % 100 != 0 || pd—>year % 400 == 0;
-
         pd—>day = pd—>yearday;
-
         for (i = 1; pd—>day > day_tab[leap][i]; i++)
-
             pd—>day -= day_tab[leap][i];
-
         pd—>month = i;
-
     }
 
 The structure operators `—>` and `.` , together with `( )` for argument lists
@@ -239,11 +215,8 @@ and `[]` for subscripts, are at the top of the precedence hierarchy and thus
 bind very tightly. For example, given the declaration
 
     struct {
-
         int x;
-
         int *Y;
-
     } *P;
 
 then
@@ -280,22 +253,16 @@ But the very fact that the arrays are parallel indicates that a different organi
 and there is an array of pairs. The structure declaration
 
     struct key {
-
         char *keyword;
-
         int keycount;
-
     } keytab[NKEYS);
 
 defines an array `keytab` of structures of this type, and allocates storage to
 them. Each element of the array is a structure. This could also be written
 
     struct key {
-
         char *keyword;
-
         int keycount;
-
     };
 
     struct key keytab[NKEYS];
@@ -306,29 +273,19 @@ initialization is quite analogous to earlier ones — the definition is followed
 by a list of initializers enclosed in braces:
 
     struct key {
-
         char *keyword;
-
         int keycount;
-
      } keytab[] = {
-
             "break", 0,
-
             "case", 0,
-
             "char", 0,
-
             "continue", 0,
-
             "default", 0,
 
              /* ... */
 
             "unsigned", 0,
-
              "while", 0
-
       };
 
 The initializers are listed in pairs corresponding to the structure members.
@@ -338,9 +295,10 @@ in braces, as in
     { "break", 0 },
     { "case", 0 },
 
-    . . .
+    ...
 
-but the inner braces are not necessary when the initializers are simple variables or character strings, and when all are present. As usual, the compiler
+but the inner braces are not necessary when the initializers are simple variables
+or character strings, and when all are present. As usual, the compiler
 will compute the number of entries in the array `keytab` if initializers are
 present and the [] is left empty.
 
@@ -358,61 +316,38 @@ order for this to work.)
     main() /* count C keywords */
 
     {
-
         int n, t;
-
         char word[MAXWORD];
 
         while ((t = getword (word, MAXWORD)) != EOF)
-
             if (t == LETTER)
-
                 if ((n = binary(word, keytab, NKEYS)) >= 0)
-
                     keytab[n].keycount++;
 
         for (n = 0; n < NKEYS; n++)
-
             if (keytab[n].keycount > 0)
-
                 printf("%4d %s\n",keytab[n].keycount, keytab[n].keyword);
 
     }
 
     binary(word, tab, n) /* find word in tab[0]...tab[n-1] */
-
     char *word;
-
     struct key tab[];
-
     int n;
-
     {
-
         int low, high, mid, cond;
 
         low = 0;
-
         high = n - 1;
-
         while (low <= high) {
-
             mid = (low+high) / 2;
-
             if ((cond = strcmp(word, tab[mid].keyword)) < 0)
-
                 high = mid - 1;
-
             else if (cond > 0)
-
                 low = mid + 1;
-
             else
-
                 return (mid);
-
         }
-
         return(-1);
     }
 
@@ -422,93 +357,82 @@ its first argument.
 
 [comment]: <> (page 126 , 126 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
 
-The quantity NKEYS is the number of keywords in keytab. Although
+The quantity `NKEYS` is the number of keywords in keytab. Although
 we could count this by hand, it's a lot easier and safer to do it by machine,
-especially if the list is subject to change. One possibility would be to terminate the list of initializers with a null pointer, then loop along keytab
+especially if the list is subject to change. One possibility would be to terminate
+the list of initializers with a null pointer, then loop along `keytab`
 until the end is found.
 
 But this is more than is needed, since the size of the array is completely
 determined at compile time. The number of entries is just
 
-_size of_ keytab _/ size of_ struct key
+    size of keytab / size of struct key
 
-C provides a compile-time unary operator called sizeof which can be used
+C provides a compile-time unary operator called `sizeof` which can be used
 to compute the size of any object. The expression
 
-    sizeof _(object)_
+    sizeof (object)
 
 yields an integer equal to the size of the specified object. (The size is given
 in unspecified units called "bytes," which are the same size as a char.)
 The object can be an actual variable or array or structure, or the name of a
-basic type like int or double, or the name of a derived type like a structure. In our case, the number of keywords is the array size divided by the
-size of one array element. This computation is used in a #define statement to set the value of NKEYS:
+basic type like `int` or `double`, or the name of a derived type like a
+structure. In our case, the number of keywords is the array size divided by the
+size of one array element. This computation is used in a `#define` statement
+to set the value of `NKEYS`:
 
     #define NKEYS (sizeof(keytab) / sizeof(struct key))
 
-Now for the function getword. We have actually written a more general getword than is necessary for this program, but it is not really much
-more complicated. getword returns the next "word" from the input,
+Now for the function `getword`. We have actually written a more general `getword`
+than is necessary for this program, but it is not really much
+more complicated. `getword` returns the next "word" from the input,
 where a word is either a string of letters and digits beginning with a letter,
 or a single character. The type of the object is returned as a function value;
-it is LETTER if the token is a word, EOF for end of file, or the character
+it is `LETTER` if the token is a word, `EOF` for end of file, or the character
 itself if it is non-alphabetic.
 
 [comment]: <> (page 127 , CHAPTER6 STRUCTURES 127 )
 
     getword(w, lim) /* get next word from input */
-
     char *w;
-
     int lim;
     {
         int c, t;
-
         if (type(c = *w++ = getch()) != LETTER) {
-
             *w = '\0';
-
             return(c);
 
         }
 
         while (--lim > 0) {
-
             t = type(c = *w++ = getch());
-
             if (t != LETTER && t != DIGIT) {
-
                 ungetch(c);
-
                 break;
-
             }
-
-        *(w-1) = '\0';
-
-        return (LETTER);
+            *(w-1) = '\0';
+            return (LETTER);
         }
     }
-getword uses the routines getch and ungetch which we wrote in
-[Chapter 4](chap04.md) : when the collection of an alphabetic token stops, getword has
-gone one character too far. The call to ungetch pushes that character back
+
+`getword` uses the routines `getch` and `ungetch` which we wrote in
+[Chapter 4](chap04.md): when the collection of an alphabetic token stops, `getword has
+gone one character too far. The call to `ungetch` pushes that character back
 on the input for the next call.
 
-getword calls type to determine the type of each individual character
-of input. Here is a version _.for_ _the ASCII alphabet only._
+`getword` calls type to determine the type of each individual character
+of input. Here is a version _for the ASCII alphabet only._
 
     type(c) /* return type of ASCII character */
     int c;
     {
         if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z')
-
-        return (LETTER);
+            return (LETTER);
 
         else if (c >= '0' && c <= '9')
-
-        return (DIGIT);
-
+            return (DIGIT);
         else
-
-        return(c);
+            return(c);
     }
 
 The symbolic constants LETTER and DIGIT can have any values that do
@@ -518,7 +442,7 @@ are
     #define LETTER 'a'
     #define DIGIT  '0'
 
-getword can be faster if calls to the function type are replaced by
+`getword` can be faster if calls to the function type are replaced by
 references to an appropriate array `type []`. The standard C library provides
 macros called `isalpha` and `isdigit` which operate in this manner.
 
@@ -540,29 +464,22 @@ To illustrate some of the considerations involved with pointers and
 arrays of structures, let us write the keyword-counting program again, this
 time using pointers instead of array indices.
 
-The external declaration of keytab need not change, but main and
-binary do need modification.
+The external declaration of `keytab` need not change, but `main` and
+`binary` do need modification.
 
     main() /* count C keywords; pointer version */
     {
+        int t;
+        char word[MAXWORD];
+        struct key *binary(), *p;
 
-    int t;
-
-    char word[MAXWORD];
-
-    struct key *binary(), *p;
-
-    while ((t = getword(word, MAXWORD)) != EOF)
-
-    if (t == LETTER)
-
-    if ((p=binary(word, keytab, NKEYS)) != NULL)
-
-    p->keycount++;
-
-    for (p = keytab; p < keytab + NKEYS; p++)
-
-    if (p->keycount > 0)
+        while ((t = getword(word, MAXWORD)) != EOF)
+            if (t == LETTER)
+                if ((p=binary(word, keytab, NKEYS)) != NULL)
+                    p->keycount++;
+        for (p = keytab; p < keytab + NKEYS; p++)
+            if (p->keycount > 0)
+                printf("%4d %s\n", p-&gt;keycount, p-&gt;keyword);
 
     printf("%4d %s\n", p->keycount, p->keyword);
     }
@@ -570,44 +487,32 @@ binary do need modification.
 [comment]: <> (page 129 , CHAPTER6 STRUCTURES 129 )
 
     struct key *binary(word, tab, n) /* find word */
-
     char *word; /* in tab[0]...tab[n-1] */
-
     struct key tab[];
-
     int n;
-
     {
+        int cond;
 
-    int cond;
+        struct key *low = &tab[0];
+        struct key *high = &tab[n-1];
+        struct key *mid;
 
-    struct key *low = &tab[0];
-     struct key *high = &tab[n-1];
-     struct key *mid;
-
-    while (low <= high) {
-
-    mid = low + (high-low) / 2;
-
-    if ((cond = strcmp(word, mid->keyword)) < 0)
-
-    high = mid - 1;
-
-    else if (cond > 0)
-
-    low = mid + 1;
-
-    else
-
-    return (mid);
-    }
-    return (NULL)
+        while (low <= high) {
+            mid = low + (high-low) / 2;
+            if ((cond = strcmp(word, mid->keyword)) < 0)
+                high = mid - 1;
+            else if (cond > 0)
+                low = mid + 1;
+            else
+                return (mid);
+        }
+        return (NULL)
     }
 
 There are several things worthy of note here. First, the declaration of
-binary must indicate that it returns a pointer to the structure type key,
-instead of an integer; this is declared both in main and in binary. If
-binary finds the word, it returns a pointer to it; if it fails, it returns NULL.
+`binary` must indicate that it returns a pointer to the structure type `key`,
+instead of an integer; this is declared both in `main` and in `binary`. If
+`binary` finds the word, it returns a pointer to it; if it fails, it returns `NULL`.
 
 Second, all the accessing of elements of keytab is done by pointers.
 This causes one significant change in binary: the computation of the middle element can no longer be simply
@@ -620,25 +525,24 @@ changed to
 
     mid = low + (high-low) / 2
 
-which sets mid to point to the element halfway between low and high.
+which sets `mid` to point to the element halfway between `low` and `high`.
 
-You should also study the initializers for low and high. It is possible
+You should also study the initializers for `low` and `high`. It is possible
 to initialize a pointer to the address of a previously defined object; that is
 precisely what we have done here.
 
-In main we wrote
+In `main` we wrote
 
     for (p = keytab; p < keytab + NKEYS; p++)
 
-If p is a pointer to a structure, any arithmetic on p takes into account the
-actual size of the structure, so p++ increments p by the correct amount to
-
 [comment]: <> (page 130 , 130 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
 
+If `p` is a pointer to a structure, any arithmetic on `p` takes into account the
+actual size of the structure, so `p++` increments `p` by the correct amount to
 get the next element of the array of structures. But don't assume that the
 size of a structure is the sum of the sizes of its members — because of
 alignment requirements for different objects, there may be "holes" in a
-    structure.
+structure.
 
 Finally, an aside on program format. When a function returns a complicated type, as in
 
@@ -687,29 +591,25 @@ only words which are less than the word at the node, and the right subtree
 contains only words that are greater. To find out whether a new word is
 already in the tree, one starts at the root and compares the new word to the
 word stored at that node. If they match, the question is answered
-affirmatively. If the new word is less than the tree word, the search continues at the left child; otherwise the right child is investigated. If there is no
+affirmatively. If the new word is less than the tree word, the search continues
+at the left child; otherwise the right child is investigated. If there is no
 child in the required direction, the new word is not in the tree, and in fact
-
-[comment]: <> (page 131 , CHAPTER 6 STRUCTURES 131 )
-
 the proper place for it to be is the missing child. This search process is
 inherently recursive, since the search from any node uses a search from one
 of its children. Accordingly recursive routines for insertion and printing will
 be most natural.
 
+[comment]: <> (page 131 , CHAPTER 6 STRUCTURES 131 )
+
 Going back to the description of a node, it is clearly a structure with
 four components:
 
-    struct tnode ( /* the basic node */
-
-    char *word; /* points to the text */
-
-    int count; /* number of occurrences */
-
-    struct tnode *left; /* left child */
-
-    struct tnode *right; /* right child */
-    ;
+    struct tnode { /* the basic node */
+        char *word; /* points to the text */
+        int count; /* number of occurrences */
+        struct tnode *left; /* left child */
+        struct tnode *right; /* right child */
+    }
 
 This "recursive" declaration of a node might look chancy, but it's actually
 quite correct. It is illegal for a structure to contain an instance of itself, but
@@ -719,14 +619,14 @@ quite correct. It is illegal for a structure to contain an instance of itself, b
 declares left to be a _pointer_ to a node, not a node itself.
 
 The code for the whole program is surprisingly small, given a handful of
-supporting routines that we have already written. These are getword, to
-fetch each input word, and alloc, to provide space for squirreling the
+supporting routines that we have already written. These are `getword`, to
+fetch each input word, and `alloc`, to provide space for squirreling the
 words away.
 
-The main routine simply reads words with getword and installs them
-in the tree with tree.
+The `main` routine simply reads words with `getword` and installs them
+in the tree with `tree`.
 
-#delime\_ MAXWORD 20
+    #define MAXWORD 20
 
     main() /* word frequency count */
 
@@ -738,78 +638,60 @@ level (the root) of the tree. At each stage, that word is compared to the
 word already stored at the node, and is percolated down to either the left or
 right subtree by a recursive call to tree. Eventually the word either
 matches something already in the tree (in which case the count is incremented), or a null pointer is encountered, indicating that a node must be
-
-[comment]: <> (page 132 , 132 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
-
 created and added to the tree. If a new node is created, tree returns a
 pointer to it, which is installed in the parent node.
 
+[comment]: <> (page 132 , 132 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
+
     struct tnode *tree(p, w) /* install w at or below P */
 
-    struct tnode *p;
+        struct tnode *p;
+        char *w;
 
-    char *w;
-
-(
-
+    {
     struct tnode *talloc();
-
     char *strsave();
-
     int cond;
-
     if (p == NULL) ( /* a new word has arrived */
-
     p = talloc(); /* make a new node */
-
     p->word = strsave(w);
-
     p->count = 1;
-
     p->left = p->right = NULL;
-
     ) else if ((cond = strcmp(w, p->word)) == 0)
-
     p->count++; /* repeated word */
-
     else if (cond < 0) /* lower goes into left subtree */
-
     p->left = tree(p->left, w);
-
     else /* greater into right subtree */
-
     p->right = tree(p->right, w);
-
     return (p);
+    }
 
-)
-
-Storage for the new node is fetched by a routine talloc, which is an
-adaptation of the alloc we wrote earlier. It returns a pointer to a free
+Storage for the new node is fetched by a routine `talloc`, which is an
+adaptation of the `alloc` we wrote earlier. It returns a pointer to a free
 space suitable for holding a tree node. (We will discuss this more in a
 moment.) The new word is copied to a hidden place by strsave, the count
 is initialized, and the two children are made null. This part of the code is
 executed only at the edge of the tree, when a new node is being added. We
 have (unwisely for a production program) omitted error checking on the
-values returned by strsave and talloc.
+values returned by strsave and `talloc`.
 
-treeprint prints the tree in left subtree order; at each node, it prints
+`treeprint` prints the tree in left subtree order; at each node, it prints
 the left subtree (all the words less than this word), then the word itself,
-then the right subtree (all the words greater). If you feel shaky about recursion, draw yourself a tree and print it with treeprint; it's one of the
+then the right subtree (all the words greater). If you feel shaky about
+recursion, draw yourself a tree and print it with `treeprint`; it's one of the
 cleanest recursive routines you can find.
 
 [comment]: <> (page 133 , CHAPTER 6 STRUCTURES 133 )
 
     treeprint(p) /* print tree p recursively */
     struct tnode *p;
-
-    if (p != NULL) (
-
-    treeprint(p->left);
-
-printf("%4d %s\n", p->count, p->word);
-
-    treeprint(p->right);
+    {
+        if (p != NULL) {
+            treeprint(p->left);
+            printf("%4d %s\n", p->count, p->word);
+            treeprint(p->right);
+        }
+    }
 
 A practical note: if the tree becomes "unbalanced" because the words
 don't arrive in random order, the running time of the program can grow too
@@ -823,24 +705,25 @@ problem related to storage allocators. Clearly it's desirable that there be
 only one storage allocator in a program, even though it allocates different
 kinds of objects. But if one allocator is to process requests for, say, pointers
 to char's and pointers to struct tnode's, two questions arise. First,
-how does it meet the requirement of most real machines that objects of certain types must satisfy alignment restrictions (for example, integers often
+how does it meet the requirement of most real machines that objects of certain
+types must satisfy alignment restrictions (for example, integers often
 must be located on even addresses)? Second, what declarations can cope
-with the fact that alloc necessarily returns different kinds of pointers?
+with the fact that `alloc` necessarily returns different kinds of pointers?
 
 Alignment requirements can generally be satisfied easily, at the cost of
 some wasted space, merely by ensuring that the allocator always returns a
 pointer that meets _all_ alignment restrictions. For example, on the PDP-11 it
-is sufficient that alloc always return an even pointer, since any type of
+is sufficient that `alloc` always return an even pointer, since any type of
 object may be stored at an even address. The only cost is a wasted character
 on odd-length requests. Similar actions are taken on other machines. Thus
-the implementation of alloc may not be portable, but the usage is. The
-alloc of Chapter 5 does not guarantee any particular alignment; in Chapter
-8 we will show how to do the job right.
+the implementation of `alloc` may not be portable, but the usage is. The
+`alloc` of [Chapter 5](chap05.md) does not guarantee any particular
+alignment; in [Chapter 8](chap08.md) we will show how to do the job right.
 
-The question of the type declaration for alloc is a vexing one for any
+The question of the type declaration for `alloc` is a vexing one for any
 language that takes its type-checking seriously. In C, the best procedure is
-to declare that alloc returns a pointer to char, then explicitly coerce the
-pointer into the desired type with a cast. That is, if p is declared as
+to declare that `alloc` returns a pointer to char, then explicitly coerce the
+pointer into the desired type with a cast. That is, if `p` is declared as
 
     char *p;
 
@@ -848,13 +731,13 @@ then
 
     (struct tnode *) p
 
-converts it into a tnode pointer in an expression. Thus talloc is written
+converts it into a `tnode` pointer in an expression. Thus `talloc` is written
 
 [comment]: <> (page 134 , 134 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
 
 as
 
-    ttruct tnode *tallod()
+    struct tnode *talloc()
 
     char *alloc();
 
@@ -1009,10 +892,10 @@ any reason there is no room for a new entry.
 I
 
 strsave merely copies the string given by its argument into a safe
-place, obtained by a call on alloc. We showed the code in Chapter 5.
-Since calls to alloc and free may occur in any order, and since alignment
-matters, the simple version of alloc in Chapter 5 is not adequate here; see
-Chapters 7 and 8.
+place, obtained by a call on `alloc`. We showed the code in [Chapter 5](chap05.md).
+Since calls to `alloc` and `free` may occur in any order, and since alignment
+matters, the simple version of `alloc` in [Chapter 5](chap05.md) is not adequate here; see
+[Chapters 7](chap07.md) and [8](chap08.md).
 
 **Exercise 6-7.** Write a routine which will remove a name and definition from
 the table maintained by lookup and install. El
@@ -1046,7 +929,7 @@ to the relevant bit positions, as in
 
 (The numbers must be powers of two.) Then accessing the bits becomes a
 matter of "bit-fiddling" with the shifting, masking, and complementing
-operators which were described in Chapter 2.
+operators which were described in [Chapter 2](chap02.md).
 
 Certain idioms appear frequently:
 
@@ -1219,19 +1102,19 @@ taking the address; unions may not be assigned to, passed to functions, or
 returned by functions. Pointers to unions can be used in a manner identical
 to pointers to structures.
 
-The storage allocator in Chapter 8 shows how a union can be used to
+The storage allocator in [Chapter 8](chap08.md) shows how a union can be used to
 force a variable to be aligned on a particular kind of storage boundary.
 
 6.9 Typedef
 -----------
 
-C provides a facility called typedef for creating new data type names.
+C provides a facility called `typedef` for creating new data type names.
 For example, the declaration
 
     typedef int LENGTH;
 
-makes the name LENGTH a synonym for int. The "type" LENGTH can be
-used in declarations, casts, etc., in exactly the same ways that the type int
+makes the name `LENGTH` a synonym for `int`. The "type" `LENGTH` can be
+used in declarations, casts, etc., in exactly the same ways that the type `int`
 can be:
 
     LENGTH len, maxlen;
@@ -1242,13 +1125,14 @@ Similarly, the declaration
 
     typedef char *STRING;
 
-makes STRING a synonym for char \* or character pointer, which may
+makes `STRING` a synonym for `char *` or character pointer, which may
 then be used in declarations like
 
     STRING p, lineptr[LINES], alloc();
 
-Notice that the type being declared in a typedef appears in the position of a variable name, not right after the word typedef. Syntactically,
-typedef is like the storage classes extern, static, etc. We have also
+Notice that the type being declared in a `typedef` appears in the position of a variable name,
+not right after the word `typedef`. Syntactically,
+`typedef` is like the storage classes `extern`, `static`, etc. We have also
 used upper case letters to emphasize the names.
 
 As a more complicated example, we could make typedef's for the tree
@@ -1265,8 +1149,8 @@ nodes shown earlier in this chapter:
     struct tnode *right; /* right child */
     ) TREENODE, *TREEPTR;
 
-This creates two new type keywords called TREENODE (a structure) and
-TREEPTR (a pointer to the structure). Then the routine talloc could
+This creates two new type keywords called `TREENODE` (a structure) and
+`TREEPTR` (a pointer to the structure). Then the routine `talloc` could
 
 [comment]: <> (page 141 , CHAPTER 6 STRUCTURES 141 )
 
@@ -1278,12 +1162,13 @@ become
 
     return((TREEPTR) alloc(sizeof(TREENODE)));
 
-It must be emphasized that a typedef declaration does not create a
+It must be emphasized that a `typedef` declaration does not create a
 new type in any sense; it merely adds a new name for some existing type.
 Nor are there any new semantics: variables declared this way have exactly
 the same properties as variables whose declarations are spelled out explicitly.
-In effect, typedef is like #define, except that since it is interpreted by
-the compiler, it can cope with textual substitutions that are beyond the capabilities of the C macro preprocessor. For example,
+In effect, `typedef` is like `#define`, except that since it is interpreted by
+the compiler, it can cope with textual substitutions that are beyond
+the capabilities of the C macro preprocessor. For example,
 
     typedef int (*PFI)();
 
@@ -1292,13 +1177,13 @@ used in contexts like
 
     PFI strcmp, numcmp, swap;
 
-in the sort program of Chapter 5.
+in the sort program of [Chapter 5](chap05.md).
 
-There are two main reasons for using typedef declarations. The first
+There are two main reasons for using `typedef` declarations. The first
 is to parameterize a program against portability problems. If typedef's are
 used for data types which may be machine dependent, only the typedef's
 need change when the program is moved. One common situation is to use
-    typedef names for various integer quantities, then make an appropriate set
+`typedef` names for various integer quantities, then make an appropriate set
 of choices of short, int and long for each host machine.
 
 The second purpose of typedef's is to provide better documentation
@@ -1307,4 +1192,4 @@ one declared only as a pointer to a complicated structure.
 
 Finally, there is always the possibility that in the future the compiler or
 some other program such as _lint_ may make use of the information contained
-in typedef declarations to perform some extra checking of a program.
+in `typedef` declarations to perform some extra checking of a program.
