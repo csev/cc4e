@@ -2,10 +2,6 @@
 TODO
 ----
 
-Underline the chapter title with '===='.  Underline sub-chapters like "1.10 Scope ..." with "-----".
-
-Bold the "Exercise 1-17" bits.
-
 Switch all variables mentioned in the narrative to back-quote (markdown style).
 
 Enclose all reserved words like `if`, `for`, `while`, `int`, `float`, etc. in back-quotes.
