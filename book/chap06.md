@@ -564,7 +564,7 @@ binary do need modification.
 
     if (p->keycount > 0)
 
-    printf("%4d %s\n", p-&gt;keycount, p-&gt;keyword);
+    printf("%4d %s\n", p->keycount, p->keyword);
     }
 
 [comment]: <> (page 129 , CHAPTER6 STRUCTURES 129 )
@@ -807,7 +807,7 @@ cleanest recursive routines you can find.
 
     treeprint(p->left);
 
-printf("%4d %s\n", p-\&gt;count, p-\&gt;word);
+printf("%4d %s\n", p->count, p->word);
 
     treeprint(p->right);
 
@@ -952,7 +952,7 @@ entry already present, it returns a pointer to it; if not, it returns NULL.
 
     struct nlist *np;
 
-for (np = hashtab[hash(s)]; np != NULL; np = np-\&gt;next)
+for (np = hashtab[hash(s)]; np != NULL; np = np->next)
     if (strcmp(s, np->name) == 0)
 
     return(np); /* found it */
@@ -1156,7 +1156,7 @@ _union __-__ name, member_
 
 or
 
-_union __-__ pointer __—__ \&gt; member_
+_union __-__ pointer __—__ > member_
 
 just as for structures. If the variable utype is used to keep track of the
 current type stored in uval, then one might see code such as
