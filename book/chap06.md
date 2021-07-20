@@ -18,27 +18,22 @@ bigger than many of the others in the book, but still of modest size.
 6.1 Basics
 ----------
 
-Let us revisit the date conversion routines of Chapter 5. A date consists
+Let us revisit the date conversion routines of [Chapter 5](chap05.md). A date consists
 of several parts, such as the day, month, and year, and perhaps the day of
 the year and the month name. These five variables can all be placed into a
 single structure like this:
 
-    struct date {
-
-        int day;
-
-        int month;
-
-        int year;
-
-        int yearday;
-
-        char mon_name[4];
-    };
+        struct date {
+            int day;
+            int month;
+            int year;
+            int yearday;
+            char mon_name[4];
+        };
 
 The keyword `struct` introduces a structure declaration, which is a list
 of declarations enclosed in braces. An optional name called a _structure tag_
-may follow the word `struct` (as with date here). The tag names this
+may follow the word `struct` (as with `date` here). The tag names this
 kind of structure, and can be used subsequently as a shorthand for the
 detailed declaration.
 
@@ -53,13 +48,13 @@ names only for closely related objects.
 The right brace that terminates the list of members may be followed by
 a list of variables, just as for any basic type. That is,
 
-    struct { ... } x, y, z;
+        struct { ... } x, y, z;
 
 is syntactically analogous to
 
-    int x, y, z;
+        int x, y, z;
 
-in the sense that each statement declares x, y and z to be variables of the
+in the sense that each statement declares `x`, `y` and `z` to be variables of the
 named type and causes space to be allocated for them.
 
 A structure declaration that is not followed by a list of variables allocates
@@ -68,31 +63,31 @@ declaration is tagged, however, the tag can be used later in definitions of
 actual instances of the structure. For example, given the declaration of
 date above,
 
-    struct date d;
+        struct date d;
 
-defines a variable `d` which is a structure of type date. An external or static
+defines a variable `d` which is a structure of type `date`. An external or static
 structure can be initialized by following its definition with a list of initializers
     for the components:
 
-    struct date d = { 14, 7, 1776, 186, "Jul" };
+        struct date d = { 14, 7, 1776, 186, "Jul" };
 
 A member of a particular structure is referred to in an expression by a
     construction of the form
 
-_structure __-__ name. member_
+        structure-name . member
 
 The structure member operator `.` connects the structure name and the
-member name. To set leap from the the date in structure `d`, for example    
+member name. To set `leap` from the the date in structure `d`, for example    
 
-    leap = d.year % 4 == 0 && d.year % 100 != 0 || d.year % 400 == 0;
+        leap = d.year % 4 == 0 && d.year % 100 != 0 || d.year % 400 == 0;
 
 or to check the month name,
 
-    if (strcmp(d.mon_name, "Aug") == 0) ...
+        if (strcmp(d.mon_name, "Aug") == 0) ...
 
 or to convert the first character of the month name to lower case,
 
-    d.mon_name[0] = lower(d.mon_name[0]);
+        d.mon_name[0] = lower(d.mon_name[0]);
 
 Structures can be nested; a payroll record might actually look like
 
@@ -215,9 +210,9 @@ use the structure.
 [comment]: <> (page 123 , CHAPTER 6 STRUCTURES 123 )
 
     month_day(pd) /* set month and day from day of year */
-    
+
     struct date *pd;
-    
+
     {
 
         int i, leap;
@@ -231,7 +226,7 @@ use the structure.
             pd—>day -= day_tab[leap][i];
 
         pd—>month = i;
-    
+
     }
 
 The structure operators `—>` and `.` , together with `( )` for argument lists
@@ -241,7 +236,7 @@ bind very tightly. For example, given the declaration
     struct {
 
         int x;
-        
+
         int *Y;
 
     } *P;
@@ -280,11 +275,11 @@ But the very fact that the arrays are parallel indicates that a different organi
 and there is an array of pairs. The structure declaration
 
     struct key {
-        
+
         char *keyword;
-        
+
         int keycount;
-     
+
     } keytab[NKEYS);
 
 defines an array `keytab` of structures of this type, and allocates storage to
@@ -308,9 +303,9 @@ by a list of initializers enclosed in braces:
     struct key {
 
         char *keyword;
-       
+
         int keycount;
-     
+
      } keytab[] = {
 
             "break", 0,
@@ -320,15 +315,15 @@ by a list of initializers enclosed in braces:
             "char", 0,
 
             "continue", 0,
-            
+
             "default", 0,
 
              /* ... */
 
             "unsigned", 0,
-             
+
              "while", 0
-        
+
       };
 
 The initializers are listed in pairs corresponding to the structure members.
@@ -356,7 +351,7 @@ order for this to work.)
     #define MAXWORD 20
 
     main() /* count C keywords */
-    
+
     {
 
         int n, t;
@@ -378,7 +373,7 @@ order for this to work.)
                 printf("%4d %s\n",keytab[n].keycount, keytab[n].keyword);
 
     }
-    
+
     binary(word, tab, n) /* find word in tab[0]...tab[n-1] */
 
     char *word;
@@ -386,7 +381,7 @@ order for this to work.)
     struct key tab[];
 
     int n;
-    
+
     {
 
         int low, high, mid, cond;
@@ -410,7 +405,7 @@ order for this to work.)
             else
 
                 return (mid);
-        
+
         }
 
         return(-1);
@@ -487,7 +482,7 @@ itself if it is non-alphabetic.
     return (LETTER);
 
 getword uses the routines getch and ungetch which we wrote in
-Chapter 4: when the collection of an alphabetic token stops, getword has
+[Chapter 4](chap04.md): when the collection of an alphabetic token stops, getword has
 gone one character too far. The call to ungetch pushes that character back
 on the input for the next call.
 
@@ -827,8 +822,7 @@ is sufficient that alloc always return an even pointer, since any type of
 object may be stored at an even address. The only cost is a wasted character
 on odd-length requests. Similar actions are taken on other machines. Thus
 the implementation of alloc may not be portable, but the usage is. The
-alloc of Chapter 5 does not guarantee any particular alignment; in Chapter
-8 we will show how to do the job right.
+alloc of [Chapter 5](chap05.md) does not guarantee any particular alignment; in [Chapter 8](chap08.md) we will show how to do the job right.
 
 The question of the type declaration for alloc is a vexing one for any
 language that takes its type-checking seriously. In C, the best procedure is
@@ -1002,10 +996,10 @@ any reason there is no room for a new entry.
 I
 
 strsave merely copies the string given by its argument into a safe
-place, obtained by a call on alloc. We showed the code in Chapter 5.
+place, obtained by a call on alloc. We showed the code in [Chapter 5](chap05.md).
 Since calls to alloc and free may occur in any order, and since alignment
-matters, the simple version of alloc in Chapter 5 is not adequate here; see
-Chapters 7 and 8.
+matters, the simple version of alloc in [Chapter 5](chap05.md) is not adequate here; see
+[Chapters 7](chap07.md) and [8](chap08.md).
 
 **Exercise 6-7.** Write a routine which will remove a name and definition from
 the table maintained by lookup and install. El
@@ -1039,7 +1033,7 @@ to the relevant bit positions, as in
 
 (The numbers must be powers of two.) Then accessing the bits becomes a
 matter of "bit-fiddling" with the shifting, masking, and complementing
-operators which were described in Chapter 2.
+operators which were described in [Chapter 2](chap02.md).
 
 Certain idioms appear frequently:
 
@@ -1212,7 +1206,7 @@ taking the address; unions may not be assigned to, passed to functions, or
 returned by functions. Pointers to unions can be used in a manner identical
 to pointers to structures.
 
-The storage allocator in Chapter 8 shows how a union can be used to
+The storage allocator in [Chapter 8](chap08.md) shows how a union can be used to
 force a variable to be aligned on a particular kind of storage boundary.
 
 6.9 Typedef
@@ -1285,7 +1279,7 @@ used in contexts like
 
     PFI strcmp, numcmp, swap;
 
-in the sort program of Chapter 5.
+in the sort program of [Chapter 5](chap05.md).
 
 There are two main reasons for using typedef declarations. The first
 is to parameterize a program against portability problems. If typedef's are
