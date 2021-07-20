@@ -60,7 +60,7 @@ a specific example, on the UNIX operating system you must create the
 source program in a file whose name ends in ".c", such as `hello.c`, then
 compile it with the command
 
-    cc hello.c
+    CC hello.c
 
 If you haven't botched anything, such as omitting a character or misspelling
 something, the compilation will proceed silently, and make an executable
@@ -143,9 +143,9 @@ well have been written
 to produce an identical output.
 
 Notice that `\n` represents only a single character. An _escape sequence_
-like `\n` provides a general and extensible mechanism for representing
-hard-to-get or invisible characters. Among the others that C provides are `\t`
-for tab, `\b` for backspace, `\"` for the double quote, and `\\` for the
+like `\n` provides a general and extensible mechanism for representing 
+hard-to-get or invisible characters. Among the others that C provides are `\t` 
+for tab, `\b` for backspace, `\"` for the double quote, and `\\` for the 
 backslash itself.
 
 **Exercise 1-2.** Experiment to find out what happens when printf's
@@ -200,7 +200,7 @@ of both `int` and `float` depends on the particular machine you are using.
 On the PDP-11, for instance, an `int` is a 16-bit signed number, that is, one
 which lies between —32768 and +32767. A `float` number is a 32-bit
 quantity, which amounts to about seven significant digits, with magnitude
-between about 10<sup>-38</sup> and 10<sup>+38</sup>. [Chapter 2](chap02.md) lists sizes for other machines.
+between about 10-38 and 10+38. [Chapter 2](chap02.md) lists sizes for other machines.
 
 [comment]: <> (note n_009_01.md)
 
@@ -310,7 +310,7 @@ in. For instance, in the statement
 the conversion specification `%4.0f` says that a floating point number is to be
 printed in a space at least four characters wide, with no digits after the
 decimal point. `%6.1f` describes another number to occupy at least six
-spaces, with 1 digit after the decimal point, analogous to the `F6.1` of Fortran or the `F(6,1)` of PL/I. Parts
+spaces, with 1 digit after the decimal point, analogous to the `F6.1` of Fortran or the `F **(6,1)**` of PL/I. Parts
 of a specification may be omitted: `%6f`
 says that the number is to be at least six characters wide; `%.2f` requests two
 places after the decimal point, but the width is not constrained; and `%f`
@@ -492,7 +492,7 @@ only one thing in the program depends on the specific numeric value.
 
 We also declare `c` to be an `int`, not a `char`, so it can hold the value
 which `getchar` returns. As we shall see in [Chapter 2](chap02.md), this value is actually
-an `int`, since it must be capable of representing `EOF` in addition to all possible `char`'s.
+an `int`, since it must be capable of representing `EOF` in addition to all possible char's.
 
 [comment]: <> (page 15 , CHAPTER I A TUTORIAL INTRODUCTION 15 )
 
@@ -565,7 +565,7 @@ synonymous and much larger. The conversion specification `%ld` signals to
 [comment]: <> (note n_016_01.md)
 
 To cope with even bigger numbers, you can use a `double` (double
-length `float`). We will also use a `for` statement instead of a `while`, to
+length float). We will also use a `for` statement instead of a `while`, to
 illustrate an alternative way to write the loop.
 
 [comment]: <> (code c_016_02.c)
@@ -584,7 +584,7 @@ to make it more visible.
 Before we leave the character counting program, observe that if the
 input contains no characters, the `while` or `for` test fails on the very first
 call to `getchar`, and so the program produces zero, the right answer. This
-is an important observation. One of the nice things about `while` and `for`
+is an important observation. One of the nice things about while and for
 is that they test at the _top_ of the loop, before proceeding with the body. If
 there is nothing to do, nothing is done, even if that means never going
 through the loop body. Programs should act intelligently when handed input
@@ -615,11 +615,11 @@ Any single character can be written between single quotes, to produce a
 value equal to the numerical value of the character in the machine's character set;
 this is called a _character constant._ So, for example, `'A'` is a character constant;
 in the ASCII character set its value is 65, the internal representation of the character
-`A`. Of course `'A'` is to be preferred over `65`: its
+A. Of course `'A'` is to be preferred over `65`: its
 meaning is obvious, and it is independent of a particular character set.
 
 The escape sequences used in character strings are also legal in character
-constants, so in tests and arithmetic expressions, `'\n'` stands for the value
+constants, so in tests and arithmetic expressions, `\n` stands for the value
 of the newline character. You should note carefully that `'\n'` is a single
 character, and in expressions is equivalent to a single integer; on the other
 hand, `"\n"` is a character string which happens to contain only one character.
@@ -637,8 +637,8 @@ string of one or more blanks by a single blank.
 [comment]: <> (todo - redo this exercise so it works on non-printer)
 
 **Exercise 1-8.** Write a program to replace each tab by the three-character
-sequence &gt;, _backspace, —,_ which prints as &gt;, and each backspace by the
-similar sequence &lt;. This makes tabs and backspaces visible.
+sequence \&gt;, _backspace, —,_ which prints as \&gt;, and each backspace by the
+similar sequence \&lt;. This makes tabs and backspaces visible.
 
 Word Counting
 -------------
