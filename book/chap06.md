@@ -93,30 +93,23 @@ Structures can be nested; a payroll record might actually look like
 
 [comment]: <> (page 121 , CHAPTER6 STRUCTURES 121 )
 
-    struct person {
-
-        char name[NAMESIZE];
-
-        char address[ADRSIZE];
-
-        long zipcode;
-
-        long ss_number;
-
-        double salary;
-
-        struct date birthdate;
-
-        struct date hiredate;
-    };
+      struct person {
+          char name[NAMESIZE];
+          char address[ADRSIZE];
+          long zipcode;
+          long ss_number;
+          double salary;
+          struct date birthdate;
+          struct date hiredate;
+      };
 
 The person structure contains two dates. If we declare `emp` as
 
-    struct person emp;
+      struct person emp;
 
 then
 
-    emp.birthdate.month
+      emp.birthdate.month
 
 refers to the month of birth. The structure member operator `.` associates
 left to right.
