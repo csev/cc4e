@@ -57,7 +57,7 @@ In traditional C, the program to print "hello, world" is
 
 Just how to run this program depends on the system you are using. As
 a specific example, on the UNIX operating system you must create the
-source program in a file whose name ends in ".c", such as `hello.c`, then
+source program in a file whose name ends in `".c"`, such as _`hello.c`_, then
 compile it with the command
 
     cc hello.c
@@ -133,8 +133,7 @@ the C compiler will print unfriendly diagnostics about missing quotes.
 be used to build up an output line in stages. Our first program could just as
 well have been written
 
-    main()
-    {
+    main() {
         printf("hello, ");
         printf("world");
         printf("\n");
@@ -238,7 +237,7 @@ repeats once per line; this is the purpose of the `while` statement
 
 The condition in parentheses is tested. If it is true (`fahr` is less than or
 equal to `upper`), the body of the loop (all of the statements enclosed by
-the braces `{` and `}` is executed). Then the condition is re-tested, and if
+the braces `{` and `}`) is executed. Then the condition is re-tested, and if
 `true`, the body is executed again. When the test becomes `false` (`fahr`
 exceeds `upper`) the loop ends, and execution continues at the statement
 that follows the loop. There are no further statements in this program, so it
@@ -305,7 +304,7 @@ in. For instance, in the statement
 
 [comment]: <> (page 11 , CHAPTER I A TUTORIAL INTRODUCTION 11 )
 
-    printf ("%4.0f %6.1f\n" , fahr, celsius);
+    printf("%4.0f %6.1f\n" , fahr, celsius);
 
 the conversion specification `%4.0f` says that a floating point number is to be
 printed in a space at least four characters wide, with no digits after the
@@ -322,7 +321,7 @@ Each % construction in the first argument of `printf` is paired with its
 corresponding second, third, etc., argument; they must line up properly by
 number and type, or you'll get meaningless answers.
 
-By the way, `printf` _is not_ part of the C language; there is no input or
+By the way, `printf` is _not_ part of the C language; there is no input or
 output defined in C itself. There is nothing magic about printf; it is just a
 useful function which is part of the standard library of routines that are normally accessible to C programs. In order to concentrate on C itself, we
 won't talk much about I/O until [Chapter 7](chap07.md). In particular, we will defer formatted input until then. If you have to input numbers, read the discussion
