@@ -48,7 +48,10 @@ where your output went. With these mechanical details mastered, everything else 
 
 In traditional C, the program to print "hello, world" is
 
-[comment]: <> (code c_006_01.c)
+    main()
+    {
+        printf("hello, world\n");
+    }
 
 [comment]: <> (note n_006_01.md)
 
@@ -130,7 +133,12 @@ the C compiler will print unfriendly diagnostics about missing quotes.
 be used to build up an output line in stages. Our first program could just as
 well have been written
 
-[comment]: <> (code c_007_01.c)
+    #include <stdio.h>
+    main() {
+        printf("hello, ");
+        printf("world");
+        printf("\n");
+    }
 
 to produce an identical output.
 

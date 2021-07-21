@@ -1,7 +1,5 @@
 
 # Chapter 1
-gcc -ansi c_006_01.c
-gcc -ansi c_007_01.c
 gcc -ansi c_008_01.c
 gcc -ansi c_011_01.c
 gcc -ansi c_013_01.c
