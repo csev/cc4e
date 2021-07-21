@@ -133,7 +133,8 @@ the C compiler will print unfriendly diagnostics about missing quotes.
 be used to build up an output line in stages. Our first program could just as
 well have been written
 
-    main() {
+    main()
+    {
         printf("hello, ");
         printf("world");
         printf("\n");
@@ -457,7 +458,6 @@ is a program which copies its input to its output one character at a time.
 In outline,
 
     get a character
-
     while (character is not end file signal)
         output the character just read
         get a new character
