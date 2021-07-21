@@ -636,8 +636,8 @@ string of one or more blanks by a single blank.
 [comment]: <> (todo - redo this exercise so it works on non-printer)
 
 **Exercise 1-8.** Write a program to replace each tab by the three-character
-sequence &gt;, _backspace, —,_ which prints as &gt;, and each backspace by the
-similar sequence &lt;. This makes tabs and backspaces visible.
+sequence >, _backspace, —,_ which prints as >, and each backspace by the
+similar sequence <. This makes tabs and backspaces visible.
 
 Word Counting
 -------------
