@@ -133,7 +133,6 @@ the C compiler will print unfriendly diagnostics about missing quotes.
 be used to build up an output line in stages. Our first program could just as
 well have been written
 
-    #include <stdio.h>
     main() {
         printf("hello, ");
         printf("world");
