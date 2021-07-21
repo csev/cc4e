@@ -13,12 +13,10 @@ main() /* find longest line; specialized version */
     extern char save[];
     max = 0;
     while ((len = get_line()) > 0)
-
-    if (len > max) {
-        max = len;
-        copy();
-    }
-
+        if (len > max) {
+            max = len;
+            copy();
+        }
     if (max > 0) /* there was a line */
         printf("%s", save);
 }
