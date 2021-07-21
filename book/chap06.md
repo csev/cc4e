@@ -479,9 +479,7 @@ The external declaration of `keytab` need not change, but `main` and
                     p->keycount++;
         for (p = keytab; p < keytab + NKEYS; p++)
             if (p->keycount > 0)
-                printf("%4d %s\n", p-&gt;keycount, p-&gt;keyword);
-
-    printf("%4d %s\n", p->keycount, p->keyword);
+                printf("%4d %s\n", p->keycount, p->keyword);
     }
 
 [comment]: <> (page 129 , CHAPTER6 STRUCTURES 129 )
