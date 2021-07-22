@@ -533,15 +533,15 @@ stand out as especially useful. We have already mentioned the string functions `
 
 Several macros perform character tests and conversions:
 
-function    | return value
-------------|--------------------------------------
-isalpha(c)  | non-zero if c is alphabetic, 0 if not.
-isupper(c)  | non-zero if c is upper case, 0 if not.
-islower(c)  | non-zero if c is lower case, 0 if not.
-isdigit(c)  | non-zero if c is digit, 0 if not.
-isspace(c)  | non-zero if c is blank, tab or newline, 0 if not.
-toupper(c)  | convert c to upper case.
-tolower(c)  | convert c to lower case.
+| function   | return value                                      |
+| ---------- | ------------------------------------------------- |
+| isalpha(c) | non-zero if c is alphabetic, 0 if not.            |
+| isupper(c) | non-zero if c is upper case, 0 if not.            |
+| islower(c) | non-zero if c is lower case, 0 if not.            |
+| isdigit(c) | non-zero if c is digit, 0 if not.                 |
+| isspace(c) | non-zero if c is blank, tab or newline, 0 if not. |
+| toupper(c) | convert c to upper case.                          |
+| tolower(c) | convert c to lower case.                          |
 
 **Ungetc**
 

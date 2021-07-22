@@ -161,14 +161,14 @@ and their centigrade or Celsius equivalents, using the formula
 `C=(5/9)(F-32)`.
 
 | Farenheight | Celsius |
-| --- | --- |
-| 0 | -17.8 |
-| 20 | -6.7 |
-| 40 | 4.4 |
-| 60 | 15.6 |
-| 260 | 126.7 |
-| 280 | 137.8 |
-| 300 | 148.9 |
+| ----------- | ------- |
+| 0           | -17.8   |
+| 20          | -6.7    |
+| 40          | 4.4     |
+| 60          | 15.6    |
+| 260         | 126.7   |
+| 280         | 137.8   |
+| 300         | 148.9   |
 
 Here is the program itself.
 
@@ -206,11 +206,11 @@ between about 10<sup>-38</sup> and 10<sup>+38</sup>. [Chapter 2](chap02.md) list
 
 C provides several other basic data types besides `int` and `float`:
 
-| Type | Description |
-| ---- | ----------- |
-| char | character — a single byte |
-| short | short integer |
-| long | long integer |
+| Type   | Description                     |
+| ------ | ------------------------------- |
+| char   | character — a single byte       |
+| short  | short integer                   |
+| long   | long integer                    |
 | double | double-precision floating point |
 
 The sizes of these objects are also machine-dependent; details are in [Chapter 2](chap02.md).
@@ -986,8 +986,8 @@ is written in a C program, the compiler creates an array of characters containin
 the characters of the string, and terminates it with a `\0` so that functions such
 as `printf` can detect the end:
 
-| h | e | l | l | o | \n | \0 |
-|---|---|---|---|---|----|----|
+| h   | e   | l   | l   | o   | \n  | \0  |
+| --- | --- | --- | --- | --- | --- | --- |
 
 The `%s` format specification in `printf` expects a string represented in this
 form. If you examine `copy`, you will discover that it too relies on the fact
