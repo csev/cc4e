@@ -1,4 +1,3 @@
-
 CHAPTER 0: INTRODUCTION
 =======================
 
@@ -20,7 +19,7 @@ implemented by actual machines.
 
 C provides no operations to deal directly with composite objects such as
 character strings, sets, lists, or arrays considered as a whole. There is no
-analog, for example, of the **PL/I** operations which manipulate an entire
+analog, for example, of the PL/I operations which manipulate an entire
 array or string. The language does not define any storage allocation facility
 other than static definition and the stack discipline provided by the local
 variables of functions: there is no heap or garbage collection like that provided
@@ -104,10 +103,10 @@ addition, there is a hierarchy of derived data types created with
 pointers, arrays, structures, unions, and functions.
 
 C provides the fundamental flow-control constructions required for
-well-structured programs: statement grouping; decision making (if); looping
-with the termination test at the top (while, for), or at the bottom
-(do); and selecting one of a set of possible cases (switch). (All of these
-were provided in **BCPL** as well, though with somewhat different syntax; that
+well-structured programs: statement grouping; decision making (`if`); looping
+with the termination test at the top (`while`, `for`), or at the bottom
+(`do`); and selecting one of a set of possible cases (`switch`). (All of these
+were provided in BCPL as well, though with somewhat different syntax; that
 language anticipated the vogue for "structured programming" by several
 years.)
 
@@ -131,7 +130,7 @@ the compiler, and does not refer to specific machine registers.
 
 C is not a strongly-typed language in the sense of Pascal or Algol 68. It
 is relatively permissive about data conversion, although it will not
-automatically convert data types with the wild abandon of **PL/I.** Existing compilers
+automatically convert data types with the wild abandon of PL/I. Existing compilers
 provide no run-time checking of array subscripts, argument types, etc.
 
 For those situations where strong type checking is desirable, a separate
@@ -156,7 +155,6 @@ ways. Nonetheless, C has proven to be an extremely effective and expressive
 language for a wide variety of programming applications.
 
 The rest of the book is organized as follows.
-
 [Chapter 1](chap01.md) is a tutorial
 introduction to the central part of C. The purpose is to get the reader
 started as quickly as possible, since we believe strongly that the only way to
@@ -166,26 +164,22 @@ explanation of computers, of compilation, nor of the meaning of an expression
 like `n=n+1`. Although we have tried where possible to show useful
 programming techniques, the book is not intended to be a reference work on
 data structures and algorithms; when forced to a choice, we have
-concentrated on the language.
-
+concentrated on the language.  
 Chapters 2 through 6 discuss various aspects of C in more detail, and
 rather more formally, than does Chapter 1, although the emphasis is still on
 examples of complete, useful programs, rather than isolated fragments.
-
 [Chapter 2](chap02.md) deals with the basic data types, operators and 
-expressions.  
-[Chapter 3](chap03.md) treats control flow: if—else, while, for, etc.  
+expressions.
+[Chapter 3](chap03.md) treats control flow: `if—else`, `while`, `for`, etc.
 [Chapter 4](chap04.md) covers functions and program structure — external 
-variables, scope rules, and so on.  
-[Chapter 5](chap05.md) discusses pointers and address arithmetic.  
+variables, scope rules, and so on.
+[Chapter 5](chap05.md) discusses pointers and address arithmetic.
 [Chapter 6](chap06.md) contains the details of structures and unions.  
-
 [Chapter 7](chap07.md) describes the standard C I/O library, which provides 
 a common interface to the operating system. This I/O library is supported on 
 all machines that support C, so programs which use it for input, output, and
 other system functions can be moved from one system to another essentially
 without change.  
-
 [Chapter 8](chap08.md) describes the interface between C programs and the UNIX
 operating system, concentrating on input/output, the file system, and
 portability. Although some of this chapter is UNIX-specific, programmers who
@@ -205,4 +199,3 @@ problems, and to warn of potential difficulties. When in doubt, however, we
 have generally chosen to describe the PDP-11 UNIX situation, since that is
 the environment of the majority of C programmers. Appendix A also
 describes implementation differences on the major C systems.
-

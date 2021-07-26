@@ -57,7 +57,7 @@ In traditional C, the program to print "hello, world" is
 
 Just how to run this program depends on the system you are using. As
 a specific example, on the UNIX operating system you must create the
-source program in a file whose name ends in ".c", such as `hello.c`, then
+source program in a file whose name ends in `".c"`, such as _`hello.c`_, then
 compile it with the command
 
     cc hello.c
@@ -161,14 +161,14 @@ and their centigrade or Celsius equivalents, using the formula
 `C=(5/9)(F-32)`.
 
 | Farenheight | Celsius |
-| --- | --- |
-| 0 | -17.8 |
-| 20 | -6.7 |
-| 40 | 4.4 |
-| 60 | 15.6 |
-| 260 | 126.7 |
-| 280 | 137.8 |
-| 300 | 148.9 |
+| ----------- | ------- |
+| 0           | -17.8   |
+| 20          | -6.7    |
+| 40          | 4.4     |
+| 60          | 15.6    |
+| 260         | 126.7   |
+| 280         | 137.8   |
+| 300         | 148.9   |
 
 Here is the program itself.
 
@@ -206,11 +206,11 @@ between about 10<sup>-38</sup> and 10<sup>+38</sup>. [Chapter 2](chap02.md) list
 
 C provides several other basic data types besides `int` and `float`:
 
-| Type | Description |
-| ---- | ----------- |
-| char | character — a single byte |
-| short | short integer |
-| long | long integer |
+| Type   | Description                     |
+| ------ | ------------------------------- |
+| char   | character — a single byte       |
+| short  | short integer                   |
+| long   | long integer                    |
 | double | double-precision floating point |
 
 The sizes of these objects are also machine-dependent; details are in [Chapter 2](chap02.md).
@@ -238,7 +238,7 @@ repeats once per line; this is the purpose of the `while` statement
 
 The condition in parentheses is tested. If it is true (`fahr` is less than or
 equal to `upper`), the body of the loop (all of the statements enclosed by
-the braces `{` and `}` is executed). Then the condition is re-tested, and if
+the braces `{` and `}`) is executed. Then the condition is re-tested, and if
 `true`, the body is executed again. When the test becomes `false` (`fahr`
 exceeds `upper`) the loop ends, and execution continues at the statement
 that follows the loop. There are no further statements in this program, so it
@@ -305,7 +305,7 @@ in. For instance, in the statement
 
 [comment]: <> (page 11 , CHAPTER I A TUTORIAL INTRODUCTION 11 )
 
-    printf ("%4.0f %6.1f\n" , fahr, celsius);
+    printf("%4.0f %6.1f\n" , fahr, celsius);
 
 the conversion specification `%4.0f` says that a floating point number is to be
 printed in a space at least four characters wide, with no digits after the
@@ -322,7 +322,7 @@ Each % construction in the first argument of `printf` is paired with its
 corresponding second, third, etc., argument; they must line up properly by
 number and type, or you'll get meaningless answers.
 
-By the way, `printf` _is not_ part of the C language; there is no input or
+By the way, `printf` is _not_ part of the C language; there is no input or
 output defined in C itself. There is nothing magic about printf; it is just a
 useful function which is part of the standard library of routines that are normally accessible to C programs. In order to concentrate on C itself, we
 won't talk much about I/O until [Chapter 7](chap07.md). In particular, we will defer formatted input until then. If you have to input numbers, read the discussion
@@ -458,7 +458,6 @@ is a program which copies its input to its output one character at a time.
 In outline,
 
     get a character
-
     while (character is not end file signal)
         output the character just read
         get a new character
@@ -637,8 +636,8 @@ string of one or more blanks by a single blank.
 [comment]: <> (todo - redo this exercise so it works on non-printer)
 
 **Exercise 1-8.** Write a program to replace each tab by the three-character
-sequence &gt;, _backspace, —,_ which prints as &gt;, and each backspace by the
-similar sequence &lt;. This makes tabs and backspaces visible.
+sequence >, _backspace, —,_ which prints as >, and each backspace by the
+similar sequence <. This makes tabs and backspaces visible.
 
 Word Counting
 -------------
@@ -646,7 +645,7 @@ Word Counting
 The fourth in our series of useful programs counts lines, words, and
 characters, with the loose definition that a word is any sequence of
 characters that does not contain a blank, tab or newline. (This is
-a bare-bones version of the UNIX utility `wc`.)
+a bare-bones version of the UNIX utility _wc_.)
 
 [comment]: <> (code c_018_01.c)
 
@@ -676,7 +675,7 @@ The operator `||` means _OR_, so the line
 
     if (c == ' ' || c == '\n' || c == '\t' )
 
-says "if c is a blank _or_ c is a newline _or_ c is a tab ...". (The escape
+says "if `c` is a blank _or_ `c` is a newline _or_ `c` is a tab ...". (The escape
 sequence `\t` is a visible representation of the tab character.) There is a
 corresponding operator `&&` for AND. Expressions connected by `&&` or `||`
 are evaluated left to right, and it is guaranteed that evaluation will stop as
@@ -696,7 +695,7 @@ The general form is
     else
         statement-2
 
-One and only one of the two statements associated with an if-else is
+One and only one of the two statements associated with an `if-else` is
 done. If the _expression_ is true, _statement-1_ is executed; if not, _statement-2_ is
 executed. Each _statement_ can in fact be quite complicated. In the word
 count program, the one after the `else` is an `if` that controls two statements in braces.
@@ -813,7 +812,7 @@ orientation is more challenging.
 -------------
 
 In C, a _function_ is equivalent to a subroutine or function in Fortran, or a
-procedure in **PL/I,** Pascal, etc. A function provides a convenient way to
+procedure in PL/I, Pascal, etc. A function provides a convenient way to
 encapsulate some computation in a black box, which can then be used
 without worrying about its innards. Functions are really the only way to
 cope with the potential complexity of large programs. With properly
@@ -876,7 +875,7 @@ same names without conflict. This is also true of the variables `i` and `p`: the
 [comment]: <> (page 24 , **24** THE C PROGRAMMING LANGUAGE CHAPTER I )
 
 The value that `power` computes is returned to `main` by the `return`
-statement, which is just as in **PL/I**. Any expression may occur within the
+statement, which is just as in PL/I. Any expression may occur within the
 parentheses. A function need not return a value; a `return` statement with
 no expression causes control, but no useful value, to be returned to the
 caller, as does "falling off the end" of a function by reaching the terminating right brace.
@@ -889,7 +888,7 @@ value of `c` if it is a letter.
 -----------------------------
 
 One aspect of C functions may be unfamiliar to programmers who are
-used to other languages, particularly Fortran and **PL/I.** In C, all function
+used to other languages, particularly Fortran and PL/I. In C, all function
 arguments are passed "by value." This means that the called function is
 given the values of its arguments in temporary variables (actually on a
 stack) rather than their addresses. This leads to some different properties
@@ -911,8 +910,6 @@ The argument `n` is used as a temporary variable, and is counted down until
 it becomes zero; there is no longer a need for the variable `i`. Whatever is
 done to `n` inside power has no effect on the argument that power was originally called with.
 
-Yada
-
 When necessary, it is possible to arrange for a function to modify a variable in
 a calling routine. The caller must provide the _address_ of the variable
 to be set (technically a _pointer_ to the variable), and the called function must
@@ -924,8 +921,6 @@ the function is actually the location or address of the beginning of the array.
 (There is _no_ copying of array elements.) By subscripting this value, the
 function can access and alter any element of the array. This is the topic of
 the next section.
-
-Yada
 
 [comment]: <> (page 25 , CHAPTER I A TUTORIAL INTRODUCTION 25 )
 
@@ -948,7 +943,7 @@ controls the process.
 
 Since things divide so nicely, it would be well to write them that way
 too. Accordingly, let us first write a separate function `get_line` to fetch the
-_next line_ of input; this is a generalization of getchar. To make the function
+_next line_ of input; this is a generalization of `getchar`. To make the function
 useful in other contexts, we'll try to make it as flexible as possible. At
 the minimum, `get_line` has to return a signal about possible end of file; a
 more generally useful design would be to return the length of the line, or
@@ -972,7 +967,7 @@ a returned value. In `get_line`, the arguments are declared by the lines
 
 [comment]: <> (page 27 , CHAPTER I A TUTORIAL INTRODUCTION 27 )
 
-    char a[];
+    char s[];
     int lim;
 
 which specify that the first argument is an array, and the second is an
@@ -981,23 +976,23 @@ determined in `main`. `get_line` uses `return` to send a value back to the
 caller, just as the function `power` did. Some functions return a useful
 value; others, like copy, are only used for their effect and return no value.
 
-`get_line` puts the character '\0' (the _null character,_ whose value is zero)
+`get_line` puts the character `\0` (the _null character,_ whose value is zero)
 at the end of the array it is creating, to mark the end of the string of characters
 This convention is also used by the C compiler: when a string constant like
 
     "hello\n"
 
 is written in a C program, the compiler creates an array of characters containing
-the characters of the string, and terminates it with a '\0' so that functions such
+the characters of the string, and terminates it with a `\0` so that functions such
 as `printf` can detect the end:
 
-| h | e | l | l | o | \n | \0 |
-|---|---|---|---|---|----|----|
+| h   | e   | l   | l   | o   | \n  | \0  |
+| --- | --- | --- | --- | --- | --- | --- |
 
 The `%s` format specification in `printf` expects a string represented in this
 form. If you examine `copy`, you will discover that it too relies on the fact
-that its input argument `s1` is terminated by '\0', and it copies this character
-onto the output argument `s2`. (All of this implies that '\0' is not a part of
+that its input argument `s1` is terminated by `\0`, and it copies this character
+onto the output argument `s2`. (All of this implies that `\0` is not a part of
 normal text.)
 
 It is worth mentioning in passing that even a program as small as this
@@ -1013,7 +1008,7 @@ input line might be, so `get_line` checks for overflow. On the other hand,
 the user of `copy` already knows (or can find out) how big the strings are, so
 we have chosen not to add error checking to it.
 
-**Exercise 1-14.** Revise the `main` routine of the longest-line program so it
+**Exercise 1-14.** Revise the main routine of the longest-line program so it
 will correctly print the length of arbitrarily long input lines, and as much as
 possible of the text.
 
@@ -1023,10 +1018,10 @@ characters.
 **Exercise 1-16.** Write a program to remove trailing blanks and tabs from
 each line of input, and to delete entirely blank lines.
 
+[comment]: <> (page 28 , 28 THE C PROGRAMMING LANGUAGE CHAPTER I )
+
 **Exercise 1-17.** Write a function `reverse(s)` which reverses the character
 string `s`. Use it to write a program which reverses its input a line at a time.
-
-[comment]: <> (page 28 , 28 THE C PROGRAMMING LANGUAGE CHAPTER I )
 
 1.10 Scope; External Variables
 ------------------------------
@@ -1049,7 +1044,7 @@ set upon each entry. If they are not set, they will contain garbage.
 As an alternative to automatic variables, it is possible to define variables
 which are _external_ to all functions, that is, global variables which can be
 accessed by name by any function that cares to. (This mechanism is rather
-like Fortran `COMMON` or **PL/I** `EXTERNAL`.) Because external variables are
+like Fortran `COMMON` or PL/I `EXTERNAL`.) Because external variables are
 globally accessible, they can be used instead of argument lists to communicate
 data between functions. Furthermore, because external variables
 remain in existence permanently, rather than appearing and disappearing as
@@ -1140,7 +1135,7 @@ by the minimum number of tabs and blanks to achieve the same spacing.
 Use the same tab stops as for `detab`.
 
 **Exercise 1-21.** Write a program to "fold" long input lines after the last
-non-blank character that occurs before the n-th column of input, where _n_ is
+non-blank character that occurs before the _n_-th column of input, where _n_ is
 a parameter. Make sure your program does something intelligent with very
 long lines, and if there are no blanks or tabs before the specified column.
 

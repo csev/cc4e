@@ -55,15 +55,15 @@ The precision of these objects depends on the machine at hand; the
 table below shows some representative values.
 
 
-|       | DEC PDP-11 | Honeywell 6000  |  IBM 370 | Interdata 8/32  |
-|-------|:-------:|:-----------:|:----:|:--------:|
-|       | ASCII      | ASCII           |  EBCDIC  | ASCII           |
-| char  | 8 bits     | 9 bits          | 8 bits   | 8 bits          |
-| int   |  16        | 36  | 32  | 32  |
-| short | 16         | 36  | 16  | 16  |
-| char  | 32         | 36  | 32  | 32  |
-| int   |  32        | 36  | 32  | 32  |
-| short | 64         | 72  | 64  | 64  |
+|       | DEC PDP-11 | Honeywell 6000 | IBM 370 | Interdata 8/32 |
+| ----- | :--------: | :------------: | :-----: | :------------: |
+|       |   ASCII    |     ASCII      | EBCDIC  |     ASCII      |
+| char  |   8 bits   |     9 bits     | 8 bits  |     8 bits     |
+| int   |     16     |       36       |   32    |       32       |
+| short |     16     |       36       |   16    |       16       |
+| char  |     32     |       36       |   32    |       32       |
+| int   |     32     |       36       |   32    |       32       |
+| short |     64     |       72       |   64    |       64       |
 
 The intent is that `short` and `long` should provide different lengths of
 integers where practical; int will normally reflect the most "natural" size
@@ -831,23 +831,23 @@ which is higher than that of `+` and `-`.
 
 [comment]: <> (page 49 , CHAPTER 2 TYPES, OPERATORS AND EXPRESSIONS 49 )
 
-| Operator | Associativity |
-| --- |----|
-| `()`   `[]`  `->`  `.` | left to right |
+| Operator                                                        | Associativity |
+| --------------------------------------------------------------- | ------------- |
+| `()`   `[]`  `->`  `.`                                          | left to right |
 | `!`   `~`   `++`   `--`   `-`   `(type)`   `*`   `&`   `sizeof` | right to left |
-| `*`  `/`  `%` | left to right |
-| `+`  `-` | left to right |
-| `<<`  `>>` | left to right |
-| `<`   `<=`   `>`   `>=`  | left to right |
-| `==`  `!=`  | left to right |
-| `&`  | left to right |
-| `^` | left to right |
-| `|` | left to right |
-| `&&`  | left to right |
-| `||`  | left to right |
-| `? :` | right to left |
-| `=`   `+=`   `-=`   etc.  | right to left |
-| `,`  [Chapter 3](chap03.md) | left to right |
+| `*`  `/`  `%`                                                   | left to right |
+| `+`  `-`                                                        | left to right |
+| `<<`  `>>`                                                      | left to right |
+| `<`   `<=`   `>`   `>=`                                         | left to right |
+| `==`  `!=`                                                      | left to right |
+| `&`                                                             | left to right |
+| `^`                                                             | left to right |
+| `|`                                                             | left to right |
+| `&&`                                                            | left to right |
+| `||`                                                            | left to right |
+| `? :`                                                           | right to left |
+| `=`   `+=`   `-=`   etc.                                        | right to left |
+| `,`  [Chapter 3](chap03.md)                                     | left to right |
 
 The operators `->` and `.` are used to access members of structures; they will
 be covered in [Chapter 6](chap06.md), along with `sizeof` (size of an object). [Chapter 5](chap05.md)
