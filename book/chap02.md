@@ -646,7 +646,7 @@ The unary operator `~` yields the one's complement of an integer; that is,
 it converts each 1-bit into a 0-bit and vice versa. This operator typically
 finds use in expressions like 
 
-      x &  ~ 077
+      x &  ~077
 
 which masks the last six bits of `x` to zero. Note that `x & ~077` is
 independent of word length, and is thus preferable to, for example,
@@ -655,25 +655,25 @@ portable form involves no extra cost, since `~077` is a constant
 expression and thus evaluated at compile time.
 
 To illustrate the use of some of the bit operators, consider the function
-`getbits(x, p, n)` which returns (right adjusted) the `n`-bit field of `x`
+`getbits(x, p, n)` which returns (right adjusted) the n-bit field of `x`
 that begins at position `p`. We assume that bit position 0 is at the right end
 and that `n` and `p` are sensible positive values. For example,
 `getbits(x, 4, 3)` returns the three bits in bit positions 4, 3 and 2, right
 adjusted.
 
-    getbits(x, p, n) /* get n bits from position p */
-    unsigned x, p, n;
-    {
-        return((x >> (p+1-n)) &  ~ ( ~ 0 << n));
-    }
+      getbits(x, p, n) /* get n bits from position p */
+      unsigned x, p, n;
+      {
+          return((x >> (p+1-n)) &  ~(~0 << n));
+      }
 
 `x >> (p+1-n)` moves the desired field to the right end of the word.
-Declaring the argument `x` to be `unsigned` ensures that when it is right-
-shifted, vacated bits will be filled with zeros, not sign bits, regardless of the
-machine the program is run on. ~0 is all 1-bits; shifting it left `n` bit
-positions with ~0 << `n` creates a mask with zeros in the rightmost `n` bits and
-ones everywhere else; complementing that with `~` makes a mask with ones
-in the rightmost `n` bits.
+Declaring the argument `x` to be `unsigned` ensures that when it is 
+right-shifted, vacated bits will be filled with zeros, not sign bits,
+regardless of the machine the program is run on. `~0` is all 1-bits;
+shifting it left `n` bit positions with `~0 << n` creates a mask with
+zeros in the rightmost `n` bits and ones everywhere else; complementing
+that with `~` makes a mask with ones in the rightmost `n` bits.
 
 [comment]: <> (page 46 , 46 THE C PROGRAMMING LANGUAGE CHAPTER 2 )
 
