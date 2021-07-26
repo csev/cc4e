@@ -12,9 +12,9 @@ and be more precise about the ones discussed before.
 An _expression_ such as `x = 0` or `i++` or `printf ( ... )` becomes a
 _statement_ when it is followed by a semicolon, as in
 
-      x = 0;
-      i++;
-      printf (...);
+    x = 0;
+    i++;
+    printf (...);
 
 In C, the semicolon is a statement terminator, rather than a separator as it is
 in Algol-like languages.
@@ -33,10 +33,10 @@ never a semicolon after the right brace that ends a block.
 The `if—else` statement is used to make decisions. Formally, the syntax is
 
 
-      if (expression)
-          statement-1
-      else
-          statement-2
+    if (expression)
+        statement-1
+    else
+        statement-2
 
 
 [comment]: <> (page 52 , 52 THE C PROGRAMMING LANGUAGE CHAPTER 3 )
@@ -45,14 +45,14 @@ where the `else` part is optional. The _expression_ is evaluated; if it is "true
 (that is, if _expression_ has a non-zero value), _statement-1_ is done. If it is
 "false" _(expression_ is zero) and if there is an `else` part, _statement-2_ is executed instead.
 
-Since an if simply tests the numeric value of an expression, certain
+Since an `if` simply tests the numeric value of an expression, certain
 coding shortcuts are possible. The most obvious is writing
 
-      if (expression)
+    if (expression)
 
 instead of
 
-      if (expression != 0)
+    if (expression != 0)
 
 Sometimes this is natural and clear; at other times it is cryptic.
 
@@ -61,32 +61,32 @@ when an `else` is omitted from a nested `if` sequence. This is resolved in
 the usual way — the `else` is associated with the closest previous `else`-less
     if. For example, in
 
-      if (n > 0)
-        if (a > b)
-            z = a;
-        else
-            z = b;
+    if (n > 0)
+      if (a > b)
+          z = a;
+      else
+          z = b;
 
 the `else` goes with the inner `if`, as we have shown by indentation. If that
 isn't what you want, braces must be used to force the proper association:
 
-      if (n > 0) {
-        if (a > b)
-            z = a;
-      }
-      else
-        z = b;
+    if (n > 0) {
+      if (a > b)
+          z = a;
+    }
+    else
+      z = b;
 
 The ambiguity is especially pernicious in situations like:
 
-      if (n > 0)
-        for (i = 0; i < n; i++)
-            if (s[i] > 0) {
-                printf("...");
-                return(i);
-            }
-      else /* WRONG */
-        printf("error - n is zero\n");
+    if (n > 0)
+      for (i = 0; i < n; i++)
+          if (s[i] > 0) {
+              printf("...");
+              return(i);
+          }
+    else /* WRONG */
+      printf("error - n is zero\n");
 
 The indentation shows unequivocally what you want, but the compiler
 doesn't get the message, and associates the `else` with the inner `if`. This
@@ -96,10 +96,10 @@ By the way, notice that there is a semicolon after `z = a` in
 
 [comment]: <> (page 53 , CHAPTER 3 CONTROL FLOW 53 )
 
-      if (a > b)
-        z = a;
-      else
-        z = b;
+    if (a > b)
+      z = a;
+    else
+      z = b;
 
 This is because grammatically, a _statement_ follows the `if`, and an expression
 statement like `z = a` is always terminated by a semicolon.
@@ -110,14 +110,14 @@ statement like `z = a` is always terminated by a semicolon.
 The construction
 
 
-      if (expression)
-          statement
-      else if (expression)
-          statement
-      else if (expression)
-          statement
-      else
-          statement
+    if (expression)
+        statement
+    else if (expression)
+        statement
+    else if (expression)
+        statement
+    else
+        statement
 
 occurs so often that it is worth a brief separate discussion. This sequence of
 `if`'s is the most general way of writing a multi-way decision. The
@@ -129,8 +129,8 @@ The last `else` part handles the "none of the above" or default case
 where none of the other conditions was satisfied. Sometimes there is no
 explicit action for the default; in that case the trailing
 
-      else
-          _statement_
+    else
+        statement
 
 can be omitted, or it may be used for error checking to catch an "impossible" condition.
 
@@ -141,25 +141,25 @@ between 0 and n-1) if `x` occurs in `v`, and —1 if not.
 
 [comment]: <> (page 54 , 54 THE C PROGRAMMING LANGUAGE CHAPTER 3 )
 
-      binary(x, v, n) /* find x in v[0] ... v[n-1] */
-      int x, v[], n;
-      {
-        int low, high, mid;
+    binary(x, v, n) /* find x in v[0] ... v[n-1] */
+    int x, v[], n;
+    {
+      int low, high, mid;
 
-        low = 0;
-        high = n - 1;
-        while (low <= high)
-        {
-          mid = (low+high) / 2;
-          if (x < v[mid])
-            high = mid - 1;
-          else if (x > v[mid])
-            low = mid + 1;
-          else /* found match */
-            return (mid);
-        }
-        return(-1);
+      low = 0;
+      high = n - 1;
+      while (low <= high)
+      {
+        mid = (low+high) / 2;
+        if (x < v[mid])
+          high = mid - 1;
+        else if (x > v[mid])
+          low = mid + 1;
+        else /* found match */
+          return (mid);
       }
+      return(-1);
+    }
 
 The fundamental decision is whether `x` is less than, greater than, or
 equal to the middle element `v[mid]` at each step; this is a natural for
@@ -178,7 +178,7 @@ sequence of `if ... else if ... else`. Here is the same program with a
 [comment]: <> (code c_055_01.c)
 
 The `switch` evaluates the integer expression in parentheses (in this
-program the character c) and compares its value to all the cases. Each case
+program the character `c`) and compares its value to all the cases. Each case
 must be labeled by an integer or character constant or constant expression.
 If a case matches the expression value, execution starts at that case. The
 case labeled `default` is executed if none of the other cases is satisfied. A
@@ -217,8 +217,8 @@ copies the string `s` to `t`. Use a `switch`.
 
 We have already encountered the while and for loops. In
 
-      while (expression)
-          statement
+    while (expression)
+        statement
 
 the _expression_ is evaluated. If it is non-zero, _statement_ is executed and
 _expression_ is re-evaluated. This cycle continues until _expression_ becomes
@@ -226,16 +226,16 @@ zero, at which point execution resumes after _statement._
 
 The `for` statement
 
-      for ( expr1 ; expr2 ; expr3)
-          statement
+    for ( expr1 ; expr2 ; expr3)
+        statement
 
 is equivalent to
 
-      expr1 ;
-      while (expr2) {
-          statement
-          expr3;
-      }
+    expr1 ;
+    while (expr2) {
+        statement
+        expr3;
+    }
 
 [comment]: <> (page 57 , CHAPTER 3 CONTROL FLOW 57 )
 
@@ -245,17 +245,17 @@ relational expression. Any of the three parts can be omitted, although the
 semicolons must remain. If _expr1_ or _expr3_ is left out, i is simply dropped
 from the expansion. If the test, _expr2,_ is not present, it is taken as permanently true, so
 
-      for (;; ) {
-          ...
-      }
+    for (;; ) {
+        ...
+    }
 
 is an "infinite" loop, presumably to be broken by other means (such as a
 `break` or `return`).
 
 Whether to use `while` or `for` is largely a matter of taste. For example, in
 
-      while ( (c = getchar () ) == ' ' || c == '\n' || c == '\t')
-          ;   /* skip white space characters */
+    while ( (c = getchar () ) == ' ' || c == '\n' || c == '\t')
+        ;   /* skip white space characters */
 
 there is no initialization or re-initialization, so the `while` seems most
 natural.
@@ -264,7 +264,7 @@ The `for` is clearly superior when there is a simple initialization and re-
 initialization, since it keeps the loop control statements close together and
 visible at the top of the loop. This is most obvious in
 
-      for (i = 0; i < N; i++)
+    for (i = 0; i < N; i++)
 
 which is the C idiom for processing the first N elements of an array, the
 analog of the Fortran or PL/I DO loop. The analogy is not perfect, however,
@@ -282,9 +282,9 @@ optional leading white space and an optional + or - sign. ([Chapter 4](chap04.md
 
 The basic structure of the program reflects the form of the input:
 
-      skip white space, if any
-      get sign, if any
-      get integer part, convert it
+    skip white space, if any
+    get sign, if any
+    get integer part, convert it
 
 Each step does its part, and leaves things in a clean state for the next. The
 whole process terminates on the first character that could not be part of a
@@ -292,20 +292,20 @@ number.
 
 [comment]: <> (page 58 , 58 THE C PROGRAMMING LANGUAGE CHAPTER 3 )
 
-      atoi(s) /* convert s to integer */
-      char s[];
-      {
-        int i, n, sign;
+    atoi(s) /* convert s to integer */
+    char s[];
+    {
+      int i, n, sign;
 
-        for (i=0; s[i]==' ' || s[i]=='\n' || s[i]=='\t'; i++)
-          ;   /* skip white space */
-        sign = 1;
-        if (s[i] == '+' || s[i] == '-')  /* sign */
-          sign = (s[i++]=='+') ? 1 : -1;
-        for  (n = 0;  s[i] >= '0' && s[i]  <=  '9'; i++)
-          n = 10  * n + s[i] - '0';
-        return(sign * n);
-      }
+      for (i=0; s[i]==' ' || s[i]=='\n' || s[i]=='\t'; i++)
+        ;   /* skip white space */
+      sign = 1;
+      if (s[i] == '+' || s[i] == '-')  /* sign */
+        sign = (s[i++]=='+') ? 1 : -1;
+      for  (n = 0;  s[i] >= '0' && s[i]  <=  '9'; i++)
+        n = 10  * n + s[i] - '0';
+      return(sign * n);
+    }
 The advantages of keeping loop control centralized are even more obvious when there are several nested loops. The following function is a Shell
 sort for sorting an array of integers. The basic idea of the Shell sort is that
 in early stages, far-apart elements are compared, rather than adjacent ones,
@@ -314,19 +314,19 @@ disorder quickly, so later stages have less work to do. The interval between
 compared elements is gradually decreased to one, at which point the sort
 effectively becomes an adjacent interchange method.
 
-      shell(v, n) /* sort v[0]...v[n-1] into increasing order */
-      int v[], n;
-      {
-        int gap, i, j, temp;
+    shell(v, n) /* sort v[0]...v[n-1] into increasing order */
+    int v[], n;
+    {
+      int gap, i, j, temp;
 
-        for (gap = n/2; gap > 0; gap /= 2)
-          for (i = gap; i < n; i++)
-            for (j=i-gap; j>=0 && v[j]>v[j+gap]; j —= gap){
-              temp = v[j];
-              v[j] = v[j+gap];
-              v[j+gap] = temp;
-            }
-        }
+      for (gap = n/2; gap > 0; gap /= 2)
+        for (i = gap; i < n; i++)
+          for (j=i-gap; j>=0 && v[j]>v[j+gap]; j —= gap){
+            temp = v[j];
+            v[j] = v[j+gap];
+            v[j+gap] = temp;
+          }
+    }
 
 There are three nested loops. The outermost loop controls the gap between
 compared elements, shrinking it from `n/2` by a factor of two each pass until
@@ -346,17 +346,17 @@ multiple expressions in the various parts, for example to process two indices
 in parallel. This is illustrated in the function `reverse(s)`, which reverses
 the string `s` in place.
 
-      reverse (s) /* reverse string s in place */
-      char s[];
-      {
-        int c, i, j;
+    reverse (s) /* reverse string s in place */
+    char s[];
+    {
+      int c, i, j;
 
-        for (i = 0, j = strlen(s)-1; i < j; i++, j--) {
-          c = s[i];
-          s[i] = s[j];
-          s[j] = c;
-        }
+      for (i = 0, j = strlen(s)-1; i < j; i++, j--) {
+        c = s[i];
+        s[i] = s[j];
+        s[j] = c;
       }
+    }
 
 The commas that separate function arguments, variables in declarations,
 etc., are _not_ comma operators, and do _not_ guarantee left to right evaluation.
@@ -376,9 +376,9 @@ in [Chapter 1](chap01.md). The third loop in C, the `do-while`, tests at the bot
 making each pass through the loop body; the body is always executed at
 least once. The syntax is
 
-      do
-        statement
-      while (expression) ;
+    do
+      statement
+    while (expression) ;
 
 The _statement_ is executed, then _expression_ is evaluated. If it is true, _statement_
 is evaluated again, and so on. If the expression becomes false, the
@@ -394,23 +394,23 @@ slightly more complicated than might be thought at first, because the easy
 methods of generating the digits generate them in the wrong order. We
 have chosen to generate the string backwards, then reverse it.
 
-      itoa(n, s)    /* convert n to characters in s */
-      char s[];
-      int n;
-      {
-        int i, sign;
+    itoa(n, s)    /* convert n to characters in s */
+    char s[];
+    int n;
+    {
+      int i, sign;
 
-        if ((sign = n) < 0)    /* record sign */
-          n = -n;    /* make n positive */
-        i = 0;
-        do {    /* generate digits in reverse order */
-          s[i++] = n % 10 + '0';     /* get next digit */
-        } while ((n /= 10) > 0); /* delete it */
-        if (sign < 0)
-          s[i++] = '-';
-        s[i] = '\0';
-        reverse(s);
-      }
+      if ((sign = n) < 0)    /* record sign */
+        n = -n;    /* make n positive */
+      i = 0;
+      do {    /* generate digits in reverse order */
+        s[i++] = n % 10 + '0';     /* get next digit */
+      } while ((n /= 10) > 0); /* delete it */
+      if (sign < 0)
+        s[i++] = '-';
+      s[i] = '\0';
+      reverse(s);
+    }
 
 The `do-while` is necessary, or at least convenient, since at least one character must
 be installed in the array `s`, regardless of the value of `n`. We also
@@ -458,12 +458,12 @@ white space characters.
 
 An alternative to `break` is to put the testing in the loop itself:
 
-      while ((n = getline(line, MAXLINE)) > 0) {
-        while (--n >= 0
-         && (line[n]== ' ' || line[n]=='\t' || line[n]=='\n'))
-            ;
-        ...
-      }
+    while ((n = getline(line, MAXLINE)) > 0) {
+      while (--n >= 0
+        && (line[n]== ' ' || line[n]=='\t' || line[n]=='\n'))
+          ;
+      ...
+    }
 
 This is inferior to the previous version, because the test is harder to understand.
 Tests which require a mixture of &&, ||, ! , or parentheses should
@@ -484,11 +484,11 @@ causes the next loop iteration.)
 As an example, this fragment processes only positive elements in the
 array a; negative values are skipped.
 
-      for (i = 0; i < N; i++) {
-        if (a[i] < 0)   /* skip negative elements */
-          continue;
-          ... /* do positive elements */
-      }
+    for (i = 0; i < N; i++) {
+      if (a[i] < 0)   /* skip negative elements */
+        continue;
+      ... /* do positive elements */
+    }
 
 The `continue` statement is often used when the part of the loop that follows is
 complicated, so that reversing a test and indenting another level
@@ -511,16 +511,16 @@ nested structure, such as breaking out of two loops at once. The `break`
 statement cannot be used directly since it leaves only the innermost loop.
 Thus:
 
-      for ( ... )
-        for ( ... ) {
-          ...
-          if (disaster)
-            goto error;
-        }
-      ...
+    for ( ... )
+      for ( ... ) {
+        ...
+        if (disaster)
+          goto error;
+      }
+    ...
 
-    error:
-        clean up the mess
+  error:
+      clean up the mess
 
 [comment]: <> (page 63 , CHAPTER 3 CONTROL FLOW 63 )
 
@@ -533,28 +533,28 @@ As another example, consider the problem of finding the first negative
 element in a two-dimensional array. (Multi-dimensional arrays are discussed
 in [Chapter 5](chap05.md).) One possibility is
 
-      for (i = 0; i < N; i++)
-        for (j = 0; j < M; j++)
-          if (v[il [i] < 0)
-            goto found;
-      /* didn't find */
-    found:
-      /* found one at position i, j */
-        ...
+    for (i = 0; i < N; i++)
+      for (j = 0; j < M; j++)
+        if (v[il [i] < 0)
+          goto found;
+    /* didn't find */
+  found:
+    /* found one at position i, j */
+      ...
 
 Code involving a `goto` can always be written without one, though
 perhaps at the price of some repeated tests or an extra variable. For example, the array search becomes
 
-      found = 0;
-      for (i = 0; i < N && !found; i++)
-        for (j = 0; j < M && !found; j++)
-          found = v[i][j] < 0;
-      if (found)
-        /* it was at i-1, j-1 */
-        ...
-      else
-        /* not found */
-        ...
+    found = 0;
+    for (i = 0; i < N && !found; i++)
+      for (j = 0; j < M && !found; j++)
+        found = v[i][j] < 0;
+    if (found)
+      /* it was at i-1, j-1 */
+      ...
+    else
+      /* not found */
+      ...
 
 Although we are not dogmatic about the matter, it does seem that `goto`
 statements should be used sparingly, if at all.

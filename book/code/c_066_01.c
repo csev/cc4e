@@ -1,3 +1,4 @@
+#include <stdio.h>
 #define MAXLINE 1000
 
 main() /* find all lines matching a pattern */

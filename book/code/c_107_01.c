@@ -1,3 +1,5 @@
+#include<stdio.h>
+#include<string.h>
 #define MAXLEN 1000
 
 readlines(lineptr, maxlines) /* read input lines */
