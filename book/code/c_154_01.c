@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 main(argc, argv) /* cat: concatenate files */
 int argc;
@@ -18,5 +19,5 @@ char *argv[];
         filecopy(fp);
         fclose(fp);
       }
-  exit (0)
+  exit (0);
 }

@@ -26,7 +26,7 @@ their operating system environment.
 Each source file that refers to a standard library function must contain
 the line
 
-      #include <stdio.h>
+    #include <stdio.h>
 
 near the beginning. The file stdio .h defines certain macros and variables
 used by the I/O library. Use of the angle brackets < and > instead of the
@@ -39,7 +39,7 @@ command to compile a program would be
 
 [comment]: <> (page 144 , 144 THE C PROGRAMMING LANGUAGE CHAPTER 7 )
 
-      cc source files, etc. -lS
+    cc source files, etc. -lS
 
 where -lS indicates loading from the standard library. (The character l is
 the letter ell.)
@@ -53,13 +53,13 @@ The simplest input mechanism is to read a character at a time from the
 environments that support C, a file may be substituted for the terminal by
 using the < convention: if a program _prog_ uses `getchar`, then the command line
 
-      prog <infile
+    prog <infile
 
 causes _prog_ to read inf lie instead of the terminal. The switching of the
 input is done in such a way that _prog_ itself is oblivious to the change; in particular, the string "<infile" is not included in the command-line arguments in `argv`. The input switching is also invisible if the input comes
 from another program via a pipe mechanism; the command line
 
-      otherprog | prog
+    otherprog | prog
 
 runs the two programs _otherprog_ and _prog,_ and arranges that the standard
 input for _prog_ comes from the standard output of _otherprog._
@@ -72,12 +72,12 @@ value.
 For output, `putchar(c)` puts the character c on the "standard output," which is also by default the terminal. The output can be directed to a
 file by using >: if _prog_ uses `putchar`,
 
-      prog >outfile
+    prog >outfile
 
 will write the standard output onto `outfile` instead of the terminal. On
 the UNIX system, a pipe can also be used:
 
-      prog | anotherprog
+    prog | anotherprog
 
 puts the standard output of _prog_ into the standard input of _otherprog._ Again,
 _prog_ is not aware of the redirection.
@@ -105,7 +105,7 @@ same, so programs that use them are shielded from knowledge of the character set
 To convert multiple files, you can use a program like the UNIX utility
 _cat_ to collect the files:
 
-      cat filel fi1e2 ... | lower >output
+    cat filel fi1e2 ... | lower >output
 
 and thus avoid learning how to access files from a program. _(cat_ is
 presented later in this chapter.)
@@ -122,7 +122,7 @@ quantities. They also allow generation or interpretation of formatted lines.
 We have used `printf` informally throughout the previous chapters; here is
 a more complete and precise description.
 
-      printf (control, arg1, arg2, ...)
+    printf (control, arg1, arg2, ...)
 
 `printf` converts, formats, and prints its arguments on the standard output
 under control of the string `control`. The control string contains two types
@@ -158,16 +158,16 @@ data item is a `long` rather than an `int`.
 
 The conversion characters and their meanings are:
 
-      d  The argument is converted to decimal notation.
-      o  The argument is converted to unsigned octal notation (without a leading zero).
-      x  The argument is converted to unsigned hexadecimal notation (without a leading 0x).
-      u  The argument is converted to unsigned decimal notation.
-      c  The argument is taken to be a single character.
-      s  The argument is a string; characters from the string are printed until a null character is reached or until the number of characters indicated by the precision specification is exhausted.
-      e  The argument is taken to be a float or double and converted to decimal notation of the form [—] m.nnnnnnE[±]xx where the length of the string of n's is specified by the precision. The default precision is 6.
-      f  The argument is taken to be a float or double and converted to decimal notation of the form [—] mmm.nnnnn where the length of the string of n's is specified by the precision. The default precision is 6. Note that the precision
-         does not determine the number of significant digits printed in f format.
-      g  Use %e or %f, whichever is shorter; non-significant zeros are not printed.
+    d  The argument is converted to decimal notation.
+    o  The argument is converted to unsigned octal notation (without a leading zero).
+    x  The argument is converted to unsigned hexadecimal notation (without a leading 0x).
+    u  The argument is converted to unsigned decimal notation.
+    c  The argument is taken to be a single character.
+    s  The argument is a string; characters from the string are printed until a null character is reached or until the number of characters indicated by the precision specification is exhausted.
+    e  The argument is taken to be a float or double and converted to decimal notation of the form [—] m.nnnnnnE[±]xx where the length of the string of n's is specified by the precision. The default precision is 6.
+    f  The argument is taken to be a float or double and converted to decimal notation of the form [—] mmm.nnnnn where the length of the string of n's is specified by the precision. The default precision is 6. Note that the precision
+       does not determine the number of significant digits printed in f format.
+    g  Use %e or %f, whichever is shorter; non-significant zeros are not printed.
 
 [comment]: <> (page 147 , 147 THE C PROGRAMMING LANGUAGE CHAPTER 7 )  
 
@@ -180,13 +180,13 @@ following table shows the effect of a variety of specifications in printing
 "hello, world" (12 characters). We have put colons around each field so
 you can see its extent.
 
-      :%10s:       :hello, world:
-      :%-10s:      :hello, world:
-      :%20s:       :hello, world:
-      :%-20s:      :        hello, world:
-      :%20.10s:    :hello, world        :
-      :%-20.10s:   :          hello, wor:
-      :%.10s:      :hello, wor          :
+    :%10s:       :hello, world:
+    :%-10s:      :hello, world:
+    :%20s:       :hello, world:
+    :%-20s:      :        hello, world:
+    :%20.10s:    :hello, world        :
+    :%-20.10s:   :          hello, wor:
+    :%.10s:      :hello, wor          :
 
 A warning: `printf` uses its first argument to decide how many arguments follow and what their types are. It will get confused, and you will get
 nonsense answers, if there are not enough arguments or if they are the
@@ -202,7 +202,7 @@ way. As a minimum, it should print non-graphic characters in octal or hex
 The function `scanf` is the input analog of `printf`, providing many of
 the same conversion facilities in the opposite direction.
 
-      scanf (control, arg1, arg2, ...)
+    scanf (control, arg1, arg2, ...)
 
 `scanf` reads characters from the standard input, interprets them according
 to the format specified in `control`, and stores the results in the remaining
@@ -236,15 +236,15 @@ The conversion character indicates the interpretation of the input field;
 the corresponding argument must be a pointer, as required by the call by
 value semantics of C. The following conversion characters are legal:
 
-      d  a decimal integer is expected in the input; the corresponding argument should be an integer pointer.
-      o  an octal integer (with or without a leading zero) is expected in the input; the corresponding argument should be a integer pointer.
-      x  a hexadecimal integer (with or without a leading Ox) is expected in the input; the corresponding argument should be an integer pointer.
-      h  a short integer is expected in the input; the corresponding argument should be a pointer to a short integer.
-      c  a single character is expected; the corresponding argument should be a character pointer; the next input character is placed at the indicated spot. The normal skip over white space characters is suppressed in this case;
-         to read the next non-white space character, use %1 s.
-      s  a character string is expected; the corresponding argument should be a character pointer pointing to an array of characters large enough to accept the string and a terminating \0 which will be added.
-      f  a floating point number is expected; the corresponding argument should be a pointer to a float. The conversion character e is a synonym for f. The input format for float's is an optional sign, a string of numbers possibly
-         containing a decimal point, and an optional exponent field containing an E or e followed by a possibly signed integer.
+    d  a decimal integer is expected in the input; the corresponding argument should be an integer pointer.
+    o  an octal integer (with or without a leading zero) is expected in the input; the corresponding argument should be a integer pointer.
+    x  a hexadecimal integer (with or without a leading Ox) is expected in the input; the corresponding argument should be an integer pointer.
+    h  a short integer is expected in the input; the corresponding argument should be a pointer to a short integer.
+    c  a single character is expected; the corresponding argument should be a character pointer; the next input character is placed at the indicated spot. The normal skip over white space characters is suppressed in this case;
+       to read the next non-white space character, use %1 s.
+    s  a character string is expected; the corresponding argument should be a character pointer pointing to an array of characters large enough to accept the string and a terminating \0 which will be added.
+    f  a floating point number is expected; the corresponding argument should be a pointer to a float. The conversion character e is a synonym for f. The input format for float's is an optional sign, a string of numbers possibly
+       containing a decimal point, and an optional exponent field containing an E or e followed by a possibly signed integer.
 
 [comment]: <> (page 149 , 149 THE C PROGRAMMING LANGUAGE CHAPTER 7 )
 
@@ -256,27 +256,27 @@ indicate that a pointer to `double` rather than `float` is in the argument list.
 
 For example, the call
 
-      int i;
-      float x;
-      char name[50];
-      scanf("%d %f %s", &i, &x, name);
+    int i;
+    float x;
+    char name[50];
+    scanf("%d %f %s", &i, &x, name);
 
 with the input line
 
-      25 54.32E-1 Thompson
+    25 54.32E-1 Thompson
 
 will assign the value 25 to `i`, the value 5.432 to `x`, and the string
 "Thompson", properly terminated by \0, to name. The three input fields
 may be separated by as many blanks, tabs and newlines as desired. The call
 
-      int i;
-      float x;
-      char name[50];
-      scanf("%2d %f %*d %2s", &i, &x, name);
+    int i;
+    float x;
+    char name[50];
+    scanf("%2d %f %*d %2s", &i, &x, name);
 
 with input
 
-      56789 0123 45a72
+    56789 0123 45a72
 
 will assign 56 to `i`, assign 789.0 to `x`, skip over 0123, and place the string
 "45" in `name`. The next call to any input routine will begin searching at
@@ -302,11 +302,11 @@ not match the first specification in the control string. The next call to
 A final warning: the arguments to `scanf` _must_ be pointers. By far the
 most common error is writing
 
-      scanf("%d", n);
+    scanf("%d", n);
 
 instead of
 
-      scanf("%d", &n);
+    scanf("%d", &n);
 
 7.5 In-memory Format Conversion
 -------------------------------
@@ -315,14 +315,14 @@ The functions `scanf` and `printf` have siblings called `sscanf` and
 `sprintf` which perform the corresponding conversions, but operate on a
 string instead of a file. The general format is
 
-      sprintf (string, control, argl, arg2, ...)
-      sscanf (string, control, argl, arg2, ...)
+    sprintf (string, control, argl, arg2, ...)
+    sscanf (string, control, argl, arg2, ...)
 
 `sprintf` formats the arguments in `argl` , `arg2`, etc., according to
 control as before, but places the result in `string` instead of on the standard output. Of course `string` had better be big enough to receive the
 result. As an example, if name is a character array and n is an integer, then
 
-      sprintf(name, "temp%d", n);
+    sprintf(name, "temp%d", n);
 
 creates a string of the form `temp_nnn_` in `name`, where _nnn_ is the value of
 `n`.
@@ -333,7 +333,7 @@ etc. These arguments must be pointers. The call
 
 [comment]: <> (page 151 , 151 THE C PROGRAMMING LANGUAGE CHAPTER 7 )
 
-      sscanf (name, "temp%d", &n);
+    sscanf (name, "temp%d", &n);
 
 sets n to the value of the string of digits following `temp` in name.
 
@@ -354,7 +354,7 @@ onto the standard output. _cat_ is used for printing files on the terminal, and
 as a general-purpose input collector for programs which do not have the
 capability of accessing files by name. For example, the command
 
-      cat x.c y.c
+    cat x.c y.c
 
 prints the contents of the files `x.c` and `y.c` on the standard output.
 
@@ -375,7 +375,7 @@ part of the standard I/O definitions obtained from `stdio.h` is a structure
 definition called `FILE`. The only declaration needed for a file pointer is
 exemplified by
 
-      FILE *fopen(), *fp;
+    FILE *fopen(), *fp;
 
 This says that `fp` is a pointer to a `FILE`, and `fopen` returns a pointer to a
 `FILE`. Notice that `FILE` is a type name, like `int`, not a structure tag; it is
@@ -384,7 +384,7 @@ system are given in [Chapter 8](chap08.md).)
 
 The actual call to `fopen` in a program is
 
-      fp = fopen (name mode ) ;
+    fp = fopen (name mode ) ;
 
 [comment]: <> (page 152 , 152 THE C PROGRAMMING LANGUAGE CHAPTER 7 )
 
@@ -405,14 +405,14 @@ There are several possibilities, of which `getc` and `putc` are the simplest.
 `getc` returns the next character from a file; it needs the file pointer to tell it
 what file. Thus
 
-      c = getc(fp)
+    c = getc(fp)
 
 places in c the next character from the file referred to by `fp`, and `EOF` when
 it reaches end of file.
 
 `putc` is the inverse of `getc`:
 
-      putc(c, fp)
+    putc(c, fp)
 
 puts the character c on the file `fp` and returns c. Like `getchar` and
 `putchar`, `getc` and `putc` may be macros instead of functions.
@@ -425,8 +425,8 @@ as described in section 7.2.
 `getchar` and `putchar` can be defined in terms of `getc`, `putc`,
 `stdin` and `stdout` as follows:
 
-      #define getchar()  getc(stdin)
-      #define putchar (c)  putc(c, stdout)
+    #define getchar()  getc(stdin)
+    #define putchar (c)  putc(c, stdout)
 
 For formatted input or output of files, the functions `fscanf` and
 `fprintf` may be used. These are identical to `scanf` and `printf`, save
@@ -496,7 +496,7 @@ called directly if desired.
 The standard library provides a routine `fgets` which is quite similar to
 the `getline` function that we have used throughout the book. The call
 
-      fgets(line, MAXLINE, fp)
+    fgets(line, MAXLINE, fp)
 
 reads the next input line (including the newline) from file `fp` into the character array line; at most `MAXLINE-1` characters will be read. The resulting line is terminated with \0. Normally `fgets` returns line; on end of
 file it returns `NULL`. (Our `getline` returns the line length, and zero for
@@ -505,12 +505,41 @@ end of file.)
 For output, the function `fputs` writes a string (which need not contain
 a newline) to a file:
 
-      fputs(line, fp)
+    fputs(line, fp)
 
 To show that there is nothing magic about functions like `fgets` and
 `fputs`, here they are, copied directly from the standard I/O library:
 
-[comment]: <> (code c_155_01.c)
+<!-- [comment]: <> (code c_155_01.c) -->
+
+    #include <stdio.h>
+
+    char *f_gets(s, n, iop) /* get at most n chars from iop */
+    char *s;
+    int n;
+    register FILE *iop;
+    {
+      register int c;
+      register char *cs;
+
+      cs = s;
+
+      while (--n > 0 && (c = getc(iop)) != EOF)
+        if ((*cs++ = c) == '\n')
+          break;
+      *cs = '\0';
+      return((c == EOF && cs == s) ? NULL : s);
+    }
+
+    f_puts(s, iop) /* put string s on file iop */
+    register char *s;
+    register FILE *iop;
+    {
+      register int c;
+
+      while (c = *s++)
+        putc(c, iop);
+    }
 
 **Exercise 7-3.** Write a program to compare two files, printing the first line
 and character position where they differ.
@@ -548,7 +577,7 @@ Several macros perform character tests and conversions:
 The standard library provides a rather restricted version of the function
 ungetch which we wrote in [Chapter 4](chap04.md); it is called ungetc.
 
-      ungetc (c , fp)
+    ungetc (c , fp)
 
 pushes the character `c` back onto file `fp`. Only one character of pushback is
 allowed per file. `ungetc` may be used with any of the input functions and
@@ -562,7 +591,7 @@ The function `system(s)` executes the command contained in the character
 string s, then resumes execution of the current program. The contents
 of s depend strongly on the local operating system. As a trivial example, on UNIX, the line
 
-      system ("date");
+    system ("date");
 
 causes the program `date` to be run; it prints the date and time of day.
 
@@ -570,17 +599,17 @@ causes the program `date` to be run; it prints the date and time of day.
 
 The function `calloc` is rather like the `alloc` we have used in previous chapters.
 
-      calloc (n, sizeof (object))
+    calloc (n, sizeof (object))
 
 returns a pointer to enough space for n objects of the specified size, or
 `NULL` if the request cannot be satisfied. The storage is initialized to zero.
 The pointer has the proper alignment for the object in question, but it
 should be cast into the appropriate type, as in
 
-      char *calloc();
-      int *ip;
+    char *calloc();
+    int *ip;
 
-      ip = (int *) calloc(n, sizeof (int));
+    ip = (int *) calloc(n, sizeof (int));
 
 `cfree(p)` frees the space pointed to by `p`, where `p` is originally
 obtained by a call to `calloc`. There are no restrictions on the order in

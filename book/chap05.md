@@ -22,7 +22,7 @@ the object "indirectly" through the pointer. Suppose that `x` is a variable,
 say an `int`, and that `px` is a pointer, created in some as yet unspecified way.
 The unary operator & gives the _address_ of an object, so the statement
 
-      px = &x;
+    px = &x;
 
 assigns the address of `x` to the variable `px`; `px` is now said to "point to" `x`.
 The `&` operator can be applied only to variables and array elements; constructs
@@ -33,28 +33,28 @@ The unary operator `*` treats its operand as the address of the ultimate
 target, and accesses that address to fetch the contents. Thus if `y` is also an
     `int`,
 
-      y = *px;
+    y = *px;
 
 assigns to `y` the contents of whatever `px` points to. So the sequence
 
-      px = &x;
-      y = *px;
+    px = &x;
+    y = *px;
 
 assigns the same value to `y` as does
 
 [comment]: <> (page 90 , 90 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
-      y = x;
+    y = x;
 
 It is also necessary to declare the variables that participate in all of this:
 
-      int x, y;
-      int *px;
+    int x, y;
+    int *px;
 
 The declaration of `x` and `y` is what we've seen all along. The declaration of
 the pointer `px` is new.
 
-      int *px;
+    int *px;
 
 is intended as a mnemonic; it says that the combination `*px` is an `int`, that
 is, if `px` occurs in the context `*px`, it is equivalent to a variable of type
@@ -62,7 +62,7 @@ is, if `px` occurs in the context `*px`, it is equivalent to a variable of type
 expressions in which the variable might appear. This reasoning is
 useful in all cases involving complicated declarations. For example,
 
-      double atof(), *dp;
+    double atof(), *dp;
 
 says that in an expression `atof()` and `*dp` have values of type `double`.
 You should also note the implication in the declaration that a pointer is
@@ -71,45 +71,45 @@ constrained to point to a particular kind of object.
 Pointers can occur in expressions. For example, if `px` points to the
 integer `x`, then `*px` can occur in any context where `x` could.
 
-      y = *px + 1
+    y = *px + 1
 
 sets `y` to 1 more than `x`;
 
-      printf("%d\n", *px)
+    printf("%d\n", *px)
 
 prints the current value of `x`; and
 
-      d = sqrt ((double) *px)
+    d = sqrt ((double) *px)
 
 produces in `d` the square root of `x`, which is coerced into a `double` before
 being passed to `sqrt`. (See [Chapter 2](chap02.md).)
 
 In expressions like
 
-      y = *px + 1
+    y = *px + 1
 
 the unary operators `*` and `&` bind more tightly than arithmetic operators, so
 this expression takes whatever `px` points at, adds 1, and assigns it to `y`. We
 will return shortly to what
 
-      y = *(px + 1)
+    y = *(px + 1)
 
 might mean.
 
 Pointer references can also occur on the left side of assignments. If `px`
 points to `x`, then
 
-      *px = 0
+    *px = 0
 
 <!-- CHAPTER 5 POINTERS AND ARRAYS 91 -->
 
 sets `x` to zero, and
 
-      *px += 1
+    *px += 1
 
 increments it, as does
 
-      (*px)++
+    (*px)++
 
 The parentheses are necessary in this last example; without them, the
 expression would increment `px` instead of what it points to, because unary
@@ -118,7 +118,7 @@ operators like `*` and `++` are evaluated right to left.
 Finally, since pointers are variables, they can be manipulated as other
 variables can. If `py` is another pointer to `int`, then
 
-      py = px
+    py = px
 
 copies the contents of `px` into `py`, thus making `py` point to whatever `px`
 points to.
@@ -132,26 +132,26 @@ What do you do if you really have to change an ordinary argument? For
 example, a sorting routine might exchange two out-of-order elements with a
 function called `swap`. It is not enough to write
 
-      swap(a, b);
+    swap(a, b);
 
 where the `swap` function is defined as
 
-      swap(x, y)  /* WRONG */
-      int x, y;
-      {
-        int temp;
+    swap(x, y)  /* WRONG */
+    int x, y;
+    {
+      int temp;
 
-        temp = x;
-        x = y;
-        y = temp;
-      }
+      temp = x;
+      x = y;
+      y = temp;
+    }
 
 Because of call by value, `swap` _can't_ affect the arguments `a` and `b` in the
 routine that called it.
 
 Fortunately, there is a way to obtain the desired effect. The calling program passes _pointers_ to the values to be changed:
 
-      swap(&a, &b);
+    swap(&a, &b);
 
 Since the operator & gives the address of a variable, `&a` is a pointer to `a`. In
 `swap` itself, the arguments are declared to be pointers, and the actual
@@ -238,18 +238,18 @@ the uninitiated, somewhat harder to grasp immediately.
 
 The declaration
 
-      int a[10]
+    int a[10]
 
 defines an array a of size 10, that is a block of 10 consecutive objects named
 `a[0]`, `a[1]`, ..., `a[9]`. The notation `a[i]` means the element of the
 array `i` positions from the beginning. If `pa` is a pointer to an integer,
 declared as
 
-      int *pa
+    int *pa
 
 then the assignment
 
-      pa = &a [0]
+    pa = &a [0]
 
 sets `pa` to point to the zeroth element of `a`; that is, `pa` contains the address
 
@@ -257,7 +257,7 @@ sets `pa` to point to the zeroth element of `a`; that is, `pa` contains the addr
 
 of a [0]. Now the assignment
 
-      x = *pa
+    x = *pa
 
 will copy the contents of `a[0]` into `x`.
 
@@ -265,7 +265,7 @@ If `pa` points to a particular element of an array `a`, then _by definition_
 `pa+1` points to the next element, and in general `pa—i` points `i` elements
 before pa, and `pa+i` points `i` elements after. Thus, if `pa` points to `a[0]`,
 
-      *(pa+1 )
+    *(pa+1)
 
 refers to the contents of `a[1]` , `pa+i` is the address of `a[i]` , and `*(pa+i)`
 is the contents of `a[i]`.
@@ -280,11 +280,11 @@ The correspondence between indexing and pointer arithmetic is evidently very clo
 name _is_ a pointer expression. This has quite a few useful implications.
 Since the name of an array is a synonym for the location of the zeroth element, the assignment
 
-      pa = &a [O]
+    pa = &a[O]
 
 can also be written as
 
-      pa = a
+    pa = a
 
 Rather more surprising, at least at first sight,, is the fact that a reference
 to `a[i]` can also be written as `*(a+i)` . In evaluating `a[i]`, C converts it
@@ -308,15 +308,15 @@ string.
 
 <!-- CHAPTER 5 POINTERS AND ARRAYS 95 -->
 
-      strlen(s) /* return length of string s */
-      char *s;
-      {
-        int n;
+    strlen(s) /* return length of string s */
+    char *s;
+    {
+      int n;
 
-        for (n = 0; *s != '\0'; s++)
-          n++;
-        return (n);
-      }
+      for (n = 0; *s != '\0'; s++)
+        n++;
+      return (n);
+    }
 
 Incrementing s is perfectly legal, since it is a pointer variable; `s++` has no
 effect on the character string in the function that called `strlen`, but merely
@@ -324,11 +324,11 @@ increments `strlen`'s private copy of the address.
 
 As formal parameters in a function definition,
 
-      char s[];
+    char s[];
 
 and
 
-      char *s;
+    char *s;
 
 are exactly equivalent; which one should be written is determined largely by
 how expressions will be written in the function. When an array name is
@@ -339,31 +339,31 @@ can even use both kinds of operations if it seems appropriate and clear.
 It is possible to pass part of an array to a function, by passing a pointer
 to the beginning of the subarray. For example, if a is an array,
 
-      f(&a[2])
+    f(&a[2])
 
 and
 
-      f(a+2)
+    f(a+2)
 
 both pass to the function f the address of element `a[2]` , because `&a[2]`
 and `a+2` are both pointer expressions that refer to the third element of `a`.
 Within `f`, the argument declaration can read
 
-      f(arr)
-      int arr[];
-      {
-        ...
-      }
+    f(arr)
+    int arr[];
+    {
+      ...
+    }
 
 or
 
 [comment]: <> (page 96 , 96 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
-      f (arr)
-      int *arr;
-      {
-        ...
-      }
+    f (arr)
+    int *arr;
+    {
+      ...
+    }
 
 So as far as `f` is concerned, the fact that the argument really refers to part of
 a larger array is of no consequence.
@@ -407,20 +407,42 @@ next free area. `free(p)` merely sets `allocp` to `p` if `p` is inside
 
 <!-- CHAPTER 5 POINTERS AND ARRAYS 97 -->
 
-[comment]: <> (code c_097_01.c)
+<!-- [comment]: <> (code c_097_01.c) -->
+    #define NULL 0 /* pointer value for error report */
+    #define ALLOCSIZE 1000 /* size of available space */
+
+    static char allocbuf[ALLOCSIZE]; /* storage for alloc \*/
+    static char *allocp = allocbuf; /* next free position */
+
+    char *alloc(n) /* return pointer to n characters */
+    int n;
+    {
+      if (allocp + n <= allocbuf + ALLOCSIZE) { /* fits */
+        allocp += n;
+        return(allocp - n); /* old p */
+      } else /* not enough room */
+        return (NULL);
+    }
+
+    free(p) /* free storage pointed to by p */
+    char *p;
+    {
+      if (p >= allocbuf && p < allocbuf + ALLOCSIZE)
+        allocp = p;
+    }
 
 Some explanations. In general a pointer can be initialized just as any
 other variable can, though normally the only meaningful values are `NULL`
 (discussed below) or an expression involving addresses of previously defined
 data of appropriate type. The declaration
 
-        static char *allocp = allocbuf;
+    static char *allocp = allocbuf;
 
 defines `allocp` to be a character pointer and initializes it to point to
 `allocbuf`, which is the next free position when the program starts. This
 could have also been written
 
-        static char *allocp = &allocbuf[0];
+    static char *allocp = &allocbuf[0];
 
 since the array name _is_ the address of the zeroth element; use whichever is
 
@@ -428,7 +450,7 @@ more natural.
 
 The test
 
-        if (allocp + n <= allocbuf + ALLOCSIZE)
+    if (allocp + n <= allocbuf + ALLOCSIZE)
 
 checks if there's enough room to satisfy a request for n characters. If there
 is, the new value of `allocp` would be at most one beyond the end of
@@ -446,17 +468,17 @@ zero is a special case.
 
 Tests like
 
-        if (allocp + n <= allocbuf + ALLOCSIZE)
+    if (allocp + n <= allocbuf + ALLOCSIZE)
 
 and
 
-        if (p >= allocbuf && p < allocbuf + ALLOCSIZE)
+    if (p >= allocbuf && p < allocbuf + ALLOCSIZE)
 
 show several important facets of pointer arithmetic. First, pointers may be
 compared under certain circumstances. If p and q point to members of the
 same array, then relations like <, >=, etc., work properly.
 
-        p > q
+    p > q
 
 is true, for example, if `p` points to an earlier member of the array than does
 `q`. The relations == and != also work. Any pointer can be meaningfully
@@ -469,7 +491,7 @@ another.
 Second, we have already observed that a pointer and an integer may be
 added or subtracted. The construction
 
-        p + n
+    p + n
 
 means the `n`-th object beyond the one `p` currently points to. This is true
 regardless of the kind of object `p` is declared to point at; the compiler scales
@@ -482,15 +504,15 @@ Pointer subtraction is also valid: if `p` and `q` point to members of the
 same array, `p-q` is the number of elements between `p` and `q`. This fact can
 be used to write yet another version of `strlen`:
 
-      strlen(s) /* return length of string s */
-      char *s;
-      {
-        char *p = s;
+    strlen(s) /* return length of string s */
+    char *s;
+    {
+      char *p = s;
 
-        while(*p != '\0')
-          p++;
-        return(p-s);
-      }
+      while(*p != '\0')
+        p++;
+      return(p-s);
+    }
 
 In its declaration, `p` is initialized to `s`, that is, to point to the first character.
 
@@ -501,8 +523,8 @@ end is seen. Since  \0  is zero, and since  `while`  tests only whether the
 expression is zero, it is possible to omit the explicit test, and such loops are
 often written as
 
-        while (*p)
-          p++;
+    while (*p)
+      p++;
 
 Because `p` points to characters, `p++` advances `p` to the next character
 each time, and `p—s` gives the number of characters advanced over, that is,
@@ -525,7 +547,7 @@ them.
 
 A _string constant_, written as
 
-      "I am a string"
+    "I am a string"
 
 is an array of characters. In the internal representation, the compiler terminates the array with the character \0 so that programs can find the end.
 The length in storage is thus one more than the number of characters
@@ -533,7 +555,7 @@ between the double quotes.
 
 Perhaps the most common occurrence of string constants is as argu­ments to functions, as in
 
-      printf("hello, world\n");
+    printf("hello, world\n");
 
 When a character string like this appears in a program, access to it is
 through a character pointer; what  `printf` receives is a pointer to the char­acter array.
@@ -541,13 +563,13 @@ through a character pointer; what  `printf` receives is a pointer to the char­a
 Character arrays of course need not be function arguments. If
 `message` is declared as
 
-      char *message;
+    char *message;
 
 then the statement
 
 [comment]: <> (page 100 , 100 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
-      message = "now is the time";
+    message = "now is the time";
 
 assigns to `message` a pointer to the actual characters. This is _not_ a string
 copy; only pointers are involved. C does not provide any operators for processing an entire string of characters as a unit.
@@ -559,30 +581,30 @@ The first function is `strcpy(s, t)`, which copies the string `t` to the
 string `s`. The arguments are written in this order by analogy to assignment,
 where one would say
 
-      s = t
+    s = t
 
 to assign `t` to `s`. The array version is first:
 
-      strcpy(s, t) /* copy t to s */
-      char s[], t[];
-      {
-        int i;
+    strcpy(s, t) /* copy t to s */
+    char s[], t[];
+    {
+      int i;
 
-        i = 0;
-        while ((s[i] = t[i]) != '\0')
-          i++;
-      }
+      i = 0;
+      while ((s[i] = t[i]) != '\0')
+        i++;
+    }
 
 For contrast, here is a version of `strcpy` with pointers.
 
-      strcpy(s, t) /* copy t to s; pointer version 1 */
-      char *s, *t;
-      {
-        while ((*s = *t) != '\0') {
-          s++;
-          t++;
-        }
+    strcpy(s, t) /* copy t to s; pointer version 1 */
+    char *s, *t;
+    {
+      while ((*s = *t) != '\0') {
+        s++;
+        t++;
       }
+    }
 
 Because arguments are passed by value, `strcpy` can use `s` and `t` in any
 way it pleases. Here they are conveniently initialized pointers, which are
@@ -591,12 +613,12 @@ marched along the arrays a character at a time, until the \0 which terminates t 
 In practice, `strcpy` would not be written as we showed it above A
 second possibility might be
 
-      strcpy(s, t) /* copy t to s; pointer version 2 */
-      char *s, *t;
-      {
-        while ((*s++ = *t++) != '\0')
-        ;
-      }
+    strcpy(s, t) /* copy t to s; pointer version 2 */
+    char *s, *t;
+    {
+      while ((*s++ = *t++) != '\0')
+      ;
+    }
 
 <!-- CHAPTER 5 POINTERS AND ARRAYS 101 -->
 
@@ -611,12 +633,12 @@ including the terminating \0.
 As the final abbreviation, we again observe that a comparison against \0
 is redundant, so the function is often written as
 
-      strcpy(s, t) /* copy t to s; pointer version 3 */
-      char *s, *t;
-      {
-        while (*s++ = *t++)
-        ;
-      }
+    strcpy(s, t) /* copy t to s; pointer version 3 */
+    char *s, *t;
+    {
+      while (*s++ = *t++)
+      ;
+    }
 
 Although this may seem cryptic at first sight, the notational convenience is
 considerable, and the idiom should be mastered, if for no other reason than
@@ -626,39 +648,39 @@ The second routine is `strcmp(s, t)` , which compares the character
 strings `s` and `t`, and returns negative, zero or positive according as `s` is lexicographically less than, equal to, or greater than `t`. The value returned is obtained by subtracting the characters at the first position where `s` and `t`
 disagree.
 
-      strcmp(s, t) /* return <0 if s<t, 0 if s==t, >0 if s>t */
-      char s[], t[];
-      {
-        int i;
+    strcmp(s, t) /* return <0 if s<t, 0 if s==t, >0 if s>t */
+    char s[], t[];
+    {
+      int i;
 
-        i = 0;
+      i = 0;
 
-        while (s[i] == t[i])
-          if (s[i++] == '\0')
-            return (0);
-        return(s[i] - t[i]);
-      }
+      while (s[i] == t[i])
+        if (s[i++] == '\0')
+          return (0);
+      return(s[i] - t[i]);
+    }
 
 The pointer version of `strcmp`:
 
 [comment]: <> (page 102 , 102 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
-      strcmp(s, t) /* return <0 if s<t, 0 if s==t, >0 if s>t */
-      char *s, *t;
-      {
-        for ( ; *s == *t; s++, t++)
-          if (*s == '\0')
-            return (0);
-        return(*s — *t);
-      }
+    strcmp(s, t) /* return <0 if s<t, 0 if s==t, >0 if s>t */
+    char *s, *t;
+    {
+      for ( ; *s == *t; s++, t++)
+        if (*s == '\0')
+          return (0);
+      return(*s — *t);
+    }
 
 Since ++ and -- are either prefix or postfix operators, other combinations of * and ++ and -- occur, although less frequently. For example,
 
-      *++p
+    *++p
 
 increments `p` _before_ fetching the character that `p` points to;
 
-      *--p
+    *--p
 
 decrements p first.
 
@@ -686,26 +708,26 @@ returns a pointer to it. Properly, this should be written as
 
 <!-- CHAPTER 5 POINTERS AND ARRAYS 103 -->
 
-      char *strsave(s) /* save string s somewhere */
-      char *s;
-      {
-        char *p, *alloc();
+    char *strsave(s) /* save string s somewhere */
+    char *s;
+    {
+      char *p, *alloc();
 
-        if ((p = alloc(strlen(s)+1)) != NULL)
-          strcpy(p, s);
-        return(p);
-      }
+      if ((p = alloc(strlen(s)+1)) != NULL)
+        strcpy(p, s);
+      return(p);
+    }
 
 In practice, there would be a strong tendency to omit declarations:
 
-      strsave(s) /* save string s somewhere */
-      {
-        char *p;
+    strsave(s) /* save string s somewhere */
+    {
+      char *p;
 
-        if ((p = alloc(strlen(s)+1)) != NULL)
-          strcpy(p, s);
-        return(p);
-      }
+      if ((p = alloc(strlen(s)+1)) != NULL)
+        strcpy(p, s);
+      return(p);
+    }
 
 This will work on many machines, since the default type for functions and
 arguments is `int`, and `int` and pointer can usually be safely assigned back
@@ -728,7 +750,7 @@ the conversions: `day_of_year` converts the month and day into the day of
 the year, and `month_day` converts the day of the year into the month and
 day. Since this latter function returns two values, the month and day arguments will be pointers:
 
-      month_day(1977, 60, &m, &d)
+    month_day(1977, 60, &m, &d)
 
 sets `m` to 3 and `d` to 1 (March 1st).
 
@@ -740,33 +762,33 @@ the functions for performing the transformations are as follows:
 
 [comment]: <> (page 104 , 104 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
-      static int day_tab[2][13] = {
-        {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
-        {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
-      };
+    static int day_tab[2][13] = {
+      {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
+      {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
+    };
 
-      day_of_year(year, month,day)   /*  set day of year */
-      int year, month, day;          /* from month & day */
-      {
-        int i, leap;
+    day_of_year(year, month,day)   /*  set day of year */
+    int year, month, day;          /* from month & day */
+    {
+      int i, leap;
 
-        leap = year%4 == 0 && year%100 != 0 || year%400 == 0;
-        for (i = 1; i < month; i++)
-          day += day_tab[leap][i];
-        return (day);
-      }
+      leap = year%4 == 0 && year%100 != 0 || year%400 == 0;
+      for (i = 1; i < month; i++)
+        day += day_tab[leap][i];
+      return (day);
+    }
 
-      month_day(year, yearday, pmonth, pday) /* set month, day */
-      int year, yearday, *pmonth, *pday; /* from day of year */
-      {
-        int i, leap;
+    month_day(year, yearday, pmonth, pday) /* set month, day */
+    int year, yearday, *pmonth, *pday; /* from day of year */
+    {
+      int i, leap;
 
-        leap = year%4 == 0 && year%100 != 0 || year%400 == 0;
-        for (i = 1; yearday > day_tab[leap][i]; i++)
-          yearday -= day_tab[leap][i];
-        *pmonth = i;
-        *pday = yearday;
-      }
+      leap = year%4 == 0 && year%100 != 0 || year%400 == 0;
+      for (i = 1; yearday > day_tab[leap][i]; i++)
+        yearday -= day_tab[leap][i];
+      *pmonth = i;
+      *pday = yearday;
+    }
 
 The array `day_tab` has to be external to both `day_of_year` and
 `month_day`, so they can both use it.
@@ -775,11 +797,11 @@ The array `day_tab` has to be external to both `day_of_year` and
 by definition a two-dimensional array is really a one-dimensional array, each
 of whose elements is an array. Hence subscripts are written as
 
-      day_tab[i] [j]
+    day_tab[i] [j]
 
 rather than
 
-      day_tab[i, j]
+    day_tab[i, j]
 
 as in most languages. Other than this, a two-dimensional array can be
 treated in much the same way as in other languages. Elements are stored by
@@ -801,25 +823,25 @@ particular case, it is a pointer to objects which are arrays of 13 `int`'s. Thus
 if the array `day_tab` is to be passed to a function `f`, the declaration of `f`
 would be
 
-      f (day_tab)
-      int day_tab [2] [13] ;
-      {
-        ...
-      }
+    f (day_tab)
+    int day_tab [2] [13] ;
+    {
+      ...
+    }
 
 The argument declaration in `f` could also be
 
-      int day_tab [] [13] ;
+    int day_tab [] [13] ;
 
 since the number of rows is irrelevant, or it could be
 
-      int (*day_tab) [13] ;
+    int (*day_tab) [13] ;
 
 which says that the argument is a pointer to an array of 13 integers. The
     parentheses are necessary since brackets [] have higher precedence than `*`;
 without parentheses, the declaration
 
-      int *day_tab [13] ;
+    int *day_tab [13] ;
 
 is an array of 13 pointers to integers, as we shall see in the next section.
 
@@ -851,9 +873,9 @@ storage management and high overhead that would go with moving the actual lines.
 
 The sorting process involves three steps:
 
-      read all the lines of input
-      sort them
-      print them in order
+    read all the lines of input
+    sort them
+    print them in order
 
 As usual, it's best to divide the program into functions that match this
 natural division, with the main routine controlling things.
@@ -869,24 +891,24 @@ lines in the order in which they appear in the array of pointers.
 
 [comment]: <> (code c_106_01.c)
 
-<!-- [comment]: <> (code c_107_01.c) -->
+[comment]: <> (code c_107_01.c)
 
 The newline at the end of each line is deleted so it will not affect the c
 in which the lines are sorted.
 
-      writelines(lineptr, nlines) /* write output lines */
-      char *lineptr[];
-      int nlines;
-      {
-        int i;
+    writelines(lineptr, nlines) /* write output lines */
+    char *lineptr[];
+    int nlines;
+    {
+      int i;
 
-        for (i = 0; i < nlines; i++)
-          printf("%s\n", lineptr[i]);
-      }
+      for (i = 0; i < nlines; i++)
+        printf("%s\n", lineptr[i]);
+    }
 
 The main new thing is the declaration for  lineptr:
 
-      char *lineptr [LINES];
+    char *lineptr [LINES];
 
 says that  `lineptr`  is an array of  `LINES`  elements, each element of which is
 a pointer to a  `char`.  That is,  `lineptr[i]`  is a character pointer, and
@@ -897,13 +919,13 @@ can be treated as a pointer in exactly the same manner as our earlier exam­ples
 
 [comment]: <> (page 5 , **108** THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
-      writelines(lineptr, nlines) /* write output lines */**
-      char *lineptr[];
-      int nlines;
-      {
-        while (--nlines >= 0)
-          printf("%s\n", *lineptr++);
-      }
+    writelines(lineptr, nlines) /* write output lines */**
+    char *lineptr[];
+    int nlines;
+    {
+      while (--nlines >= 0)
+        printf("%s\n", *lineptr++);
+    }
 
 `*lineptr` points initially to the first line; each increment advances it to the
 next line while `nlines` is counted down.
@@ -914,23 +936,23 @@ modified, and the comparison operation must be moved into a separate
 function. The basic algorithm remains the same, which gives us some
 confidence that it will still work.
 
-      sort(v, n) /* sort strings v[0] v[n-1] */
-      char *v[]; /* into increasing order */
-      int n;
-      {
-        int gap, i, j;
-        char *temp;
+    sort(v, n) /* sort strings v[0] v[n-1] */
+    char *v[]; /* into increasing order */
+    int n;
+    {
+      int gap, i, j;
+      char *temp;
 
-        for (gap = n/2; gap > 0; gap /= 2)
-          for (i = gap; i < n; i++)
-            for (j = i-gap; j >= 0; j -= gap) {
-              if (strcmp(v[j], v[j+gap]) <= 0)
-                break;
-              temp = v[j];
-              v[j] = v[j+gap];
-              v[j+gap] = temp;
-            }
-      }
+      for (gap = n/2; gap > 0; gap /= 2)
+        for (i = gap; i < n; i++)
+          for (j = i-gap; j >= 0; j -= gap) {
+            if (strcmp(v[j], v[j+gap]) <= 0)
+              break;
+            temp = v[j];
+            v[j] = v[j+gap];
+            v[j+gap] = temp;
+          }
+    }
 
 Since any individual element of `v` (alias `lineptr`) is a character pointer,
 `temp` also should be, so one can be copied to the other.
@@ -966,26 +988,26 @@ array of names is initialized.
 
 The syntax is quite similar to previous initializations:
 
-      char *month_name(n) /* return name of n-th month */
-      int n;
-      {
-        static char *name[] ={
-          "illegal month",
-          "January",
-          "February",
-          "March",
-          "April",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December"
-        } ;
+    char *month_name(n) /* return name of n-th month */
+    int n;
+    {
+      static char *name[] ={
+        "illegal month",
+        "January",
+        "February",
+        "March",
+        "April",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      } ;
 
-        return((n < 1 || n > 12) ? name [0] : name[n]);
-      }
+      return((n < 1 || n > 12) ? name [0] : name[n]);
+    }
 
 The declaration of `name`, which is an array of character pointers, is the same
 as `lineptr` in the sorting example. The initializer is simply a list of character strings; each is assigned to the corresponding position in the array. More precisely, the characters of the `i`-th string are placed somewhere else,
@@ -1001,8 +1023,8 @@ the correct number.
 Newcomers to C are sometimes confused about the difference between a
 two-dimensional array and an array of pointers, such as `name` in the example above. Given the declarations
 
-      int a [10] [10] ;
-      int *b [10] ;
+    int a [10] [10] ;
+    int *b [10] ;
 
 the usage of `a` and `b` may be similar, in that `a[5][5]` and `b[5][5]` are
 both legal references to a single `int`. But `a` is a true array: all 100 storage
@@ -1036,11 +1058,11 @@ these character strings is a common use of multiple levels of pointers.
 The simplest illustration of the necessary declarations and use is the program `echo`, which simply echoes its command-line arguments on a single
 line, separated by blanks. That is, if the command
 
-      echo hello, world
+    echo hello, world
 
 is given, the output is
 
-      hello, world
+    hello, world
 
 <!-- CHAPTER 5 POINTERS AND ARRAYS 111 -->
 
@@ -1089,18 +1111,18 @@ with a minus sign introduces an optional flag or parameter. If we choose -`x`
 (for "except") to signal the inversion, and -`n` ("number") to request line
 numbering, then the command
 
-      find -x -n the
+    find -x -n the
 
 with the input
 
-      now is the time
-      for all good men
-      to come to the aid
-      of their party.
+    now is the time
+    for all good men
+    to come to the aid
+    of their party.
 
 should produce the output
 
-      2: for all good men
+    2: for all good men
 
 Optional arguments should be permitted in any order, and the rest of
 the program should be insensitive to the number of arguments which were
@@ -1110,7 +1132,7 @@ there wasn't. Furthermore, it is convenient for users if option arguments can be
 
 <!-- CHAPTER 5 POINTERS AND ARRAYS **113** -->
 
-      find -nx the
+    find -nx the
 
 Here is the program.
 
@@ -1128,7 +1150,7 @@ which is quite different (and wrong). An alternate valid form would be `**++argv
 **Exercise 5-7.** Write the program `add` which evaluates a reverse Polish
 expression from the command line. For example,
 
-      add 2 3 4 + *
+    add 2 3 4 + *
 
 evaluates 2 x (3+4).
 
@@ -1138,7 +1160,7 @@ settings if there are no arguments.
 
 **Exercise 5-9.** Extend `entab` and `detab` to accept the shorthand
 
-      entab _m +n_
+    entab _m +n_
 
 to mean tabs stops every _n_ columns, starting at column _m._ Choose convenient (for the user) default behavior.
 
@@ -1146,7 +1168,7 @@ to mean tabs stops every _n_ columns, starting at column _m._ Choose convenient 
 input. By default, _n_ is 10, let us say, but it can be changed by an optional
 argument, so that
 
-      tail _-n_
+    tail _-n_
 
 prints the last _n_ lines. The program should behave rationally no matter how
 unreasonable the input or the value of _n._ Write the program so it makes
@@ -1185,42 +1207,42 @@ The second step is to modify `sort`:
 
 [comment]: <> (page 116 , 116 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
-      sort(v, n)  comp, exch) /* sort strings v[0]...v[n-1] */
-      char *v[]; /* into increasing order */
-      int n;
-      int (*comp)(), (*exch)();
-      {
-        int gap, i, j;
+    sort(v, n)  comp, exch) /* sort strings v[0]...v[n-1] */
+    char *v[]; /* into increasing order */
+    int n;
+    int (*comp)(), (*exch)();
+    {
+      int gap, i, j;
 
-        for (gap = n/2; gap > 0; gap /= 2)
-          for (i = gap; i < n; i++)
-            for (j = i-gap; j >= 0; j -= gap) (
-              if ((*comp)(v[j], v[j+gap]) <= 0)
-                break;
-              (*exch)(&v[j], &v[j+gap]);
-            }
-      }
+      for (gap = n/2; gap > 0; gap /= 2)
+        for (i = gap; i < n; i++)
+          for (j = i-gap; j >= 0; j -= gap) (
+            if ((*comp)(v[j], v[j+gap]) <= 0)
+              break;
+            (*exch)(&v[j], &v[j+gap]);
+          }
+    }
 
 The declarations should be studied with some care.
 
-      int (*comp) ()
+    int (*comp) ()
 
 says that comp is a pointer to a function that returns an `int`. The first set
 of parentheses are necessary; without them,
 
-      int *comp()
+    int *comp()
 
 would say that `comp` is a function returning a pointer to an `int`, which is
 quite a different thing.
 
 The use of `comp` in the line
 
-      if ((*comp)(v[j], v[j+gap]) <= 0)
+    if ((*comp)(v[j], v[j+gap]) <= 0)
 
 is consistent with the declaration: `comp` is a pointer to a function, `*comp` is
 the function, and
 
-      (*comp)(v[j], v[j+gap])
+    (*comp)(v[j], v[j+gap])
 
 is the call to it. The parentheses are needed so the components are correctly
 associated.
@@ -1230,34 +1252,34 @@ We have already shown `strcmp`, which compares two strings. Here is
 
 <!-- **CHAPTER 5 POINTERS AND ARRAYS** 117 -->
 
-      numcmp(s1, s2) /* compare s1 and s2 numerically */
-      char *s1, *s2;
-      {
-        double atof(), v1, v2;
+    numcmp(s1, s2) /* compare s1 and s2 numerically */
+    char *s1, *s2;
+    {
+      double atof(), v1, v2;
 
-        v1 = atof(s1);
-        v2 = atof(s2);
-        if (v1 < v2)
-          return(-1);
-        else if (v1 > v2)
-          return(1);
-        else
-          return(0);
-      }
+      v1 = atof(s1);
+      v2 = atof(s2);
+      if (v1 < v2)
+        return(-1);
+      else if (v1 > v2)
+        return(1);
+      else
+        return(0);
+    }
 
 The final step is to add the function `swap` which exchanges two
 pointers. This is adapted directly from what we presented early in the
 chapter.
 
-      swap(px, py) /* interchange *px and *py */
-      char *px(), *py[];
-      {
-        char *temp;
+    swap(px, py) /* interchange *px and *py */
+    char *px(), *py[];
+    {
+      char *temp;
 
-        temp = *px;
-        *px = *py;
-        *py = temp;
-      }
+      temp = *px;
+      *px = *py;
+      *py = temp;
+    }
 
 There are a variety of other options that can be added to the sorting program; some make challenging exercises.
 
