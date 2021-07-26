@@ -631,27 +631,28 @@ sets to one in `x` the bits that are set to one in `MASK`.
 
 You should carefully distinguish the bitwise operators `&` and `|` from the
 logical connectives `&&` and `||`, which imply left-to-right evaluation of a
-truth value. For example, if `x` is 1 and `y` is 2, then `x` & `y` is zero while
-`x` && `y` is one. (Why?)
+truth value. For example, if `x` is 1 and `y` is 2, then `x & y` is zero while
+`x && y` is one. (Why?)
 
 The shift operators `<<` and `>>` perform left and right shifts of their left
 operand by the number of bit positions given by the right operand. Thus `x << 2`
 shifts `x` left by two positions, filling vacated bits with 0; this is
-equivalent to multiplication by 4. Right shifting an unsigned quantity fills
+equivalent to multiplication by 4. Right shifting an `unsigned` quantity fills
 vacated bits with 0. Right shifting a signed quantity will fill with sign bits
 ("arithmetic shift") on some machines such as the PDP-11, and with 0-bits
 ("logical shift") on others.
 
 The unary operator `~` yields the one's complement of an integer; that is,
 it converts each 1-bit into a 0-bit and vice versa. This operator typically
-finds use in expressions like
+finds use in expressions like 
 
-    x &  ~ 077
+      x &  ~ 077
 
-which masks the last six bits of `x` to zero. Note that `x` & ~077
-is independent of word length, and is thus preferable to, for example, `x` & 0177700,
-which assumes that `x` is a 16-bit quantity. The portable form involves no
-extra cost, since ~077 is a constant expression and thus evaluated at compile time.
+which masks the last six bits of `x` to zero. Note that `x & ~077` is
+independent of word length, and is thus preferable to, for example,
+`x & 0177700`, which assumes that `x` is a 16-bit quantity. The
+portable form involves no extra cost, since `~077` is a constant
+expression and thus evaluated at compile time.
 
 To illustrate the use of some of the bit operators, consider the function
 `getbits(x, p, n)` which returns (right adjusted) the `n`-bit field of `x`
