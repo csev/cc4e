@@ -127,6 +127,7 @@ function myEdit(me) {
 <div style="float:right">
 <select id="chapters" onchange="onSelect();">
   <option <?= x_sel("..") ?>>CC4E</option>
+  <option <?= x_sel("toc.md") ?>>Table of Contents</option>
   <option <?= x_sel("about.md") ?>>About</option>
   <option <?= x_sel("chap00.md") ?>>Chapter 0</option>
   <option <?= x_sel("chap01.md") ?>>Chapter 1</option>
