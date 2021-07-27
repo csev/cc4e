@@ -236,7 +236,28 @@ function myEdit(me) {
         $copy_button = '<button style="float:right; margin:0.5em;" onclick="myCopy(this);return false;">Copy</button>';
         $edit_button = '<button style="float:right; margin:0.5em;" onclick="myEdit(this);return false;">Edit</button>';
         $md = str_replace('<pre><code class="language-', '<pre class="code">'.$edit_button.$copy_button.'<code class="language-c" id="', $md);
-        echo($md);
+        $pieces = explode("\n", $md);
+        $new = array();
+        foreach($pieces as $piece) {
+            if (strpos($piece, "<h2>") === 0 ) {
+                echo(htmlentities($piece));
+                // Wow - the github h2 to anchor rules are complex
+                // https://gist.github.com/asabaylus/3071099
+                //   var anchor = val.trim().toLowerCase().replace(/[^\w\- ]+/g, ' ').replace(/\s+/g, '-').replace(/\-+$/, '');
+                $title = str_replace("<h2>", "", $piece);
+                $title = str_replace("</h2>", "", $title);
+                $anchor = str_replace(".", "", $title);
+                $anchor = str_replace("  ", " ", $anchor);
+                $anchor = str_replace("  ", " ", $anchor);
+                $anchor = str_replace(" - ", "--", $anchor);
+                $anchor = str_replace(" ", "-", $anchor);
+                $anchor = strtolower($anchor);
+                $new[] = '<h2><a id="'.$anchor.'" class="anchor" aria-hidden="true" href="#'.$anchor.'"></a>' . $title . '</h2>';
+            } else {
+                $new[] = $piece;
+            }
+        }
+        echo(implode("\n", $new));
     }
 } else {
 ?>

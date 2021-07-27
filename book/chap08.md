@@ -59,7 +59,7 @@ cases, it must be noted, the file assignments are changed by the shell, not by
 the program. The program does not know where its input comes from nor
 where its output goes, so long as it uses file 0 for input and 1 and 2 for output.
 
-8.2 Low Level I/O — Read and Write
+8.2 Low Level I/O - Read and Write
 ----------------------------------
 
 The lowest level of I/O in UNIX provides no buffering or any other services; it is in fact a direct entry into the operating system. All input and
@@ -73,7 +73,7 @@ number of bytes to be transferred. The calls are
 
 Each call returns a byte count which is the number of bytes actually
 transferred. On reading, the number of bytes returned may be less than the
-number asked for. A return value of zero bytes implies end of file, and —1
+number asked for. A return value of zero bytes implies end of file, and -1
 indicates an error of some sort. For writing, the returned value is the
 number of bytes actually written; it is generally an error if this isn't equal to
 the number supposed to be written.
@@ -133,14 +133,14 @@ int.
 As with fopen, the name argument is a character string corresponding to
 the external file name. The access mode argument is different, however:
 rwmode is 0 for read, 1 for write, and 2 for read and write access. open
-returns —1 if any error occurs; otherwise it returns a valid file descriptor.
+returns -1 if any error occurs; otherwise it returns a valid file descriptor.
 
 It is an error to try to open a file that does not exist. The entry point
 creat is provided to create new files, or to re-write old ones.
 
     fd = creat(name, pmode);
 
-returns a file descriptor if it was able to create the file called name, and —1
+returns a file descriptor if it was able to create the file called name, and -1
 if not. If the file already exists, creat will truncate it to zero length; it is
 not an error to creat a file that already exists.
 
@@ -175,7 +175,7 @@ the file system.
 **Exercise 8-1.** Rewrite the program cat from Chapter 7 using read,
 write, open and close instead of their standard library equivalents. Perform experiments to determine the relative speeds of the two versions. El
 
-8.4 Random Access — Seek and Lseek
+8.4 Random Access - Seek and Lseek
 ----------------------------------
 
 File I/0 is normally sequential: each read or write takes place at a
@@ -237,7 +237,7 @@ origin equal to 1 and moves to the desired byte within the block.
 **Exercise 8-2.** Clearly, seek can be written in terms of lseek, and vice
 versa. Write each in terms of the other. 0
 
-8.5 Example — An Implementation of Fopen and Getc
+8.5 Example - An Implementation of Fopen and Getc
 -------------------------------------------------
 
 Let us illustrate how some of these pieces fit together by showing an
@@ -478,11 +478,11 @@ which is identical to lseek except that fp is a file pointer instead of a file
 descriptor. Write f seek. Make sure that your f seek coordinates properly
 with the buffering done for the other functions of the library. CI
 
-8.6 Example — Listing Directories
+8.6 Example - Listing Directories
 ---------------------------------
 
-A different kind of file system interaction is sometimes called for —
-determining information _about_ a file, not what it contains. The UNIX command _Is_ ("list directory") is an example — it prints the names of files in a
+A different kind of file system interaction is sometimes called for -
+determining information _about_ a file, not what it contains. The UNIX command _Is_ ("list directory") is an example - it prints the names of files in a
 directory, and optionally, other information, such as sizes, permissions, and
 so on.
 
@@ -523,7 +523,7 @@ system. Hence the typedef. A complete set of "system" types is found
 in sys/types .h.
 
 The function stat takes a file name and returns all of the information
-in the mode for that file (or —1 if there is an error). That is,
+in the mode for that file (or -1 if there is an error). That is,
 
     struct stat stbuf;
      char *name;
@@ -702,7 +702,7 @@ of the information appear only in standard "header files" like stat.h and
 dir.h, and that programs include those files instead of embedding the
 actual declarations in themselves.
 
-8.7 Example — A Storage Allocator
+8.7 Example - A Storage Allocator
 ---------------------------------
 
 In Chapter 5, we presented a simple-minded version of alloc. The
@@ -867,8 +867,8 @@ needed. The amount of scaling is a parameter that can be tuned as needed.
 
     return(allocp);
 
-sbrk returns —1 if there was no space, even though NULL would have
-been a better choice. The —1 must be converted to an int so it can be
+sbrk returns -1 if there was no space, even though NULL would have
+been a better choice. The -1 must be converted to an int so it can be
 safely compared. Again, casts are heavily used so the function is relatively
 immune to the details of pointer representation on different machines.
 

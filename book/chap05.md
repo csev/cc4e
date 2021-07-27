@@ -262,7 +262,7 @@ of a [0]. Now the assignment
 will copy the contents of `a[0]` into `x`.
 
 If `pa` points to a particular element of an array `a`, then _by definition_
-`pa+1` points to the next element, and in general `pa—i` points `i` elements
+`pa+1` points to the next element, and in general `pa-i` points `i` elements
 before pa, and `pa+i` points `i` elements after. Thus, if `pa` points to `a[0]`,
 
     *(pa+1)
@@ -527,7 +527,7 @@ often written as
       p++;
 
 Because `p` points to characters, `p++` advances `p` to the next character
-each time, and `p—s` gives the number of characters advanced over, that is,
+each time, and `p-s` gives the number of characters advanced over, that is,
 the string length. Pointer arithmetic is consistent: if we had been dealing
 with  `float`'s, which occupy more storage than  `char`'s,  and if `p` were a
 pointer to  `float`, `p++` would advance to the next  float.  Thus we could
@@ -671,7 +671,7 @@ The pointer version of `strcmp`:
       for ( ; *s == *t; s++, t++)
         if (*s == '\0')
           return (0);
-      return(*s — *t);
+      return(*s - *t);
     }
 
 Since ++ and -- are either prefix or postfix operators, other combinations of * and ++ and -- occur, although less frequently. For example,
@@ -701,7 +701,7 @@ copying pointers. It has generally been true that on most machines a pointer
 may be assigned to an integer and back again without changing it; no scaling
 or conversion takes place, and no bits are lost. Regrettably, this has led to
 the taking of liberties with routines that return pointers which are then
-merely passed to other routines — the requisite pointer declarations are
+merely passed to other routines - the requisite pointer declarations are
 often left out. For example, consider the function `strsave(s)`, which
 copies the string `s` into a safe place, obtained by a call on `alloc`, and
 returns a pointer to it. Properly, this should be written as
@@ -886,7 +886,7 @@ save the characters of each line, and build an array of pointers to the lines.
 It will also have to count the number of input lines, since that information
 is needed for sorting and printing. Since the input function can only cope
 with a finite number of input lines, it can return some illegal line count like
-—1 if too much input is presented. The output routine only has to print the
+-1 if too much input is presented. The output routine only has to print the
 lines in the order in which they appear in the array of pointers.
 
 [comment]: <> (code c_106_01.c)
@@ -1180,10 +1180,10 @@ two-dimensional array of fixed size.
 
 In C, a function itself is not a variable, but it is possible to define a
 _pointer to a function,_ which can be manipulated, passed to functions, placed
-in arrays, and so on. We will illustrate this by modifying the sorting procedure written earlier in this chapter so that if the optional argument —n is
+in arrays, and so on. We will illustrate this by modifying the sorting procedure written earlier in this chapter so that if the optional argument -n is
 given, it will sort the input lines numerically instead of lexicographically.
 
-A sort often consists of three parts — a _comparison_ which determines
+A sort often consists of three parts - a _comparison_ which determines
 the ordering of any pair of objects, an _exchange_ which reverses their order,
 and a _sorting algorithm_ which makes comparisons and exchanges until the
 objects are in order. The sorting algorithm is independent of the comparison and exchange operations, so by passing different comparison and

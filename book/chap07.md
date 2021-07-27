@@ -44,7 +44,7 @@ command to compile a program would be
 where -lS indicates loading from the standard library. (The character l is
 the letter ell.)
 
-7.2 Standard Input and Output — Getchar and Putchar
+7.2 Standard Input and Output - Getchar and Putchar
 ---------------------------------------------------
 
 The simplest input mechanism is to read a character at a time from the
@@ -114,7 +114,7 @@ As an aside, in the standard I/O library the "functions" `getchar` and
 `putchar` can actually be macros, and thus avoid the overhead of a function
 call per character. We will show how this is done in [Chapter 8](chap08.md).
 
-7.3 Formatted Output — Printf
+7.3 Formatted Output - Printf
 -----------------------------
 
 The two routines `printf` for output and `scanf` for input (next section) permit translation to and from character representations of numerical
@@ -164,8 +164,8 @@ The conversion characters and their meanings are:
     u  The argument is converted to unsigned decimal notation.
     c  The argument is taken to be a single character.
     s  The argument is a string; characters from the string are printed until a null character is reached or until the number of characters indicated by the precision specification is exhausted.
-    e  The argument is taken to be a float or double and converted to decimal notation of the form [—] m.nnnnnnE[±]xx where the length of the string of n's is specified by the precision. The default precision is 6.
-    f  The argument is taken to be a float or double and converted to decimal notation of the form [—] mmm.nnnnn where the length of the string of n's is specified by the precision. The default precision is 6. Note that the precision
+    e  The argument is taken to be a float or double and converted to decimal notation of the form [-] m.nnnnnnE[±]xx where the length of the string of n's is specified by the precision. The default precision is 6.
+    f  The argument is taken to be a float or double and converted to decimal notation of the form [-] mmm.nnnnn where the length of the string of n's is specified by the precision. The default precision is 6. Note that the precision
        does not determine the number of significant digits printed in f format.
     g  Use %e or %f, whichever is shorter; non-significant zeros are not printed.
 
@@ -196,7 +196,7 @@ wrong type.
 way. As a minimum, it should print non-graphic characters in octal or hex
     (according to local custom), and fold long lines.
 
-7.4 Formatted Input — Scanf
+7.4 Formatted Input - Scanf
 ---------------------------
 
 The function `scanf` is the input analog of `printf`, providing many of
@@ -327,7 +327,7 @@ result. As an example, if name is a character array and n is an integer, then
 creates a string of the form `temp_nnn_` in `name`, where _nnn_ is the value of
 `n`.
 
-`sscanf` does the reverse conversions — it scans the `string` according
+`sscanf` does the reverse conversions - it scans the `string` according
 to the format in `control`, and places the resulting values in `argl` , `arg2`,
 etc. These arguments must be pointers. The call
 
@@ -358,7 +358,7 @@ capability of accessing files by name. For example, the command
 
 prints the contents of the files `x.c` and `y.c` on the standard output.
 
-The question is how to arrange for the named files to be read — that is,
+The question is how to arrange for the named files to be read - that is,
 how to connect the external names that a user thinks of to the statements
 which actually read the data.
 
@@ -452,12 +452,12 @@ between the file pointer and the external name that was established by
 `fopen`, freeing the file pointer for another file. Since most operating systems have some limit on the number of simultaneously open files that a
 program may have, it's a good idea to free things when they are no longer
 needed, as we did in _cat._ There is also another reason for `fclose` on an
-output file — it flushes the buffer in which `putc` is collecting output.
+output file - it flushes the buffer in which `putc` is collecting output.
 (`fclose` is called automatically for each open file when a program terminates normally.)
 
 [comment]: <> (page 154 , 154 THE C PROGRAMMING LANGUAGE CHAPTER 7 )
 
-7.7 Error Handling — Stderr and Exit
+7.7 Error Handling - Stderr and Exit
 ------------------------------------
 
 The treatment of errors in _cat_ is not ideal. The trouble is that if one of

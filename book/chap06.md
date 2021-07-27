@@ -152,9 +152,9 @@ modified because its argument is now a pointer rather than a list of variables.
     {
         int i, day, leap;
 
-        day = pd—>day;
-        leap = pd—>year % 4 == 0 && pd—>year % 100 != 0 || pd—>year % 400 == 0;
-        for (i = 1; i < pd—>month; i++)
+        day = pd->day;
+        leap = pd->year % 4 == 0 && pd->year % 100 != 0 || pd->year % 400 == 0;
+        for (i = 1; i < pd->month; i++)
             day += day_tab[leap][i];
         return (day);
     }
@@ -166,13 +166,13 @@ The declaration
 says that `pd` is a pointer to a structure of type `date`. The notation
 exemplified by
 
-    pd—>year
+    pd->year
 
 is new. If `p` is a pointer to a structure, then
 
-    p—>member-of-structure
+    p->member-of-structure
 
-refers to the particular member. (The operator `—>` is a minus sign followed
+refers to the particular member. (The operator `->` is a minus sign followed
 by >)
 
 Since `pd` points to the structure, the year member could also be
@@ -180,17 +180,17 @@ referred to as
 
     (*pd).year
 
-but pointers to structures are so frequently used that the `—>` notation is
+but pointers to structures are so frequently used that the `->` notation is
 provided as a convenient shorthand. The parentheses are necessary in
 `(*pd) .year` because the precedence of the structure member operator `.` is
-higher than `*`. Both `—>` and `.` associate from left to right, so
+higher than `*`. Both `->` and `.` associate from left to right, so
 
-    p—>q—>memb
+    p->q->memb
     emp.birthdate.month
 
 are
 
-    (p—>q)—>memb
+    (p->q)->memb
     (emp.birthdate).month
 
 [comment]: <> (page 123 , CHAPTER 6 STRUCTURES 123 )
@@ -203,14 +203,14 @@ use the structure.
     {
         int i, leap;
 
-        leap = pd—>year % 4 == 0 && pd—>year % 100 != 0 || pd—>year % 400 == 0;
-        pd—>day = pd—>yearday;
-        for (i = 1; pd—>day > day_tab[leap][i]; i++)
-            pd—>day -= day_tab[leap][i];
-        pd—>month = i;
+        leap = pd->year % 4 == 0 && pd->year % 100 != 0 || pd->year % 400 == 0;
+        pd->day = pd->yearday;
+        for (i = 1; pd->day > day_tab[leap][i]; i++)
+            pd->day -= day_tab[leap][i];
+        pd->month = i;
     }
 
-The structure operators `—>` and `.` , together with `( )` for argument lists
+The structure operators `->` and `.` , together with `( )` for argument lists
 and `[]` for subscripts, are at the top of the precedence hierarchy and thus
 bind very tightly. For example, given the declaration
 
@@ -221,15 +221,15 @@ bind very tightly. For example, given the declaration
 
 then
 
-    ++p—>x
+    ++p->x
 
-increments `x`, not `p`, because the implied parenthesization is `++(p—>x)`.
-Parentheses can be used to alter the binding: `(++p) —>x` increments `p`
-before accessing `x`, and `(p++)—>x` increments `p` afterward. (This last set
+increments `x`, not `p`, because the implied parenthesization is `++(p->x)`.
+Parentheses can be used to alter the binding: `(++p) ->x` increments `p`
+before accessing `x`, and `(p++)->x` increments `p` afterward. (This last set
 of parentheses is unnecessary. Why?)
 
-In the same way, `*p—>y` fetches whatever `y` points to; `*p—>y++` increments `y` after accessing whatever it points to (just like `*s++`); (`*p—>y)++`
-increments whatever `y` points to; and `*p++—>y` increments `p` after accessing
+In the same way, `*p->y` fetches whatever `y` points to; `*p->y++` increments `y` after accessing whatever it points to (just like `*s++`); (`*p->y)++`
+increments whatever `y` points to; and `*p++->y` increments `p` after accessing
 whatever `y` points to.
 
 6.3 Arrays of Structures
@@ -269,7 +269,7 @@ them. Each element of the array is a structure. This could also be written
 
 Since the structure `keytab` actually contains a constant set of names, it
 is easiest to initialize it once and for all when it is defined. The structure
-initialization is quite analogous to earlier ones — the definition is followed
+initialization is quite analogous to earlier ones - the definition is followed
 by a list of initializers enclosed in braces:
 
     struct key {
@@ -538,7 +538,7 @@ In `main` we wrote
 If `p` is a pointer to a structure, any arithmetic on `p` takes into account the
 actual size of the structure, so `p++` increments `p` by the correct amount to
 get the next element of the array of structures. But don't assume that the
-size of a structure is the sum of the sizes of its members — because of
+size of a structure is the sum of the sizes of its members - because of
 alignment requirements for different objects, there may be "holes" in a
 structure.
 
@@ -569,7 +569,7 @@ words.) How can we organize the data to cope efficiently with a list of arbitrar
 
 One solution is to keep the set of words seen so far sorted at all times,
 by placing each word into its proper position in the order as it arrives. This
-shouldn't be done by shifting words in a linear array, though — that also
+shouldn't be done by shifting words in a linear array, though - that also
 takes too long. Instead we will use a data structure called a _binary tree._
 
 The tree contains one "node" per distinct word; each node contains
@@ -779,7 +779,7 @@ t in a table; s and t are just character strings. lookup (s) searches for s
 in the table, and returns a pointer to the place where it was found, or NULL
     if it wasn't there.
 
-The algorithm used is a hash search — the incoming name is converted
+The algorithm used is a hash search - the incoming name is converted
 into a small positive integer, which is then used to index into an array of
 pointers. An array element points to the beginning of a chain of blocks
 
@@ -1011,7 +1011,7 @@ information in the program.
 As an example, again from a compiler symbol table, suppose that constants may be int's, float's or character pointers. The value of a particular constant must be stored in a variable of the proper type, yet it is most
 convenient for table management if the value occupies the same amount of
 storage and is stored in the same place regardless of its type. This is the
-purpose of a union — to provide a single variable which can legitimately
+purpose of a union - to provide a single variable which can legitimately
 hold any one of several types. As with fields, the syntax is based on structures.
 
     union u\_tag {
@@ -1024,7 +1024,7 @@ hold any one of several types. As with fields, the syntax is based on structures
 [comment]: <> (page 139 , CHAPTER 6 STRUCTURES 139 )
 
 The variable uval will be large enough to hold the largest of the three
-types, regardless of the machine it is compiled on — the code is independent of hardware characteristics. Any one of these types may be assigned to
+types, regardless of the machine it is compiled on - the code is independent of hardware characteristics. Any one of these types may be assigned to
 uval and then used in expressions, so long as the usage is consistent: the
 type retrieved must be the type most recently stored. It is the responsibility
 of the programmer to keep track of what type is currently stored in a union;
@@ -1037,7 +1037,7 @@ _union __-__ name, member_
 
 or
 
-_union __-__ pointer __—__ > member_
+_union __-__ pointer __-__ > member_
 
 just as for structures. If the variable utype is used to keep track of the
 current type stored in uval, then one might see code such as
@@ -1185,7 +1185,7 @@ need change when the program is moved. One common situation is to use
 of choices of short, int and long for each host machine.
 
 The second purpose of typedef's is to provide better documentation
-for a program — a type called TREEPTR may be easier to understand than
+for a program - a type called TREEPTR may be easier to understand than
 one declared only as a pointer to a complicated structure.
 
 Finally, there is always the possibility that in the future the compiler or

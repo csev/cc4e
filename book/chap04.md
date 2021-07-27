@@ -310,7 +310,7 @@ Packard pocket calculators.) In reverse Polish notation, each operator follows i
 
 is entered as
 
-    1 2 — 4 5 + * =
+    1 2 - 4 5 + * =
 
 Parentheses are not needed.
 
@@ -544,7 +544,7 @@ getting a character, by writing a pair of cooperating functions. `getch`
 delivers the next input character to be considered; `ungetch` puts a character back on the input, so that the next call to `getch` will return it again.
 
 How they work together is simple. `ungetch` puts the pushed-back
-characters into a shared buffer — a character array. `getch` reads from the
+characters into a shared buffer - a character array. `getch` reads from the
 buffer if there is anything there; it calls `getchar` if the buffer is empty.
 There must also be an index variable which records the position of the
 current character in the buffer.
@@ -920,15 +920,14 @@ A definition of the form
 
     #define YES 1
 
-calls for a macro substitution of the simplest kind — replacing a name by a
+calls for a macro substitution of the simplest kind - replacing a name by a
 string of characters. Names in `#define` have the same form as C
 identifiers; the replacement text is arbitrary. Normally the replacement text
 is the rest of the line; a long definition may be continued by placing a \ at
 the end of the line to be continued. The "scope" of a name defined with `#define` is from its point of definition to the end of the source file.
 Names may be redefined, and a definition may use previous definitions.
 Substitutions do not take place within quoted strings, so, for example, if
-`YES` is a defined name, there would be no substitution in
-    `printf ("YES")`.
+`YES` is a defined name, there would be no substitution in `printf ("YES")`.
 
 Since implementation of `#define` is a macro prepass, not part of the
 compiler proper, there are very few grammatical restrictions on what can be
