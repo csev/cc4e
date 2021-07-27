@@ -161,7 +161,7 @@ function myEdit(me) {
             }
             if ( $page ) {
                 $pno = substr('000'.$numb, -3);
-                $newcontent[] = '<div style="padding-left: 5px; padding-bottom: 0.5em; float:right;"><a onclick="window.open(\'pages/page_'.$pno.'\');return false;" href="#">Page '.($numb+0).'</a></div>'."\n";
+                $newcontent[] = '<div style="padding-left: 5px; padding-bottom: 0.5em; float:right;"><a onclick="window.open(\'pages/page_'.$pno.'\');return false;" href="#" id="'.($numb+0).'">Page '.($numb+0).'</a></div>'."\n";
             }
         }
         if ( strpos($line, "[comment]: <> (code") === 0 || 
