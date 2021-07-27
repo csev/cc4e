@@ -241,7 +241,6 @@ function myEdit(me) {
         $new = array();
         foreach($pieces as $piece) {
             if (strpos($piece, "<h2>") === 0 ) {
-                echo(htmlentities($piece));
                 // Wow - the github h2 to anchor rules are complex
                 // https://gist.github.com/asabaylus/3071099
                 //   var anchor = val.trim().toLowerCase().replace(/[^\w\- ]+/g, ' ').replace(/\s+/g, '-').replace(/\-+$/, '');
