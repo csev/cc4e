@@ -235,7 +235,7 @@ but not by 100, except that years divisible by 400 _are_ leap years. Therefore
     if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0)
         <i>it's a leap year</i>
     else
-       <i>it's not</i>
+        <i>it's not</i>
 </pre>
 
 The `%` operator cannot be applied to `float` or `double`.
@@ -310,7 +310,7 @@ The unary negation operator `!` converts a non-zero or true operand into
 
 rather than
 
-      if (inword == 0)
+    if (inword == 0)
 
 It's hard to generalize about which form is better. Constructions like `!inword`
 read quite nicely ("if not in word"), but more complicated ones can be hard to
