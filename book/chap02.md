@@ -335,16 +335,16 @@ This permits considerable flexibility in certain kinds of character transformati
 One is exemplified by the function `atoi`, which converts a string of digits into
 its numeric equivalent.
 
-      atoi(s) /* convert s to integer */
-      char s[];
-      {
+    atoi(s) /* convert s to integer */
+    char s[];
+    {
         int i, n;
 
         n = 0;
         for (i = 0; s[i] >= '0' && s[i] <= '9'; ++i)
-             n = 10 * n + s[i] - '0';
+            n = 10 * n + s[i] - '0';
         return(n);
-      }
+    }
 
 As we discussed in [Chapter 1](chap01.md), the expression
 
@@ -416,7 +416,7 @@ expressions like `i > j` and logical expressions connected by `&&`
 and `||` are defined to have value 1 if true, and 0 if false. Thus 
 the assignment
 
-      isdigit = c >= '0' && c <= '9';
+    isdigit = c >= '0' && c <= '9';
 
 sets `isdigit` to 1 if `c` is a digit, and to 0 if not. (In the test part of `if`,
 `while`, `for`, etc., "true" just means "non-zero.")
@@ -563,17 +563,17 @@ equivalent to
 Another example of a similar construction comes from the `getline`
 function which we wrote in [Chapter 1](chap01.md), where we can replace
 
-      if (c == '\n') {
-          s[i] = c;
-          ++i;
-      }
+    if (c == '\n') {
+        s[i] = c;
+        ++i;
+    }
 
 by the more compact
 
 [comment]: <> (page 44 , 44 THE C PROGRAMMING LANGUAGE CHAPTER 2 )
 
     if (c == '\n')
-          s[i++] = c;
+        s[i++] = c;
 
 As a third example, the function `strcat(s, t)` concatenates the
 string `t` to the end of the string `s`. `strcat` assumes that there is enough
@@ -644,9 +644,9 @@ vacated bits with 0. Right shifting a signed quantity will fill with sign bits
 
 The unary operator `~` yields the one's complement of an integer; that is,
 it converts each 1-bit into a 0-bit and vice versa. This operator typically
-finds use in expressions like 
+finds use in expressions like
 
-      x &  ~077
+    x &  ~077
 
 which masks the last six bits of `x` to zero. Note that `x & ~077` is
 independent of word length, and is thus preferable to, for example,
@@ -661,11 +661,11 @@ and that `n` and `p` are sensible positive values. For example,
 `getbits(x, 4, 3)` returns the three bits in bit positions 4, 3 and 2, right
 adjusted.
 
-      getbits(x, p, n) /* get n bits from position p */
-      unsigned x, p, n;
-      {
-          return((x >> (p+1-n)) &  ~(~0 << n));
-      }
+    getbits(x, p, n) /* get n bits from position p */
+    unsigned x, p, n;
+    {
+        return((x >> (p+1-n)) &  ~(~0 << n));
+    }
 
 `x >> (p+1-n)` moves the desired field to the right end of the word.
 Declaring the argument `x` to be `unsigned` ensures that when it is 
