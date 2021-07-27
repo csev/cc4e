@@ -708,17 +708,21 @@ using an _assignment operator_ like `+=`.
 Most binary operators (operators like `+` which have a left and right
 operand) have a corresponding assignment operator _op=,_ where _op_ is one of
 
-    +  -  /  %  <<  >>  &
+    +  -  *  /  %  <<  >>  &  ^  |
 
 If _e1_ and _e2_ are expressions, then
 
-    e1 op= e2
+<pre>
+    <i>e1 op= e2</i>
+</pre>
 
 is equivalent to
 
-    e1 = (e1) op (e2)
+<pre>
+    <i>e1 = (e1) op (e2)</i>
+</pre>
 
-except that _e1_ is computed only once. Notice the parentheses around _e2:_
+except that _e1_ is computed only once. Notice the parentheses around _e2_:
 
     x *= y + 1
 
@@ -738,18 +742,18 @@ its integer argument.
     bitcount(n) /* count 1 bits in n */
     unsigned n;
     {
-      int b;
+        int b;
 
-      for (b = 0; n != 0; n >>= 1)
+        for (b = 0; n != 0; n >>= 1)
             if (n & 01)
-              b++;
-      return(b);
+                b++;
+        return(b);
     }
 
 Quite apart from conciseness, assignment operators have the advantage
 that they correspond better to the way people think. We say "add 2 to `i`"
 or "increment `i` by 2," not "take `i`, add 2, then put the result back in `i`".
-Thus `i` += 2. In addition, for a complicated expression like
+Thus `i += 2`. In addition, for a complicated expression like
 
     yyval[yypv[p3+p4] + yypv[p1+p2]] += 2
 
@@ -761,7 +765,7 @@ We have already used the fact that the assignment statement has a value
 and can occur in expressions; the most common example is
 
     while ((c = getchar()) != EOF)
-          ...
+        ...
 
 Assignments using the other assignment operators (`+=`, `-=`, etc.) can also
 occur in expressions, although it is a less frequent occurrence.
