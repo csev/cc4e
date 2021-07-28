@@ -59,7 +59,7 @@ cases, it must be noted, the file assignments are changed by the shell, not by
 the program. The program does not know where its input comes from nor
 where its output goes, so long as it uses file 0 for input and 1 and 2 for output.
 
-8.2 Low Level I/O — Read and Write
+8.2 Low Level I/O - Read and Write
 ----------------------------------
 
 The lowest level of I/O in UNIX provides no buffering or any other services; it is in fact a direct entry into the operating system. All input and
@@ -73,7 +73,7 @@ number of bytes to be transferred. The calls are
 
 Each call returns a byte count which is the number of bytes actually
 transferred. On reading, the number of bytes returned may be less than the
-number asked for. A return value of zero bytes implies end of file, and —1
+number asked for. A return value of zero bytes implies end of file, and -1
 indicates an error of some sort. For writing, the returned value is the
 number of bytes actually written; it is generally an error if this isn't equal to
 the number supposed to be written.
@@ -175,7 +175,7 @@ the file system.
 **Exercise 8-1.** Rewrite the program cat from [Chapter 7](chap07.md) using `read`,
 `write`, `open` and `close` instead of their standard library equivalents. Perform experiments to determine the relative speeds of the two versions.
 
-8.4 Random Access — Seek and Lseek
+8.4 Random Access - Seek and Lseek
 ----------------------------------
 
 File I/0 is normally sequential: each `read` or `write` takes place at a
@@ -230,7 +230,7 @@ file requires two seeks, first one which selects the block, then one which has `
 **Exercise 8-2.** Clearly, `seek` can be written in terms of `lseek`, and vice
 versa. Write each in terms of the other.
 
-8.5 Example — An Implementation of Fopen and Getc
+8.5 Example - An Implementation of Fopen and Getc
 -------------------------------------------------
 
 Let us illustrate how some of these pieces fit together by showing an
@@ -420,11 +420,11 @@ which is identical to `lseek` except that `fp` is a file pointer instead of a fi
 descriptor. Write `fseek`. Make sure that your `fseek` coordinates properly
 with the buffering done for the other functions of the library.
 
-8.6 Example — Listing Directories
+8.6 Example - Listing Directories
 ---------------------------------
 
-A different kind of file system interaction is sometimes called for —
-determining information _about_ a file, not what it contains. The UNIX command _Is_ ("list directory") is an example — it prints the names of files in a
+A different kind of file system interaction is sometimes called for -
+determining information _about_ a file, not what it contains. The UNIX command _Is_ ("list directory") is an example - it prints the names of files in a
 directory, and optionally, other information, such as sizes, permissions, and
 so on.
 
@@ -462,8 +462,13 @@ of information to embed in a program: it might be different on a different
 system. Hence the `typedef`. A complete set of "system" types is found
 in `sys/types.h`.
 
+<<<<<<< HEAD
 The function `stat` takes a file name and returns all of the information
 in the inode for that file (or —1 if there is an error). That is,
+=======
+The function stat takes a file name and returns all of the information
+in the mode for that file (or -1 if there is an error). That is,
+>>>>>>> d139da29323846a6458fd314c71991a3f131cd28
 
     struct stat stbuf;
     char *name;
@@ -580,7 +585,7 @@ of the information appear only in standard "header files" like `stat.h` and
 `dir.h`, and that programs include those files instead of embedding the
 actual declarations in themselves.
 
-8.7 Example — A Storage Allocator
+8.7 Example - A Storage Allocator
 ---------------------------------
 
 In [Chapter 5](chap05.md), we presented a simple-minded version of `alloc`. The
@@ -708,6 +713,7 @@ UNIX, the system entry `sbrk(n)` returns a pointer to n more bytes of
 
     static HEADER *morecore(nu) /* ask system for memory */
     unsigned nu;
+<<<<<<< HEAD
     {
       char *sbrk();
       register char *cp;
@@ -726,6 +732,33 @@ UNIX, the system entry `sbrk(n)` returns a pointer to n more bytes of
 
 `sbrk` returns —1 if there was no space, even though `NULL` would have
 been a better choice. The —1 must be converted to an `int` so it can be
+=======
+
+    char *sbrk();
+
+    register char *cp;
+     register HEADER *up;
+     register int mu;
+
+    mu = NALLOC * ((nu+NALLOC-1) / NALLOC);
+
+    cp = sbrk (mu * sizeof(HEADER));
+
+    if ((int)cp == -1) /* no space at all */
+
+    return(NULL);
+
+    up = (HEADER *)cp;
+
+    up->s.size = mu;
+
+    free ((char *)(up+1));
+
+    return(allocp);
+
+sbrk returns -1 if there was no space, even though NULL would have
+been a better choice. The -1 must be converted to an int so it can be
+>>>>>>> d139da29323846a6458fd314c71991a3f131cd28
 safely compared. Again, casts are heavily used so the function is relatively
 immune to the details of pointer representation on different machines.
 

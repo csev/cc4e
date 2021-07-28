@@ -127,6 +127,7 @@ function myEdit(me) {
 <div style="float:right">
 <select id="chapters" onchange="onSelect();">
   <option <?= x_sel("..") ?>>CC4E</option>
+  <option <?= x_sel("toc.md") ?>>Table of Contents</option>
   <option <?= x_sel("about.md") ?>>About</option>
   <option <?= x_sel("chap00.md") ?>>Chapter 0</option>
   <option <?= x_sel("chap01.md") ?>>Chapter 1</option>
@@ -161,7 +162,7 @@ function myEdit(me) {
             }
             if ( $page ) {
                 $pno = substr('000'.$numb, -3);
-                $newcontent[] = '<div style="padding-left: 5px; padding-bottom: 0.5em; float:right;"><a onclick="window.open(\'pages/page_'.$pno.'\');return false;" href="#">Page '.($numb+0).'</a></div>'."\n";
+                $newcontent[] = '<div style="padding-left: 5px; padding-bottom: 0.5em; float:right;"><a onclick="window.open(\'pages/page_'.$pno.'\');return false;" href="#" id="pg'.($numb+0).'">Page '.($numb+0).'</a></div>'."\n";
             }
         }
         if ( strpos($line, "[comment]: <> (code") === 0 || 
@@ -236,7 +237,27 @@ function myEdit(me) {
         $copy_button = '<button style="float:right; margin:0.5em;" onclick="myCopy(this);return false;">Copy</button>';
         $edit_button = '<button style="float:right; margin:0.5em;" onclick="myEdit(this);return false;">Edit</button>';
         $md = str_replace('<pre><code class="language-', '<pre class="code">'.$edit_button.$copy_button.'<code class="language-c" id="', $md);
-        echo($md);
+        $pieces = explode("\n", $md);
+        $new = array();
+        foreach($pieces as $piece) {
+            if (strpos($piece, "<h2>") === 0 ) {
+                // Wow - the github h2 to anchor rules are complex
+                // https://gist.github.com/asabaylus/3071099
+                //   var anchor = val.trim().toLowerCase().replace(/[^\w\- ]+/g, ' ').replace(/\s+/g, '-').replace(/\-+$/, '');
+                $title = str_replace("<h2>", "", $piece);
+                $title = str_replace("</h2>", "", $title);
+                $anchor = str_replace(".", "", $title);
+                $anchor = str_replace("  ", " ", $anchor);
+                $anchor = str_replace("  ", " ", $anchor);
+                $anchor = str_replace(" - ", "--", $anchor);
+                $anchor = str_replace(" ", "-", $anchor);
+                $anchor = strtolower($anchor);
+                $new[] = '<h2><a id="'.$anchor.'" class="anchor" aria-hidden="true" href="#'.$anchor.'"></a>' . $title . '</h2>';
+            } else {
+                $new[] = $piece;
+            }
+        }
+        echo(implode("\n", $new));
     }
 } else {
 ?>
