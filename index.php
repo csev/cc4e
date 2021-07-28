@@ -104,6 +104,11 @@ And yes, Dr. Chuck actually has a race car - it is called the
 He races in a series called
 <a href="https://www.24hoursoflemons.com" target="_blank">24 Hours of Lemons</a>.
 </p>
+<p>
+If you would like to help th develop the content of this site, please join us at
+<a href="https://github.com/csev/cc4e" target="_blank">https://github.com/csev/cc4e</a>.
+Thanks in advance.
+</p>
 <!--
 <?php
 echo(Output::safe_var_dump($_SESSION));
@@ -111,4 +116,6 @@ var_dump($USER);
 ?>
 -->
 </div>
-<?php $OUTPUT->footer();
+<?php 
+require_once "footer.php";
+$OUTPUT->footer();
