@@ -370,7 +370,7 @@ If the character is not an upper case letter, `lower` returns it unchanged.
 
 This works for ASCII because corresponding upper case and lower case
 letters are a fixed distance apart as numeric values and each alphabet is
-contiguous — there is nothing but letters between _A_ and _Z_. This latter
+contiguous - there is nothing but letters between _A_ and _Z_. This latter
 observation is _not_ true of the EBCDIC character set (IBM 360/370), so this code
 fails on such systems - it converts more than letters.
 
@@ -389,7 +389,7 @@ freely in expressions as positive quantities. But arbitrary bit patterns stored
 in character variables may appear to be negative on some machines, yet
 positive on others.
 
-The most common occurrence of this situation is when the value `—1` is
+The most common occurrence of this situation is when the value `-1` is
 used for `EOF`. Consider the code
 
     char c;
@@ -600,7 +600,7 @@ deletes each character in `s1` which matches any character in the _string_ `s2`.
 
 **Exercise 2-4.** Write the function `any(s1, s2)` which returns the first
 location in the string `s1` where any character from the string `s2` occurs, or
-`—1` if `s1` contains no characters from `s2`.
+`-1` if `s1` contains no characters from `s2`.
 
 2.9 Bitwise Logical Operators
 -----------------------------
