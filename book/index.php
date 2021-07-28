@@ -62,6 +62,11 @@ body {
 center {
     padding-bottom: 10px;
 }
+    
+p {
+    text-align: justify;
+}  
+    
 
 .note {
     border: 1px solid blue;
