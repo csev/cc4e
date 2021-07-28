@@ -17,7 +17,4 @@ from the "C Programming" text book:
     recording, or otherwise, without the prior written permission of the publisher. Printed
     in the United States of America. Published simultaneously in Canada.
 
-    This book was set in Times Roman and Courier 12 by the authors, using a Graphic Systems
-    phototypesetter driven by a PDP-11/70 running under the UNIX operating system.
-
 UNIX is a Trademark of Bell Laboratories.
