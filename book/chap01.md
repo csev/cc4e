@@ -86,7 +86,7 @@ actual computing operations that are to be done. C functions are similar to
 the functions and subroutines of a Fortran program or the procedures of
 PL/I, Pascal, etc. In our example, `main` is such a function. Normally you
 are at liberty to give functions whatever names you like, but `main` is
- a special name — your program begins executing at the beginning of `main`. This
+ a special name - your program begins executing at the beginning of `main`. This
 means that every program _must_ have a `main` somewhere. `main` will usually
 invoke other functions to perform its job, some coming from the same
 program, and others from libraries of previously written functions.
@@ -95,7 +95,7 @@ One method of communicating data between functions is by arguments.
 The parentheses following the function name surround the argument list;
 here `main` is a function of no arguments, indicated by `()`. The braces `{` `}`
 enclose the statements that make up the function; they are analogous to the
-`DO-END` of PL/I, or the `begin—end` of Algol, Pascal, and so on. A function
+`DO-END` of PL/I, or the `begin-end` of Algol, Pascal, and so on. A function
 is invoked by naming it, followed by a parenthesized list of arguments.
 
 [comment]: <> (page 7 , CHAPTER I A TUTORIAL INTRODUCTION _7_ )
@@ -198,7 +198,7 @@ The type `int` implies that the variables listed are _integers;_ `float` stands 
 _floating point,_ i.e., numbers which may have a fractional part. The precision
 of both `int` and `float` depends on the particular machine you are using.
 On the PDP-11, for instance, an `int` is a 16-bit signed number, that is, one
-which lies between —32768 and +32767. A `float` number is a 32-bit
+which lies between -32768 and +32767. A `float` number is a 32-bit
 quantity, which amounts to about seven significant digits, with magnitude
 between about 10<sup>-38</sup> and 10<sup>+38</sup>. [Chapter 2](chap02.md) lists sizes for other machines.
 
@@ -208,7 +208,7 @@ C provides several other basic data types besides `int` and `float`:
 
 | Type   | Description                     |
 | ------ | ------------------------------- |
-| char   | character — a single byte       |
+| char   | character - a single byte       |
 | short  | short integer                   |
 | long   | long integer                    |
 | double | double-precision floating point |
@@ -294,7 +294,7 @@ and the test
 
     while (fahr <= upper)
 
-both work as expected — the `int` is converted to `float` before the operation is done.
+both work as expected - the `int` is converted to `float` before the operation is done.
 
 This example also shows a bit more of how `printf` works. `printf` is
 actually a general-purpose format conversion function, which we will
@@ -352,7 +352,7 @@ appears as the third argument of `printf` instead of in a separate assignment st
 
 [comment]: <> (page 12 , 12 THE C PROGRAMMING LANGUAGE CHAPTER I )
 
-This last change is an instance of a quite general rule in C — in any
+This last change is an instance of a quite general rule in C - in any
 context where it is permissible to use the value of a variable of some type,
 you can use an expression of that type. Since the third argument of
 `printf` has to be a floating point value to match the `%6.1f`, any floating
@@ -474,7 +474,7 @@ the end of the input; in this way, programs can detect when they run out of
 input. The only complication, a serious nuisance, is that there
 are _two_ conventions in common use about what that end of file value really is. We
 have deferred the issue by using the symbolic name `EOF` for the value,
-whatever it might be. In practice, `EOF` will be either —1 or 0, so the program
+whatever it might be. In practice, `EOF` will be either -1 or 0, so the program
 must be preceded by the appropriate one of
 
     #define EOF -1
@@ -511,8 +511,8 @@ character was the end of file signal. If it was not, the body of the `while` is
 executed, printing the character. The `while` then repeats. When the end
 of the input is finally reached, the `while` terminates and so does `main`.
 
-This version centralizes the input — there is now only one call to
-`getchar` — and shrinks the program. Nesting an assignment in a test is
+This version centralizes the input - there is now only one call to
+`getchar` - and shrinks the program. Nesting an assignment in a test is
 one of the places where C permits a valuable conciseness. (It's possible to
 get carried away and create impenetrable code, though, a tendency that we
 will try to curb.)
@@ -636,7 +636,7 @@ string of one or more blanks by a single blank.
 [comment]: <> (todo - redo this exercise so it works on non-printer)
 
 **Exercise 1-8.** Write a program to replace each tab by the three-character
-sequence >, _backspace, —,_ which prints as >, and each backspace by the
+sequence >, _backspace, -,_ which prints as >, and each backspace by the
 similar sequence <. This makes tabs and backspaces visible.
 
 Word Counting
@@ -748,7 +748,7 @@ representation of the digits. For example, the test
 determines whether the character in `c` is a digit. If it is, the numeric value
 of that digit is
 
-    c — '0'
+    c - '0'
 
 This works only if '0', '1', etc., are positive and in increasing order, and
 if there is nothing but digits between 0 and 9. Fortunately, this is true
@@ -884,7 +884,7 @@ caller, as does "falling off the end" of a function by reaching the terminating 
 function `lower(c)` which returns `c` if `c` is not a letter, and the lower case
 value of `c` if it is a letter.
 
-1.8 Arguments — Call by Value
+1.8 Arguments - Call by Value
 -----------------------------
 
 One aspect of C functions may be unfamiliar to programmers who are
@@ -1094,11 +1094,11 @@ refers to the place where the variable is actually created or assigned storage;
 no storage is allocated.
 
 By the way, there is a tendency to make everything in sight an `extern`
-variable because it appears to simplify communications — argument lists are
+variable because it appears to simplify communications - argument lists are
 short and variables are always there when you want them. But external variables are
 always there even when you don't want them. This style of coding
 is fraught with peril since it leads to programs whose data connections are
-not at all obvious — variables can be changed in unexpected and even inadvertent
+not at all obvious - variables can be changed in unexpected and even inadvertent
 ways, and the program is hard to modify if it becomes necessary.
 The second version of the longest-line program is inferior to the first, partly
 for these reasons, and partly because it destroys the generality of two quite

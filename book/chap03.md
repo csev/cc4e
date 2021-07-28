@@ -30,7 +30,7 @@ never a semicolon after the right brace that ends a block.
 3.2 If-Else
 -----------
 
-The `if—else` statement is used to make decisions. Formally, the syntax is
+The `if-else` statement is used to make decisions. Formally, the syntax is
 
 
     if (expression)
@@ -58,7 +58,7 @@ Sometimes this is natural and clear; at other times it is cryptic.
 
 Because the `else` part of an `if-else` is optional, there is an ambiguity
 when an `else` is omitted from a nested `if` sequence. This is resolved in
-the usual way — the `else` is associated with the closest previous `else`-less
+the usual way - the `else` is associated with the closest previous `else`-less
     if. For example, in
 
     if (n > 0)
@@ -137,7 +137,7 @@ can be omitted, or it may be used for error checking to catch an "impossible" co
 To illustrate a three-way decision, here is a binary search function that
 decides if a particular value `x` occurs in the sorted array `v`. The elements of
 `v` must be in increasing order. The function returns the position (a number
-between 0 and n-1) if `x` occurs in `v`, and —1 if not.
+between 0 and n-1) if `x` occurs in `v`, and -1 if not.
 
 [comment]: <> (page 54 , 54 THE C PROGRAMMING LANGUAGE CHAPTER 3 )
 
@@ -163,7 +163,7 @@ between 0 and n-1) if `x` occurs in `v`, and —1 if not.
 
 The fundamental decision is whether `x` is less than, greater than, or
 equal to the middle element `v[mid]` at each step; this is a natural for
-`else—if`.
+`else-if`.
 
 3.4 Switch
 ----------
@@ -212,7 +212,7 @@ save you.
 like newline and tab into visible escape sequences like \n and \t as it
 copies the string `s` to `t`. Use a `switch`.
 
-3.5 Loops — While and For
+3.5 Loops - While and For
 -------------------------
 
 We have already encountered the while and for loops. In
@@ -321,7 +321,7 @@ effectively becomes an adjacent interchange method.
 
       for (gap = n/2; gap > 0; gap /= 2)
         for (i = gap; i < n; i++)
-          for (j=i-gap; j>=0 && v[j]>v[j+gap]; j —= gap){
+          for (j=i-gap; j>=0 && v[j]>v[j+gap]; j -= gap){
             temp = v[j];
             v[j] = v[j+gap];
             v[j+gap] = temp;
@@ -367,7 +367,7 @@ like `a-z` in the string s1 into the equivalent complete list
 prepared to handle cases like `a-b-c` and `a-z0-9` and `-a-z`. (A useful
 convention is that a leading or trailing - is taken literally.)
 
-3.6 Loops — Do-while
+3.6 Loops - Do-while
 --------------------
 
 The `while` and `for` loops share the desirable attribute of testing the

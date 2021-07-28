@@ -36,13 +36,16 @@ gcc -ansi -c c_112_01.c
 gcc -ansi -c c_113_01.c
 gcc -ansi -c c_115_01.c
 
+# Chapter 6
+# gcc -ansi -c c_125_01.c
+# gcc -ansi -c c_131_01.c
+
 # Chapter 7
 gcc -ansi c_145_01.c -o lower
 gcc -ansi c_150_01.c
 gcc -ansi c_153_01.c
 gcc -ansi -c c_154_01.c
 # gcc -ansi c_155_01.c -  as there is no main function for this code
-
 
 # Chapter 8
 gcc -ansi c_161_01.c

@@ -170,8 +170,8 @@ rather more formally, than does Chapter 1, although the emphasis is still on
 examples of complete, useful programs, rather than isolated fragments.
 [Chapter 2](chap02.md) deals with the basic data types, operators and 
 expressions.
-[Chapter 3](chap03.md) treats control flow: `if—else`, `while`, `for`, etc.
-[Chapter 4](chap04.md) covers functions and program structure — external 
+[Chapter 3](chap03.md) treats control flow: `if-else`, `while`, `for`, etc.
+[Chapter 4](chap04.md) covers functions and program structure - external 
 variables, scope rules, and so on.
 [Chapter 5](chap05.md) discusses pointers and address arithmetic.
 [Chapter 6](chap06.md) contains the details of structures and unions.  

@@ -182,7 +182,7 @@ referred to as
 
 but pointers to structures are so frequently used that the `->` notation is
 provided as a convenient shorthand. The parentheses are necessary in
-`(*pd) .year` because the precedence of the structure member operator `.` is
+`(*pd).year` because the precedence of the structure member operator `.` is
 higher than `*`. Both `->` and `.` associate from left to right, so
 
     p->q->memb
@@ -311,6 +311,8 @@ that fetches the input one word at a time. Each word is looked up in
 [Chapter 3](chap03.md). (Of course the list of keywords has to be given in increasing
 order for this to work.)
 
+<!-- [comment]: <> (code c_125_01.c) -->
+
     #define MAXWORD 20
 
     main() /* count C keywords */
@@ -416,11 +418,11 @@ itself if it is non-alphabetic.
     }
 
 `getword` uses the routines `getch` and `ungetch` which we wrote in
-[Chapter 4](chap04.md): when the collection of an alphabetic token stops, `getword has
+[Chapter 4](chap04.md): when the collection of an alphabetic token stops, `getword` has
 gone one character too far. The call to `ungetch` pushes that character back
 on the input for the next call.
 
-`getword` calls type to determine the type of each individual character
+`getword` calls `type` to determine the type of each individual character
 of input. Here is a version _for the ASCII alphabet only._
 
     type(c) /* return type of ASCII character */
@@ -435,8 +437,8 @@ of input. Here is a version _for the ASCII alphabet only._
             return(c);
     }
 
-The symbolic constants LETTER and DIGIT can have any values that do
-not conflict with non-alphanumeric characters and EOF; the obvious choices
+The symbolic constants `LETTER` and `DIGIT` can have any values that do
+not conflict with non-alphanumeric characters and `EOF`; the obvious choices
 are
 
     #define LETTER 'a'
@@ -448,14 +450,14 @@ macros called `isalpha` and `isdigit` which operate in this manner.
 
 [comment]: <> (page 128 , 128 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
 
-**Exercise 6-1.** Make this modification to getword and measure the change
-in speed of the program. 0
+**Exercise 6-1.** Make this modification to `getword` and measure the change
+in speed of the program.
 
-**Exercise 6-2.** Write a version of type which is independent of character
-set. 0
+**Exercise 6-2.** Write a version of `type` which is independent of character
+set.
 
 **Exercise 6-3.** Write a version of the keyword-counting program which does
-not count occurrences contained within quoted strings. 0
+not count occurrences contained within quoted strings.
 
 6.4 Pointers to Structures
 --------------------------
@@ -550,7 +552,6 @@ the function name can be hard to see, and to find with a text editor.
 Accordingly an alternate style is sometimes used:
 
     struct key *
-
     binary(word, tab, n)
 
 This is mostly a matter of personal taste; pick the form you like and hold to
@@ -574,13 +575,10 @@ takes too long. Instead we will use a data structure called a _binary tree._
 
 The tree contains one "node" per distinct word; each node contains
 
-_a pointer to the text of the word_
-
-_a count of the number of occurrences_
-
-_a pointer to the left child node_
-
-_a pointer to the right child node_
+    a pointer to the text of the word
+    a count of the number of occurrences
+    a pointer to the left child node
+    a pointer to the right child node
 
 No node may have more than two children; it might have only zero or one.
 
@@ -614,64 +612,71 @@ quite correct. It is illegal for a structure to contain an instance of itself, b
 
     struct tnode *left;
 
-declares left to be a _pointer_ to a node, not a node itself.
+declares `left` to be a _pointer_ to a node, not a node itself.
 
 The code for the whole program is surprisingly small, given a handful of
 supporting routines that we have already written. These are `getword`, to
 fetch each input word, and `alloc`, to provide space for squirreling the
 words away.
 
-The `main` routine simply reads words with `getword` and installs them
+The main routine simply reads words with `getword` and installs them
 in the tree with `tree`.
 
     #define MAXWORD 20
 
     main() /* word frequency count */
+    {
+      struct tnode *root, *tree();
+      char word [MAXWORD];
+      int t;
 
-| struct tnode \*root, \*tree();char word [MAXWORD];int t;root = NULL;while ((t = getword(word, MAXWORD))if (t == LETTER)root = tree(root, word);treeprint(root); | 1= EOF) |
-| --- | --- |
+      root = NULL;
+      while ((t = get_word(word, MAXWORD)) != EOF)
+        if (t == LETTER)
+          root = tree(root, word);
+      treeprint(root);
+    }
 
-tree itself is straightforward. A word is presented by main to the top
+`tree` itself is straightforward. A word is presented by `main` to the top
 level (the root) of the tree. At each stage, that word is compared to the
 word already stored at the node, and is percolated down to either the left or
-right subtree by a recursive call to tree. Eventually the word either
+right subtree by a recursive call to `tree`. Eventually the word either
 matches something already in the tree (in which case the count is incremented), or a null pointer is encountered, indicating that a node must be
-created and added to the tree. If a new node is created, tree returns a
+created and added to the tree. If a new node is created, `tree` returns a
 pointer to it, which is installed in the parent node.
 
 [comment]: <> (page 132 , 132 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
 
     struct tnode *tree(p, w) /* install w at or below P */
-
-        struct tnode *p;
-        char *w;
-
+    struct tnode *p;
+    char *w;
     {
-    struct tnode *talloc();
-    char *strsave();
-    int cond;
-    if (p == NULL) ( /* a new word has arrived */
-    p = talloc(); /* make a new node */
-    p->word = strsave(w);
-    p->count = 1;
-    p->left = p->right = NULL;
-    ) else if ((cond = strcmp(w, p->word)) == 0)
-    p->count++; /* repeated word */
-    else if (cond < 0) /* lower goes into left subtree */
-    p->left = tree(p->left, w);
-    else /* greater into right subtree */
-    p->right = tree(p->right, w);
-    return (p);
+      struct tnode *talloc();
+      char *strsave();
+      int cond;
+
+      if (p == NULL) {    /* a new word has arrived */
+        p = talloc();     /* make a new node */
+        p->word = strsave(w);
+        p->count = 1;
+        p->left = p->right = NULL;
+      } else if ((cond = strcmp(w, p->word)) == 0)
+        p->count++;       /* repeated word */
+      else if (cond < 0)  /* lower goes into left subtree */
+        p->left = tree(p->left, w);
+      else        /* greater into right subtree */
+        p->right = tree(p->right, w);
+      return (p);
     }
 
 Storage for the new node is fetched by a routine `talloc`, which is an
 adaptation of the `alloc` we wrote earlier. It returns a pointer to a free
 space suitable for holding a tree node. (We will discuss this more in a
-moment.) The new word is copied to a hidden place by strsave, the count
+moment.) The new word is copied to a hidden place by `strsave`, the count
 is initialized, and the two children are made null. This part of the code is
 executed only at the edge of the tree, when a new node is being added. We
 have (unwisely for a production program) omitted error checking on the
-values returned by strsave and `talloc`.
+values returned by `strsave` and `talloc`.
 
 `treeprint` prints the tree in left subtree order; at each node, it prints
 the left subtree (all the words less than this word), then the word itself,
@@ -702,7 +707,7 @@ Before we leave this example, it is also worth a brief digression on a
 problem related to storage allocators. Clearly it's desirable that there be
 only one storage allocator in a program, even though it allocates different
 kinds of objects. But if one allocator is to process requests for, say, pointers
-to char's and pointers to struct tnode's, two questions arise. First,
+to `char`'s and pointers to `struct tnode`'s, two questions arise. First,
 how does it meet the requirement of most real machines that objects of certain
 types must satisfy alignment restrictions (for example, integers often
 must be located on even addresses)? Second, what declarations can cope
@@ -720,7 +725,7 @@ alignment; in [Chapter 8](chap08.md) we will show how to do the job right.
 
 The question of the type declaration for `alloc` is a vexing one for any
 language that takes its type-checking seriously. In C, the best procedure is
-to declare that `alloc` returns a pointer to char, then explicitly coerce the
+to declare that `alloc` returns a pointer to `char`, then explicitly coerce the
 pointer into the desired type with a cast. That is, if `p` is declared as
 
     char *p;
@@ -729,32 +734,31 @@ then
 
     (struct tnode *) p
 
-converts it into a `tnode` pointer in an expression. Thus `talloc` is written
+converts it into a `tnode` pointer in an expression. Thus `talloc` is written as
 
 [comment]: <> (page 134 , 134 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
 
-as
-
     struct tnode *talloc()
+    {
+      char *alloc();
 
-    char *alloc();
-
-    return((struct tnode *) alloc(sizeof(struct tnode)));
+      return((struct tnode *) alloc(sizeof(struct tnode)));
+    }
 
 This is more than is needed for current compilers, but represents the safest
 course for the future.
 
 **Exercise 6-4.** Write a program which reads a C program and prints in alphabetical order each group of variable names which are identical in the first 7
 characters, but different somewhere thereafter. (Make sure that 7 is a
-parameter). 0
+parameter).
 
 **Exercise 6-5.** Write a basic cross-referencer: a program which prints a list of
 all words in a document, and, for each word, a list of the line numbers on
-which it occurs. El
+which it occurs.
 
 **Exercise 6-6.** Write a program which prints the distinct words in its input
 sorted into decreasing order of frequency of occurrence. Precede each word
-by its count. LI
+by its count.
 
 6.6 Table Lookup
 ----------------
@@ -762,144 +766,118 @@ by its count. LI
 In this section we will write the innards of a table-lookup package as an
 illustration of more aspects of structures. This code is typical of what might
 be found in the symbol table management routines of a macro processor or
-a compiler. For example, consider the C #define statement. When a line
+a compiler. For example, consider the C `#define` statement. When a line
 like
 
     #define YES 1
 
-is encountered, the name YES and the replacement text 1 are stored in a
-table. Later, when the name YES appears in a statement like
+is encountered, the name `YES` and the replacement text 1 are stored in a
+table. Later, when the name `YES` appears in a statement like
 
     inword = YES;
 
 it must be replaced by 1.
 
-There are two major routines that manipulate the names and replacement texts. install (s, t) records the name s and the replacement text
-t in a table; s and t are just character strings. lookup (s) searches for s
-in the table, and returns a pointer to the place where it was found, or NULL
+There are two major routines that manipulate the names and replacement texts. `install(s, t)` records the name `s` and the replacement text
+`t` in a table; `s` and `t` are just character strings. `lookup(s)` searches for `s`
+in the table, and returns a pointer to the place where it was found, or `NULL`
     if it wasn't there.
 
 The algorithm used is a hash search - the incoming name is converted
 into a small positive integer, which is then used to index into an array of
-pointers. An array element points to the beginning of a chain of blocks
+pointers. An array element points to the beginning of a chain of blocks describing names that have that hash value. It is `NULL` if no names have
+hashed to that value.
 
 [comment]: <> (page 135 , CHAPTER 6 STRUCTURES 135 )
 
-describing names that have that hash value. It is NULL if no names have
-hashed to that value.
 
 A block in the chain is a structure containing pointers to the name, the
 replacement text, and the next block in the chain. A null next-pointer
 marks the end of the chain.
 
-    struct nlist ( /* basic table entry */
-
-    char *name;
-
-    char *def;
-
-    struct nlist *next; /* next entry in chain */
-
-    ;
+    struct nlist { /* basic table entry */
+        char *name;
+        char *def;
+        struct nlist *next; /* next entry in chain */
+    };
 
 The pointer array is just
 
     #define HASHSIZE 100
-
     static struct nlist *hashtab[HASHSIZE]; /* pointer table */
 
-The hashing function, which is used by both lookup and install,
+The hashing function, which is used by both `lookup` and `install`,
 simply adds up the character values in the string and forms the remainder
 modulo the array size. (This is not the best possible algorithm, but it has
 the merit of extreme simplicity.)
 
     hash(s) /* form hash value for string s */
-
     char *s;
+    {
+      int hashval;
 
-    int hashval;
+      for (hashval = 0; *s != '/0'; )
+        hashval += *s++;
+      return(hashval % HASHSIZE);
+    }
 
-    for (hashval = 0; *s !=
-     hashval += *s++;
-
-    return(hashval % HASHSIZE);
-
-The hashing process produces a starting index in the array hashtab; if
-the string is to be found anywhere, it will be in the chain of blocks beginning there. The search is performed by lookup. If lookup finds the
-entry already present, it returns a pointer to it; if not, it returns NULL.
+The hashing process produces a starting index in the array `hashtab`; if
+the string is to be found anywhere, it will be in the chain of blocks beginning there. The search is performed by `lookup`. If `lookup` finds the
+entry already present, it returns a pointer to it; if not, it returns `NULL`.
 
     struct nlist *lookup(s) /* look for s in hashtab */
     char *s;
+    {
+      struct nlist *np;
 
-    struct nlist *np;
+      for (np = hashtab[hash(s)]; np != NULL; np = np->next)
+        if (strcmp(s, np->name) == 0)
+          return(np); /* found it */
+      return(NULL); /* not found */
+    }
 
-for (np = hashtab[hash(s)]; np != NULL; np = np->next)
-    if (strcmp(s, np->name) == 0)
-
-    return(np); /* found it */
-     return(NULL); /* not found */
-
-install uses lookup to determine whether the name being installed
+`install` uses `lookup` to determine whether the name being installed
 is already present; if so, the new definition must supersede the old one.
 
 [comment]: <> (page 136 , 136 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
 
-Otherwise, a completely new entry is created. install returns NULL if for
+Otherwise, a completely new entry is created. `install` returns `NULL` if for
 any reason there is no room for a new entry.
 
     struct nlist *install(name, def) /* put (name, def) */
+    char *name, *def;                /* in hashtab */
+    {
+      struct nlist *np, *lookup();
+      char *strsave(), *alloc();
+      int hashval;
 
-    char *name, *def; /* in hashtab */
+      if ((np = lookup (name)) == NULL) { /* not found */
+        np = (struct nlist *) alloc(sizeof(*np));
+        if (np == NULL)
+          return(NULL);
+        if ((np->name = strsave(name)) == NULL)
+          return (NULL);
+        hashval = hash(np->name);
+        np->next = hashtab[hashval];
+        hashtab[hashval] = np;
+      } else /* already there */
+          free(np->def); /* free previous definition */
+      if ((np->def = strsave(def)) == NULL)
+        return(NULL);
+      return(np);
+    }I
 
-(
-
-    struct nlist *np, *lookup();
-
-    char *strsave(), *alloc();
-
-    int hashval;
-
-    if ((np = lookup (name)) == NULL) ( /* not found */
-
-    np = (struct nlist *) alloc(sizeof(*np));
-
-    if (np == NULL)
-
-    return(NULL);
-
-    if ((np->name = strsave(name)) == NULL)
-
-    return (NULL)
-
-    hashval = hash(np->name);
-
-    np->next = hashtab[hashvall;
-
-    hashtab[hashval] = np;
-
-    ) else /* already there */
-
-    free(np->def); /* free previous definition */
-
-    if ((np->def = strsave(def)) == NULL)
-
-    return(NULL);
-
-    return(np);
-
-I
-
-strsave merely copies the string given by its argument into a safe
+`strsave` merely copies the string given by its argument into a safe
 place, obtained by a call on `alloc`. We showed the code in [Chapter 5](chap05.md).
 Since calls to `alloc` and `free` may occur in any order, and since alignment
 matters, the simple version of `alloc` in [Chapter 5](chap05.md) is not adequate here; see
 [Chapters 7](chap07.md) and [8](chap08.md).
 
 **Exercise 6-7.** Write a routine which will remove a name and definition from
-the table maintained by lookup and install. El
+the table maintained by `lookup` and `install`.
 
-**Exercise 6-8.** Implement a simple version of the #define processor suitable for use with C programs, based on the routines of this section. You
-may also find getch and ungetch helpful. 0
+**Exercise 6-8.** Implement a simple version of the `#define` processor suitable for use with C programs, based on the routines of this section. You
+may also find `getch` and `ungetch` helpful.
 
 6.7 Fields
 ----------
@@ -916,7 +894,7 @@ Imagine a fragment of a compiler that manipulates a symbol table. Each
 identifier in a program has certain information associated with it, for exam-
 pie, whether or not it is a keyword, whether or not it is external and/or
 static, and so on. The most compact way to encode such information is a
-set of one-bit flags in a single char or int.
+set of one-bit flags in a single `char` or `int`.
 
 The usual way this is done is to define a set of "masks" corresponding
 to the relevant bit positions, as in
@@ -931,64 +909,59 @@ operators which were described in [Chapter 2](chap02.md).
 
 Certain idioms appear frequently:
 
-    flags I= EXTERNAL I STATIC;
+    flags |= EXTERNAL | STATIC;
 
-turns on the EXTERNAL and STATIC bits in flags, while
+turns on the `EXTERNAL` and `STATIC` bits in `flags`, while
 
-    flags &= -(EXTERNAL I STATIC);
+    flags &= ~(EXTERNAL | STATIC);
 
 turns them off, and
 
-    if ((flags & (EXTERNAL I STATIC)) == 0) ..
+    if ((flags & (EXTERNAL | STATIC)) == 0) ...
 
 is true if both bits are off.
 
 Although these idioms are readily mastered, as an alternative, C offers
 the capability of defining and accessing fields within a word directly rather
 than by bitwise logical operators. A _field_ is a set of adjacent bits within a
-single int. The syntax of field definition and access is based on structures.
-For example, the symbol table #define's above could be replaced by the
+single `int`. The syntax of field definition and access is based on structures.
+For example, the symbol table `#define`'s above could be replaced by the
 definition of three fields:
 
-    struct [
+    struct {
+      unsigned is_keyword  :  1;
+      unsigned is_extern  :  1;
+      unsigned is_static  :  1;
+    } flags;
 
-| unsigned | is\_keyword | : | 1; |
-| --- | --- | --- | --- |
-| unsigned | is\_extern | : | 1; |
-| unsigned | is\_static | : | 1; |
-| } flags; |
- |
- |
- |
-
-This defines a variable called flags that contains three 1-bit fields. The
+This defines a variable called `flags` that contains three 1-bit fields. The
 number following the colon represents the field width in bits. The fields are
 declared unsigned to emphasize that they really are unsigned quantities.
 
-Individual fields are referenced as flags . is\_keyword,
- flags. is\_extern, etc., just like other structure members. Fields behave
+Individual fields are referenced as `flags.is_keyword`,
+ `flags.is_extern`, etc., just like other structure members. Fields behave
 like small, unsigned integers, and may participate in arithmetic expressions
 just like other integers. Thus the previous examples may be written more
 naturally as
 
 [comment]: <> (page 138 , 138 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
 
-    flags.is\_extern = flags.is\_static = 1;
+    flags.is_extern = flags.is_static = 1;
 
-    to turn the bits on;
+to turn the bits on;
 
-    flags.is\_extern = flags.is\_static = 0;
+    flags.is_extern = flags.is_static = 0;
 
 to turn them off; and
 
-if (flags.is\_extern == 0 &amp;&amp; flags.is\_static == 0) ..
+    if (flags.is_extern == 0 && flags.is_static == 0) ...
 
 to test them.
 
-A field may not overlap an int boundary; if the width would cause this
-to happen, the field is aligned at the next int boundary. Fields need not be
+A field may not overlap an `int` boundary; if the width would cause this
+to happen, the field is aligned at the next `int` boundary. Fields need not be
 named; unnamed fields (a colon and width only) are used for padding. The
-special width 0 may be used to force alignment at the next int boundary.
+special width 0 may be used to force alignment at the next `int` boundary.
 
 There are a number of caveats that apply to fields. Perhaps most
 significant, fields are assigned left to right on some machines and right to
@@ -997,8 +970,8 @@ although fields are quite useful for maintaining internally-defined data structu
 when picking apart externally-defined data.
 
 Other restrictions to bear in mind: fields are unsigned; they may be
-stored only in it's (or, equivalently, unsigned's); they are not arrays;
-they do not have addresses, so the &amp; operator cannot be applied to them.
+stored only in `int`'s (or, equivalently, `unsigned`'s); they are not arrays;
+they do not have addresses, so the & operator cannot be applied to them.
 
 6.8 Unions
 ----------
@@ -1008,24 +981,23 @@ different types and sizes, with the compiler keeping track of size and alignment
 data in a single area of storage, without embedding any machine-dependent
 information in the program.
 
-As an example, again from a compiler symbol table, suppose that constants may be int's, float's or character pointers. The value of a particular constant must be stored in a variable of the proper type, yet it is most
+As an example, again from a compiler symbol table, suppose that constants may be `int`'s, `float`'s or character pointers. The value of a particular constant must be stored in a variable of the proper type, yet it is most
 convenient for table management if the value occupies the same amount of
 storage and is stored in the same place regardless of its type. This is the
 purpose of a union - to provide a single variable which can legitimately
 hold any one of several types. As with fields, the syntax is based on structures.
 
-    union u\_tag {
+    union u_tag {
      int ival;
      float fval;
      char *pval;
-
     } uval;
 
 [comment]: <> (page 139 , CHAPTER 6 STRUCTURES 139 )
 
-The variable uval will be large enough to hold the largest of the three
+The variable `uval` will be large enough to hold the largest of the three
 types, regardless of the machine it is compiled on - the code is independent of hardware characteristics. Any one of these types may be assigned to
-uval and then used in expressions, so long as the usage is consistent: the
+`uval` and then used in expressions, so long as the usage is consistent: the
 type retrieved must be the type most recently stored. It is the responsibility
 of the programmer to keep track of what type is currently stored in a union;
 the results are machine dependent if something is stored as one type and
@@ -1033,29 +1005,22 @@ extracted as another.
 
 Syntactically, members of a union are accessed as
 
-_union __-__ name, member_
+    union-name.member
 
 or
 
-_union __-__ pointer __-__ > member_
+    union-pointer-> member
 
-just as for structures. If the variable utype is used to keep track of the
-current type stored in uval, then one might see code such as
+just as for structures. If the variable `utype` is used to keep track of the
+current type stored in `uval`, then one might see code such as
 
     if (utype == INT)
-
         printf("%d\n", uval.ival);
-
     else if (utype == FLOAT)
-
         printf("%f\n", uval.fval);
-
     else if (utype == STRING)
-
         printf("%s\n", uval.pval);
-
     else
-
         printf("bad type %d in utype\n", utype);
 
 Unions may occur within structures and arrays and vice versa. The
@@ -1064,34 +1029,25 @@ identical to that for nested structures. For example, in the structure array
 defined by
 
     struct {
-
         char *name;
-
         int flags;
-
         int utype;
-
         union {
-
             int ival;
-
             float fval;
-
             char *pval;
-
         } uval;
+    } symtab[NSYM];
 
-       } symtab[NSYM];
+the variable `ival` is referred to as
 
-the variable iva 1 is referred to as
+    symtab[i].uval.ival
 
-symtab[i].uval.ival
-
-and the first character of the string pval by
+and the first character of the string `pval` by
 
 [comment]: <> (page 140 , 140 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
 
-\*symtab[i].uval.pval
+    *symtab[i].uval.pval
 
 In effect, a union is a structure in which all members have offset zero,
 the structure is big enough to hold the "widest" member, and the alignment is appropriate for all of the types in the union. As with structures, the
@@ -1116,7 +1072,6 @@ used in declarations, casts, etc., in exactly the same ways that the type `int`
 can be:
 
     LENGTH len, maxlen;
-
     LENGTH *lengths[];
 
 Similarly, the declaration
@@ -1133,32 +1088,28 @@ not right after the word `typedef`. Syntactically,
 `typedef` is like the storage classes `extern`, `static`, etc. We have also
 used upper case letters to emphasize the names.
 
-As a more complicated example, we could make typedef's for the tree
+As a more complicated example, we could make `typedef`'s for the tree
 nodes shown earlier in this chapter:
 
-    typedef struct tnode ( /* the basic node */
-
-    char *word; /* points to the text */
-
-    int count; /* number of occurrences */
-
-    struct tnode *left; /* left child */
-
-    struct tnode *right; /* right child */
-    ) TREENODE, *TREEPTR;
+    typedef struct tnode {   /* the basic node */
+        char *word; /* points to the text */
+        int count; /* number of occurrences */
+        struct tnode *left;  /* left child */
+        struct tnode *right; /* right child */
+    } TREENODE, *TREEPTR;
 
 This creates two new type keywords called `TREENODE` (a structure) and
-`TREEPTR` (a pointer to the structure). Then the routine `talloc` could
+`TREEPTR` (a pointer to the structure). Then the routine `talloc` could become
 
 [comment]: <> (page 141 , CHAPTER 6 STRUCTURES 141 )
 
-become
 
     TREEPTR talloc()
+    {
+      char *alloc();
 
-    char *alloc();
-
-    return((TREEPTR) alloc(sizeof(TREENODE)));
+      return((TREEPTR) alloc(sizeof(TREENODE)));
+    }
 
 It must be emphasized that a `typedef` declaration does not create a
 new type in any sense; it merely adds a new name for some existing type.
@@ -1170,7 +1121,7 @@ the capabilities of the C macro preprocessor. For example,
 
     typedef int (*PFI)();
 
-creates the type PFI, for "pointer to function returning int," which can be
+creates the type PFI, for "pointer to function returning `int`," which can be
 used in contexts like
 
     PFI strcmp, numcmp, swap;
@@ -1178,14 +1129,14 @@ used in contexts like
 in the sort program of [Chapter 5](chap05.md).
 
 There are two main reasons for using `typedef` declarations. The first
-is to parameterize a program against portability problems. If typedef's are
-used for data types which may be machine dependent, only the typedef's
+is to parameterize a program against portability problems. If `typedef`'s are
+used for data types which may be machine dependent, only the `typedef`'s
 need change when the program is moved. One common situation is to use
 `typedef` names for various integer quantities, then make an appropriate set
-of choices of short, int and long for each host machine.
+of choices of `short`, `int` and `long` for each host machine.
 
-The second purpose of typedef's is to provide better documentation
-for a program - a type called TREEPTR may be easier to understand than
+The second purpose of `typedef`'s is to provide better documentation
+for a program - a type called `TREEPTR` may be easier to understand than
 one declared only as a pointer to a complicated structure.
 
 Finally, there is always the possibility that in the future the compiler or
