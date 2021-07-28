@@ -49,5 +49,8 @@ gcc -ansi c_161_01.c
 gcc -ansi -c c_161_02.c
 gcc -ansi -c c_162_01.c
 gcc -ansi c_163_01.c
+# gcc -ansi -c c_167_01.c
+# gcc -ansi -c c_168_01.c
+gcc -ansi -c c_171_01.c
 
 rm a.out *.o lower
