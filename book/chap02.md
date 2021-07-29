@@ -857,7 +857,7 @@ which is higher than that of `+` and `-`.
 | `|`                                                             | left to right |
 | `&&`                                                            | left to right |
 | `||`                                                            | left to right |
-| `? :`                                                           | right to left |
+| `?:`                                                            | right to left |
 | `=`   `+=`   `-=`   etc.                                        | right to left |
 | `,`  [Chapter 3](chap03.md)                                     | left to right |
 
