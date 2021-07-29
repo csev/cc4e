@@ -787,16 +787,18 @@ The statements
         z = b;
 
 of course compute in `z` the maximum of `a` and `b`. The _conditional expression,_
-written with the ternary operator "`? :`", provides an alternate way to
+written with the ternary operator `"?:"`, provides an alternate way to
 write this and similar constructions. In the expression
 
 [comment]: <> (page 48 , 48 THE C PROGRAMMING LANGUAGE CHAPTER 2 )
 
-    e1 ? e2 : e3
+<pre>
+        <i>e1</i> ? <i>e2</i> : <i>e3</i>
+</pre>
 
-the expression `e1` is evaluated first. If it is non-zero (true), then the expression `e2` is evaluated,
+the expression _e1_ is evaluated first. If it is non-zero (true), then the expression _e2_ is evaluated,
 and that is the value of the conditional expression.
-Otherwise `e3` is evaluated, and that is the value. Only one of `e2` and `e3` is
+Otherwise _e3_ is evaluated, and that is the value. Only one of _e2_ and _e3_ is
 evaluated. Thus to set `z` to the maximum of `a` and `b`,
 
     z = (a > b) ? a : b; /* z = max(a, b) */
@@ -807,12 +809,12 @@ different types, the type of the result is determined by the conversion rules
 discussed earlier in this chapter. For example, if `f` is a `float`, and `n` is an
 `int`, then the expression
 
-    (n > 0) ? f :  n
+    (n > 0) ? f : n
 
 is of type `double` regardless of whether `n` is positive or not.
 
 Parentheses are not necessary around the first expression of a conditional expression,
-since the precedence of `? :` is very low, just above assignment. They are advisable anyway, however, since they make the condition
+since the precedence of `?:` is very low, just above assignment. They are advisable anyway, however, since they make the condition
 part of the expression easier to see.
 
 The conditional expression often leads to succinct code. For example,
@@ -821,14 +823,14 @@ separated by one blank, and with each line (including the last) terminated by
 exactly one newline.
 
     for (i = 0; i < N; i++)
-        printf("%6d%c", a[i], (i%10==9 || i==N-1) ? '\n' : ' ') ;
+        printf("%6d%c", a[i], (i%10==9 || i==N-1) ? '\n' : ' ');
 
 A newline is printed after every tenth element, and after the N-th. All other
 elements are followed by one blank. Although this might look tricky, it's
 instructive to try to write it without the conditional expression.
 
 **Exercise 2-10.** Rewrite the function `lower`, which converts upper case
-letters to lower case, with a conditional expression instead of `if` - `else`.
+letters to lower case, with a conditional expression instead of `if-else`.
 
 2.12 Precedence and Order of Evaluation
 ---------------------------------------
@@ -836,7 +838,7 @@ letters to lower case, with a conditional expression instead of `if` - `else`.
 The table below summarizes the rules for precedence and associativity
 of all operators, including those which we have not yet discussed. Operators
 on the same line have the same precedence; rows are in order of decreasing
-precedence, so, for example, `\`, `/`, and `%` all have the same precedence,
+precedence, so, for example, `*`, `/`, and `%` all have the same precedence,
 which is higher than that of `+` and `-`.
 
 [comment]: <> (page 49 , CHAPTER 2 TYPES, OPERATORS AND EXPRESSIONS 49 )
