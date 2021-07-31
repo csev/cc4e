@@ -309,5 +309,9 @@ also written by Brian W. Kernighan and Dennis M. Ritchie, initially published in
 <a href="https://en.wikipedia.org/wiki/ANSI_C" target="_blank">ANSI C</a> (C89) version
 of the language.
 </p>
+<p>
+The source code to this book is at 
+<a href="https://github.com/csev/cc4e" target="_blank">https://github.com/csev/cc4e</a>.
+You are welcome to help in the creation and editing of the book.
 </blockquote>
 </small>

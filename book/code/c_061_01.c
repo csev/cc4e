@@ -6,7 +6,7 @@ main() /* remove trailing blanks and tabs */
   int n;
   char line[MAXLINE];
 
-  while ((n = get_line(line, MAXLINE)) > 0) {
+  while ((n = getline(line, MAXLINE)) > 0) {
     while (--n >= 0)
       if (line[n] != ' ' && line[n] != '\t'
         && line[n] != '\n')

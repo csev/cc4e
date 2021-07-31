@@ -951,6 +951,8 @@ zero if end of file is encountered. Zero is never a valid line length since
 every line has at least one character; even a line containing only a newline
 has length 1.
 
+[comment]: <> (note n_026_01.md)
+
 When we find a line that is longer than the previous longest, it must be
 saved somewhere. This suggests a second function, `copy`, to copy the new
 line to a safe place.
