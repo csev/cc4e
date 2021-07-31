@@ -260,8 +260,8 @@ Whether to use `while` or `for` is largely a matter of taste. For example, in
 there is no initialization or re-initialization, so the `while` seems most
 natural.
 
-The `for` is clearly superior when there is a simple initialization and re-
-initialization, since it keeps the loop control statements close together and
+The `for` is clearly superior when there is a simple initialization and 
+re-initialization, since it keeps the loop control statements close together and
 visible at the top of the loop. This is most obvious in
 
     for (i = 0; i < N; i++)
