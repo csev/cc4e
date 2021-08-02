@@ -62,19 +62,39 @@ function cc4e_pipe($command, $stdin, $cwd, $env, $timeout)
             // Do this before we read from the stream,
             // this way we can't lose the last bit of output if the process dies between these functions.
             $status = proc_get_status($process);
+        $ppid = $status['pid'];
+        $retval->ppid = $status['pid'];
 
             // Read the contents from the stdout.
             // This function will always return immediately as the stream is non-blocking.
             $stdout .= stream_get_contents($pipes[1]);
             if ( strlen($stdout) > 20000 ) {
                 $retval->failure = 'Output length exceeded';
+                $retval->ppid = $ppid;
+                $pids = preg_split('/\s+/', `ps -o pid --no-heading --ppid $ppid`);
+                $retval->pids = $pids;
+                foreach($pids as $pid) {
+                    if(is_numeric($pid)) {
+                        error_log("Killing $pid\n");
+                        posix_kill($pid, 9); //9 is the SIGKILL signal
+                    }
+                }
                 $stdout = "";
                 break;
             }
 
             $stderr .= stream_get_contents($pipes[2]);
             if ( strlen($stderr) > 20000 ) {
-                $retval->failure = 'stderr length exceeded';
+                $retval->failure = 'stderr length exceeded '.$ppid;
+                $retval->ppid = $ppid;
+                $pids = preg_split('/\s+/', `ps -o pid --no-heading --ppid $ppid`);
+                $retval->pids = $pids;
+                foreach($pids as $pid) {
+                    if(is_numeric($pid)) {
+                        error_log("Killing $pid\n");
+                        posix_kill($pid, 9); //9 is the SIGKILL signal
+                    }
+                }
                 $stderr = "";
                 break;
             }
@@ -105,7 +125,7 @@ function cc4e_pipe($command, $stdin, $cwd, $env, $timeout)
         $retval->stderr = $stderr;
 
     } else {
-        $retval->failure = 'resurce';
+        $retval->failure = 'resource';
     }
     $retval->ellapsed = (microtime(true) - $begin);
 
@@ -187,6 +207,7 @@ function cc4e_compile($code, $input)
     );
 
     $docker_command = $CFG->docker_command ?? 'docker run --network none --memory="200m" --memory-swap="200m" --rm -i alpine_gcc:latest "-"';
+    $retval->docker_command = $docker_command;
 
     $retval->folder = $folder;
 
@@ -293,10 +314,10 @@ function cc4e_compile($code, $input)
         foreach($externals as $external) {
             if ( in_array($external, $minimum_externals) ) $minimum = true;
             if ( in_array($external, $retval->symbol) ) continue;
-	    if ( ! in_array($external, $allowed_externals) ) {
-		    // var_dump($allowed_externals); echo("\n=============\n" . $external."\n");
-		    $allowed = false;
-	    }
+        if ( ! in_array($external, $allowed_externals) ) {
+            // var_dump($allowed_externals); echo("\n=============\n" . $external."\n");
+            $allowed = false;
+        }
         }
         $retval->minimum = $minimum;
         $retval->allowed = $allowed;
@@ -310,14 +331,15 @@ function cc4e_compile($code, $input)
         $script .= "\n$eof\n";
         $script .= "/usr/bin/gcc -ansi -Wno-return-type -fno-asm student.c\n";
         if ( is_string($input) && strlen($input) > 0 ) {
-            $script .= "[ -f a.out ] && cpulimit --limit=25 --include-children ./a.out << $eof\n";
+            $script .= "[ -f a.out ] && cpulimit --limit=25 --include-children ./a.out << $eof | head -n 5000\n";
             $script .= $input;
             $script .= "\n$eof\n";
         } else {
-            $script .= "[ -f a.out ] && cpulimit --limit=25 --include-children ./a.out\n";
+            $script .= "[ -f a.out ] && cpulimit --limit=25 --include-children ./a.out | head -n 5000\n";
         }
 
         // echo("-----\n");echo($script);echo("-----\n");
+        $retval->script = $script;
         $retval->docker = cc4e_pipe($docker_command, $script, $folder, $env, 2.0);
         if ( is_string($retval->docker->failure) ) {
             $retval->reject = "docker error: ". $retval->docker->failure;

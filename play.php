@@ -51,7 +51,7 @@ if ( is_string($sample) ) {
 
 $lines = $code ? count(explode("\n", $code)) : 15;
 
-echo("<html>\n</head>\n");
+echo("<html>\n<head>\n");
 cc4e_play_header($lines);
 ?>
 </head>
