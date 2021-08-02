@@ -71,12 +71,14 @@ function cc4e_pipe($command, $stdin, $cwd, $env, $timeout)
             if ( strlen($stdout) > 20000 ) {
                 $retval->failure = 'Output length exceeded';
                 $retval->ppid = $ppid;
-                $pids = preg_split('/\s+/', `ps -o pid --no-heading --ppid $ppid`);
-                $retval->pids = $pids;
-                foreach($pids as $pid) {
-                    if(is_numeric($pid)) {
-                        error_log("Killing $pid\n");
-                        posix_kill($pid, 9); //9 is the SIGKILL signal
+                if ( stripos(PHP_OS, "darwin") !== 0 ) {
+                    $pids = preg_split('/\s+/', `ps -o pid --no-heading --ppid $ppid`);
+                    $retval->pids = $pids;
+                    foreach($pids as $pid) {
+                        if(is_numeric($pid)) {
+                            error_log("Killing $pid\n");
+                            posix_kill($pid, 9); //9 is the SIGKILL signal
+                        }
                     }
                 }
                 $stdout = "";
@@ -87,12 +89,14 @@ function cc4e_pipe($command, $stdin, $cwd, $env, $timeout)
             if ( strlen($stderr) > 20000 ) {
                 $retval->failure = 'stderr length exceeded '.$ppid;
                 $retval->ppid = $ppid;
-                $pids = preg_split('/\s+/', `ps -o pid --no-heading --ppid $ppid`);
-                $retval->pids = $pids;
-                foreach($pids as $pid) {
-                    if(is_numeric($pid)) {
-                        error_log("Killing $pid\n");
-                        posix_kill($pid, 9); //9 is the SIGKILL signal
+                if ( stripos(PHP_OS, "darwin") !== 0 ) {
+                    $pids = preg_split('/\s+/', `ps -o pid --no-heading --ppid $ppid`);
+                    $retval->pids = $pids;
+                    foreach($pids as $pid) {
+                        if(is_numeric($pid)) {
+                            error_log("Killing $pid\n");
+                            posix_kill($pid, 9); //9 is the SIGKILL signal
+                        }
                     }
                 }
                 $stderr = "";
