@@ -43,7 +43,7 @@ Scanned June 2021 - Charles Severance
 
 Epson WS-200
 * Two-sided scan color
-* Automatig adjustments
+* Automatic adjustments
 * Scanned to JPG at 400DPI
 
 OCR using Epson Scan to Word
