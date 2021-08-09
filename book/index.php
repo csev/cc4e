@@ -285,7 +285,7 @@ This web site
 <a href="https://en.wikipedia.org/wiki/The_C_Programming_Language" target="_blank">"C Programming"</a>
 book written by Brian Kernighan and
 Dennis Ritchie.  The book and the material this site used from the book
-is copyright all rights reserved by Prentice-Hall but is being used
+is copyright all rights reserved by AT&amp;T but is being used
 in this site under "fair use" because of the book's historical and scholarly significance,
 its lack of availablity, and lack of an accessible version of the book.
 </p>
