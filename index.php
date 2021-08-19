@@ -1,5 +1,5 @@
 <?php
-if ( isset($_POST['secret']) && $_POST['secret'] == '42' ) {
+if ( isset($_POST['secret']) && ($_POST['secret'] == '42' || $_POST['secret'] == ':wq') ) {
     setCookie('secret', '42', time() + 15 * 3600 * 24);
     header("Location: index.php");
     return;
@@ -22,9 +22,9 @@ It is not too long and has none of those funny hex (abcde) characters.
 It is a very significant number with that
 makes a regular appearance throughout Dr. Chuck's other online courses
 (<a href="https://www.py4e.com" target="_blank">Python</a>,
-<a href="https://www.py4e.com" target="_blank">Django</a>,
-<a href="https://www.py4e.com" target="_blank">PHP</a>, and
-<a href="https://www.py4e.com" target="_blank">PostgreSQL</a>).
+<a href="https://www.dj4e.com" target="_blank">Django</a>,
+<a href="https://www.wa4e.com" target="_blank">PHP</a>, and
+<a href="https://www.pg4e.com" target="_blank">PostgreSQL</a>).
 </p>
 <p>
 If you get tired of trying to guess the number, you can take
