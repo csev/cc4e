@@ -118,4 +118,3 @@ var_dump($USER);
 </div>
 <?php 
 require_once "footer.php";
-$OUTPUT->footer();
