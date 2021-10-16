@@ -59,6 +59,7 @@ require_once "nav.php";
 <iframe width="400" height="225" src="https://www.youtube.com/embed/sQwkC5PBTfk?rel=0" frameborder="0" allowfullscreen></iframe>
 </div>
 <h1>C Programming for Everybody</h1>
+<!--
 <blockquote>
 <p><b>Update:</b> I am planning on having this site ready to "Beta Teach" September 2021.
 To participate in that couse when it is ready, simply log in and you will be notified when
@@ -67,6 +68,7 @@ I used this book to teach "LBS290 - Programming for Scientists" in September 199
 30 years ago and if all goes well we will re-trace the syllabus of that course.
 </p>
 </blockquote>
+-->
 <p>
 This web site is dedicated to understanding computer architecture and low-level programming
 by studying the "classic" version of
@@ -76,7 +78,7 @@ the C Programming language from the 1978 book written by Brian Kernighan and Den
 The K&amp;R book places the reader in the middle of the 1970's transition from
 a hardware-centered computer science to a focus on writing portable and efficient
 software.  C was used to develop operating systems like Unix, Minix, and Linux and
-progamming languages like Java, JavaScript, and Python.
+progamming languages like C++, Java, JavaScript, and Python.
 </p>
 <p>
 In this course we will be reflecting on how C provided an important foundation for the creation of
