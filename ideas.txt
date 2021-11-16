@@ -1,0 +1,34 @@
+Just Some NameStorming
+
+C and Software Portability 
+C - The Foundation of Software Portability
+Portable Software in C
+The Foundations of Modern Computing
+The Transformative Effect of the C Language
+How we Got to Now - The C Programming Language
+Why C?
+The Influence of The C Language
+How C fits Into History
+The Foundation of Portable Computing
+Understanding Software Portability in C
+Building Portable Applications in C
+How C Changed Everything
+When C Changed the World
+Modern Programming
+Core Programmer Skills
+Where we came from
+C Programming - A Historical Perspective
+Computer Architecture and Software Portability
+
+Computer Architecture for Everybody (Specialization)
+
+C Programming - A Historical Perspective
+Computer Architecture and Assembly Language
+Building Complex Data Structures in C
+
+Building Enterprise Applications in Java
+
+
+
+
+
