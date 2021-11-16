@@ -7,7 +7,7 @@
  */
 
 // This is how the system will refer to itself.
-$CFG->servicename = 'C Programming - A Historical Perspective';
+$CFG->servicename = 'CC4E';
 $CFG->servicedesc = 'C Programming - A Historical Perspective ';
 
 // Default theme
