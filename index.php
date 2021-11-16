@@ -7,7 +7,7 @@ if ( isset($_POST['secret']) && ($_POST['secret'] == '42' || $_POST['secret'] ==
 ?>
 <body style="font-family: Courier,monospace; width: 80%; max-width:500px;margin-left: auto; margin-right: auto;">
 <center>
-<h1>CC4E - C Programming<br/> for Everybody</h1>
+<h1>C Programming<br/> A Historical Perspective</h1>
 <form method="post">
 <input type="text" name="secret">
 <input type="submit" value="Unlock">
@@ -58,7 +58,7 @@ require_once "nav.php";
 <div style="margin-left: 10px; float:right">
 <iframe width="400" height="225" src="https://www.youtube.com/embed/sQwkC5PBTfk?rel=0" frameborder="0" allowfullscreen></iframe>
 </div>
-<h1>C Programming for Everybody</h1>
+<h1>C Programming <br/> A Historical Perspective</h1>
 <!--
 <blockquote>
 <p><b>Update:</b> I am planning on having this site ready to "Beta Teach" September 2021.
@@ -107,7 +107,7 @@ He races in a series called
 <a href="https://www.24hoursoflemons.com" target="_blank">24 Hours of Lemons</a>.
 </p>
 <p>
-If you would like to help th develop the content of this site, please join us at
+If you would like to help to develop the content of this site, please join us at
 <a href="https://github.com/csev/cc4e" target="_blank">https://github.com/csev/cc4e</a>.
 Thanks in advance.
 </p>
