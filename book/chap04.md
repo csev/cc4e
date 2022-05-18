@@ -182,7 +182,7 @@ name precedes the function name, like this:
     }
 
 Second, and just as important, the _calling_ routine must state that `atof`
-returns a non-`int` value. The declaration is shown in the following primitive desk calculator (barely adequate for check-book balancing), which reads
+returns a non-int value. The declaration is shown in the following primitive desk calculator (barely adequate for check-book balancing), which reads
 one number per line, optionally preceded by a sign, and adds them all up,
 printing the sum after each input.
 
@@ -301,10 +301,10 @@ and out via arguments.
 
 Let us examine this issue further with a larger example. The problem is
 to write another calculator program, better than the previous one. This one
-permits +, -, *, /, and = (to print the answer). Because it is somewhat
+permits +, -, \*, /, and = (to print the answer). Because it is somewhat
  easier to implement, the calculator will use reverse Polish notation instead
-of infix. (Reverse Polish is the scheme used by, for example, Hewlett-
-Packard pocket calculators.) In reverse Polish notation, each operator follows its operands; an infix expression like
+of infix. (Reverse Polish is the scheme used by, for example, Hewlett-Packard
+pocket calculators.) In reverse Polish notation, each operator follows its operands; an infix expression like
 
     (1 - 2) * (4 + 5) =
 
