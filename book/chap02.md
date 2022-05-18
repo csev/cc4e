@@ -22,6 +22,8 @@ names are used by various assemblers and loaders. Appendix A lists details.
 Furthermore, keywords like `if`, `else`, `int`, `float`, etc., are _reserved_: you
 can't use them as variable names. (They must be in lower case.)
 
+[comment]: <> (note n_032_01.md)
+
 Naturally it's wise to choose variable names that mean something, that
 are related to the purpose of the variable, and that are unlikely to get mixed
 up typographically.
@@ -53,21 +55,23 @@ The word `int` can be omitted in such situations, and typically is.
 The precision of these objects depends on the machine at hand; the table below shows some representative values.
 
 
-|       | DEC PDP-11 | Honeywell 6000 | IBM 370 | Interdata 8/32 |
-| ----- | :--------: | :------------: | :-----: | :------------: |
-|       |   ASCII    |     ASCII      | EBCDIC  |     ASCII      |
-| char  |   8 bits   |     9 bits     | 8 bits  |     8 bits     |
-| int   |     16     |       36       |   32    |       32       |
-| short |     16     |       36       |   16    |       16       |
-| char  |     32     |       36       |   32    |       32       |
-| int   |     32     |       36       |   32    |       32       |
-| short |     64     |       72       |   64    |       64       |
+|        | DEC PDP-11 | Honeywell 6000 | IBM 370 | Interdata 8/32 |
+| ------ | :--------: | :------------: | :-----: | :------------: |
+|        |   ASCII    |     ASCII      | EBCDIC  |     ASCII      |
+| char   |   8 bits   |     9 bits     | 8 bits  |     8 bits     |
+| int    |     16     |       36       |   32    |       32       |
+| short  |     16     |       36       |   16    |       16       |
+| char   |     32     |       36       |   32    |       32       |
+| float  |     32     |       36       |   32    |       32       |
+| double |     64     |       72       |   64    |       64       |
 
 The intent is that `short` and `long` should provide different lengths of
 integers where practical; int will normally reflect the most "natural" size
 for a particular machine. As you can see, each compiler is free to interpret
 `short` and `long` as appropriate for its own hardware. About all you should
 count on is that `short` is no longer than `long`.
+
+[comment]: <> (note n_033_01.md)
 
 2.3 Constants
 -------------
