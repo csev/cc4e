@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /book
+Disallow: /book
+Disallow: /assignments
