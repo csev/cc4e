@@ -110,7 +110,7 @@ function onSelect() {
 // https://www.w3schools.com/howto/howto_js_copy_clipboard.asp
 // https://stackoverflow.com/questions/22581345/click-button-copy-to-clipboard-using-jquery
 function myCopy(me) {
-    var code = me.nextSibling;
+    var code = me.nextSibling.nextSibling;
     console.log('code', code);
     console.log(code.textContent);
     var $temp = $("<textarea>");
@@ -121,7 +121,7 @@ function myCopy(me) {
 }
 function myEdit(me) {
 <?php if ( U::get($_SESSION, 'id') ) { ?>
-    var code = me.nextSibling.nextSibling.id;
+    var code = me.nextSibling.nextSibling.nextSibling.id;
     console.log('code', code);
     window.open("<?= $CFG->apphome ?>/play?sample="+code);
 <?php } else { ?>
@@ -239,9 +239,10 @@ function myEdit(me) {
         $md = str_replace('class="note">', 'class="note"><p>', $md);
         $md = str_replace('<p></div></p>', '</div>', $md);
         // $md = str_replace('class="language-', 'class="code" id="', $md);
+        $file_name = '<span style="float:right; margin:0.5em;">' . htmlentities($file) . '</span>';
         $copy_button = '<button style="float:right; margin:0.5em;" onclick="myCopy(this);return false;">Copy</button>';
         $edit_button = '<button style="float:right; margin:0.5em;" onclick="myEdit(this);return false;">Edit</button>';
-        $md = str_replace('<pre><code class="language-', '<pre class="code">'.$edit_button.$copy_button.'<code class="language-c" id="', $md);
+        $md = str_replace('<pre><code class="language-', '<pre class="code">'.$edit_button.$copy_button.$file_name.'<code class="language-c" id="', $md);
         $pieces = explode("\n", $md);
         $new = array();
         foreach($pieces as $piece) {

@@ -1038,7 +1038,7 @@ local variable in a routine comes into existence only when the function is
 called, and _disappears_ when the function is exited. It is for this reason that
 such variables are usually known as _automatic_ variables, following terminology
 in other languages. We will use the term automatic henceforth to refer
-to these dynamic local variables. ([Chapter 4](chap04.md) discusses the static storage
+to these dynamic local variables. ([Chapter 4](chap04.md) discusses the `static` storage
 class, in which local variables do retain their values between function invocations.)
 
 Because automatic variables come and go with function invocation, they
