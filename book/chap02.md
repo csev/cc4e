@@ -41,7 +41,7 @@ There are only a few basic data types in C:
     double  double-precision floating point.
 
 In addition, there are a number of qualifiers which can be applied to
-`int`'s: `short`, `long`, and `unsigned`. `short` and `long` refer to different
+`int`: `short`, `long`, and `unsigned`. `short` and `long` refer to different
 sizes of integers, `unsigned` numbers obey the laws of arithmetic modulo
 2<sup>n</sup>, where _n_ is the number of bits in an `int`; `unsigned` numbers are
 always positive. The declarations for the qualifiers look like
@@ -122,6 +122,8 @@ writing
 where _ddd_ is one to three octal digits, as in
 
     #define FORMFEED '\014' /* ASCII form feed */
+
+[comment]: <> (note n_035_01.md)
 
 The character constant `'\0'` represents the character with value zero.
 
@@ -432,17 +434,17 @@ type before the operation proceeds. The result is of the higher type. More
 precisely, for each arithmetic operator, the following sequence of conversion
 rules is applied.
 
-    `char` and `short` are converted to `int`, and `float` is converted to `double`.
+* `char` and `short` are converted to `int`, and `float` is converted to `double`.
 
-    Then if either operand is `double`, the other is converted to `double`, and the result is `double`.
+* Then if either operand is `double`, the other is converted to `double`, and the result is `double`.
 
-    Otherwise if either operand is `long`, the other is converted to `long`, and the result is `long`.
+* Otherwise if either operand is `long`, the other is converted to `long`, and the result is `long`.
 
-    Otherwise if either operand is `unsigned`, the other is converted to `unsigned`, and the result is `unsigned`.
+* Otherwise if either operand is `unsigned`, the other is converted to `unsigned`, and the result is `unsigned`.
 
-    Otherwise the operands must be `int`, and the result is `int`.
+* Otherwise the operands must be `int`, and the result is `int`.
 
-Notice that all `float`'s in an expression are converted to `double`; all
+Notice that all `float` values in an expression are converted to `double`; all
 floating point arithmetic in C is done in double precision.
 
 Conversions take place across assignments; the value of the right side is
@@ -462,7 +464,7 @@ involved.
 
 [comment]: <> (page 42 , 42 THE C PROGRAMMING LANGUAGE CHAPTER 2 )
 
-  If `x` is `float` and `i` is `int`, then
+If `x` is `float` and `i` is `int`, then
 
     x = i
 
@@ -555,7 +557,7 @@ from the string `s`.
       s[j] = '\0;
     }
 
-Each time a non-`c` occurs, it is copied into the current `j` position, and only
+Each time a non-c occurs, it is copied into the current `j` position, and only
 then is `j` incremented to be ready for the next character. This is exactly
 equivalent to
 
@@ -678,6 +680,8 @@ regardless of the machine the program is run on. `~0` is all 1-bits;
 shifting it left `n` bit positions with `~0 << n` creates a mask with
 zeros in the rightmost `n` bits and ones everywhere else; complementing
 that with `~` makes a mask with ones in the rightmost `n` bits.
+
+[comment]: <> (note n_045_01.md)
 
 [comment]: <> (page 46 , 46 THE C PROGRAMMING LANGUAGE CHAPTER 2 )
 
