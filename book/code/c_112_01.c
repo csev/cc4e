@@ -11,7 +11,7 @@ char *argv[];
   if (argc != 2)
     printf("Usage: find pattern\n");
   else
-    while (get_line(line, MAXLINE) > 0)
+    while (getline(line, MAXLINE) > 0)
       if (index(line, argv[1]) >= 0)
         printf("%s", line);
 }

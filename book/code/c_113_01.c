@@ -1,5 +1,5 @@
-#include<stdio.h>
-#include<string.h>
+#include <stdio.h>
+#include <string.h>
 #define MAXLINE 1000
 
 main(argc, argv) /* find pattern from first argument */
@@ -27,7 +27,7 @@ char *argv[];
   if (argc != 1)
     printf("Usage: find -x -n pattern\n");
   else
-    while (get_line(line, MAXLINE) > 0) {
+    while (getline(line, MAXLINE) > 0) {
       lineno++;
       if ((index(line, *argv) >= 0) != except) {
         if (number)

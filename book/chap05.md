@@ -690,7 +690,7 @@ showed in [Chapter 2](chap02.md): `strcat(s, t)` copies the string `t` to the en
 **Eitercise 5-3.** Write a macro for `strcpy`.
 
 **Exercise 5-4.** Rewrite appropriate programs from earlier chapters and exercises with pointers instead of array indexing. Good possibilities include
-`getline` ([Chapter 1](chap01.md) and [4](chap04.md)), `atoi`, `itoa`, and their variants ([Chapter 2](chap02.md),
+`get_line` ([Chapter 1](chap01.md) and [4](chap04.md)), `atoi`, `itoa`, and their variants ([Chapter 2](chap02.md),
 [3](chap03.md), and [Chapter 4](chap04.md)), `reverse` ([Chapter 3](chap03.md)), and `index` and `getop` ([Chapter 4](chap04.md)).
 
 5.6 Pointers are not Integers

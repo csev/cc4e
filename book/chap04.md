@@ -51,7 +51,7 @@ than one big one, because irrelevant details can be buried in the functions,
 and the chance of unwanted interactions minimized. And the pieces may
 even be useful in their own right.
 
-"While there's another line" is `getline`, a function that we wrote in
+"While there's another line" is `get_line`, a function that we wrote in
 [Chapter 1](chap01.md), and "print it" is `printf`, which someone has already provided
 for us. This means we need only write a routine which decides if the line
 contains an occurrence of the pattern. We can solve that problem by stealing a design from PL/I: the function `index(s, t)` returns the position or
@@ -60,12 +60,14 @@ We use 0 rather than 1 as the starting position in s because C arrays begin
 at position zero. When we later need more sophisticated pattern matching
 we only have to replace index; the rest of the code can remain the same.
 
+[comment]: <> (note n_068_01.md)
+
 Given this much design, filling in the details of the program is straightforward. Here is the whole thing, so you can see how the pieces fit
 together. For now, the pattern to be searched for is a literal string in the
 argument of `index`, which is not the most general of mechanisms. We will
 return shortly to a discussion of how to initialize character arrays, and in
 [Chapter 5](chap05.md) will show how to make the pattern a parameter that is set when
-the program is run. This is also a new version of `getline`; you might find
+the program is run. This is also a new version of `get_line`; you might find
 it instructive to compare it to the one in [Chapter 1](chap01.md).
 
 [comment]: <> (code c_066_01.c)
@@ -104,26 +106,26 @@ execution "falls off the end" of the function by reaching the closing right
 brace. It is not illegal, but probably a sign of trouble, if a function returns a
 value from one place and no value from another. In any case, the "value"
 of a function which does not return one is certain to be garbage. The C
-verifier _lint_ checks for such errors.
+verifier `lint` checks for such errors.
 
 The mechanics of how to compile and load a C program which resides
 on multiple source files vary from one system to the next. On the UNIX
-system, for example, the _cc_ command mentioned in [Chapter 1](chap01.md) does the job.
-Suppose that the three functions are on three files called _main.c, getline.c,_
-and _index.c._ Then the command
+system, for example, the `cc` command mentioned in [Chapter 1](chap01.md) does the job.
+Suppose that the three functions are on three files called `main.ci`, `get_line.c`,
+and `index.c`. Then the command
 
-    cc main.c getline.c index.c
+    cc main.c get_line.c index.c
 
 compiles the three files, places the resulting relocatable object code in files
-_main.o, getline.o,_ and _index.o,_ and loads them all into an executable file
-called _a.out._
+`main.o`, `get_line.o`, and `index.o`, and loads them all into an executable file
+called `a.out`.
 
-If there is an error, say in _main.c,_ that file can be recompiled by itself
+If there is an error, say in `main.c`, that file can be recompiled by itself
 and the result loaded with the previous object files, with the command
 
-    cc main.c getline.o index.o
+    cc main.c get_line.o index.o
 
-The _cc_ command uses the _".c"_ versus _".o"_ naming convention to distinguish source files from object files.
+The `cc` command uses the ".c" versus ".o" naming convention to distinguish source files from object files.
 
 **Exercise 4-1.** Write the function `rindex(s, t)` , which returns the position of the _rightmost_ occurrence of `t` in `s`, or -1 if there is none.
 
@@ -134,7 +136,7 @@ So far, none of our programs has contained any declaration of the type
 of a function. This is because by default a function is implicitly declared by
 its appearance in an expression or statement, such as
 
-    while (getline(line, MAXLINE) > 0)
+    while (get_line(line, MAXLINE) > 0)
 
 If a name which has not been previously declared occurs in an expression
 and is followed by a left parenthesis, it is declared by context to be a function name. Furthermore, by default the function is assumed to return an
