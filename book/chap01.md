@@ -715,6 +715,8 @@ begins with a letter.
 1.6 Arrays
 ----------
 
+[comment]: <> (note n_020_01.md)
+
 Let us write a program to count the number of occurrences of each
 digit, of white space characters (blank, tab, newline), and all other
 characters. This is artificial, of course, but it permits us to illustrate several

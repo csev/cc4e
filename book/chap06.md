@@ -778,10 +778,9 @@ table. Later, when the name `YES` appears in a statement like
 
 it must be replaced by 1.
 
-There are two major routines that manipulate the names and replacement texts. `install(s, t)` records the name `s` and the replacement text
-`t` in a table; `s` and `t` are just character strings. `lookup(s)` searches for `s`
-in the table, and returns a pointer to the place where it was found, or `NULL`
-    if it wasn't there.
+There are two major routines that manipulate the names and replacement texts. `install(s, t)` records the name `s` and
+the replacement text `t` in a table; `s` and `t` are just character strings. `lookup(s)` searches for `s`
+in the table, and returns a pointer to the place where it was found, or `NULL` if it wasn't there.
 
 The algorithm used is a hash search - the incoming name is converted
 into a small positive integer, which is then used to index into an array of
@@ -789,7 +788,6 @@ pointers. An array element points to the beginning of a chain of blocks describi
 hashed to that value.
 
 [comment]: <> (page 135 , CHAPTER 6 STRUCTURES 135 )
-
 
 A block in the chain is a structure containing pointers to the name, the
 replacement text, and the next block in the chain. A null next-pointer
