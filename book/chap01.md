@@ -57,7 +57,7 @@ In traditional C, the program to print "hello, world" is
 
 Just how to run this program depends on the system you are using. As
 a specific example, on the UNIX operating system you must create the
-source program in a file whose name ends in `".c"`, such as _`hello.c`_, then
+source program in a file whose name ends in `".c"`, such as `hello.c`, then
 compile it with the command
 
     cc hello.c
@@ -253,7 +253,7 @@ braces, as in
     while (i < j)
         i = 2 * i;
 
-In either case, the statements controlled by the while are indented by one
+In either case, the statements controlled by the `while` are indented by one
 tab stop so you can see at a glance what statements are inside the loop. The
 indentation emphasizes the logical structure of the program. Although C is
 quite permissive about statement positioning, proper indentation and use of
@@ -323,7 +323,7 @@ corresponding second, third, etc., argument; they must line up properly by
 number and type, or you'll get meaningless answers.
 
 By the way, `printf` is _not_ part of the C language; there is no input or
-output defined in C itself. There is nothing magic about printf; it is just a
+output defined in C itself. There is nothing magic about `printf`; it is just a
 useful function which is part of the standard library of routines that are normally accessible to C programs. In order to concentrate on C itself, we
 won't talk much about I/O until [Chapter 7](chap07.md). In particular, we will defer formatted input until then. If you have to input numbers, read the discussion
 of the function `scanf` in [Chapter 7](chap07.md), section 7.4. `scanf` is much like
