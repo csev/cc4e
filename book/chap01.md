@@ -931,6 +931,8 @@ the next section.
 1.9 Character Arrays
 --------------------
 
+[comment]: <> (note n_025_01.md)
+
 Probably the most common type of array in C is the array of characters.
 To illustrate the use of character arrays, and functions to manipulate them,
 let's write a program which reads a set of lines and prints the longest. The
@@ -939,7 +941,7 @@ basic outline is simple enough:
     while (there's another line)
         if (it's longer than the previous longest)
             save it and its length
-        print longest line
+    print longest line
 
 This outline makes it clear that the program divides naturally into pieces.
 One piece gets a new line, another tests it, another saves it, and the rest
