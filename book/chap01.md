@@ -669,7 +669,7 @@ sets all three variables to zero. This is not a special case, but a consequence
 of the fact that an assignment has a value and assignments associate right to
 left. It's really as if we had written
 
-    nc = (n1 = (nw = O));
+    nc = (nl = (nw = O));
 
 The operator `||` means _OR_, so the line
 
