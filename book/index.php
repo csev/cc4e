@@ -54,6 +54,9 @@ function x_sel($file) {
 
 
 ?>
+<!DOCTYPE html>
+<html>
+<head>
 <style>
 body {
     font-family: Helvetica, Arial, sans-serif;
@@ -95,6 +98,10 @@ tr:nth-child(even) {
   background-color: lightgray;
 }
 
+a.xyzzy, a.xyzzy:hover, a.xyzzy:focus, a.xyzzy:active {
+      text-decoration: none;
+      color: inherit;
+}
 
 </style>
 <?php
@@ -129,6 +136,7 @@ function myEdit(me) {
 <?php } ?>
 }
 </script>
+<body>
 <div style="float:right">
 <select id="chapters" onchange="onSelect();">
   <option <?= x_sel("..") ?>>CC4E</option>
@@ -239,7 +247,7 @@ function myEdit(me) {
         $md = str_replace('class="note">', 'class="note"><p>', $md);
         $md = str_replace('<p></div></p>', '</div>', $md);
         // $md = str_replace('class="language-', 'class="code" id="', $md);
-        $file_name = '<span style="float:right; margin:0.5em;">' . htmlentities($file) . '</span>';
+        $file_name = '<a href="#" style="float:right; margin:0.5em;" class="xyzzy"></a>';
         $copy_button = '<button style="float:right; margin:0.5em;" onclick="myCopy(this);return false;">Copy</button>';
         $edit_button = '<button style="float:right; margin:0.5em;" onclick="myEdit(this);return false;">Edit</button>';
         $md = str_replace('<pre><code class="language-', '<pre class="code">'.$edit_button.$copy_button.$file_name.'<code class="language-c" id="', $md);
@@ -316,3 +324,14 @@ The source code to this book is at
 You are welcome to help in the creation and editing of the book.
 </blockquote>
 </small>
+<script>
+$(document).ready(function() {
+$("code.language-c").each(function( index ) {
+  var filename = $( this ).attr("id");
+  $(this).prev("a.xyzzy").attr('href', '#'+filename);
+  filename = filename.replace('.c', '');
+  $(this).prev("a.xyzzy").text(filename);
+});
+});
+</script>
+</body>
