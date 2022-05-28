@@ -806,8 +806,8 @@ can be written instead as
 
 These initializations are actually unnecessary since all are zero, but it's good
 form to make them explicit anyway. If there are fewer initializers than the
-specified size, the others will be zero. It is an error to have too many initial-
-izers. Regrettably, there is no way to specify repetition of an initializer, nor
+specified size, the others will be zero. It is an error to have too many initializers.
+Regrettably, there is no way to specify repetition of an initializer, nor
 to initialize an element in the middle of an array without supplying all the
 intervening values as well.
 

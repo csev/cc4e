@@ -55,8 +55,10 @@ using the < convention: if a program _prog_ uses `getchar`, then the command lin
 
     prog <infile
 
-causes _prog_ to read inf lie instead of the terminal. The switching of the
-input is done in such a way that _prog_ itself is oblivious to the change; in particular, the string "<infile" is not included in the command-line arguments in `argv`. The input switching is also invisible if the input comes
+causes _prog_ to read `infile` instead of the terminal. The switching of the
+input is done in such a way that _prog_ itself is oblivious to the change; in
+particular, the string `<infile" is not included in the command-line
+arguments in `argv`. The input switching is also invisible if the input comes
 from another program via a pipe mechanism; the command line
 
     otherprog | prog

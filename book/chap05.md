@@ -553,12 +553,12 @@ is an array of characters. In the internal representation, the compiler terminat
 The length in storage is thus one more than the number of characters
 between the double quotes.
 
-Perhaps the most common occurrence of string constants is as argu­ments to functions, as in
+Perhaps the most common occurrence of string constants is as arguments to functions, as in
 
     printf("hello, world\n");
 
 When a character string like this appears in a program, access to it is
-through a character pointer; what  `printf` receives is a pointer to the char­acter array.
+through a character pointer; what  `printf` receives is a pointer to the character array.
 
 Character arrays of course need not be function arguments. If
 `message` is declared as
@@ -915,7 +915,7 @@ a pointer to a  `char`.  That is,  `lineptr[i]`  is a character pointer, and
 `*lineptr[i]`  accesses a character.
 
 Since  `lineptr`  is itself an array which is passed to  `writelines`,  it
-can be treated as a pointer in exactly the same manner as our earlier exam­ples, and the function can be written instead as
+can be treated as a pointer in exactly the same manner as our earlier examples, and the function can be written instead as
 
 [comment]: <> (page 5 , **108** THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
@@ -1068,14 +1068,14 @@ is given, the output is
 
 By convention, `argv[0]` is the name by which the program was invoked,
 so `argc` is at least 1. In the example above, `argc` is 3, and `argv[0]`,
-`argv[1]` and argv[2] are "`echo`", "`hello,`", and "`world`" respec­tively. The first real argument is `argv[1]` and the last is `argv[argc-1]` .
+`argv[1]` and argv[2] are "`echo`", "`hello,`", and "`world`" respectively. The first real argument is `argv[1]` and the last is `argv[argc-1]` .
 If `argc` is 1, there are no command-line arguments after the program name.
 This is shown in  `echo`:
 
 [comment]: <> (code c_111_01.c)
 
 Since `argv` is a pointer to an array of pointers, there are several ways to
-write this program that involve manipulating the pointer rather than index­ing an array. Let us show two variations.
+write this program that involve manipulating the pointer rather than indexing an array. Let us show two variations.
 
 [comment]: <> (code c_111_02.c)
 
@@ -1090,7 +1090,7 @@ Alternatively,
 
 [comment]: <> (code c_111_03.c)
 
-This version shows that the format argument of  `printf`  can be an expres­sion just like any of the others. This usage is not very frequent, but worth
+This version shows that the format argument of  `printf`  can be an expression just like any of the others. This usage is not very frequent, but worth
 remembering.
 
 [comment]: <> (page 112 , 112 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
@@ -1192,7 +1192,7 @@ the approach taken in our new sort.
 
 The lexicographic comparison of two lines is done by `strcmp` and swapping by `swap` as before; we will also need a routine `numcmp` which compares two lines on the basis of numeric value and returns the same kind of
 condition indication as `strcmp` does. These three functions are declared in `main` and pointers to them are passed to `sort`. `sort` in turn calls the
-functions via the pointers. We have skimped on error processing for argu­ments, so as to concentrate on the main issues.
+functions via the pointers. We have skimped on error processing for arguments, so as to concentrate on the main issues.
 
 <!-- **CHAPTER 5 POINTERS AND ARRAYS**  **115** -->
 

@@ -61,7 +61,7 @@ available in any accessible format.  We are making use of
 this material in a teaching and research context with
 a focus on studying its contribution to computing history.
 
-This material is avaliable for free and online to anyone who
+This material is available for free and online to anyone who
 wants to learn about the history of the C Language, computing,
 and computer architecture.
 
