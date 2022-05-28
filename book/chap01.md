@@ -898,6 +898,8 @@ than are seen with "call by reference" languages like Fortran and PL/I, in
 which the called routine is handed the address of the argument, not its
 value.
 
+[comment]: <> (note n_024_01.md)
+
 The main distinction is that in C the called function _cannot_ alter a
 variable in the calling function; it can only alter its private, temporary copy.
 
