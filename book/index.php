@@ -65,11 +65,10 @@ body {
 center {
     padding-bottom: 10px;
 }
-    
+
 p {
     text-align: justify;
-}  
-    
+}
 
 .note {
     border: 1px solid blue;
@@ -231,7 +230,6 @@ function myEdit(me) {
             }
         }
         $newcontent[] = $line;
-        
     }
     $contents = implode("\n", $newcontent);
 
@@ -289,13 +287,13 @@ Please feel free to improve this text in
 <blockquote>
 <a href="https://en.wikipedia.org/wiki/The_C_Programming_Language" target="_blank"><img src="pages/front.jpg" style="width:150px; float:right; padding-left: 10px;"></a>
 <p>
-This web site
+This work
 (<a href="https://www.cc4e.com">www.cc4e.com</a>) is based on the 1978 
 <a href="https://en.wikipedia.org/wiki/The_C_Programming_Language" target="_blank">"C Programming"</a>
-book written by Brian Kernighan and
-Dennis Ritchie.  The book and the material this site used from the book
+book written by Brian W. Kernighan and
+Dennis M. Ritchie.  Their book
 is copyright all rights reserved by AT&amp;T but is being used
-in this site under "fair use" because of the book's historical and scholarly significance,
+in this work under "fair use" because of the book's historical and scholarly significance,
 its lack of availablity, and lack of an accessible version of the book.
 </p>
 <p>
@@ -313,7 +311,7 @@ how the C language was evolving as it laid the ground work for a future with por
 If you want to learn modern C programming from a book that reflects the modern C language,
 I suggest you use the
 <a href="https://amzn.to/3hNp6QH" target="_blank">C Programming Language, 2nd Edition</a>,
-also written by Brian W. Kernighan and Dennis M. Ritchie, initially published in 
+also written by Brian W. Kernighan and Dennis M. Ritchie, initially published in
 1988 and based on the 
 <a href="https://en.wikipedia.org/wiki/ANSI_C" target="_blank">ANSI C</a> (C89) version
 of the language.

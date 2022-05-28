@@ -1091,7 +1091,7 @@ variables at the beginning of the source file, and then omit all `extern`
 declarations.
 
 If the program is on several source files, and a variable is defined in,
-say, and used in _file2,_ then an `extern` declaration is needed in _file2_ to
+say _file1_, and used in _file2,_ then an `extern` declaration is needed in _file2_ to
 connect the two occurrences of the variable. This topic is discussed at
 length in [Chapter 4](chap04.md).
 
