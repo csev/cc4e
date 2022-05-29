@@ -1034,8 +1034,8 @@ string `s`. Use it to write a program which reverses its input a line at a time.
 1.10 Scope; External Variables
 ------------------------------
 
-The variables in `main` (`line`, `save`, etc.) are private or local to `main`:
-because they are declared within `main`, no other function can have direct
+The variables in `main` (`line`, `save`, etc.) are private or local to `main`.
+Because they are declared within `main`, no other function can have direct
 access to them. The same is true of the variables in other functions; for
 example, the variable `i` in `get_line` is unrelated to the `i` in `copy`. Each
 local variable in a routine comes into existence only when the function is
