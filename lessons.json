@@ -27,14 +27,14 @@
 ],
 "modules": [
 {
-    "title": "Hello World",
-    "anchor": "install",
+    "title": "Welcome to C",
+    "anchor": "intro",
     "icon" : "fa-globe",
-    "description": "This whole area is under construction but you can write hello world in C.",
+    "description": "Gives some sense of where C first in the history of computing.  We hear from the book authors as to their ideas about C.",
     "references" : [
         {
-            "title" : "Chapter 1: Introduction",
-            "href" : "{apphome}/book/chap01.md"
+            "title" : "Chapter 0: Introduction",
+            "href" : "{apphome}/book/chap00.md"
         },
         {
             "title" : "Podcast version of the lectures",
@@ -70,6 +70,36 @@
                 "value": "00hello.php"
             }
         ]
+        }
+    ]
+},
+{
+    "title": "A Tutorial Introduction",
+    "anchor": "tutorial",
+    "icon" : "fa-globe",
+    "description": "This chapter covers what might be called the conventional core of C. .",
+    "references" : [
+        {
+            "title" : "Chapter 1: A Tutorial Introduction",
+            "href" : "{apphome}/book/chap01.md"
+        },
+        {
+            "title" : "Podcast version of the lectures",
+            "href" : "https://audio.cc4e.com/"
+        }
+    ],
+    "videos" : [
+        {
+            "title" : "Chapter 1 - A Tutorial Introduction",
+            "youtube" : "xDMXS38HdRY"
+        }
+    ],
+
+    "discussions" : [
+        {
+        "title" : "Tutorial Introduction",
+        "launch" : "mod/tdiscus/",
+        "resource_link_id": "discuss_01_tutorial"
         }
     ]
 }
