@@ -309,6 +309,8 @@ assignment, parentheses are needed in
 
 to achieve the desired result.
 
+[comment]: <> (note n_038_02.md)
+
 The unary negation operator `!` converts a non-zero or true operand into
 0, and a zero or false operand into 1. A common use of `!` is in constructions like
 
