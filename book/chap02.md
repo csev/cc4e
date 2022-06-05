@@ -22,7 +22,7 @@ names are used by various assemblers and loaders. Appendix A lists details.
 Furthermore, keywords like `if`, `else`, `int`, `float`, etc., are _reserved_: you
 can't use them as variable names. (They must be in lower case.)
 
-[comment]: <> (note n_032_01.md)
+[comment]: <> (note n_033_01.md)
 
 Naturally it's wise to choose variable names that mean something, that
 are related to the purpose of the variable, and that are unlikely to get mixed
@@ -71,7 +71,7 @@ for a particular machine. As you can see, each compiler is free to interpret
 `short` and `long` as appropriate for its own hardware. About all you should
 count on is that `short` is no longer than `long`.
 
-[comment]: <> (note n_033_01.md)
+[comment]: <> (note n_034_01.md)
 
 2.3 Constants
 -------------
@@ -261,6 +261,8 @@ required, explicit temporary variables must be used.
 
 The action taken on overflow or underflow depends on the machine at
 hand.
+
+[comment]: <> (note n_038_01.md)
 
 2.6 Relational and Logical Operators
 ------------------------------------
