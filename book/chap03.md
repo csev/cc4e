@@ -549,7 +549,7 @@ in [Chapter 5](chap05.md).) One possibility is
 
     for (i = 0; i < N; i++)
       for (j = 0; j < M; j++)
-        if (v[il [i] < 0)
+        if (v[i][j] < 0)
           goto found;
     /* didn't find */
   found:
