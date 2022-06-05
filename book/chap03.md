@@ -9,12 +9,12 @@ and be more precise about the ones discussed before.
 3.1 Statements and Blocks
 -------------------------
 
-An _expression_ such as `x = 0` or `i++` or `printf ( ... )` becomes a
+An _expression_ such as `x = 0` or `i++` or `printf( ... )` becomes a
 _statement_ when it is followed by a semicolon, as in
 
     x = 0;
     i++;
-    printf (...);
+    printf(...);
 
 In C, the semicolon is a statement terminator, rather than a separator as it is
 in Algol-like languages.
@@ -26,6 +26,8 @@ a function are one obvious example; braces around multiple statements after
 an `if`, `else`, `while` or `for` are another. (Variables can actually be
 declared inside _any_ block; we will talk about this in [Chapter 4](chap04.md).) There is
 never a semicolon after the right brace that ends a block.
+
+[comment]: <> (note n_051_01.md)
 
 3.2 If-Else
 -----------
@@ -165,6 +167,8 @@ The fundamental decision is whether `x` is less than, greater than, or
 equal to the middle element `v[mid]` at each step; this is a natural for
 `else-if`.
 
+[comment]: <> (note n_054_01.md)
+
 3.4 Switch
 ----------
 
@@ -174,6 +178,8 @@ branches accordingly. In [Chapter 1](chap01.md) we wrote a program to count the
 occurrences of each digit, white space, and all other characters, using a
 sequence of `if ... else if ... else`. Here is the same program with a
 `switch`.
+
+[comment]: <> (page 55 , 55 THE C PROGRAMMING LANGUAGE CHAPTER 3 )
 
 [comment]: <> (code c_055_01.c)
 
@@ -207,6 +213,8 @@ As a matter of good form, put a `break` after the last case (the
 `default` here) even though it's logically unnecessary. Some day when
 another case gets added at the end, this bit of defensive programming will
 save you.
+
+[comment]: <> (note n_056_01.md)
 
 **Exercise 3-1.** Write a function `expand(s, t)` which converts characters
 like newline and tab into visible escape sequences like \n and \t as it
@@ -245,7 +253,7 @@ relational expression. Any of the three parts can be omitted, although the
 semicolons must remain. If _expr1_ or _expr3_ is left out, i is simply dropped
 from the expansion. If the test, _expr2,_ is not present, it is taken as permanently true, so
 
-    for (;; ) {
+    for (;;) {
         ...
     }
 
@@ -306,7 +314,9 @@ number.
         n = 10  * n + s[i] - '0';
       return(sign * n);
     }
-The advantages of keeping loop control centralized are even more obvious when there are several nested loops. The following function is a Shell
+
+The advantages of keeping loop control centralized are even more obvious
+when there are several nested loops. The following function is a Shell
 sort for sorting an array of integers. The basic idea of the Shell sort is that
 in early stages, far-apart elements are compared, rather than adjacent ones,
 as in simple interchange sorts. This tends to eliminate large amounts of
