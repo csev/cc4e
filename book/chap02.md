@@ -419,6 +419,8 @@ all possible characters (so that it can be used to read arbitrary input) and, in
 addition, a distinct `EOF` value. Thus its value _cannot_ be represented as a
 `char`, but must instead be stored as an `int`.
 
+[comment]: <> (note n_040_01.md)
+
 [comment]: <> (page 41 , CHAPTER 2 TYPES, OPERATORS AND EXPRESSIONS 41 )
 
 Another useful form of automatic type conversion is that relational
@@ -724,15 +726,11 @@ operand) have a corresponding assignment operator _op=,_ where _op_ is one of
 
 If _e1_ and _e2_ are expressions, then
 
-<pre>
-    <i>e1 op= e2</i>
-</pre>
+    e1 op= e2
 
 is equivalent to
 
-<pre>
-    <i>e1 = (e1) op (e2)</i>
-</pre>
+    e1 = (e1) op (e2)
 
 except that _e1_ is computed only once. Notice the parentheses around _e2_:
 
@@ -933,3 +931,7 @@ of evaluation is a bad programming practice in any language. Naturally, it is
 necessary to know what things to avoid, but if you don't know _how_ they are
 done on various machines, that innocence may help to protect you. (The C
 verifier _lint_ will detect most dependencies on order of evaluation.)
+
+[comment]: <> (note n_050_01.md)
+
+
