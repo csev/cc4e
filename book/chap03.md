@@ -408,18 +408,18 @@ have chosen to generate the string backwards, then reverse it.
     char s[];
     int n;
     {
-      int i, sign;
+        int i, sign;
 
-      if ((sign = n) < 0)    /* record sign */
-        n = -n;    /* make n positive */
-      i = 0;
-      do {    /* generate digits in reverse order */
-        s[i++] = n % 10 + '0';     /* get next digit */
-      } while ((n /= 10) > 0); /* delete it */
-      if (sign < 0)
-        s[i++] = '-';
-      s[i] = '\0';
-      reverse(s);
+        if ((sign = n) < 0)    /* record sign */
+            n = -n;              /* make n positive */
+        i = 0;
+        do {    /* generate digits in reverse order */
+            s[i++] = n % 10 + '0';     /* get next digit */
+        } while ((n /= 10) > 0); /* delete it */
+        if (sign < 0)
+            s[i++] = '-';
+        s[i] = '\0';
+        reverse(s);
     }
 
 The `do-while` is necessary, or at least convenient, since at least one character must
@@ -427,6 +427,8 @@ be installed in the array `s`, regardless of the value of `n`. We also
 used braces around the single statement that makes up the body of the
 `do-while`, even though they are unnecessary, so the hasty reader will not
 mistake the `while` part for the _beginning_ of a `while` loop.
+
+[comment]: <> (note n_060_01.md)
 
 **Exercise 3-3.** In a 2's complement number representation, our version of
 `itoa` does not handle the largest negative number, that is, the value of _n_
@@ -503,6 +505,8 @@ array a; negative values are skipped.
 The `continue` statement is often used when the part of the loop that follows is
 complicated, so that reversing a test and indenting another level
 would nest the program too deeply.
+
+[comment]: <> (note n_062_01.md)
 
 **Exercise 3-6.** Write a program which copies its input to its output, except
 that it prints only one instance from each group of adjacent identical lines.
