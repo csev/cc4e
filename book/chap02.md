@@ -518,7 +518,7 @@ C provides two unusual operators for incrementing and decrementing
 variables. The increment operator `++` adds 1 to its operand; the decrement
 operator `--` subtracts 1. We have frequently used `++` to increment variables, as in
 
-    if (c == \n')
+    if (c == '\n')
           ++nl;
 
 The unusual aspect is that `++` and `--` may be used either as prefix
@@ -530,7 +530,7 @@ not just the effect, `++n` and `n++` are different. If `n` is 5, then
 
 [comment]: <> (page 43 , CHAPTER 2 TYPES, OPERATORS AND EXPRESSIONS 43 )
 
-      x = n++;
+    x = n++;
 
 sets `x` to 5, but
 
@@ -560,7 +560,7 @@ from the string `s`.
       for (i = j = 0; s[i] != '\0'; i++)
             if (s[i] != c)
                 s [j++] = s [i];
-      s[j] = '\0;
+      s[j] = '\0';
     }
 
 Each time a non-c occurs, it is copied into the current `j` position, and only
