@@ -1,6 +1,6 @@
 {
 "title": "C Programming for Everybody (CC4E)",
-"description" : "Hello and welcome to my site where you learn computer architecture by studying C.",
+"description" : "Hello and welcome to my site where you learn computer architecture and the history of computing by studying C.",
 "count": true,
 "required_modules": [
     "https://github.com/tsugitools/gift",
