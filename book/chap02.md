@@ -559,7 +559,7 @@ from the string `s`.
 
       for (i = j = 0; s[i] != '\0'; i++)
             if (s[i] != c)
-                s [j++] = s [i];
+                s[j++] = s[i];
       s[j] = '\0';
     }
 
