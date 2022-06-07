@@ -107,7 +107,7 @@ same, so programs that use them are shielded from knowledge of the character set
 To convert multiple files, you can use a program like the UNIX utility
 _cat_ to collect the files:
 
-    cat filel fi1e2 ... | lower >output
+    cat file1 file2 ... | lower >output
 
 and thus avoid learning how to access files from a program. _(cat_ is
 presented later in this chapter.)
