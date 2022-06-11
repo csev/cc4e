@@ -1,6 +1,8 @@
 CHAPTER 3: CONTROL FLOW
 =======================
 
+[comment]: <> (page 51 , 51 THE C PROGRAMMING LANGUAGE CHAPTER 3 )
+
 The control flow statements of a language specify the order in which
 computations are done. We have already met the most common control
 flow constructions of C in earlier examples; here we will complete the set,

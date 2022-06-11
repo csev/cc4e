@@ -13,11 +13,7 @@ if ( ! isset($CFG) ) {
     $LAUNCH = LTIX::session_start();
 }
 
-if ( U::get($_SESSION,'id', null) === null ) {
-    $_SESSION['error'] = 'Must be logged in to test code';
-    header("Location: index.php");
-    return;
-}
+$LOGGED_IN = U::get($_SESSION,'id', null) !== null;
 
 require_once "sandbox/sandbox.php";
 require_once "play_util.php";
@@ -58,10 +54,19 @@ cc4e_play_header($lines);
 <body>
 <p>
 This the <a href="index.php">www.cc4e.com</a> code playground for writing C programs.
+<?php
+if ( ! $LOGGED_IN ) {
+    echo('You must be logged in to run your program.');
+}
+?>
 <p>
 <form method="post">
 <p>
-<input type="submit" value="Run Code">
+<?php
+if ( $LOGGED_IN ) {
+    echo('<input type="submit" value="Run Code">');
+}
+?>
 <script>
 if ( window.opener ) {
     document.write('<button onclick="window.close();">Close</button>');
@@ -73,6 +78,7 @@ if ( window.opener ) {
 <?php
 $errors = cc4e_play_errors($retval);
 cc4e_play_inputs($lines, $code);
+if ( $LOGGED_IN ) {
 ?>
 <p>Input to your program:</p>
 <p>
@@ -94,6 +100,9 @@ area.
 </p>
 <?php 
 cc4e_play_debug($retval);
+} else {
+    echo("\n</form>\n");
+}
 cc4e_play_footer();
 ?>
 </body>

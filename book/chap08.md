@@ -1,6 +1,8 @@
 CHAPTER 8: THE UNIX SYSTEM INTERFACE
 ====================================
 
+[comment]: <> (page 159 , 159 THE C PROGRAMMING LANGUAGE CHAPTER 8 )
+
 The material in this chapter is concerned with the interface between C
 programs and the UNIX[^1] operating system. Since most C users are on UNIX
 systems, this should be helpful to a majority of readers. Even if you use C
@@ -38,8 +40,6 @@ All information about an open file is maintained by the system; the user program
 [^1]: UNIX is a Trademark of Bell Laboratories.
 
 [comment]: <> (page 160 , 160 THE C PROGRAMMING LANGUAGE CHAPTER 8 )
-
-
 
 Since input and output involving the user's terminal is so common, special arrangements exist to make this convenient. When the command interpreter (the "shell") runs a program, it opens three files, with file descriptors
 0, 1, and 2, called the standard input, the standard output, and the standard

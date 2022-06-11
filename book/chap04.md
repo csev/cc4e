@@ -1,6 +1,8 @@
 CHAPTER 4: FUNCTIONS AND PROGRAM STRUCTURE
 ==========================================
 
+[comment]: <> (page 65 , 65 THE C PROGRAMMING LANGUAGE CHAPTER 4 )
+
 Functions break large computing tasks into smaller ones, and enable
 people to build on what others have done instead of starting over from
 scratch. Appropriate functions can often hide details of operation from parts
@@ -22,7 +24,7 @@ Most programmers are familiar with "library" functions for input and
 
 To begin, let us design and write a program to print each line of its
 input that contains a particular "pattern" or string of characters. (This is a
-special case of the UNIX utility program _grep.)_ For example, searching for
+special case of the UNIX utility program `grep`.) For example, searching for
 the pattern "the" in the set of lines
 
     Now is the time

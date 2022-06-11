@@ -14,6 +14,8 @@ body {
 
 <?php 
 function cc4e_play_errors($retval) { 
+    global $LOGGED_IN;
+    if ( ! $LOGGED_IN ) return false;
     $compiler = $retval->assembly->stderr ?? false;
 
     if ( is_string($compiler) && strlen($compiler) > 0 ) {
@@ -58,9 +60,11 @@ main() {
 <?php }
 
 function cc4e_play_output($retval) {
+    global $LOGGED_IN;
 ?>
 </p>
 <?php
+if ( ! $LOGGED_IN ) return;
 // https://stackoverflow.com/questions/3008035/stop-an-input-field-in-a-form-from-being-submitted
 if ( isset($retval->docker->stdout) ) {
     echo '<form style="color: blue;">'."\n";

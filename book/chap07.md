@@ -1,6 +1,8 @@
 CHAPTER 7: INPUT AND OUTPUT
 ===========================
 
+[comment]: <> (page 143 , 143 THE C PROGRAMMING LANGUAGE CHAPTER 7 )
+
 Input and output facilities are not part of the C language, so we have
 de-emphasized them in our presentation thus far. Nonetheless, real programs
 do interact with their environment in much more complicated ways
@@ -41,7 +43,7 @@ command to compile a program would be
 
     cc source files, etc. -lS
 
-where -lS indicates loading from the standard library. (The character l is
+where `-lS` indicates loading from the standard library. (The character `l` is
 the letter ell.)
 
 7.2 Standard Input and Output - Getchar and Putchar

@@ -57,57 +57,11 @@ function x_sel($file) {
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-body {
-    font-family: Helvetica, Arial, sans-serif;
-}
-
-center {
-    padding-bottom: 10px;
-}
-
-p {
-    text-align: justify;
-}
-
-.note {
-    border: 1px solid blue;
-    padding-left: 1em;
-    padding-right: 1em;
-}
-
-.code {
-    border: 1px solid gray;
-    padding-left: 1em;
-    clear: both;
-}
-
-@media print {
-    #chapters {
-        display: none;
-    }
-}
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-    padding: 5px;
-}
-
-tr:nth-child(even) {
-  background-color: lightgray;
-}
-
-a.xyzzy, a.xyzzy:hover, a.xyzzy:focus, a.xyzzy:active {
-      text-decoration: none;
-      color: inherit;
-}
-
-</style>
 <?php
+require_once("style.php");
 
 if ( $contents != false ) {
 ?>
-<script src="https://static.tsugi.org/js/jquery-1.11.3.js"></script>
 <script>
 function onSelect() {
     console.log($('#chapters').val());
@@ -126,15 +80,12 @@ function myCopy(me) {
     $temp.remove();
 }
 function myEdit(me) {
-<?php if ( U::get($_SESSION, 'id') ) { ?>
     var code = me.nextSibling.nextSibling.nextSibling.id;
     console.log('code', code);
     window.open("<?= $CFG->apphome ?>/play?sample="+code);
-<?php } else { ?>
-    alert('You must be logged in to edit code');
-<?php } ?>
 }
 </script>
+</head>
 <body>
 <div style="float:right">
 <select id="chapters" onchange="onSelect();">

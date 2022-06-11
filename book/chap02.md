@@ -1,6 +1,8 @@
 CHAPTER 2: TYPES, OPERATORS AND EXPRESSIONS
 ===========================================
 
+[comment]: <> (page 33 , 33 THE C PROGRAMMING LANGUAGE CHAPTER 2 )
+
 Variables and constants are the basic data objects manipulated in a program. Declarations list the variables to be used, and state what type they
 have and perhaps what their initial values are. Operators specify what is to
 be done to them. Expressions combine variables and constants to produce

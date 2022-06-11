@@ -1,6 +1,8 @@
 CHAPTER 6: STRUCTURES
 =====================
 
+[comment]: <> (page 119 , 119 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
+
 A _structure_ is a collection of one or more variables, possibly of different
 types, grouped together under a single name for convenient handling.
 (Structures are called "records" in some languages, most notably Pascal.)
