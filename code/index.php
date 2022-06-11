@@ -25,7 +25,7 @@ require_once("../book/style.php");
 ?>
 </head>
 <body>
-<h1>Code for C Programming</h1>
+<h1>Sample Code for C Programming</h1>
 <p>
 This page contains the sample code elements from "C Programming" by 
 Briwan W. Kernighan and Dennis M. Ritchie indexed by chapter and page.
@@ -47,11 +47,12 @@ function chapter_title($pageno) {
         array(8, "Chapter 8: The UNIX System Interface", 159),
     );
 
-    $title = "TBD";
+    $prevchapter = array();
     foreach($chapters as $chapter) {
-        if ($chapter[2] >= $pageno ) return $chapter;
+        if ($chapter[2] >= $pageno ) return $prevchapter;
+        $prevchapter = $chapter;
     }
-    return $chapter;
+    return $prevchapter;
 }
 
 $chapter = 0;
@@ -96,8 +97,8 @@ foreach($files as $file ) {
 
 ?>
 <li>
-<a href="#<?= $file ?>" style="margin:0.5em;" class="xyzzy"><?= htmlentities($ref) ?></a>
-<button style="margin:0.5em;" onclick="myToggle('<?= $id ?>');return false;" id="toggle_<?= $id ?>" >Show</button>
+<a href="../book/chap0<?= $number ?>.md#pg<?= $page ?>" style="margin:0.5em;" class="xyzzy"><?= htmlentities($ref) ?></a>
+<button style="margin:0.5em;display:none;" onclick="myToggle('<?= $id ?>');return false;" id="toggle_<?= $id ?>" >Show</button>
 <button style="margin:0.5em;" onclick="myCopy('<?= $id ?>');return false;">Copy</button>
 <button style=" margin:0.5em;" onclick="myEdit('<?= $file ?>');return false;"><?= $edit ?></button>
 <pre class="code" id="pre_<?= $id ?>" style="display:none;">
