@@ -25,13 +25,17 @@ gcc -ansi -c c_061_01.c
 
 # Chapter 4
 gcc -ansi c_066_01.c
+gcc -ansi -c c_069_01.c
 gcc -ansi -c c_070_01.c
 gcc -ansi -c c_074_01.c
 gcc -ansi -c c_075_01.c
-# gcc -ansi c_079_01.c -  as there is no main function for this code
+# gcc -ansi -c c_078_01.c - lots of errors here
+gcc -ansi -c -Wno-return-type c_079_01.c
+gcc -ansi -c -Wno-return-type c_085_01.c
+gcc -ansi -c -Wno-return-type c_085_02.c
 
 # Chapter 5
-# gcc -ansi -c c_097_01.c -  as there is no main function for this code
+# gcc -ansi -c -Wno-return-type c_097_01.c - steps on built-ins
 gcc -ansi -c c_106_01.c
 gcc -ansi -c c_107_01.c
 gcc -ansi c_111_01.c

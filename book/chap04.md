@@ -147,14 +147,14 @@ declare functions that return `char`. These assumptions cover the majority of ca
 
 [comment]: <> (page 69 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 69 )
 
-
-
 But what happens if a function must return some other type? Many
-numerical functions like `sqrt`, `sin`, and `cos` return `double`; other specialized functions return other types. To illustrate how to deal with this, let
+numerical functions like `sqrt`, `sin`, and `cos` return `double`; other
+specialized functions return other types. To illustrate how to deal with this, let
 us write and use the function `atof(s)`, which converts the string s to its
 double-precision floating point equivalent. `atof` is an extension of `atoi`,
 which we wrote versions of in [Chapters 2](chap02.md) and [3](chap03.md); it handles an optional sign
-and decimal point, and the presence or absence of either integer part or fractional part. (This is _not_ a high-quality input conversion routine; that would
+and decimal point, and the presence or absence of either integer part or fractional
+part. (This is _not_ a high-quality input conversion routine; that would
 take more space than we care to use.)
 
 First, `atof` itself must declare the type of value it returns, since it is
@@ -163,27 +163,7 @@ no point to saying that `atof` returns `float`; we might as well make use of
 the extra precision and thus we declare it to return `double`. The type
 name precedes the function name, like this:
 
-    double atof(s) /* convert string s to double */
-    char s[];
-    {
-      double val, power;
-      int i, sign;
-
-      for (i=0; s[i]==' ' || s[i]=='\n' || s[i]=='\t'; i++)
-        ;     /* skip white space */
-      sign = 1;
-      if (s[i] == '+' || s[i] == '-') /* sign */
-        sign = (s[i++]=='+') ? 1 : -1;
-      for (val = 0; s[i] >= '0' && s[i] <= '9'; i++)
-        val = 10 * val + s[i] - '0';
-      if (s[i] == '.')
-        i++;
-      for (power = 1; s[i] >= '0' && s[i] <= '9'; i++) {
-        val = 10 * val + s[i] - '0';
-        power *= 10;
-      }
-      return(sign * val / power);
-    }
+[comment]: <> (code c_069_01.c)
 
 Second, and just as important, the _calling_ routine must state that `atof`
 returns a non-int value. The declaration is shown in the following primitive desk calculator (barely adequate for check-book balancing), which reads
@@ -213,7 +193,7 @@ separately, the mismatch would not be detected, `atof` would return a
 Given `atof`, we could in principle write `atoi` (convert a string to `int`)
 in terms of it:
 
-    atoi(s) /* convert string s to integer */
+    int atoi(s) /* convert string s to integer */
     char s[];
     {
       double atof();
@@ -499,38 +479,7 @@ but only stores the ones that fit. If there was no overflow, it returns
 `getop` discards the rest of the input line so the user can simply retype the
 line from the point of error; it returns `TOOBIG` as the overflow signal.
 
-    getop(s, lim) /* get next operator or operand */
-    char s[];
-    int lim;
-    {
-      int i, c;
-
-      while ((c = getch()) == ' ' || c == '\t' || c == '\n')
-        ;
-      if (c != '.' && (c < '0' || c > '9'))
-        return(c);
-      s[0] = c;
-      for (i = 1; (c = getchar()) >= '0' && c <= '9'; i++)
-        if (i < lim)
-          s[i] = c;
-      if (c == '.') {  /* collect fraction */
-        if (i < lim)
-          s[i] = c;
-        for (i++; (c=getchar()) >= '0' && c <= '9'; i++)
-          if (i < lim)
-            s[i] = c;
-      }
-      if (i < lim) {  /* number is ok */
-        ungetch(c);
-        s[i] = '\0';
-        return (NUMBER);
-      } else { /* it's too big; skip rest of line */
-        while (c != '\n' && c != EOF)
-          c = getchar();
-        s[lim-1] = '\0';
-        return(TOOBIG);
-      }
-    }
+[comment]: <> (code c_078_01.c)
 
 What are `getch` and `ungetch`? It is often the case that a program
 reading input cannot determine that it has read enough until it has read too
@@ -824,40 +773,12 @@ in [Chapter 3](chap03.md) with `itoa`. The first version of `printd` follows thi
 
 [comment]: <> (page 85 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 85 )
 
-    printd(n) /* print n in decimal */
-    int n;
-    {
-      char s[10];
-      int i;
-
-      if (n < 0) {
-        putchar('-');
-        n = -n;
-      }
-      i = 0;
-      do {
-            s[i++]  = n % 10  + '0';  /* get next char  */
-      } while ((n  /= 10) >  0); /*  discard it */
-      while (--i >= 0)
-        putchar(s[i]);
-    }
+[comment]: <> (code c_085_01.c)
 
 The alternative is a recursive solution, in which each call of `printd`
 first calls itself to cope with any leading digits, then prints the trailing digit.
 
-    printd(n) /* print n in decimal (recursive) */
-    int n;
-    {
-      int i;
-
-      if (n < 0) {
-        putchar('-');
-        n = -n;
-      }
-      if ((i = n/10) != 0)
-        printd(i);
-      putchar(n % 10 + '0');
-    }
+[comment]: <> (code c_085_02.c)
 
 When a function calls itself recursively, each invocation gets a fresh set of
 all the automatic variables, quite independent of the previous set. Thus in
@@ -869,6 +790,9 @@ Recursion generally provides no saving in storage, since somewhere a
 stack of the values being processed has to be maintained. Nor will it be faster. But recursive code is more compact, and often much easier to write and
 understand. Recursion is especially convenient for recursively defined data
 structures like trees; we will see a nice example in [Chapter 6](chap06.md).
+
+[comment]: <> (note n_085_01.md)
+
 
 **Exercise 4-7.** Adapt the ideas of `printd` to write a recursive version of
 `itoa`; that is, convert an integer into a string with a recursive routine.
