@@ -29,13 +29,25 @@ gcc -ansi -c c_069_01.c
 gcc -ansi -c c_070_01.c
 gcc -ansi -c c_074_01.c
 gcc -ansi -c c_075_01.c
-# gcc -ansi -c c_078_01.c - lots of errors here
+# gcc -ansi -c -Wno-implicit-function-declaration c_078_01.c - undeclared identifier
 gcc -ansi -c -Wno-return-type c_079_01.c
 gcc -ansi -c -Wno-return-type c_085_01.c
 gcc -ansi -c -Wno-return-type c_085_02.c
 
 # Chapter 5
-# gcc -ansi -c -Wno-return-type c_097_01.c - steps on built-ins
+gcc -ansi -c -Wno-return-type c_091_01.c
+gcc -ansi -c -Wno-return-type c_092_01.c
+gcc -ansi -c -Wno-return-type -Wno-incompatible-library-redeclaration -Wno-implicit-function-declaration c_093_01.c
+gcc -ansi -c -Wno-return-type -Wno-incompatible-library-redeclaration c_095_01.c
+gcc -ansi -c -Wno-return-type -Wno-incompatible-library-redeclaration c_097_01.c
+gcc -ansi -c -Wno-return-type -Wno-incompatible-library-redeclaration c_100_01.c
+gcc -ansi -c -Wno-return-type -Wno-incompatible-library-redeclaration c_100_02.c
+gcc -ansi -c -Wno-return-type -Wno-incompatible-library-redeclaration c_100_03.c
+gcc -ansi -c -Wno-return-type -Wno-incompatible-library-redeclaration c_101_01.c
+gcc -ansi -c -Wno-knr-promoted-parameter c_101_02.c
+gcc -ansi -c -Wno-knr-promoted-parameter c_102_01.c
+gcc -ansi -c -Wno-implicit-function-declaration c_103_01.c
+gcc -ansi -c -Wno-implicit-function-declaration -Wno-int-conversion c_103_02.c
 gcc -ansi -c c_106_01.c
 gcc -ansi -c c_107_01.c
 gcc -ansi c_111_01.c

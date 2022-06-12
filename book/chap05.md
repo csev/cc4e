@@ -101,7 +101,7 @@ points to `x`, then
 
     *px = 0
 
-<!-- CHAPTER 5 POINTERS AND ARRAYS 91 -->
+[comment]: <> (page 91 , 91 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
 sets `x` to zero, and
 
@@ -136,15 +136,7 @@ function called `swap`. It is not enough to write
 
 where the `swap` function is defined as
 
-    swap(x, y)  /* WRONG */
-    int x, y;
-    {
-      int temp;
-
-      temp = x;
-      x = y;
-      y = temp;
-    }
+[comment]: <> (code c_091_01.c)
 
 Because of call by value, `swap` _can't_ affect the arguments `a` and `b` in the
 routine that called it.
@@ -159,15 +151,7 @@ operands are accessed through them.
 
 [comment]: <> (page 92 , 92 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
-    swap(px, py) /* interchange *px and *py */
-    int *px, *py;
-    {
-      int temp;
-
-      temp = *px;
-      *px = *py;
-      *py = temp;
-    }
+[comment]: <> (code c_092_01.c)
 
 One common use of pointer arguments is in functions that must return
 more than a single value. (You might say that swap returns two values, the
@@ -198,27 +182,9 @@ handed a valid pointer.
 
 `get_int` itself is an obvious modification of the `atoi` we wrote earlier:
 
-<!-- CHAPTER 5 POINTERS AND ARRAYS 93 -->
+[comment]: <> (page 93 , 93 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
-    get_int(pn) /* get next integer from input */
-    int *pn;
-    {
-      int c, sign;
-
-      while ((c = getch()) == " || c == '\n' || c == '\t')
-      ;   /* skip white space */
-      sign = 1;
-      if (c == '+' II c == '-') { /* record sign */
-        sign = (c=='+') ? 1 : -1;
-        c = getch();
-      }
-      for (*pn = 0; c >= '0' && c <= '9'; c = getch())
-        *pn = 10 * *pn + c - '0';
-      *pn *= sign;
-      if (c != EOF)
-        ungetch(c);
-      return(c);
-}
+[comment]: <> (code c_093_01.c)
 
 Throughout `getint`, `*pn` is used as an ordinary `int` variable. We have
 also used `getch` and `ungetch` (described in [Chapter 4](chap04.md)) so the one extra
@@ -306,19 +272,11 @@ is a variable, just like any other variable, and so an array name argument is
 truly a pointer, that is, a variable containing an address. We can use this fact to write a new version of `strlen`, which computes the length of a
 string.
 
-<!-- CHAPTER 5 POINTERS AND ARRAYS 95 -->
+[comment]: <> (page 95 , 95 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
-    strlen(s) /* return length of string s */
-    char *s;
-    {
-      int n;
+[comment]: <> (code c_095_01.c)
 
-      for (n = 0; *s != '\0'; s++)
-        n++;
-      return (n);
-    }
-
-Incrementing s is perfectly legal, since it is a pointer variable; `s++` has no
+Incrementing `s` is perfectly legal, since it is a pointer variable; `s++` has no
 effect on the character string in the function that called `strlen`, but merely
 increments `strlen`'s private copy of the address.
 
@@ -442,8 +400,6 @@ zero is a special case.
 
 [comment]: <> (page 98 , 98 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
-
-
 Tests like
 
     if (allocp + n <= allocbuf + ALLOCSIZE)
@@ -494,7 +450,7 @@ be used to write yet another version of `strlen`:
 
 In its declaration, `p` is initialized to `s`, that is, to point to the first character.
 
-<!-- CHAPTER 5 POINTERS AND ARRAYS -->
+[comment]: <> (page 99 , 99 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
 In the `while` loop, each character in turn is examined until the  \0  at the
 end is seen. Since  \0  is zero, and since  `while`  tests only whether the
@@ -563,26 +519,11 @@ where one would say
 
 to assign `t` to `s`. The array version is first:
 
-    strcpy(s, t) /* copy t to s */
-    char s[], t[];
-    {
-      int i;
-
-      i = 0;
-      while ((s[i] = t[i]) != '\0')
-        i++;
-    }
+[comment]: <> (code c_100_01.c)
 
 For contrast, here is a version of `strcpy` with pointers.
 
-    strcpy(s, t) /* copy t to s; pointer version 1 */
-    char *s, *t;
-    {
-      while ((*s = *t) != '\0') {
-        s++;
-        t++;
-      }
-    }
+[comment]: <> (code c_100_02.c)
 
 Because arguments are passed by value, `strcpy` can use `s` and `t` in any
 way it pleases. Here they are conveniently initialized pointers, which are
@@ -591,14 +532,9 @@ marched along the arrays a character at a time, until the \0 which terminates t 
 In practice, `strcpy` would not be written as we showed it above A
 second possibility might be
 
-    strcpy(s, t) /* copy t to s; pointer version 2 */
-    char *s, *t;
-    {
-      while ((*s++ = *t++) != '\0')
-      ;
-    }
+[comment]: <> (code c_100_03.c)
 
-<!-- CHAPTER 5 POINTERS AND ARRAYS 101 -->
+[comment]: <> (page 101 , 101 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
 This moves the increment of `s` and `t` into the test part. The value of `*t++`
 is the character that `t` pointed to before t was incremented; the postfix ++
@@ -611,12 +547,7 @@ including the terminating \0.
 As the final abbreviation, we again observe that a comparison against \0
 is redundant, so the function is often written as
 
-    strcpy(s, t) /* copy t to s; pointer version 3 */
-    char *s, *t;
-    {
-      while (*s++ = *t++)
-      ;
-    }
+[comment]: <> (code c_101_01.c)
 
 Although this may seem cryptic at first sight, the notational convenience is
 considerable, and the idiom should be mastered, if for no other reason than
@@ -626,31 +557,13 @@ The second routine is `strcmp(s, t)` , which compares the character
 strings `s` and `t`, and returns negative, zero or positive according as `s` is lexicographically less than, equal to, or greater than `t`. The value returned is obtained by subtracting the characters at the first position where `s` and `t`
 disagree.
 
-    strcmp(s, t) /* return <0 if s<t, 0 if s==t, >0 if s>t */
-    char s[], t[];
-    {
-      int i;
-
-      i = 0;
-
-      while (s[i] == t[i])
-        if (s[i++] == '\0')
-          return (0);
-      return(s[i] - t[i]);
-    }
-
-The pointer version of `strcmp`:
+[comment]: <> (code c_101_02.c)
 
 [comment]: <> (page 102 , 102 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
-    strcmp(s, t) /* return <0 if s<t, 0 if s==t, >0 if s>t */
-    char *s, *t;
-    {
-      for ( ; *s == *t; s++, t++)
-        if (*s == '\0')
-          return (0);
-      return(*s - *t);
-    }
+The pointer version of `strcmp`:
+
+[comment]: <> (code c_102_01.c)
 
 Since ++ and -- are either prefix or postfix operators, other combinations of * and ++ and -- occur, although less frequently. For example,
 
@@ -684,34 +597,20 @@ often left out. For example, consider the function `strsave(s)`, which
 copies the string `s` into a safe place, obtained by a call on `alloc`, and
 returns a pointer to it. Properly, this should be written as
 
-<!-- CHAPTER 5 POINTERS AND ARRAYS 103 -->
+[comment]: <> (page 103 , 103 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
-    char *strsave(s) /* save string s somewhere */
-    char *s;
-    {
-      char *p, *alloc();
-
-      if ((p = alloc(strlen(s)+1)) != NULL)
-        strcpy(p, s);
-      return(p);
-    }
+[comment]: <> (code c_103_01.c)
 
 In practice, there would be a strong tendency to omit declarations:
 
-    strsave(s) /* save string s somewhere */
-    {
-      char *p;
-
-      if ((p = alloc(strlen(s)+1)) != NULL)
-        strcpy(p, s);
-      return(p);
-    }
+[comment]: <> (code c_103_02.c)
 
 This will work on many machines, since the default type for functions and
 arguments is `int`, and `int` and pointer can usually be safely assigned back
 and forth. Nevertheless this kind of code is inherently risky, for it depends
 on details of implementation and machine architecture which may not hold
-for the particular compiler you use. It's wiser to be complete in all declarations. (The program _lint_ will warn of such constructions, in case they creep
+for the particular compiler you use. It's wiser to be complete in all
+declarations. (The program _lint_ will warn of such constructions, in case they creep
 in inadvertently.)
 
 5.7 Multi-Dimensional Arrays
@@ -948,7 +847,7 @@ difference.
 In [Chapter 1](chap01.md) we pointed out that because `while` and `for` loops test the
 termination condition _before_ executing the loop body even once, they help to ensure that programs will work at their boundaries, in particular with no input. It is illuminating to walk through the functions of the sorting program, checking what happens if there is no input text at all.
 
-<!-- CHAPTER 5 POINTERS AND ARRAYS 109 -->
+[comment]: <> (page 109 , 109 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
 **Exercise 5-5.** Rewrite `readlines` to create lines in an array supplied by
 `main`, rather than calling `alloc` to maintain storage. How much faster is
@@ -1042,7 +941,7 @@ is given, the output is
 
     hello, world
 
-<!-- CHAPTER 5 POINTERS AND ARRAYS 111 -->
+[comment]: <> (page 111 , 111 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
 By convention, `argv[0]` is the name by which the program was invoked,
 so `argc` is at least 1. In the example above, `argc` is 3, and `argv[0]`,
@@ -1108,7 +1007,7 @@ actually present. In particular, the call to `index` should not refer to
 `argv[2]` when there was a single flag argument and to `argv[1]` when
 there wasn't. Furthermore, it is convenient for users if option arguments can be concatenated, as in
 
-<!-- CHAPTER 5 POINTERS AND ARRAYS **113** -->
+[comment]: <> (page 113 , 113 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
     find -nx the
 
@@ -1172,7 +1071,7 @@ The lexicographic comparison of two lines is done by `strcmp` and swapping by `s
 condition indication as `strcmp` does. These three functions are declared in `main` and pointers to them are passed to `sort`. `sort` in turn calls the
 functions via the pointers. We have skimped on error processing for arguments, so as to concentrate on the main issues.
 
-<!-- **CHAPTER 5 POINTERS AND ARRAYS**  **115** -->
+[comment]: <> (page 115 , 115 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
 [comment]: <> (code c_115_01.c)
 
@@ -1228,7 +1127,7 @@ associated.
 We have already shown `strcmp`, which compares two strings. Here is
 `numcmp`, which compares two strings on a leading numeric value:
 
-<!-- **CHAPTER 5 POINTERS AND ARRAYS** 117 -->
+[comment]: <> (page 117 , 117 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
     numcmp(s1, s2) /* compare s1 and s2 numerically */
     char *s1, *s2;
