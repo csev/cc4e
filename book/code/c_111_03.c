@@ -1,5 +1,5 @@
-#include<stdio.h>
-#include<string.h>
+#include <stdio.h>
+#include <string.h>
 main(argc, argv) /* echo arguments; 3rd version */
 int argc;
 char *argv[];

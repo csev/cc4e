@@ -1,5 +1,5 @@
-#include<stdio.h>
-#include<string.h>
+#include <stdio.h>
+#include <string.h>
 #define LINES 100 /* max number of lines to be sorted */
 
 main(argc, argv) /* sort input lines */

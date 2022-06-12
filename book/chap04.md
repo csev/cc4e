@@ -362,6 +362,8 @@ more typical use of `switch` than the one shown in [Chapter 3](chap03.md).
 
 [comment]: <> (code c_074_01.c)
 
+[comment]: <> (page 75 , 75 THE C PROGRAMMING LANGUAGE CHAPTER4 )
+
 [comment]: <> (code c_075_01.c )
 
 The command c clears the stack, with a function `clear` which is also used
@@ -538,14 +540,15 @@ much. One instance is collecting the characters that make up a number:
 
 until the first non-digit is seen, the number is not complete. But then the
 program has read one character too far, a character that it is not prepared
-    for.
+for.
 
 The problem would be solved if it were possible to "un-read" the
 unwanted character. Then, every time the program reads one character too
 many, it could push it back on the input, so the rest of the code could
 behave as if it had never been read. Fortunately, it's easy to simulate un-
 getting a character, by writing a pair of cooperating functions. `getch`
-delivers the next input character to be considered; `ungetch` puts a character back on the input, so that the next call to `getch` will return it again.
+delivers the next input character to be considered; `ungetch` puts a character
+back on the input, so that the next call to `getch` will return it again.
 
 How they work together is simple. `ungetch` puts the pushed-back
 characters into a shared buffer - a character array. `getch` reads from the
@@ -554,29 +557,10 @@ There must also be an index variable which records the position of the
 current character in the buffer.
 
 Since the buffer and the index are shared by `getch` and `ungetch` and
-must retain their values between calls, they must be external to both routines. Thus we can write `getch`, `ungetch`, and their shared variables as:
+must retain their values between calls, they must be external to both
+routines. Thus we can write `getch`, `ungetch`, and their shared variables as:
 
-<!-- [comment]: <> (code c_079_01.c)   -->
-
-    #include<stdio.h>
-    #define BUFSIZE 100
-
-    char buf[BUFSIZE]; /* buffer for ungetch */
-    int bufp = 0; /* next free position in buf */
-
-    getch() /* get a (possibly pushed back) character */
-    {
-      return((bufp > 0) ? buf[--bufp] : getchar());
-    }
-
-    ungetch (c) /* push character back on input */
-    int c;
-    {
-      if (bufp > BUFSIZE)
-        printf("ungetch: too many characters\n");
-      else
-        buf[bufp++] = c;
-    }
+[comment]: <> (code c_079_01.c)
 
 We have used an array for the pushback, rather than a single character,
 since the generality may come in handy later.

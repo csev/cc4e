@@ -313,47 +313,7 @@ that fetches the input one word at a time. Each word is looked up in
 [Chapter 3](chap03.md). (Of course the list of keywords has to be given in increasing
 order for this to work.)
 
-<!-- [comment]: <> (code c_125_01.c) -->
-
-    #define MAXWORD 20
-
-    main() /* count C keywords */
-
-    {
-        int n, t;
-        char word[MAXWORD];
-
-        while ((t = getword (word, MAXWORD)) != EOF)
-            if (t == LETTER)
-                if ((n = binary(word, keytab, NKEYS)) >= 0)
-                    keytab[n].keycount++;
-
-        for (n = 0; n < NKEYS; n++)
-            if (keytab[n].keycount > 0)
-                printf("%4d %s\n",keytab[n].keycount, keytab[n].keyword);
-
-    }
-
-    binary(word, tab, n) /* find word in tab[0]...tab[n-1] */
-    char *word;
-    struct key tab[];
-    int n;
-    {
-        int low, high, mid, cond;
-
-        low = 0;
-        high = n - 1;
-        while (low <= high) {
-            mid = (low+high) / 2;
-            if ((cond = strcmp(word, tab[mid].keyword)) < 0)
-                high = mid - 1;
-            else if (cond > 0)
-                low = mid + 1;
-            else
-                return (mid);
-        }
-        return(-1);
-    }
+[comment]: <> (code c_125_01.c)
 
 We will show the function `getword` in a moment; for now it suffices to say
 that it returns `LETTER` each time it finds a word, and copies the word into
@@ -624,20 +584,7 @@ words away.
 The main routine simply reads words with `getword` and installs them
 in the tree with `tree`.
 
-    #define MAXWORD 20
-
-    main() /* word frequency count */
-    {
-      struct tnode *root, *tree();
-      char word [MAXWORD];
-      int t;
-
-      root = NULL;
-      while ((t = get_word(word, MAXWORD)) != EOF)
-        if (t == LETTER)
-          root = tree(root, word);
-      treeprint(root);
-    }
+[comment]: <> (code c_131_01.c)
 
 `tree` itself is straightforward. A word is presented by `main` to the top
 level (the root) of the tree. At each stage, that word is compared to the

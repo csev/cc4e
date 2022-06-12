@@ -405,31 +405,9 @@ the beginning of the free block), then increments it by `n` to point to the
 next free area. `free(p)` merely sets `allocp` to `p` if `p` is inside
 `allocbuf`.
 
-<!-- CHAPTER 5 POINTERS AND ARRAYS 97 -->
+[comment]: <> (page 97 , 97 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
-<!-- [comment]: <> (code c_097_01.c) -->
-    #define NULL 0 /* pointer value for error report */
-    #define ALLOCSIZE 1000 /* size of available space */
-
-    static char allocbuf[ALLOCSIZE]; /* storage for alloc \*/
-    static char *allocp = allocbuf; /* next free position */
-
-    char *alloc(n) /* return pointer to n characters */
-    int n;
-    {
-      if (allocp + n <= allocbuf + ALLOCSIZE) { /* fits */
-        allocp += n;
-        return(allocp - n); /* old p */
-      } else /* not enough room */
-        return (NULL);
-    }
-
-    free(p) /* free storage pointed to by p */
-    char *p;
-    {
-      if (p >= allocbuf && p < allocbuf + ALLOCSIZE)
-        allocp = p;
-    }
+[comment]: <> (code c_097_01.c)
 
 Some explanations. In general a pointer can be initialized just as any
 other variable can, though normally the only meaningful values are `NULL`

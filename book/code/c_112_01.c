@@ -1,5 +1,5 @@
-#include<stdio.h>
-#include<string.h>
+#include <stdio.h>
+#include <string.h>
 #define MAXLINE 1000
 
 main(argc, argv) /* find pattern from first argument */
