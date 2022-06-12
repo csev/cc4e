@@ -63,9 +63,9 @@ require_once("style.php");
 if ( $contents != false ) {
 ?>
 <script>
-function onSelect() {
-    console.log($('#chapters').val());
-    window.location = $('#chapters').val();
+function onSelect(div) {
+    console.log($('#'+div).val());
+    window.location = $('#'+div).val();
 }
 // https://www.w3schools.com/howto/howto_js_copy_clipboard.asp
 // https://stackoverflow.com/questions/22581345/click-button-copy-to-clipboard-using-jquery
@@ -88,7 +88,7 @@ function myEdit(me) {
 </head>
 <body>
 <div style="float:right">
-<select id="chapters" onchange="onSelect();">
+<select id="chapfoot" onchange="onSelect('chapfoot');">
   <option <?= x_sel("..") ?>>CC4E</option>
   <option <?= x_sel("toc.md") ?>>Table of Contents</option>
   <option <?= x_sel("about.md") ?>>About</option>
@@ -233,6 +233,23 @@ Please feel free to improve this text in
 <?php
 }
 ?>
+<div style="float:right">
+<select id="chapters" onchange="onSelect('chapters');">
+  <option <?= x_sel("..") ?>>CC4E</option>
+  <option <?= x_sel("toc.md") ?>>Table of Contents</option>
+  <option <?= x_sel("about.md") ?>>About</option>
+  <option <?= x_sel("chap00.md") ?>>Chapter 0</option>
+  <option <?= x_sel("chap01.md") ?>>Chapter 1</option>
+  <option <?= x_sel("chap02.md") ?>>Chapter 2</option>
+  <option <?= x_sel("chap03.md") ?>>Chapter 3</option>
+  <option <?= x_sel("chap04.md") ?>>Chapter 4</option>
+  <option <?= x_sel("chap05.md") ?>>Chapter 5</option>
+  <option <?= x_sel("chap06.md") ?>>Chapter 6</option>
+  <option <?= x_sel("chap07.md") ?>>Chapter 7</option>
+  <option <?= x_sel("chap08.md") ?>>Chapter 8</option>
+</select>
+</div>
+<br clear="all">
 <hr/>
 <small>
 <blockquote>

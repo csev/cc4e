@@ -145,25 +145,7 @@ between 0 and n-1) if `x` occurs in `v`, and -1 if not.
 
 [comment]: <> (page 54 , 54 THE C PROGRAMMING LANGUAGE CHAPTER 3 )
 
-    binary(x, v, n) /* find x in v[0] ... v[n-1] */
-    int x, v[], n;
-    {
-      int low, high, mid;
-
-      low = 0;
-      high = n - 1;
-      while (low <= high)
-      {
-        mid = (low+high) / 2;
-        if (x < v[mid])
-          high = mid - 1;
-        else if (x > v[mid])
-          low = mid + 1;
-        else /* found match */
-          return (mid);
-      }
-      return(-1);
-    }
+[comment]: <> (code c_054_01.c)
 
 The fundamental decision is whether `x` is less than, greater than, or
 equal to the middle element `v[mid]` at each step; this is a natural for
@@ -302,20 +284,7 @@ number.
 
 [comment]: <> (page 58 , 58 THE C PROGRAMMING LANGUAGE CHAPTER 3 )
 
-    atoi(s) /* convert s to integer */
-    char s[];
-    {
-      int i, n, sign;
-
-      for (i=0; s[i]==' ' || s[i]=='\n' || s[i]=='\t'; i++)
-        ;   /* skip white space */
-      sign = 1;
-      if (s[i] == '+' || s[i] == '-')  /* sign */
-        sign = (s[i++]=='+') ? 1 : -1;
-      for  (n = 0;  s[i] >= '0' && s[i]  <=  '9'; i++)
-        n = 10  * n + s[i] - '0';
-      return(sign * n);
-    }
+[comment]: <> (code c_058_01.c)
 
 The advantages of keeping loop control centralized are even more obvious
 when there are several nested loops. The following function is a Shell
@@ -326,19 +295,7 @@ disorder quickly, so later stages have less work to do. The interval between
 compared elements is gradually decreased to one, at which point the sort
 effectively becomes an adjacent interchange method.
 
-    shell(v, n) /* sort v[0]...v[n-1] into increasing order */
-    int v[], n;
-    {
-      int gap, i, j, temp;
-
-      for (gap = n/2; gap > 0; gap /= 2)
-        for (i = gap; i < n; i++)
-          for (j=i-gap; j>=0 && v[j]>v[j+gap]; j -= gap){
-            temp = v[j];
-            v[j] = v[j+gap];
-            v[j+gap] = temp;
-          }
-    }
+[comment]: <> (code c_058_02.c)
 
 There are three nested loops. The outermost loop controls the gap between
 compared elements, shrinking it from `n/2` by a factor of two each pass until
@@ -358,17 +315,7 @@ multiple expressions in the various parts, for example to process two indices
 in parallel. This is illustrated in the function `reverse(s)`, which reverses
 the string `s` in place.
 
-    reverse (s) /* reverse string s in place */
-    char s[];
-    {
-      int c, i, j;
-
-      for (i = 0, j = strlen(s)-1; i < j; i++, j--) {
-        c = s[i];
-        s[i] = s[j];
-        s[j] = c;
-      }
-    }
+[comment]: <> (code c_059_01.c)
 
 The commas that separate function arguments, variables in declarations,
 etc., are _not_ comma operators, and do _not_ guarantee left to right evaluation.
@@ -406,23 +353,7 @@ slightly more complicated than might be thought at first, because the easy
 methods of generating the digits generate them in the wrong order. We
 have chosen to generate the string backwards, then reverse it.
 
-    itoa(n, s)    /* convert n to characters in s */
-    char s[];
-    int n;
-    {
-        int i, sign;
-
-        if ((sign = n) < 0)    /* record sign */
-            n = -n;              /* make n positive */
-        i = 0;
-        do {    /* generate digits in reverse order */
-            s[i++] = n % 10 + '0';     /* get next digit */
-        } while ((n /= 10) > 0); /* delete it */
-        if (sign < 0)
-            s[i++] = '-';
-        s[i] = '\0';
-        reverse(s);
-    }
+[comment]: <> (code c_060_01.c)
 
 The `do-while` is necessary, or at least convenient, since at least one character must
 be installed in the array `s`, regardless of the value of `n`. We also

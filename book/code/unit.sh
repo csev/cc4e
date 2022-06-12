@@ -15,7 +15,12 @@ gcc -ansi -Wno-return-type c_026_01.c
 gcc -ansi -Wno-return-type c_029_01.c
 
 # Chapter 3
+gcc -ansi -c c_054_01.c
 gcc -ansi c_055_01.c
+gcc -ansi -c c_058_01.c
+gcc -ansi -c -Wno-return-type c_058_02.c
+gcc -ansi -c -Wno-return-type c_059_01.c
+gcc -ansi -c -Wno-return-type c_060_01.c
 gcc -ansi -c c_061_01.c
 
 # Chapter 4
