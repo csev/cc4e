@@ -1,0 +1,17 @@
+sort(v, n) /* sort strings v[0] v[n-1] */
+char *v[]; /* into increasing order */
+int n;
+{
+  int gap, i, j;
+  char *temp;
+
+  for (gap = n/2; gap > 0; gap /= 2)
+    for (i = gap; i < n; i++)
+      for (j = i-gap; j >= 0; j -= gap) {
+        if (strcmp(v[j], v[j+gap]) <= 0)
+          break;
+        temp = v[j];
+        v[j] = v[j+gap];
+        v[j+gap] = temp;
+      }
+}

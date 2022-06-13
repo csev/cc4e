@@ -9,7 +9,7 @@ gcc -ansi c_016_01.c
 gcc -ansi c_016_02.c
 gcc -ansi c_017_01.c
 gcc -ansi c_020_01.c
-gcc -ansi c_023_01.c
+gcc -ansi -Wimplicit-function-declaration c_023_01.c
 gcc -ansi -c c_024_01.c
 gcc -ansi -Wno-return-type c_026_01.c
 gcc -ansi -Wno-return-type c_029_01.c
@@ -39,7 +39,7 @@ gcc -ansi -c -Wno-return-type c_091_01.c
 gcc -ansi -c -Wno-return-type c_092_01.c
 gcc -ansi -c -Wno-return-type -Wno-incompatible-library-redeclaration -Wno-implicit-function-declaration c_093_01.c
 gcc -ansi -c -Wno-return-type -Wno-incompatible-library-redeclaration c_095_01.c
-gcc -ansi -c -Wno-return-type -Wno-incompatible-library-redeclaration c_097_01.c
+gcc -ansi -c -Wno-return-type -Wno-incompatible-library-redeclaration -Wno-macro-redefined c_097_01.c
 gcc -ansi -c -Wno-return-type -Wno-incompatible-library-redeclaration c_100_01.c
 gcc -ansi -c -Wno-return-type -Wno-incompatible-library-redeclaration c_100_02.c
 gcc -ansi -c -Wno-return-type -Wno-incompatible-library-redeclaration c_100_03.c
@@ -48,14 +48,22 @@ gcc -ansi -c -Wno-knr-promoted-parameter c_101_02.c
 gcc -ansi -c -Wno-knr-promoted-parameter c_102_01.c
 gcc -ansi -c -Wno-implicit-function-declaration c_103_01.c
 gcc -ansi -c -Wno-implicit-function-declaration -Wno-int-conversion c_103_02.c
+gcc -ansi -c -Wno-return-type c_104_01.c
 gcc -ansi -c c_106_01.c
 gcc -ansi -c c_107_01.c
+gcc -ansi -c -Wno-return-type -Wno-implicit-function-declaration c_107_02.c
+gcc -ansi -c -Wno-return-type -Wno-implicit-function-declaration c_108_01.c
+gcc -ansi -c -Wno-return-type -Wno-implicit-function-declaration c_108_02.c
+gcc -ansi -c c_109_01.c
 gcc -ansi c_111_01.c
 gcc -ansi c_111_02.c
 gcc -ansi c_111_03.c
 gcc -ansi -c c_112_01.c
 gcc -ansi -c c_113_01.c
 gcc -ansi -c c_115_01.c
+gcc -ansi -c -Wno-return-type c_116_01.c
+gcc -ansi -c c_117_01.c
+gcc -ansi -c -Wno-return-type c_117_02.c
 
 # Chapter 6
 # gcc -ansi -c c_125_01.c

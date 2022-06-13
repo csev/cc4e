@@ -639,33 +639,7 @@ the functions for performing the transformations are as follows:
 
 [comment]: <> (page 104 , 104 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
-    static int day_tab[2][13] = {
-      {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
-      {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
-    };
-
-    day_of_year(year, month,day)   /*  set day of year */
-    int year, month, day;          /* from month & day */
-    {
-      int i, leap;
-
-      leap = year%4 == 0 && year%100 != 0 || year%400 == 0;
-      for (i = 1; i < month; i++)
-        day += day_tab[leap][i];
-      return (day);
-    }
-
-    month_day(year, yearday, pmonth, pday) /* set month, day */
-    int year, yearday, *pmonth, *pday; /* from day of year */
-    {
-      int i, leap;
-
-      leap = year%4 == 0 && year%100 != 0 || year%400 == 0;
-      for (i = 1; yearday > day_tab[leap][i]; i++)
-        yearday -= day_tab[leap][i];
-      *pmonth = i;
-      *pday = yearday;
-    }
+[comment]: <> (code c_104_01.c)
 
 The array `day_tab` has to be external to both `day_of_year` and
 `month_day`, so they can both use it.
@@ -768,20 +742,14 @@ lines in the order in which they appear in the array of pointers.
 
 [comment]: <> (code c_106_01.c)
 
+[comment]: <> (page 107 , 107 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
+
 [comment]: <> (code c_107_01.c)
 
 The newline at the end of each line is deleted so it will not affect the c
 in which the lines are sorted.
 
-    writelines(lineptr, nlines) /* write output lines */
-    char *lineptr[];
-    int nlines;
-    {
-      int i;
-
-      for (i = 0; i < nlines; i++)
-        printf("%s\n", lineptr[i]);
-    }
+[comment]: <> (code c_107_02.c)
 
 The main new thing is the declaration for  lineptr:
 
@@ -794,15 +762,9 @@ a pointer to a  `char`.  That is,  `lineptr[i]`  is a character pointer, and
 Since  `lineptr`  is itself an array which is passed to  `writelines`,  it
 can be treated as a pointer in exactly the same manner as our earlier examples, and the function can be written instead as
 
-[comment]: <> (page 5 , **108** THE C PROGRAMMING LANGUAGE CHAPTER 5 )
+[comment]: <> (page 108 , 108 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
-    writelines(lineptr, nlines) /* write output lines */**
-    char *lineptr[];
-    int nlines;
-    {
-      while (--nlines >= 0)
-        printf("%s\n", *lineptr++);
-    }
+[comment]: <> (code c_108_01.c)
 
 `*lineptr` points initially to the first line; each increment advances it to the
 next line while `nlines` is counted down.
@@ -813,23 +775,7 @@ modified, and the comparison operation must be moved into a separate
 function. The basic algorithm remains the same, which gives us some
 confidence that it will still work.
 
-    sort(v, n) /* sort strings v[0] v[n-1] */
-    char *v[]; /* into increasing order */
-    int n;
-    {
-      int gap, i, j;
-      char *temp;
-
-      for (gap = n/2; gap > 0; gap /= 2)
-        for (i = gap; i < n; i++)
-          for (j = i-gap; j >= 0; j -= gap) {
-            if (strcmp(v[j], v[j+gap]) <= 0)
-              break;
-            temp = v[j];
-            v[j] = v[j+gap];
-            v[j+gap] = temp;
-          }
-    }
+[comment]: <> (code c_108_02.c)
 
 Since any individual element of `v` (alias `lineptr`) is a character pointer,
 `temp` also should be, so one can be copied to the other.
@@ -865,26 +811,7 @@ array of names is initialized.
 
 The syntax is quite similar to previous initializations:
 
-    char *month_name(n) /* return name of n-th month */
-    int n;
-    {
-      static char *name[] ={
-        "illegal month",
-        "January",
-        "February",
-        "March",
-        "April",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
-      } ;
-
-      return((n < 1 || n > 12) ? name [0] : name[n]);
-    }
+[comment]: <> (code c_109_01.c)
 
 The declaration of `name`, which is an array of character pointers, is the same
 as `lineptr` in the sorting example. The initializer is simply a list of character strings; each is assigned to the corresponding position in the array. More precisely, the characters of the `i`-th string are placed somewhere else,
@@ -1084,21 +1011,7 @@ The second step is to modify `sort`:
 
 [comment]: <> (page 116 , 116 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
-    sort(v, n)  comp, exch) /* sort strings v[0]...v[n-1] */
-    char *v[]; /* into increasing order */
-    int n;
-    int (*comp)(), (*exch)();
-    {
-      int gap, i, j;
-
-      for (gap = n/2; gap > 0; gap /= 2)
-        for (i = gap; i < n; i++)
-          for (j = i-gap; j >= 0; j -= gap) (
-            if ((*comp)(v[j], v[j+gap]) <= 0)
-              break;
-            (*exch)(&v[j], &v[j+gap]);
-          }
-    }
+[comment]: <> (code c_116_01.c)
 
 The declarations should be studied with some care.
 
@@ -1129,34 +1042,13 @@ We have already shown `strcmp`, which compares two strings. Here is
 
 [comment]: <> (page 117 , 117 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
-    numcmp(s1, s2) /* compare s1 and s2 numerically */
-    char *s1, *s2;
-    {
-      double atof(), v1, v2;
-
-      v1 = atof(s1);
-      v2 = atof(s2);
-      if (v1 < v2)
-        return(-1);
-      else if (v1 > v2)
-        return(1);
-      else
-        return(0);
-    }
+[comment]: <> (code c_117_01.c)
 
 The final step is to add the function `swap` which exchanges two
 pointers. This is adapted directly from what we presented early in the
 chapter.
 
-    swap(px, py) /* interchange *px and *py */
-    char *px(), *py[];
-    {
-      char *temp;
-
-      temp = *px;
-      *px = *py;
-      *py = temp;
-    }
+[comment]: <> (code c_117_02.c)
 
 There are a variety of other options that can be added to the sorting program; some make challenging exercises.
 

@@ -1,5 +1,5 @@
 #include <stdio.h>
-// #define NULL 0 /* pointer value for error report */
+#define NULL 0 /* pointer value for error report */
 #define ALLOCSIZE 1000 /* size of available space */
 
 static char allocbuf[ALLOCSIZE]; /* storage for alloc \*/
