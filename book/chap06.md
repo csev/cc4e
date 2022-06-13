@@ -337,27 +337,7 @@ itself if it is non-alphabetic.
 
 [comment]: <> (page 127 , CHAPTER6 STRUCTURES 127 )
 
-    getword(w, lim) /* get next word from input */
-    char *w;
-    int lim;
-    {
-        int c, t;
-        if (type(c = *w++ = getch()) != LETTER) {
-            *w = '\0';
-            return(c);
-
-        }
-
-        while (--lim > 0) {
-            t = type(c = *w++ = getch());
-            if (t != LETTER && t != DIGIT) {
-                ungetch(c);
-                break;
-            }
-            *(w-1) = '\0';
-            return (LETTER);
-        }
-    }
+[comment]: <> (code c_127_01.c)
 
 `getword` uses the routines `getch` and `ungetch` which we wrote in
 [Chapter 4](chap04.md): when the collection of an alphabetic token stops, `getword` has
@@ -367,17 +347,7 @@ on the input for the next call.
 `getword` calls `type` to determine the type of each individual character
 of input. Here is a version _for the ASCII alphabet only._
 
-    type(c) /* return type of ASCII character */
-    int c;
-    {
-        if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z')
-            return (LETTER);
-
-        else if (c >= '0' && c <= '9')
-            return (DIGIT);
-        else
-            return(c);
-    }
+[comment]: <> (code c_127_02.c)
 
 The symbolic constants `LETTER` and `DIGIT` can have any values that do
 not conflict with non-alphanumeric characters and `EOF`; the obvious choices
