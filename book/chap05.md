@@ -648,7 +648,7 @@ The array `day_tab` has to be external to both `day_of_year` and
 by definition a two-dimensional array is really a one-dimensional array, each
 of whose elements is an array. Hence subscripts are written as
 
-    day_tab[i] [j]
+    day_tab[i][j]
 
 rather than
 
@@ -674,25 +674,25 @@ particular case, it is a pointer to objects which are arrays of 13 `int`'s. Thus
 if the array `day_tab` is to be passed to a function `f`, the declaration of `f`
 would be
 
-    f (day_tab)
-    int day_tab [2] [13] ;
+    f(day_tab)
+    int day_tab[2][13] ;
     {
       ...
     }
 
 The argument declaration in `f` could also be
 
-    int day_tab [] [13] ;
+    int day_tab [][13] ;
 
 since the number of rows is irrelevant, or it could be
 
-    int (*day_tab) [13] ;
+    int (*day_tab)[13] ;
 
 which says that the argument is a pointer to an array of 13 integers. The
     parentheses are necessary since brackets [] have higher precedence than `*`;
 without parentheses, the declaration
 
-    int *day_tab [13] ;
+    int *day_tab[13] ;
 
 is an array of 13 pointers to integers, as we shall see in the next section.
 

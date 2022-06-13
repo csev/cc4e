@@ -149,17 +149,7 @@ modified because its argument is now a pointer rather than a list of variables.
 
 [comment]: <> (page 122 , 122 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
 
-    day_of_year(pd) /* set day of year from month, day */
-    struct date *pd;
-    {
-        int i, day, leap;
-
-        day = pd->day;
-        leap = pd->year % 4 == 0 && pd->year % 100 != 0 || pd->year % 400 == 0;
-        for (i = 1; i < pd->month; i++)
-            day += day_tab[leap][i];
-        return (day);
-    }
+[comment]: <> (code c_122_01.c)
 
 The declaration
 
@@ -200,17 +190,7 @@ are
 For completeness here is the other function, `month_day`, rewritten to
 use the structure.
 
-    month_day(pd) /* set month and day from day of year */
-    struct date *pd;
-    {
-        int i, leap;
-
-        leap = pd->year % 4 == 0 && pd->year % 100 != 0 || pd->year % 400 == 0;
-        pd->day = pd->yearday;
-        for (i = 1; pd->day > day_tab[leap][i]; i++)
-            pd->day -= day_tab[leap][i];
-        pd->month = i;
-    }
+[comment]: <> (code c_123_01.c)
 
 The structure operators `->` and `.` , together with `( )` for argument lists
 and `[]` for subscripts, are at the top of the precedence hierarchy and thus

@@ -9,9 +9,9 @@ gcc -ansi c_016_01.c
 gcc -ansi c_016_02.c
 gcc -ansi c_017_01.c
 gcc -ansi c_020_01.c
-gcc -ansi -Wimplicit-function-declaration c_023_01.c
+gcc -ansi -Wno-implicit-function-declaration c_023_01.c
 gcc -ansi -c c_024_01.c
-gcc -ansi -Wno-return-type c_026_01.c
+gcc -ansi -Wno-return-type -Wno-implicit-function-declaration c_026_01.c
 gcc -ansi -Wno-return-type c_029_01.c
 
 # Chapter 3
@@ -20,7 +20,7 @@ gcc -ansi c_055_01.c
 gcc -ansi -c c_058_01.c
 gcc -ansi -c -Wno-return-type c_058_02.c
 gcc -ansi -c -Wno-return-type c_059_01.c
-gcc -ansi -c -Wno-return-type c_060_01.c
+gcc -ansi -c -Wno-return-type -Wno-implicit-function-declaration c_060_01.c
 gcc -ansi -c c_061_01.c
 
 # Chapter 4
@@ -66,8 +66,10 @@ gcc -ansi -c c_117_01.c
 gcc -ansi -c -Wno-return-type c_117_02.c
 
 # Chapter 6
-# gcc -ansi -c c_125_01.c
-# gcc -ansi -c c_131_01.c
+gcc -ansi -c c_122_01.c
+gcc -ansi -c -Wno-return-type c_123_01.c
+# gcc -ansi -c c_125_01.c - This has got a lot of problems
+gcc -ansi -c -Wno-implicit-function-declaration c_131_01.c
 
 # Chapter 7
 gcc -ansi c_145_01.c -o lower

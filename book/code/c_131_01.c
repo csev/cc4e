@@ -1,5 +1,6 @@
 #include <stdio.h>
 #define MAXWORD 20
+#define LETTER 'a'
 
 main() /* word frequency count */
 {
