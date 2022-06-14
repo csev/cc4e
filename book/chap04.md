@@ -113,7 +113,7 @@ verifier `lint` checks for such errors.
 The mechanics of how to compile and load a C program which resides
 on multiple source files vary from one system to the next. On the UNIX
 system, for example, the `cc` command mentioned in [Chapter 1](chap01.md) does the job.
-Suppose that the three functions are on three files called `main.ci`, `get_line.c`,
+Suppose that the three functions are on three files called `main.c`, `get_line.c`,
 and `index.c`. Then the command
 
     cc main.c get_line.c index.c
@@ -227,9 +227,12 @@ each argument, not its address. This means that the function cannot affect
 the original argument in the calling function. Within a function, each argument is in effect a local variable initialized to the value with which the function was called.
 
 When an array name appears as an argument to a function, the location
-of the beginning of the array is passed; elements are not copied. The function can alter elements of the array by subscripting from this location. The
+of the beginning of the array is passed; elements are not copied. The
+function can alter elements of the array by subscripting from this location. The
 effect is that arrays are passed by reference. In [Chapter 5](chap05.md) we will discuss the
 use of pointers to permit functions to affect non-arrays in calling functions.
+
+[comment]: <> (note n_071_01.md)
 
 By the way, there is no entirely satisfactory way to write a portable function that accepts a variable number of arguments, because there is no portable way for the called function to determine how many arguments were
 actually passed to it in a given call. Thus, you can't write a truly portable

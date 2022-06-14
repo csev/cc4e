@@ -6,7 +6,7 @@ main() /* find all lines matching a pattern */
   char line[MAXLINE];
 
   while (get_line(line, MAXLINE) > 0)
-    if (index_(line, "the") >= 0)
+    if (index(line, "the") >= 0)
       printf("%s", line);
 }
 
@@ -27,7 +27,7 @@ int lim;
 }
 
 
-index_ (s, t) /* return index of t in s, -1 if none */
+index(s, t) /* return index of t in s, -1 if none */
 char s[], t[] ;
 {
   int i, j, k;
