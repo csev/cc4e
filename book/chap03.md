@@ -321,7 +321,7 @@ The commas that separate function arguments, variables in declarations,
 etc., are _not_ comma operators, and do _not_ guarantee left to right evaluation.
 
 **Exercise 3-2.** Write a function `expand(s1 , s2)` which expands shorthand notations
-like `a-z` in the string s1 into the equivalent complete list
+like `a-z` in the string `s1` into the equivalent complete list
 `abc...xyz` in `s2`. Allow for letters of either case and digits, and be
 prepared to handle cases like `a-b-c` and `a-z0-9` and `-a-z`. (A useful
 convention is that a leading or trailing - is taken literally.)
@@ -411,7 +411,7 @@ An alternative to `break` is to put the testing in the loop itself:
     }
 
 This is inferior to the previous version, because the test is harder to understand.
-Tests which require a mixture of &&, ||, ! , or parentheses should
+Tests which require a mixture of `&&`, `||`, `!`, or parentheses should
 generally be avoided.
 
 [comment]: <> (page 62 , 62 THE C PROGRAMMING LANGUAGE CHAPTER 3 )
