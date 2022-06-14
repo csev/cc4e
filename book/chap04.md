@@ -349,7 +349,7 @@ more typical use of `switch` than the one shown in [Chapter 3](chap03.md).
 
 [comment]: <> (code c_075_01.c )
 
-The command c clears the stack, with a function `clear` which is also used
+The command 'c' clears the stack, with a function `clear` which is also used
 by `push` and `pop` in case of error. We'll return to `getop` in a moment.
 
 As discussed in [Chapter 1](chap01.md), a variable is external if it is defined outside
@@ -762,6 +762,8 @@ When the size of an array of any type is omitted, the compiler will compute
 the length by counting the initializers. In this specific case, the size is 4
     (three characters plus the terminating \0).
 
+[comment]: <> (note n_084_01.md)
+
 4.10 Recursion
 --------------
 
@@ -898,6 +900,8 @@ standard I/O library to be described in [Chapter 7](chap07.md), in which `getcha
 thus avoiding the overhead of a function call per character processed.
 
 Other capabilities of the macro processor are described in Appendix A.
+
+[comment]: <> (note n_087_01.md)
 
 **Exercise 4-9.** Define a macro `swap(x, y)` which interchanges its two `int`
 arguments. (Block structure will help.)
