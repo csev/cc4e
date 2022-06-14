@@ -24,7 +24,7 @@ gcc -ansi -c -Wno-return-type -Wno-implicit-function-declaration c_060_01.c
 gcc -ansi -c c_061_01.c
 
 # Chapter 4
-gcc -ansi c_066_01.c
+gcc -ansi -Wno-implicit-function-declaration c_066_01.c
 gcc -ansi -c c_069_01.c
 gcc -ansi -c c_070_01.c
 gcc -ansi -c c_074_01.c
