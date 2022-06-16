@@ -529,7 +529,7 @@ Because arguments are passed by value, `strcpy` can use `s` and `t` in any
 way it pleases. Here they are conveniently initialized pointers, which are
 marched along the arrays a character at a time, until the \0 which terminates t has been copied to `s`.
 
-In practice, `strcpy` would not be written as we showed it above A
+In practice, `strcpy` would not be written as we showed it above. A
 second possibility might be
 
 [comment]: <> (code c_100_03.c)
