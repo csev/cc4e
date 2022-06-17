@@ -63,7 +63,7 @@ Sometimes this is natural and clear; at other times it is cryptic.
 Because the `else` part of an `if-else` is optional, there is an ambiguity
 when an `else` is omitted from a nested `if` sequence. This is resolved in
 the usual way - the `else` is associated with the closest previous `else`-less
-    if. For example, in
+if. For example, in
 
     if (n > 0)
       if (a > b)
@@ -98,12 +98,12 @@ kind of bug can be very hard to find.
 
 By the way, notice that there is a semicolon after `z = a` in
 
-[comment]: <> (page 53 , CHAPTER 3 CONTROL FLOW 53 )
-
     if (a > b)
       z = a;
     else
       z = b;
+
+[comment]: <> (page 53 , CHAPTER 3 CONTROL FLOW 53 )
 
 This is because grammatically, a _statement_ follows the `if`, and an expression
 statement like `z = a` is always terminated by a semicolon.
@@ -207,7 +207,7 @@ copies the string `s` to `t`. Use a `switch`.
 3.5 Loops - While and For
 -------------------------
 
-We have already encountered the while and for loops. In
+We have already encountered the `while` and `for` loops. In
 
     while (expression)
         statement
@@ -262,7 +262,7 @@ which is the C idiom for processing the first N elements of an array, the
 analog of the Fortran or PL/I DO loop. The analogy is not perfect, however,
 since the limits of a for loop can be altered from within the loop, and the
 controlling variable i retains its value when the loop terminates for any
-reason. Because the components of the for are arbitrary expressions, for
+reason. Because the components of the `for` are arbitrary expressions, for
 loops are not restricted to arithmetic progressions. Nonetheless, it is bad
 style to force unrelated computations into a `for`; it is better reserved for
 loop control operations.
