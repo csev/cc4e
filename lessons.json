@@ -121,7 +121,7 @@
     "videos" : [
         {
             "title" : "Chapter 2 - Types, Operators, and Expressions",
-            "youtube" : "aTeif9iwA2M"
+            "youtube" : "q0Ql0jhTPDU"
         }
     ],
 
@@ -130,6 +130,36 @@
         "title" : "Tutorial Introduction",
         "launch" : "mod/tdiscus/",
         "resource_link_id": "discuss_01_core"
+        }
+    ]
+},
+{
+    "title": "Control Flow",
+    "anchor": "control",
+    "icon" : "fa-code-fork",
+    "description": "This chapter covers control flow.",
+    "references" : [
+        {
+            "title" : "Chapter 3: Control Flow",
+            "href" : "{apphome}/book/chap03.md"
+        },
+        {
+            "title" : "Podcast version of the lectures",
+            "href" : "https://audio.cc4e.com/"
+        }
+    ],
+    "videos" : [
+        {
+            "title" : "Chapter 3 - Control Flow",
+            "youtube" : "q0Ql0jhTPDU"
+        }
+    ],
+
+    "discussions" : [
+        {
+        "title" : "Tutorial Introduction",
+        "launch" : "mod/tdiscus/",
+        "resource_link_id": "discuss_01_control"
         }
     ]
 }
