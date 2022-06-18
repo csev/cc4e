@@ -30,7 +30,7 @@
     "title": "Welcome to C",
     "anchor": "intro",
     "icon" : "fa-globe",
-    "description": "Gives some sense of where C first in the history of computing.  We hear from the book authors as to their ideas about C.",
+    "description": "Gives some sense of where C fits in the history of computing.  Kernghan and Ritchie share their ideas about C.",
     "references" : [
         {
             "title" : "Chapter 0: Introduction",
