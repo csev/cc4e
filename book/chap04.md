@@ -649,6 +649,8 @@ function are effective, and the types must be `int`, `char`, or `pointer`.
 
 [comment]: <> (note n_081_01.md)
 
+[comment]: <> (code c_081_01.c)
+
 4.8 Block Structure
 -------------------
 
@@ -943,6 +945,8 @@ thus avoiding the overhead of a function call per character processed.
 Other capabilities of the macro processor are described in Appendix A.
 
 [comment]: <> (note n_087_01.md)
+
+[comment]: <> (note n_087_02.md)
 
 **Exercise 4-9.** Define a macro `swap(x, y)` which interchanges its two `int`
 arguments. (Block structure will help.)
