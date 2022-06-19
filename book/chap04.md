@@ -270,7 +270,7 @@ Alternatively, if the arguments are of known types it is possible to mark
 the end of the argument list in some agreed-upon way, such as a special
 argument value (often zero) that stands for the end of the arguments.
 
-[comment]: <> (note n_072_01.md)
+[comment]: <> (note n_071_02.md)
 
 [comment]: <> (page 72 , 72 THE C PROGRAMMING LANGUAGE CHAPTER 4 )
 
