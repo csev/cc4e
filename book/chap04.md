@@ -270,6 +270,8 @@ Alternatively, if the arguments are of known types it is possible to mark
 the end of the argument list in some agreed-upon way, such as a special
 argument value (often zero) that stands for the end of the arguments.
 
+[comment]: <> (note n_072_01.md)
+
 [comment]: <> (page 72 , 72 THE C PROGRAMMING LANGUAGE CHAPTER 4 )
 
 4.4 External Variables
@@ -391,6 +393,8 @@ to examine the top of the stack without disturbing it.
 Notice also that because + and * are commutative operators, the order
 in which the popped operands are combined is irrelevant, but for
 the - and / operators, the left and right operands must be distinguished.
+
+[comment]: <> (note n_075_01.md)
 
 [comment]: <> (page 76 , 76 THE C PROGRAMMING LANGUAGE CHAPTER 4 )
 
