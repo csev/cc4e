@@ -59,7 +59,7 @@ even be useful in their own right.
 for us. This means we need only write a routine which decides if the line
 contains an occurrence of the pattern. We can solve that problem by stealing
 a design from PL/I: the function `index(s, t)` returns the position or
-index in the string `s` where the string `t` begins, or -1 if `s` doesn't contain `t`.
+"index" in the string `s` where the string `t` begins, or -1 if `s` doesn't contain `t`.
 We use 0 rather than 1 as the starting position in `s` because C arrays begin
 at position zero. When we later need more sophisticated pattern matching
 we only have to replace `index`; the rest of the code can remain the same.
