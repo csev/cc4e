@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-/* Code written by Dr. Chuck to explore the use of the register keyword
+/* Exploring the register keyword in modern compilers
  *
  * to compile on a Unix style system use the command:
  *
