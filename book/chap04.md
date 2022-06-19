@@ -9,14 +9,15 @@ scratch. Appropriate functions can often hide details of operation from parts
 of the program that don't need to know about them, thus clarifying the
 whole, and easing the pain of making changes.
 
-C has been designed to make functions efficient and easy to use; C programs generally consist of numerous small functions rather than a few big
+C has been designed to make functions efficient and easy to use; C programs
+generally consist of numerous small functions rather than a few big
 ones. A program may reside on one or more source files in any convenient
 way; the source files may be compiled separately and loaded together, along
 with previously compiled functions from libraries. We will not go into that
 process here, since the details vary according to the local system.
 
 Most programmers are familiar with "library" functions for input and
-    output (`getchar`, `putchar`) and numerical computations (`sin`, `cos`,
+output (`getchar`, `putchar`) and numerical computations (`sin`, `cos`,
 `sqrt`). In this chapter we will show more about writing new functions.
 
 4.1 Basics
@@ -56,15 +57,17 @@ even be useful in their own right.
 "While there's another line" is `get_line`, a function that we wrote in
 [Chapter 1](chap01.md), and "print it" is `printf`, which someone has already provided
 for us. This means we need only write a routine which decides if the line
-contains an occurrence of the pattern. We can solve that problem by stealing a design from PL/I: the function `index(s, t)` returns the position or
-index in the string s where the string t begins, or -1 if s doesn't contain t.
-We use 0 rather than 1 as the starting position in s because C arrays begin
+contains an occurrence of the pattern. We can solve that problem by stealing
+a design from PL/I: the function `index(s, t)` returns the position or
+index in the string `s` where the string `t` begins, or -1 if `s` doesn't contain `t`.
+We use 0 rather than 1 as the starting position in `s` because C arrays begin
 at position zero. When we later need more sophisticated pattern matching
-we only have to replace index; the rest of the code can remain the same.
+we only have to replace `index`; the rest of the code can remain the same.
 
-[comment]: <> (note n_068_01.md)
+[comment]: <> (note n_066_01.md)
 
-Given this much design, filling in the details of the program is straightforward. Here is the whole thing, so you can see how the pieces fit
+Given this much design, filling in the details of the program is straightforward. Here
+is the whole thing, so you can see how the pieces fit
 together. For now, the pattern to be searched for is a literal string in the
 argument of `index`, which is not the most general of mechanisms. We will
 return shortly to a discussion of how to initialize character arrays, and in
@@ -87,22 +90,25 @@ As suggested, the various parts may be absent; a minimal function is
     dummy() {}
 
 which does nothing. (A do-nothing function is sometimes useful as a place
-holder during program development.) The function name may also be preceded by a type if the function returns something other than an integer
+holder during program development.) The function name may also be preceded by a
+type if the function returns something other than an integer
 value; this is the topic of the next section.
 
-A program is just a set of individual function definitions. Communication between the functions is (in this case) by arguments and values
-returned by the functions; it can also be via external variables. The functions can occur in any order on the source file, and the source program can
+A program is just a set of individual function definitions. Communication between the
+functions is (in this case) by arguments and values returned by the functions; it
+can also be via external variables. The functions can occur in any order on the
+source file, and the source program can be split into multiple files, so
+long as no function is split.
 
 [comment]: <> (page 68 , 68 THE C PROGRAMMING LANGUAGE CHAPTER 4 )
-
-be split into multiple files, so long as no function is split.
 
 The `return` statement is the mechanism for returning a value from the
 called function to its caller. Any expression can follow `return`:
 
     return(expression)
 
-The calling function is free to ignore the returned value if it wishes. Furthermore, there need be no expression after `return`; in that case, no value is
+The calling function is free to ignore the returned value if it wishes. Furthermore,
+there need be no expression after `return`; in that case, no value is
 returned to the caller. Control also returns to the caller with no value when
 execution "falls off the end" of the function by reaching the closing right
 brace. It is not illegal, but probably a sign of trouble, if a function returns a
@@ -127,9 +133,13 @@ and the result loaded with the previous object files, with the command
 
     cc main.c get_line.o index.o
 
-The `cc` command uses the ".c" versus ".o" naming convention to distinguish source files from object files.
+The `cc` command uses the ".c" versus ".o" naming convention to distinguish source
+files from object files.
 
-**Exercise 4-1.** Write the function `rindex(s, t)` , which returns the position of the _rightmost_ occurrence of `t` in `s`, or -1 if there is none.
+[comment]: <> (note n_068_01.md)
+
+**Exercise 4-1.** Write the function `rindex(s, t)`, which returns the position
+of the _rightmost_ occurrence of `t` in `s`, or -1 if there is none.
 
 4.2 Functions Returning Non-Integers
 ------------------------------------
@@ -141,16 +151,20 @@ its appearance in an expression or statement, such as
     while (get_line(line, MAXLINE) > 0)
 
 If a name which has not been previously declared occurs in an expression
-and is followed by a left parenthesis, it is declared by context to be a function name. Furthermore, by default the function is assumed to return an
+and is followed by a left parenthesis, it is declared by context to be a function
+name. Furthermore, by default the function is assumed to return an
 `int`. Since `char` promotes to `int` in expressions, there is no need to
-declare functions that return `char`. These assumptions cover the majority of cases, including all of our examples so far.
+declare functions that return `char`. These assumptions cover the majority
+of cases, including all of our examples so far.
+
+[comment]: <> (note n_068_02.md)
 
 [comment]: <> (page 69 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 69 )
 
 But what happens if a function must return some other type? Many
 numerical functions like `sqrt`, `sin`, and `cos` return `double`; other
 specialized functions return other types. To illustrate how to deal with this, let
-us write and use the function `atof(s)`, which converts the string s to its
+us write and use the function `atof(s)`, which converts the string `s` to its
 double-precision floating point equivalent. `atof` is an extension of `atoi`,
 which we wrote versions of in [Chapters 2](chap02.md) and [3](chap03.md); it handles an optional sign
 and decimal point, and the presence or absence of either integer part or fractional
@@ -166,7 +180,8 @@ name precedes the function name, like this:
 [comment]: <> (code c_069_01.c)
 
 Second, and just as important, the _calling_ routine must state that `atof`
-returns a non-int value. The declaration is shown in the following primitive desk calculator (barely adequate for check-book balancing), which reads
+returns a non-int value. The declaration is shown in the following primitive
+desk calculator (barely adequate for check-book balancing), which reads
 one number per line, optionally preceded by a sign, and adds them all up,
 printing the sum after each input.
 
@@ -178,7 +193,7 @@ The declaration
 
     double sum, atof();
 
-says that sum is a `double` variable, and that `atof` is a function that returns
+says that `sum` is a `double` variable, and that `atof` is a function that returns
 a double value. As a mnemonic, it suggests that sum and `atof(...)` are
  both `double`-precision floating point values.
 
@@ -187,8 +202,8 @@ returns an integer, and you'll get nonsense answers. If `atof` itself and the
 call to it in `main` are typed inconsistently in the same source file, it will be
 detected by the compiler. But if (as is more likely) `atof` were compiled
 separately, the mismatch would not be detected, `atof` would return a
-    `double` which `main` would treat as an `int`, and meaningless answers
-    would result. _(lint_ catches this error.)
+`double` which `main` would treat as an `int`, and meaningless answers
+would result. (_lint_ catches this error.)
 
 Given `atof`, we could in principle write `atoi` (convert a string to `int`)
 in terms of it:
@@ -200,6 +215,7 @@ in terms of it:
 
       return(atof(s));
     }
+
 Notice the structure of the declarations and the `return` statement. The
 value of the expression in
 
@@ -214,9 +230,8 @@ part, as discussed in [Chapter 2](chap02.md).
 [comment]: <> (page 71 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 71 )
 
 **Exercise 4-2.** Extend `atof` so it handles scientific notation of the form
-`123.45e-6`
-where a floating point number may be followed by `e` or `E` and an optionally
-    signed exponent.
+`123.45e-6` where a floating point number may be followed by `e` or `E` and
+an optionally signed exponent.
 
 4.3 More on Function Arguments
 ------------------------------
@@ -224,19 +239,23 @@ where a floating point number may be followed by `e` or `E` and an optionally
 In [Chapter 1](chap01.md) we discussed the fact that function arguments are passed
 by value, that is, the called function receives a private, temporary copy of
 each argument, not its address. This means that the function cannot affect
-the original argument in the calling function. Within a function, each argument is in effect a local variable initialized to the value with which the function was called.
+the original argument in the calling function. Within a function, each argument is
+in effect a local variable initialized to the value with which the function was called.
 
 When an array name appears as an argument to a function, the location
 of the beginning of the array is passed; elements are not copied. The
 function can alter elements of the array by subscripting from this location. The
-effect is that arrays are passed by reference. In [Chapter 5](chap05.md) we will discuss the
-use of pointers to permit functions to affect non-arrays in calling functions.
+effect is that arrays are passed by reference. In [Chapter 5](chap05.md) we will
+discuss the use of pointers to permit functions to affect non-arrays in
+calling functions.
 
 [comment]: <> (note n_071_01.md)
 
-By the way, there is no entirely satisfactory way to write a portable function that accepts a variable number of arguments, because there is no portable way for the called function to determine how many arguments were
-actually passed to it in a given call. Thus, you can't write a truly portable
-function that will compute the maximum of an arbitrary number of arguments, as will the MAX built-in functions of Fortran and PL/I.
+By the way, there is no entirely satisfactory way to write a portable function that accepts
+a variable number of arguments, because there is no portable way for the called function
+to determine how many arguments were actually passed to it in a given call. Thus, you can't
+write a truly portable function that will compute the maximum of an arbitrary number of
+arguments, as will the MAX built-in functions of Fortran and PL/I.
 
 It is generally safe to deal with a variable number of arguments if the
 called function doesn't use an argument which was not actually supplied,
@@ -256,19 +275,23 @@ argument value (often zero) that stands for the end of the arguments.
 4.4 External Variables
 ----------------------
 
-A C program consists of a set of external objects, which are either variables or functions. The adjective "external" is used primarily in contrast to
+A C program consists of a set of external objects, which are either variables
+or functions. The adjective "external" is used primarily in contrast to
 "internal," which describes the arguments and automatic variables defined
 inside functions. External variables are defined outside any function, and
 are thus potentially available to many functions. Functions themselves are
 always external, because C does not allow functions to be defined inside
-other functions. By default, external variables are also "global," so that all
-references to such a variable by the same name (even from functions compiled separately) are references to the same thing. In this sense, external
+other functions. By default, external variables are also "global", so that all
+references to such a variable by the same name (even from functions compiled
+separately) are references to the same thing. In this sense, external
 variables are analogous to Fortran COMMON or PL/I EXTERNAL. We will
 see later how to define external variables and functions that are not globally
 available, but are instead visible only within a single source file.
 
-Because external variables are globally accessible, they provide an alternative to function arguments and returned values for communicating data
-between functions. Any function may access an external variable by referring to it by name, if the name has been declared somehow.
+Because external variables are globally accessible, they provide an alternative
+to function arguments and returned values for communicating data
+between functions. Any function may access an external variable by referring to
+it by name, if the name has been declared somehow.
 
 If a large number of variables must be shared among functions, external
 variables are more convenient and efficient than long argument lists. As
@@ -282,16 +305,20 @@ We will treat initialization near the end of this chapter.
 
 The third reason for using external variables is their scope and lifetime.
 Automatic variables are internal to a function; they come into existence
-when the routine is entered, and disappear when it is left. External variables, on the other hand, are permanent. They do not come and go, so they
-retain values from one function invocation to the next. Thus if two functions must share some data, yet neither calls the other, it is often most convenient if the shared data is kept in external variables rather than passed in
+when the routine is entered, and disappear when it is left. External variables,
+on the other hand, are permanent. They do not come and go, so they
+retain values from one function invocation to the next. Thus if two functions
+must share some data, yet neither calls the other, it is often most convenient
+if the shared data is kept in external variables rather than passed in
 and out via arguments.
 
 Let us examine this issue further with a larger example. The problem is
 to write another calculator program, better than the previous one. This one
 permits +, -, \*, /, and = (to print the answer). Because it is somewhat
- easier to implement, the calculator will use reverse Polish notation instead
+easier to implement, the calculator will use reverse Polish notation instead
 of infix. (Reverse Polish is the scheme used by, for example, Hewlett-Packard
-pocket calculators.) In reverse Polish notation, each operator follows its operands; an infix expression like
+pocket calculators.) In reverse Polish notation, each operator follows its
+operands; an infix expression like
 
     (1 - 2) * (4 + 5) =
 
@@ -302,8 +329,6 @@ is entered as
 Parentheses are not needed.
 
 [comment]: <> (page 73 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 73 )
-
-
 
 The implementation is quite simple. Each operand is pushed onto a
 stack; when an operator arrives, the proper number of operands (two for
@@ -335,7 +360,8 @@ stack is, that is, what routines access it directly. One possibility is to keep 
 in `main`, and pass the stack and the current stack position to the routines
 that push and pop it. But `main` doesn't need to know about the variables
 that control the stack; it should think only in terms of pushing and popping.
-So we have decided to make the stack and its associated information external variables accessible to the `push` and `pop` functions but not to `main`.
+So we have decided to make the stack and its associated information external
+variables accessible to the `push` and `pop` functions but not to `main`.
 
 Translating this outline into code is easy enough. The main program is
 primarily a big `switch` on the type of operator or operand; this is perhaps a
@@ -354,22 +380,22 @@ by `push` and `pop` in case of error. We'll return to `getop` in a moment.
 
 As discussed in [Chapter 1](chap01.md), a variable is external if it is defined outside
 the body of any function. Thus the stack and stack pointer which must be
-shared by `push`, `pop`, and `clear` are defined outside of these three functions. But `main` itself does _not_ refer to the stack or stack pointer - the
-representation is carefully hidden. Thus the code for the = operator must
-use
+shared by `push`, `pop`, and `clear` are defined outside of these three
+functions. But `main` itself does _not_ refer to the stack or stack pointer - the
+representation is carefully hidden. Thus the code for the = operator must use
 
     push(pop());
 
 to examine the top of the stack without disturbing it.
 
 Notice also that because + and * are commutative operators, the order
-in which the popped operands are combined is irrelevant, but for the - and
-/ operators, the left and right operands must be distinguished.
+in which the popped operands are combined is irrelevant, but for
+the - and / operators, the left and right operands must be distinguished.
 
 [comment]: <> (page 76 , 76 THE C PROGRAMMING LANGUAGE CHAPTER 4 )
 
 **Exercise 4-3.** Given the basic framework, it's straightforward to extend the
-    calculator. Add the modulus (%) and unary minus operators. Add an
+calculator. Add the modulus (%) and unary minus operators. Add an
 "erase" command which erases the top entry on the stack. Add commands
 for handling variables. (Twenty-six single-letter variable names is easy.)
 
@@ -381,8 +407,8 @@ all be compiled at the same time; the source text of the program may be
 kept in several files, and previously compiled routines may be loaded from
 libraries. The two questions of interest are
 
-    How are declarations written so that variables are properly declared during compilation?
-    How are declarations set up so that all the pieces will be properly connected when the program is loaded?
+* How are declarations written so that variables are properly declared during compilation?
+* How are declarations set up so that all the pieces will be properly connected when the program is loaded?
 
 The _scope_ of a name is the part of the program over which the name is
 defined. For an automatic variable declared at the beginning of a function,
@@ -404,13 +430,15 @@ that is,
 
     clear ( ) { ... }
 
-then the variables `val` and `sp` may be used in `push`, `pop` and `clear` simply by naming them, no further declarations are needed.
+then the variables `val` and `sp` may be used in `push`, `pop` and `clear`
+simply by naming them, no further declarations are needed.
 
 On the other hand, if an external variable is to be referred to before it is
 defined, or if it is defined in a _different_ source file from the one where it is
 being used, then an `extern` declaration is mandatory.
 
-It is important to distinguish between the _declaration_ of an external variable and its _definition._ A declaration announces the properties of a variable
+It is important to distinguish between the _declaration_ of an external variable
+and its _definition._ A declaration announces the properties of a variable
 (its type, size, etc.); a definition also causes storage to be allocated. If the
 lines
 
@@ -462,7 +490,8 @@ Because the `extern` declarations in _file 2_ lie ahead of and outside the three
 functions, they apply to all; one set of declarations suffices for all of _file 2._
 
 For larger programs, the `#include` file inclusion facility discussed later
-in this chapter allows one to keep only a single copy of the `extern` declarations for the program and have that inserted in each source file as it is being
+in this chapter allows one to keep only a single copy of the `extern` declarations
+for the program and have that inserted in each source file as it is being
 compiled.
 
 Let us now turn to the implementation of `getop`, the function that
@@ -539,7 +568,8 @@ and automatic that we have already met.
 `static` variables may be either internal or external. Internal `static`
 variables are local to a particular function just as automatic variables are, but
 unlike automatics, they remain in existence rather than coming and going
-each time the function is activated. This means that internal `static` variables provide private, permanent storage in a function. Character strings
+each time the function is activated. This means that internal `static` variables
+provide private, permanent storage in a function. Character strings
 that appear within a function, such as the arguments of `printf`, are internal static.
 
 An external `static` variable is known within the remainder of the
@@ -564,7 +594,8 @@ Static storage, whether internal or external, is specified by prefixing the
 normal declaration with the word `static`. The variable is external if it is
 defined outside of any function, and internal if defined inside a function.
 
-Normally, functions are external objects; their names are known globally. It is possible, however, for a function to be declared `static`; this
+Normally, functions are external objects; their names are known globally. It is
+possible, however, for a function to be declared `static`; this
 makes its name unknown outside of the file in which it is declared.
 
 In C, "`static`" connotes not only permanence but also a degree of
@@ -574,15 +605,14 @@ known only within the source file in which they appear, and their names do
 not interfere with variables or functions of the same name in other files.
 
 External `static` variables and functions provide a way to conceal data
-objects and any internal routines that manipulate them so that other routines and data cannot conflict even inadvertently. For example, `getch` and
+objects and any internal routines that manipulate them so that other routines
+and data cannot conflict even inadvertently. For example, `getch` and
 `ungetch` form a "module" for character input and pushback; `buf` and
 `bufp` should be static so they are inaccessible from the outside. In the
 same way, push, pop and clear form a module for stack manipulation;
 `val` and `sp` should also be external static.
 
 [comment]: <> (page 81 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 81 )
-
-
 
 4.7 Register Variables
 ----------------------
@@ -614,7 +644,10 @@ may be kept in registers, and only certain types are allowed. The word
 `register` is ignored for excess or disallowed declarations. And it is not
 possible to take the address of a register variable (a topic to be covered in
 [Chapter 5](chap05.md)). The specific restrictions vary from machine to machine; as an
-example, on the PDP-11, only the first three register declarations in a function are effective, and the types must be `int`, `char`, or `pointer`.
+example, on the PDP-11, only the first three register declarations in a
+function are effective, and the types must be `int`, `char`, or `pointer`.
+
+[comment]: <> (note n_081_01.md)
 
 4.8 Block Structure
 -------------------
@@ -708,7 +741,8 @@ instead of
       ...
     }
 
-In effect, initializations of automatic variables are just shorthand for assignment statements. Which form to prefer is largely a matter of taste. We
+In effect, initializations of automatic variables are just shorthand for assignment
+statements. Which form to prefer is largely a matter of taste. We
 have generally used explicit assignments, because initializers in declarations
 are harder to see.
 
@@ -759,8 +793,8 @@ This is a shorthand for the longer but equivalent
     char pattern[] = ( 't', 'h', 'e', '\0' );
 
 When the size of an array of any type is omitted, the compiler will compute
-the length by counting the initializers. In this specific case, the size is 4
-    (three characters plus the terminating \0).
+the length by counting the initializers. In this specific case, the
+size is 4 (three characters plus the terminating '\0').
 
 [comment]: <> (note n_084_01.md)
 
@@ -769,12 +803,14 @@ the length by counting the initializers. In this specific case, the size is 4
 
 C functions may be used recursively; that is, a function may call _itself_
 either directly or indirectly. One traditional example involves printing a
-number as a character string. As we mentioned before, the digits are generated in the wrong order: low-order digits are available before high-order
+number as a character string. As we mentioned before, the digits are generated
+in the wrong order: low-order digits are available before high-order
 digits, but they have to be printed the other way around.
 
 There are two solutions to this problem. One is to store the digits in an
 array as they are generated, then print them in the reverse order, as we did
-in [Chapter 3](chap03.md) with `itoa`. The first version of `printd` follows this pattern.
+in [Chapter 3](chap03.md) with `itoa`. The first version of `printd` follows
+this pattern.
 
 [comment]: <> (page 85 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 85 )
 
@@ -792,12 +828,12 @@ all the automatic variables, quite independent of the previous set. Thus in
 `printd` passes 1 to a third (which prints it), then prints 2.
 
 Recursion generally provides no saving in storage, since somewhere a
-stack of the values being processed has to be maintained. Nor will it be faster. But recursive code is more compact, and often much easier to write and
+stack of the values being processed has to be maintained. Nor will it
+be faster. But recursive code is more compact, and often much easier to write and
 understand. Recursion is especially convenient for recursively defined data
 structures like trees; we will see a nice example in [Chapter 6](chap06.md).
 
 [comment]: <> (note n_085_01.md)
-
 
 **Exercise 4-7.** Adapt the ideas of `printd` to write a recursive version of
 `itoa`; that is, convert an integer into a string with a recursive routine.
@@ -825,9 +861,12 @@ other things) C provides a file inclusion feature. Any line that looks like
 
 is replaced by the contents of the file _filename._ (The quotes are mandatory.)
 Often a line or two of this form appears at the beginning of each source file,
-to include common `#define` statements and `extern` declarations for global variables. `#include`'s may be nested. `#include` is the preferred way to tie the declarations together for a
+to include common `#define` statements and `extern` declarations for global
+variables. `#include`'s may be nested. `#include` is the preferred way to
+tie the declarations together for a
 large program. It guarantees that all the source files will be supplied with
-the same definitions and variable declarations, and thus eliminates a particularly nasty kind of bug. Of course, when an included file is changed, all files
+the same definitions and variable declarations, and thus eliminates a particularly
+nasty kind of bug. Of course, when an included file is changed, all files
 that depend on it must be recompiled.
 
 Macro Substitution
@@ -841,7 +880,8 @@ calls for a macro substitution of the simplest kind - replacing a name by a
 string of characters. Names in `#define` have the same form as C
 identifiers; the replacement text is arbitrary. Normally the replacement text
 is the rest of the line; a long definition may be continued by placing a \ at
-the end of the line to be continued. The "scope" of a name defined with `#define` is from its point of definition to the end of the source file.
+the end of the line to be continued. The "scope" of a name defined with `#define` is
+from its point of definition to the end of the source file.
 Names may be redefined, and a definition may use previous definitions.
 Substitutions do not take place within quoted strings, so, for example, if
 `YES` is a defined name, there would be no substitution in `printf ("YES")`.
@@ -891,7 +931,8 @@ preserved. (Consider the macro
 
     #define square(x) x * x
 
-when invoked as `square(z+1)` .) There are even some purely lexical problems: there can be no space between the macro name and the left
+when invoked as `square(z+1)` .) There are even some purely lexical
+problems: there can be no space between the macro name and the left
 parenthesis that introduces its argument list.
 
 Nonetheless, macros are quite valuable. One practical example is the
