@@ -73,7 +73,7 @@ number of bytes to be transferred. The calls are
 
 Each call returns a byte count which is the number of bytes actually
 transferred. On reading, the number of bytes returned may be less than the
-number asked for. A return value of zero bytes implies end of file, and -1
+number asked for. A return value of zero bytes implies end of file, and `-1`
 indicates an error of some sort. For writing, the returned value is the
 number of bytes actually written; it is generally an error if this isn't equal to
 the number supposed to be written.
@@ -133,14 +133,14 @@ instead of returning a file pointer, it returns a file descriptor, which is just
 As with `fopen`, the name argument is a character string corresponding to
 the external file name. The access mode argument is different, however:
 `rwmode` is 0 for read, 1 for write, and 2 for read and write access. `open`
-returns —1 if any error occurs; otherwise it returns a valid file descriptor.
+returns `-1` if any error occurs; otherwise it returns a valid file descriptor.
 
 It is an error to try to `open` a file that does not exist. The entry point
 `creat` is provided to create new files, or to re-write old ones.
 
     fd = creat(name, pmode);
 
-returns a file descriptor if it was able to create the file called `name`, and —1
+returns a file descriptor if it was able to create the file called `name`, and `-1`
 if not. If the file already exists, `creat` will truncate it to zero length; it is
 not an error to `creat` a file that already exists.
 
@@ -462,13 +462,8 @@ of information to embed in a program: it might be different on a different
 system. Hence the `typedef`. A complete set of "system" types is found
 in `sys/types.h`.
 
-<<<<<<< HEAD
 The function `stat` takes a file name and returns all of the information
-in the inode for that file (or —1 if there is an error). That is,
-=======
-The function stat takes a file name and returns all of the information
-in the mode for that file (or -1 if there is an error). That is,
->>>>>>> d139da29323846a6458fd314c71991a3f131cd28
+in the inode for that file (or `-1` if there is an error). That is,
 
     struct stat stbuf;
     char *name;
@@ -699,21 +694,19 @@ area, which is one unit beyond the header. Notice that `p` is converted to a
 
 The function `morecore` obtains storage from the operating system.
 The details of how this is done of course vary from system to system. In
-UNIX, the system entry `sbrk(n)` returns a pointer to n more bytes of
-    storage. (The pointer satisfies all alignment restrictions.) Since asking the system for memory is a comparatively expensive operation, we don't want to
-    do that on every call to `alloc`, so `morecore` rounds up the number of
-    units requested of it to a larger value; this larger block will be chopped up as
-    needed. The amount of scaling is a parameter that can be tuned as needed.
+UNIX, the system entry `sbrk(n)` returns a pointer to `n` more bytes of
+storage. (The pointer satisfies all alignment restrictions.) Since asking the 
+system for memory is a comparatively expensive operation, we don't want to
+do that on every call to `alloc`, so `morecore` rounds up the number of
+units requested of it to a larger value; this larger block will be chopped up as
+needed. The amount of scaling is a parameter that can be tuned as needed.
 
 [comment]: <> (page 176 , 176 THE C PROGRAMMING LANGUAGE CHAPTER 8 )
-
-
 
     #define NALLOC 128 /* #units to allocate at once */
 
     static HEADER *morecore(nu) /* ask system for memory */
     unsigned nu;
-<<<<<<< HEAD
     {
       char *sbrk();
       register char *cp;
@@ -730,42 +723,16 @@ UNIX, the system entry `sbrk(n)` returns a pointer to n more bytes of
       return(allocp);
     }
 
-`sbrk` returns —1 if there was no space, even though `NULL` would have
-been a better choice. The —1 must be converted to an `int` so it can be
-=======
-
-    char *sbrk();
-
-    register char *cp;
-     register HEADER *up;
-     register int mu;
-
-    mu = NALLOC * ((nu+NALLOC-1) / NALLOC);
-
-    cp = sbrk (mu * sizeof(HEADER));
-
-    if ((int)cp == -1) /* no space at all */
-
-    return(NULL);
-
-    up = (HEADER *)cp;
-
-    up->s.size = mu;
-
-    free ((char *)(up+1));
-
-    return(allocp);
-
-sbrk returns -1 if there was no space, even though NULL would have
-been a better choice. The -1 must be converted to an int so it can be
->>>>>>> d139da29323846a6458fd314c71991a3f131cd28
+`sbrk` returns `-1` if there was no space, even though `NULL` would have
+been a better choice. The `-1` must be converted to an `int` so it can be
 safely compared. Again, casts are heavily used so the function is relatively
 immune to the details of pointer representation on different machines.
 
 `free` itself is the last thing. It simply scans the free list, starting at
 `allocp`, looking for the place to insert the free block. This is either
 between two existing blocks or at one end of the list. In any case, if the
-block being freed is adjacent to either neighbor, the adjacent blocks are combined. The only troubles are keeping the pointers pointing to the right
+block being freed is adjacent to either neighbor, the adjacent blocks are
+combined. The only troubles are keeping the pointers pointing to the right
 things and the sizes correct.
 
 [comment]: <> (page 177 , CHAPTER 8 THE UNIX SYSTEM INTERFACE 177 )
