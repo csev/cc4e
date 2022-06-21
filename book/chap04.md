@@ -772,7 +772,7 @@ can be written instead as
 
     int nwhite = 0;
     int nother = 0;
-    int ndigit[10] ={ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
+    int ndigit[10] ={ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
     main() /* count digits, white space, others */
     {
@@ -794,7 +794,7 @@ instead of the braces and commas notation:
 
 This is a shorthand for the longer but equivalent
 
-    char pattern[] = ( 't', 'h', 'e', '\0' );
+    char pattern[] = { 't', 'h', 'e', '\0' };
 
 When the size of an array of any type is omitted, the compiler will compute
 the length by counting the initializers. In this specific case, the
