@@ -428,11 +428,11 @@ that is,
     int sp = 0;
     double val [MAXVAL] ;
 
-    double push (f ) { ... }
+    double push(f) { ... }
 
-    double pop ( ) { ... }
+    double pop() { ... }
 
-    clear ( ) { ... }
+    clear() { ... }
 
 then the variables `val` and `sp` may be used in `push`, `pop` and `clear`
 simply by naming them, no further declarations are needed.
@@ -500,12 +500,11 @@ compiled.
 
 Let us now turn to the implementation of `getop`, the function that
 fetches the next operator or operand. The basic task is easy: skip blanks,
-
-[comment]: <> (page 78 , 78 THE C PROGRAMMING LANGUAGE CHAPTER 4 )
-
 tabs and newlines. If the next character is not a digit or a decimal point,
 return it. Otherwise, collect a string of digits (that might include a decimal
 point), and return `NUMBER`, the signal that a number has been collected.
+
+[comment]: <> (page 78 , 78 THE C PROGRAMMING LANGUAGE CHAPTER 4 )
 
 The routine is substantially complicated by an attempt to handle the
 situation properly when an input number is too long. `getop` reads digits
@@ -520,12 +519,11 @@ line from the point of error; it returns `TOOBIG` as the overflow signal.
 What are `getch` and `ungetch`? It is often the case that a program
 reading input cannot determine that it has read enough until it has read too
 much. One instance is collecting the characters that make up a number:
-
-[comment]: <> (page 79 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 79 )
-
 until the first non-digit is seen, the number is not complete. But then the
 program has read one character too far, a character that it is not prepared
 for.
+
+[comment]: <> (page 79 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 79 )
 
 The problem would be solved if it were possible to "un-read" the
 unwanted character. Then, every time the program reads one character too
@@ -557,11 +555,11 @@ should it just use `ungetch`?
 **Exercise 4-5.** Suppose that there will never be more than one character of
 pushback. Modify `getch` and `ungetch` accordingly.
 
-[comment]: <> (page 80 , 80 THE C PROGRAMMING LANGUAGE CHAPTER 4 )
-
 **Exercise 4-6.** Our `getch` and `ungetch` do not handle a pushed-back `EOF`
 in a portable way. Decide what their properties ought to be if an `EOF` is
 pushed back, then implement your design.
+
+[comment]: <> (page 80 , 80 THE C PROGRAMMING LANGUAGE CHAPTER 4 )
 
 4.6 Static Variables
 --------------------
@@ -613,7 +611,7 @@ objects and any internal routines that manipulate them so that other routines
 and data cannot conflict even inadvertently. For example, `getch` and
 `ungetch` form a "module" for character input and pushback; `buf` and
 `bufp` should be static so they are inaccessible from the outside. In the
-same way, push, pop and clear form a module for stack manipulation;
+same way, `push`, `pop` and `clear` form a module for stack manipulation;
 `val` and `sp` should also be external static.
 
 [comment]: <> (page 81 , CHAPTER 4 FUNCTIONS AND PROGRAM STRUCTURE 81 )
