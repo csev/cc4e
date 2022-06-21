@@ -656,7 +656,7 @@ function are effective, and the types must be `int`, `char`, or `pointer`.
 4.8 Block Structure
 -------------------
 
-C is not a block-structured language in the sense of PL/1 or Algol, in
+C is not a block-structured language in the sense of PL/I or Algol, in
 that functions may not be defined within other functions.
 
 On the other hand, variables can be defined in a block-structured
