@@ -336,7 +336,8 @@ a larger array is of no consequence.
 --------------------------
 
 If  `p` is a pointer, then `p++` increments `p` to point to the next element of
-whatever kind of object `p` points to, and `p+=i` increments `p` to point `i` elements beyond where it currently does. These and similar constructions are
+whatever kind of object `p` points to, and `p+=i` increments `p` to point `i`
+elements beyond where it currently does. These and similar constructions are
 the simplest and most common forms of pointer or address arithmetic.
 
 C is consistent and regular in its approach to address arithmetic; its
@@ -350,7 +351,8 @@ routines are "rudimentary" because the calls to `free` must be made in the
 opposite order to the calls made on `alloc`. That is, the storage managed
 by `alloc` and `free` is a stack, or last-in, first-out list. The standard C
 library provides analogous functions which have no such restrictions, and in
-[Chapter 8](chap08.md) we will show improved versions as well. In the meantime, however, many applications really only need a trivial `alloc` to dispense little
+[Chapter 8](chap08.md) we will show improved versions as well. In the
+meantime, however, many applications really only need a trivial `alloc` to dispense little
 pieces of storage of unpredictable sizes at unpredictable times.
 
 The simplest implementation is to have `alloc` hand out pieces of a
@@ -359,11 +361,12 @@ large character array which we will call `allocbuf`. This array is private to
 routine need know the name of the array, which can be declared external
 `static`, that is, local to the source file containing `alloc` and `free`, and
 invisible outside it. In practical implementations, the array may well not
-even have a name; it might instead be obtained by asking the operating system for a pointer to some unnamed block of storage.
+even have a name; it might instead be obtained by asking the operating system
+for a pointer to some unnamed block of storage.
 
 The other information needed is how much of `allocbuf` has been
 used. We use a pointer to the next free element, called `allocp`. When
-`alloc` is asked for n characters, it checks to see if there is enough room
+`alloc` is asked for `n` characters, it checks to see if there is enough room
 left in `allocbuf`. If so, `alloc` returns the current value of `allocp` (i.e.,
 the beginning of the free block), then increments it by `n` to point to the
 next free area. `free(p)` merely sets `allocp` to `p` if `p` is inside
@@ -387,19 +390,19 @@ could have also been written
     static char *allocp = &allocbuf[0];
 
 since the array name _is_ the address of the zeroth element; use whichever is
-
 more natural.
 
 The test
 
     if (allocp + n <= allocbuf + ALLOCSIZE)
 
-checks if there's enough room to satisfy a request for n characters. If there
+checks if there's enough room to satisfy a request for `n` characters. If there
 is, the new value of `allocp` would be at most one beyond the end of
 `allocbuf`. If the request can be satisfied, `alloc` returns a normal pointer
 (notice the declaration of the function itself). If not, `alloc` must return
 some signal that no space is left. C guarantees that no pointer that validly
-points at data will contain zero, so a return value of zero can be used to signal an abnormal event, in this case, no space. We write `NULL`, instead of
+points at data will contain zero, so a return value of zero can be used to
+signal an abnormal event, in this case, no space. We write `NULL`, instead of
 zero, however, to indicate more clearly that this is a special value for a
 pointer. In general, integers cannot meaningfully be assigned to pointers;
 zero is a special case.
@@ -458,8 +461,8 @@ In its declaration, `p` is initialized to `s`, that is, to point to the first ch
 
 [comment]: <> (page 99 , 99 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
-In the `while` loop, each character in turn is examined until the  \0  at the
-end is seen. Since  \0  is zero, and since  `while`  tests only whether the
+In the `while` loop, each character in turn is examined until the `\0` at the
+end is seen. Since `\0` is zero, and since  `while`  tests only whether the
 expression is zero, it is possible to omit the explicit test, and such loops are
 often written as
 
