@@ -3,6 +3,8 @@ CHAPTER 5 POINTERS AND ARRAYS
 
 [comment]: <> (page 89 , 89 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
+[comment]: <> (note n_089_01.md)
+
 A pointer is a variable that contains the address of another variable.
 Pointers are very much used in C, partly because they are sometimes the
 only way to express a computation, and partly because they usually lead to
@@ -20,7 +22,7 @@ to achieve clarity and simplicity. This is the aspect that we will try to illust
 Since a pointer contains the address of an object, it is possible to access
 the object "indirectly" through the pointer. Suppose that `x` is a variable,
 say an `int`, and that `px` is a pointer, created in some as yet unspecified way.
-The unary operator & gives the _address_ of an object, so the statement
+The unary operator `&` gives the _address_ of an object, so the statement
 
     px = &x;
 
@@ -146,7 +148,7 @@ program passes _pointers_ to the values to be changed:
 
     swap(&a, &b);
 
-Since the operator & gives the address of a variable, `&a` is a pointer to `a`. In
+Since the operator `&` gives the address of a variable, `&a` is a pointer to `a`. In
 `swap` itself, the arguments are declared to be pointers, and the actual
 operands are accessed through them.
 
@@ -155,7 +157,7 @@ operands are accessed through them.
 [comment]: <> (code c_092_01.c)
 
 One common use of pointer arguments is in functions that must return
-more than a single value. (You might say that swap returns two values, the
+more than a single value. (You might say that `swap` returns two values, the
 new values of its arguments.) As an example, consider a function `get_int`
 which performs free-format input conversion by breaking a stream of characters
 into integer values, one integer per call. `get_int` as to return the
@@ -625,6 +627,8 @@ in inadvertently.)
 5.7 Multi-Dimensional Arrays
 --------------------------------
 
+[comment]: <> (note n_103_01.md)
+
 C provides for rectangular multi-dimensional arrays, although in practice
 they tend to be much less used than arrays of pointers. In this section, we
 will show some of their properties.
@@ -752,13 +756,6 @@ lines in the order in which they appear in the array of pointers.
 [comment]: <> (code c_106_01.c)
 
 [comment]: <> (page 107 , 107 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
-
-[comment]: <> (code c_107_01.c)
-
-The newline at the end of each line is deleted so it will not affect the c
-in which the lines are sorted.
-
-[comment]: <> (code c_107_02.c)
 
 The main new thing is the declaration for  lineptr:
 
@@ -920,8 +917,8 @@ The basic model can now be elaborated to illustrate further pointer construction
 "print all lines _except_ those that match the pattern;" the second says "precede each printed line with its line number."
 
 A common convention for C programs is that an argument beginning
-with a minus sign introduces an optional flag or parameter. If we choose -`x`
-(for "except") to signal the inversion, and -`n` ("number") to request line
+with a minus sign introduces an optional flag or parameter. If we choose `-x`
+(for "except") to signal the inversion, and `-n` ("number") to request line
 numbering, then the command
 
     find -x -n the
@@ -965,7 +962,7 @@ expression from the command line. For example,
 
     add 2 3 4 + *
 
-evaluates 2 x (3+4).
+evaluates 2 * (3+4).
 
 **Exercise 5-8.** Modify the programs `entab` and `detab` (written as exercises
 in [Chapter 1](chap01.md)) to accept a list of tab stops as arguments. Use the normal tab
@@ -973,18 +970,18 @@ settings if there are no arguments.
 
 **Exercise 5-9.** Extend `entab` and `detab` to accept the shorthand
 
-    entab _m +n_
+    entab m +n
 
-to mean tabs stops every _n_ columns, starting at column _m._ Choose convenient (for the user) default behavior.
+to mean tabs stops every _n_ columns, starting at column _m_. Choose convenient (for the user) default behavior.
 
 **Exercise 5-10.** Write the program `tail`, which prints the last _n_ lines of its
 input. By default, _n_ is 10, let us say, but it can be changed by an optional
 argument, so that
 
-    tail _-n_
+    tail -n
 
 prints the last _n_ lines. The program should behave rationally no matter how
-unreasonable the input or the value of _n._ Write the program so it makes
+unreasonable the input or the value of _n_. Write the program so it makes
 the best use of available storage: lines should be stored as in `sort`, not in a
 two-dimensional array of fixed size.
 
@@ -992,27 +989,33 @@ two-dimensional array of fixed size.
 ---------------------------
 
 In C, a function itself is not a variable, but it is possible to define a
-_pointer to a function,_ which can be manipulated, passed to functions, placed
-in arrays, and so on. We will illustrate this by modifying the sorting procedure written earlier in this chapter so that if the optional argument -n is
+_pointer to a function_, which can be manipulated, passed to functions, placed
+in arrays, and so on. We will illustrate this by modifying the sorting procedure
+written earlier in this chapter so that if the optional argument `-n` is
 given, it will sort the input lines numerically instead of lexicographically.
 
 A sort often consists of three parts - a _comparison_ which determines
 the ordering of any pair of objects, an _exchange_ which reverses their order,
 and a _sorting algorithm_ which makes comparisons and exchanges until the
-objects are in order. The sorting algorithm is independent of the comparison and exchange operations, so by passing different comparison and
+objects are in order. The sorting algorithm is independent of the comparison
+and exchange operations, so by passing different comparison and
 exchange functions to it, we can arrange to sort by different criteria. This is
 the approach taken in our new sort.
 
-The lexicographic comparison of two lines is done by `strcmp` and swapping by `swap` as before; we will also need a routine `numcmp` which compares two lines on the basis of numeric value and returns the same kind of
-condition indication as `strcmp` does. These three functions are declared in `main` and pointers to them are passed to `sort`. `sort` in turn calls the
-functions via the pointers. We have skimped on error processing for arguments, so as to concentrate on the main issues.
+The lexicographic comparison of two lines is done by `strcmp` and swapping by `swap`
+as before; we will also need a routine `numcmp` which compares two lines on
+the basis of numeric value and returns the same kind of
+condition indication as `strcmp` does. These three functions are declared
+in `main` and pointers to them are passed to `sort`. `sort` in turn calls the
+functions via the pointers. We have skimped on error processing for arguments,
+so as to concentrate on the main issues.
 
 [comment]: <> (page 115 , 115 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
 [comment]: <> (code c_115_01.c)
 
 `strcmp`, `numcmp` and `swap` are addresses of functions; since they are
-known to be functions, the & operator is not necessary, in the same way that
+known to be functions, the `&` operator is not necessary, in the same way that
 it is not needed before an array name. The compiler arranges for the
 address of the function to be passed.
 

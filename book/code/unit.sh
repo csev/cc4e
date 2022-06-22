@@ -49,8 +49,8 @@ gcc -ansi -c -Wno-knr-promoted-parameter c_102_01.c
 gcc -ansi -c -Wno-implicit-function-declaration c_103_01.c
 gcc -ansi -c -Wno-implicit-function-declaration -Wno-int-conversion c_103_02.c
 gcc -ansi -c -Wno-return-type c_104_01.c
-gcc -ansi -c c_106_01.c
-gcc -ansi -c c_107_01.c
+gcc -ansi -c -Wno-return-type -Wno-implicit-function-declaration c_106_01.c
+gcc -ansi -c -Wno-return-type -Wno-implicit-function-declaration c_107_01.c
 gcc -ansi -c -Wno-return-type -Wno-implicit-function-declaration c_107_02.c
 gcc -ansi -c -Wno-return-type -Wno-implicit-function-declaration c_108_01.c
 gcc -ansi -c -Wno-return-type -Wno-implicit-function-declaration c_108_02.c
