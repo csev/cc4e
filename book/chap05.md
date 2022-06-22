@@ -141,7 +141,8 @@ where the `swap` function is defined as
 Because of call by value, `swap` _can't_ affect the arguments `a` and `b` in the
 routine that called it.
 
-Fortunately, there is a way to obtain the desired effect. The calling program passes _pointers_ to the values to be changed:
+Fortunately, there is a way to obtain the desired effect. The calling
+program passes _pointers_ to the values to be changed:
 
     swap(&a, &b);
 
@@ -155,29 +156,30 @@ operands are accessed through them.
 
 One common use of pointer arguments is in functions that must return
 more than a single value. (You might say that swap returns two values, the
-new values of its arguments.) As an example, consider a function `getint`
-which performs free-format input conversion by breaking a stream of characters into integer values, one integer per call. `getint` as to return the
+new values of its arguments.) As an example, consider a function `get_int`
+which performs free-format input conversion by breaking a stream of characters
+into integer values, one integer per call. `get_int` as to return the
 value it found, or an end of file signal when there is no more input. These
 values have to be returned as separate objects, for no matter what value is
 used for EOF, that could also be the value of an input integer.
 
 One solution, which is based on the input function `scanf` that we will
-describe in [Chapter 7](chap07.md), is to have `getint` return `EOF` as its function value if
-it found end of file; any other returned value signals a normal integer. The
-numeric value of the integer it found is returned through an argument,
-which must be a pointer to an integer. This organization separates end of
-file status from numeric values.
+describe in [Chapter 7](chap07.md), is to have `get_int` return `EOF` as
+its function value if it found end of file; any other returned value
+signals a normal integer. The numeric value of the integer it found is
+returned through an argument, which must be a pointer to an integer. This
+organization separates end of file status from numeric values.
 
-The following loop fills an array with integers by calls to `getint`:
+The following loop fills an array with integers by calls to `get_int`:
 
     int n, v, array[SIZE];
 
-    for (n = 0; n < SIZE && getint(&v) != EOF; n++)
+    for (n = 0; n < SIZE && get_int(&v) != EOF; n++)
       array[n] = v;
 
 Each call sets `v` to the next integer found in the input. Notice that it is
-essential to write `&v` instead of `v` as the argument of `getint`. Using plain
-`v` is likely to cause an addressing error, since `getint` believes it has been
+essential to write `&v` instead of `v` as the argument of `get_int`. Using plain
+`v` is likely to cause an addressing error, since `get_int` believes it has been
 handed a valid pointer.
 
 `get_int` itself is an obvious modification of the `atoi` we wrote earlier:
@@ -186,11 +188,11 @@ handed a valid pointer.
 
 [comment]: <> (code c_093_01.c)
 
-Throughout `getint`, `*pn` is used as an ordinary `int` variable. We have
+Throughout `get_int`, `*pn` is used as an ordinary `int` variable. We have
 also used `getch` and `ungetch` (described in [Chapter 4](chap04.md)) so the one extra
 character that must be read can be pushed back onto the input.
 
-**Exercise 5-1.** Write `getfloat`, the floating point analog of `getint`.
+**Exercise 5-1.** Write `getfloat`, the floating point analog of `get_int`.
 What type does `getfloat` return as its function value?
 
 5.3 Pointers and Arrays
@@ -206,7 +208,7 @@ The declaration
 
     int a[10]
 
-defines an array a of size 10, that is a block of 10 consecutive objects named
+defines an array `a` of size 10, that is a block of 10 consecutive objects named
 `a[0]`, `a[1]`, ..., `a[9]`. The notation `a[i]` means the element of the
 array `i` positions from the beginning. If `pa` is a pointer to an integer,
 declared as
@@ -221,7 +223,7 @@ sets `pa` to point to the zeroth element of `a`; that is, `pa` contains the addr
 
 [comment]: <> (page 94 , 94 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
-of a [0]. Now the assignment
+of a[0]. Now the assignment
 
     x = *pa
 
@@ -242,7 +244,9 @@ pointer arithmetic, is that the increment is scaled by the size in storage of
 the object that is pointed to. Thus in `pa+i`, `i` is multiplied by the size of
 the objects that `pa` points to before being added to `pa`.
 
-The correspondence between indexing and pointer arithmetic is evidently very close. In fact, a reference to an array is converted by the compiler to a pointer to the beginning of the array. The effect is that an array
+The correspondence between indexing and pointer arithmetic is evidently very close. In fact,
+a reference to an array is converted by the compiler to a pointer to 
+the beginning of the array. The effect is that an array
 name _is_ a pointer expression. This has quite a few useful implications.
 Since the name of an array is a synonym for the location of the zeroth element, the assignment
 
@@ -252,7 +256,7 @@ can also be written as
 
     pa = a
 
-Rather more surprising, at least at first sight,, is the fact that a reference
+Rather more surprising, at least at first sight, is the fact that a reference
 to `a[i]` can also be written as `*(a+i)` . In evaluating `a[i]`, C converts it
 to `*(a+i)` immediately; the two forms are completely equivalent. Applying
 the operator `&` to both parts of this equivalence, it follows that `&a[i]` and
@@ -267,9 +271,11 @@ be kept in mind. A pointer is a variable, so `pa=a` and `pa++` are sensible
 operations. But an array name is a _constant,_ not a variable: constructions
 like `a=pa` or `a++` or `p=&a` are illegal.
 
-When an array name is passed to a function, what is passed is the location of the beginning of the array. Within the called function, this argument
+When an array name is passed to a function, what is passed is the location of
+the beginning of the array. Within the called function, this argument
 is a variable, just like any other variable, and so an array name argument is
-truly a pointer, that is, a variable containing an address. We can use this fact to write a new version of `strlen`, which computes the length of a
+truly a pointer, that is, a variable containing an address. We can use this
+fact to write a new version of `strlen`, which computes the length of a
 string.
 
 [comment]: <> (page 95 , 95 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
@@ -317,7 +323,7 @@ or
 
 [comment]: <> (page 96 , 96 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
-    f (arr)
+    f(arr)
     int *arr;
     {
       ...
