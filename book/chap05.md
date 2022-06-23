@@ -1,9 +1,9 @@
 CHAPTER 5 POINTERS AND ARRAYS
 =============================
 
-[comment]: <> (page 89 , 89 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
-
 [comment]: <> (note n_089_01.md)
+
+[comment]: <> (page 89 , 89 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
 A pointer is a variable that contains the address of another variable.
 Pointers are very much used in C, partly because they are sometimes the
@@ -862,8 +862,10 @@ arguments or parameters to a program when it begins executing. When
 `main` is called to begin execution, it is called with two arguments. The first
 (conventionally called `argc`) is the number of command-line arguments the
 program was invoked with; the second (`argv`) is a pointer to an array of
-    character strings that contain the arguments, one per string. Manipulating
+character strings that contain the arguments, one per string. Manipulating
 these character strings is a common use of multiple levels of pointers.
+
+[comment]: <> (note n_111_01.md)
 
 The simplest illustration of the necessary declarations and use is the program `echo`, which simply echoes its command-line arguments on a single
 line, separated by blanks. That is, if the command
