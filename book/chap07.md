@@ -388,17 +388,18 @@ system are given in [Chapter 8](chap08.md).)
 
 The actual call to `fopen` in a program is
 
-    fp = fopen (name mode ) ;
+    fp = fopen (name, mode);
 
 [comment]: <> (page 152 , 152 THE C PROGRAMMING LANGUAGE CHAPTER 7 )
 
 The first argument of `fopen` is the _name_ of the file, as a character string.
 The second argument is the _mode,_ also as a character string, which indicates
 how one intends to use the file. Allowable modes are read ("r"), write
-    ("w"), or append ("a").
+("w"), or append ("a").
 
 If you open a file which does not exist for writing or appending, it is
-created (if possible). Opening an existing file for writing causes the old contents to be discarded. Trying to read a file that does not exist is an error,
+created (if possible). Opening an existing file for writing causes the old contents
+to be discarded. Trying to read a file that does not exist is an error,
 and there may be other causes of error as well (like trying to read a file
 when you don't have permission). If there is any error, `fopen` will return
 the null pointer value `NULL` (which for convenience is also defined in
@@ -422,7 +423,9 @@ puts the character c on the file `fp` and returns c. Like `getchar` and
 `putchar`, `getc` and `putc` may be macros instead of functions.
 
 When a program is started, three files are opened automatically, and file
-pointers are provided for them. These files are the standard input, the standard output, and the standard error output; the corresponding file pointers are called `stdin`, `stdout`, and `stderr`. Normally these are all connected
+pointers are provided for them. These files are the standard input, the
+standard output, and the standard error output; the corresponding file
+pointers are called `stdin`, `stdout`, and `stderr`. Normally these are all connected
 to the terminal, but stdin and `stdout` may be redirected to files or pipes
 as described in section 7.2.
 
@@ -439,7 +442,9 @@ written; the control string is the second argument.
 
 With these preliminaries out of the way, we are now in a position to
 write the program _cat_ to concatenate files. The basic design is one that has
-been found convenient for many programs: if there are command-line arguments, they are processed in order. If there are no arguments, the standard input is processed. This way the program can be used stand-alone or as part
+been found convenient for many programs: if there are command-line arguments,
+they are processed in order. If there are no arguments, the standard input
+is processed. This way the program can be used stand-alone or as part
 of a larger process.
 
 [comment]: <> (page 153 , 153 THE C PROGRAMMING LANGUAGE CHAPTER 7 )
@@ -453,7 +458,8 @@ so don't try to assign to them.
 
 The function `fclose` is the inverse of `fopen`; it breaks the connection
 between the file pointer and the external name that was established by
-`fopen`, freeing the file pointer for another file. Since most operating systems have some limit on the number of simultaneously open files that a
+`fopen`, freeing the file pointer for another file. Since most operating systems
+have some limit on the number of simultaneously open files that a
 program may have, it's a good idea to free things when they are no longer
 needed, as we did in _cat._ There is also another reason for `fclose` on an
 output file - it flushes the buffer in which `putc` is collecting output.
@@ -483,9 +489,12 @@ The program signals errors two ways. The diagnostic output produced
 by `fprintf` goes onto `stderr`, so it finds its way to the user's terminal
 instead of disappearing down a pipeline or into an output file.
 
-The program also uses the standard library function `exit`, which terminates program execution when it is called. The argument of `exit` is
+The program also uses the standard library function `exit`, which terminates
+program execution when it is called. The argument of `exit` is
 available to whatever process called this one, so the success or failure of the
-program can be tested by another program that uses this one as a subprocess. By convention, a return value of 0 signals that all is well, and various non-zero values signal abnormal situations.
+program can be tested by another program that uses this one as a subprocess. By
+convention, a return value of 0 signals that all is well, and various non-zero
+values signal abnormal situations.
 
 `exit` calls `fclose` for each open output file, to flush out any buffered
 output, then calls a routine named `\_exit`. The function `\_exit` causes
@@ -514,36 +523,7 @@ a newline) to a file:
 To show that there is nothing magic about functions like `fgets` and
 `fputs`, here they are, copied directly from the standard I/O library:
 
-<!-- [comment]: <> (code c_155_01.c) -->
-
-    #include <stdio.h>
-
-    char *f_gets(s, n, iop) /* get at most n chars from iop */
-    char *s;
-    int n;
-    register FILE *iop;
-    {
-      register int c;
-      register char *cs;
-
-      cs = s;
-
-      while (--n > 0 && (c = getc(iop)) != EOF)
-        if ((*cs++ = c) == '\n')
-          break;
-      *cs = '\0';
-      return((c == EOF && cs == s) ? NULL : s);
-    }
-
-    f_puts(s, iop) /* put string s on file iop */
-    register char *s;
-    register FILE *iop;
-    {
-      register int c;
-
-      while (c = *s++)
-        putc(c, iop);
-    }
+[comment]: <> (code c_155_01.c)
 
 **Exercise 7-3.** Write a program to compare two files, printing the first line
 and character position where they differ.

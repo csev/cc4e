@@ -426,7 +426,7 @@ declared in a source file to the end of that file. For example, if `val`, `sp`,
 that is,
 
     int sp = 0;
-    double val [MAXVAL] ;
+    double val [MAXVAL];
 
     double push(f) { ... }
 
