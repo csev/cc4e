@@ -688,7 +688,7 @@ if the array `day_tab` is to be passed to a function `f`, the declaration of `f`
 would be
 
     f(day_tab)
-    int day_tab[2][13] ;
+    int day_tab[2][13];
     {
       ...
     }
@@ -833,8 +833,8 @@ the correct number.
 Newcomers to C are sometimes confused about the difference between a
 two-dimensional array and an array of pointers, such as `name` in the example above. Given the declarations
 
-    int a[10][10] ;
-    int *b[10] ;
+    int a[10][10];
+    int *b[10];
 
 the usage of `a` and `b` may be similar, in that `a[5][5]` and `b[5][5]` are
 both legal references to a single `int`. But `a` is a true array: all 100 storage
