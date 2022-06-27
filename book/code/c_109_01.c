@@ -1,7 +1,7 @@
 char *month_name(n) /* return name of n-th month */
 int n;
 {
-  static char *name[] ={
+  static char *name[] = {
     "illegal month",
     "January",
     "February",
@@ -16,5 +16,5 @@ int n;
     "December"
   } ;
 
-  return((n < 1 || n > 12) ? name [0] : name[n]);
+  return((n < 1 || n > 12) ? name[0] : name[n]);
 }

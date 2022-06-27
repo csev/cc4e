@@ -219,7 +219,7 @@ declared as
 
 then the assignment
 
-    pa = &a [0]
+    pa = &a[0]
 
 sets `pa` to point to the zeroth element of `a`; that is, `pa` contains the address
 
@@ -259,7 +259,7 @@ can also be written as
     pa = a
 
 Rather more surprising, at least at first sight, is the fact that a reference
-to `a[i]` can also be written as `*(a+i)` . In evaluating `a[i]`, C converts it
+to `a[i]` can also be written as `*(a+i)`. In evaluating `a[i]`, C converts it
 to `*(a+i)` immediately; the two forms are completely equivalent. Applying
 the operator `&` to both parts of this equivalence, it follows that `&a[i]` and
 `a+i` are also identical: `a+i` is the address of the `i`-th element beyond a. As
@@ -695,17 +695,17 @@ would be
 
 The argument declaration in `f` could also be
 
-    int day_tab [][13] ;
+    int day_tab[][13];
 
 since the number of rows is irrelevant, or it could be
 
-    int (*day_tab)[13] ;
+    int (*day_tab)[13];
 
 which says that the argument is a pointer to an array of 13 integers. The
-    parentheses are necessary since brackets [] have higher precedence than `*`;
+parentheses are necessary since brackets `[]` have higher precedence than `*`;
 without parentheses, the declaration
 
-    int *day_tab[13] ;
+    int *day_tab[13];
 
 is an array of 13 pointers to integers, as we shall see in the next section.
 
@@ -759,7 +759,7 @@ lines in the order in which they appear in the array of pointers.
 
 The main new thing is the declaration for  lineptr:
 
-    char *lineptr [LINES];
+    char *lineptr[LINES];
 
 says that  `lineptr`  is an array of  `LINES`  elements, each element of which is
 a pointer to a  `char`.  That is,  `lineptr[i]`  is a character pointer, and
@@ -833,19 +833,22 @@ the correct number.
 Newcomers to C are sometimes confused about the difference between a
 two-dimensional array and an array of pointers, such as `name` in the example above. Given the declarations
 
-    int a [10] [10] ;
-    int *b [10] ;
+    int a[10][10] ;
+    int *b[10] ;
 
 the usage of `a` and `b` may be similar, in that `a[5][5]` and `b[5][5]` are
 both legal references to a single `int`. But `a` is a true array: all 100 storage
-cells have been allocated, and the conventional rectangular subscript calculation is done to find any given element. For `b`, however, the declaration
+cells have been allocated, and the conventional rectangular subscript calculation
+is done to find any given element. For `b`, however, the declaration
 only allocates 10 pointers; each must be set to point to an array of integers.
 Assuming that each does point to a ten-element array, then there will be
 100 storage cells set aside, plus the ten cells for the pointers. Thus the array
-of pointers uses slightly more space, and may require an explicit initialization step. But it has two advantages: accessing an element is done by
+of pointers uses slightly more space, and may require an explicit initialization
+step. But it has two advantages: accessing an element is done by
 indirection through a pointer rather than by a multiplication and an addition,
 and the rows of the array may be of different lengths. That is, each element
-of b need not point to a ten-element vector; some may point to two elements, some to twenty, and some to none at all.
+of b need not point to a ten-element vector; some may point to two elements, some
+to twenty, and some to none at all.
 
 Although we have phrased this discussion in terms of integers, by far
 the most frequent use of arrays of pointers is like that shown in
@@ -867,7 +870,8 @@ these character strings is a common use of multiple levels of pointers.
 
 [comment]: <> (note n_111_01.md)
 
-The simplest illustration of the necessary declarations and use is the program `echo`, which simply echoes its command-line arguments on a single
+The simplest illustration of the necessary declarations and use is the program `echo`,
+which simply echoes its command-line arguments on a single
 line, separated by blanks. That is, if the command
 
     echo hello, world
@@ -880,7 +884,8 @@ is given, the output is
 
 By convention, `argv[0]` is the name by which the program was invoked,
 so `argc` is at least 1. In the example above, `argc` is 3, and `argv[0]`,
-`argv[1]` and argv[2] are "`echo`", "`hello,`", and "`world`" respectively. The first real argument is `argv[1]` and the last is `argv[argc-1]` .
+`argv[1]` and argv[2] are "echo", "hello,", and "world" respectively. The
+first real argument is `argv[1]` and the last is `argv[argc-1]`.
 If `argc` is 1, there are no command-line arguments after the program name.
 This is shown in  `echo`:
 
@@ -893,7 +898,7 @@ write this program that involve manipulating the pointer rather than indexing an
 
 Since `argv` is a pointer to the beginning of the array of argument strings,
 incrementing it by 1 (`++argv`) makes it point at the original `argv[1]`
-instead of `argv[0]` . Each successive increment moves it along to the next
+instead of `argv[0]`. Each successive increment moves it along to the next
 argument; `*argv` is then the pointer to that argument. At the same time,
 `argc` is decremented; when it becomes zero, there are no arguments left to
 print.
@@ -952,7 +957,7 @@ Here is the program.
 
 `argv` is incremented before each optional argument, and `argc` decremented. If there are no errors, at the end of the loop `argc` should be 1 and
 `*argv` should point at the pattern. Notice that `*++argv` is a pointer to an
-argument string; `(*++argv) [0]` is its first character. The parentheses are
+argument string; `(*++argv)[0]` is its first character. The parentheses are
 necessary, for without them the expression would be `*++(argv[0])` ,
 which is quite different (and wrong). An alternate valid form would be `**++argv`.
 
