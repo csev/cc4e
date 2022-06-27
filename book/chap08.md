@@ -424,19 +424,20 @@ with the buffering done for the other functions of the library.
 ---------------------------------
 
 A different kind of file system interaction is sometimes called for -
-determining information _about_ a file, not what it contains. The UNIX command _Is_ ("list directory") is an example - it prints the names of files in a
+determining information _about_ a file, not what it contains. The UNIX
+command `ls` ("list directory") is an example - it prints the names of files in a
 directory, and optionally, other information, such as sizes, permissions, and
 so on.
 
 Since on UNIX at least a directory is just a file, there is nothing special
-about a command like _/s;_ it reads a file and picks out the relevant parts of
+about a command like `ls` it reads a file and picks out the relevant parts of
 the information it finds there. Nonetheless, the format of that information
-is determined by the system, not by a user program, so _/s_ needs to know
+is determined by the system, not by a user program, so `ls` needs to know
 how the system represents things.
 
-We will illustrate some of this by writing a program called _fsize. fsize_ is
-a special form of _/s_ which prints the sizes of all files named in its argument
-list. If one of the files is a directory, _fsize_ applies itself recursively to that
+We will illustrate some of this by writing a program called `fsize`. `fsize` is
+a special form of `ls` which prints the sizes of all files named in its argument
+list. If one of the files is a directory, `fsize` applies itself recursively to that
 directory. If there are no arguments at all, it processes the current directory.
 
 To begin, a short review of file system structure. A directory is a file
@@ -444,7 +445,8 @@ that contains a list of file names and some indication of where they are
 located. The "location" is actually an index into another table called the
 "inode table." The mode for a file is where all information about a file
 except its name is kept. A directory entry consists of only two items, an
-mode number and the file name. The precise specification comes by including the file sys/dir.h, which contains
+mode number and the file name. The precise specification comes by including
+the file sys/dir.h, which contains
 
 [comment]: <> (page 170 , 170 THE C PROGRAMMING LANGUAGE CHAPTER8 )
 
@@ -505,13 +507,14 @@ definitions are also part of the file `sys/stat.h`.
     #define  S_IWRITE  0200     /*  write permission */
     #define  S_IEXEC   0100     /*  execute permission */
 
-Now we are able to write the program _fsize._ If the mode obtained from
+Now we are able to write the program `fsize`. If the mode obtained from
 `stat` indicates that a file is not a directory, then the size is at hand and can
 be printed directly. If it is a directory, however, then we have to process
 that directory one file at a time; it in turn may contain sub-directories, so
 the process is recursive.
 
-The main routine as usual deals primarily with command-line arguments; it hands each argument to the function `fsize` in a big buffer.
+The main routine as usual deals primarily with command-line arguments; it
+hands each argument to the function `fsize` in a big buffer.
 
 [comment]: <> (code c_171_01.c)
 
@@ -535,7 +538,8 @@ the use of the flag names `S_IFMT` and `S_IFDIR` from `stat.h`.
       printf("%8ld %s\n", stbuf.st_size, name);
     }
 
-The function `directory` is the most complicated. Much of it is concerned, however, with creating the full pathname of the file being dealt
+The function `directory` is the most complicated. Much of it is concerned, however,
+with creating the full pathname of the file being dealt
 with.
 
     directory (name) /* fsize for all files in name */
@@ -567,15 +571,18 @@ with.
     }
 
 If a directory slot is not currently in use (because a file has been
-removed), the mode entry is zero, and this position is skipped. Each directory also contains entries for itself, called " . ", and its parent, " . . "; clearly these must also be skipped, or the program will run for quite a while.
+removed), the mode entry is zero, and this position is skipped. Each directory
+also contains entries for itself, called ".", and its parent, ".."; clearly
+these must also be skipped, or the program will run for quite a while.
 
 [comment]: <> (page 173 , CHAPTER 8 THE UNIX SYSTEM INTERFACE 173 )
 
 
 
-Although the _fsize_ program is rather specialized, it does indicate a couple
+Although the `fsize` program is rather specialized, it does indicate a couple
 of important ideas. First, many programs are not "system programs"; they
-merely use information whose form or content is maintained by the operating system. Second, for such programs, it is crucial that the representation
+merely use information whose form or content is maintained by the operating
+ystem. Second, for such programs, it is crucial that the representation
 of the information appear only in standard "header files" like `stat.h` and
 `dir.h`, and that programs include those files instead of embedding the
 actual declarations in themselves.
@@ -615,7 +622,8 @@ because the free list is maintained in storage order.
 
 One problem, which we alluded to in [Chapter 5](chap05.md), is to ensure that the
 storage returned by `alloc` is aligned properly for the objects that will be
-stored in it. Although machines vary, for each machine there is a most restrictive type: if the most restricted type can be stored at a particular address,
+stored in it. Although machines vary, for each machine there is a most restrictive
+type: if the most restricted type can be stored at a particular address,
 all other types may be also. For example, on the IBM 360/370, the
 Honeywell 6000, and many other machines, any object may be stored on a
 boundary appropriate for a `double`; on the PDP-11, `int` suffices.
@@ -690,7 +698,7 @@ homogeneous. If a too-big block is found, the tail end is returned to the
 user; in this way the header of the original needs only to have its size
 adjusted. In all cases, the pointer returned to the user is to the actual free
 area, which is one unit beyond the header. Notice that `p` is converted to a
-    character pointer before being returned by `alloc`.
+character pointer before being returned by `alloc`.
 
 The function `morecore` obtains storage from the operating system.
 The details of how this is done of course vary from system to system. In

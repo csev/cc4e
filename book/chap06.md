@@ -781,15 +781,15 @@ may also find `getch` and `ungetch` helpful.
 
 When storage space is at a premium, it may be necessary to pack several
 objects into a single machine word; one especially common use is a set of
-single-bit flags in applications like compiler symbol tables. Externally-
-imposed data formats, such as interfaces to hardware devices, also often
+single-bit flags in applications like compiler symbol tables. Externally-imposed
+data formats, such as interfaces to hardware devices, also often
 require the ability to get at pieces of a word.
 
 [comment]: <> (page 137 , CHAPTER 6 STRUCTURES 137 )
 
 Imagine a fragment of a compiler that manipulates a symbol table. Each
-identifier in a program has certain information associated with it, for exam-
-pie, whether or not it is a keyword, whether or not it is external and/or
+identifier in a program has certain information associated with it, for
+example, whether or not it is a keyword, whether or not it is external and/or
 static, and so on. The most compact way to encode such information is a
 set of one-bit flags in a single `char` or `int`.
 

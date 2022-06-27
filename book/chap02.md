@@ -708,7 +708,7 @@ changes 1 into 0 and vice versa) the `n` bits of `x` that begin at position `p`,
 leaving the others unchanged.
 
 2.10 Assignment Operators and Expressions
--------------------------------------------
+-----------------------------------------
 
 Expressions such as
 

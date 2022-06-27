@@ -528,8 +528,8 @@ for.
 The problem would be solved if it were possible to "un-read" the
 unwanted character. Then, every time the program reads one character too
 many, it could push it back on the input, so the rest of the code could
-behave as if it had never been read. Fortunately, it's easy to simulate un-
-getting a character, by writing a pair of cooperating functions. `getch`
+behave as if it had never been read. Fortunately, it's easy to simulate un-getting
+a character, by writing a pair of cooperating functions. `getch`
 delivers the next input character to be considered; `ungetch` puts a character
 back on the input, so that the next call to `getch` will return it again.
 

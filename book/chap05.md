@@ -17,7 +17,7 @@ somewhere unexpected. With discipline, however, pointers can also be used
 to achieve clarity and simplicity. This is the aspect that we will try to illustrate.
 
 5.1 Pointers and Addresses
-------------------------------
+--------------------------
 
 Since a pointer contains the address of an object, it is possible to access
 the object "indirectly" through the pointer. Suppose that `x` is a variable,
@@ -126,7 +126,7 @@ copies the contents of `px` into `py`, thus making `py` point to whatever `px`
 points to.
 
 5.2 Pointers and Function Arguments
----------------------------------------
+-----------------------------------
 
 Since C passes arguments to functions by "call by value," there is no
 direct way for the called function to alter a variable in the calling function.
@@ -198,7 +198,7 @@ character that must be read can be pushed back onto the input.
 What type does `getfloat` return as its function value?
 
 5.3 Pointers and Arrays
----------------------------
+-----------------------
 
 In C, there is a strong relationship between pointers and arrays, strong
 enough that pointers and arrays really should be treated simultaneously.
@@ -335,7 +335,7 @@ So as far as `f` is concerned, the fact that the argument really refers to part 
 a larger array is of no consequence.
 
 5.4 Address Arithmetic
---------------------------
+----------------------
 
 If  `p` is a pointer, then `p++` increments `p` to point to the next element of
 whatever kind of object `p` points to, and `p+=i` increments `p` to point `i`
@@ -488,7 +488,7 @@ multiply or divide or shift or mask them, or to add  `float`  or  `double`  to
 them.
 
 5.5 Character Pointers and Functions
-----------------------------------------
+------------------------------------
 
 A _string constant_, written as
 
@@ -596,7 +596,7 @@ showed in [Chapter 2](chap02.md): `strcat(s, t)` copies the string `t` to the en
 [3](chap03.md), and [Chapter 4](chap04.md)), `reverse` ([Chapter 3](chap03.md)), and `index` and `getop` ([Chapter 4](chap04.md)).
 
 5.6 Pointers are not Integers
----------------------------------
+-----------------------------
 
 You may notice in older C programs a rather cavalier attitude toward
 copying pointers. It has generally been true that on most machines a pointer
@@ -625,7 +625,7 @@ declarations. (The program _lint_ will warn of such constructions, in case they 
 in inadvertently.)
 
 5.7 Multi-Dimensional Arrays
---------------------------------
+----------------------------
 
 [comment]: <> (note n_103_01.md)
 
@@ -634,8 +634,8 @@ they tend to be much less used than arrays of pointers. In this section, we
 will show some of their properties.
 
 Consider the problem of date conversion, from day of the month to day
-of the year and vice versa. For example, March 1 is the 60th day of a non-
-leap year, and the 61st day of a leap year. Let us define two functions to do
+of the year and vice versa. For example, March 1 is the 60th day of a non-leap
+year, and the 61st day of a leap year. Let us define two functions to do
 the conversions: `day_of_year` converts the month and day into the day of
 the year, and `month_day` converts the day of the year into the month and
 day. Since this latter function returns two values, the month and day arguments will be pointers:
@@ -806,7 +806,7 @@ termination condition _before_ executing the loop body even once, they help to e
 the program?
 
 5.9 Initialization of Pointer Arrays
--------------------------------------
+------------------------------------
 
 Consider the problem of writing a function `month_name(n)` , which
 returns a pointer to a character string containing the name of the `n`-th
@@ -828,7 +828,7 @@ the correct number.
 [comment]: <> (page 110 , 110 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
 5.10 Pointers vs. Multi-dimensional Arrays
---------------------------------------------
+------------------------------------------
 
 Newcomers to C are sometimes confused about the difference between a
 two-dimensional array and an array of pointers, such as `name` in the example above. Given the declarations
@@ -847,7 +847,7 @@ of pointers uses slightly more space, and may require an explicit initialization
 step. But it has two advantages: accessing an element is done by
 indirection through a pointer rather than by a multiplication and an addition,
 and the rows of the array may be of different lengths. That is, each element
-of b need not point to a ten-element vector; some may point to two elements, some
+of `b` need not point to a ten-element vector; some may point to two elements, some
 to twenty, and some to none at all.
 
 Although we have phrased this discussion in terms of integers, by far
@@ -858,7 +858,7 @@ the most frequent use of arrays of pointers is like that shown in
 pointers instead of indexing.
 
 5.11 Command-line Arguments
------------------------------
+---------------------------
 
 In environments that support C, there is a way to pass command-line
 arguments or parameters to a program when it begins executing. When
@@ -912,16 +912,18 @@ remembering.
 
 [comment]: <> (page 112 , 112 THE C PROGRAMMING LANGUAGE CHAPTER 5 )
 
-As a second example, let us make some enhancements to the pattern-
-finding program from [Chapter 4](chap04.md). If you recall, we wired the search pattern
+As a second example, let us make some enhancements to the pattern-finding 
+program from [Chapter 4](chap04.md). If you recall, we wired the search pattern
 deep into the program, an obviously unsatisfactory arrangement. Following
 the lead of the UNIX utility _grep,_ let us change the program so the pattern to
 be matched is specified by the first argument on the command line.
 
 [comment]: <> (code c_112_01.c)
 
-The basic model can now be elaborated to illustrate further pointer constructions. Suppose we want to allow two optional arguments. One says
-"print all lines _except_ those that match the pattern;" the second says "precede each printed line with its line number."
+The basic model can now be elaborated to illustrate further pointer constructions. Suppose
+we want to allow two optional arguments. One says
+"print all lines _except_ those that match the pattern;" the second says "precede each
+printed line with its line number."
 
 A common convention for C programs is that an argument beginning
 with a minus sign introduces an optional flag or parameter. If we choose `-x`
@@ -993,7 +995,7 @@ the best use of available storage: lines should be stored as in `sort`, not in a
 two-dimensional array of fixed size.
 
 5.12 Pointers to Functions
----------------------------
+--------------------------
 
 In C, a function itself is not a variable, but it is possible to define a
 _pointer to a function_, which can be manipulated, passed to functions, placed
