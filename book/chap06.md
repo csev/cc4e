@@ -457,24 +457,23 @@ new lines.  When we reach the end of file we just loop through
 our stored lines from the end to the beginning and print them out
 in reverse order.
 
-One solution is to make a data structure called a _linked list_ of character
-strings.  In addition to each line of data, we will store a pointer to the
+One solution is to make a data structure called a 
+[doubly linked list](https://en.wikipedia.org/wiki/Doubly_linked_list)
+of character strings.  In addition to each line of data, we will store a pointer to the
 previous line and the next line as well as a pointer to the first item we add to the
 in the list which we will call the "head" of the list and the most recent item
 we added to the list which we will call the "tail" of the list.
 
-This structure is actually a
-[doubly linked list](https://en.wikipedia.org/wiki/Doubly_linked_list) since
-each node in the list has a link to both the previous and next nodes in the list.
+We will see a single linked list as one part of a hash map data structure below.
 A single linked list can only be traversed in a forward direction.  A doubly linked
 list can be traversed either forwards or backwards.
 
-Given that our linked list will keep expanding as we get new lines, we avoid
+Given that our linked list of strings will keep expanding as we get new lines, we avoid
 hard coding array sizes like 
 
     #define MAXLEN 1000
 
-in the previous chapter.
+in the previous chapter when we built a program to sort a file.
 
 Going back to the description of a line in our doubly linked list, it is clearly
 a structure with four components:
@@ -500,13 +499,14 @@ and I/O routines provided by the standard C libraries.
 Interestingly if we wanted to print the list in forward order (or if we had a singly
 linked list), our loop would be as follows:
 
-    for (struct lnode *current = head; current != NULL; current = current->prev ) {
+    for (struct lnode *current = head; current != NULL; current = current->next ) {
         printf("%s", current->text);
     }
 
 In general we use the variable names `head`, `tail`, `current` as well as `next` and `prev` or similar names
 when writing code that builds or uses a linked list so other programmers will quickly understand
-what our are talking about.
+what our are talking about.  After a while, reading a `for` loop to traverse a linked list becomes as
+natural as reading a `for` loop that progresses through a sequence of numbers.
 
 6.5.1 Binary Trees
 ------------------
@@ -659,7 +659,8 @@ converts it into a `tnode` pointer in an expression. Thus `talloc` is written as
 This is more than is needed for current compilers, but represents the safest
 course for the future.
 
-**Exercise 6-4.** Write a program which reads a C program and prints in alphabetical order each group of variable names which are identical in the first 7
+**Exercise 6-4.** Write a program which reads a C program and prints in alphabetical
+order each group of variable names which are identical in the first 7
 characters, but different somewhere thereafter. (Make sure that 7 is a
 parameter).
 
@@ -673,6 +674,8 @@ by its count.
 
 6.6 Table Lookup
 ----------------
+
+[comment]: <> (note n_135_01.md)
 
 In this section we will write the innards of a table-lookup package as an
 illustration of more aspects of structures. This code is typical of what might
@@ -689,14 +692,15 @@ table. Later, when the name `YES` appears in a statement like
 
 it must be replaced by 1.
 
-There are two major routines that manipulate the names and replacement texts. `install(s, t)` records the name `s` and
-the replacement text `t` in a table; `s` and `t` are just character strings. `lookup(s)` searches for `s`
-in the table, and returns a pointer to the place where it was found, or `NULL` if it wasn't there.
+There are two major routines that manipulate the names and replacement texts. `install(s, t)` records
+the name `s` and the replacement text `t` in a table; `s` and `t` are just character
+strings. `lookup(s)` searches for `s` in the table, and returns a pointer to the place where it was
+ found, or `NULL` if it wasn't there.
 
 The algorithm used is a hash search - the incoming name is converted
 into a small positive integer, which is then used to index into an array of
-pointers. An array element points to the beginning of a chain of blocks describing names that have that hash value. It is `NULL` if no names have
-hashed to that value.
+pointers. An array element points to the beginning of a chain of blocks describing names that
+have that hash value. It is `NULL` if no names have hashed to that value.
 
 [comment]: <> (page 135 , CHAPTER 6 STRUCTURES 135 )
 
@@ -731,7 +735,8 @@ the merit of extreme simplicity.)
     }
 
 The hashing process produces a starting index in the array `hashtab`; if
-the string is to be found anywhere, it will be in the chain of blocks beginning there. The search is performed by `lookup`. If `lookup` finds the
+the string is to be found anywhere, it will be in the chain of blocks beginning there. The
+search is performed by `lookup`. If `lookup` finds the
 entry already present, it returns a pointer to it; if not, it returns `NULL`.
 
     struct nlist *lookup(s) /* look for s in hashtab */
