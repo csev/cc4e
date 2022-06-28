@@ -444,6 +444,16 @@ it.
 6.5 Self-referential Structures
 -------------------------------
 
+[comment]: <> (note n_130_01.md)
+
+6.5.1 Linked Lists (added by Dr. Chuck)
+---------------------------------------
+
+[comment]: <> (note n_130_02.md)
+
+6.5.1 Binary Trees
+------------------
+
 Suppose we want to handle the more general problem of counting the
 occurrences of _all_ the words in some input. Since the list of words isn't
 known in advance, we can't conveniently sort it and use a binary search.
