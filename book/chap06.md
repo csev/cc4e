@@ -7,6 +7,8 @@ A _structure_ is a collection of one or more variables, possibly of different
 types, grouped together under a single name for convenient handling.
 (Structures are called "records" in some languages, most notably Pascal.)
 
+[comment]: <> (note n_119_01.md)
+
 The traditional example of a structure is the payroll record: an
 "employee" is described by a set of attributes such as name, address, social
 security number, salary, etc. Some of these in turn could be structures: a
@@ -381,6 +383,8 @@ To illustrate some of the considerations involved with pointers and
 arrays of structures, let us write the keyword-counting program again, this
 time using pointers instead of array indices.
 
+[comment]: <> (note n_129_01.md)
+
 The external declaration of `keytab` need not change, but `main` and
 `binary` do need modification.
 
@@ -728,6 +732,8 @@ data formats, such as interfaces to hardware devices, also often
 require the ability to get at pieces of a word.
 
 [comment]: <> (page 137 , CHAPTER 6 STRUCTURES 137 )
+
+[comment]: <> (note n_137_01.md)
 
 Imagine a fragment of a compiler that manipulates a symbol table. Each
 identifier in a program has certain information associated with it, for
