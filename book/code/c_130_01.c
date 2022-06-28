@@ -29,8 +29,8 @@ int main() /* print lines in reverse */
       if ( head == NULL ) head = new;
   }
 
-  for (struct lnode *iter = tail; iter != NULL; iter = iter->prev ) {
-      printf("%s", iter->text);
+  for (struct lnode *current = tail; current != NULL; current = current->prev ) {
+      printf("%s", current->text);
   }
 
 }
