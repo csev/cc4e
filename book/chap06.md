@@ -79,7 +79,7 @@ construction of the form
     structure-name . member
 
 The structure member operator `.` connects the structure name and the
-member name. To set `leap` from the the date in structure `d`, for example    
+member name. To set `leap` from the the date in structure `d`, for example
 
     leap = d.year % 4 == 0 && d.year % 100 != 0 || d.year % 400 == 0;
 
@@ -198,8 +198,8 @@ bind very tightly. For example, given the declaration
 
     struct {
         int x;
-        int *Y;
-    } *P;
+        int *y;
+    } *p;
 
 then
 
@@ -210,14 +210,16 @@ Parentheses can be used to alter the binding: `(++p) ->x` increments `p`
 before accessing `x`, and `(p++)->x` increments `p` afterward. (This last set
 of parentheses is unnecessary. Why?)
 
-In the same way, `*p->y` fetches whatever `y` points to; `*p->y++` increments `y` after accessing whatever it points to (just like `*s++`); (`*p->y)++`
+In the same way, `*p->y` fetches whatever `y` points to;
+`*p->y++` increments `y` after accessing whatever it points to (just like `*s++`); `(*p->y)++`
 increments whatever `y` points to; and `*p++->y` increments `p` after accessing
 whatever `y` points to.
 
 6.3 Arrays of Structures
 ------------------------
 
-Structures are especially suitable for managing arrays of related variables. For instance, consider a program to count the occurrences of each C
+Structures are especially suitable for managing arrays of related variables.
+For instance, consider a program to count the occurrences of each C
 keyword. We need an array of character strings to hold the names, and an
 array of integers for the counts. One possibility is to use two parallel arrays
 keyword and keycount, as in
@@ -225,9 +227,10 @@ keyword and keycount, as in
     char *keyword[NKEYS];
     int keycount[NKEYS];
 
-But the very fact that the arrays are parallel indicates that a different organization is possible. Each keyword entry is really a pair:
-
 [comment]: <> (page 124 , 124 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
+
+But the very fact that the arrays are parallel indicates that a different organization
+is possible. Each keyword entry is really a pair:
 
     char *keyword;
     int keycount;
@@ -315,7 +318,7 @@ determined at compile time. The number of entries is just
 C provides a compile-time unary operator called `sizeof` which can be used
 to compute the size of any object. The expression
 
-    sizeof (object)
+    sizeof(object)
 
 yields an integer equal to the size of the specified object. (The size is given
 in unspecified units called "bytes," which are the same size as a char.)
@@ -381,45 +384,9 @@ time using pointers instead of array indices.
 The external declaration of `keytab` need not change, but `main` and
 `binary` do need modification.
 
-    main() /* count C keywords; pointer version */
-    {
-        int t;
-        char word[MAXWORD];
-        struct key *binary(), *p;
-
-        while ((t = getword(word, MAXWORD)) != EOF)
-            if (t == LETTER)
-                if ((p=binary(word, keytab, NKEYS)) != NULL)
-                    p->keycount++;
-        for (p = keytab; p < keytab + NKEYS; p++)
-            if (p->keycount > 0)
-                printf("%4d %s\n", p->keycount, p->keyword);
-    }
-
 [comment]: <> (page 129 , CHAPTER6 STRUCTURES 129 )
 
-    struct key *binary(word, tab, n) /* find word */
-    char *word; /* in tab[0]...tab[n-1] */
-    struct key tab[];
-    int n;
-    {
-        int cond;
-
-        struct key *low = &tab[0];
-        struct key *high = &tab[n-1];
-        struct key *mid;
-
-        while (low <= high) {
-            mid = low + (high-low) / 2;
-            if ((cond = strcmp(word, mid->keyword)) < 0)
-                high = mid - 1;
-            else if (cond > 0)
-                low = mid + 1;
-            else
-                return (mid);
-        }
-        return (NULL)
-    }
+[comment]: <> (code c_129_01.c)
 
 There are several things worthy of note here. First, the declaration of
 `binary` must indicate that it returns a pointer to the structure type `key`,
@@ -427,7 +394,8 @@ instead of an integer; this is declared both in `main` and in `binary`. If
 `binary` finds the word, it returns a pointer to it; if it fails, it returns `NULL`.
 
 Second, all the accessing of elements of keytab is done by pointers.
-This causes one significant change in binary: the computation of the middle element can no longer be simply
+This causes one significant change in binary: the computation of the
+middle element can no longer be simply
 
     mid = (low+high) / 2
 
@@ -540,33 +508,14 @@ in the tree with `tree`.
 level (the root) of the tree. At each stage, that word is compared to the
 word already stored at the node, and is percolated down to either the left or
 right subtree by a recursive call to `tree`. Eventually the word either
-matches something already in the tree (in which case the count is incremented), or a null pointer is encountered, indicating that a node must be
+matches something already in the tree (in which case the count is
+incremented), or a null pointer is encountered, indicating that a node must be
 created and added to the tree. If a new node is created, `tree` returns a
 pointer to it, which is installed in the parent node.
 
 [comment]: <> (page 132 , 132 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
 
-    struct tnode *tree(p, w) /* install w at or below P */
-    struct tnode *p;
-    char *w;
-    {
-      struct tnode *talloc();
-      char *strsave();
-      int cond;
-
-      if (p == NULL) {    /* a new word has arrived */
-        p = talloc();     /* make a new node */
-        p->word = strsave(w);
-        p->count = 1;
-        p->left = p->right = NULL;
-      } else if ((cond = strcmp(w, p->word)) == 0)
-        p->count++;       /* repeated word */
-      else if (cond < 0)  /* lower goes into left subtree */
-        p->left = tree(p->left, w);
-      else        /* greater into right subtree */
-        p->right = tree(p->right, w);
-      return (p);
-    }
+[comment]: <> (code c_132_01.c)
 
 Storage for the new node is fetched by a routine `talloc`, which is an
 adaptation of the `alloc` we wrote earlier. It returns a pointer to a free
@@ -585,15 +534,7 @@ cleanest recursive routines you can find.
 
 [comment]: <> (page 133 , CHAPTER 6 STRUCTURES 133 )
 
-    treeprint(p) /* print tree p recursively */
-    struct tnode *p;
-    {
-        if (p != NULL) {
-            treeprint(p->left);
-            printf("%4d %s\n", p->count, p->word);
-            treeprint(p->right);
-        }
-    }
+[comment]: <> (code c_133_01.c)
 
 A practical note: if the tree becomes "unbalanced" because the words
 don't arrive in random order, the running time of the program can grow too
