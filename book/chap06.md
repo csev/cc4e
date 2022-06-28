@@ -714,7 +714,8 @@ matters, the simple version of `alloc` in [Chapter 5](chap05.md) is not adequate
 **Exercise 6-7.** Write a routine which will remove a name and definition from
 the table maintained by `lookup` and `install`.
 
-**Exercise 6-8.** Implement a simple version of the `#define` processor suitable for use with C programs, based on the routines of this section. You
+**Exercise 6-8.** Implement a simple version of the `#define` processor suitable
+for use with C programs, based on the routines of this section. You
 may also find `getch` and `ungetch` helpful.
 
 6.7 Fields
@@ -804,7 +805,8 @@ special width 0 may be used to force alignment at the next `int` boundary.
 There are a number of caveats that apply to fields. Perhaps most
 significant, fields are assigned left to right on some machines and right to
 left on others, reflecting the nature of different hardware. This means that
-although fields are quite useful for maintaining internally-defined data structures, the question of which end comes first has to be carefully considered
+although fields are quite useful for maintaining internally-defined data
+structures, the question of which end comes first has to be carefully considered
 when picking apart externally-defined data.
 
 Other restrictions to bear in mind: fields are unsigned; they may be
@@ -815,11 +817,14 @@ they do not have addresses, so the & operator cannot be applied to them.
 ----------
 
 A _union_ is a variable which may hold (at different times) objects of
-different types and sizes, with the compiler keeping track of size and alignment requirements. Unions provide a way to manipulate different kinds of
+different types and sizes, with the compiler keeping track of size and alignment
+requirements. Unions provide a way to manipulate different kinds of
 data in a single area of storage, without embedding any machine-dependent
 information in the program.
 
-As an example, again from a compiler symbol table, suppose that constants may be `int`'s, `float`'s or character pointers. The value of a particular constant must be stored in a variable of the proper type, yet it is most
+As an example, again from a compiler symbol table, suppose that constants may
+be `int`'s, `float`'s or character pointers. The value of a particular constant
+must be stored in a variable of the proper type, yet it is most
 convenient for table management if the value occupies the same amount of
 storage and is stored in the same place regardless of its type. This is the
 purpose of a union - to provide a single variable which can legitimately
@@ -834,7 +839,8 @@ hold any one of several types. As with fields, the syntax is based on structures
 [comment]: <> (page 139 , CHAPTER 6 STRUCTURES 139 )
 
 The variable `uval` will be large enough to hold the largest of the three
-types, regardless of the machine it is compiled on - the code is independent of hardware characteristics. Any one of these types may be assigned to
+types, regardless of the machine it is compiled on - the code is independent of
+hardware characteristics. Any one of these types may be assigned to
 `uval` and then used in expressions, so long as the usage is consistent: the
 type retrieved must be the type most recently stored. It is the responsibility
 of the programmer to keep track of what type is currently stored in a union;
