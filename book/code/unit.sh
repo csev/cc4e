@@ -72,6 +72,7 @@ gcc -ansi -c -Wno-return-type c_123_01.c
 gcc -ansi -c -Wno-return-type -Wno-implicit-function-declaration c_127_01.c
 gcc -ansi -c c_127_02.c
 # gcc -ansi -c c_129_01.c - This has got a lot of problems
+gcc c_130_01.c
 gcc -ansi -c -Wno-implicit-function-declaration c_131_01.c
 gcc -ansi -c c_132_01.c
 gcc -ansi -c -Wno-return-type c_133_01.c

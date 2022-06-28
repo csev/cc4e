@@ -446,10 +446,67 @@ it.
 
 [comment]: <> (note n_130_01.md)
 
-6.5.1 Linked Lists (added by Dr. Chuck)
----------------------------------------
+6.5.1 Linked Lists (Bonus content)
+----------------------------------
 
-[comment]: <> (note n_130_02.md)
+Suppose we want to read a file and print the file in reverse order.
+We don't know how many lines will be in the file before we read the
+file so we can't simply use a simple array of pointers to strings in character arrays
+(i.e. lines).  In a sense we need a dynamic array that grows as we encounter
+new lines.  When we reach the end of file we just loop through
+our stored lines from the end to the beginning and print them out
+in reverse order.
+
+One solution is to make a data structure called a _linked list_ of character
+strings.  In addition to each line of data, we will store a pointer to the
+previous line and the next line as well as a pointer to the first item we add to the
+in the list which we will call the "head" of the list and the most recent item
+we added to the list which we will call the "tail" of the list.
+
+This structure is actually a
+[doubly linked list](https://en.wikipedia.org/wiki/Doubly_linked_list) since
+each node in the list has a link to both the previous and next nodes in the list.
+A single linked list can only be traversed in a forward direction.  A doubly linked
+list can be traversed either forwards or backwards.
+
+Given that our linked list will keep expanding as we get new lines, we avoid
+hard coding array sizes like 
+
+    #define MAXLEN 1000
+
+in the previous chapter.
+
+Going back to the description of a line in our doubly linked list, it is clearly
+a structure with four components:
+
+    struct lnode { /* A line of text */
+        char *text; /* points to the text */
+        struct lnode *prev; /* The previous line */
+        struct tnode *next; /* The next line */
+    }
+
+This "recursive" declaration of `lnode` might look chancy, but it's actually
+quite correct. It is illegal for a structure to contain an instance of itself, but
+
+    struct lnode *prev;
+
+declares `prev` to be a _pointer_ to an `lnode`, not an `lnode` itself.
+
+We will write the code in a modern C dialect using modern memory allocation
+and I/O routines provided by the standard C libraries.
+
+[comment]: <> (code c_130_01.c)
+
+Interestingly if we wanted to print the list in forward order (or if we had a singly
+linked list), our loop would be as follows:
+
+    for (struct lnode *current = head; current != NULL; current = current->prev ) {
+        printf("%s", current->text);
+    }
+
+In general we use the variable names `head`, `tail`, `current` as well as `next` and `prev` or similar names
+when writing code that builds or uses a linked list so other programmers will quickly understand
+what our are talking about.
 
 6.5.1 Binary Trees
 ------------------
