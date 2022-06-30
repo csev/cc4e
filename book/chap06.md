@@ -246,7 +246,7 @@ and there is an array of pairs. The structure declaration
     struct key {
         char *keyword;
         int keycount;
-    } keytab[NKEYS);
+    } keytab[NKEYS];
 
 defines an array `keytab` of structures of this type, and allocates storage to
 them. Each element of the array is a structure. This could also be written
@@ -291,7 +291,7 @@ in braces, as in
 but the inner braces are not necessary when the initializers are simple variables
 or character strings, and when all are present. As usual, the compiler
 will compute the number of entries in the array `keytab` if initializers are
-present and the [] is left empty.
+present and the `[]` is left empty.
 
 [comment]: <> (page 125 , CHAPTER 6 STRUCTURES 125 )
 
@@ -310,7 +310,7 @@ its first argument.
 
 [comment]: <> (page 126 , 126 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
 
-The quantity `NKEYS` is the number of keywords in keytab. Although
+The quantity `NKEYS` is the number of keywords in `keytab`. Although
 we could count this by hand, it's a lot easier and safer to do it by machine,
 especially if the list is subject to change. One possibility would be to terminate
 the list of initializers with a null pointer, then loop along `keytab`
@@ -327,7 +327,7 @@ to compute the size of any object. The expression
     sizeof(object)
 
 yields an integer equal to the size of the specified object. (The size is given
-in unspecified units called "bytes," which are the same size as a char.)
+in unspecified units called "bytes," which are the same size as a `char`.)
 The object can be an actual variable or array or structure, or the name of a
 basic type like `int` or `double`, or the name of a derived type like a
 structure. In our case, the number of keywords is the array size divided by the
@@ -512,7 +512,7 @@ when writing code that builds or uses a linked list so other programmers will qu
 what our are talking about.  After a while, reading a `for` loop to traverse a linked list becomes as
 natural as reading a `for` loop that progresses through a sequence of numbers.
 
-6.5.1 Binary Trees
+6.5.2 Binary Trees
 ------------------
 
 Suppose we want to handle the more general problem of counting the
