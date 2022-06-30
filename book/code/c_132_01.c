@@ -7,7 +7,7 @@ struct tnode { /* the basic node */
     struct tnode *right; /* right child */
 };
 
-struct tnode *tree(p, w) /* install w at or below P */
+struct tnode *tree(p, w) /* install w at or below p */
 struct tnode *p;
 char *w;
 {

@@ -509,7 +509,7 @@ linked list), our loop would be as follows:
 
 In general we use the variable names `head`, `tail`, `current` as well as `next` and `prev` or similar names
 when writing code that builds or uses a linked list so other programmers will quickly understand
-what our are talking about.  After a while, reading a `for` loop to traverse a linked list becomes as
+what we are talking about.  After a while, reading a `for` loop to traverse a linked list becomes as
 natural as reading a `for` loop that progresses through a sequence of numbers.
 
 6.5.2 Binary Trees
@@ -732,15 +732,7 @@ simply adds up the character values in the string and forms the remainder
 modulo the array size. (This is not the best possible algorithm, but it has
 the merit of extreme simplicity.)
 
-    hash(s) /* form hash value for string s */
-    char *s;
-    {
-      int hashval;
-
-      for (hashval = 0; *s != '/0'; )
-        hashval += *s++;
-      return(hashval % HASHSIZE);
-    }
+[comment]: <> (code c_135_01.c)
 
 [comment]: <> (note n_135_02.md)
 
@@ -749,47 +741,15 @@ the string is to be found anywhere, it will be in the chain of blocks beginning 
 search is performed by `lookup`. If `lookup` finds the
 entry already present, it returns a pointer to it; if not, it returns `NULL`.
 
-    struct nlist *lookup(s) /* look for s in hashtab */
-    char *s;
-    {
-      struct nlist *np;
+[comment]: <> (page 136 , 136 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
 
-      for (np = hashtab[hash(s)]; np != NULL; np = np->next)
-        if (strcmp(s, np->name) == 0)
-          return(np); /* found it */
-      return(NULL); /* not found */
-    }
+[comment]: <> (code c_136_01.c)
 
 `install` uses `lookup` to determine whether the name being installed
 is already present; if so, the new definition must supersede the old one.
 
-[comment]: <> (page 136 , 136 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
-
 Otherwise, a completely new entry is created. `install` returns `NULL` if for
 any reason there is no room for a new entry.
-
-    struct nlist *install(name, def) /* put (name, def) */
-    char *name, *def;                /* in hashtab */
-    {
-      struct nlist *np, *lookup();
-      char *strsave(), *alloc();
-      int hashval;
-
-      if ((np = lookup (name)) == NULL) { /* not found */
-        np = (struct nlist *) alloc(sizeof(*np));
-        if (np == NULL)
-          return(NULL);
-        if ((np->name = strsave(name)) == NULL)
-          return (NULL);
-        hashval = hash(np->name);
-        np->next = hashtab[hashval];
-        hashtab[hashval] = np;
-      } else /* already there */
-          free(np->def); /* free previous definition */
-      if ((np->def = strsave(def)) == NULL)
-        return(NULL);
-      return(np);
-    }I
 
 `strsave` merely copies the string given by its argument into a safe
 place, obtained by a call on `alloc`. We showed the code in [Chapter 5](chap05.md).

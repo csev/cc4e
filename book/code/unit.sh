@@ -76,6 +76,8 @@ gcc c_130_01.c
 gcc -ansi -c -Wno-implicit-function-declaration c_131_01.c
 gcc -ansi -c c_132_01.c
 gcc -ansi -c -Wno-return-type c_133_01.c
+gcc -ansi -c c_135_01.c
+gcc -ansi -c -Wno-implicit-function-declaration c_136_01.c
 
 # Chapter 7
 gcc -ansi c_145_01.c -o lower

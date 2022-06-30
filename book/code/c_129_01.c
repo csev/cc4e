@@ -33,6 +33,6 @@ int n;
         else
             return (mid);
     }
-    return (NULL)
+    return(NULL);
 }
 
