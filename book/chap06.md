@@ -14,7 +14,8 @@ The traditional example of a structure is the payroll record: an
 security number, salary, etc. Some of these in turn could be structures: a
 name has several components, as does an address and even a salary.
 
-Structures help to organize complicated data, particularly in large programs, because in many situations they permit a group of related variables
+Structures help to organize complicated data, particularly in large
+programs, because in many situations they permit a group of related variables
 to be treated as a unit instead of as separate entities. In this chapter we will
 try to illustrate how structures are used. The programs we will use are
 bigger than many of the others in the book, but still of modest size.
@@ -81,7 +82,7 @@ construction of the form
     structure-name . member
 
 The structure member operator `.` connects the structure name and the
-member name. To set `leap` from the the date in structure `d`, for example
+member name. To set `leap` from the `date` in structure `d`, for example
 
     leap = d.year % 4 == 0 && d.year % 100 != 0 || d.year % 400 == 0;
 
@@ -211,7 +212,7 @@ then
     ++p->x
 
 increments `x`, not `p`, because the implied parenthesization is `++(p->x)`.
-Parentheses can be used to alter the binding: `(++p) ->x` increments `p`
+Parentheses can be used to alter the binding: `(++p)->x` increments `p`
 before accessing `x`, and `(p++)->x` increments `p` afterward. (This last set
 of parentheses is unnecessary. Why?)
 
