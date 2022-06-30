@@ -7,7 +7,7 @@
 struct lnode { /* A line of text */
     char *text; /* points to the text */
     struct lnode *prev; /* The previous line */
-    struct tnode *next; /* The next line */
+    struct lnode *next; /* The next line */
 };
 
 int main() /* print lines in reverse */

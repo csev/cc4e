@@ -128,7 +128,10 @@ may not be assigned to or copied as a unit, and that they can not be passed
 to or returned from functions. (These restrictions will be removed in
 forthcoming versions.) Pointers to structures do not suffer these limitations,
 however, so structures and functions do work together comfortably. Finally,
-automatic structures, like automatic arrays, cannot be initialized; only external or static structures can.
+automatic structures, like automatic arrays, cannot be initialized; only
+external or static structures can.
+
+[comment]: <> (note n_121_01.md)
 
 Let us investigate some of these points by rewriting the date conversion
 functions of the last chapter to use structures. Since the rules prohibit passing a
@@ -481,7 +484,7 @@ a structure with four components:
     struct lnode { /* A line of text */
         char *text; /* points to the text */
         struct lnode *prev; /* The previous line */
-        struct tnode *next; /* The next line */
+        struct lnode *next; /* The next line */
     }
 
 This "recursive" declaration of `lnode` might look chancy, but it's actually
@@ -634,6 +637,8 @@ the implementation of `alloc` may not be portable, but the usage is. The
 `alloc` of [Chapter 5](chap05.md) does not guarantee any particular
 alignment; in [Chapter 8](chap08.md) we will show how to do the job right.
 
+[comment]: <> (note n_133_01.md)
+
 The question of the type declaration for `alloc` is a vexing one for any
 language that takes its type-checking seriously. In C, the best procedure is
 to declare that `alloc` returns a pointer to `char`, then explicitly coerce the
@@ -645,9 +650,9 @@ then
 
     (struct tnode *) p
 
-converts it into a `tnode` pointer in an expression. Thus `talloc` is written as
-
 [comment]: <> (page 134 , 134 THE C PROGRAMMING LANGUAGE CHAPTER 6 )
+
+converts it into a `tnode` pointer in an expression. Thus `talloc` is written as
 
     struct tnode *talloc()
     {
@@ -658,6 +663,8 @@ converts it into a `tnode` pointer in an expression. Thus `talloc` is written as
 
 This is more than is needed for current compilers, but represents the safest
 course for the future.
+
+[comment]: <> (note n_134_01.md)
 
 **Exercise 6-4.** Write a program which reads a C program and prints in alphabetical
 order each group of variable names which are identical in the first 7
@@ -734,6 +741,8 @@ the merit of extreme simplicity.)
       return(hashval % HASHSIZE);
     }
 
+[comment]: <> (note n_135_02.md)
+
 The hashing process produces a starting index in the array `hashtab`; if
 the string is to be found anywhere, it will be in the chain of blocks beginning there. The
 search is performed by `lookup`. If `lookup` finds the
@@ -786,6 +795,8 @@ place, obtained by a call on `alloc`. We showed the code in [Chapter 5](chap05.m
 Since calls to `alloc` and `free` may occur in any order, and since alignment
 matters, the simple version of `alloc` in [Chapter 5](chap05.md) is not adequate here; see
 [Chapters 7](chap07.md) and [8](chap08.md).
+
+[comment]: <> (note n_136_01.md)
 
 **Exercise 6-7.** Write a routine which will remove a name and definition from
 the table maintained by `lookup` and `install`.
