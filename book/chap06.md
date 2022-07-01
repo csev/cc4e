@@ -903,7 +903,7 @@ Syntactically, members of a union are accessed as
 
 or
 
-    union-pointer-> member
+    union-pointer->member
 
 just as for structures. If the variable `utype` is used to keep track of the
 current type stored in `uval`, then one might see code such as
@@ -949,6 +949,8 @@ only operations currently permitted on unions are accessing a member and
 taking the address; unions may not be assigned to, passed to functions, or
 returned by functions. Pointers to unions can be used in a manner identical
 to pointers to structures.
+
+[comment]: <> (note n_140_01.md)
 
 The storage allocator in [Chapter 8](chap08.md) shows how a union can be used to
 force a variable to be aligned on a particular kind of storage boundary.
