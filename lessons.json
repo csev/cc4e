@@ -222,6 +222,36 @@
         "resource_link_id": "discuss_01_pointers"
         }
     ]
+},
+{
+    "title": "Structures",
+    "anchor": "structures",
+    "icon" : "fa-th-list",
+    "description": "This chapter covers structures.",
+    "references" : [
+        {
+            "title" : "Chapter 6: Structures",
+            "href" : "{apphome}/book/chap06.md"
+        },
+        {
+            "title" : "Audio version of the book",
+            "href" : "https://audio.cc4e.com/"
+        }
+    ],
+    "videos" : [
+        {
+            "title" : "Chapter 6 - Structures",
+            "youtube" : "OpQsi3YK9vE"
+        }
+    ],
+
+    "discussions" : [
+        {
+        "title" : "Structures",
+        "launch" : "mod/tdiscus/",
+        "resource_link_id": "discuss_01_structures"
+        }
+    ]
 }
 ]
 }
