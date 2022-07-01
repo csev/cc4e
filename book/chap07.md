@@ -33,7 +33,7 @@ the line
 near the beginning. The file stdio .h defines certain macros and variables
 used by the I/O library. Use of the angle brackets < and > instead of the
 usual double quotes directs the compiler to search for the file in a directory
-containing standard header information (on UNIX, typically _lusrlinclude)._
+containing standard header information (on UNIX, typically `/usr/include`).
 
 Furthermore, it may be necessary when loading the program to specify
 the library explicitly; for example, on the PDP-11 UNIX system, the
@@ -53,20 +53,20 @@ The simplest input mechanism is to read a character at a time from the
 "standard input," generally the user's terminal, with `getchar`.
 `getchar()` returns the next input character each time it is called. In most
 environments that support C, a file may be substituted for the terminal by
-using the < convention: if a program _prog_ uses `getchar`, then the command line
+using the < convention: if a program `prog` uses `getchar`, then the command line
 
     prog <infile
 
-causes _prog_ to read `infile` instead of the terminal. The switching of the
-input is done in such a way that _prog_ itself is oblivious to the change; in
-particular, the string `<infile" is not included in the command-line
+causes `prog` to read `infile` instead of the terminal. The switching of the
+input is done in such a way that `prog` itself is oblivious to the change; in
+particular, the string `<infile` is not included in the command-line
 arguments in `argv`. The input switching is also invisible if the input comes
 from another program via a pipe mechanism; the command line
 
     otherprog | prog
 
-runs the two programs _otherprog_ and _prog,_ and arranges that the standard
-input for _prog_ comes from the standard output of _otherprog._
+runs the two programs `otherprog` and `prog`, and arranges that the standard
+input for `prog` comes from the standard output of `otherprog`.
 
 `getchar` returns the value `EOF` when it encounters end of file on whatever input is being read. The standard library defines the symbolic constant
 `EOF` to be -1 (with a `#define` in the file `stdio.h`), but tests should be
@@ -74,7 +74,7 @@ written in terms of `EOF`, not -1, so as to be independent of the specific
 value.
 
 For output, `putchar(c)` puts the character c on the "standard output," which is also by default the terminal. The output can be directed to a
-file by using >: if _prog_ uses `putchar`,
+file by using >.  If `prog` uses `putchar`
 
     prog >outfile
 
@@ -83,8 +83,8 @@ the UNIX system, a pipe can also be used:
 
     prog | anotherprog
 
-puts the standard output of _prog_ into the standard input of _otherprog._ Again,
-_prog_ is not aware of the redirection.
+puts the standard output of `prog` into the standard input of `otherprog`. Again,
+`prog` is not aware of the redirection.
 
 Output produced by `printf` also finds its way to the standard output,
 and calls to `putchar` and `printf` may be interleaved.
@@ -96,22 +96,24 @@ only one output stream; for such programs I/O with `getchar`, `putchar`,
 and `printf` may be entirely adequate, and is certainly enough to get
 started. This is particularly true given file redirection and a pipe facility for
 connecting the output of one program to the input of the next. For example,
-consider the program _lower,_ which maps its input to lower case:
+consider the program `lower`, which maps its input to lower case:
 
 [comment]: <> (code c_145_01.c)
 
+[comment]: <> (I just changed stdio.h from the 1978 book to ctype.h below it is easier than explaining) 
+
 The "functions" `isupper` and `tolower` are actually macros defined in
-`stdio.h`. The macro `isupper` tests whether its argument is an upper
+`ctype.h`. The macro `isupper` tests whether its argument is an upper
 case letter, returning non-zero if it is, and zero if not. The macro `tolower`
 converts an upper case letter to lower case. Regardless of how these functions are implemented on a particular machine, their external behavior is the
 same, so programs that use them are shielded from knowledge of the character set.
 
 To convert multiple files, you can use a program like the UNIX utility
-_cat_ to collect the files:
+`cat` to collect the files:
 
     cat file1 file2 ... | lower >output
 
-and thus avoid learning how to access files from a program. _(cat_ is
+and thus avoid learning how to access files from a program. (`cat` is
 presented later in this chapter.)
 
 As an aside, in the standard I/O library the "functions" `getchar` and
@@ -200,6 +202,8 @@ wrong type.
 way. As a minimum, it should print non-graphic characters in octal or hex
 (according to local custom), and fold long lines.
 
+[comment]: <> (note n_147_01.md)
+
 7.4 Formatted Input - Scanf
 ---------------------------
 
@@ -275,7 +279,7 @@ with the input line
     25 54.32E-1 Thompson
 
 will assign the value 25 to `i`, the value 5.432 to `x`, and the string
-"Thompson", properly terminated by \0, to name. The three input fields
+"Thompson", properly terminated by `\0`, to name. The three input fields
 may be separated by as many blanks, tabs and newlines as desired. The call
 
     int i;
@@ -333,7 +337,7 @@ result. As an example, if name is a character array and n is an integer, then
 
     sprintf(name, "temp%d", n);
 
-creates a string of the form `temp_nnn_` in `name`, where _nnn_ is the value of
+creates a string of the form "tempnnn" in `name`, where "nnn" is the value of
 `n`.
 
 `sscanf` does the reverse conversions - it scans the `string` according
@@ -394,7 +398,7 @@ system are given in [Chapter 8](chap08.md).)
 
 The actual call to `fopen` in a program is
 
-    fp = fopen (name, mode);
+    fp = fopen(name, mode);
 
 [comment]: <> (page 152 , 152 THE C PROGRAMMING LANGUAGE CHAPTER 7 )
 
@@ -439,7 +443,7 @@ as described in section 7.2.
 `stdin` and `stdout` as follows:
 
     #define getchar()  getc(stdin)
-    #define putchar (c)  putc(c, stdout)
+    #define putchar(c)  putc(c, stdout)
 
 For formatted input or output of files, the functions `fscanf` and
 `fprintf` may be used. These are identical to `scanf` and `printf`, save
@@ -503,7 +507,7 @@ convention, a return value of 0 signals that all is well, and various non-zero
 values signal abnormal situations.
 
 `exit` calls `fclose` for each open output file, to flush out any buffered
-output, then calls a routine named `\_exit`. The function `\_exit` causes
+output, then calls a routine named `_exit`. The function `_exit` causes
 immediate termination without any buffer flushing; of course it may be
 called directly if desired.
 
@@ -517,7 +521,7 @@ the `getline` function that we have used throughout the book. The call
 
     fgets(line, MAXLINE, fp)
 
-reads the next input line (including the newline) from file `fp` into the character array line; at most `MAXLINE-1` characters will be read. The resulting line is terminated with \0. Normally `fgets` returns line; on end of
+reads the next input line (including the newline) from file `fp` into the character array line; at most `MAXLINE-1` characters will be read. The resulting line is terminated with `\0`. Normally `fgets` returns line; on end of
 file it returns `NULL`. (Our `getline` returns the line length, and zero for
 end of file.)
 
