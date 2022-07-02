@@ -269,9 +269,9 @@ containing a decimal point, and an optional exponent field containing an E or e 
 
 [comment]: <> (page 149 , 149 THE C PROGRAMMING LANGUAGE CHAPTER 7 )
 
-The conversion characters `d`, `o` and `x` may be preceded by 'l' (letter ell)
-to indicate that a pointer to long rather than `int` appears in the argument
-list. Similarly, the conversion characters `e` or `f` may be preceded by 1 to
+The conversion characters `d`, `o` and `x` may be preceded by `l` (letter ell)
+to indicate that a pointer to `long` rather than `int` appears in the argument
+list. Similarly, the conversion characters `e` or `f` may be preceded by `l` (letter ell) to
 indicate that a pointer to `double` rather than `float` is in the argument list.
 
 For example, the call
