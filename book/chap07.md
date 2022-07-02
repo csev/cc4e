@@ -363,6 +363,8 @@ sets n to the value of the string of digits following `temp` in name.
 7.6 File Access
 ---------------
 
+[comment]: <> (note n_151_01.md)
+
 The programs written so far have all read the standard input and written
 the standard output, which we have assumed are magically pre-defined for a
 program by the local operating system.
