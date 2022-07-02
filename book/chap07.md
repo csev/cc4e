@@ -30,8 +30,8 @@ the line
 
     #include <stdio.h>
 
-near the beginning. The file stdio .h defines certain macros and variables
-used by the I/O library. Use of the angle brackets < and > instead of the
+near the beginning. The file `stdio.h` defines certain macros and variables
+used by the I/O library. Use of the angle brackets `<` and `>` instead of the
 usual double quotes directs the compiler to search for the file in a directory
 containing standard header information (on UNIX, typically `/usr/include`).
 
@@ -53,7 +53,8 @@ The simplest input mechanism is to read a character at a time from the
 "standard input," generally the user's terminal, with `getchar`.
 `getchar()` returns the next input character each time it is called. In most
 environments that support C, a file may be substituted for the terminal by
-using the < convention: if a program `prog` uses `getchar`, then the command line
+using the `<` convention: if a program `prog` uses `getchar`,
+then the command line
 
     prog <infile
 
@@ -73,8 +74,9 @@ input for `prog` comes from the standard output of `otherprog`.
 written in terms of `EOF`, not -1, so as to be independent of the specific
 value.
 
-For output, `putchar(c)` puts the character c on the "standard output," which is also by default the terminal. The output can be directed to a
-file by using >.  If `prog` uses `putchar`
+For output, `putchar(c)` puts the character c on the
+"standard output", which is also by default the terminal.
+The output can be directed to a file by using >.  If `prog` uses `putchar`
 
     prog >outfile
 
@@ -105,7 +107,8 @@ consider the program `lower`, which maps its input to lower case:
 The "functions" `isupper` and `tolower` are actually macros defined in
 `ctype.h`. The macro `isupper` tests whether its argument is an upper
 case letter, returning non-zero if it is, and zero if not. The macro `tolower`
-converts an upper case letter to lower case. Regardless of how these functions are implemented on a particular machine, their external behavior is the
+converts an upper case letter to lower case. Regardless of how these
+functions are implemented on a particular machine, their external behavior is the
 same, so programs that use them are shielded from knowledge of the character set.
 
 To convert multiple files, you can use a program like the UNIX utility
@@ -123,7 +126,8 @@ call per character. We will show how this is done in [Chapter 8](chap08.md).
 7.3 Formatted Output - Printf
 -----------------------------
 
-The two routines `printf` for output and `scanf` for input (next section) permit translation to and from character representations of numerical
+The two routines `printf` for output and `scanf` for input (next section)
+permit translation to and from character representations of numerical
 quantities. They also allow generation or interpretation of formatted lines.
 We have used `printf` informally throughout the previous chapters; here is
 a more complete and precise description.
