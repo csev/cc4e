@@ -254,7 +254,7 @@ value semantics of C. The following conversion characters are legal:
 *    d  a decimal integer is expected in the input; the corresponding argument should be an integer pointer.
 *    o  an octal integer (with or without a leading zero) is expected in
 the input; the corresponding argument should be a integer pointer.
-*    x  a hexadecimal integer (with or without a leading Ox) is expected in the
+*    x  a hexadecimal integer (with or without a leading 0x) is expected in the
 input; the corresponding argument should be an integer pointer.
 *    h  a short integer is expected in the input; the corresponding argument should be a pointer to a short integer.
 *    c  a single character is expected; the corresponding argument should be a
