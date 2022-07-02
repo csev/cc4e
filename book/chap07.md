@@ -335,10 +335,10 @@ The functions `scanf` and `printf` have siblings called `sscanf` and
 `sprintf` which perform the corresponding conversions, but operate on a
 string instead of a file. The general format is
 
-    sprintf(string, control, argl, arg2, ...)
-    sscanf(string, control, argl, arg2, ...)
+    sprintf(string, control, arg1, arg2, ...)
+    sscanf(string, control, arg1, arg2, ...)
 
-`sprintf` formats the arguments in `argl` , `arg2`, etc., according to
+`sprintf` formats the arguments in `arg1` , `arg2`, etc., according to
 control as before, but places the result in `string` instead of on the standard output. Of course `string` had better be big enough to receive the
 result. As an example, if name is a character array and n is an integer, then
 
@@ -348,12 +348,12 @@ creates a string of the form "tempnnn" in `name`, where "nnn" is the value of
 `n`.
 
 `sscanf` does the reverse conversions - it scans the `string` according
-to the format in `control`, and places the resulting values in `argl`, `arg2`,
+to the format in `control`, and places the resulting values in `arg1`, `arg2`,
 etc. These arguments must be pointers. The call
 
 [comment]: <> (page 151 , 151 THE C PROGRAMMING LANGUAGE CHAPTER 7 )
 
-    sscanf (name, "temp%d", &n);
+    sscanf(name, "temp%d", &n);
 
 sets n to the value of the string of digits following `temp` in name.
 
