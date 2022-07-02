@@ -220,7 +220,7 @@ the same conversion facilities in the opposite direction.
 `scanf` reads characters from the standard input, interprets them according
 to the format specified in `control`, and stores the results in the remaining
 arguments. The control argument is described below; the other arguments,
-_each of which must be a pointer,_ indicate where the corresponding converted
+_each of which must be a pointer_, indicate where the corresponding converted
 input should be stored.
 
 [comment]: <> (page 148 , 148 THE C PROGRAMMING LANGUAGE CHAPTER 7 )
@@ -231,7 +231,8 @@ contain:
 
 - Blanks, tabs or newlines ("white space characters"), which are ignored.
 
-- Ordinary characters (not %) which are expected to match the next nonwhite space character of the input stream.
+- Ordinary characters (not %) which are expected to match the next nonwhite
+space character of the input stream.
 
 - Conversion specifications, consisting of the character %, an optional
 assignment suppression character `*`, an optional number specifying a
@@ -239,7 +240,8 @@ maximum field width, and a conversion character.
 
 A conversion specification directs the conversion of the next input field.
 Normally the result is placed in the variable pointed to by the corresponding
-argument. If assignment suppression is indicated by the \* character, however, the input field is simply skipped; no assignment is made. An input
+argument. If assignment suppression is indicated by the `*` character,
+however, the input field is simply skipped; no assignment is made. An input
 field is defined as a string of non-white space characters; it extends either to
 the next white space character or until the field width, if specified, is
 exhausted. This implies that `scanf` will read across line boundaries to find
@@ -258,7 +260,7 @@ input; the corresponding argument should be an integer pointer.
 *    c  a single character is expected; the corresponding argument should be a
 character pointer; the next input character is placed at the indicated spot.
 The normal skip over white space characters is suppressed in this case;
-to read the next non-white space character, use %1 s.
+to read the next non-white space character, use `%1s`.
 *    s  a character string is expected; the corresponding argument should be a character
 pointer pointing to an array of characters large enough to accept the string and a
 terminating `'\0'` which will be added.
