@@ -579,7 +579,7 @@ Several macros perform character tests and conversions:
 **Ungetc**
 
 The standard library provides a rather restricted version of the function
-ungetch which we wrote in [Chapter 4](chap04.md); it is called ungetc.
+`ungetch` which we wrote in [Chapter 4](chap04.md); it is called `ungetc`.
 
     ungetc(c, fp)
 

@@ -173,7 +173,8 @@ the file system.
 [comment]: <> (page 164 , 164 THE C PROGRAMMING LANGUAGE CHAPTER 8 )
 
 **Exercise 8-1.** Rewrite the program cat from [Chapter 7](chap07.md) using `read`,
-`write`, `open` and `close` instead of their standard library equivalents. Perform experiments to determine the relative speeds of the two versions.
+`write`, `open` and `close` instead of their standard library equivalents. Perform
+experiments to determine the relative speeds of the two versions.
 
 8.4 Random Access - Seek and Lseek
 ----------------------------------
@@ -193,13 +194,13 @@ to specify that `offset` is to be measured from the beginning, from the
 current position, or from the end of the file respectively. For example, to
 append to a file, seek to the end before writing:
 
-    lseek(fd, OL, 2);
+    lseek(fd, 0L, 2);
 
 To get back to the beginning ("rewind"),
 
-    lseek(fd, OL, 0);
+    lseek(fd, 0L, 0);
 
-Notice the OL argument; it could also be written as (`long`) 0.
+Notice the `0L` argument; it could also be written as `(long) 0`.
 
 With `lseek`, it is possible to treat files more or less like large arrays, at
 the price of slower access. For example, the following simple function reads
@@ -221,11 +222,12 @@ bits, the `offset` specified for `seek` is limited to 65,535; for this reason,
 `origin` values of 3, 4, 5 cause `seek` to multiply the given offset by 512
 (the number of bytes in one physical block) and then interpret `origin` as if
 it were 0, 1, or 2 respectively. Thus to get to an arbitrary place in a large
-file requires two seeks, first one which selects the block, then one which has `origin` equal to 1 and moves to the desired byte within the block.
+file requires two seeks, first one which selects the block, then one which
+has `origin` equal to 1 and moves to the desired byte within the block.
+
+[comment]: <> (note n_164_01.md)
 
 [comment]: <> (page 165 , CHAPTER 8 THE UNIX SYSTEM INTERFACE 165 )
-
-
 
 **Exercise 8-2.** Clearly, `seek` can be written in terms of `lseek`, and vice
 versa. Write each in terms of the other.
@@ -776,6 +778,8 @@ Casts arrange that pointer conversions are made explicit, and even cope with
 a badly-designed system interface. Even though the details here are related
 to storage allocation, the general approach is applicable to other situations as
 well.
+
+[comment]: <> (note n_177_01.md)
 
 **Exercise 8-6.** The standard library function `calloc(n, size)` returns a
 pointer to `n` objects of size `size`, with the storage initialized to zero. Write
