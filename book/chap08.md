@@ -783,6 +783,8 @@ well.
 
 [comment]: <> (note n_177_01.md)
 
+[comment]: <> (note n_177_02.md)
+
 **Exercise 8-6.** The standard library function `calloc(n, size)` returns a
 pointer to `n` objects of size `size`, with the storage initialized to zero. Write
 `cal1oc`, using `alloc` either as a model or as a function to be called.
