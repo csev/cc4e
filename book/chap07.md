@@ -530,7 +530,9 @@ the `getline` function that we have used throughout the book. The call
 
     fgets(line, MAXLINE, fp)
 
-reads the next input line (including the newline) from file `fp` into the character array line; at most `MAXLINE-1` characters will be read. The resulting line is terminated with `\0`. Normally `fgets` returns line; on end of
+reads the next input line (including the newline) from file `fp` into
+the character array `line`; at most `MAXLINE-1` characters will be read. The
+resulting line is terminated with `\0`. Normally `fgets` returns `line`; on end of
 file it returns `NULL`. (Our `getline` returns the line length, and zero for
 end of file.)
 
