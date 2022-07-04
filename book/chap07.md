@@ -606,7 +606,7 @@ causes the program `date` to be run; it prints the date and time of day.
 
 The function `calloc` is rather like the `alloc` we have used in previous chapters.
 
-    calloc(n, sizeof (object))
+    calloc(n, sizeof(object))
 
 returns a pointer to enough space for n objects of the specified size, or
 `NULL` if the request cannot be satisfied. The storage is initialized to zero.
@@ -616,7 +616,7 @@ should be cast into the appropriate type, as in
     char *calloc();
     int *ip;
 
-    ip = (int *) calloc(n, sizeof (int));
+    ip = (int *) calloc(n, sizeof(int));
 
 `cfree(p)` frees the space pointed to by `p`, where `p` is originally
 obtained by a call to `calloc`. There are no restrictions on the order in
