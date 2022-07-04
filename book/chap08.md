@@ -19,6 +19,8 @@ standard library have to be written in terms of the I/O facilities actually
 available on the host system. In the next few sections we will describe the
 basic system entry points for I/O on the UNIX operating system, and illustrate how parts of the standard library can be implemented with them.
 
+[comment]: <> (note n_159_01.md)
+
 8.1 File Descriptors
 --------------------
 
