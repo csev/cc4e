@@ -14,10 +14,10 @@ char *argv[];
       if ((fp = fopen(*++argv, "r")) == NULL) {
         fprintf(stderr,
           "cat: can't open %s\n", *argv);
-        exit (1);
+        exit(1);
       } else {
         filecopy(fp);
         fclose(fp);
       }
-  exit (0);
+  exit(0);
 }

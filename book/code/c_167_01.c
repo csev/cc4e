@@ -9,7 +9,7 @@ register char *name, *mode;
 
   if (*mode != 'r' && *mode != 'w' && *mode != 'a') {
     fprintf(stderr, "illegal mode %s opening %s\n",mode, name);
-    exit (1);
+    exit(1);
   }
   for (fp = _iob; fp < _iob + _NFILE; fp++)
     if ((fp->_flag & (_READ | _WRITE)) == 0)
