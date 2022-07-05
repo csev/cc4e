@@ -266,6 +266,7 @@ less likely to collide with names in a user's program.
       int _flag;      /* mode of file access */
       int _fd;        /* file descriptor */
     } FILE;
+
     extern FILE _iob[_NFILE];
 
     #define stdin (&_iob[0])
