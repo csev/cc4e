@@ -84,7 +84,7 @@ gcc -ansi c_145_01.c -o lower
 gcc -ansi c_150_01.c
 gcc -ansi c_153_01.c
 gcc -ansi -c c_154_01.c
-# gcc -ansi c_155_01.c -  as there is no main function for this code
+gcc -ansi -c -Wno-return-type -Wno-parentheses c_155_01.c
 
 # Chapter 8
 gcc -ansi c_161_01.c
@@ -92,7 +92,6 @@ gcc -ansi -c c_161_02.c
 gcc -ansi -c c_162_01.c
 gcc -ansi c_163_01.c
 gcc -ansi -c -Wno-incompatible-library-redeclaration -Wno-knr-promoted-parameter -Wno-implicit-function-declaration  -Wno-return-type -Wno-int-conversion c_167_01.c
-# gcc -ansi -c -Wno-incompatible-library-redeclaration -Wno-knr-promoted-parameter -Wno-implicit-function-declaration  -Wno-return-type -Wno-int-conversion c_168_01.c
-gcc -ansi -c c_171_01.c
+gcc -ansi -c -Wno-implicit-function-declaration c_171_01.c
 
 rm a.out *.o lower
