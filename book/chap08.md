@@ -155,9 +155,8 @@ and everyone else.
 
 [comment]: <> (page 163 , CHAPTER 8 THE UNIX SYSTEM INTERFACE 163 )
 
-
-
-To illustrate, here is a simplified version of the UNIX utility _cp,_ a program which copies one file to another. (The main simplification is that our
+To illustrate, here is a simplified version of the UNIX utility _cp_, a
+program which copies one file to another. (The main simplification is that our
 version copies only one file, and does not permit the second argument to be
 a directory.)
 
@@ -168,7 +167,7 @@ may have open simultaneously. Accordingly, any program which intends to
 process many files must be prepared to re-use file descriptors. The routine
 `close` breaks the connection between a file descriptor and an open file, and
 frees the file descriptor for use with some other file. Termination of a program
-via `exit` or return from the main program closes all open files.
+via `exit` or `return` from the main program closes all open files.
 
 The function `unlink(filename)` removes the file `filename` from the file system.
 

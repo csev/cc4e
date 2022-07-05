@@ -10,7 +10,7 @@ int argc;
 char *argv[];
 {
     int f1, f2, n;
-    char buf [BUFSIZE];
+    char buf[BUFSIZE];
     if (argc != 3)
         error("Usage: cp from to", NULL);
     if ((f1 = open(argv[1], 0)) == -1)
