@@ -94,4 +94,6 @@ gcc -ansi c_163_01.c
 gcc -ansi -c -Wno-incompatible-library-redeclaration -Wno-knr-promoted-parameter -Wno-implicit-function-declaration  -Wno-return-type -Wno-int-conversion c_167_01.c
 gcc -ansi -c -Wno-implicit-function-declaration c_171_01.c
 
+gcc -ansi -c -Wno-return-type -Wno-incompatible-library-redeclaration -Wno-pointer-to-int-cast -Wno-implicit-function-declaration c_177_01.c
+
 rm a.out *.o lower

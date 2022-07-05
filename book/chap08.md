@@ -514,8 +514,6 @@ these must also be skipped, or the program will run for quite a while.
 
 [comment]: <> (page 173 , CHAPTER 8 THE UNIX SYSTEM INTERFACE 173 )
 
-
-
 Although the `fsize` program is rather specialized, it does indicate a couple
 of important ideas. First, many programs are not "system programs"; they
 merely use information whose form or content is maintained by the operating
@@ -656,14 +654,14 @@ needed. The amount of scaling is a parameter that can be tuned as needed.
       char *sbrk();
       register char *cp;
       register HEADER *up;
-      register int mu;
+      register int rnu;
 
       rnu = NALLOC * ((nu+NALLOC-1) / NALLOC);
-      cp = sbrk (mu * sizeof(HEADER));
+      cp = sbrk (rnu * sizeof(HEADER));
       if ((int)cp == -1) /* no space at all */
         return(NULL);
       up = (HEADER *)cp;
-      up->s.size = mu;
+      up->s.size = rnu;
       free ((char *)(up+1));
       return(allocp);
     }
@@ -713,6 +711,10 @@ Casts arrange that pointer conversions are made explicit, and even cope with
 a badly-designed system interface. Even though the details here are related
 to storage allocation, the general approach is applicable to other situations as
 well.
+
+For your convienence, here is the above sample code merged into a single file for viewing.
+
+[comment]: <> (code c_177_01.c)
 
 [comment]: <> (note n_177_01.md)
 
