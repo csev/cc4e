@@ -264,7 +264,7 @@
 {
     "title": "Input / Output",
     "anchor": "io",
-    "icon" : "fa-th-list",
+    "icon" : "fa-arrows-h",
     "description": "This chapter covers input / output features of C.",
     "references" : [
         {
@@ -288,6 +288,36 @@
         "title" : "Input / Output",
         "launch" : "mod/tdiscus/",
         "resource_link_id": "discuss_01_io"
+        }
+    ]
+},
+{
+    "title": "The UNIX System Interface",
+    "anchor": "unix",
+    "icon" : "fa-hashtag",
+    "description": "This chapter covers input / output features of C.",
+    "references" : [
+        {
+            "title" : "Chapter 8: The UNIX System Interface",
+            "href" : "{apphome}/book/chap08.md"
+        },
+        {
+            "title" : "Audio version of the book",
+            "href" : "https://audio.cc4e.com/"
+        }
+    ],
+    "videos" : [
+        {
+            "title" : "Chapter 8 - The UNIX System Interface",
+            "youtube" : "Au1eiiceVks"
+        }
+    ],
+
+    "discussions" : [
+        {
+        "title" : "The UNIX System Interface",
+        "launch" : "mod/tdiscus/",
+        "resource_link_id": "discuss_01_unix"
         }
     ]
 }
