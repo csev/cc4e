@@ -237,7 +237,8 @@ versa. Write each in terms of the other.
 -------------------------------------------------
 
 Let us illustrate how some of these pieces fit together by showing an
-implementation of the standard library routines `fopen` and `getc`.
+implementation of the standard library routines `fopen` and `getc`
+on the PDP-11.
 
 Recall that files in the standard library are described by file pointers
 rather than file descriptors. A file pointer is a pointer to a structure that
@@ -247,7 +248,8 @@ in the buffer; a pointer to the next character position in the buffer; some
 flags describing read/write mode, etc.; and the file descriptor.
 
 The data structure that describes a file is contained in the file `stdio.h`,
-which must be included (by `#include`) in any source file that uses routines from the standard library. It is also included by functions in that
+which must be included (by `#include`) in any source file that uses routines
+from the standard library. It is also included by functions in that
 library. In the following excerpt from `stdio.h`, names which are intended
 for use only by functions of the library begin with an underscore so they are
 less likely to collide with names in a user's program.
@@ -277,8 +279,6 @@ less likely to collide with names in a user's program.
     #define NULL 0
     #define EOF (-1)
 
-[comment]: <> (page 166 , 166 THE C PROGRAMMING LANGUAGE CHAPTER 8 )
-
     #define getc(p) (--(p)->_cnt >= 0 \
                   ? *(p)->_ptr++ & 0377 : _fillbuf(p))
     #define getchar() getc(stdin)
@@ -287,6 +287,8 @@ less likely to collide with names in a user's program.
                   ? *(p)->_ptr++ = (x) : _flushbuf((x),p))
     #define putchar(x) putc(x,stdout)
 
+[comment]: <> (page 166 , 166 THE C PROGRAMMING LANGUAGE CHAPTER 8 )
+
 The `getc` macro normally just decrements the count, advances the
 pointer, and returns the character. (A long `#define` is continued with a
 backslash.) If the count goes negative, however, `getc` calls the function
@@ -294,106 +296,38 @@ backslash.) If the count goes negative, however, `getc` calls the function
 return a character. A function may present a portable interface, yet itself
 contain non-portable constructs: `getc` masks the character with 0377,
 which defeats the sign extension done by the PDP-11 and ensures that all
-    characters will be positive.
+characters will be positive.
 
 Although we will not discuss any details, we have included the definition
 of `putc` to show that it operates in much the same way as `getc`, calling a
 function `_flushbuf` when its buffer is full.
 
-The function `fopen` can now be written. Most of `fopen` is concerned
+The functions `fopen` and `_fillbuf` can now be written. Most of `fopen` is concerned
 with getting the file opened and positioned at the right place, and setting the
 flag bits to indicate the proper state. `fopen` does not allocate any buffer
 space; this is done by `_fillbuf` when the file is first read.
 
 [comment]: <> (page 167 , CHAPTER 8 THE UNIX SYSTEM INTERFACE 167 )
 
-<!-- [comment]: <> (code c_167_01.c) -->
+[comment]: <> (code c_167_01.c)
 
-    #include <stdio.h>
-    #define PMODE 0644 /* R/W for owner; R for others */
-
-    FILE *fopen(name, mode) /* open file, return file ptr */
-    register char *name, *mode;
-    {
-      register int fd;
-      register FILE *fp;
-
-      if (*mode != 'r' && *mode != 'w' && *mode != 'a') {
-        fprintf(stderr, "illegal mode %s opening %s\n",mode, name);
-        exit (1);
-      }
-      for (fp = _iob; fp < _iob + _NFILE; fp++)
-        if ((fp->_flag & (_READ | _WRITE)) == 0)
-          break; /* found free slot */
-        if (fp >= _iob + _NFILE) /* no free slots */
-          return (NULL)
-
-        if (*mode == 'w') /* access file */
-          fd = creat(name, PMODE);
-        else if (*mode == 'a') {
-          if ((fd = open(name, 1)) == -1)
-            fd = creat(name, PMODE);
-          lseek(fd, OL, 2);
-        } else
-          fd = open (name, 0);
-        if (fd == -1) /* couldn't access name */
-          return(NULL);
-        fp->_fd = fd;
-        fp->_cnt = 0;
-        fp->_base = NULL;
-        fp->_flag &= -LREAD I _WRITE);
-        fp->_flag |= (*mode == 'r') ? _READ : _WRITE;
-        return(fp);
-    }
-
-
-The function `_fillbuf` is rather more complicated. The main complexity lies in the fact that `_fillbuf` attempts to permit access to the file
+The function `_fillbuf` is rather more complicated. The main complexity
+lies in the fact that `_fillbuf` attempts to permit access to the file
 even though there may not be enough memory to buffer the I/O. If space
 for a new buffer can be obtained from `calloc`, all is well; if not,
-`_fillbuf` does unbuffered I/O using a single character stored in a private
-array.
+`_fillbuf` does unbuffered I/O using a single character stored in
+a private array.
 
 [comment]: <> (page 168 , 168 THE C PROGRAMMING LANGUAGE CHAPTER 8 )
 
-<!-- [comment]: <> (code c_168_01.c)   -->
-
-    #include <stdio.h>
-
-    _fillbuf(fp) /* allocate and fill input buffer */
-    register FILE *fp;
-    {
-      static char smallbuf[_NFILE]; /* for unbuffered I/O */
-      char *calloc();
-
-      if ((fp-> _flag & _READ) == 0 || (fp-> _flag & (_EOF | _ERR)) != 0)
-      return (EOF);
-      while (fp->_base == NULL) /* find buffer space */
-        if (fp->_flag & _UNBUF) /* unbuffered */
-          fp->_base = &smallbuf[fp->_fd];
-        else if ((fp->_base=calloc(_BUFSIZE, 1)) == NULL)
-          fp->_flag |= _UNBUF; /* can't get big buf */
-        else
-          fp->_flag |= _BIGBUF; /* got big one */
-      fp->_ptr = fp->_base;
-      fp->_cnt = read(fp->_fd, fp->_ptr,
-                      fp->_flag & _UNBUF ? 1 : _BUFSIZE);
-      if (--fp->_cnt < 0) {
-        if (fp->_cnt == -1)
-          fp->_flag |= _EOF;
-        else
-          fp->_flag |= _ERR;
-        fp->_cnt = 0;
-        return (EOF);
-      }
-      return(*fp->_ptr++ & 0377); /* make char positive */
-    }
-
 The first call to `getc` for a particular file finds a count of zero, which forces
-a call of `_fillbuf`. If `_fillbuf` finds that the file is not open for reading, it returns EOF immediately. Otherwise, it tries to allocate a large
-buffer, and, failing that, a single character buffer, setting the buffering information in `_flag` appropriately.
+a call of `_fillbuf`. If `_fillbuf` finds that the file is not open for reading,
+it returns EOF immediately. Otherwise, it tries to allocate a large
+buffer, and, failing that, a single character buffer, setting the buffering
+information in `_flag` appropriately.
 
 Once the buffer is established, `_fillbuf` simply calls `read` to fill it,
-SOS the count and pointers, and returns the character at the beginning of
+sets the count and pointers, and returns the character at the beginning of
 the buffer. Subsequent calls to `_fillbuf` will find a buffer allocated.
 
 The only remaining loose end is how everything gets started. The array

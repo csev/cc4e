@@ -1,4 +1,24 @@
-#include <stdio.h>
+#define _BUFSIZE 512
+#define _NFILE 20 /* #files that can be handled */
+
+typedef struct _iobuf {
+  char *_ptr;     /* next character position */
+  int _cnt;       /* number of characters left */
+  char *_base;    /* location of buffer */
+  int _flag;      /* mode of file access */
+  int _fd;        /* file descriptor */
+} FILE;
+
+extern FILE _iob[_NFILE];
+
+#define _READ 01    /* file open for reading */
+#define _WRITE 02   /* file open for writing */
+#define _UNBUF 04   /* file is unbuffered */
+#define _BIGBUF 010 /* big buffer allocated */
+#define _EOF 020  /* EOF has occurred on this file */
+#define _ERR 040  /* error has occurred on this file */
+#define NULL 0
+#define EOF (-1)
 
 _fillbuf(fp) /* allocate and fill input buffer */
 register FILE *fp;
