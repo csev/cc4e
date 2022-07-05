@@ -1,3 +1,5 @@
+/* Constants and types included from above */
+
 #define _BUFSIZE 512
 #define _NFILE 20 /* #files that can be handled */
 
@@ -8,8 +10,6 @@ typedef struct _iobuf {
   int _flag;      /* mode of file access */
   int _fd;        /* file descriptor */
 } FILE;
-
-extern FILE _iob[_NFILE];
 
 #define stdin (&_iob[0])
 #define stdout (&_iob[1])
@@ -23,6 +23,22 @@ extern FILE _iob[_NFILE];
 #define _ERR 040  /* error has occurred on this file */
 #define NULL 0
 #define EOF (-1)
+
+#define getc(p) (--(p)->_cnt >= 0 \
+              ? *(p)->_ptr++ & 0377 : _fillbuf(p))
+#define getchar() getc(stdin)
+
+#define putc(x,p) (--(p)->_cnt >= 0 \
+              ? *(p)->_ptr++ = (x) : _flushbuf((x),p))
+#define putchar(x) putc(x,stdout)
+
+FILE _iob[_NFILE] = {
+    { NULL, 0, NULL, _READ, 0 }, /* stdin */
+    { NULL, 0, NULL, _WRITE, 1 }, /* stdout */
+    { NULL, 0, NULL, _WRITE | _UNBUF, 2 } /* stderr */
+};
+
+/* Beginning of the sample code on page 165 */
 
 #define PMODE 0644 /* R/W for owner; R for others */
 
