@@ -64,9 +64,11 @@ where its output goes, so long as it uses file 0 for input and 1 and 2 for outpu
 8.2 Low Level I/O - Read and Write
 ----------------------------------
 
-The lowest level of I/O in UNIX provides no buffering or any other services; it is in fact a direct entry into the operating system. All input and
+The lowest level of I/O in UNIX provides no buffering or any other services; it
+is in fact a direct entry into the operating system. All input and
 output is done by two functions called `read` and `write`. For both, the first
-argument is a file descriptor. The second argument is a buffer in your program where the data is to come from or go to. The third argument is the
+argument is a file descriptor. The second argument is a buffer in your program
+where the data is to come from or go to. The third argument is the
 number of bytes to be transferred. The calls are
 
     n_read = read(fd, buf, n);
@@ -360,6 +362,8 @@ with the buffering done for the other functions of the library.
 8.6 Example - Listing Directories
 ---------------------------------
 
+[comment]: <> (note n_169_01.md)
+
 A different kind of file system interaction is sometimes called for -
 determining information _about_ a file, not what it contains. The UNIX
 command `ls` ("list directory") is an example - it prints the names of files in a
@@ -372,8 +376,9 @@ the information it finds there. Nonetheless, the format of that information
 is determined by the system, not by a user program, so `ls` needs to know
 how the system represents things.
 
-We will illustrate some of this by writing a program called `fsize`. `fsize` is
-a special form of `ls` which prints the sizes of all files named in its argument
+We will illustrate some of this by writing a program called `fsize` for UNIX
+on the PDP-11. `fsize` is a special form of `ls` which prints the
+sizes of all files named in its argument
 list. If one of the files is a directory, `fsize` applies itself recursively to that
 directory. If there are no arguments at all, it processes the current directory.
 
@@ -382,7 +387,7 @@ that contains a list of file names and some indication of where they are
 located. The "location" is actually an index into another table called the
 "inode table." The mode for a file is where all information about a file
 except its name is kept. A directory entry consists of only two items, an
-mode number and the file name. The precise specification comes by including
+inode number and the file name. The precise specification comes by including
 the file `sys/dir.h`, which contains
 
 [comment]: <> (page 170 , 170 THE C PROGRAMMING LANGUAGE CHAPTER8 )
@@ -391,7 +396,7 @@ the file `sys/dir.h`, which contains
 
     struct direct /* structure of directory entry */
     {
-      ino_t d_ino; /* mode number */
+      ino_t d_ino;         /* inode number */
       char d_name[DIRSIZ]; /* file name */
     };
 
@@ -453,7 +458,22 @@ the process is recursive.
 The main routine as usual deals primarily with command-line arguments; it
 hands each argument to the function `fsize` in a big buffer.
 
-[comment]: <> (code c_171_01.c)
+    #define BUFSIZE 256
+
+    main(argc, argv) /* fsize: print file sizes */
+    char *argv[];
+    {
+      char buf[BUFSIZE];
+    
+      if (argc == 1) { /* default: current directory */
+        strcpy(buf, ".");
+        fsize(buf);
+      } else
+        while (--argc > 0) {
+          strcpy(buf, *++argv);
+          fsize(buf);
+        }
+    }
 
 The function `fsize` prints the size of the file. If the file is a directory,
 however, `fsize` first calls directory to handle all the files in it. Note
