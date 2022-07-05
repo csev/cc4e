@@ -163,14 +163,14 @@ a directory.)
 
 [comment]: <> (code c_163_01.c)
 
-There is a limit (typically 15-25) on the number of files which a program
+There is a limit on the number of files which a program
 may have open simultaneously. Accordingly, any program which intends to
 process many files must be prepared to re-use file descriptors. The routine
 `close` breaks the connection between a file descriptor and an open file, and
-frees the file descriptor for use with some other file. Termination of a program via `exit` or return from the main program closes all open files.
+frees the file descriptor for use with some other file. Termination of a program
+via `exit` or return from the main program closes all open files.
 
-    The function `unlink(filename)` removes the file `filename` from
-the file system.
+The function `unlink(filename)` removes the file `filename` from the file system.
 
 [comment]: <> (page 164 , 164 THE C PROGRAMMING LANGUAGE CHAPTER 8 )
 
@@ -450,7 +450,7 @@ located. The "location" is actually an index into another table called the
 "inode table." The mode for a file is where all information about a file
 except its name is kept. A directory entry consists of only two items, an
 mode number and the file name. The precise specification comes by including
-the file sys/dir.h, which contains
+the file `sys/dir.h`, which contains
 
 [comment]: <> (page 170 , 170 THE C PROGRAMMING LANGUAGE CHAPTER8 )
 
@@ -586,7 +586,7 @@ these must also be skipped, or the program will run for quite a while.
 Although the `fsize` program is rather specialized, it does indicate a couple
 of important ideas. First, many programs are not "system programs"; they
 merely use information whose form or content is maintained by the operating
-ystem. Second, for such programs, it is crucial that the representation
+system. Second, for such programs, it is crucial that the representation
 of the information appear only in standard "header files" like `stat.h` and
 `dir.h`, and that programs include those files instead of embedding the
 actual declarations in themselves.
@@ -707,7 +707,7 @@ character pointer before being returned by `alloc`.
 The function `morecore` obtains storage from the operating system.
 The details of how this is done of course vary from system to system. In
 UNIX, the system entry `sbrk(n)` returns a pointer to `n` more bytes of
-storage. (The pointer satisfies all alignment restrictions.) Since asking the 
+storage. (The pointer satisfies all alignment restrictions.) Since asking the
 system for memory is a comparatively expensive operation, we don't want to
 do that on every call to `alloc`, so `morecore` rounds up the number of
 units requested of it to a larger value; this larger block will be chopped up as
