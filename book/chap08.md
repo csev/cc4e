@@ -797,3 +797,5 @@ Improve these routines to take more pains with error checking.
 block `p` of `n` characters into the free list maintained by `alloc` and `free`.
 By using `bfree`, a user can add a static or external array to the free list at
 any time.
+
+[comment]: <> (note n_177_03.md)
