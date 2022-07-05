@@ -257,7 +257,7 @@ Please feel free to improve this text in
 <p>
 This work
 (<a href="https://www.cc4e.com">www.cc4e.com</a>) is based on the 1978 
-<a href="https://en.wikipedia.org/wiki/The_C_Programming_Language" target="_blank">"C Programming"</a>
+<a href="https://en.wikipedia.org/wiki/The_C_Programming_Language" target="_blank">"The C Programming Language"</a>
 book written by Brian W. Kernighan and
 Dennis M. Ritchie.  Their book
 is copyright all rights reserved by AT&amp;T but is being used
