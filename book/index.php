@@ -262,7 +262,7 @@ book written by Brian W. Kernighan and
 Dennis M. Ritchie.  Their book
 is copyright all rights reserved by AT&amp;T but is being used
 in this work under "fair use" because of the book's historical and scholarly significance,
-its lack of availablity, and lack of an accessible version of the book.
+its lack of availability, and lack of an accessible version of the book.
 </p>
 <p>
 The book is augmented in places to help understand its rightful place in a historical
