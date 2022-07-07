@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 C Programming for Everybody (CC4E)
 ==================================
 
