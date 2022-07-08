@@ -4,7 +4,7 @@ C Programming for Everybody (CC4E)
 This course and web site is dedicated to learning
 the "classic" version of
 the C Programming language from the 1978 book written by
-Brian Kernighan and Dennis Ritchie.
+Brian W. Kernighan and Dennis M. Ritchie.
 
 This book places the reader in the middle
 of the 1970's transition from a hardware-centered computer science
