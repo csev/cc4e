@@ -43,6 +43,10 @@
         {
             "title" : "Interview: Computer Science isn't programming! // How to become a Master Programmer // With David Bombal",
             "href" : "https://youtu.be/z3o6yEzcnLc"
+        },
+        {
+            "title" : "'C' Programming Language: Brinag Kernighan - Computerphile",
+            "href" : "https://youtu.be/de2Hsvxaf8M"
         }
     ],
     "videos" : [
@@ -304,6 +308,22 @@
         {
             "title" : "Audio version of the book",
             "href" : "https://audio.cc4e.com/"
+        },
+        {
+            "title" : "Ken Thompson and Dennis Ritchie Explain UNIX (Bell Labs)",
+            "href" : "https://www.youtube.com/watch?v=JoVQTPbD6UY"
+        },
+        {
+            "title" : "Pushing the Limits of Technology: The Ken Thompson and Dennis Ritchie Story",
+            "href" : "https://www.youtube.com/watch?v=g3jOJfrOknA"
+        },
+        {
+            "title" : "AT&T Archives: The UNIX Operating System",
+            "href" : "https://www.youtube.com/watch?v=tc4ROCJYbm0"
+        },
+        {
+            "title" : "UNIX: Making Computers Easier To Use -- AT&T Archives film from 1982, Bell Laboratories",
+            "href" : "https://www.youtube.com/watch?v=XvDZLjaCJuw"
         }
     ],
     "videos" : [
