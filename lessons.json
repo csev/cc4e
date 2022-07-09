@@ -33,6 +33,10 @@
     "description": "Gives some sense of where C fits in the history of computing.  Kernghan and Ritchie share their ideas about C.",
     "references" : [
         {
+            "title" : "Web Site for the 1988 Version of the C Programming Laguage book",
+            "href" : "https://s3-us-west-2.amazonaws.com/belllabs-microsite-dritchie/cbook/index.html"
+        },
+        {
             "title" : "Chapter 0: Introduction",
             "href" : "{apphome}/book/chap00.md"
         },
