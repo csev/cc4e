@@ -503,7 +503,7 @@ and I/O routines provided by the standard C libraries.
 Interestingly if we wanted to print the list in forward order (or if we had a singly
 linked list), our loop would be as follows:
 
-    for (struct lnode *current = head; current != NULL; current = current->next ) {
+    for (current = head; current != NULL; current = current->next ) {
         printf("%s", current->text);
     }
 

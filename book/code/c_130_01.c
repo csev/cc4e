@@ -14,6 +14,7 @@ int main() /* print lines in reverse */
 {
   struct lnode *head = NULL;
   struct lnode *tail = NULL;
+  struct lnode *current;
   char line[MAXLINE];
 
   while(fgets(line, MAXLINE, stdin) != NULL) {
@@ -29,7 +30,7 @@ int main() /* print lines in reverse */
       if ( head == NULL ) head = new;
   }
 
-  for (struct lnode *current = tail; current != NULL; current = current->prev ) {
+  for (current = tail; current != NULL; current = current->prev ) {
       printf("%s", current->text);
   }
 
