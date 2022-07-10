@@ -31,6 +31,19 @@ This page contains the sample code elements from "C Programming" by
 Briwan W. Kernighan and Dennis M. Ritchie indexed by chapter and page.
 The smaller or non-executable sample code segments are simply
 left in-line in the text book.
+Many of the sample code segments do not run directly from the book.  Also
+some of them use older (pre-ANSI) syntax that does not work on modern compilers.  You may
+have to adapt the code from the book to make it work.
+</p>
+<p>
+The coding and compiling envronment on this web site 
+(<a href="..">www.cc4e.com</a>)
+is quite limited and focused
+on supporting the needs of the auto-grader for this course.  You can find 
+full-featured 
+<a href="../compilers.php" target="_blank">
+free online 
+C Compilers</a> on other sites.
 </p>
 <?php
 
