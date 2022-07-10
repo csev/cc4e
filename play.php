@@ -53,7 +53,13 @@ cc4e_play_header($lines);
 </head>
 <body>
 <p>
-This the <a href="index.php">www.cc4e.com</a> code playground for writing C programs.
+This is the <a href="index.php">www.cc4e.com</a> code playground for writing C programs
+It is a very limited environment.
+<?php
+if ( U::get($_REQUEST, "sample", null) != null ) {
+	echo(' Note that not all of the sample programs in the book compile and run using a modern compiler.');
+}
+?>
 <?php
 if ( ! $LOGGED_IN ) {
     echo('You must be logged in to run your program.');
