@@ -217,7 +217,7 @@ function cc4e_compile($code, $input)
 
     $command = 'rm -rf * ; cat > student.c ; gcc -ansi -Wno-return-type -fno-asm -S student.c ; [ -f student.s ] && cat student.s';
 
-    $pipe1 = cc4e_pipe($command, $code, $folder, $env, 2.0);
+    $pipe1 = cc4e_pipe($command, $code, $folder, $env, 10.0);
     $retval->assembly = $pipe1;
     $retval->docker = false;
     if ( is_string($pipe1->failure) ) {
@@ -344,7 +344,7 @@ function cc4e_compile($code, $input)
 
         // echo("-----\n");echo($script);echo("-----\n");
         $retval->script = $script;
-        $retval->docker = cc4e_pipe($docker_command, $script, $folder, $env, 2.0);
+        $retval->docker = cc4e_pipe($docker_command, $script, $folder, $env, 10.0);
         if ( is_string($retval->docker->failure) ) {
             $retval->reject = "docker error: ". $retval->docker->failure;
         }

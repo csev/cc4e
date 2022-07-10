@@ -100,6 +100,7 @@ if ( isset($retval->assembly->stdout) && is_string($retval->assembly->stdout) ) 
 <?php function cc4e_play_footer() { 
      global $CFG;
 ?>
+<script src="https://static.tsugi.org/js/jquery-1.11.3.js"></script>
 <script type="text/javascript" src="<?= $CFG->apphome ?>/static/codemirror-5.62.0/lib/codemirror.js"></script>
 <script type="text/javascript" src="<?= $CFG->apphome ?>/static/codemirror-5.62.0/mode/clike/clike.js"></script>
 <script>
@@ -109,6 +110,27 @@ if ( isset($retval->assembly->stdout) && is_string($retval->assembly->stdout) ) 
         matchBrackets: true,
         mode: "text/x-csrc"
   });
+</script>
+<script>
+$(document).ready(function() {
+  $.getJSON( "ping.php", function( data ) { 
+    if ( typeof data === "undefined" ) {
+      $('#runstatus').html('Compiler unavailable');
+      return;
+    }
+
+    if ( data.hasOwnProperty('docker') && data.docker.hasOwnProperty('stdout') ) {
+    	var output = data.docker.stdout;
+    	$('#runcode').attr('disabled' , false);
+    	$('#runstatus').html('');
+	return;
+    }
+    $('#runstatus').html('Compiler unavailable');
+
+  }).fail(function() {
+    $('#runstatus').html('Unable to contact compiler');
+  });
+});
 </script>
 <?php 
 }

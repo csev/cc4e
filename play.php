@@ -64,7 +64,7 @@ if ( ! $LOGGED_IN ) {
 <p>
 <?php
 if ( $LOGGED_IN ) {
-    echo('<input type="submit" value="Run Code">');
+	echo('<input type="submit" value="Run Code" id="runcode" disabled>');
 }
 ?>
 <script>
@@ -74,6 +74,7 @@ if ( window.opener ) {
     document.write('<input type="submit" onclick="window.location=\'index.php\'; return false;" value="Back to CC4E">');
 }
 </script>
+<span id="runstatus"><img src="<?= $OUTPUT->getSpinnerUrl() ?>"/></span>
 </p>
 <?php
 $errors = cc4e_play_errors($retval);
