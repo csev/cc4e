@@ -139,7 +139,7 @@
 
     "discussions" : [
         {
-        "title" : "Tutorial Introduction",
+        "title" : "Types, Operators, and Expressions",
         "launch" : "mod/tdiscus/",
         "resource_link_id": "discuss_01_core"
         }
@@ -169,7 +169,7 @@
 
     "discussions" : [
         {
-        "title" : "Tutorial Introduction",
+        "title" : "Control Flow",
         "launch" : "mod/tdiscus/",
         "resource_link_id": "discuss_01_control"
         }
