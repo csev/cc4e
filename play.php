@@ -54,7 +54,8 @@ cc4e_play_header($lines);
 <body>
 <p>
 This is the <a href="index.php">www.cc4e.com</a> code playground for writing C programs
-It is a very limited environment.
+It is a very limited environment - you can find a number of more full-featureed
+C compilers <a href="compilers.php">online</a>.
 <?php
 if ( U::get($_REQUEST, "sample", null) != null ) {
 	echo(' Note that not all of the sample programs in the book compile and run using a modern compiler.');
