@@ -110,6 +110,9 @@ cc4e_play_debug($retval);
 } else {
     echo("\n</form>\n");
 }
+?>
+<script src="https://static.tsugi.org/js/jquery-1.11.3.js"></script>
+<?php
 cc4e_play_footer();
 ?>
 </body>

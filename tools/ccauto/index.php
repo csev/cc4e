@@ -192,7 +192,8 @@ echo("<p>Instructions: ".$instructions."</p>\n");
 ?>
 <form method="post">
 <p>
-<input type="submit" value="Run Code">
+<input type="submit" value="Run Code" disabled id="runcode">
+<span id="runstatus"><img src="<?= $OUTPUT->getSpinnerUrl() ?>"/></span>
 <?php
 $errors = cc4e_play_errors($retval);
 cc4e_play_inputs($lines, $code);

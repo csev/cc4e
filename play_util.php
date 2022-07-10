@@ -100,7 +100,6 @@ if ( isset($retval->assembly->stdout) && is_string($retval->assembly->stdout) ) 
 <?php function cc4e_play_footer() { 
      global $CFG;
 ?>
-<script src="https://static.tsugi.org/js/jquery-1.11.3.js"></script>
 <script type="text/javascript" src="<?= $CFG->apphome ?>/static/codemirror-5.62.0/lib/codemirror.js"></script>
 <script type="text/javascript" src="<?= $CFG->apphome ?>/static/codemirror-5.62.0/mode/clike/clike.js"></script>
 <script>
@@ -113,7 +112,7 @@ if ( isset($retval->assembly->stdout) && is_string($retval->assembly->stdout) ) 
 </script>
 <script>
 $(document).ready(function() {
-  $.getJSON( "ping.php", function( data ) { 
+	$.getJSON( "<?= $CFG->apphome ?>/ping.php", function( data ) { 
     if ( typeof data === "undefined" ) {
       $('#runstatus').html('Compiler unavailable');
       return;
