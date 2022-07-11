@@ -7,6 +7,9 @@ if ( !isset($_COOKIE['secret']) || $_COOKIE['secret'] != '42' ) {
 use \Tsugi\Core\LTIX;
 use \Tsugi\Util\U;
 
+$BUCKET_RATE = 30; // One compile per 30 seconds
+$BUCKET_MAX = 4;
+
 if ( ! isset($CFG) ) {
     if (!defined('COOKIE_SESSION')) define('COOKIE_SESSION', true);
     require_once "tsugi/config.php";
@@ -40,8 +43,36 @@ if ( is_string($sample) ) {
     $input = U::get($_SESSION, 'input');
     $retval = U::get($_SESSION, 'retval');
     if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
-        $retval = cc4e_compile($code, $input);
-        $_SESSION['retval'] = $retval;
+        $bucket = U::get($_SESSION,"leaky_bucket", null);
+        $now = time();
+        if ( ! is_array($bucket) ) $bucket = array();
+        $deltas = array();
+        $newbucket = array();
+        $count = 0;
+
+        $BUCKET_RATE = 30; // One compile per 30 seconds
+        $BUCKET_SIZE = 4;  // Burst rate
+        $BUCKET_TIME = $BUCKET_RATE * $BUCKET_MAX;
+        foreach($bucket as $when) {
+            $delta = $now - $when;
+            // Drop compiles beyond period
+            if ( $delta > $BUCKET_TIME ) continue;
+            $newbucket[] = $when;
+            $count = $count + 1;
+            $deltas[] = $delta;
+        }
+
+        if ( $count >= $BUCKET_SIZE ) {
+            $retval = new \stdClass();
+            $retval->assembly = new \stdClass();
+            $retval->assembly->stderr = "Rate Exceeded...";
+            $_SESSION['retval'] = $retval;
+        } else {
+            $newbucket[] = $now;
+            $retval = cc4e_compile($code, $input);
+            $_SESSION['retval'] = $retval;
+            $_SESSION["leaky_bucket"] = $newbucket;
+        }
     }
 }
 
@@ -65,13 +96,23 @@ if ( U::get($_REQUEST, "sample", null) != null ) {
 if ( ! $LOGGED_IN ) {
     echo('You must be logged in to run your program.');
 }
+
+echo("<!-- leaky bucket \n");
+$bucket = U::get($_SESSION,"leaky_bucket", null);
+if ( is_array($bucket) ) foreach($bucket as $when) {
+    echo(time() - $when);
+    echo("\n");
+}
+echo("-->\n");
+
+
 ?>
 <p>
 <form method="post">
 <p>
 <?php
 if ( $LOGGED_IN ) {
-	echo('<input type="submit" value="Run Code" id="runcode" disabled>');
+    echo('<input type="submit" value="Run Code" id="runcode" disabled>');
 }
 ?>
 <script>
