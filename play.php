@@ -84,29 +84,26 @@ cc4e_play_header($lines);
 </head>
 <body>
 <p>
+<?php if ( $LOGGED_IN ) { ?>
 This is the <a href="index.php">www.cc4e.com</a> code playground for writing C programs
 It is a very limited environment - you can find more full-featured
 C compilers <a href="compilers.php">online</a>.
 <?php
-if ( U::get($_REQUEST, "sample", null) != null ) {
-	echo(' Note that not all of the sample programs in the book compile and run using a modern compiler.');
-}
+    if ( U::get($_REQUEST, "sample", null) != null ) {
+	    echo(' Note that not all of the sample programs in the book compile and run using a modern compiler.');
+    }
+    echo("<!-- leaky bucket \n");
+    $bucket = U::get($_SESSION,"leaky_bucket", null);
+    if ( is_array($bucket) ) foreach($bucket as $when) {
+        echo(time() - $when);
+        echo("\n");
+    }
+    echo("-->\n");
+} else {
 ?>
-<?php
-if ( ! $LOGGED_IN ) {
-    echo('You must be logged in to run your program.');
-}
-
-echo("<!-- leaky bucket \n");
-$bucket = U::get($_SESSION,"leaky_bucket", null);
-if ( is_array($bucket) ) foreach($bucket as $when) {
-    echo(time() - $when);
-    echo("\n");
-}
-echo("-->\n");
-
-
-?>
+You must be logged in to run your program on this site.  There are a number of 
+free online <a href="compilers.php">C Compilers</a> that you can use.
+<?php } ?>
 <p>
 <form method="post">
 <p>
@@ -122,9 +119,11 @@ if ( window.opener ) {
     document.write('<input type="submit" onclick="window.location=\'index.php\'; return false;" value="Back to CC4E">');
 }
 </script>
-<span id="runstatus"><img src="<?= $OUTPUT->getSpinnerUrl() ?>"/></span>
-</p>
 <?php
+if ( $LOGGED_IN ) {
+    echo('<span id="runstatus"><img src="'.$OUTPUT->getSpinnerUrl().'"/></span>');
+}
+echo("</p>\n");
 $errors = cc4e_play_errors($retval);
 cc4e_play_inputs($lines, $code);
 if ( $LOGGED_IN ) {

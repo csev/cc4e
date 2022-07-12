@@ -324,8 +324,10 @@ number and type, or you'll get meaningless answers.
 
 By the way, `printf` is _not_ part of the C language; there is no input or
 output defined in C itself. There is nothing magic about `printf`; it is just a
-useful function which is part of the standard library of routines that are normally accessible to C programs. In order to concentrate on C itself, we
-won't talk much about I/O until [Chapter 7](chap07.md). In particular, we will defer formatted input until then. If you have to input numbers, read the discussion
+useful function which is part of the standard library of routines that are normally
+accessible to C programs. In order to concentrate on C itself, we
+won't talk much about I/O until [Chapter 7](chap07.md). In particular, we will defer
+formatted input until then. If you have to input numbers, read the discussion
 of the function `scanf` in [Chapter 7](chap07.md), section 7.4. `scanf` is much like
 `printf`, except that it reads input instead of writing output.
 

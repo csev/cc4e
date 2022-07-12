@@ -99,6 +99,7 @@ if ( isset($retval->assembly->stdout) && is_string($retval->assembly->stdout) ) 
 
 <?php function cc4e_play_footer() { 
      global $CFG;
+     $LOGGED_IN = \Tsugi\Util\U::get($_SESSION,'id', null) !== null;
 ?>
 <script type="text/javascript" src="<?= $CFG->apphome ?>/static/codemirror-5.62.0/lib/codemirror.js"></script>
 <script type="text/javascript" src="<?= $CFG->apphome ?>/static/codemirror-5.62.0/mode/clike/clike.js"></script>
@@ -110,8 +111,13 @@ if ( isset($retval->assembly->stdout) && is_string($retval->assembly->stdout) ) 
         mode: "text/x-csrc"
   });
 </script>
+<?php if ( $LOGGED_IN ) { ?>
 <script>
 $(document).ready(function() {
+<?php if ( isset($CFG->cc4e_no_ping) && $CFG->cc4e_no_ping ) { ?>
+   	$('#runcode').attr('disabled' , false);
+   	$('#runstatus').html('');
+<?php } else { ?>
 	$.getJSON( "<?= $CFG->apphome ?>/ping.php", function( data ) { 
     if ( typeof data === "undefined" ) {
       $('#runstatus').html('Compiler unavailable');
@@ -129,8 +135,10 @@ $(document).ready(function() {
   }).fail(function() {
     $('#runstatus').html('Unable to contact compiler');
   });
+<?php } ?>
 });
 </script>
+<?php } ?>
 <?php 
 }
 
