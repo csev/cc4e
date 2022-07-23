@@ -90,7 +90,20 @@ if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
    $_SESSION['retval'] = $retval;
 }
 
-if ( !is_string($code) || strlen($code) < 1 ) $code = $sample;
+$row = GradeUtil::gradeLoad();
+$json = array();
+if ( $row !== false && isset($row['json'])) {
+    $json = json_decode($row['json'], true);
+}
+
+if ( !is_string($code) || strlen($code) < 1 ) {
+    if ( isset($json["code"]) ) {
+        $code = $json["code"];
+    } else {
+        $code = $sample;
+    }
+}
+
 $lines = $code ? count(explode("\n", $code)) : 15;
 if ( $lines < 10 ) $lines = 10;
 
@@ -215,11 +228,11 @@ if ( is_string($input) && strlen($input) > 0 ) {
 
     // https://code.iamkate.com/php/diff-implementation/
 
+    GradeUtil::gradeUpdateJson(json_encode(array("code" => $code)));
     $actual = isset($retval->docker->stdout) && strlen($retval->docker->stdout) > 0 ? $retval->docker->stdout : false;
     if ( is_string($actual) && is_string($output) ) {
         if ( trim($actual) == trim($output) ) {
             $grade = 1.0;
-            GradeUtil::gradeUpdateJson(json_encode(array("code" => $code)));
             $debug_log = array();
             $graderet = LTIX::gradeSend($grade, false, $debug_log);
             // $OUTPUT->dumpDebugArray($debug_log);
