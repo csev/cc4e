@@ -215,7 +215,9 @@ function cc4e_compile($code, $input)
 
     $retval->folder = $folder;
 
-    $command = 'rm -rf * ; cat > student.c ; gcc -ansi -Wno-return-type -Wno-pointer-to-int-cast -Wno-builtin-declaration-mismatch -Wno-int-conversion -fno-asm -S student.c ; [ -f student.s ] && cat student.s';
+    $gcc_options = $CFG->cc4e_gcc_options ?? '-ansi -Wno-return-type -Wno-pointer-to-int-cast -Wno-builtin-declaration-mismatch -Wno-int-conversion';
+
+    $command = 'rm -rf * ; cat > student.c ; gcc '.$gcc_options.' -fno-asm -S student.c ; [ -f student.s ] && cat student.s';
 
     $pipe1 = cc4e_pipe($command, $code, $folder, $env, 10.0);
     $retval->assembly = $pipe1;
@@ -333,11 +335,15 @@ function cc4e_compile($code, $input)
 
     $eof = 'EOF' . md5(uniqid());
     if ( $retval->hasmain && $allowed && $minimum && ! $retval->reject ) {
+        $gcc_options = $CFG->cc4e_gcc_options ?? '-ansi -Wno-return-type -Wno-pointer-to-int-cast -Wno-builtin-declaration-mismatch -Wno-int-conversion';
+
         $script = "cd /tmp;\n";
         $script .= "cat > student.c << $eof\n";
         $script .= $code;
         $script .= "\n$eof\n";
-        $script .= "/usr/bin/gcc -ansi -Wno-return-type -Wno-pointer-to-int-cast -Wno-builtin-declaration-mismatch -Wno-int-conversion -fno-asm student.c\n";
+        $script .= "/usr/bin/gcc -ansi ";
+        $script .= $gcc_options;
+        $script .= " -fno-asm student.c\n";
         if ( is_string($input) && strlen($input) > 0 ) {
             $script .= "[ -f a.out ] && cpulimit --limit=25 --include-children ./a.out << $eof | head -n 5000\n";
             $script .= $input;
