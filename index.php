@@ -9,7 +9,7 @@ if ( isset($_POST['secret']) && ($_POST['secret'] == '42' || $_POST['secret'] ==
 <center>
 <h1>C Programming<br/> A Historical Perspective</h1>
 <form method="post">
-<input type="text" name="secret">
+<input type="text" name="secret" aria-label="The value for the secret is 42">
 <input type="submit" value="Unlock">
 <p>
 The unlock code is a number.  You won't be given the number.  It is a puzzle
