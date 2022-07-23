@@ -12,7 +12,7 @@ $ASSIGNMENT = true;
 
 function ccauto_instructions($LAUNCH) {
     return <<< EOF
-<b>Excercise 1-6.</b> Count blanks and new lines.  We skip tabs because it is a little tricky.
+<b>Exercise 1-6.</b> Count blanks and new lines.  We skip tabs because it is a little tricky.
 EOF
 ;
 }

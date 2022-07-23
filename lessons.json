@@ -161,6 +161,17 @@
                 "value": "1-06-count.php"
             }
         ]
+        },
+        {
+        "title" : "Exercise 1-7: Multiple spaces to one",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_1_07",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "1-07-single.php"
+            }
+        ]
         }
     ],
 

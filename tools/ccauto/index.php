@@ -31,6 +31,7 @@ $assignments = array(
     '1-04-celsius.php' => '1-4 Celsius / Farenheight Table',
     '1-05-reverse.php' => '1-5 Reversed Farenheight / Celsius Table',
     '1-06-count.php' => '1-6 Count blanks, and newlines',
+    '1-07-single.php' => '1-7 Multiple spaces to a single space',
 );
 
 $oldsettings = Settings::linkGetAll();
