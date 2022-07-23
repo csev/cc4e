@@ -150,6 +150,17 @@
                 "value": "1-05-reverse.php"
             }
         ]
+        },
+        {
+        "title" : "Exercise 1-6: Count spaces and newlines",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_1_06",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "1-06-count.php"
+            }
+        ]
         }
     ],
 

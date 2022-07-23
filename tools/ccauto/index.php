@@ -30,6 +30,7 @@ $assignments = array(
     '1-03-heading.php' => '1-3 Add a header',
     '1-04-celsius.php' => '1-4 Celsius / Farenheight Table',
     '1-05-reverse.php' => '1-5 Reversed Farenheight / Celsius Table',
+    '1-06-count.php' => '1-6 Count blanks, and newlines',
 );
 
 $oldsettings = Settings::linkGetAll();
@@ -74,6 +75,7 @@ if ( $assn && isset($assignments[$assn]) ) {
     include($assn);
     $instructions = ccauto_instructions($LAUNCH);
     $sample = ccauto_sample($LAUNCH);
+    $solution = ccauto_solution($LAUNCH);
     $input = ccauto_input($LAUNCH);
     $output = ccauto_output($LAUNCH);
 }
@@ -238,11 +240,11 @@ if ( is_string($input) && strlen($input) > 0 ) {
 ?>
 <p>Input to your program:</p>
 <p>
-<textarea id="myinput" name="input" readonly style="width:100%; border: 1px black solid;">
+<div id="programinput" class="pre_text"><pre>
 <?php
     echo(htmlentities($input));
 ?>
-</textarea>
+</pre></div>
 </p>
 <?php } ?>
 <?php
@@ -292,6 +294,12 @@ if ( is_string($input) && strlen($input) > 0 ) {
 <?php
 
 cc4e_play_debug($retval);
+
+if ( $LAUNCH->user->instructor && is_string($solution) && strlen($solution) > 0 ) {
+    echo("<div><p>Solution:</p><pre>\n");
+    echo(htmlentities($solution, ENT_NOQUOTES));
+    echo("</pre></div>\n");
+}
 
 $OUTPUT->footerStart();
 cc4e_play_footer();

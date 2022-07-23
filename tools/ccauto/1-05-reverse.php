@@ -12,7 +12,7 @@ $ASSIGNMENT = true;
 
 function ccauto_instructions($LAUNCH) {
     return <<< EOF
-Exercise 1-5. Modify the temperature conversion program to print the table in reverse order, that is, from 300 degrees to 0.
+<b>Exercise 1-5.</b> Modify the temperature conversion program to print the table in reverse order, that is, from 300 degrees to 0.
 EOF
 ;
 }
@@ -20,8 +20,8 @@ EOF
 function ccauto_input($LAUNCH) { return false; }
 
 // Make sure to escape \n as \\n
-function ccauto_sample($LAUNCH) { 
-    $solution = <<< EOF
+function ccauto_solution($LAUNCH) { 
+    return <<< EOF
 #include <stdio.h>
 main() /* Fahrenheit-Celsius table */
 {
@@ -32,6 +32,10 @@ main() /* Fahrenheit-Celsius table */
 EOF
 ;
 
+}
+
+// Make sure to escape \n as \\n
+function ccauto_sample($LAUNCH) { 
     $sample = <<< EOF
 #include <stdio.h>
 main() /* Fahrenheit-Celsius table */

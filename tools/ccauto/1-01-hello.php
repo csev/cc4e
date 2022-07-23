@@ -16,6 +16,8 @@ function ccauto_instructions($LAUNCH) {
 
 function ccauto_input($LAUNCH) { return false; }
 
+function ccauto_solution($LAUNCH) { return false; } 
+
 function ccauto_sample($LAUNCH) { return <<< EOF
 #include <stdio.h>
 main() {

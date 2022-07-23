@@ -33,6 +33,8 @@ EOF
 ;
 }
 
+function ccauto_solution($LAUNCH) { return false; }
+
 function ccauto_output($LAUNCH) { 
     $output = <<< EOF
    0   32.0

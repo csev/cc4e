@@ -21,6 +21,8 @@ EOF
 
 function ccauto_input($LAUNCH) { return false; }
 
+function ccauto_solution($LAUNCH) { return false; }
+
 // Make sure to escape \n as \\n
 function ccauto_sample($LAUNCH) { return <<< EOF
 #include <stdio.h>
