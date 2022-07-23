@@ -4,6 +4,7 @@ require_once './class.Diff.php';
 require_once "../config.php";
 require_once "../../play_util.php";
 require_once "../../sandbox/sandbox.php";
+require_once "ccauto_util.php";
 
 use \Tsugi\Util\U;
 use \Tsugi\Core\Settings;
@@ -16,6 +17,7 @@ $LAUNCH = LTIX::requireData();
 $p = $CFG->dbprefix;
 
 $LOGGED_IN = true;
+$RANDOM_CODE = getLinkCode($LAUNCH);
 
 if ( SettingsForm::handleSettingsPost() ) {
     header( 'Location: '.addSession('index.php') ) ;
@@ -77,6 +79,14 @@ if ( $assn && isset($assignments[$assn]) ) {
 $stdout = False;
 $stderr = False;
 
+if ( isset($_POST['reset']) ) {
+    unset($_SESSION['retval']);
+    unset($_SESSION['code']);
+    GradeUtil::gradeUpdateJson(json_encode(array("code" => null)));
+    header( 'Location: '.addSession('index.php') ) ;
+    return;
+}
+
 if ( isset($_POST['code']) ) {
     unset($_SESSION['retval']);
     $_SESSION['code'] = U::get($_POST, 'code', false);
@@ -86,6 +96,8 @@ if ( isset($_POST['code']) ) {
 
 $code = U::get($_SESSION, 'code');
 $retval = U::get($_SESSION, 'retval');
+
+
 if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
    $retval = cc4e_compile($code, $input);
    $_SESSION['retval'] = $retval;
@@ -103,7 +115,6 @@ if ( !is_string($code) || strlen($code) < 1 ) {
     } else {
         $code = $sample;
     }
-        $code = $sample;
 }
 
 $lines = $code ? count(explode("\n", $code)) : 15;
@@ -209,7 +220,10 @@ echo("<p>Instructions: ".$instructions."</p>\n");
 ?>
 <form method="post">
 <p>
-<input type="submit" value="Run Code" disabled id="runcode">
+<input type="submit" name="run" value="Run Code" disabled id="runcode">
+<input type="submit" name="reset" value="Reset Code"
+    onclick="return confirm('Do you really want to reset the code to the default?');"
+>
 <span id="runstatus"><img src="<?= $OUTPUT->getSpinnerUrl() ?>"/></span>
 <?php
 $errors = cc4e_play_errors($retval);
