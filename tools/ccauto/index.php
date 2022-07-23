@@ -24,7 +24,8 @@ if ( SettingsForm::handleSettingsPost() ) {
 
 // All the assignments we support
 $assignments = array(
-    '00hello.php' => 'Hello world (of course)',
+    '1-01-hello.php' => 'Hello world (of course)',
+    '1-03-heading.php' => 'Add a header',
 );
 
 $oldsettings = Settings::linkGetAll();
@@ -102,6 +103,7 @@ if ( !is_string($code) || strlen($code) < 1 ) {
     } else {
         $code = $sample;
     }
+        $code = $sample;
 }
 
 $lines = $code ? count(explode("\n", $code)) : 15;
