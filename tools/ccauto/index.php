@@ -255,9 +255,9 @@ if ( is_string($input) && strlen($input) > 0 ) {
             $graderet = LTIX::gradeSend($grade, false, $debug_log);
             // $OUTPUT->dumpDebugArray($debug_log);
             if ( $graderet == true ) {
-                echo('<p style="color:green;">Output match - Grade sent to server</p>'."\n");
+                echo('<p style="color:green;">OUTPUT MATCH - Grade sent to server</p>'."\n");
             } else if ( is_string($graderet) ) {
-                echo('<p style="color:red;">Output match - Grade not sent: '.$graderet."</p>\n");
+                echo('<p style="color:red;">OUTPUT MATCH - Grade not sent: '.$graderet."</p>\n");
             } else {
                 echo('<p style="color:red;">Internal send error</p>'."\n");
                 echo("<pre>\n");
