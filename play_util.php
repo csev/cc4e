@@ -98,8 +98,7 @@ if ( isset($retval->assembly->stdout) && is_string($retval->assembly->stdout) ) 
 <?php } ?> 
 
 <?php function cc4e_play_footer() { 
-     global $CFG;
-     $LOGGED_IN = \Tsugi\Util\U::get($_SESSION,'id', null) !== null;
+     global $CFG, $LOGGED_IN;
 ?>
 <script type="text/javascript" src="<?= $CFG->apphome ?>/static/codemirror-5.62.0/lib/codemirror.js"></script>
 <script type="text/javascript" src="<?= $CFG->apphome ?>/static/codemirror-5.62.0/mode/clike/clike.js"></script>

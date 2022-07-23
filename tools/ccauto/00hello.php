@@ -19,7 +19,7 @@ function ccauto_input($LAUNCH) { return false; }
 function ccauto_sample($LAUNCH) { return <<< EOF
 #include <stdio.h>
 main() {
-  prinq("Hello world\\n");
+  printq("Hello world\\n");
 }
 EOF
 ;

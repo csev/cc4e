@@ -15,6 +15,8 @@ use \Tsugi\Grades\GradeUtil;
 $LAUNCH = LTIX::requireData();
 $p = $CFG->dbprefix;
 
+$LOGGED_IN = true;
+
 if ( SettingsForm::handleSettingsPost() ) {
     header( 'Location: '.addSession('index.php') ) ;
     return;
