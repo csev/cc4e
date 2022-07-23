@@ -29,3 +29,6 @@ EOF
 
 function ccauto_output($LAUNCH) { return "Hello world"; }
 
+function ccauto_prohibit($LAUNCH) { return false; }
+function ccauto_require($LAUNCH) { return false; }
+

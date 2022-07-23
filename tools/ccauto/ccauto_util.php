@@ -20,3 +20,33 @@ EOF
 ;
 }
 
+function check_require($code, $require) {
+    if ( ! is_array($require) ) return false;
+
+    $retval = array();
+    foreach($require as $rule) {
+        if ( ! is_array($rule) || count($rule) != 2 ) continue;
+        if ( strpos($code, $rule[0]) === false ) {
+            $retval[] = $rule[1];
+        }
+    }
+
+    if ( count($retval) < 1 ) return false;
+    return $retval;
+}
+
+function check_prohibit($code, $prohibit) {
+    if ( ! is_array($prohibit) ) return false;
+
+    $retval = array();
+    foreach($prohibit as $rule) {
+        if ( ! is_array($rule) || count($rule) != 2 ) continue;
+        if ( strpos($code, $rule[0]) !== false ) {
+            $retval[] = $rule[1];
+        }
+    }
+
+    if ( count($retval) < 1 ) return false;
+    return $retval;
+}
+

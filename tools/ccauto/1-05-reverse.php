@@ -76,3 +76,6 @@ EOF
     return $output;
 }
 
+function ccauto_prohibit($LAUNCH) { return false; }
+function ccauto_require($LAUNCH) { return false; }
+

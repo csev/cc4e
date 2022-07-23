@@ -78,6 +78,8 @@ if ( $assn && isset($assignments[$assn]) ) {
     $solution = ccauto_solution($LAUNCH);
     $input = ccauto_input($LAUNCH);
     $output = ccauto_output($LAUNCH);
+    $prohibit = ccauto_prohibit($LAUNCH);
+    $require = ccauto_require($LAUNCH);
 }
 
 $stdout = False;
@@ -251,9 +253,15 @@ if ( is_string($input) && strlen($input) > 0 ) {
 
     // https://code.iamkate.com/php/diff-implementation/
 
+    $prohibit = check_prohibit($code, $prohibit);
+    $require = check_require($code, $require);
     $actual = isset($retval->docker->stdout) && strlen($retval->docker->stdout) > 0 ? $retval->docker->stdout : false;
     if ( is_string($actual) && is_string($output) ) {
-        if ( trim($actual) == trim($output) ) {
+        if ( is_array($prohibit) ) {
+            echo '<p style="color:red;">'.$prohibit[0].'</p>'."\n";
+        } else if ( is_array($require) ) {
+            echo '<p style="color:red;">'.$require[0].'</p>'."\n";
+        } else if ( trim($actual) == trim($output) ) {
             $grade = 1.0;
             $debug_log = array();
             $graderet = LTIX::gradeSend($grade, false, $debug_log);
