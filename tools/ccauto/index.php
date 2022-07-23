@@ -26,8 +26,9 @@ if ( SettingsForm::handleSettingsPost() ) {
 
 // All the assignments we support
 $assignments = array(
-    '1-01-hello.php' => 'Hello world (of course)',
-    '1-03-heading.php' => 'Add a header',
+    '1-01-hello.php' => '1-1 Hello world (of course)',
+    '1-03-heading.php' => '1-3 Add a header',
+    '1-04-celsius.php' => '1-4 Celsius / Farenheight Table',
 );
 
 $oldsettings = Settings::linkGetAll();

@@ -108,6 +108,17 @@
     ],
      "lti" : [
         {
+        "title" : "Exercise 1-1: Write Hello World",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_1_01",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "1-01-hello.php"
+            }
+        ]
+        },
+        {
         "title" : "Exercise 1-3: Farenheight / Celsuis with Header",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc4e_1_03",
@@ -115,6 +126,17 @@
             {
                 "key": "exercise",
                 "value": "1-03-heading.php"
+            }
+        ]
+        },
+        {
+        "title" : "Exercise 1-4: Celsius / Farenheight Table",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_1_04",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "1-04-celsius.php"
             }
         ]
         }
