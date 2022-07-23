@@ -9,6 +9,14 @@ body {
 
 .CodeMirror { height: auto; border: 1px solid #ddd; }
 .CodeMirror-scroll { max-height: <?= intval(($lines/13)*20) ?>em; }
+
+.pre_text {
+    height: auto;
+    max-height: 200px;
+    overflow: auto;
+    /*overflow-y: none;*/
+    background-color: #eeeeee;
+}
 </style>
 <?php } ?>
 
@@ -70,9 +78,11 @@ if ( isset($retval->docker->stdout) ) {
     echo '<form style="color: blue;">'."\n";
     echo '<div style="color: blue;">'."\n";
     echo "Output from your program:\n\n";
-    echo '<textarea id="myouput" readonly name="output" style="color: blue; width:100%; border: 1px black solid;">';
+    // echo '<textarea id="myouput" readonly name="output" style="color: blue; width:100%; border: 1px black solid;">';
+    echo('<div id="myoutput" class="pre_text"><pre>');
     echo(htmlentities($retval->docker->stdout, ENT_NOQUOTES));
-    echo("</textarea>\n");
+    // echo("</textarea>\n");
+    echo("</pre></div>\n");
     echo("</div>\n");
     echo("</form>\n");
 }

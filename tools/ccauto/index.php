@@ -277,10 +277,9 @@ if ( is_string($input) && strlen($input) > 0 ) {
     echo '<form style="color: blue;">'."\n";
     echo '<div style="color: green;">'."\n";
     echo "Expected output from your program:\n\n";
-    echo '<textarea id="myouput" readonly name="expected" style="color: green; width:100%; border: 1px black solid;">';
+    echo('<div id="expectedoutput" class="pre_text"><pre>');
     echo(htmlentities($output, ENT_NOQUOTES));
-    echo("</textarea>\n");
-    echo("</div>\n");
+    echo("</pre></div>\n");
     echo("</form>\n");
  cc4e_play_output($retval);
 ?>
