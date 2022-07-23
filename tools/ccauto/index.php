@@ -133,6 +133,7 @@ cc4e_play_header($lines);
         table-layout: fixed;
         width: 100px;
     }
+
       .diff td{
         padding:0 0.667em;
         vertical-align:top;
@@ -270,6 +271,7 @@ if ( is_string($input) && strlen($input) > 0 ) {
             $table = Diff::toTable($diff);
             $header = '<tr class="header"><th>Expected Output</th><th>Your Output</th></tr>';
             $table = str_replace('<table class="diff">', '<table class="diff" id="difftable">'.$header, $table);
+            $table = str_replace('<br>', '', $table);
             echo($table);
             echo('</div>');
         }
