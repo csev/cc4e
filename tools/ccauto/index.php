@@ -109,10 +109,11 @@ if ( $row !== false && isset($row['json'])) {
     $json = json_decode($row['json'], true);
 }
 
+$code = '';
 if ( !is_string($code) || strlen($code) < 1 ) {
     if ( isset($json["code"]) ) {
         $code = $json["code"];
-    } else {
+    } else if ( isset($sample)) {
         $code = $sample;
     }
 }
@@ -206,7 +207,7 @@ if ( isset($_SESSION['error']) ) {
 
 $OUTPUT->flashMessages();
 
-if ( ! $ASSIGNMENT ) {
+if ( ! (isset($ASSIGNMENT) && $ASSIGNMENT) ) {
     if ( $LAUNCH->user->instructor ) {
         echo("<p>Please use settings to select an assignment for this tool.</p>\n");
     } else {
