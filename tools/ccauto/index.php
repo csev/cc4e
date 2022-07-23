@@ -100,6 +100,7 @@ $retval = U::get($_SESSION, 'retval');
 
 if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
    $retval = cc4e_compile($code, $input);
+    GradeUtil::gradeUpdateJson(json_encode(array("code" => $code)));
    $_SESSION['retval'] = $retval;
 }
 
@@ -246,7 +247,6 @@ if ( is_string($input) && strlen($input) > 0 ) {
 
     // https://code.iamkate.com/php/diff-implementation/
 
-    GradeUtil::gradeUpdateJson(json_encode(array("code" => $code)));
     $actual = isset($retval->docker->stdout) && strlen($retval->docker->stdout) > 0 ? $retval->docker->stdout : false;
     if ( is_string($actual) && is_string($output) ) {
         if ( trim($actual) == trim($output) ) {
