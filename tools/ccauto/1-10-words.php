@@ -12,19 +12,20 @@ $ASSIGNMENT = true;
 
 function ccauto_instructions($LAUNCH) {
     return <<< EOF
-<b>Exercise 1-7.</b> Write a program to copy its input to its output, replacing each string of one or more blanks by a single blank.
+<b>Exercise 1-10.</b> Write a program which prints the words in its input, one per line.  A word
+is any string separated by a space or newline,
 EOF
 ;
 }
 
-function ccauto_input($LAUNCH) { 
+function ccauto_input($LAUNCH) {
     return <<< EOF
-But soft  what light     through yonder window breaks
-It is    the east and  Juliet is the sun
-Arise fair sun   and kill the envious moon
-Who  is  already  sick  and  pale  with  grief
+But soft what light
+through yonder window
+breaks
 EOF
-    ;
+;
+
 }
 
 // Make sure to escape \n as \\n
@@ -35,15 +36,31 @@ main() {
     int c;
     while ((c = getchar()) != EOF) {
         putchar(c);
-    } 
+    }
 }
 EOF
 ;
 }
 
-function ccauto_output($LAUNCH) { return romeo(); }
+function ccauto_output($LAUNCH) { 
+    return <<< EOF
+But
+soft
+what
+light
+through
+yonder
+window
+breaks
+EOF
+;
+}
 
-function ccauto_prohibit($LAUNCH) { return false; }
+function ccauto_prohibit($LAUNCH) { 
+    return array(
+        array('soft', 'You must not hard code the output'),
+    );
+}
 
 function ccauto_require($LAUNCH) { return false; }
 
@@ -54,9 +71,14 @@ function ccauto_solution($LAUNCH) {
 main() {
     int c, space = 0;
     while ((c = getchar()) != EOF) {
-        if ( c != ' ' || space == 0 ) putchar(c);
-        space = c == ' ';
-    } 
+        if ( c == ' ' || c == '\\n' ) {
+            if ( ! space ) putchar('\\n');
+            space = 1;
+        } else {
+            putchar(c);
+            space = 0;
+        }
+    }
 }
 EOF
 ;

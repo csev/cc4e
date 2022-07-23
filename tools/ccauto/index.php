@@ -32,6 +32,7 @@ $assignments = array(
     '1-05-reverse.php' => '1-5 Reversed Farenheight / Celsius Table',
     '1-06-count.php' => '1-6 Count blanks, and newlines',
     '1-07-single.php' => '1-7 Multiple spaces to a single space',
+    '1-10-words.php' => '1-10 Print the words in a file',
 );
 
 $oldsettings = Settings::linkGetAll();
@@ -296,7 +297,7 @@ if ( is_string($input) && strlen($input) > 0 ) {
     echo('<div id="expectedoutput" class="pre_text"><pre>');
     echo(htmlentities($output, ENT_NOQUOTES));
     echo("</pre></div>\n");
-    echo("</form>\n");
+    echo("</div></form>\n");
  cc4e_play_output($retval);
 ?>
 </form>
@@ -305,7 +306,7 @@ if ( is_string($input) && strlen($input) > 0 ) {
 cc4e_play_debug($retval);
 
 if ( $LAUNCH->user->instructor && is_string($solution) && strlen($solution) > 0 ) {
-    echo("<div><p>Solution:</p><pre>\n");
+    echo("<div><p>Solution: (instructor only)</p><pre>\n");
     echo(htmlentities($solution, ENT_NOQUOTES));
     echo("</pre></div>\n");
 }

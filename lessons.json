@@ -172,6 +172,17 @@
                 "value": "1-07-single.php"
             }
         ]
+        },
+        {
+        "title" : "Exercise 1-10: Print words",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_1_10",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "1-10-words.php"
+            }
+        ]
         }
     ],
 
