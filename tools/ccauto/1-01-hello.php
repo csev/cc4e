@@ -11,7 +11,7 @@ global $ASSIGNMENT;
 $ASSIGNMENT = true;
 
 function ccauto_instructions($LAUNCH) {
-    return 'Please write a program to print "Hello world"';
+    return '<b>Exercise 1-1.</b> Please write a program to print "Hello world"';
 }
 
 function ccauto_input($LAUNCH) { return false; }

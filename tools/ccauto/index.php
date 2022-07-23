@@ -29,6 +29,7 @@ $assignments = array(
     '1-01-hello.php' => '1-1 Hello world (of course)',
     '1-03-heading.php' => '1-3 Add a header',
     '1-04-celsius.php' => '1-4 Celsius / Farenheight Table',
+    '1-05-reverse.php' => '1-5 Reversed Farenheight / Celsius Table',
 );
 
 $oldsettings = Settings::linkGetAll();
@@ -220,7 +221,7 @@ if ( ! (isset($ASSIGNMENT) && $ASSIGNMENT) ) {
     return;
 }
 
-echo("<p>Instructions: ".$instructions."</p>\n");
+echo("<p>".$instructions."</p>\n");
 ?>
 <form method="post">
 <p>

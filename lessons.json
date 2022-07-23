@@ -139,6 +139,17 @@
                 "value": "1-04-celsius.php"
             }
         ]
+        },
+        {
+        "title" : "Exercise 1-5: Reverse Table",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_1_05",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "1-05-reverse.php"
+            }
+        ]
         }
     ],
 

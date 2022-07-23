@@ -12,6 +12,7 @@ $ASSIGNMENT = true;
 
 function ccauto_instructions($LAUNCH) {
     return <<< EOF
+<b>Exercise 1-3.</b>
 Modify the temperature conversion program to print a heading above the table.
 Check the sample output for the required format of the heading.
 EOF
