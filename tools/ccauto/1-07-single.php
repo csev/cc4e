@@ -43,7 +43,11 @@ EOF
 
 function ccauto_output($LAUNCH) { return romeo(); }
 
-function ccauto_prohibit($LAUNCH) { return false; }
+function ccauto_prohibit($LAUNCH) { 
+    return array(
+        array('soft', 'You cannot hard-code the output.'),
+    );
+}
 
 function ccauto_require($LAUNCH) { return false; }
 
