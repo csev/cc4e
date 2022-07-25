@@ -9,7 +9,7 @@ use \Tsugi\Util\Mersenne_Twister;
 // Called first
 function ccauto_instructions($LAUNCH) {
     return <<< EOF
-<b>Exercise 1-4.</b> Write a program to print the corresponding Celsius to Fahrenheit table.
+<b>K&R Exercise 1-4.</b> Write a program to print the corresponding Celsius to Fahrenheit table.
 Check the sample output for the required format of the heading.
 EOF
 ;

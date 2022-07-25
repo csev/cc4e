@@ -9,7 +9,7 @@ use \Tsugi\Util\Mersenne_Twister;
 // Called first
 function ccauto_instructions($LAUNCH) {
     return <<< EOF
-<b>Exercise 1-10.</b> Write a program which prints the words in its input, one per line.  A word
+<b>K&R Exercise 1-10.</b> Write a program which prints the words in its input, one per line.  A word
 is any string separated by a space or newline,
 EOF
 ;

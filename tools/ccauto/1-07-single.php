@@ -9,7 +9,7 @@ use \Tsugi\Util\Mersenne_Twister;
 // Called first
 function ccauto_instructions($LAUNCH) {
     return <<< EOF
-<b>Exercise 1-7.</b> Write a program to copy its input to its output, replacing each string of one or more blanks by a single blank.
+<b>K&R Exercise 1-7.</b> Write a program to copy its input to its output, replacing each string of one or more blanks by a single blank.
 EOF
 ;
 }

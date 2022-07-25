@@ -9,7 +9,7 @@ use \Tsugi\Util\Mersenne_Twister;
 // Called first
 function ccauto_instructions($LAUNCH) {
     return <<< EOF
-<b>Exercise 1-6.</b> Count blanks and new lines.  We skip tabs because it is a little tricky.
+<b>K&R Exercise 1-6.</b> Count blanks and new lines.  We skip tabs because it is a little tricky.
 EOF
 ;
 }
