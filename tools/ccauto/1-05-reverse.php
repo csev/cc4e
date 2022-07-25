@@ -10,12 +10,15 @@ global $ASSIGNMENT;
 
 $ASSIGNMENT = true;
 
+// Called first
 function ccauto_instructions($LAUNCH) {
     return <<< EOF
 <b>Exercise 1-5.</b> Modify the temperature conversion program to print the table in reverse order, that is, from 300 degrees to 0.
 EOF
 ;
 }
+
+function ccauto_main($LAUNCH) { return false; }
 
 function ccauto_input($LAUNCH) { return false; }
 

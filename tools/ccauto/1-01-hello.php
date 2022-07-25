@@ -10,9 +10,12 @@ global $ASSIGNMENT;
 
 $ASSIGNMENT = true;
 
+// Called first
 function ccauto_instructions($LAUNCH) {
     return '<b>Exercise 1-1.</b> Please write a program to print "Hello world"';
 }
+
+function ccauto_main($LAUNCH) { return false; }
 
 function ccauto_input($LAUNCH) { return false; }
 

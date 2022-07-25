@@ -82,6 +82,7 @@ if ( $assn && isset($assignments[$assn]) ) {
     $output = ccauto_output($LAUNCH);
     $prohibit = ccauto_prohibit($LAUNCH);
     $require = ccauto_require($LAUNCH);
+    $main = ccauto_main($LAUNCH);
 }
 
 $stdout = False;

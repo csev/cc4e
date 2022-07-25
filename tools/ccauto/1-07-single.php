@@ -10,12 +10,15 @@ global $ASSIGNMENT;
 
 $ASSIGNMENT = true;
 
+// Called first
 function ccauto_instructions($LAUNCH) {
     return <<< EOF
 <b>Exercise 1-7.</b> Write a program to copy its input to its output, replacing each string of one or more blanks by a single blank.
 EOF
 ;
 }
+
+function ccauto_main($LAUNCH) { return false; }
 
 function ccauto_input($LAUNCH) { 
     return <<< EOF

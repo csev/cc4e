@@ -10,12 +10,15 @@ global $ASSIGNMENT;
 
 $ASSIGNMENT = true;
 
+// Called first
 function ccauto_instructions($LAUNCH) {
     return <<< EOF
 <b>Exercise 1-6.</b> Count blanks and new lines.  We skip tabs because it is a little tricky.
 EOF
 ;
 }
+
+function ccauto_main($LAUNCH) { return false; }
 
 function ccauto_input($LAUNCH) { return romeo(); }
 
