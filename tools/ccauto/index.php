@@ -34,7 +34,8 @@ $assignments = array(
     '1-06-count.php' => '1-6 Count blanks, and newlines',
     '1-07-single.php' => '1-7 Multiple spaces to a single space',
     '1-10-words.php' => '1-10 Print the words in a file',
-    'p-03-04-function.php' => '3.4 Write computepay() function',
+    'p-03-01-function.php' => '3.1 Time and a half for overtime',
+    'p-04-06-function.php' => '4.6 Write computepay() function',
 );
 
 $oldsettings = Settings::linkGetAll();
