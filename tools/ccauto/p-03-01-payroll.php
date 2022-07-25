@@ -8,12 +8,12 @@ use \Tsugi\Util\Mersenne_Twister;
 
 // Called first
 function ccauto_instructions($LAUNCH) {
-    GLOBAL $RANDOM_CODE_HOUR, $RATE_3_4, $HOURS_3_4, $PAY_3_4, $PAY_3_4_STR;
-    $RATE_3_4 = (($RANDOM_CODE_HOUR % 1000) + 1500) / 100.0;
-    $HOURS_3_4 = (($RANDOM_CODE_HOUR % 2000) + 3500) / 100.0;
-    $PAY_3_4 = ($RATE_3_4 * $HOURS_3_4);
-    if ( $HOURS_3_4 > 40 ) $PAY_3_4 = $PAY_3_4 + ($RATE_3_4 * 1.5 * ($HOURS_3_4 - 40.0));
-    $PAY_3_4_STR = sprintf("%7.2f", $PAY_3_4);
+    GLOBAL $RANDOM_CODE_HOUR, $RATE_3_1, $HOURS_3_1, $PAY_3_1, $PAY_3_1_STR;
+    $RATE_3_1 = (($RANDOM_CODE_HOUR % 1000) + 1500) / 100.0;
+    $HOURS_3_1 = (($RANDOM_CODE_HOUR % 2000) + 3500) / 100.0;
+    $PAY_3_1 = ($RATE_3_1 * $HOURS_3_1);
+    if ( $HOURS_3_1 > 40 ) $PAY_3_1 = $PAY_3_1 + ($RATE_3_1 * 1.5 * ($HOURS_3_1 - 40.0));
+    $PAY_3_1_STR = sprintf("%7.2f", $PAY_3_1);
 
     return <<< EOF
 <b>PY4E Exercise 3.1.</b> 
@@ -32,14 +32,14 @@ EOF
 }
 
 function ccauto_input($LAUNCH) { 
-    GLOBAL $RATE_3_4, $HOURS_3_4, $PAY_3_4, $PAY_3_4_STR;
-    return sprintf("%7.2f %7.2f\n", $RATE_3_4, $HOURS_3_4);
+    GLOBAL $RATE_3_1, $HOURS_3_1, $PAY_3_1, $PAY_3_1_STR;
+    return sprintf("%7.2f %7.2f\n", $RATE_3_1, $HOURS_3_1);
 }
 
 function ccauto_output($LAUNCH) { 
-    GLOBAL $RATE_3_4, $HOURS_3_4, $PAY_3_4, $PAY_3_4_STR;
+    GLOBAL $RATE_3_1, $HOURS_3_1, $PAY_3_1, $PAY_3_1_STR;
     return <<< EOF
-Pay: $PAY_3_4_STR
+Pay: $PAY_3_1_STR
 EOF
 ;
 }
@@ -62,9 +62,9 @@ EOF
 }
 
 function ccauto_prohibit($LAUNCH) { 
-    GLOBAL $RANDOM_3_4, $RATE_3_4, $HOURS_3_4, $PAY_3_4, $PAY_3_4_STR;
+    GLOBAL $RANDOM_3_1, $RATE_3_1, $HOURS_3_1, $PAY_3_1, $PAY_3_1_STR;
     return array(
-        array($PAY_3_4_STR, 'You cannot hard-code the output.'),
+        array($PAY_3_1_STR, 'You cannot hard-code the output.'),
         array('42', 'The value 42, while important, does not belong in the implementation of this function.'),
     );
 }

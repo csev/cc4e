@@ -8,12 +8,12 @@ use \Tsugi\Util\Mersenne_Twister;
 
 // Called first
 function ccauto_instructions($LAUNCH) {
-    GLOBAL $RANDOM_CODE_HOUR, $RATE_3_4, $HOURS_3_4, $PAY_3_4, $PAY_3_4_STR;
-    $RATE_3_4 = (($RANDOM_CODE_HOUR % 1000) + 1500) / 100.0;
-    $HOURS_3_4 = (($RANDOM_CODE_HOUR % 2000) + 3500) / 100.0;
-    $PAY_3_4 = ($RATE_3_4 * $HOURS_3_4);
-    if ( $HOURS_3_4 > 40 ) $PAY_3_4 = $PAY_3_4 + ($RATE_3_4 * 1.5 * ($HOURS_3_4 - 40.0));
-    $PAY_3_4_STR = sprintf("%7.2f", $PAY_3_4);
+    GLOBAL $RANDOM_CODE_HOUR, $RATE_4_6, $HOURS_4_6, $PAY_4_6, $PAY_4_6_STR;
+    $RATE_4_6 = (($RANDOM_CODE_HOUR % 1000) + 1500) / 100.0;
+    $HOURS_4_6 = (($RANDOM_CODE_HOUR % 2000) + 3500) / 100.0;
+    $PAY_4_6 = ($RATE_4_6 * $HOURS_4_6);
+    if ( $HOURS_4_6 > 40 ) $PAY_4_6 = $PAY_4_6 + ($RATE_4_6 * 1.5 * ($HOURS_4_6 - 40.0));
+    $PAY_4_6_STR = sprintf("%7.2f", $PAY_4_6);
 
     return <<< EOF
 <b>PY4E Exercise 4.6.</b> 
@@ -26,8 +26,8 @@ function ccauto_instructions($LAUNCH) {
     </p>
     <p>
     Each time you run the program, the values
-    like hours ($HOURS_3_4) and rate ($RATE_3_4) and the 
-    resulting pay ($PAY_3_4_STR) may be different each time you run the code.
+    like hours ($HOURS_4_6) and rate ($RATE_4_6) and the 
+    resulting pay ($PAY_4_6_STR) may be different each time you run the code.
     </p>
 EOF
 ;
@@ -35,12 +35,12 @@ EOF
 
 // Remember to double escape \n as \\n
 function ccauto_main($LAUNCH) { 
-    GLOBAL $RATE_3_4, $HOURS_3_4, $PAY_3_4, $PAY_3_4_STR;
+    GLOBAL $RATE_4_6, $HOURS_4_6, $PAY_4_6, $PAY_4_6_STR;
     return <<< EOF
 #include <stdio.h>
 int main() {
-  float rate = $RATE_3_4;
-  float hours = $HOURS_3_4;
+  float rate = $RATE_4_6;
+  float hours = $HOURS_4_6;
 
   float retval, computepay();
   retval = computepay(rate, hours);
@@ -58,11 +58,11 @@ EOF
 function ccauto_input($LAUNCH) { return false; }
 
 function ccauto_output($LAUNCH) { 
-    GLOBAL $RATE_3_4, $HOURS_3_4, $PAY_3_4, $PAY_3_4_STR;
-    $pay_35 = sprintf("%7.2f", $RATE_3_4*35.0);
-    $pay_45 = sprintf("%7.2f", $RATE_3_4*45.0);
+    GLOBAL $RATE_4_6, $HOURS_4_6, $PAY_4_6, $PAY_4_6_STR;
+    $pay_35 = sprintf("%7.2f", $RATE_4_6*35.0);
+    $pay_45 = sprintf("%7.2f", $RATE_4_6*45.0);
     return <<< EOF
-Pay: $PAY_3_4_STR
+Pay: $PAY_4_6_STR
 Pay: $pay_35
 Pay: $pay_45
 EOF
@@ -82,9 +82,9 @@ EOF
 }
 
 function ccauto_prohibit($LAUNCH) { 
-    GLOBAL $RANDOM_3_4, $RATE_3_4, $HOURS_3_4, $PAY_3_4, $PAY_3_4_STR;
+    GLOBAL $RANDOM_4_6, $RATE_4_6, $HOURS_4_6, $PAY_4_6, $PAY_4_6_STR;
     return array(
-        array($PAY_3_4_STR, 'You cannot hard-code the output.'),
+        array($PAY_4_6_STR, 'You cannot hard-code the output.'),
         array('include', 'You should not have any include statements in your code.'),
         array('42', 'The value 42, while important, does not belong in the implementation of this function.'),
     );
