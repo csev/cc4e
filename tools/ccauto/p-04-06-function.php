@@ -18,11 +18,12 @@ function ccauto_instructions($LAUNCH) {
     return <<< EOF
 <b>PY4E Exercise 4.6.</b> 
     <p>
-    We will provide a program that will give you a randomly chosen number of hours and rate per hour.
     You should write a function (no #include statements are needed) called computepay(hours, rate)
     that computes the correct pay and returns it as a float.
     Pay should be the normal rate for hours up to 40 and time-and-a-half for the hourly 
     rate for all hours worked above 40 hours.  
+    We will provide a main() program that will call your function and give you a randomly chosen number
+    of hours and rate per hour.
     </p>
     <p>
     Each time you run the program, the values
