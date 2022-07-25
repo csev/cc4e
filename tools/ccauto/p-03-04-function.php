@@ -6,10 +6,6 @@ use \Tsugi\Util\PDOX;
 use \Tsugi\Util\U;
 use \Tsugi\Util\Mersenne_Twister;
 
-global $ASSIGNMENT;
-
-$ASSIGNMENT = true;
-
 // Called first
 function ccauto_instructions($LAUNCH) {
     GLOBAL $RANDOM_CODE_HOUR, $RATE_3_4, $HOURS_3_4, $PAY_3_4, $PAY_3_4_STR;
@@ -74,6 +70,7 @@ function ccauto_prohibit($LAUNCH) {
     return array(
         array($PAY_3_4_STR, 'You cannot hard-code the output.'),
         array('include', 'You should not have any include statements in your code.'),
+        array('42', 'The value 42, while important, does not belong in the implementation of this function.'),
     );
 }
 
@@ -81,7 +78,7 @@ function ccauto_require($LAUNCH) {
     return array (
         array('return', 'You must use a return statement'),
         array('float', 'The function is dealing with float type variables'),
-        array('if', 'You need an if statement in this program'),
+        array('40', 'How to you figure when the hours are above 40, when you don\'t use 40 anywhere in your code?'),
     );
 }
 

@@ -77,6 +77,7 @@ if ( $LAUNCH->user->instructor ) {
 // Load up the assignment
 if ( $assn && isset($assignments[$assn]) ) {
     include($assn);
+    $ASSIGNMENT = true;
     $instructions = ccauto_instructions($LAUNCH);
     $sample = ccauto_sample($LAUNCH);
     $solution = ccauto_solution($LAUNCH);

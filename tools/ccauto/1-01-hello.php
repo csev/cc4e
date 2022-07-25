@@ -6,10 +6,6 @@ use \Tsugi\Util\PDOX;
 use \Tsugi\Util\U;
 use \Tsugi\Util\Mersenne_Twister;
 
-global $ASSIGNMENT;
-
-$ASSIGNMENT = true;
-
 // Called first
 function ccauto_instructions($LAUNCH) {
     return '<b>Exercise 1-1.</b> Please write a program to print "Hello world"';
