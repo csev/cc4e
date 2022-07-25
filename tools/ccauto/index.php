@@ -38,6 +38,7 @@ $assignments = array(
     'p-03-01-payroll.php' => '3.1 Time and a half for overtime',
     'p-03-04-score.php' => '3.4 Score with else if',
     'p-04-06-function.php' => '4.6 Write computepay() function',
+    'p-05-02-maxmin.php' => '5.2 Max / min numbers',
 );
 
 $oldsettings = Settings::linkGetAll();
