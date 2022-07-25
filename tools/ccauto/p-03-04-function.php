@@ -17,13 +17,18 @@ function ccauto_instructions($LAUNCH) {
 
     return <<< EOF
 <b>PY4E Exercise 4.6.</b> 
-    We will provide a program that will give you a number of hours and rate per hour.
+    <p>
+    We will provide a program that will give you a randomly chosen number of hours and rate per hour.
     You should write a function (no #include statements are needed) called computepay(hours, rate)
     that computes the correct pay and returns it as a float.
     Pay should be the normal rate for hours up to 40 and time-and-a-half for the hourly 
-    rate for all hours worked above 40 hours.  Each time you run the program, the values
+    rate for all hours worked above 40 hours.  
+    </p>
+    <p>
+    Each time you run the program, the values
     like hours ($HOURS_3_4) and rate ($RATE_3_4) and the 
     resulting pay ($PAY_3_4_STR) may be different each time you run the code.
+    </p>
 EOF
 ;
 }
@@ -40,6 +45,10 @@ int main() {
   float retval, computepay();
   retval = computepay(rate, hours);
   printf("Pay: %7.2f\\n", retval);
+  retval = computepay(rate, 35.0);
+  printf("Pay: %7.2f\\n", retval);
+  retval = computepay(rate, 45.0);
+  printf("Pay: %7.2f\\n", retval);
 }
 EOF
 ;
@@ -50,7 +59,14 @@ function ccauto_input($LAUNCH) { return false; }
 
 function ccauto_output($LAUNCH) { 
     GLOBAL $RATE_3_4, $HOURS_3_4, $PAY_3_4, $PAY_3_4_STR;
-    return 'Pay: '.$PAY_3_4_STR;
+    $pay_35 = sprintf("%7.2f", $RATE_3_4*35.0);
+    $pay_45 = sprintf("%7.2f", $RATE_3_4*45.0);
+    return <<< EOF
+Pay: $PAY_3_4_STR
+Pay: $pay_35
+Pay: $pay_45
+EOF
+;
 }
 
 // Make sure to escape \n as \\n
