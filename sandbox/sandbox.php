@@ -221,7 +221,7 @@ function cc4e_compile($code, $input, $main=null)
 
     // Add any driver code that is required
     if ( is_string($main) && strlen($main) > 0 ) {
-        $code = $main . $code;
+        $code = $main . "\n" . $code;
     }
 
     $pipe1 = cc4e_pipe($command, $code, $folder, $env, 10.0);
