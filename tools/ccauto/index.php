@@ -18,6 +18,7 @@ $p = $CFG->dbprefix;
 
 $LOGGED_IN = true;
 $RANDOM_CODE = getLinkCode($LAUNCH);
+$RANDOM_CODE_HOUR = getLinkCodeHour($LAUNCH);
 
 if ( SettingsForm::handleSettingsPost() ) {
     header( 'Location: '.addSession('index.php') ) ;
@@ -33,6 +34,7 @@ $assignments = array(
     '1-06-count.php' => '1-6 Count blanks, and newlines',
     '1-07-single.php' => '1-7 Multiple spaces to a single space',
     '1-10-words.php' => '1-10 Print the words in a file',
+    'p-03-04-function.php' => '3.4 Write computepay() function',
 );
 
 $oldsettings = Settings::linkGetAll();
@@ -108,7 +110,7 @@ $retval = U::get($_SESSION, 'retval');
 
 
 if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
-   $retval = cc4e_compile($code, $input);
+   $retval = cc4e_compile($code, $input, $main);
     GradeUtil::gradeUpdateJson(json_encode(array("code" => $code)));
    $_SESSION['retval'] = $retval;
 }
@@ -292,17 +294,26 @@ if ( is_string($input) && strlen($input) > 0 ) {
         }
     }
 
-    echo '<form style="color: blue;">'."\n";
     echo '<div style="color: green;">'."\n";
     echo "Expected output from your program:\n\n";
     echo('<div id="expectedoutput" class="pre_text"><pre>');
     echo(htmlentities($output, ENT_NOQUOTES));
     echo("</pre></div>\n");
-    echo("</div></form>\n");
+    echo("</div>\n");
+
  cc4e_play_output($retval);
 ?>
 </form>
 <?php
+
+if ( is_string($main) && strlen($main) > 0 ) {
+echo '<div style="color: blue;">'."\n";
+    echo "The main program which will execute your code:\n\n";
+    echo('<div id="mainprogram" class="pre_text"><pre>');
+    echo(htmlentities($main, ENT_NOQUOTES));
+    echo("</pre></div>\n");
+    echo("</div>\n");
+}
 
 cc4e_play_debug($retval);
 

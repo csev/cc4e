@@ -156,7 +156,7 @@ function cc4e_pipe($command, $stdin, $cwd, $env, $timeout)
 //  callq   _zap                        ## Both local and external :(
 //  leaq    L_.str(%rip), %rdi
 //  leaq    _fun(%rip), %rax
-function cc4e_compile($code, $input)
+function cc4e_compile($code, $input, $main=null)
 {
     global $CFG;
 
@@ -218,6 +218,11 @@ function cc4e_compile($code, $input)
     $gcc_options = $CFG->cc4e_gcc_options ?? '-ansi -Wno-return-type -Wno-pointer-to-int-cast -Wno-builtin-declaration-mismatch -Wno-int-conversion';
 
     $command = 'rm -rf * ; cat > student.c ; gcc '.$gcc_options.' -fno-asm -S student.c ; [ -f student.s ] && cat student.s';
+
+    // Add any driver code that is required
+    if ( is_string($main) && strlen($main) > 0 ) {
+        $code = $main . $code;
+    }
 
     $pipe1 = cc4e_pipe($command, $code, $folder, $env, 10.0);
     $retval->assembly = $pipe1;

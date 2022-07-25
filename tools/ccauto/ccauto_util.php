@@ -10,6 +10,12 @@ function getLinkCode($LAUNCH) {
     return $LAUNCH->link->id*4200+$LAUNCH->user->id*42+$LAUNCH->context->id;
 }
 
+// Unique to user + course
+function getLinkCodeHour($LAUNCH) {
+    $hour = (time() / 3600) % 24;
+    return $hour*10000+$LAUNCH->link->id*4200+$LAUNCH->user->id*42+$LAUNCH->context->id;
+}
+
 function romeo() {
     return <<< EOF
 But soft what light through yonder window breaks
