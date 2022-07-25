@@ -86,7 +86,7 @@
     ]
 },
 {
-    "title": "A Tutorial Introduction",
+    "title": "Chapter 1: A Tutorial Introduction",
     "anchor": "tutorial",
     "icon" : "fa-building",
     "description": "This chapter covers what might be called the conventional core of C.",
@@ -195,7 +195,7 @@
     ]
 },
 {
-    "title": "Types, Operators, and Expressions",
+    "title": "Chapter 2: Types, Operators, and Expressions",
     "anchor": "core",
     "icon" : "fa-binoculars",
     "description": "This chapter covers types, operators, and expressions.",
@@ -225,7 +225,7 @@
     ]
 },
 {
-    "title": "Control Flow",
+    "title": "Chapter 3: Control Flow",
     "anchor": "control",
     "icon" : "fa-code-fork",
     "description": "This chapter covers control flow.",
@@ -255,7 +255,7 @@
     ]
 },
 {
-    "title": "Functions and Program Structure",
+    "title": "Chapter 4: Functions and Program Structure",
     "anchor": "functions",
     "icon" : "fa-flask",
     "description": "This chapter covers functions and program structure.",
@@ -285,7 +285,7 @@
     ]
 },
 {
-    "title": "Pointers and Arrays",
+    "title": "Chapter 5: Pointers and Arrays",
     "anchor": "pointers",
     "icon" : "fa-mouse-pointer",
     "description": "This chapter covers pointers and arrays.",
@@ -315,7 +315,7 @@
     ]
 },
 {
-    "title": "Structures",
+    "title": "Chapter 6: Structures",
     "anchor": "structures",
     "icon" : "fa-th-list",
     "description": "This chapter covers structures.",
@@ -349,7 +349,7 @@
     ]
 },
 {
-    "title": "Input / Output",
+    "title": "Chapter 7: Input / Output",
     "anchor": "io",
     "icon" : "fa-arrows-h",
     "description": "This chapter covers input / output features of C.",
@@ -379,7 +379,7 @@
     ]
 },
 {
-    "title": "The UNIX System Interface",
+    "title": "Chapter 8: The UNIX System Interface",
     "anchor": "unix",
     "icon" : "fa-hashtag",
     "description": "This chapter covers input / output features of C.",
