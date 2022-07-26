@@ -1,2 +1,4 @@
-s1 = "   Hello   World    "
-print('-'+s1.rstrip()+'-')
+print('Enter two strings');
+first = input()
+second = input()
+print(first + " & " + second)

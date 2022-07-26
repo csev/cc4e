@@ -1,2 +1,2 @@
 s1 = "   Hello   World    "
-print('-'+s1.rstrip()+'-')
+print('-'+s1.lstrip()+'-')

@@ -1,4 +1,3 @@
-print('Enter two strings');
-first = input()
-second = input()
-print(first + " & " + second)
+hand = open('romeo.txt')
+for line in hand:
+    print(line.strip().upper())

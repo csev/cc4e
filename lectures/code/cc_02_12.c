@@ -1,23 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 int main() {
-    char s1[] = "   Hello   World    ";
-    void py_rstrip();
-    py_rstrip(s1);
-    printf("-%s-\n", s1);
-}
-
-void py_rstrip(inp)
-    char inp[];
-{   
-    int i, j;
-    for(i=0, j=0; i<strlen(inp)-1; i++) {
-        if ( inp[i] == '\n' || 
-             inp[i] == '\t' || inp[i] == ' ' ) {
-            /* Whitespace skip  */
-        } else {
-            j = i; /* last non-blank */
-        }
-    }
-    if ( j+1 < strlen(inp) ) inp[j+1] = '\0';
+    char first[100], second[100], concat[303];
+    printf("Enter two strings\n");
+    scanf("%100s", first);
+    scanf("%100s", second);
+    strcpy(concat, first);
+    strcat(concat, " & ");
+    strcat(concat, second);
+    printf("%s\n", concat);
 }
