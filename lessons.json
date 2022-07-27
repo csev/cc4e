@@ -30,15 +30,15 @@
     "title": "Welcome to C",
     "anchor": "intro",
     "icon" : "fa-globe",
-    "description": "Gives some sense of where C fits in the history of computing.  Kernghan and Ritchie share their ideas about C.",
+    "description": "The book's introduction gives us sense of where C fits in the history of computing.  Kernighan and Ritchie share their ideas about C.",
     "references" : [
         {
-            "title" : "'C' Programming Language: Brian Kernighan - Computerphile",
-            "href" : "https://youtu.be/de2Hsvxaf8M"
+            "title" : "Chapter 0: Introduction (html)",
+            "href" : "{apphome}/book/chap00.md"
         },
         {
-            "title" : "Chapter 0: Introduction",
-            "href" : "{apphome}/book/chap00.md"
+            "title" : "'C' Programming Language: Brian Kernighan (from Computerphile)",
+            "href" : "https://youtu.be/de2Hsvxaf8M"
         },
         {
             "title" : "Audio version of the book",
@@ -55,11 +55,11 @@
     ],
     "videos" : [
         {
-            "title" : "Welcome to C Programming for Everybody",
+            "title" : "Welcome to C Programming - A Historical Perspective",
             "youtube" : "XteaWkvontg"
         },
         {
-            "title" : "Chapter 0 - Preface",
+            "title" : "Chapter 0 - Introduction (Video)",
             "youtube" : "XSEGkAOxKZ4"
         }
     ],
@@ -86,16 +86,12 @@
     ]
 },
 {
-    "title": "A Historical Perspective",
+    "title": "Historical Context",
     "anchor": "history",
     "icon" : "fa-microchip",
     "description": "We place the moment this book was published (1978) in the context of the history of computer hardware, operating systems, and programming languages to better understand why C (and UNIX) had such a transformative effect on computing when this book introduced it to mainstream audience.   There are a lot of video references - you don't have to watch them all.",
     "slides": "{apphome}/lectures/CC-01-History.pptx",
     "references" : [
-        {
-            "title" : "'C' Programming Language: Brian Kernighan - Computerphile",
-            "href" : "https://youtu.be/de2Hsvxaf8M"
-        },
         {
             "title" : "Video: Gordon Bell on the Building Blocks of Computing (PDP-1)" ,
             "href" : "https://www.youtube.com/watch?v=8skBtQS-VVE&list=PL4660FB7F523B1770&t=483"
@@ -198,7 +194,7 @@
     "slides": "{apphome}/lectures/CC-02-Python.pptx",
     "references" : [
         {
-            "title" : "Chapter 1: A Tutorial Introduction",
+            "title" : "Chapter 1: A Tutorial Introduction (html)",
             "href" : "{apphome}/book/chap01.md"
         },
         {
@@ -230,7 +226,7 @@
     "description": "This chapter covers what might be called the conventional core of C.",
     "references" : [
         {
-            "title" : "Chapter 1: A Tutorial Introduction",
+            "title" : "Chapter 1: A Tutorial Introduction (html)",
             "href" : "{apphome}/book/chap01.md"
         },
         {
@@ -339,7 +335,7 @@
     "description": "This chapter covers types, operators, and expressions.",
     "references" : [
         {
-            "title" : "Chapter 2: Types, Operators, and Expressions",
+            "title" : "Chapter 2: Types, Operators, and Expressions (html)",
             "href" : "{apphome}/book/chap02.md"
         },
         {
@@ -369,7 +365,7 @@
     "description": "This chapter covers control flow.",
     "references" : [
         {
-            "title" : "Chapter 3: Control Flow",
+            "title" : "Chapter 3: Control Flow (html)",
             "href" : "{apphome}/book/chap03.md"
         },
         {
@@ -399,7 +395,7 @@
     "description": "This chapter covers functions and program structure.",
     "references" : [
         {
-            "title" : "Chapter 4: Functions and Program Structure",
+            "title" : "Chapter 4: Functions and Program Structure (html)",
             "href" : "{apphome}/book/chap04.md"
         },
         {
@@ -429,7 +425,7 @@
     "description": "This chapter covers pointers and arrays.",
     "references" : [
         {
-            "title" : "Chapter 5: Pointers and Arrays",
+            "title" : "Chapter 5: Pointers and Arrays (html)",
             "href" : "{apphome}/book/chap05.md"
         },
         {
@@ -459,7 +455,7 @@
     "description": "This chapter covers structures.",
     "references" : [
         {
-            "title" : "Chapter 6: Structures",
+            "title" : "Chapter 6: Structures (html)",
             "href" : "{apphome}/book/chap06.md"
         },
         {
@@ -493,7 +489,7 @@
     "description": "This chapter covers input / output features of C.",
     "references" : [
         {
-            "title" : "Chapter 7: Input / Output",
+            "title" : "Chapter 7: Input / Output (html)",
             "href" : "{apphome}/book/chap07.md"
         },
         {
@@ -523,7 +519,7 @@
     "description": "This chapter covers input / output features of C.",
     "references" : [
         {
-            "title" : "Chapter 8: The UNIX System Interface",
+            "title" : "Chapter 8: The UNIX System Interface (html)",
             "href" : "{apphome}/book/chap08.md"
         },
         {
