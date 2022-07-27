@@ -93,43 +93,51 @@
     "slides": "{apphome}/lectures/CC-01-History.pptx",
     "references" : [
         {
-            "title" : "Interview: Gordon Bell on the Building Blocks of Computing (PDP-1)" ,
+            "title" : "Video: Gordon Bell on the Building Blocks of Computing (PDP-1)" ,
             "href" : "https://www.youtube.com/watch?v=8skBtQS-VVE&list=PL4660FB7F523B1770&t=483"
         },
         {
-            "title" : "Interview: The Monash Museum of Computing History" ,
+            "title" : "Article: Gordon Bell on the Building Blocks of Computing (PDP-1)" ,
+            "href" : "{apphome}/papers/2013-05-Gordon-Bell-Copyright-IEEE.pdf"
+        },
+        {
+            "title" : "Video: The Monash Museum of Computing History" ,
             "href" : "https://www.youtube.com/watch?v=o7_dQbKPG_Q&list=PL4660FB7F523B1770&index=8"
         },
         {
-            "title" : "Interview: Computer History Museum" ,
+            "title" : "Article: The Monash Museum of Computing History" ,
+            "href" : "{apphome}/papers/2012-03-Monash-Copyright-IEEE.pdf"
+        },
+        {
+            "title" : "Video: Computer History Museum" ,
             "href" : "https://www.youtube.com/watch?v=poh9ROv_LR8&list=PL4660FB7F523B1770&index=8"
         },
         {
-            "title" : "Interview: The Living Computer Museum" ,
+            "title" : "Video: The Living Computer Museum" ,
             "href" : "https://www.youtube.com/watch?v=ZHU4nzIsaIM&list=PL4660FB7F523B1770&index=8"
         },
         {
-            "title" : "Interview: Resurrecting the CDC 6500 Supercomputer" ,
+            "title" : "Video: Resurrecting the CDC 6500 Supercomputer" ,
             "href" : "https://www.youtube.com/watch?v=wDc1630krls&list=PL4660FB7F523B1770&index=8"
         },
         {
-            "title" : "Interview: Niklaus Wirth on Teaching Computer Science",
+            "title" : "Video: Niklaus Wirth on Teaching Computer Science",
             "href" : "https://www.youtube.com/watch?v=BJIqHIYSDrk&list=PL4660FB7F523B1770"
         },
         {
-            "title" : "Interview: Andrew S. Tanenbaum: The Impact of MINIX",
+            "title" : "Video: Andrew S. Tanenbaum: The Impact of MINIX",
             "href" : "https://www.youtube.com/watch?v=86_BkFsb4eI&list=PL4660FB7F523B1770"
         },
         {
-            "title" : "Interview: Larry Smarr -  The History of Supercomputing Research",
+            "title" : "Video: Larry Smarr -  The History of Supercomputing Research",
             "href" : "https://www.youtube.com/watch?v=-PlfGwWFwyo&list=PL4660FB7F523B1770"
         },
         {
-            "title" : "Interview: Guido van Rossum: The Early Years of Python",
+            "title" : "Video: Guido van Rossum: The Early Years of Python",
             "href" : "https://www.youtube.com/watch?v=xLVxoz-mQFs&list=PL4660FB7F523B1770"
         },
         {
-            "title" : "Interview: Bjarne Stroustrup - C++",
+            "title" : "Video: Bjarne Stroustrup - C++",
             "href" : "https://www.youtube.com/watch?v=fOJ2CntgRNI&list=PL4660FB7F523B1770"
         }
     ],
