@@ -89,21 +89,53 @@
     "title": "A Historical Perspective",
     "anchor": "history",
     "icon" : "fa-microchip",
-    "description": "We place the moment this book was published (1978) in the context of the history of computer hardware, operating systems, and programming languages to better understand why C (and UNIX) had such a transformative effect on computing when this book introduced it to mainstream audience.",
+    "description": "We place the moment this book was published (1978) in the context of the history of computer hardware, operating systems, and programming languages to better understand why C (and UNIX) had such a transformative effect on computing when this book introduced it to mainstream audience.   There are a lot of video references - you don't have to watch them all.",
     "references" : [
         {
-            "title" : "Chapter 1: A Tutorial Introduction",
-            "href" : "{apphome}/book/chap01.md"
+            "title" : "Interview: Gordon Bell on the Building Blocks of Computing (PDP-1)" ,
+            "href" : "https://www.youtube.com/watch?v=8skBtQS-VVE&list=PL4660FB7F523B1770&t=483"
         },
         {
-            "title" : "Audio version of the book",
-            "href" : "https://audio.cc4e.com/"
+            "title" : "Interview: The Monash Museum of Computing History" ,
+            "href" : "https://www.youtube.com/watch?v=o7_dQbKPG_Q&list=PL4660FB7F523B1770&index=8"
+        },
+        {
+            "title" : "Interview: Computer History Museum" ,
+            "href" : "https://www.youtube.com/watch?v=poh9ROv_LR8&list=PL4660FB7F523B1770&index=8"
+        },
+        {
+            "title" : "Interview: The Living Computer Museum" ,
+            "href" : "https://www.youtube.com/watch?v=ZHU4nzIsaIM&list=PL4660FB7F523B1770&index=8"
+        },
+        {
+            "title" : "Interview: Resurrecting the CDC 6500 Supercomputer" ,
+            "href" : "https://www.youtube.com/watch?v=wDc1630krls&list=PL4660FB7F523B1770&index=8"
+        },
+        {
+            "title" : "Interview: Niklaus Wirth on Teaching Computer Science",
+            "href" : "https://www.youtube.com/watch?v=BJIqHIYSDrk&list=PL4660FB7F523B1770"
+        },
+        {
+            "title" : "Interview: Andrew S. Tanenbaum: The Impact of MINIX",
+            "href" : "https://www.youtube.com/watch?v=86_BkFsb4eI&list=PL4660FB7F523B1770"
+        },
+        {
+            "title" : "Interview: Larry Smarr -  The History of Supercomputing Research",
+            "href" : "https://www.youtube.com/watch?v=-PlfGwWFwyo&list=PL4660FB7F523B1770"
+        },
+        {
+            "title" : "Interview: Guido van Rossum: The Early Years of Python",
+            "href" : "https://www.youtube.com/watch?v=xLVxoz-mQFs&list=PL4660FB7F523B1770"
+        },
+        {
+            "title" : "Interview: Bjarne Stroustrup - C++",
+            "href" : "https://www.youtube.com/watch?v=fOJ2CntgRNI&list=PL4660FB7F523B1770"
         }
     ],
     "videos" : [
         {
-            "title" : "Chapter 1 - A Tutorial Introduction",
-            "youtube" : "rPwBgsSnxCw"
+            "title" : "Placing C in a Historical Context",
+            "youtube" : "TBD"
         }
     ],
      "lti" : [
