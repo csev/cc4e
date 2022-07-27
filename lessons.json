@@ -90,6 +90,7 @@
     "anchor": "history",
     "icon" : "fa-microchip",
     "description": "We place the moment this book was published (1978) in the context of the history of computer hardware, operating systems, and programming languages to better understand why C (and UNIX) had such a transformative effect on computing when this book introduced it to mainstream audience.   There are a lot of video references - you don't have to watch them all.",
+    "slides": "{apphome}/lectures/CC-01-History.pptx",
     "references" : [
         {
             "title" : "Interview: Gordon Bell on the Building Blocks of Computing (PDP-1)" ,
@@ -154,6 +155,7 @@
     "anchor": "python",
     "icon" : "fa-university",
     "description": "To quickly get up to speed with C, we translate some Python code to C and compare and contrast the twpo languages.  This course assumes you know at least Python and hopefully passing understanding of JavaScript and maybe even PHP so the overall C syntax should not be 100% new to you.",
+    "slides": "{apphome}/lectures/CC-02-Python.pptx",
     "references" : [
         {
             "title" : "Chapter 1: A Tutorial Introduction",
@@ -166,8 +168,8 @@
     ],
     "videos" : [
         {
-            "title" : "Chapter 1 - A Tutorial Introduction",
-            "youtube" : "rPwBgsSnxCw"
+            "title" : "From Python to C",
+            "youtube" : "TBD"
         }
     ],
      "lti" : [
