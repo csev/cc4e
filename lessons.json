@@ -49,7 +49,7 @@
             "href" : "https://youtu.be/z3o6yEzcnLc"
         },
         {
-            "title" : "'C' Programming Language: Brinag Kernighan - Computerphile",
+            "title" : "'C' Programming Language: Brian Kernighan - Computerphile",
             "href" : "https://youtu.be/de2Hsvxaf8M"
         }
     ],
@@ -86,7 +86,71 @@
     ]
 },
 {
-    "title": "Chapter 1: A Tutorial Introduction",
+    "title": "A Historical Perspective",
+    "anchor": "history",
+    "icon" : "fa-microchip",
+    "description": "We place the moment this book was published (1978) in the context of the history of computer hardware, operating systems, and programming languages to better understand why C (and UNIX) had such a transformative effect on computing when this book introduced it to mainstream audience.",
+    "references" : [
+        {
+            "title" : "Chapter 1: A Tutorial Introduction",
+            "href" : "{apphome}/book/chap01.md"
+        },
+        {
+            "title" : "Audio version of the book",
+            "href" : "https://audio.cc4e.com/"
+        }
+    ],
+    "videos" : [
+        {
+            "title" : "Chapter 1 - A Tutorial Introduction",
+            "youtube" : "rPwBgsSnxCw"
+        }
+    ],
+     "lti" : [
+    ],
+
+    "discussions" : [
+        {
+        "title" : "History",
+        "launch" : "mod/tdiscus/",
+        "resource_link_id": "discuss_00_history"
+        }
+    ]
+},
+{
+    "title": "From Python to C",
+    "anchor": "python",
+    "icon" : "fa-university",
+    "description": "To quickly get up to speed with C, we translate some Python code to C and compare and contrast the twpo languages.  This course assumes you know at least Python and hopefully passing understanding of JavaScript and maybe even PHP so the overall C syntax should not be 100% new to you.",
+    "references" : [
+        {
+            "title" : "Chapter 1: A Tutorial Introduction",
+            "href" : "{apphome}/book/chap01.md"
+        },
+        {
+            "title" : "Audio version of the book",
+            "href" : "https://audio.cc4e.com/"
+        }
+    ],
+    "videos" : [
+        {
+            "title" : "Chapter 1 - A Tutorial Introduction",
+            "youtube" : "rPwBgsSnxCw"
+        }
+    ],
+     "lti" : [
+    ],
+
+    "discussions" : [
+        {
+        "title" : "History",
+        "launch" : "mod/tdiscus/",
+        "resource_link_id": "discuss_00_python"
+        }
+    ]
+},
+{
+    "title": "K&R 1: A Tutorial Introduction",
     "anchor": "tutorial",
     "icon" : "fa-building",
     "description": "This chapter covers what might be called the conventional core of C.",
@@ -119,7 +183,7 @@
         ]
         },
         {
-        "title" : "Exercise 1-3: Farenheight / Celsuis with Header",
+        "title" : "Exercise 1-3: Farenheight / Celsius with Header",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc4e_1_03",
         "custom" : [
