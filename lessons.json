@@ -113,20 +113,44 @@
             "href" : "https://www.youtube.com/watch?v=poh9ROv_LR8&list=PL4660FB7F523B1770&index=8"
         },
         {
+            "title" : "Article: Computer History Museum" ,
+            "href" : "{apphome}/papers/2013-09-John-Hollar-History-IEEE.pdf"
+        },
+        {
             "title" : "Video: The Living Computer Museum" ,
             "href" : "https://www.youtube.com/watch?v=ZHU4nzIsaIM&list=PL4660FB7F523B1770&index=8"
+        },
+        {
+            "title" : "Article: Living Computer Museum" ,
+            "href" : "{apphome}/papers/2016-06-Living-Copyright-IEEE.pdf"
         },
         {
             "title" : "Video: Resurrecting the CDC 6500 Supercomputer" ,
             "href" : "https://www.youtube.com/watch?v=wDc1630krls&list=PL4660FB7F523B1770&index=8"
         },
         {
+            "title" : "Article: Resurrecting the CDC 6500 Supercomputer" ,
+            "href" : "{apphome}/papers/2016-06-CDC-6500-Copyright-IEEE.pdf"
+        },
+        {
             "title" : "Video: Niklaus Wirth on Teaching Computer Science",
             "href" : "https://www.youtube.com/watch?v=BJIqHIYSDrk&list=PL4660FB7F523B1770"
         },
         {
+            "title" : "Article: Niklaus Wirth on Teaching Computer Science" ,
+            "href" : "{apphome}/papers/2012-Niklaus-WIrth-Copyright-IEEE.pdf"
+        },
+        {
             "title" : "Video: Andrew S. Tanenbaum: The Impact of MINIX",
             "href" : "https://www.youtube.com/watch?v=86_BkFsb4eI&list=PL4660FB7F523B1770"
+        },
+        {
+            "title" : "Video: Andrew S. Tanenbaum: The Impact of MINIX",
+            "href" : "https://www.youtube.com/watch?v=86_BkFsb4eI&list=PL4660FB7F523B1770"
+        },
+        {
+            "title" : "Article: Andrew S. Tanenbaum: The Impact of MINIX" ,
+            "href" : "{apphome}/papers/2014-07-AST-Minix-Copyright-IEEE.pdf"
         },
         {
             "title" : "Video: Larry Smarr -  The History of Supercomputing Research",
@@ -135,6 +159,10 @@
         {
             "title" : "Video: Guido van Rossum: The Early Years of Python",
             "href" : "https://www.youtube.com/watch?v=xLVxoz-mQFs&list=PL4660FB7F523B1770"
+        },
+        {
+            "title" : "Article: Guido van Rossum: The Early Years of Python" ,
+            "href" : "{apphome}/papers/2015-05-Guido-Early-Years-Python-IEEE.pdf"
         },
         {
             "title" : "Video: Bjarne Stroustrup - C++",
