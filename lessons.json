@@ -33,8 +33,8 @@
     "description": "Gives some sense of where C fits in the history of computing.  Kernghan and Ritchie share their ideas about C.",
     "references" : [
         {
-            "title" : "Brian W. Kernighan's web site for the 1988 version of the C Programming Language book",
-            "href" : "https://www.cs.princeton.edu/~bwk/cbook.html"
+            "title" : "'C' Programming Language: Brian Kernighan - Computerphile",
+            "href" : "https://youtu.be/de2Hsvxaf8M"
         },
         {
             "title" : "Chapter 0: Introduction",
@@ -45,12 +45,12 @@
             "href" : "https://audio.cc4e.com/"
         },
         {
-            "title" : "Interview: Computer Science isn't programming! // How to become a Master Programmer // With David Bombal",
-            "href" : "https://youtu.be/z3o6yEzcnLc"
+            "title" : "Brian W. Kernighan's web site for the 1988 version of the C Programming Language book",
+            "href" : "https://www.cs.princeton.edu/~bwk/cbook.html"
         },
         {
-            "title" : "'C' Programming Language: Brian Kernighan - Computerphile",
-            "href" : "https://youtu.be/de2Hsvxaf8M"
+            "title" : "Interview: Computer Science isn't programming! // How to become a Master Programmer // With David Bombal",
+            "href" : "https://youtu.be/z3o6yEzcnLc"
         }
     ],
     "videos" : [
@@ -92,6 +92,10 @@
     "description": "We place the moment this book was published (1978) in the context of the history of computer hardware, operating systems, and programming languages to better understand why C (and UNIX) had such a transformative effect on computing when this book introduced it to mainstream audience.   There are a lot of video references - you don't have to watch them all.",
     "slides": "{apphome}/lectures/CC-01-History.pptx",
     "references" : [
+        {
+            "title" : "'C' Programming Language: Brian Kernighan - Computerphile",
+            "href" : "https://youtu.be/de2Hsvxaf8M"
+        },
         {
             "title" : "Video: Gordon Bell on the Building Blocks of Computing (PDP-1)" ,
             "href" : "https://www.youtube.com/watch?v=8skBtQS-VVE&list=PL4660FB7F523B1770&t=483"
