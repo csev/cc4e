@@ -329,7 +329,7 @@
     ]
 },
 {
-    "title": "Chapter 2: Types, Operators, and Expressions",
+    "title": "K&R 2: Types, Operators, and Expressions",
     "anchor": "core",
     "icon" : "fa-binoculars",
     "description": "This chapter covers types, operators, and expressions.",
@@ -359,7 +359,7 @@
     ]
 },
 {
-    "title": "Chapter 3: Control Flow",
+    "title": "K&R 3: Control Flow",
     "anchor": "control",
     "icon" : "fa-code-fork",
     "description": "This chapter covers control flow.",
@@ -389,7 +389,7 @@
     ]
 },
 {
-    "title": "Chapter 4: Functions and Program Structure",
+    "title": "K&R 4: Functions and Program Structure",
     "anchor": "functions",
     "icon" : "fa-flask",
     "description": "This chapter covers functions and program structure.",
@@ -419,7 +419,7 @@
     ]
 },
 {
-    "title": "Chapter 5: Pointers and Arrays",
+    "title": "K&R 5: Pointers and Arrays",
     "anchor": "pointers",
     "icon" : "fa-mouse-pointer",
     "description": "This chapter covers pointers and arrays.",
@@ -449,7 +449,7 @@
     ]
 },
 {
-    "title": "Chapter 6: Structures",
+    "title": "K&R 6: Structures",
     "anchor": "structures",
     "icon" : "fa-th-list",
     "description": "This chapter covers structures.",
@@ -483,7 +483,7 @@
     ]
 },
 {
-    "title": "Chapter 7: Input / Output",
+    "title": "K&R 7: Input / Output",
     "anchor": "io",
     "icon" : "fa-arrows-h",
     "description": "This chapter covers input / output features of C.",
@@ -513,7 +513,7 @@
     ]
 },
 {
-    "title": "Chapter 8: The UNIX System Interface",
+    "title": "K&R 8: The UNIX System Interface",
     "anchor": "unix",
     "icon" : "fa-hashtag",
     "description": "This chapter covers input / output features of C.",
