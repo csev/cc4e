@@ -175,7 +175,7 @@
 
     "discussions" : [
         {
-        "title" : "History",
+        "title" : "From Python to C",
         "launch" : "mod/tdiscus/",
         "resource_link_id": "discuss_00_python"
         }
