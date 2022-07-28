@@ -274,6 +274,11 @@
     ],
      "lti" : [
         {
+            "title" : "Quiz: Tutorial Introduction",
+            "launch" : "mod/gift/?quiz=chap01.txt",
+            "resource_link_id" : "cc4e_01_quiz"
+        },
+        {
         "title" : "Exercise 1-1: Write Hello World",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc4e_1_01",
