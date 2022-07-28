@@ -47,10 +47,6 @@
         {
             "title" : "Brian W. Kernighan's web site for the 1988 version of the C Programming Language book",
             "href" : "https://www.cs.princeton.edu/~bwk/cbook.html"
-        },
-        {
-            "title" : "Interview: Computer Science isn't programming! // How to become a Master Programmer // With David Bombal",
-            "href" : "https://youtu.be/z3o6yEzcnLc"
         }
     ],
     "videos" : [
@@ -93,64 +89,40 @@
     "slides": "{apphome}/lectures/CC-01-History.pptx",
     "references" : [
         {
-            "title" : "Video: Gordon Bell on the Building Blocks of Computing (PDP-1)" ,
-            "href" : "https://www.youtube.com/watch?v=8skBtQS-VVE&list=PL4660FB7F523B1770&t=483"
+            "title" : "Course: Internet History, Technology, and Security (IHTS)" ,
+            "href" : "https://ihts.pr4e.com/"
         },
         {
-            "title" : "Article: Gordon Bell on the Building Blocks of Computing (PDP-1)" ,
-            "href" : "{apphome}/papers/2013-05-Gordon-Bell-Copyright-IEEE.pdf"
+            "title" : "Video: Alan Turing at Bletchley Park" ,
+            "href" : "https://www.youtube.com/watch?v=5nK_ft0Lf1s&list=PL4660FB7F523B1770&"
+        },
+        {
+            "title" : "Video: Gordon Bell on the Building Blocks of Computing (PDP-1)" ,
+            "href" : "https://www.youtube.com/watch?v=8skBtQS-VVE&list=PL4660FB7F523B1770&t=483"
         },
         {
             "title" : "Video: The Monash Museum of Computing History" ,
             "href" : "https://www.youtube.com/watch?v=o7_dQbKPG_Q&list=PL4660FB7F523B1770&index=8"
         },
         {
-            "title" : "Article: The Monash Museum of Computing History" ,
-            "href" : "{apphome}/papers/2012-03-Monash-Copyright-IEEE.pdf"
-        },
-        {
             "title" : "Video: Computer History Museum" ,
             "href" : "https://www.youtube.com/watch?v=poh9ROv_LR8&list=PL4660FB7F523B1770&index=8"
-        },
-        {
-            "title" : "Article: Computer History Museum" ,
-            "href" : "{apphome}/papers/2013-09-John-Hollar-History-IEEE.pdf"
         },
         {
             "title" : "Video: The Living Computer Museum" ,
             "href" : "https://www.youtube.com/watch?v=ZHU4nzIsaIM&list=PL4660FB7F523B1770&index=8"
         },
         {
-            "title" : "Article: Living Computer Museum" ,
-            "href" : "{apphome}/papers/2016-06-Living-Copyright-IEEE.pdf"
-        },
-        {
             "title" : "Video: Resurrecting the CDC 6500 Supercomputer" ,
             "href" : "https://www.youtube.com/watch?v=wDc1630krls&list=PL4660FB7F523B1770&index=8"
-        },
-        {
-            "title" : "Article: Resurrecting the CDC 6500 Supercomputer" ,
-            "href" : "{apphome}/papers/2016-06-CDC-6500-Copyright-IEEE.pdf"
         },
         {
             "title" : "Video: Niklaus Wirth on Teaching Computer Science",
             "href" : "https://www.youtube.com/watch?v=BJIqHIYSDrk&list=PL4660FB7F523B1770"
         },
         {
-            "title" : "Article: Niklaus Wirth on Teaching Computer Science" ,
-            "href" : "{apphome}/papers/2012-Niklaus-Wirth-Copyright-IEEE.pdf"
-        },
-        {
             "title" : "Video: Andrew S. Tanenbaum: The Impact of MINIX",
             "href" : "https://www.youtube.com/watch?v=86_BkFsb4eI&list=PL4660FB7F523B1770"
-        },
-        {
-            "title" : "Video: Andrew S. Tanenbaum: The Impact of MINIX",
-            "href" : "https://www.youtube.com/watch?v=86_BkFsb4eI&list=PL4660FB7F523B1770"
-        },
-        {
-            "title" : "Article: Andrew S. Tanenbaum: The Impact of MINIX" ,
-            "href" : "{apphome}/papers/2014-07-AST-Minix-Copyright-IEEE.pdf"
         },
         {
             "title" : "Video: Larry Smarr -  The History of Supercomputing Research",
@@ -161,12 +133,72 @@
             "href" : "https://www.youtube.com/watch?v=xLVxoz-mQFs&list=PL4660FB7F523B1770"
         },
         {
-            "title" : "Article: Guido van Rossum: The Early Years of Python" ,
-            "href" : "{apphome}/papers/2015-05-Guido-Early-Years-Python-IEEE.pdf"
+            "title" : "Video: 'C' Programming Language: Brian Kernighan (from Computerphile)",
+            "href" : "https://youtu.be/de2Hsvxaf8M"
         },
         {
             "title" : "Video: Bjarne Stroustrup - C++",
             "href" : "https://www.youtube.com/watch?v=fOJ2CntgRNI&list=PL4660FB7F523B1770"
+        },
+        {
+            "title" : "Video: Rasmus Lerdorf Interview on Creating PHP",
+            "href" : "https://www.youtube.com/watch?v=YIGRXEzjE6c&list=PL4660FB7F523B1770"
+        },
+        {
+            "title" : "Video: Brendan Eich: Creating JavaScript",
+            "href" : "https://www.youtube.com/watch?v=iIPxQ9kEaF8c&list=PL4660FB7F523B1770"
+        },
+        {
+            "title" : "Video:  Massimo Banzi: Building Arduino",
+            "href" : "https://www.youtube.com/watch?v=0VAbvQ2Ti50&list=PL4660FB7F523B1770"
+        },
+        {
+            "title" : "Video: Eben Upton on the Raspberry Pi",
+            "href" : "https://www.youtube.com/watch?v=P5KEiuTT_E8&list=PL4660FB7F523B1770"
+        },
+        {
+            "title" : "Article: Alan Turing at Bletchley Park ",
+            "href" : "{apphome}/papers/2012-06-Bletchley-Turing-c-IEEE.pdf"
+        },
+        {
+            "title" : "Article: Gordon Bell on the Building Blocks of Computing (PDP-1)" ,
+            "href" : "{apphome}/papers/2013-05-Gordon-Bell-Copyright-IEEE.pdf"
+        },
+        {
+            "title" : "Article: The Monash Museum of Computing History" ,
+            "href" : "{apphome}/papers/2012-03-Monash-Copyright-IEEE.pdf"
+        },
+        {
+            "title" : "Article: Computer History Museum" ,
+            "href" : "{apphome}/papers/2013-09-John-Hollar-History-IEEE.pdf"
+        },
+        {
+            "title" : "Article: Living Computer Museum" ,
+            "href" : "{apphome}/papers/2016-06-Living-Copyright-IEEE.pdf"
+        },
+        {
+            "title" : "Article: Resurrecting the CDC 6500 Supercomputer" ,
+            "href" : "{apphome}/papers/2016-06-CDC-6500-Copyright-IEEE.pdf"
+        },
+        {
+            "title" : "Article: Niklaus Wirth on Teaching Computer Science" ,
+            "href" : "{apphome}/papers/2012-Niklaus-Wirth-Copyright-IEEE.pdf"
+        },
+        {
+            "title" : "Article: Andrew S. Tanenbaum: The Impact of MINIX" ,
+            "href" : "{apphome}/papers/2014-07-AST-Minix-Copyright-IEEE.pdf"
+        },
+        {
+            "title" : "Article: Guido van Rossum: The Early Years of Python" ,
+            "href" : "{apphome}/papers/2015-05-Guido-Early-Years-Python-IEEE.pdf"
+        },
+        {
+            "title" : "Article:  Massimo Banzi: Building Arduino" ,
+            "href" : "{apphome}/papers/2014-01-Massimo-Banzi-Copyright-IEEE.pdf"
+        },
+        {
+            "title" : "Article: Eben Upton on the Raspberry Pi" ,
+            "href" : "{apphome}/papers/2013-10-Eben-Upton-Copyright-IEEE.pdf"
         }
     ],
     "videos" : [
