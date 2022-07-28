@@ -386,6 +386,13 @@
             "youtube" : "q0Ql0jhTPDU"
         }
     ],
+     "lti" : [
+        {
+            "title" : "Quiz: Types, Operators, and Expressions",
+            "launch" : "mod/gift/?quiz=chap02.txt",
+            "resource_link_id" : "cc4e_02_quiz"
+        }
+    ],
 
     "discussions" : [
         {
