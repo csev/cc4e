@@ -354,6 +354,17 @@
                 "value": "1-10-words.php"
             }
         ]
+        },
+        {
+        "title" : "Exercise 1-17: Reverse a String",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_1_17",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "1-17-reverse.php"
+            }
+        ]
         }
     ],
 
@@ -459,6 +470,17 @@
             {
                 "key": "exercise",
                 "value": "3-01-expand.php"
+            }
+        ]
+        },
+        {
+        "title" : "Exercise 3-4: Hex and Binary Conversions",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_3_04",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "3-04-itob.php"
             }
         ]
         }

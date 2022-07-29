@@ -80,7 +80,7 @@ function ccauto_input($LAUNCH) { return false; }
 function ccauto_output($LAUNCH) { 
     return <<< EOF
 42 in base-2 is 101010
-42 in base-16 is 20
+42 in base-16 is 2a
 16 in base-2 is 10000
 16 in base-16 is 10
 100 in base-2 is 1100100
@@ -98,13 +98,13 @@ void itob(n, s)
 int n;
 char s[];
 {
-    strcpy(s,"100110");
+    strcpy(s,"101010");
 }
 void itoh(n, s)
 int n;
 char s[];
 {
-    strcpy(s,"28");
+    strcpy(s,"2a");
 }
 EOF
 ;
