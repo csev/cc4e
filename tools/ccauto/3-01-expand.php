@@ -42,10 +42,11 @@ function ccauto_main($LAUNCH) {
 int main() {
   char t[1000];
   void expand();
-  printf("KJASHDKKJDSKJDSHJHDS\\n");
   expand("Hello world", t);
   printf("%s\\n", t);
-  expand("Hello\\tworld", t);
+  expand("Hello world\\n", t);
+  printf("%s\\n", t);
+  expand("Hello\\tworld\\n", t);
   printf("%s\\n", t);
   expand("Hello\\tworld\\nHave a nice\\tday\\n", t);
   printf("%s\\n", t);
@@ -60,6 +61,7 @@ function ccauto_input($LAUNCH) { return false; }
 function ccauto_output($LAUNCH) { 
     GLOBAL $RANDOM_CODE_HOUR, $CHAR_2_10, $LOWER_2_10;
     return <<< EOF
+Hello world
 Hello world\\n
 Hello\\tworld\\n
 Hello\\tworld\\nHave a nice\\tday\\n
@@ -106,11 +108,11 @@ char s[], t[];
   for(i=0, j=0; s[i]; i++) {
     switch(s[i]) {
     case '\\n':
-        t[j++] = '\\';
+        t[j++] = '\\\\';
         t[j++] = 'n';
         break;
     case '\\t':
-        t[j++] = '\\';
+        t[j++] = '\\\\';
         t[j++] = 't';
         break;
     default:

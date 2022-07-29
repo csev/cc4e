@@ -344,14 +344,14 @@ function cc4e_compile($code, $input, $main=null)
 
         $script = "cd /tmp;\n";
         $script .= "cat > student.c << $eof\n";
-        $script .= $code;
+        $script .= escape_heredoc($code);
         $script .= "\n$eof\n";
         $script .= "/usr/bin/gcc -ansi ";
         $script .= $gcc_options;
         $script .= " -fno-asm student.c\n";
         if ( is_string($input) && strlen($input) > 0 ) {
             $script .= "[ -f a.out ] && cpulimit --limit=25 --include-children ./a.out << $eof | head -n 5000\n";
-            $script .= $input;
+            $script .= escape_heredoc($input);
             $script .= "\n$eof\n";
         } else {
             $script .= "[ -f a.out ] && cpulimit --limit=25 --include-children ./a.out | head -n 5000\n";
@@ -377,5 +377,20 @@ function cc4e_compile($code, $input, $main=null)
     }
 
     return $retval;
+}
+
+// Weirdness in shell copying input
+// Note, we can't use <<- because it is ash :(
+function escape_heredoc($doc) {
+   $srch = array(
+        "\\\\",
+        "$"
+    );
+    $repl = array(
+        "\\\\\\\\",
+        "\\$",
+    );
+     $retval = str_replace($srch, $repl, $doc);
+     return $retval;
 }
 
