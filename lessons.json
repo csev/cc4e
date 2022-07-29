@@ -391,6 +391,28 @@
             "title" : "Quiz: Types, Operators, and Expressions",
             "launch" : "mod/gift/?quiz=chap02.txt",
             "resource_link_id" : "cc4e_02_quiz"
+        },
+        {
+        "title" : "Exercise 2-2: Hex to Integer",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_2_02",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "2-02-htoi.php"
+            }
+        ]
+        },
+        {
+        "title" : "Exercise 2-10: Function lower - conditional expression",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_2_10",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "2-10-lower.php"
+            }
+        ]
         }
     ],
 
