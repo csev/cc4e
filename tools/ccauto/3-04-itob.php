@@ -44,16 +44,20 @@ int main() {
   itoh(16,s);
   printf("16 in base-16 is %s\\n", s);
 
+  itob(59,s);
+  printf("59 in base-2 is %s\\n", s);
+  itoh(59,s);
+  printf("59 in base-16 is %s\\n", s);
+
   itob(100,s);
   printf("100 in base-2 is %s\\n", s);
   itoh(100,s);
   printf("100 in base-16 is %s\\n", s);
 
-  itob(64,s);
-  printf("64 in base-2 is %s\\n", s);
-  itoh(64,s);
-  printf("64 in base-16 is %s\\n", s);
-
+  itob(254,s);
+  printf("254 in base-2 is %s\\n", s);
+  itoh(254,s);
+  printf("254 in base-16 is %s\\n", s);
 }
 
 void reverse(t)
@@ -83,10 +87,12 @@ function ccauto_output($LAUNCH) {
 42 in base-16 is 2a
 16 in base-2 is 10000
 16 in base-16 is 10
+59 in base-2 is 111011
+59 in base-16 is 3b
 100 in base-2 is 1100100
 100 in base-16 is 64
-64 in base-2 is 1000000
-64 in base-16 is 40
+254 in base-2 is 11111110
+254 in base-16 is fe
 EOF
 ;
 }
@@ -142,7 +148,7 @@ int n;
 char s[];
 {
     int i, sign;
-    char digits[] = "01234567890abcdef";
+    char digits[] = "0123456789abcdef";
     void reverse();
 
     i = 0;
