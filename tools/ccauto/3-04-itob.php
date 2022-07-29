@@ -13,11 +13,14 @@ function ccauto_instructions($LAUNCH) {
     <p>
     Write a function <b>itob(n, s)</b> which converts the unsigned integer n into a
     binary (base 2) character representation in s. 
-    Write <b>itoh<b>, which converts an integer to hexadecimal representation.
+    Write <b>itoh</b>, which converts an integer to hexadecimal representation.
     You can assume
     that the <b>s</b> variable contains enough space.  Make sure to properly terminate
     <b>s</b> with the end-of-string marker '\\0' before returning.
     </p>
+    <p>
+    You can use <b>strrev(s)</b> to reverse a string - make sure you pass a character
+    array and not a string constant to <b>strrev</b>.
 EOF
 ;
 }
@@ -26,10 +29,12 @@ EOF
 function ccauto_main($LAUNCH) { 
     return <<< EOF
 #include <stdio.h>
+#include <string.h>
 int main() {
   char s[1000];
   void itob(), itoh();
-  printf("YADA\\n");
+  strcpy(s, "YADA");
+  printf("YADA %s\\n", s);
 }
 EOF
 ;
@@ -51,14 +56,17 @@ EOF
 // Make sure to escape \n as \\n
 function ccauto_sample($LAUNCH) {
     return <<< EOF
-void expand(s, t)
-char s[], t[];
+void itob(n, s)
+int n;
+char s[];
 {
-  int i, j;
-  for(i=0, j=0; s[i]; i++) {
-    t[j++] = s[i];
-  }
-  t[j] = '\\0';
+    strcpy(s,"42");
+}
+void itoh(n, s)
+int n;
+char s[];
+{
+    strcpy(s,"28");
 }
 EOF
 ;
@@ -66,38 +74,28 @@ EOF
 
 function ccauto_prohibit($LAUNCH) { 
     return array(
-        array('else', 'You are to use a switch statement, not an if-then-else.'),
     );
 }
 
 function ccauto_require($LAUNCH) { 
     return array (
-        array('switch', 'You need to use a switch statement - it is a short switch statement but we need to assess an important learning objective :)'),
     );
 }
 
 // Make sure to escape \n as \\n
 function ccauto_solution($LAUNCH) {
     return <<< EOF
-void expand(s, t)
-char s[], t[];
+void itob(n, s)
+int n;
+char s[];
 {
-  int i, j;
-  for(i=0, j=0; s[i]; i++) {
-    switch(s[i]) {
-    case '\\n':
-        t[j++] = '\\\\';
-        t[j++] = 'n';
-        break;
-    case '\\t':
-        t[j++] = '\\\\';
-        t[j++] = 't';
-        break;
-    default:
-        t[j++] = s[i];
-    }
-  }
-  t[j] = '\\0';
+    strcpy(s,"42");
+}
+void itoh(n, s)
+int n;
+char s[];
+{
+    strcpy(s,"28");
 }
 EOF
 ;

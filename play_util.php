@@ -39,7 +39,12 @@ function cc4e_play_errors($retval) {
         echo('<p style="color:red;">'.htmlentities($retval->reject).'</p>'."\n");
         return true;
     } else if ( isset($retval->allowed) && $retval->allowed === false ) {
-        echo('<p style="color:red;">Your program used a disallowed function</p>'."\n");
+        $disallowed = "";
+        if ( isset($retval->disallowed) && is_array($retval->disallowed) && count($retval->disallowed) > 0 ) {
+            $disallowed = implode(', ',$retval->disallowed);
+        }
+        echo('<p style="color:red;">Your program used disallowed function(s) '.htmlentities($disallowed).'</p>'."\n");
+
         return true;
     } else if ( isset($retval->hasmain) && $retval->hasmain === false ) {
         echo('<p style="color:blue;">Compile only: You need a main() for your code to be run</p>'."\n");

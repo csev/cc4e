@@ -269,9 +269,17 @@ function cc4e_compile($code, $input, $main=null)
             '_stack_chk_guard', '_stack_chk_fail', '_isoc99_scanf', '_isoc99_sscanf',
             'malloc', 'calloc', 'memset', '__memset_chk',
             'strlen', 'strcpy', 'strcat', 'strcmp', 'strchr', 'strrchr', 'strncmp', 'strncpy',
+            'strrev',
             'sqrt', 'pow', 'ciel', 'floor', 'abs',
             'sin', 'cos', 'tan', 'sinh', 'cosh', 'tanh',
         );
+        $more_externals = array();
+        foreach($allowed_externals as $external) {
+            if ( strpos($external,"-") !== false ) continue;
+            $more_externals[] = "__" . $external . '_chk';
+        }
+
+        $allowed_externals = array_merge($allowed_externals, $more_externals);
 
         $minimum_externals = array(
             'puts', 'printf', 'putchar'
@@ -326,16 +334,19 @@ function cc4e_compile($code, $input, $main=null)
         // Run the check
         $minimum = false;
         $allowed = true;
+        $disallowed = array();
         foreach($externals as $external) {
             if ( in_array($external, $minimum_externals) ) $minimum = true;
             if ( in_array($external, $retval->symbol) ) continue;
         if ( ! in_array($external, $allowed_externals) ) {
             // var_dump($allowed_externals); echo("\n=============\n" . $external."\n");
             $allowed = false;
+            $disallowed[] = $external;
         }
         }
         $retval->minimum = $minimum;
         $retval->allowed = $allowed;
+        $retval->disallowed = $disallowed;
     }
 
     $eof = 'EOF' . md5(uniqid());
