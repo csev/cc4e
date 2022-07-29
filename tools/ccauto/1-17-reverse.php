@@ -31,6 +31,8 @@ int main() {
   printf("%s\\n", t);
   reverse(t);
   printf("%s\\n", t);
+  reverse(copy("XY", t));
+  printf("%s\\n", t);
   reverse(copy("Even", t));
   printf("%s\\n", t);
   reverse(copy("Odd", t));
@@ -58,7 +60,8 @@ function ccauto_output($LAUNCH) {
     return <<< EOF
 Hello world
 dlrow olleH
-nveE
+YX
+nevE
 ddO
 civic
 EOF
@@ -96,13 +99,14 @@ function ccauto_solution($LAUNCH) {
 void reverse(t)
 char t[];
 {
-    int i, len;
+    int i, j, len;
     char tmp;
     len = strlen(t);
-    for(i=0;i<=(len/2);i++) {
+    for(i=0, j=len-1;;i++,j--) {
+        if (j<i) break;
         tmp = t[i];
-        t[i] = t[len-i-1];
-        t[len-i-1] = tmp;
+        t[i] = t[j];
+        t[j] = tmp;
     }
     return;
 }

@@ -19,8 +19,8 @@ function ccauto_instructions($LAUNCH) {
     <b>s</b> with the end-of-string marker '\\0' before returning.
     </p>
     <p>
-    You can use <b>strrev(s)</b> to reverse a string - make sure you pass a character
-    array and not a string constant to <b>strrev</b>.
+    You can use <b>reverse(s)</b> to reverse a string - make sure you pass a character
+    array and not a string constant to <b>reverse</b>.
 EOF
 ;
 }
@@ -32,9 +32,43 @@ function ccauto_main($LAUNCH) {
 #include <string.h>
 int main() {
   char s[1000];
-  void itob(), itoh();
-  strcpy(s, "YADA");
-  printf("YADA %s\\n", s);
+  void itob(), itoh(), reverse();
+
+  itob(42,s);
+  printf("42 in base-2 is %s\\n", s);
+  itoh(42,s);
+  printf("42 in base-16 is %s\\n", s);
+
+  itob(16,s);
+  printf("16 in base-2 is %s\\n", s);
+  itoh(16,s);
+  printf("16 in base-16 is %s\\n", s);
+
+  itob(100,s);
+  printf("100 in base-2 is %s\\n", s);
+  itoh(100,s);
+  printf("100 in base-16 is %s\\n", s);
+
+  itob(64,s);
+  printf("64 in base-2 is %s\\n", s);
+  itoh(64,s);
+  printf("64 in base-16 is %s\\n", s);
+
+}
+
+void reverse(t)
+char t[];
+{
+    int i, j, len;
+    char tmp;
+    len = strlen(t);
+    for(i=0, j=len-1;;i++,j--) {
+        if (j<i) break;
+        tmp = t[i];
+        t[i] = t[j];
+        t[j] = tmp;
+    }
+    return;
 }
 EOF
 ;
@@ -45,10 +79,14 @@ function ccauto_input($LAUNCH) { return false; }
 
 function ccauto_output($LAUNCH) { 
     return <<< EOF
-Hello world
-Hello world\\n
-Hello\\tworld\\n
-Hello\\tworld\\nHave a nice\\tday\\n
+42 in base-2 is 101010
+42 in base-16 is 20
+16 in base-2 is 10000
+16 in base-16 is 10
+100 in base-2 is 1100100
+100 in base-16 is 64
+64 in base-2 is 1000000
+64 in base-16 is 40
 EOF
 ;
 }
@@ -60,7 +98,7 @@ void itob(n, s)
 int n;
 char s[];
 {
-    strcpy(s,"42");
+    strcpy(s,"100110");
 }
 void itoh(n, s)
 int n;
@@ -89,13 +127,30 @@ void itob(n, s)
 int n;
 char s[];
 {
-    strcpy(s,"42");
+    int i, sign;
+    void reverse();
+    i = 0;
+    do {    /* generate digits in reverse order */
+        s[i++] = n % 2 + '0';     /* get next digit */
+    } while ((n /= 2) > 0); /* delete it */
+    s[i] = '\\0';
+    reverse(s);
 }
+
 void itoh(n, s)
 int n;
 char s[];
 {
-    strcpy(s,"28");
+    int i, sign;
+    char digits[] = "01234567890abcdef";
+    void reverse();
+
+    i = 0;
+    do {    /* generate digits in reverse order */
+        s[i++] = digits[n % 16];
+    } while ((n /= 16) > 0); /* delete it */
+    s[i] = '\\0';
+    reverse(s);
 }
 EOF
 ;
