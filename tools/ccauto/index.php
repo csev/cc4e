@@ -36,6 +36,7 @@ $assignments = array(
     '1-10-words.php' => '1-10 Print the words in a file',
     '2-02-htoi.php' => '2-2 Write a function convert from base -16 (hex) to base-10',
     '2-10-lower.php' => '2-10 Write a function convert a character to lower case',
+    '3-01-expand.php' => '3-1 Write a function to expand non-printing characters',
     'p-02-03-pay.php' => '2.3 Gross pay (no overtime)',
     'p-03-01-payroll.php' => '3.1 Time and a half for overtime',
     'p-03-04-score.php' => '3.4 Score with else if',

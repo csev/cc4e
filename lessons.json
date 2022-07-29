@@ -445,6 +445,24 @@
             "youtube" : "5YZd9lebqDo"
         }
     ],
+     "lti" : [
+        {
+            "title" : "Quiz: Control Flow (Coming Soon)",
+            "launch" : "mod/gift/?quiz=chap03.txt",
+            "resource_link_id" : "cc4e_03_quiz"
+        },
+        {
+        "title" : "Exercise 3-1: Using Switch",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_3_01",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "3-01-expand.php"
+            }
+        ]
+        }
+    ],
 
     "discussions" : [
         {

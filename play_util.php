@@ -25,6 +25,9 @@ function cc4e_play_errors($retval) {
     global $LOGGED_IN;
     if ( ! $LOGGED_IN ) return false;
     $compiler = $retval->assembly->stderr ?? false;
+    if ($compiler == false) {
+        $compiler = $retval->docker->stderr ?? false;
+    }
 
     if ( is_string($compiler) && strlen($compiler) > 0 ) {
         echo '<pre style="color:red;">'."\n";
