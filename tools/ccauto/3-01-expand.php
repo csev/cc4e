@@ -19,12 +19,11 @@ function ccauto_instructions($LAUNCH) {
     return <<< EOF
 <b>K&R Exercise 3-1.</b> 
     <p>
-    You should write a function called expand(s, t) that copies the string
+    You should write a function called <b>expand(s, t)</b> that copies the string
     <b>s</b> to <b>t</b> expanding newlines and tabs to '\\n' and '\\t' respectively.
     Use a switch statement (it will be a short switch statement).  You can assume
     that the <b>t</b> variable contains enough space.  Make sure to properly terminate
-    <b>t</b> with the end-of-string marker '\0'.
-    You should use switch and not an if-then-else construct.
+    <b>t</b> with the end-of-string marker '\\0'.
     </p>
     <p>
     Each time you run the program, the values you need to convert 
@@ -94,7 +93,7 @@ function ccauto_prohibit($LAUNCH) {
 
 function ccauto_require($LAUNCH) { 
     return array (
-        array('switch', 'You are to use a switch statement - even though it is a little clunky for this assignment - we use it to meet a learning objective :).'),
+        array('switch', 'You need to use a switch statement - it is a short switch statement but we need to assess an important learning objective :)'),
     );
 }
 
