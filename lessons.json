@@ -447,7 +447,7 @@
     ],
      "lti" : [
         {
-            "title" : "Quiz: Control Flow (Coming Soon)",
+            "title" : "Quiz: Control Flow",
             "launch" : "mod/gift/?quiz=chap03.txt",
             "resource_link_id" : "cc4e_03_quiz"
         },
