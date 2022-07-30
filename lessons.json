@@ -208,6 +208,11 @@
         }
     ],
      "lti" : [
+        {
+            "title" : "Quiz: History",
+            "launch" : "mod/gift/?quiz=cc-01.txt",
+            "resource_link_id" : "cc_01_quiz"
+        }
     ],
 
     "discussions" : [
