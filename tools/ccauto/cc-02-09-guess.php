@@ -8,8 +8,10 @@ use \Tsugi\Util\Mersenne_Twister;
 
 // Called first
 function ccauto_instructions($LAUNCH) { return <<< EOF
-<b>Exercise cc-2-7:</b> Write a C program to produce the same output as
-this Python program, using the <b>gets</b> function instead of <b>scanf</b>.
+<b>Exercise cc-2-9:</b> Write a C program to play a guessing game with the
+user that is equivalent to the Python program below.
+Your program should use a <b>while</b> loop and multi-way branch <b>if</b>
+(i.e. use <b>else if</b>).
 <pre>
 while True:
     try:
@@ -76,5 +78,11 @@ EOF
 
 function ccauto_main($LAUNCH) { return false; }
 function ccauto_prohibit($LAUNCH) { return false; }
-function ccauto_require($LAUNCH) { return false; }
+function ccauto_require($LAUNCH) { 
+    return array(
+        array('scanf', 'You need to read the input.'),
+        array('while', 'You need to read the input until the user gets the correct guess.'),
+        array('else if', 'This application is best solved using a multi-way if statement (i.e. else if).'),
+    );
+}
 

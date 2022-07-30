@@ -8,7 +8,7 @@ use \Tsugi\Util\Mersenne_Twister;
 
 // Called first
 function ccauto_instructions($LAUNCH) { return <<< EOF
-<b>Exercise cc-2-1:</b> Write a C program to produce the same output as
+<b>Exercise cc-2-3:</b> Write a C program equivalent to
 this Python program:
 <pre>
 print('Enter name')

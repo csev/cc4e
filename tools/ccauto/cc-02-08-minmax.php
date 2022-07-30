@@ -8,8 +8,10 @@ use \Tsugi\Util\Mersenne_Twister;
 
 // Called first
 function ccauto_instructions($LAUNCH) { return <<< EOF
-<b>Exercise cc-2-7:</b> Write a C program to produce the same output as
-this Python program, using the <b>gets</b> function instead of <b>scanf</b>.
+<b>Exercise cc-2-8:</b> Write a C program to determine the minmum and maximum
+of a sequence of integer numbers on input, terminged by the string "done".
+The patterns for input and output should match the following Python application.
+Make sure that the input lines can be at least 1000 characters.
 <pre>
 maxval = None
 minval = None
@@ -85,6 +87,11 @@ EOF
 } 
 
 function ccauto_main($LAUNCH) { return false; }
-function ccauto_prohibit($LAUNCH) { return false; }
+function ccauto_prohibit($LAUNCH) { 
+    return array(
+        array('9', "This is a pretty challenging assignment, but lets not take short cuts. The solution *is* described in the lecture for this material.  Sometimes lectures have useful information - who knew?"),
+    );
+}
+
 function ccauto_require($LAUNCH) { return false; }
 

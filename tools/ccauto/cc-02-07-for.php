@@ -9,7 +9,7 @@ use \Tsugi\Util\Mersenne_Twister;
 // Called first
 function ccauto_instructions($LAUNCH) { return <<< EOF
 <b>Exercise cc-2-7:</b> Write a C program to produce the same output as
-this Python program, using the <b>gets</b> function instead of <b>scanf</b>.
+this Python program using a 'for' loop.
 <pre>
 for i in range(5) :
     print(i)
@@ -52,6 +52,14 @@ EOF
 } 
 
 function ccauto_main($LAUNCH) { return false; }
-function ccauto_prohibit($LAUNCH) { return false; }
-function ccauto_require($LAUNCH) { return false; }
+function ccauto_prohibit($LAUNCH) {
+    return array(
+        array('2', "Hmmm, I can't see a good reason to have the number '2' in the solution to this program."),
+    );
+}
+function ccauto_require($LAUNCH) { 
+    return array(
+        array('for', "The instructions do mention a for loop above :)."),
+    );
+}
 

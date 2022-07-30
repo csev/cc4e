@@ -8,7 +8,7 @@ use \Tsugi\Util\Mersenne_Twister;
 
 // Called first
 function ccauto_instructions($LAUNCH) { return <<< EOF
-<b>Exercise cc-2-1:</b> Write a C program to produce the same output as
+<b>Exercise cc-2-4:</b> Write a C program equivalent to
 this Python program:
 <pre>
 print('Enter line')
@@ -54,6 +54,10 @@ EOF
 } 
 
 function ccauto_main($LAUNCH) { return false; }
-function ccauto_prohibit($LAUNCH) { return false; }
+function ccauto_prohibit($LAUNCH) { 
+    return array(
+        array('nice', 'You should actually read the input.'),
+    );
+}
 function ccauto_require($LAUNCH) { return false; }
 

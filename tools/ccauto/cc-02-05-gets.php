@@ -8,8 +8,8 @@ use \Tsugi\Util\Mersenne_Twister;
 
 // Called first
 function ccauto_instructions($LAUNCH) { return <<< EOF
-<b>Exercise cc-2-1:</b> Write a C program to produce the same output as
-this Python program, using the <b>gets</b> function instead of <b>scanf</b>.
+<b>Exercise cc-2-5:</b> Write a C program to implement
+this Python program, using the <b>fgets</b> function instead of <b>scanf</b>.
 <pre>
 print('Enter line')
 line = input()
@@ -54,6 +54,14 @@ EOF
 } 
 
 function ccauto_main($LAUNCH) { return false; }
-function ccauto_prohibit($LAUNCH) { return false; }
-function ccauto_require($LAUNCH) { return false; }
+function ccauto_prohibit($LAUNCH) { 
+    return array(
+        array('nice', "'Nice' try - please read the data from input..."),
+    );
+}
+function ccauto_require($LAUNCH) { 
+    return array(
+        array('fgets', 'You should use the fgets() function in the solution to this problem.'),
+    );
+}
 

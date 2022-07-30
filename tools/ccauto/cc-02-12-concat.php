@@ -8,8 +8,8 @@ use \Tsugi\Util\Mersenne_Twister;
 
 // Called first
 function ccauto_instructions($LAUNCH) { return <<< EOF
-<b>Exercise cc-2-12:</b> Write a C program to produce the same output as
-this Python program.
+<b>Exercise cc-2-12:</b> Write a C program to prompt for two strings and 
+concatencate them as showin in the Python code below.
 <pre>
 print('Enter two strings');
 first = input()
@@ -61,6 +61,10 @@ EOF
 } 
 
 function ccauto_main($LAUNCH) { return false; }
-function ccauto_prohibit($LAUNCH) { return false; }
+function ccauto_prohibit($LAUNCH) { 
+    return array(
+        array('Kernighan', "Uh - you should prompt for the string values to concatenate."),
+    );
+}
 function ccauto_require($LAUNCH) { return false; }
 

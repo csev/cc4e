@@ -8,7 +8,7 @@ use \Tsugi\Util\Mersenne_Twister;
 
 // Called first
 function ccauto_instructions($LAUNCH) { return <<< EOF
-<b>Exercise cc-2-1:</b> Write a C program to produce the same output as
+<b>Exercise cc-2-2:</b> Write a C program equivalent to
 this Python program:
 <pre>
 print('Enter US Floor')
@@ -57,5 +57,10 @@ EOF
 
 function ccauto_main($LAUNCH) { return false; }
 function ccauto_prohibit($LAUNCH) { return false; }
-function ccauto_require($LAUNCH) { return false; }
+function ccauto_require($LAUNCH) { 
+    return array(
+        array('scanf', 'You should use scanf to read the input.'),
+        array('-', 'It is difficult to subtract without using subtraction.'),
+    );
+}
 

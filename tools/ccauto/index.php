@@ -27,11 +27,12 @@ if ( SettingsForm::handleSettingsPost() ) {
 
 // All the assignments we support
 $assignments = array(
+    '1-01-hello.php' => '1-1 Hello world (of course)',
     'cc-02-01-output.php' => 'cc-02-1 Produce Output',
     'cc-02-02-input.php' => 'cc-02-2 Read Input',
     'cc-02-03-io.php' => 'cc-02-3 Read Input and Produce Output',
     'cc-02-04-line.php' => 'cc-02-4 Read An Entire Line',
-    'cc-02-05-gets.php' => 'cc-02-4 Read An Entire Line Using gets',
+    'cc-02-05-gets.php' => 'cc-02-5 Read An Entire Line Using gets',
     'cc-02-07-for.php' => 'cc-02-7 Write a simple for loop',
     'cc-02-08-minmax.php' => 'cc-02-8 Compute min/max',
     'cc-02-09-guess.php' => 'cc-02-9 Guesing game',
@@ -39,7 +40,6 @@ $assignments = array(
     'cc-02-12-concat.php' => 'cc-02-12 String concatenation',
     'cc-02-13-rstrip.php' => 'cc-02-13 Implement rstrip()',
     'cc-02-14-lstrip.php' => 'cc-02-14 Implement lstrip()',
-    '1-01-hello.php' => '1-1 Hello world (of course)',
     '1-03-heading.php' => '1-3 Add a header',
     '1-04-celsius.php' => '1-4 Celsius / Farenheight Table',
     '1-05-reverse.php' => '1-5 Reversed Farenheight / Celsius Table',
