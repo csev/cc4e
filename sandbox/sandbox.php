@@ -267,11 +267,13 @@ function cc4e_compile($code, $input, $main=null)
             '__stack_chk_guard', '__stack_chk_fail', '_stack_chk_guard', '_stack_chk_fail',
             '__isoc99_scanf', '__isoc99_sscanf',
             '_stack_chk_guard', '_stack_chk_fail', '_isoc99_scanf', '_isoc99_sscanf',
+            '__stdinp',
             'malloc', 'calloc', 'memset', '__memset_chk',
             'strlen', 'strcpy', 'strcat', 'strcmp', 'strchr', 'strrchr', 'strncmp', 'strncpy',
             'strrev',
             'sqrt', 'pow', 'ciel', 'floor', 'abs',
             'sin', 'cos', 'tan', 'sinh', 'cosh', 'tanh',
+            'atoi',
         );
         $more_externals = array();
         foreach($allowed_externals as $external) {
