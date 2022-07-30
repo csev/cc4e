@@ -27,6 +27,10 @@ if ( SettingsForm::handleSettingsPost() ) {
 
 // All the assignments we support
 $assignments = array(
+    'cc-02-01-output.php' => 'cc-02-1 Produce Output',
+    'cc-02-02-input.php' => 'cc-02-2 Read Input',
+    'cc-02-03-io.php' => 'cc-02-3 Read Input and Produce Output',
+    'cc-02-04-line.php' => 'cc-02-4 Read An Entire Line',
     '1-01-hello.php' => '1-1 Hello world (of course)',
     '1-03-heading.php' => '1-3 Add a header',
     '1-04-celsius.php' => '1-4 Celsius / Farenheight Table',
