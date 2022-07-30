@@ -28,7 +28,7 @@ require_once("../book/style.php");
 <h1>Sample Code for C Programming</h1>
 <p>
 This page contains the sample code elements from "C Programming" by 
-Briwan W. Kernighan and Dennis M. Ritchie indexed by chapter and page.
+Brian W. Kernighan and Dennis M. Ritchie indexed by chapter and page.
 The smaller or non-executable sample code segments are simply
 left in-line in the text book.
 Many of the sample code segments do not run directly from the book.  Also
