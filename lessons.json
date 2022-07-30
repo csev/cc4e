@@ -242,7 +242,7 @@
     ],
      "lti" : [
         {
-        "title" : "Exercise 2-1 - Produce output",
+        "title" : "Exercise 2-1: Produce output",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc_02_01_output",
         "custom" : [
@@ -253,7 +253,7 @@
         ]
         },
         {
-        "title" : "Exercise 2-2 - Read Input",
+        "title" : "Exercise 2-2: Read Input",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc_02_02_input",
         "custom" : [
@@ -264,7 +264,7 @@
         ]
         },
         {
-        "title" : "Exercise 2-3 - Input / Output",
+        "title" : "Exercise 2-3: Input / Output",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc_02_03_io",
         "custom" : [
@@ -275,7 +275,7 @@
         ]
         },
         {
-        "title" : "Exercise 2-4 - Reading Lines of Input",
+        "title" : "Exercise 2-4: Reading Lines of Input",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc_02_04_line",
         "custom" : [
@@ -286,7 +286,7 @@
         ]
         },
         {
-        "title" : "Exercise 2-5 - Reading Lines of Input with gets()",
+        "title" : "Exercise 2-5: Reading Lines of Input with gets()",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc_02_05_gets",
         "custom" : [
@@ -297,7 +297,7 @@
         ]
         },
         {
-        "title" : "Exercise 2-7 - Write a simple for loop",
+        "title" : "Exercise 2-7: Write a simple for loop",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc_02_07_for",
         "custom" : [
@@ -308,7 +308,7 @@
         ]
         },
         {
-        "title" : "Exercise 2-8 - Compute Minimum and Maximum",
+        "title" : "Exercise 2-8: Compute Minimum and Maximum",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc_02_08_minmax",
         "custom" : [
@@ -319,7 +319,7 @@
         ]
         },
         {
-        "title" : "Exercise 2-9 - Write a Guessing Game",
+        "title" : "Exercise 2-9: Write a Guessing Game",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc_02_09_guess",
         "custom" : [
@@ -330,7 +330,7 @@
         ]
         },
         {
-        "title" : "Exercise 2-10 - Write a Function",
+        "title" : "Exercise 2-10: Write a Function",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc_02_10_function",
         "custom" : [
@@ -341,7 +341,7 @@
         ]
         },
         {
-        "title" : "Exercise 2-12 - Concatenate Two Strings",
+        "title" : "Exercise 2-12: Concatenate Two Strings",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc_02_12_concat",
         "custom" : [
@@ -352,7 +352,7 @@
         ]
         },
         {
-        "title" : "Exercise 2-13 - Write a function like Python rstrip()",
+        "title" : "Exercise 2-13: Write a function like Python rstrip()",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc_02_13_rstrip",
         "custom" : [
@@ -363,7 +363,7 @@
         ]
         },
         {
-        "title" : "Exercise 2-14 - Write a function like Python lstrip()",
+        "title" : "Exercise 2-14: Write a function like Python lstrip()",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc_02_14_lstrip",
         "custom" : [
