@@ -273,7 +273,7 @@ function cc4e_compile($code, $input, $main=null)
             'strrev',
             'sqrt', 'pow', 'ciel', 'floor', 'abs',
             'sin', 'cos', 'tan', 'sinh', 'cosh', 'tanh',
-            'atoi',
+            'atoi', 'isspace', 
         );
         $more_externals = array();
         foreach($allowed_externals as $external) {
