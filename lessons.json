@@ -620,6 +620,17 @@
                 "value": "3-04-itob.php"
             }
         ]
+        },
+        {
+        "title" : "Exercise 3-6: A simple UNIX uniq implementaiton",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_3_06",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "3-06-uniq.php"
+            }
+        ]
         }
     ],
 
