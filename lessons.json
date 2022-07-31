@@ -579,6 +579,7 @@
     "anchor": "control",
     "icon" : "fa-code-fork",
     "description": "This chapter covers control flow.",
+    "slides": "{apphome}/lectures/KR-3.pptx",
     "references" : [
         {
             "title" : "Chapter 3: Control Flow (html)",
