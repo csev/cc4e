@@ -393,6 +393,7 @@
     "anchor": "tutorial",
     "icon" : "fa-building",
     "description": "This chapter covers what might be called the conventional core of C.",
+    "slides": "{apphome}/lectures/KR-1.pptx",
     "references" : [
         {
             "title" : "Chapter 1: A Tutorial Introduction (html)",
