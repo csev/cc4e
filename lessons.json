@@ -650,6 +650,7 @@
     "anchor": "functions",
     "icon" : "fa-flask",
     "description": "This chapter covers functions and program structure.",
+    "slides": "{apphome}/lectures/KR-4.pptx",
     "references" : [
         {
             "title" : "Chapter 4: Functions and Program Structure (html)",
