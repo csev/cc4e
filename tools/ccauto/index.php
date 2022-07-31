@@ -51,6 +51,7 @@ $assignments = array(
     '2-10-lower.php' => '2-10 Write a function convert a character to lower case',
     '3-01-expand.php' => '3-1 Write a function to expand non-printing characters',
     '3-04-itob.php' => '3-4 Write itob() and itoh()',
+    '3-06-uniq.php' => '3-6 Write simple version of UNIX uniq',
     'p-02-03-pay.php' => '2.3 Gross pay (no overtime)',
     'p-03-01-payroll.php' => '3.1 Time and a half for overtime',
     'p-03-04-score.php' => '3.4 Score with else if',
