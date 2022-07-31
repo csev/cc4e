@@ -519,6 +519,7 @@
     "anchor": "core",
     "icon" : "fa-binoculars",
     "description": "This chapter covers types, operators, and expressions.",
+    "slides": "{apphome}/lectures/KR-2.pptx",
     "references" : [
         {
             "title" : "Chapter 2: Types, Operators, and Expressions (html)",
