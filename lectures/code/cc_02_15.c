@@ -14,6 +14,7 @@ int main() {
     strcat(concat, " & ");
     strcat(concat, second);
     printf("%s\n", concat);
+    free(concat);
 }
 
 
