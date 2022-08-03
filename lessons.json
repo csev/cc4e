@@ -31,6 +31,17 @@
     "anchor": "intro",
     "icon" : "fa-globe",
     "description": "The book's introduction gives us sense of where C fits in the history of computing.  Kernighan and Ritchie share their ideas about C.",
+    "videos" : [
+        {
+            "title" : "Welcome to the Course",
+            "youtube" : "XteaWkvontg"
+        },
+        {
+            "title" : "Chapter 0 - Introduction (Video)",
+            "youtube" : "XSEGkAOxKZ4"
+        }
+    ],
+
     "references" : [
         {
             "title" : "Chapter 0: Introduction (html)",
@@ -49,17 +60,6 @@
             "href" : "https://www.cs.princeton.edu/~bwk/cbook.html"
         }
     ],
-    "videos" : [
-        {
-            "title" : "Welcome to the Course",
-            "youtube" : "XteaWkvontg"
-        },
-        {
-            "title" : "Chapter 0 - Introduction (Video)",
-            "youtube" : "XSEGkAOxKZ4"
-        }
-    ],
-
     "discussions" : [
         {
         "title" : "About Hello World",
@@ -87,6 +87,12 @@
     "icon" : "fa-microchip",
     "description": "We place the moment this book was published (1978) in the context of the history of computer hardware, operating systems, and programming languages to better understand why C (and UNIX) had such a transformative effect on computing when this book introduced it to mainstream audience.   There are a lot of video references - you don't have to watch them all.",
     "slides": "{apphome}/lectures/CC-01-History.pptx",
+    "videos" : [
+        {
+            "title" : " A History of C, UNIX, and Computation (a.k.a 'The importance of 1978')",
+            "youtube" : "1dsC65a83Mw"
+        }
+    ],
     "references" : [
         {
             "title" : "Course: Internet History, Technology, and Security (IHTS)" ,
@@ -213,12 +219,6 @@
             "href" : "{apphome}/papers/2013-10-Eben-Upton-Copyright-IEEE.pdf"
         }
     ],
-    "videos" : [
-        {
-            "title" : " A History of C, UNIX, and Computation (a.k.a 'The importance of 1978')",
-            "youtube" : "4MSLeDZT1hM"
-        }
-    ],
      "lti" : [
         {
             "title" : "Quiz: History",
@@ -245,6 +245,14 @@
         {
             "title" : "Chapter 1: A Tutorial Introduction (html)",
             "href" : "{apphome}/book/chap01.md"
+        },
+        {
+            "title" : "Endianness Explained With an Egg - Computerphile",
+            "href" : "https://www.youtube.com/watch?v=NcaiHcBvDR4"
+        },
+        {
+            "title" : " Arrays vs Linked Lists - Computerphile",
+            "href" : "https://www.youtube.com/watch?v=DyG9S9nAlUM"
         },
         {
             "title" : "Audio version of the book",
