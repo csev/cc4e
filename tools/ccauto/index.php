@@ -346,6 +346,18 @@ if ( $LAUNCH->user->instructor && is_string($solution) && strlen($solution) > 0 
     echo("</pre></div>\n");
 }
 
+?>
+<p>
+This compiler uses a pretty complex docker setup to run your code - you
+might get  "docker error" or a "timeout" if there is a problem with the
+compiler environment.  Usually you can just re-try a
+compile and it will work.  There is a
+<a href="https://status.cc4e.com/" target="_blank">status page</a>
+that runs a test every minute or two on this site and monitors the reliability
+of its C compiler.
+</p>
+<?php
+
 $OUTPUT->footerStart();
 cc4e_play_footer();
 ?>

@@ -139,6 +139,15 @@ if ( is_string($input) ) {
 </p>
 <?php cc4e_play_output($retval); ?>
 </form>
+<p>
+This compiler uses a pretty complex docker setup to run your code - you 
+might get  "docker error" or a "timeout" if there is a problem with the
+compiler environment.  Usually you can just re-try a
+compile and it will work.  There is a 
+<a href="https://status.cc4e.com/" target="_blank">status page</a>
+that runs a test every minute or two on this site and its C compiler.
+</p>
+<p>
 <p>This code execution environment has extensive security filters that
 start by blocking every function you might call and then
 having a precise "allowed functions" list.  As we gain experience, the list will be expanded.
