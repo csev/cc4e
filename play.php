@@ -145,7 +145,8 @@ might get  "docker error" or a "timeout" if there is a problem with the
 compiler environment.  Usually you can just re-try a
 compile and it will work.  There is a 
 <a href="https://status.cc4e.com/" target="_blank">status page</a>
-that runs a test every minute or two on this site and its C compiler.
+that runs a test every minute or two on this site and monitors the reliability
+of its C compiler.
 </p>
 <p>
 <p>This code execution environment has extensive security filters that
