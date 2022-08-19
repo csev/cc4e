@@ -75,6 +75,12 @@ by studying the "classic" version of
 the C Programming language from the 1978 book written by Brian Kernighan and Dennis Ritchie.
 </p>
 <p>
+You can also view this material on:
+<ul>
+<li><a href="https://www.youtube.com/watch?v=j-_s8f5K30I" target="_blank">FreeCodeCamp</a></li>
+</ul>
+</p>
+<p>
 The K&amp;R book places the reader in the middle of the 1970's transition from
 a hardware-centered computer science to a focus on writing portable and efficient
 software.  C was used to develop operating systems like Unix, Minix, and Linux and
@@ -82,8 +88,8 @@ progamming languages like C++, Java, JavaScript, and Python.
 </p>
 <p>
 In this course we will be reflecting on how C provided an important foundation for the creation of
-modern programming languages.  This is not a good place to start if you do not
-already have some programming experience.  Some suggested pre-requisites include:
+modern programming languages.  This is not a good place to start unless you
+have some programming experience.  Some suggested pre-requisites include:
 <ul>
 <li><a href="https://www.py4e.com" target="_blank">Python for Everybody</a></li>
 <li><a href="https://www.dj4e.com" target="_blank">Django for Everybody</a></li>
