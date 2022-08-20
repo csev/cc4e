@@ -15,6 +15,8 @@ use \Tsugi\Grades\GradeUtil;
 
 $LAUNCH = LTIX::requireData();
 $p = $CFG->dbprefix;
+$displayname = $LAUNCH->user->displayname;
+$email = $LAUNCH->user->email;
 
 $LOGGED_IN = true;
 $RANDOM_CODE = getLinkCode($LAUNCH);
@@ -133,8 +135,6 @@ $retval = U::get($_SESSION, 'retval');
 
 
 if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
-   $displayname = $LAUNCH->user->displayname;
-   $email = $LAUNCH->user->email;
    $succinct = preg_replace('/\s+/', ' ', $code);
    error_log("Autograde by ".$displayname.' '.$email.': '.substr($succinct,0, 250));
    $retval = cc4e_compile($code, $input, $main);
@@ -290,13 +290,16 @@ if ( is_string($input) && strlen($input) > 0 ) {
     $actual = isset($retval->docker->stdout) && strlen($retval->docker->stdout) > 0 ? $retval->docker->stdout : false;
     if ( is_string($actual) && is_string($output) ) {
         if ( is_array($prohibit) ) {
-            echo '<p style="color:red;">'.$prohibit[0].'</p>'."\n";
+            echo '<p style="color:red;">NOT GRADED: '.$prohibit[0].'</p>'."\n";
+            error_log("Prohibited: ".$displayname.' '.$email.': '.$prohibit[0]);
         } else if ( is_array($require) ) {
-            echo '<p style="color:red;">'.$require[0].'</p>'."\n";
+            echo '<p style="color:red;">NOT GRADED: '.$require[0].'</p>'."\n";
+            error_log("Required: ".$displayname.' '.$email.': '.$require[0]);
         } else if ( trim($actual) == trim($output) ) {
             $grade = 1.0;
             $debug_log = array();
             $graderet = LTIX::gradeSend($grade, false, $debug_log);
+            error_log("Success: ".$displayname.' '.$email);
             // $OUTPUT->dumpDebugArray($debug_log);
             if ( $graderet == true ) {
                 echo('<p style="color:green;">OUTPUT MATCH - Grade sent to server</p>'."\n");
