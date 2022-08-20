@@ -133,6 +133,10 @@ $retval = U::get($_SESSION, 'retval');
 
 
 if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
+   $displayname = $LAUNCH->user->displayname;
+   $email = $LAUNCH->user->email;
+   $succinct = preg_replace('/\s+/', ' ', $code);
+   error_log("Compile by ".$displayname.' '.$email.': '.substr($succinct,0, 250));
    $retval = cc4e_compile($code, $input, $main);
     GradeUtil::gradeUpdateJson(json_encode(array("code" => $code)));
    $_SESSION['retval'] = $retval;
