@@ -17,6 +17,8 @@ if ( ! isset($CFG) ) {
 }
 
 $LOGGED_IN = U::get($_SESSION,'id', null) !== null;
+$displayname = U::get($_SESSION,'displayname', null);
+$email = U::get($_SESSION,'email', null);
 
 require_once "sandbox/sandbox.php";
 require_once "play_util.php";
@@ -69,6 +71,8 @@ if ( is_string($sample) ) {
             $_SESSION['retval'] = $retval;
         } else {
             $newbucket[] = $now;
+            $succinct = preg_replace('/\s+/', ' ', $code);
+            error_log("Compile by ".$displayname.' '.$email.': '.substr($succinct,0, 250));
             $retval = cc4e_compile($code, $input);
             $_SESSION['retval'] = $retval;
             $_SESSION["leaky_bucket"] = $newbucket;
