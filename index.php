@@ -79,14 +79,6 @@ from the 1978 book written by
 Brian W. Kernighan
 </a>
 and Dennis M. Ritchie.
-</p>
-<p>
-You can also view this material on:
-<ul>
-<li><a href="https://www.youtube.com/watch?v=j-_s8f5K30I" target="_blank">FreeCodeCamp</a></li>
-</ul>
-</p>
-<p>
 The K&amp;R book places the reader in the middle of the 1970's transition from
 a hardware-centered computer science to a focus on writing portable and efficient
 software.  C was used to develop operating systems like Unix, Minix, and Linux and
@@ -95,6 +87,12 @@ You can no longer purchase the 1978 edition and should
 instead purchase the second edition (1988) of
 <a href="https://www.cs.princeton.edu/~bwk/cbook.html" target="_blank">
 The C Programming Language</a>.
+</p>
+<p>
+You can also view this material on:
+<ul>
+<li><a href="https://www.youtube.com/watch?v=j-_s8f5K30I" target="_blank">FreeCodeCamp</a></li>
+</ul>
 </p>
 <p>
 In this course we will be reflecting on how C provided an important foundation for the creation of
