@@ -82,7 +82,7 @@ and Dennis M. Ritchie.
 The K&amp;R book places the reader in the middle of the 1970's transition from
 a hardware-centered computer science to a focus on writing portable and efficient
 software.  C was used to develop operating systems like Unix, Minix, and Linux and
-progamming languages like C++, Java, JavaScript, and Python.
+programming languages like C++, Java, JavaScript, and Python.
 You can no longer purchase the 1978 edition and should
 instead purchase the second edition (1988) of
 <a href="https://www.cs.princeton.edu/~bwk/cbook.html" target="_blank">
