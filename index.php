@@ -72,7 +72,7 @@ I used this book to teach "LBS290 - Programming for Scientists" in September 199
 <p>
 This web site is dedicated to understanding computer architecture and low-level programming
 by studying the "classic" version of
-the C Programming language from the 1978 book written by Brian Kernighan and Dennis Ritchie.
+the C Programming language from the 1978 book written by Brian W. Kernighan and Dennis M. Ritchie.
 </p>
 <p>
 You can also view this material on:
