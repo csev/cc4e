@@ -72,7 +72,13 @@ I used this book to teach "LBS290 - Programming for Scientists" in September 199
 <p>
 This web site is dedicated to understanding computer architecture and low-level programming
 by studying the "classic" version of
-the C Programming language from the 1978 book written by Brian W. Kernighan and Dennis M. Ritchie.
+the
+C Programming language
+from the 1978 book written by
+<a href="https://www.cs.princeton.edu/~bwk/" target="_blank">
+Brian W. Kernighan
+</a>
+and Dennis M. Ritchie.
 </p>
 <p>
 You can also view this material on:
@@ -85,6 +91,10 @@ The K&amp;R book places the reader in the middle of the 1970's transition from
 a hardware-centered computer science to a focus on writing portable and efficient
 software.  C was used to develop operating systems like Unix, Minix, and Linux and
 progamming languages like C++, Java, JavaScript, and Python.
+You can no longer purchase the 1978 edition and should
+instead purchase the second edition (1988) of
+<a href="https://www.cs.princeton.edu/~bwk/cbook.html" target="_blank">
+The C Programming Language</a>.
 </p>
 <p>
 In this course we will be reflecting on how C provided an important foundation for the creation of
