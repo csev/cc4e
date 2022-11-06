@@ -8,19 +8,20 @@ use \Tsugi\Util\Mersenne_Twister;
 
 // Called first
 function ccauto_instructions($LAUNCH) { return <<< EOF
-<b>Exercise cc-2-5:</b> Write a C program to implement
-this Python program, using the <b>fgets</b> function instead of <b>scanf</b>.
+<b>Exercise RS-2:</b> Write a C program equivalent to
+this Python program:
 <pre>
-print('Enter line')
-line = input()
-print('Line:', line)
+print('Enter US Floor')
+usf = int(input())
+euf = usf - 1
+print('EU Floor', euf)
 </pre>
 EOF
 ;
 }
 
 function ccauto_input($LAUNCH) { return <<< EOF
-Hello world - have a nice day
+2
 EOF
 ;
 }
@@ -28,18 +29,19 @@ EOF
 function ccauto_solution($LAUNCH) { return <<< EOF
 #include <stdio.h>
 int main() {
-    char line[1000];
-    printf("Enter line\\n");
-    fgets(line, 1000, stdin);
-    printf("Line: %s\\n", line);
+    int usf, euf;
+    printf("Enter US Floor\\n");
+    scanf("%d", &usf);
+    euf = usf - 1;
+    printf("EU Floor %d\\n", euf);
 }
 EOF
 ;
 }
 
 function ccauto_output($LAUNCH) { return <<< EOF
-Enter line
-Line: Hello world - have a nice day
+Enter US Floor
+EU Floor 1
 EOF
 ;
 }
@@ -54,14 +56,11 @@ EOF
 } 
 
 function ccauto_main($LAUNCH) { return false; }
-function ccauto_prohibit($LAUNCH) { 
-    return array(
-        array('nice', "'Nice' try - please read the data from input..."),
-    );
-}
+function ccauto_prohibit($LAUNCH) { return false; }
 function ccauto_require($LAUNCH) { 
     return array(
-        array('fgets', 'You should use the fgets() function in the solution to this problem.'),
+        array('scanf', 'You should use scanf to read the input.'),
+        array('-', 'It is difficult to subtract without using subtraction.'),
     );
 }
 

@@ -11,7 +11,7 @@ function ccauto_instructions($LAUNCH) {
     GLOBAL $RANDOM_CODE_HOUR, $INT_2_1;
     $INT_2_1 = ($RANDOM_CODE_HOUR % 5) + 15;
     return <<< EOF
-<b>Exercise cc-2-1:</b> Write a C program to produce the same output as
+<b>Exercise RS-1:</b> Write a C program to produce the same output as
 this Python program:
 <pre>
 print('Hello world')

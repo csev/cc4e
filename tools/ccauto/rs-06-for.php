@@ -8,7 +8,7 @@ use \Tsugi\Util\Mersenne_Twister;
 
 // Called first
 function ccauto_instructions($LAUNCH) { return <<< EOF
-<b>Exercise cc-2-7:</b> Write a C program to produce the same output as
+<b>Exercise RS-6:</b> Write a C program to produce the same output as
 this Python program using a 'for' loop.
 <pre>
 for i in range(5) :

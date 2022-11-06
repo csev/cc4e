@@ -8,7 +8,7 @@ use \Tsugi\Util\Mersenne_Twister;
 
 // Called first
 function ccauto_instructions($LAUNCH) { return <<< EOF
-<b>Exercise cc-2-14:</b> Write a C function called <b>py_lstrip()</b>
+<b>Exercise RS-12:</b> Write a C function called <b>py_lstrip()</b>
 that removes whitespace (blanks, tabs, and newlines) from the beginning of a string.
 This function modifies its parameter and should never be called with a constant value.
 EOF

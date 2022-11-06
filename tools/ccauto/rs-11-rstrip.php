@@ -8,7 +8,7 @@ use \Tsugi\Util\Mersenne_Twister;
 
 // Called first
 function ccauto_instructions($LAUNCH) { return <<< EOF
-<b>Exercise cc-2-13:</b> Write a C function called <b>py_rstrip()</b>
+<b>Exercise RS-11:</b> Write a C function called <b>py_rstrip()</b>
 that removes spaces from the end of a string.
 This function modifies its parameter and should never be called with a constant value.
 EOF

@@ -8,7 +8,7 @@ use \Tsugi\Util\Mersenne_Twister;
 
 // Called first
 function ccauto_instructions($LAUNCH) { return <<< EOF
-<b>Exercise cc-2-10:</b> Write a C function to implement this Python code:
+<b>Exercise RS-9:</b> Write a C function to implement this Python code:
 <pre>
 def mymult(a,b):
     c = a * b

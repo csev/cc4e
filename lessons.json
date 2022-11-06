@@ -283,134 +283,134 @@
     ],
      "lti" : [
         {
-        "title" : "Exercise 2-1: Produce output",
+        "title" : "Exercise RS-1: Produce output",
         "launch" : "tools/ccauto/",
-        "resource_link_id": "cc_02_01_output",
+        "resource_link_id": "rs_01_output",
         "custom" : [
             {
                 "key": "exercise",
-                "value": "cc-02-01-output.php"
+                "value": "rs-01-output.php"
             }
         ]
         },
         {
-        "title" : "Exercise 2-2: Read Input",
+        "title" : "Exercise RS-2: Read Input",
         "launch" : "tools/ccauto/",
-        "resource_link_id": "cc_02_02_input",
+        "resource_link_id": "rs_02_input",
         "custom" : [
             {
                 "key": "exercise",
-                "value": "cc-02-02-input.php"
+                "value": "rs-02-input.php"
             }
         ]
         },
         {
-        "title" : "Exercise 2-3: Input / Output",
+        "title" : "Exercise RS-3: Input / Output",
         "launch" : "tools/ccauto/",
-        "resource_link_id": "cc_02_03_io",
+        "resource_link_id": "rs_03_io",
         "custom" : [
             {
                 "key": "exercise",
-                "value": "cc-02-03-io.php"
+                "value": "rs-03-io.php"
             }
         ]
         },
         {
-        "title" : "Exercise 2-4: Reading Lines of Input",
+        "title" : "Exercise RS-4: Reading Lines of Input",
         "launch" : "tools/ccauto/",
-        "resource_link_id": "cc_02_04_line",
+        "resource_link_id": "rs_04_line",
         "custom" : [
             {
                 "key": "exercise",
-                "value": "cc-02-04-line.php"
+                "value": "rs-04-line.php"
             }
         ]
         },
         {
-        "title" : "Exercise 2-5: Reading Lines of Input with gets()",
+        "title" : "Exercise RS-5: Reading Lines of Input with gets()",
         "launch" : "tools/ccauto/",
-        "resource_link_id": "cc_02_05_gets",
+        "resource_link_id": "rs_05_gets",
         "custom" : [
             {
                 "key": "exercise",
-                "value": "cc-02-05-gets.php"
+                "value": "rs-05-gets.php"
             }
         ]
         },
         {
-        "title" : "Exercise 2-7: Write a simple for loop",
+        "title" : "Exercise RS-6: Write a simple for loop",
         "launch" : "tools/ccauto/",
-        "resource_link_id": "cc_02_07_for",
+        "resource_link_id": "rs_06_for",
         "custom" : [
             {
                 "key": "exercise",
-                "value": "cc-02-07-for.php"
+                "value": "rs-06-for.php"
             }
         ]
         },
         {
-        "title" : "Exercise 2-8: Compute Minimum and Maximum",
+        "title" : "Exercise RS-7: Compute Minimum and Maximum",
         "launch" : "tools/ccauto/",
-        "resource_link_id": "cc_02_08_minmax",
+        "resource_link_id": "rs_07_minmax",
         "custom" : [
             {
                 "key": "exercise",
-                "value": "cc-02-08-minmax.php"
+                "value": "rs-07-minmax.php"
             }
         ]
         },
         {
-        "title" : "Exercise 2-9: Write a Guessing Game",
+        "title" : "Exercise RS-8: Write a Guessing Game",
         "launch" : "tools/ccauto/",
-        "resource_link_id": "cc_02_09_guess",
+        "resource_link_id": "rs_08_guess",
         "custom" : [
             {
                 "key": "exercise",
-                "value": "cc-02-09-guess.php"
+                "value": "rs-08-guess.php"
             }
         ]
         },
         {
-        "title" : "Exercise 2-10: Write a Function",
+        "title" : "Exercise RS-9: Write a Function",
         "launch" : "tools/ccauto/",
-        "resource_link_id": "cc_02_10_function",
+        "resource_link_id": "rs_9_function",
         "custom" : [
             {
                 "key": "exercise",
-                "value": "cc-02-10-function.php"
+                "value": "rs-09-function.php"
             }
         ]
         },
         {
-        "title" : "Exercise 2-12: Concatenate Two Strings",
+        "title" : "Exercise RS-10: Concatenate Two Strings",
         "launch" : "tools/ccauto/",
-        "resource_link_id": "cc_02_12_concat",
+        "resource_link_id": "rs_10_concat",
         "custom" : [
             {
                 "key": "exercise",
-                "value": "cc-02-12-concat.php"
+                "value": "rs-10-concat.php"
             }
         ]
         },
         {
-        "title" : "Exercise 2-13: Write a function like Python rstrip()",
+        "title" : "Exercise RS-11: Write a function like Python rstrip()",
         "launch" : "tools/ccauto/",
-        "resource_link_id": "cc_02_13_rstrip",
+        "resource_link_id": "rs_11_rstrip",
         "custom" : [
             {
                 "key": "exercise",
-                "value": "cc-02-13-rstrip.php"
+                "value": "rs-11-rstrip.php"
             }
         ]
         },
         {
-        "title" : "Exercise 2-14: Write a function like Python lstrip()",
+        "title" : "Exercise RS-12: Write a function like Python lstrip()",
         "launch" : "tools/ccauto/",
-        "resource_link_id": "cc_02_14_lstrip",
+        "resource_link_id": "rs_12_lstrip",
         "custom" : [
             {
                 "key": "exercise",
-                "value": "cc-02-14-lstrip.php"
+                "value": "rs-12-lstrip.php"
             }
         ]
         }

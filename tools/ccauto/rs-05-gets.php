@@ -8,8 +8,8 @@ use \Tsugi\Util\Mersenne_Twister;
 
 // Called first
 function ccauto_instructions($LAUNCH) { return <<< EOF
-<b>Exercise cc-2-4:</b> Write a C program equivalent to
-this Python program:
+<b>Exercise RS-5:</b> Write a C program to implement
+this Python program, using the <b>fgets</b> function instead of <b>scanf</b>.
 <pre>
 print('Enter line')
 line = input()
@@ -30,7 +30,7 @@ function ccauto_solution($LAUNCH) { return <<< EOF
 int main() {
     char line[1000];
     printf("Enter line\\n");
-    scanf("%[^\\n]1000s", line);
+    fgets(line, 1000, stdin);
     printf("Line: %s\\n", line);
 }
 EOF
@@ -56,8 +56,12 @@ EOF
 function ccauto_main($LAUNCH) { return false; }
 function ccauto_prohibit($LAUNCH) { 
     return array(
-        array('nice', 'You should actually read the input.'),
+        array('nice', "'Nice' try - please read the data from input..."),
     );
 }
-function ccauto_require($LAUNCH) { return false; }
+function ccauto_require($LAUNCH) { 
+    return array(
+        array('fgets', 'You should use the fgets() function in the solution to this problem.'),
+    );
+}
 

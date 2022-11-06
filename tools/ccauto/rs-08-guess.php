@@ -8,7 +8,7 @@ use \Tsugi\Util\Mersenne_Twister;
 
 // Called first
 function ccauto_instructions($LAUNCH) { return <<< EOF
-<b>Exercise cc-2-9:</b> Write a C program to play a guessing game with the
+<b>Exercise RS-8:</b> Write a C program to play a guessing game with the
 user that is equivalent to the Python program below.
 Your program should use a <b>while</b> loop and multi-way branch <b>if</b>
 (i.e. use <b>else if</b>).
