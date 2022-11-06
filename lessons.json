@@ -661,7 +661,7 @@
         ]
         },
         {
-        "title" : "Exercise 3-6: A simple UNIX uniq implementaiton",
+        "title" : "Exercise 3-6: A simple UNIX uniq implementation",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc4e_3_06",
         "custom" : [
