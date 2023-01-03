@@ -37,8 +37,8 @@
             "youtube" : "XteaWkvontg"
         },
         {
-            "title" : "Chapter 0 - Introduction (Video)",
-            "youtube" : "XSEGkAOxKZ4"
+            "title" : "Best Programming Course Ever? (Interview)",
+            "youtube" : "aQ_XTBmCXS8"
         }
     ],
 
@@ -50,6 +50,10 @@
         {
             "title" : "'C' Programming Language: Brian Kernighan (from Computerphile)",
             "href" : "https://youtu.be/de2Hsvxaf8M"
+        },
+        {
+            "title" : "Chapter 0 - Introduction (Video)",
+            "href" : "https://www.youtube.com/watch?v=XSEGkAOxKZ4"
         },
         {
             "title" : "Audio version of the book",
