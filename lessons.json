@@ -98,7 +98,7 @@
     "slides": "{apphome}/lectures/CC-01-History.pptx",
     "videos" : [
         {
-            "title" : " A History of C, UNIX, and Computation (a.k.a 'The importance of 1978')",
+            "title" : "A History of C, UNIX, and Computation before and after 1978",
             "youtube" : "VZ2N0MuAUGA"
         }
     ],
