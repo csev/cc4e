@@ -73,6 +73,11 @@
     ],
      "lti" : [
         {
+            "title" : "Quiz: Introduction",
+            "launch" : "mod/gift/?quiz=cc-00.txt",
+            "resource_link_id" : "cc_00_quiz"
+        },
+        {
         "title" : "Autograder: Write Hello World",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc4e_00_hello",
