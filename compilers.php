@@ -5,19 +5,19 @@ These compilers will use a modern version of the C syntax so you might get
 warning errors when you compile the code directly from the 1978 edition of the book.
 </p>
 <ul>
-<li><a href="https://replit.com/languages/c">
+<li><a href="https://replit.com/languages/c" target="_blank">
 https://replit.com/languages/c
 </a></li>
-<li><a href="https://www.pythonanywhere.com/">
+<li><a href="https://www.pythonanywhere.com/" target="_blank">
 PythonAnywhere - Use the Shell
 </a></li>
-<li><a href="https://www.tutorialspoint.com/compile_c_online.php">
+<li><a href="https://www.tutorialspoint.com/compile_c_online.php" target="_blank">
 https://www.tutorialspoint.com/compile_c_online.php
 </a></li>
-<li><a href="https://onecompiler.com/c">
+<li><a href="https://onecompiler.com/c" target="_blank">
 https://onecompiler.com/c
 </a></li>
-<li><a href="https://godbolt.org/z/68oPdEEK9">
+<li><a href="https://godbolt.org/" target="_blank">
 Godbolt Compiler Explorer</a></li>
 </ul>
 <p>
