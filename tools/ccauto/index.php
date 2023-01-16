@@ -261,12 +261,12 @@ echo("<p>".$instructions."</p>\n");
 ?>
 <form method="post">
 <p>
-Edit code below: 
-<input type="submit" name="run" value="Run Code" disabled id="runcode">
+<input type="submit" name="run" onclick="startRun();" value="Run Code" disabled id="runcode">
 <input type="submit" name="reset" value="Reset Code"
     onclick="return confirm('Do you really want to reset the code to the default?');"
 >
 <span id="runstatus"><img src="<?= $OUTPUT->getSpinnerUrl() ?>"/></span>
+<span id="editstatus" style="display: none;">Edit code below:</span>
 <?php
 $errors = cc4e_play_errors($retval);
 cc4e_play_inputs($lines, $code);
@@ -385,6 +385,10 @@ $(document).ready( function() {
 
     });
 });
+function startRun() {
+	$("#runstatus").show();
+	$("#editstatus").hide();
+}
 </script>
 <?php
 $OUTPUT->footerEnd();

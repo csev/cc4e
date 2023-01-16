@@ -134,6 +134,7 @@ $(document).ready(function() {
 <?php if ( isset($CFG->cc4e_no_ping) && $CFG->cc4e_no_ping ) { ?>
    	$('#runcode').attr('disabled' , false);
    	$('#runstatus').html('');
+   	$('#editstatus').show();
 <?php } else { ?>
 	$.getJSON( "<?= $CFG->apphome ?>/ping.php", function( data ) { 
     if ( typeof data === "undefined" ) {
@@ -145,6 +146,7 @@ $(document).ready(function() {
     	var output = data.docker.stdout;
     	$('#runcode').attr('disabled' , false);
     	$('#runstatus').html('');
+   	$('#editstatus').show();
 	return;
     }
     $('#runstatus').html('Compiler unavailable');
