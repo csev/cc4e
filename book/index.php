@@ -84,10 +84,15 @@ function myEdit(me) {
     console.log('code', code);
     window.open("<?= $CFG->apphome ?>/play?sample="+code);
 }
+function darkMode() {
+  var element = document.body;
+  element.classList.toggle("dark-mode");
+}
 </script>
 </head>
 <body>
 <div style="float:right">
+<button onclick="darkMode();return false;">Dark Mode</button>
 <select id="chapfoot" onchange="onSelect('chapfoot');">
   <option <?= x_sel("..") ?>>CC4E</option>
   <option <?= x_sel("toc.md") ?>>Table of Contents</option>
@@ -125,7 +130,7 @@ function myEdit(me) {
             }
             if ( $page ) {
                 $pno = substr('000'.$numb, -3);
-                $newcontent[] = '<div style="padding-left: 5px; padding-bottom: 0.5em; float:right;"><a onclick="window.open(\'pages/page_'.$pno.'\');return false;" href="#" id="pg'.($numb+0).'">Page '.($numb+0).'</a></div>'."\n";
+                // $newcontent[] = '<div style="padding-left: 5px; padding-bottom: 0.5em; float:right;"><a onclick="window.open(\'pages/page_'.$pno.'\');return false;" href="#" id="pg'.($numb+0).'">Page '.($numb+0).'</a></div>'."\n";
             }
         }
         if ( strpos($line, "[comment]: <> (code") === 0 || 
@@ -234,6 +239,7 @@ Please feel free to improve this text in
 }
 ?>
 <div style="float:right">
+<button onclick="darkMode();return false;">Dark Mode</button>
 <select id="chapters" onchange="onSelect('chapters');">
   <option <?= x_sel("..") ?>>CC4E</option>
   <option <?= x_sel("toc.md") ?>>Table of Contents</option>

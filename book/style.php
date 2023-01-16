@@ -6,6 +6,13 @@ use \Tsugi\Util\U;
 <style>
 body {
     font-family: Helvetica, Arial, sans-serif;
+    background-color: white;
+    color: black;
+}
+
+.dark-mode {
+  background-color: black;
+  color: white;
 }
 
 center {
@@ -17,7 +24,7 @@ p {
 }
 
 .note {
-    border: 1px solid blue;
+    border: 1px solid green;
     padding-left: 1em;
     padding-right: 1em;
 }
@@ -33,14 +40,22 @@ p {
         display: none;
     }
 }
+
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
     padding: 5px;
 }
 
+table.darkmode, th.darkmode, td.darkmode {
+    border: 1px solid yellow;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+
 tr:nth-child(even) {
-  background-color: lightgray;
+  background-color: gray;
 }
 
 a.xyzzy, a.xyzzy:hover, a.xyzzy:focus, a.xyzzy:active {
