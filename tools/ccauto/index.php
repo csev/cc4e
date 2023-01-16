@@ -261,6 +261,7 @@ echo("<p>".$instructions."</p>\n");
 ?>
 <form method="post">
 <p>
+Edit code below: 
 <input type="submit" name="run" value="Run Code" disabled id="runcode">
 <input type="submit" name="reset" value="Reset Code"
     onclick="return confirm('Do you really want to reset the code to the default?');"
@@ -272,7 +273,7 @@ cc4e_play_inputs($lines, $code);
 
 if ( is_string($input) && strlen($input) > 0 ) {
 ?>
-<p>Input to your program:</p>
+<p>This will be provided as input to your program:</p>
 <p>
 <div id="programinput" class="pre_text"><pre>
 <?php

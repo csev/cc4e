@@ -12,12 +12,11 @@ function ccauto_instructions($LAUNCH) {
     $INT_2_1 = ($RANDOM_CODE_HOUR % 5) + 15;
     return <<< EOF
 <b>Exercise RS-1:</b> Write a C program to produce the same output as
-this Python program:
+this Python program using the %d and %s features of the printf() function:
 <pre>
 print('Hello world')
-print('Answer', 42)
+print('Answer', $INT_2_1)
 print('Name', 'Sarah')
-print('x',3.5,'i',$INT_2_1)
 </pre>
 EOF
 ;
@@ -42,9 +41,8 @@ function ccauto_solution($LAUNCH) {
 #include <stdio.h>
 int main() {
     printf("Hello world\\n");
-    printf("Answer %d\\n", 42);
+    printf("Answer %d\\n", $INT_2_1);
     printf("Name %s\\n", "Sarah");
-    printf("x %.1f i %d\\n", 3.5, $INT_2_1);
 }
 EOF
 ;
@@ -54,13 +52,21 @@ function ccauto_output($LAUNCH) {
     GLOBAL $RANDOM_CODE_HOUR, $INT_2_1;
     return <<< EOF
 Hello world
-Answer 42
+Answer $INT_2_1
 Name Sarah
-x 3.5 i $INT_2_1
 EOF
 ;
 }
 
-function ccauto_prohibit($LAUNCH) { return false; }
-function ccauto_require($LAUNCH) { return false; }
+function ccauto_prohibit($LAUNCH) {
+    return array(
+    );
+}
+
+function ccauto_require($LAUNCH) {
+    return array(
+        array("%s", 'You must use %s to format your output.'),
+        array("%d", 'You must use %d to format your output.'),
+    );
+}
 
