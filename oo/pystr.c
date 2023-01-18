@@ -6,16 +6,6 @@ struct pystr
     int length;
     char *data;
     int alloc;
-
-    void (*del)(const struct pystr*);
-    void (*dump)(const struct pystr*);
-    int (*len)(const struct pystr*);
-    char* (*str)(const struct pystr*);
-    struct pystr* (*assign)(struct pystr*, char*);
-    struct pystr* (*append)(struct pystr*, char);
-    struct pystr* (*appends)(struct pystr*, char*);
-    // struct pystr * (*upper)(struct pystr*);
-    // struct pystr * (*lower)(struct pystr*);
 };
 
 /* Destructor */
@@ -77,16 +67,6 @@ struct pystr * pystr_new() {
     p->alloc = 10;
     p->data = malloc(10);
     p->data[0] = '\0';
-
-    p->del = pystr_del;
-    p->dump = pystr_dump;
-    p->len = pystr_len;
-    p->str = pystr_str;
-    p->append = pystr_append;
-    p->appends = pystr_appends;
-    p->assign = pystr_assign;
-    // p->upper = pystr_upper;
-    // p->lower = pystr_lower;
     return p;
 }
 

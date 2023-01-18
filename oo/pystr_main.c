@@ -5,11 +5,11 @@ int main(void)
 {
     printf("Testing pystr class\n");
     struct pystr * x = pystr_new();
-    x->dump(x);
-    x->append(x, 'H');
-    x->dump(x);
-    x->appends(x, "ello world");
-    x->dump(x);
-    x->del(x);
+    pystr_dump(x);
+    pystr_append(x, 'H');
+    pystr_dump(x);
+    pystr_appends(x, "ello world");
+    pystr_dump(x);
+    pystr_del(x);
 }
 

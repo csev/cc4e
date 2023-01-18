@@ -6,9 +6,6 @@ struct point
 {
     double x;
     double y;
-    void (*del)(const struct point*);
-    void (*dump)(const struct point*);
-    double (*origin)(const struct point*);
 };
 
 void point_dump(const struct point* self)
@@ -30,9 +27,6 @@ struct point * point_new(double x, double y) {
     struct point *p = malloc(sizeof(*p));
     p->x = x;
     p->y = y;
-    p->del = point_del;
-    p->dump = point_dump;
-    p->origin = point_origin;
     return p;
 }
 
