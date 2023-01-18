@@ -3,8 +3,9 @@
 
 int main(void)
 {
-    struct point * p3 = point_new(4,5);
-    p3->print(p3);
-    p3->del(p3);
+    struct point * pt = point_new(4.0,5.0);
+    pt->dump(pt);
+    printf("Origin %f\n", pt->origin(pt));
+    pt->del(pt);
 }
 
