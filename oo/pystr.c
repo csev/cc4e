@@ -8,6 +8,16 @@ struct pystr
     int alloc;
 };
 
+/* Constructor */
+struct pystr * pystr_new() {
+    struct pystr *p = malloc(sizeof(*p));
+    p->length = 0;
+    p->alloc = 10;
+    p->data = malloc(10);
+    p->data[0] = '\0';
+    return p;
+}
+
 /* Destructor */
 void pystr_del(const struct pystr* self) {
   free((void *)self->data);
@@ -58,15 +68,5 @@ struct pystr * pystr_assign(struct pystr* self, char *str) {
     self->data[0] = '\0';
     pystr_appends(self, str);
     return self;
-}
-
-/* Constructor (at the end so everything is defined) */
-struct pystr * pystr_new() {
-    struct pystr *p = malloc(sizeof(*p));
-    p->length = 0;
-    p->alloc = 10;
-    p->data = malloc(10);
-    p->data[0] = '\0';
-    return p;
 }
 

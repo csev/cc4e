@@ -274,7 +274,7 @@ function cc4e_compile($code, $input, $main=null)
             'sqrt', 'pow', 'ciel', 'floor', 'abs',
             'sin', 'cos', 'tan', 'sinh', 'cosh', 'tanh',
             'atoi', 'isspace', 
-            '___chkstk_darwin',
+            '___chkstk_darwin', '_ctype_b_loc',
         );
         $more_externals = array();
         foreach($allowed_externals as $external) {
