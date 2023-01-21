@@ -43,7 +43,7 @@ EOF
 }
 
 function ccauto_sample($LAUNCH) {  return <<< EOF
-void py_rstrip(inp)
+void py_lstrip(inp)
     char inp[];
 {
     printf("Some code goes here...\\n");
