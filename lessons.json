@@ -441,8 +441,12 @@
     "slides": "{apphome}/lectures/KR-1.pptx",
     "videos" : [
         {
-            "title" : "K&R 1: A Tutorial Introduction",
+            "title" : "Historical Context For Chapter 1: A Tutorial Introduction",
             "youtube" : "ucaJhGuVo_Q"
+        },
+        {
+            "title" : "A Reading of Chapter 1: A Tutorial Introduction",
+            "youtube" : "rPwBgsSnxCw"
         }
     ],
     "references" : [
@@ -581,8 +585,12 @@
     ],
     "videos" : [
         {
-            "title" : "Chapter 2 - Types, Operators, and Expressions",
-            "youtube" : "q0Ql0jhTPDU"
+            "title" : "Historical Context For Chapter 2: Types, Operators, and Expressions",
+            "youtube" : "mrN-is3rUN0"
+        },
+        {
+            "title" : "A Reading of Chapter 2: Types, Operators, and Expressions",
+            "youtube" : "rPwBgsSnxCw"
         }
     ],
      "lti" : [
