@@ -439,20 +439,24 @@
     "icon" : "fa-building",
     "description": "This chapter covers what might be called the conventional core of C.",
     "slides": "{apphome}/lectures/KR-1.pptx",
+    "videos" : [
+        {
+            "title" : "K&R 1: A Tutorial Introduction",
+            "youtube" : "ucaJhGuVo_Q"
+        }
+    ],
     "references" : [
         {
             "title" : "Chapter 1: A Tutorial Introduction (html)",
             "href" : "{apphome}/book/chap01.md"
         },
         {
+            "title" : "CC4E Video Playlist",
+            "href" : "https://www.youtube.com/playlist?list=PLlRFEj9H3Oj5NbaFb1b2n8lib01uNPWLa"
+        },
+        {
             "title" : "Audio version of the book",
             "href" : "https://audio.cc4e.com/"
-        }
-    ],
-    "videos" : [
-        {
-            "title" : "Chapter 1 - A Tutorial Introduction",
-            "youtube" : "rPwBgsSnxCw"
         }
     ],
      "lti" : [
