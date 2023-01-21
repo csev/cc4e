@@ -8,6 +8,16 @@ if ( !isset($_COOKIE['secret']) || $_COOKIE['secret'] != '42' ) {
     return;
 }
 
+if ( isset($_REQUEST['darkmode']) ) {
+    if ( isset($_COOKIE['darkmode']) && $_COOKIE['darkmode'] == 'yes' ) {
+        setCookie('darkmode', 'no', time() + 15 * 3600 * 24);
+    } else {
+        setCookie('darkmode', 'yes', time() + 15 * 3600 * 24);
+    }
+    header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+    return;
+}
+
 use \Tsugi\Core\LTIX;
 use \Tsugi\Util\U;
 
@@ -64,8 +74,13 @@ if ( $contents != false ) {
 ?>
 <script>
 function onSelect(div) {
-    console.log($('#'+div).val());
-    window.location = $('#'+div).val();
+    var selected = $('#'+div).val();
+    console.log(selected);
+    if ( selected == 'darkmode' ) {
+        window.location = window.location + '?darkmode=toggle';
+    } else {
+        window.location = selected;
+    }
 }
 // https://www.w3schools.com/howto/howto_js_copy_clipboard.asp
 // https://stackoverflow.com/questions/22581345/click-button-copy-to-clipboard-using-jquery
@@ -84,15 +99,16 @@ function myEdit(me) {
     console.log('code', code);
     window.open("<?= $CFG->apphome ?>/play?sample="+code);
 }
-function darkMode() {
-  var element = document.body;
-  element.classList.toggle("dark-mode");
-}
 </script>
 </head>
-<body>
+<?php
+if ( U::get($_COOKIE,'darkmode') == 'yes' ) {
+    echo('<body class="dark-mode">'."\n");
+} else {
+    echo("<body>\n");
+}
+?>
 <div style="float:right">
-<button onclick="darkMode();return false;">Dark Mode</button>
 <select id="chapfoot" onchange="onSelect('chapfoot');">
   <option <?= x_sel("..") ?>>CC4E</option>
   <option <?= x_sel("toc.md") ?>>Table of Contents</option>
@@ -106,6 +122,7 @@ function darkMode() {
   <option <?= x_sel("chap06.md") ?>>Chapter 6</option>
   <option <?= x_sel("chap07.md") ?>>Chapter 7</option>
   <option <?= x_sel("chap08.md") ?>>Chapter 8</option>
+  <option value="darkmode">Dark Mode</option>
 </select>
 </div>
 <?php
@@ -239,7 +256,6 @@ Please feel free to improve this text in
 }
 ?>
 <div style="float:right">
-<button onclick="darkMode();return false;">Dark Mode</button>
 <select id="chapters" onchange="onSelect('chapters');">
   <option <?= x_sel("..") ?>>CC4E</option>
   <option <?= x_sel("toc.md") ?>>Table of Contents</option>
