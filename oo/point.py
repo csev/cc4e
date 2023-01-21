@@ -11,9 +11,6 @@ class Point:
     def origin(self):
         return math.sqrt(self.x*self.x+self.y*self.y)
         
-    def __str__(self):
-        return f'({self.x}, {self.y})'
-
 pt = Point(4.0, 5.0)
 pt.dump()
 print('Origin',pt.origin())

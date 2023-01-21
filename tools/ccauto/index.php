@@ -136,10 +136,17 @@ $retval = U::get($_SESSION, 'retval');
 
 if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
    $succinct = preg_replace('/\s+/', ' ', $code);
-   error_log("Autograde by ".$displayname.' '.$email.': '.substr($succinct,0, 250));
-   $retval = cc4e_compile($code, $input, $main);
-    GradeUtil::gradeUpdateJson(json_encode(array("code" => $code)));
-   $_SESSION['retval'] = $retval;
+   $prohibit_results = check_prohibit($code, $prohibit);
+   $require_results = check_require($code, $require);
+   if ( is_array($prohibit_results) || is_array($require_results) ) {
+        $_SESSION['retval'] = false;
+        GradeUtil::gradeUpdateJson(json_encode(array("code" => $code)));
+    } else {
+        error_log("Autograde by ".$displayname.' '.$email.': '.substr($succinct,0, 250));
+        $retval = cc4e_compile($code, $input, $main);
+        GradeUtil::gradeUpdateJson(json_encode(array("code" => $code)));
+        $_SESSION['retval'] = $retval;
+    }
 }
 
 $row = GradeUtil::gradeLoad();
@@ -286,17 +293,17 @@ if ( is_string($input) && strlen($input) > 0 ) {
 
     // https://code.iamkate.com/php/diff-implementation/
 
-    $prohibit = check_prohibit($code, $prohibit);
-    $require = check_require($code, $require);
+    $prohibit_results = check_prohibit($code, $prohibit);
+    $require_results = check_require($code, $require);
     $actual = isset($retval->docker->stdout) && strlen($retval->docker->stdout) > 0 ? $retval->docker->stdout : false;
-    if ( is_string($actual) && is_string($output) ) {
-        if ( is_array($prohibit) ) {
-            echo '<p style="color:red;">NOT GRADED: '.$prohibit[0].'</p>'."\n";
-            error_log("Prohibited: ".$displayname.' '.$email.': '.$prohibit[0]);
-        } else if ( is_array($require) ) {
-            echo '<p style="color:red;">NOT GRADED: '.$require[0].'</p>'."\n";
-            error_log("Required: ".$displayname.' '.$email.': '.$require[0]);
-        } else if ( trim($actual) == trim($output) ) {
+    if ( is_array($prohibit_results) ) {
+        echo '<p style="color:red;">NOT GRADED: '.$prohibit_results[0].'</p>'."\n";
+        error_log("Prohibited: ".$displayname.' '.$email.': '.$prohibit_results[0]);
+    } else if ( is_array($require_results) ) {
+        echo '<p style="color:red;">NOT GRADED: '.$require_results[0].'</p>'."\n";
+        error_log("Required: ".$displayname.' '.$email.': '.$require_results[0]);
+    } else if ( is_string($actual) && is_string($output) ) {
+        if ( trim($actual) == trim($output) ) {
             $grade = 1.0;
             $debug_log = array();
             $graderet = LTIX::gradeSend($grade, false, $debug_log);

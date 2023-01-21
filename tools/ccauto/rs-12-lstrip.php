@@ -50,7 +50,7 @@ void py_rstrip(inp)
 }
 EOF
 ;
-} 
+}
 
 function ccauto_main($LAUNCH) { return <<< EOF
 #include <stdio.h>
@@ -66,10 +66,15 @@ EOF
 ;
 }
 
-function ccauto_require($LAUNCH) { return false; }
+function ccauto_require($LAUNCH) {
+    return array(
+        array("py_lstrip", "You need to name your function py_lstrip()."),
+    );
+}
 
 function ccauto_prohibit($LAUNCH) {
     return array(
+        array("main", "Don't include the main() code - only include the py_lstrip() function - the main code is provided automatically by the autograder."),
         array("Hello", "Yes this is a difficult assignment - but the solution is presented and discussed in the lecture."),
         array("H", "Sigh, a correct implementation of this function rarely requires the use of an uppercase 'H'."),
     );
