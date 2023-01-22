@@ -74,20 +74,15 @@
     ],
      "lti" : [
         {
-            "title" : "Quiz: History",
-            "launch" : "mod/gift/?quiz=cc-01.txt",
+            "title" : "Quiz: History / Introduction",
+            "launch" : "mod/gift/?quiz=chap-00.txt.txt",
             "resource_link_id" : "cc_01_quiz"
-        },
-        {
-            "title" : "Quiz: Introduction",
-            "launch" : "mod/gift/?quiz=cc-00.txt",
-            "resource_link_id" : "cc_00_quiz"
         }
     ],
 
     "discussions" : [
         {
-        "title" : "History",
+        "title" : "History / Intruduction",
         "launch" : "mod/tdiscus/",
         "resource_link_id": "discuss_00_history"
         }
