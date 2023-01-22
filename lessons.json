@@ -75,7 +75,7 @@
      "lti" : [
         {
             "title" : "Quiz: History / Introduction",
-            "launch" : "mod/gift/?quiz=chap-00.txt.txt",
+            "launch" : "mod/gift/?quiz=chap00.txt.txt",
             "resource_link_id" : "cc4e_00_quiz"
         }
     ],
