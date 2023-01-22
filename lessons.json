@@ -31,7 +31,7 @@
     "anchor": "history",
     "icon" : "fa-microchip",
     "description": "We place the moment this book was published (1978) in the context of the history of computer hardware, operating systems, and programming languages to better understand why C (and UNIX) had such a transformative effect on computing when this book introduced it to mainstream audience.",
-    "slides": "{apphome}/lectures/CC-01-History.pptx",
+    "slides": "{apphome}/lectures/KR-0.pptx",
     "videos" : [
         {
             "title" : "A History of C, UNIX, and Computation before and after 1978",
@@ -93,7 +93,7 @@
     "anchor": "python",
     "icon" : "fa-university",
     "description": "To quickly get up to speed with C, we translate some Python code to C and compare and contrast the two languages.  This course assumes you know at least Python and hopefully passing understanding of JavaScript and maybe even PHP, so the overall C syntax should not be 100% new to you.",
-    "slides": "{apphome}/lectures/CC-02-Python.pptx",
+    "slides": "{apphome}/lectures/CC4E-01-Python.pptx",
     "references" : [
         {
             "title" : "Chapter 1: A Tutorial Introduction (html)",
