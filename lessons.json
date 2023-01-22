@@ -82,7 +82,7 @@
 
     "discussions" : [
         {
-        "title" : "History / Intruduction",
+        "title" : "History / Introduction",
         "launch" : "mod/tdiscus/",
         "resource_link_id": "discuss_00_history"
         }
