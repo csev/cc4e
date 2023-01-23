@@ -3,7 +3,8 @@ public class kr_03_01 {
 	{   
 		if ( x == 21 ) {
 			x = x + 1;
-			System.out.println(x);
+			x = x / 2;
 		}
+		System.out.println(x);
 	}
 }

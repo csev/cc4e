@@ -4,6 +4,7 @@ void semifunc(x)
 {
     if ( x == 21 ) {
         x = x + 1;
-        printf("%d\n",x);
+        x = x / 2;
     }
+    printf("%d\n",x);
 }

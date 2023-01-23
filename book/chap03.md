@@ -246,7 +246,7 @@ is an "infinite" loop, presumably to be broken by other means (such as a
 
 Whether to use `while` or `for` is largely a matter of taste. For example, in
 
-    while ( (c = getchar () ) == ' ' || c == '\n' || c == '\t')
+    while ( (c = getchar()) == ' ' || c == '\n' || c == '\t')
         ;   /* skip white space characters */
 
 there is no initialization or re-initialization, so the `while` seems most

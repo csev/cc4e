@@ -1,7 +1,7 @@
-
 function semifunc(x) {
     if ( x == 21 ) {
         x = x + 1;
-        alert(x)
+        x = x / 2
     }
+    console.log(x)
 }
