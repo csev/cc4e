@@ -92,7 +92,7 @@
     "title": "From Python to C",
     "anchor": "python",
     "icon" : "fa-university",
-    "description": "To quickly get up to speed with C, we translate some Python code to C and compare and contrast the two languages.  This course assumes you know at least Python and hopefully passing understanding of JavaScript and maybe even PHP, so the overall C syntax should not be 100% new to you.",
+    "description": "To quickly get up to speed with C, we translate some Python code to C and compare and contrast the two languages to prepare you for Chapter 1 of the book.  This course assumes you know at least Python and hopefully passing understanding of JavaScript and maybe even PHP, so the overall C syntax should not be 100% new to you.",
     "slides": "{apphome}/lectures/CC4E-01-Python.pptx",
     "references" : [
         {
