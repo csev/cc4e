@@ -63,7 +63,7 @@ The precision of these objects depends on the machine at hand; the table below s
 | char   |   8 bits   |     9 bits     | 8 bits  |     8 bits     |
 | int    |     16     |       36       |   32    |       32       |
 | short  |     16     |       36       |   16    |       16       |
-| char   |     32     |       36       |   32    |       32       |
+| long   |     32     |       36       |   32    |       32       |
 | float  |     32     |       36       |   32    |       32       |
 | double |     64     |       72       |   64    |       64       |
 
