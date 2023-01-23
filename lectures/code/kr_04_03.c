@@ -13,7 +13,7 @@ int sumup(int above)
     sum = sumup(below);         // Recurse
     printf("Back: %d\n",sum);
     retval = above + sum;
-    printf("Up: %d\n",retval);
+    printf("Ret: %d\n",retval);
     return retval;
 }
 
