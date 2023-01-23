@@ -1,9 +1,9 @@
 def zap(y):
-    print('Y start  zap:',y);
+    print('Y start  zap:',y)
     y = 'CHANGED'
-    print('Y end    zap:',y);
+    print('Y end    zap:',y)
 
 x = 'ORIGINAL'
-print('X before zap:',x);
+print('X before zap:',x)
 zap(x)
-print('X after  zap:',x);
+print('X after  zap:',x)
