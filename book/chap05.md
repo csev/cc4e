@@ -494,7 +494,7 @@ A _string constant_, written as
 
     "I am a string"
 
-is an array of characters. In the internal representation, the compiler terminates the array with the character \0 so that programs can find the end.
+is an array of characters. In the internal representation, the compiler terminates the array with the character `\0` so that programs can find the end.
 The length in storage is thus one more than the number of characters
 between the double quotes.
 
@@ -538,7 +538,7 @@ For contrast, here is a version of `strcpy` with pointers.
 
 Because arguments are passed by value, `strcpy` can use `s` and `t` in any
 way it pleases. Here they are conveniently initialized pointers, which are
-marched along the arrays a character at a time, until the \0 which terminates t has been copied to `s`.
+marched along the arrays a character at a time, until the `\0` which terminates t has been copied to `s`.
 
 In practice, `strcpy` would not be written as we showed it above. A
 second possibility might be
@@ -551,11 +551,11 @@ This moves the increment of `s` and `t` into the test part. The value of `*t++`
 is the character that `t` pointed to before t was incremented; the postfix ++
 doesn't change `t` until after this character has been fetched. In the same
 way, the character is stored into the old `s` position before `s` is incremented.
-This character is also the value that is compared against \0 to control the
+This character is also the value that is compared against `\0` to control the
 loop. The net effect is that characters are copied from `t` to `s` up to and
-including the terminating \0.
+including the terminating `\0`.
 
-As the final abbreviation, we again observe that a comparison against \0
+As the final abbreviation, we again observe that a comparison against `\0`
 is redundant, so the function is often written as
 
 [comment]: <> (code c_101_01.c)

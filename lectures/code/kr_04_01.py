@@ -1,10 +1,10 @@
 
-def zap(x):
-    print('X at start of zap:',x);
-    x = 'CHANGED'
-    print('X at end of zap:',x);
-
-x = 'ORIGINAL'
-print('X before zap:',x);
-zap(x)
-print('X after zap:',x);
+stk = list()
+stk.append("one")
+print('Stack 1:', stk);
+stk.append("two")
+print('Stack 2:', stk);
+stk.append("three")
+print('Stack 3:', stk);
+print('Pop!', stk.pop())
+print('Stack 4:', stk);
