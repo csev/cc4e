@@ -7,9 +7,7 @@ int sumup(int above)
     int retval;
 
     printf("In: %d\n",above);
-
     if ( above <= 1 ) return 1; // Stop 
-                                //
     below = above - 1; 
     printf("Down: %d\n",below);
     sum = sumup(below);         // Recurse
