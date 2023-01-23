@@ -1,4 +1,3 @@
-
 def zap(y):
     print('Y start  zap:',y);
     y = 'CHANGED'
