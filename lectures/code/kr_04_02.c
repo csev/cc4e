@@ -1,17 +1,15 @@
 #include <stdio.h>
+#include <string.h>
 
-void one(op)
-    int op;
-{
-    printf("One  op before %d\n",op);
-    op = op - 10;
-    printf("One  op after  %d\n",op);
+void zap(char y[]) {
+    printf("Y start  zap: %s\n",y);
+    strcpy(y, "CHANGED");
+    printf("Y end    zap: %s\n",y);
 }
 
-int main() {
-    int ma = 42;
-    printf("Main ma before %d\n",ma);
-    one(ma);
-    printf("Main ma after  %d\n",ma);
+int main(){
+    char x[] = "ORIGINAL";
+    printf("X before zap: %s\n",x);
+    zap(x);
+    printf("X after  zap: %s\n",x);
 }
-
