@@ -27,10 +27,10 @@
 ],
 "modules": [
 {
-    "title": "Historical Context",
+    "title": "K&R 0: Introduction / Historical Context",
     "anchor": "history",
     "icon" : "fa-microchip",
-    "description": "We place the moment this book was published (1978) in the context of the history of computer hardware, operating systems, and programming languages to better understand why C (and UNIX) had such a transformative effect on computing when this book introduced it to mainstream audience.",
+    "description": "We read the introduction of the book and place the moment this book was published (1978) in the context of the history of computer hardware, operating systems, and programming languages.  We explore why C (and UNIX) had such a transformative effect on computing when this book introduced them to a mainstream audience.",
     "slides": "{apphome}/lectures/KR-0.pptx",
     "videos" : [
         {
