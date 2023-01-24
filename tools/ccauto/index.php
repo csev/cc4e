@@ -54,7 +54,9 @@ $assignments = array(
     '3-01-expand.php' => '3-1 Write a function to expand non-printing characters',
     '3-04-itob.php' => '3-4 Write itob() and itoh()',
     '3-06-uniq.php' => '3-6 Write simple version of UNIX uniq',
-    '4-x1-faren.php' => '4 Write a function to convert from Celsius to Farenheight',
+    '4-A-faren.php' => '4-A Write a function to convert from Celsius to Farenheight',
+    '4-B-extern.php' => '4-B Write a function that uses external data scope',
+    '4-C-static.php' => '4-C Write a function that uses static data scope',
     'p-02-03-pay.php' => '2.3 Gross pay (no overtime)',
     'p-03-01-payroll.php' => '3.1 Time and a half for overtime',
     'p-03-04-score.php' => '3.4 Score with else if',
@@ -294,6 +296,7 @@ if ( is_string($input) && strlen($input) > 0 ) {
 
     // https://code.iamkate.com/php/diff-implementation/
 
+    $output_match = false;
     $prohibit_results = check_prohibit($code, $prohibit);
     $require_results = check_require($code, $require);
     $actual = isset($retval->docker->stdout) && strlen($retval->docker->stdout) > 0 ? $retval->docker->stdout : false;
@@ -312,6 +315,7 @@ if ( is_string($input) && strlen($input) > 0 ) {
             // $OUTPUT->dumpDebugArray($debug_log);
             if ( $graderet == true ) {
                 echo('<p style="color:green;">OUTPUT MATCH - Grade sent to server</p>'."\n");
+    		$output_match = true;
             } else if ( is_string($graderet) ) {
                 echo('<p style="color:red;">OUTPUT MATCH - Grade not sent: '.$graderet."</p>\n");
             } else {
@@ -333,12 +337,14 @@ if ( is_string($input) && strlen($input) > 0 ) {
         }
     }
 
-    echo '<div style="color: green;">'."\n";
-    echo "Expected output from your program:\n\n";
-    echo('<div id="expectedoutput" class="pre_text"><pre>');
-    echo(htmlentities($output, ENT_NOQUOTES));
-    echo("</pre></div>\n");
-    echo("</div>\n");
+    if ( ! $output_match ) {
+    	echo '<div style="color: green;">'."\n";
+    	echo "Expected output from your program:\n\n";
+    	echo('<div id="expectedoutput" class="pre_text"><pre>');
+    	echo(htmlentities($output, ENT_NOQUOTES));
+    	echo("</pre></div>\n");
+    	echo("</div>\n");
+    }
 
  cc4e_play_output($retval);
 ?>

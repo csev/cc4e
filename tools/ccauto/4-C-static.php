@@ -9,11 +9,12 @@ use \Tsugi\Util\Mersenne_Twister;
 // Called first
 function ccauto_instructions($LAUNCH) {
     return <<< EOF
-<b>Celsius Farenheight Function</b> 
+<b>Using 'static' data</b> 
     <p>
-    You should write a function (no #include statements are needed) called faren(cel)
-    that takes as input a double Celsuis temparature and converts it and returns
-    the equivalent Farenheight value.
+    You should write a function called bump() that uses an static variable
+    so that the first time it is called, it returns int 0, the next time it returns
+    1 and so on.  Also write a function called start() which takes an int as its parameter
+    and restarts the sequence from the specivied number.
     </p>
 EOF
 ;
@@ -24,12 +25,14 @@ function ccauto_main($LAUNCH) {
     return <<< EOF
 #include <stdio.h>
 int main() {
-  double faren();
-  printf("faren(42) is %f\\n", faren(42.0));
-  printf("faren(0) is %f\\n", faren(0.0));
-  printf("faren(32) is %f\\n", faren(32.0));
-  printf("faren(100) is %f\\n", faren(100.0));
-  printf("faren(212) is %f\\n", faren(212.0));
+  int bump();
+  void start();
+  printf("bump() returns %d\\n", bump());
+  printf("bump() returns %d\\n", bump());
+  printf("bump() returns %d\\n", bump());
+  start(42);
+  printf("bump() returns %d\\n", bump());
+  printf("bump() returns %d\\n", bump());
 }
 EOF
 ;
@@ -41,10 +44,11 @@ function ccauto_input($LAUNCH) { return false; }
 function ccauto_output($LAUNCH) { 
     GLOBAL $RANDOM_CODE_HOUR, $CHAR_2_10, $LOWER_2_10;
     return <<< EOF
-Lower M is m
-Lower x is x
-Lower @ is @
-Lower $CHAR_2_10 is $LOWER_2_10
+bump() returns 0
+bump() returns 1
+bump() returns 2
+bump() returns 42
+bump() returns 43
 EOF
 ;
 }
@@ -52,8 +56,7 @@ EOF
 // Make sure to escape \n as \\n
 function ccauto_sample($LAUNCH) {
     return <<< EOF
-double faren(celsius)
-double celsius;
+int bump()
 {
   // Do something :)
 }
@@ -62,16 +65,18 @@ EOF
 }
 
 function ccauto_prohibit($LAUNCH) { 
-    GLOBAL $RANDOM_CODE_HOUR, $CHAR_2_10, $LOWER_2_10;
     return array(
         array('include', 'You should not have any include statements in your code.'),
         array("main", "Don't include the main() code - the main() code is provided automatically by the autograder."),
+        array("extern", "You should not use the 'extern' keyword."),
     );
 }
 
 function ccauto_require($LAUNCH) { 
     return array (
-        array("faren", "You need to name your function faren()."),
+        array("static", "You need to use the 'static' keyword."),
+        array("bump", "You need to have a bump() function."),
+        array("start", "You need to have a start() function."),
         array('return', 'You must use a return statement'),
     );
 }
@@ -79,10 +84,16 @@ function ccauto_require($LAUNCH) {
 // Make sure to escape \n as \\n
 function ccauto_solution($LAUNCH) {
     return <<< EOF
-double faren(cel) 
-double cel;
+static int BUMP_VAL = 0;
+
+int bump() 
 {
-  return (cel * 9.0 / 5.0) + 32.0;
+  return BUMP_VAL++;
+}
+
+void start(int start) 
+{
+  BUMP_VAL = start;
 }
 EOF
 ;
