@@ -27,7 +27,7 @@ function ccauto_instructions($LAUNCH) {
     </p>
     <p>
     Each time you run the program, the values you need to convert 
-    may be different each time you run the code.
+    may be different.  The main program will be provided.
     </p>
 EOF
 ;
@@ -83,12 +83,14 @@ function ccauto_prohibit($LAUNCH) {
     return array(
         array('ctype', 'You should not use ctype.h.'),
         array('include', 'You should not have any include statements in your code.'),
-        array('else', 'You are to use a conditional expression, not an if-then-else.'),
+        array('else', 'You are to use a single conditional expression with a question mark and colon, not an if-then-else.'),
+        array("main", "Don't include the main() code - the main() code is provided automatically by the autograder."),
     );
 }
 
 function ccauto_require($LAUNCH) { 
     return array (
+        array("lower", "You need to name your function lower()."),
         array('return', 'You must use a return statement'),
     );
 }
