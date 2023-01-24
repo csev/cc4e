@@ -425,7 +425,7 @@
     "videos" : [
         {
             "title" : "Historical Context For Chapter 2: Types, Operators, and Expressions",
-            "youtube" : "mrN-is3rUN0"
+            "youtube" : "Pwajo2Zxius"
         },
         {
             "title" : "A Reading of Chapter 2: Types, Operators, and Expressions",
@@ -487,6 +487,10 @@
         }
     ],
     "videos" : [
+        {
+            "title" : "Historical Context For Chapter 3 - Control Flow",
+            "youtube" : "-mIMYytS020"
+        },
         {
             "title" : "Chapter 3 - Control Flow",
             "youtube" : "5YZd9lebqDo"
