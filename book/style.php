@@ -11,7 +11,7 @@ body {
 }
 
 .dark-mode {
-  background-color: black;
+  background-color: #192734;
   color: white;
 }
 
