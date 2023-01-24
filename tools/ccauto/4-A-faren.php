@@ -12,7 +12,7 @@ function ccauto_instructions($LAUNCH) {
 <b>Celsius to  Farenheight Conversion</b> 
     <p>
     You should write a function called faren(cel)
-    that takes as input a double Celsuis temparature and converts it and returns
+    that takes as input a double Celsuis temperature and converts it and returns
     the equivalent Farenheight value.
     </p>
 EOF

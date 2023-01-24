@@ -567,6 +567,46 @@
             "youtube" : "4dyBj0Jm914"
         }
     ],
+     "lti" : [
+        {
+            "title" : "Quiz: Functions and Program Structure",
+            "launch" : "mod/gift/?quiz=chap04.txt",
+            "resource_link_id" : "cc4e_04_quiz"
+        },
+        {
+        "title" : "Exercise 4-A: Temperature Conversion",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_4_A",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "4-A-faren.php"
+            }
+        ]
+        },
+        {
+        "title" : "Exercise 4-B: Using extern data scope",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_4_B",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "4-B-extern.php"
+            }
+        ]
+        },
+        {
+        "title" : "Exercise 4-C: Using static data scope",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_4_C",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "4-C-static.php"
+            }
+        ]
+        }
+    ],
 
     "discussions" : [
         {
