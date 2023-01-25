@@ -624,10 +624,12 @@ for the particular compiler you use. It's wiser to be complete in all
 declarations. (The program _lint_ will warn of such constructions, in case they creep
 in inadvertently.)
 
+[comment]: <> (note n_103_01.md)
+
 5.7 Multi-Dimensional Arrays
 ----------------------------
 
-[comment]: <> (note n_103_01.md)
+[comment]: <> (note n_103_02.md)
 
 C provides for rectangular multi-dimensional arrays, although in practice
 they tend to be much less used than arrays of pointers. In this section, we
