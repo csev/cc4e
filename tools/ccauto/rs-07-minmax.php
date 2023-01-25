@@ -9,9 +9,11 @@ use \Tsugi\Util\Mersenne_Twister;
 // Called first
 function ccauto_instructions($LAUNCH) { return <<< EOF
 <b>Exercise RS-7:</b> Write a C program to determine the minmum and maximum
-of a sequence of integer numbers on input, terminged by the string "done".
+of a sequence of integer numbers on input, terminated  by the string "done".
 The patterns for input and output should match the following Python application.
 Make sure that the input lines can be at least 1000 characters.
+Use a middle-tested while loop, gets() and atoi() to mimic the Python code below.
+See the lecture for guidance.
 <pre>
 maxval = None
 minval = None
@@ -84,14 +86,24 @@ int main() {
 }
 EOF
 ;
-} 
+}
 
 function ccauto_main($LAUNCH) { return false; }
-function ccauto_prohibit($LAUNCH) { 
+function ccauto_prohibit($LAUNCH) {
     return array(
         array('9', "This is a pretty challenging assignment, but lets not take short cuts. The solution *is* described in the lecture for this material.  Sometimes lectures have useful information - who knew?"),
+        array('scanf', "You should use gets() and atoi() to implement this assignment - see the lecture for details."),
     );
 }
 
-function ccauto_require($LAUNCH) { return false; }
+function ccauto_require($LAUNCH) {
+    return array(
+        array('break', "The solution needs to be a middle-tested loop - see the lecture for more detail."),
+        array('done', "You need to loop until you encounter the 'done' string - if you loop until EOF you will make an infinite loop."),
+        array('NULL', "The while loop should use gets() and test for NULL to catch end of file or error."),
+        array('gets', "You should use gets() and atoi() to implement this assignment - see the lecture for details."),
+        array('atoi', "You should use gets() and atoi() to implement this assignment - see the lecture for details."),
+    );
+    return false;
+}
 
