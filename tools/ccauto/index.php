@@ -97,6 +97,7 @@ $menu = false;
 if ( $LAUNCH->user->instructor ) {
     $menu = new \Tsugi\UI\MenuSet();
     $menu->addLeft(__('Grade Detail'), 'grades.php');
+    $menu->addLeft('Send Grade', 'sendgrade.php');
     $menu->addRight(__('Launches'), 'analytics');
     $menu->addRight(__('Settings'), '#', /* push */ false, SettingsForm::attr());
 }
