@@ -101,8 +101,8 @@ have some programming experience.  Some suggested pre-requisites include:
 <ul>
 <li><a href="https://www.py4e.com" target="_blank">Python for Everybody</a></li>
 <li><a href="https://www.dj4e.com" target="_blank">Django for Everybody</a></li>
-<li><a href="https://www.pg4e.com" target="_blank">PostgreSQL for Everybody</a></li>
 <li><a href="https://www.wa4e.com" target="_blank">Web Applications for Everybody</a></li>
+<li><a href="https://www.pg4e.com" target="_blank">PostgreSQL for Everybody</a></li>
 </ul>
 </p>
 <p>
