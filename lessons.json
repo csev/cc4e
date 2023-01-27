@@ -76,7 +76,17 @@
         {
             "title" : "Quiz: History / Introduction",
             "launch" : "mod/gift/?quiz=chap00.txt",
-            "resource_link_id" : "cc4e_00_quiz"
+            "resource_link_id" : "cc4e_00_quiz",
+            "custom" : [
+                {
+                    "key": "tries",
+                    "value": "11"
+                },
+                {
+                    "key": "delay",
+                    "value": "601"
+                }
+            ]
         }
     ],
 
@@ -306,7 +316,17 @@
         {
             "title" : "Quiz: Tutorial Introduction",
             "launch" : "mod/gift/?quiz=chap01.txt",
-            "resource_link_id" : "cc4e_01_quiz"
+            "resource_link_id" : "cc4e_01_quiz",
+            "custom" : [
+                {
+                    "key": "tries",
+                    "value": "11"
+                },
+                {
+                    "key": "delay",
+                    "value": "601"
+                }
+            ]
         },
         {
         "title" : "Exercise 1-1: Write Hello World",
@@ -436,7 +456,17 @@
         {
             "title" : "Quiz: Types, Operators, and Expressions",
             "launch" : "mod/gift/?quiz=chap02.txt",
-            "resource_link_id" : "cc4e_02_quiz"
+            "resource_link_id" : "cc4e_02_quiz",
+            "custom" : [
+                {
+                    "key": "tries",
+                    "value": "11"
+                },
+                {
+                    "key": "delay",
+                    "value": "601"
+                }
+            ]
         },
         {
         "title" : "Exercise 2-2: Hex to Integer",
@@ -500,7 +530,17 @@
         {
             "title" : "Quiz: Control Flow",
             "launch" : "mod/gift/?quiz=chap03.txt",
-            "resource_link_id" : "cc4e_03_quiz"
+            "resource_link_id" : "cc4e_03_quiz",
+            "custom" : [
+                {
+                    "key": "tries",
+                    "value": "11"
+                },
+                {
+                    "key": "delay",
+                    "value": "601"
+                }
+            ]
         },
         {
         "title" : "Exercise 3-1: Using Switch",
