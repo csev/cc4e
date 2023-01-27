@@ -615,7 +615,17 @@
         {
             "title" : "Quiz: Functions and Program Structure",
             "launch" : "mod/gift/?quiz=chap04.txt",
-            "resource_link_id" : "cc4e_04_quiz"
+            "resource_link_id" : "cc4e_04_quiz",
+            "custom" : [
+                {
+                    "key": "tries",
+                    "value": "11"
+                },
+                {
+                    "key": "delay",
+                    "value": "601"
+                }
+            ]
         },
         {
         "title" : "Exercise 4-A: Temperature Conversion",
