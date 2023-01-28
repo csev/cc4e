@@ -238,17 +238,6 @@
                 "value": "rs-09-function.php"
             }
         ]
-        },
-        {
-        "title" : "Exercise RS-10: Concatenate Two Strings",
-        "launch" : "tools/ccauto/",
-        "resource_link_id": "rs_10_concat",
-        "custom" : [
-            {
-                "key": "exercise",
-                "value": "rs-10-concat.php"
-            }
-        ]
         }
     ],
 
@@ -637,28 +626,6 @@
                 "value": "4-C-static.php"
             }
         ]
-        },
-        {
-        "title" : "Exercise RS-11: Write a function like Python rstrip()",
-        "launch" : "tools/ccauto/",
-        "resource_link_id": "rs_11_rstrip",
-        "custom" : [
-            {
-                "key": "exercise",
-                "value": "rs-11-rstrip.php"
-            }
-        ]
-        },
-        {
-        "title" : "Exercise RS-12: Write a function like Python lstrip()",
-        "launch" : "tools/ccauto/",
-        "resource_link_id": "rs_12_lstrip",
-        "custom" : [
-            {
-                "key": "exercise",
-                "value": "rs-12-lstrip.php"
-            }
-        ]
         }
     ],
 
@@ -698,6 +665,41 @@
         "launch" : "mod/tdiscus/",
         "resource_link_id": "discuss_01_pointers"
         }
+    ],
+     "lti" : [
+        {
+        "title" : "Exercise RS-10: Concatenate Two Strings",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "rs_10_concat",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "rs-10-concat.php"
+            }
+        ]
+        },
+        {
+        "title" : "Exercise RS-11: Write a function like Python rstrip()",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "rs_11_rstrip",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "rs-11-rstrip.php"
+            }
+        ]
+        },
+        {
+        "title" : "Exercise RS-12: Write a function like Python lstrip()",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "rs_12_lstrip",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "rs-12-lstrip.php"
+            }
+        ]
+        }
     ]
 },
 {
@@ -724,6 +726,8 @@
             "title" : "Chapter 6 - Structures",
             "youtube" : "U6yCkIckOqY"
         }
+    ],
+     "lti" : [
     ],
 
     "discussions" : [

@@ -1,8 +1,19 @@
-if (expression)
+if (expression) {
     statement
-else if (expression)
-    statement
-else if (expression)
-    statement
-else
-    statement
+}
+else 
+{
+    if (expression) {
+        statement
+    }
+    else 
+    {
+        if (expression) {
+            statement
+        }
+        else
+        {
+            statement
+        }
+    }
+}
