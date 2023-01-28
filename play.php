@@ -85,6 +85,9 @@ $lines = $code ? count(explode("\n", $code)) : 15;
 echo("<html>\n<head>\n");
 cc4e_play_header($lines);
 ?>
+<style>
+.CodeMirror-scroll { max-height: <?= intval(($lines/13)*20) ?>em; }
+</style>
 </head>
 <body>
 <p>

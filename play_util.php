@@ -8,7 +8,7 @@ body {
 }
 
 .CodeMirror { height: auto; border: 1px solid #ddd; }
-.CodeMirror-scroll { max-height: <?= intval(($lines/13)*20) ?>em; }
+/* .CodeMirror-scroll { max-height: <?= intval(($lines/13)*20) ?>em; } */
 
 .pre_text {
     height: auto;
@@ -60,7 +60,7 @@ function cc4e_play_errors($retval) {
 function cc4e_play_inputs($lines, $code) { 
 ?>
 <p>
-<textarea id="mycode" name="code" rows="<?= $lines ?>" style="height: <?= $lines ?>em; border: 1px black solid;">
+<textarea id="mycode" name="code" style="height: auto;">
 <?php
 if ( is_string($code) ) {
     echo(htmlentities($code));

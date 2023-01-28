@@ -238,6 +238,15 @@ table th { border-left: 1px solid #000; padding: 2px;}
       #toStringOutput{
         margin:0 2em 2em;
       }
+.max_box {
+  position:absolute;
+  background: white;
+  top:0px;
+  right:20px;
+  bottom:0px;
+  left:20px;
+}
+
 </style>
 
 <?php
@@ -270,18 +279,24 @@ if ( ! (isset($ASSIGNMENT) && $ASSIGNMENT) ) {
 
 echo("<p>".$instructions."</p>\n");
 ?>
+<div id="editor_panel">
 <form method="post">
 <p>
 <input type="submit" name="run" onclick="startRun();" value="Run Code" disabled id="runcode">
 <input type="submit" name="reset" value="Reset Code"
     onclick="return confirm('Do you really want to reset the code to the default?');"
 >
+<input type="submit" style="float:right;" value="Max" id="max_min"
+    onclick="toggleMax();return false;"
+>
 <span id="runstatus"><img src="<?= $OUTPUT->getSpinnerUrl() ?>"/></span>
 <span id="editstatus" style="display: none;">Edit code below:</span>
 <?php
 $errors = cc4e_play_errors($retval);
 cc4e_play_inputs($lines, $code);
-
+?>
+</div>
+<?php
 if ( is_string($input) && strlen($input) > 0 ) {
 ?>
 <p>This will be provided as input to your program:</p>
@@ -403,6 +418,22 @@ $(document).ready( function() {
 function startRun() {
 	$("#runstatus").show();
 	$("#editstatus").hide();
+}
+function toggleMax() {
+    var editor_panel = document.getElementById("editor_panel");
+    if ( editor_panel.classList.contains('max_box') ) {
+        editor_panel.classList.remove('max_box');
+        editor_panel.style.top = "0px";
+        document.getElementById("max_min").value = 'Max';
+        return;
+    }
+
+    var offsets = document.getElementById('body_container').getBoundingClientRect();
+    console.log(offsets);
+    var top = offsets.top;
+    editor_panel.classList.add("max_box");
+    editor_panel.style.top=Math.trunc(offsets.top)+"px";
+    document.getElementById("max_min").value = 'Inline';
 }
 </script>
 <?php
