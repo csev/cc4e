@@ -249,28 +249,6 @@
                 "value": "rs-10-concat.php"
             }
         ]
-        },
-        {
-        "title" : "Exercise RS-11: Write a function like Python rstrip()",
-        "launch" : "tools/ccauto/",
-        "resource_link_id": "rs_11_rstrip",
-        "custom" : [
-            {
-                "key": "exercise",
-                "value": "rs-11-rstrip.php"
-            }
-        ]
-        },
-        {
-        "title" : "Exercise RS-12: Write a function like Python lstrip()",
-        "launch" : "tools/ccauto/",
-        "resource_link_id": "rs_12_lstrip",
-        "custom" : [
-            {
-                "key": "exercise",
-                "value": "rs-12-lstrip.php"
-            }
-        ]
         }
     ],
 
@@ -657,6 +635,28 @@
             {
                 "key": "exercise",
                 "value": "4-C-static.php"
+            }
+        ]
+        },
+        {
+        "title" : "Exercise RS-11: Write a function like Python rstrip()",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "rs_11_rstrip",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "rs-11-rstrip.php"
+            }
+        ]
+        },
+        {
+        "title" : "Exercise RS-12: Write a function like Python lstrip()",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "rs_12_lstrip",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "rs-12-lstrip.php"
             }
         ]
         }
