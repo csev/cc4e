@@ -28,7 +28,7 @@ The unary operator `&` gives the _address_ of an object, so the statement
 
 assigns the address of `x` to the variable `px`; `px` is now said to "point to" `x`.
 The `&` operator can be applied only to variables and array elements; constructs
-like `& (x+1)` and `&3` are illegal. It is also illegal to take the address
+like `&(x+1)` and `&3` are hllegal. It is also illegal to take the address
 of a `register` variable.
 
 The unary operator `*` treats its operand as the address of the ultimate
