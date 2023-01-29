@@ -650,6 +650,10 @@
         {
             "title" : "Audio version of the book",
             "href" : "https://audio.cc4e.com/"
+        },
+        {
+            "title" : "Report: Portability of C Programs and the UNIX System",
+            "href" : "https://www.bell-labs.com/usr/dmr/www/portpap.pdf"
         }
     ],
     "videos" : [
