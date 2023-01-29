@@ -198,7 +198,7 @@ use the structure.
 
 [comment]: <> (code c_123_01.c)
 
-The structure operators `->` and `.` , together with `( )` for argument lists
+The structure operators `->` and `.`, together with `( )` for argument lists
 and `[]` for subscripts, are at the top of the precedence hierarchy and thus
 bind very tightly. For example, given the declaration
 
