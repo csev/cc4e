@@ -642,6 +642,7 @@
     "anchor": "pointers",
     "icon" : "fa-mouse-pointer",
     "description": "This chapter covers pointers and arrays.",
+    "slides": "{apphome}/lectures/KR-5.pptx",
     "references" : [
         {
             "title" : "Chapter 5: Pointers and Arrays (html)",
@@ -710,7 +711,8 @@
     "title": "K&R 6: Structures",
     "anchor": "structures",
     "icon" : "fa-th-list",
-    "description": "This chapter covers structures.",
+    "description": "This chapter covers structures.  We don't cover all of the detail in the chapter, preferring instead to focus on the concepts needed to build a singly linked list in C.  The chapter goes into details for doubly linked lists, binary trees, and hash tables.",
+    "slides": "{apphome}/lectures/KR-6.pptx",
     "references" : [
         {
             "title" : "Chapter 6: Structures (html)",
