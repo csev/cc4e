@@ -13,5 +13,4 @@ int main() {
 
     p2 = p1;
     printf("%f %f\n", p2.x, p2.y);
-
 }

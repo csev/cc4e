@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 int main() {
     struct point {
@@ -7,16 +6,9 @@ int main() {
         double y;
     };
 
-    struct point *pp;
+    struct point pt, *pp;
 
-    pp = (struct point *) malloc(sizeof(struct point));
-
-    pp->x = 3.0;
-    (*pp).y = 4.0;
-
-    printf("%p %f %f\n", pp, (*pp).x, pp->y);
-
+    printf("sizeof pt %ld\n",sizeof(pt));
     printf("sizeof pp %ld\n",sizeof(pp));
     printf("sizeof point %ld\n",sizeof(struct point));
-
 }

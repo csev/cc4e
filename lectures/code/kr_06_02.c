@@ -8,14 +8,10 @@ int main() {
 
     struct point pt, *pp;
 
-    pt.x = 3.0;
-    pt.y = 4.0;
-
     pp = &pt;
 
-    printf("%p %f %f\n", pp, (*pp).x, pp->y);
+    pt.x = 3.0;
+    (*pp).y = 4.0;
 
-    printf("sizeof pt %ld\n",sizeof(pt));
-    printf("sizeof pp %ld\n",sizeof(pp));
-    printf("sizeof point %ld\n",sizeof(struct point));
+    printf("%p %f %f\n", pp, (*pp).x, pp->y);
 }
