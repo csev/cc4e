@@ -1,38 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-#define MAXLINE 1000
+int main() {
+    struct point {
+        double x;
+        double y;
+    };
 
-struct lnode {
-    char *text;
-    struct lnode *prev;
-    struct lnode *next;
-};
+    struct point *pp;
 
-int main()
-{
-  struct lnode *head = NULL;
-  struct lnode *tail = NULL;
-  struct lnode *current;
-  char line[MAXLINE];
+    pp = (struct point *) malloc(sizeof(struct point));
 
-  while(fgets(line, MAXLINE, stdin) != NULL) {
-      char *save = (char *) malloc(strlen(line)+1);
-      strcpy(save, line);
+    pp->x = 3.0;
+    (*pp).y = 4.0;
 
-      struct lnode *new = (struct lnode *) malloc(sizeof(struct lnode));
-      if ( tail != NULL ) tail->next = new;
-      new->text = save;
-      new->next = NULL;
-      new->prev = tail;
-      tail = new;
-
-      if ( head == NULL ) head = new;
-  }
-
-  for (current = tail; current != NULL; current = current->prev ) {
-      printf("%s", current->text);
-  }
-
+    printf("%p %f %f\n", pp, (*pp).x, pp->y);
 }

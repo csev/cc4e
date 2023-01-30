@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-int main() {
-    struct point {
-        double x;
-        double y;
-    };
+struct point {
+    double x;
+    double y;
+};
 
+int main() {
     struct point p1, p2;
 
     p1.x = 3.0;

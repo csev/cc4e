@@ -1,18 +1,26 @@
 #include <stdio.h>
-#include <stdlib.h>
+
+struct point {
+    double x;
+    double y;
+};
+
+void func(pp) 
+    struct point *pp;
+{
+    pp->x = 9.0;
+    pp->y = 8.0;
+    printf("func %f %f\n", pp->x, pp->y);
+}
 
 int main() {
-    struct point {
-        double x;
-        double y;
-    };
+    struct point pm;
 
-    struct point *pp;
+    pm.x = 3.0;
+    pm.y = 4.0;
 
-    pp = (struct point *) malloc(sizeof(struct point));
-
-    pp->x = 3.0;
-    (*pp).y = 4.0;
-
-    printf("%p %f %f\n", pp, (*pp).x, pp->y);
+    printf("main %f %f\n", pm.x, pm.y);
+    func(&pm);
+    printf("back %f %f\n", pm.x, pm.y);
 }
+
