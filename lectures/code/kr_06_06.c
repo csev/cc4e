@@ -4,13 +4,13 @@
 
 #define MAXLINE 1000
 
-struct lnode { /* A line of text */
-    char *text; /* points to the text */
-    struct lnode *prev; /* The previous line */
-    struct lnode *next; /* The next line */
+struct lnode {
+    char *text;
+    struct lnode *prev;
+    struct lnode *next;
 };
 
-int main() /* print lines in reverse */
+int main()
 {
   struct lnode *head = NULL;
   struct lnode *tail = NULL;
@@ -22,6 +22,7 @@ int main() /* print lines in reverse */
       strcpy(save, line);
 
       struct lnode *new = (struct lnode *) malloc(sizeof(struct lnode));
+      if ( tail != NULL ) tail->next = new;
       new->text = save;
       new->next = NULL;
       new->prev = tail;

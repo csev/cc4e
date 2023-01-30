@@ -9,7 +9,7 @@ struct lnode {
     struct lnode *next;
 };
 
-int main() /* Make a list */
+int main()
 {
   struct lnode *head = NULL;
   struct lnode *tail = NULL;
