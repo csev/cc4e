@@ -2,7 +2,9 @@
 <head>
 </head>
 <body>
-<img src="1990-Chuck-Members-Only-Jacket.png" style="float:right; width:240px;"/>
+<a href="../">
+<img src="1990-Chuck-Members-Only-Jacket.png" style="padding: 5px; float:right; width:240px;"/>
+</a>
 <h1>Archives of Courses Taught by Dr. Chuck</h1>
 <p>These are related courses taught by Dr. Chuck in the past.</p>
 <ul>
@@ -26,9 +28,11 @@ Dr. Chuck taught at the University of Michigan.
 <br clear="all">
 <p>
 This is a picture of Dr. Chuck's undergraduate project for the year-long compiler
-course.  He was the first and last student at MSU to ever do the compiler project
-in Pascal.
+course in 1980.  He was the first and last student at the Michigan State University 
+Computer Science Deptartment to do the compiler project
+in Pascal.  He was also one of the few students that took two years to do a one year project
+and insisted he do the project by himself :)
 <center>
-<img src="1980-06-03-pascal-compiler.jpg">
+<img style="padding: 10px;" src="1980-06-03-pascal-compiler.jpg">
 </center>
 </p>
