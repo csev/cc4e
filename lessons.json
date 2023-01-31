@@ -726,6 +726,17 @@
                 "value": "rs-12-lstrip.php"
             }
         ]
+        },
+        {
+        "title" : "Autograder: LBS290-14 Play with Arrays",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_lb_14",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "lb-14-arrays.php"
+            }
+        ]
         }
     ]
 },

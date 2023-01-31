@@ -44,6 +44,7 @@ $assignments = array(
     'rs-12-lstrip.php' => 'rs-12 Implement lstrip()',
     'lb-04-syntax.php' => 'LBS280-4 Fix syntax errors',
     'lb-13-calcpay.php' => 'LBS280-13 Function calcpay',
+    'lb-14-arrays.php' => 'LBS280-14 Array of integers',
     '1-03-heading.php' => '1-3 Add a header',
     '1-04-celsius.php' => '1-4 Celsius / Farenheight Table',
     '1-05-reverse.php' => '1-5 Reversed Farenheight / Celsius Table',
