@@ -637,6 +637,17 @@
                 "value": "4-C-static.php"
             }
         ]
+        },
+        {
+        "title" : "LBS290-13: Calculate Pay",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_lb_13",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "lb-13-calcpay.php"
+            }
+        ]
         }
     ],
 
