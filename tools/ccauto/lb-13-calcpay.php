@@ -31,9 +31,7 @@ function ccauto_main($LAUNCH) {
 #include <stdio.h>
 main() {
   int empno;
-  float rate;
-  float hours;
-  float pay;
+  float rate, hours, pay;
   void calcpay();
 
   while(1) {
@@ -69,7 +67,9 @@ EOF
 
 function ccauto_output($LAUNCH) { 
     return <<< EOF
-Yada
+Employee=123 Rate=5.00 Hours=40.00 Pay=200.00
+Employee=100 Rate=4.00 Hours=45.00 Pay=190.00
+Employee=199 Rate=5.25 Hours=10.00 Pay=52.50
 EOF
 ;
 }
@@ -81,7 +81,7 @@ function ccauto_prohibit($LAUNCH) {
 
 function ccauto_require($LAUNCH) { 
     return array(
-        array('.5;', "Time and a half for over time :)."),
+        array('.5', "Time and a half for over time :)."),
     );
 }
 
