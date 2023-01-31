@@ -21,7 +21,7 @@ The function should have no
 return value and must not use any global variables.  The calculated pay
 should be passed out of the function using call by location.
 <br/>
-    <b>Fun Fact:</b>Dr. Chuck used this exact assignment while teaching C - <a href="{$CFG->apphome}/archive/1991-lbs290/assn13.txt" target="_blank"> in LBS 290 - Fall 1991</a>.
+    <b>Fun Fact:</b>Dr. Chuck used this exact assignment while teaching C - <a href="{$CFG->apphome}/archive/1991-lbs290/assn13.txt" target="_blank">LBS 290 - Fall 1991</a>.
 EOF
 ;
 }
@@ -86,5 +86,15 @@ function ccauto_require($LAUNCH) {
 }
 
 // Make sure to escape \n as \\n
-function ccauto_solution($LAUNCH) { return false; }
+function ccauto_solution($LAUNCH) { 
+	return <<< EOF
+void calcpay(p,r,h)
+    float *p,r,h;
+{
+    *p = r * h;
+    if ( h > 40 ) *p = *p + (r*(h-40)*0.5);
+}
+EOF
+;
+}
 
