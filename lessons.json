@@ -307,17 +307,6 @@
         ]
         },
         {
-        "title" : "Autograder: LBS290-04 Fix Syntax Errors",
-        "launch" : "tools/ccauto/",
-        "resource_link_id": "cc4e_lb_04",
-        "custom" : [
-            {
-                "key": "exercise",
-                "value": "lb-04-syntax.php"
-            }
-        ]
-        },
-        {
         "title" : "Exercise 1-3: Farenheight / Celsius with Header",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc4e_1_03",
@@ -391,6 +380,17 @@
             {
                 "key": "exercise",
                 "value": "1-17-reverse.php"
+            }
+        ]
+        },
+        {
+        "title" : "Autograder: LBS290-04 Fix Syntax Errors",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_lb_04",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "lb-04-syntax.php"
             }
         ]
         }
