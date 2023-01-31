@@ -42,6 +42,7 @@ $assignments = array(
     'rs-10-concat.php' => 'rs-10 String concatenation',
     'rs-11-rstrip.php' => 'rs-11 Implement rstrip()',
     'rs-12-lstrip.php' => 'rs-12 Implement lstrip()',
+    'lb-04-syntax.php' => 'LBS280-4 Fix syntax errors',
     '1-03-heading.php' => '1-3 Add a header',
     '1-04-celsius.php' => '1-4 Celsius / Farenheight Table',
     '1-05-reverse.php' => '1-5 Reversed Farenheight / Celsius Table',
