@@ -26,37 +26,25 @@ function ccauto_input($LAUNCH) {
 // Make sure to escape \n as \\n
 function ccauto_sample($LAUNCH) {
     return <<< EOF
-/* Assignment 4 */
-
-/* Program which requires fixing some syntax errors */
+/* Assignment 4 LBS 290 - Fall 1991 - syntax errors */
 
 #include "stdio.h"
 
 main () {
-
   char c;
   int 1value;
   int i;
   flat x;
 
   printf("Hello there and welcome to the program\\n);
-
   i = 10;
-
   x = 2.50;
-
   x = x + 1.L;
-
   1value = 15;
-
 /* This is a comment
-
   printf("This statement should print out, why doesn't it?\\n");
-
 /* And another comment */
-
   printf("This statement does print out, yay!\\n");
-
 }
 EOF
 ;
