@@ -51,7 +51,7 @@ main () {
 
 /* This is a comment
 
-  printf("This statement should print out, why doesn't it? \\n");
+  printf("This statement should print out, why doesn't it?\\n");
 
 /* And another comment */
 
@@ -62,7 +62,14 @@ EOF
 ;
 }
 
-function ccauto_output($LAUNCH) { return romeo(); }
+function ccauto_output($LAUNCH) { 
+    return <<< EOF
+Hello there and welcome to the program
+This statement should print out, why doesn't it?
+This statement does print out, yay!
+EOF
+;
+}
 
 function ccauto_prohibit($LAUNCH) { 
     return array(
@@ -76,7 +83,6 @@ function ccauto_require($LAUNCH) {
         array('x = 2.50;', "Please don't delete code - jut fix the errors."),
         array('i = 10;', "Please don't delete code - jut fix the errors."),
         array('char c;', "Please don't delete code - jut fix the errors."),
-        array('flat', 'Hmmm - "flat" is not a C type..'),
     );
 }
 
