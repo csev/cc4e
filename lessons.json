@@ -737,6 +737,17 @@
                 "value": "lb-14-arrays.php"
             }
         ]
+        },
+        {
+        "title" : "Autograder: LBS290-15 Play with Strings",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_lb_15",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "lb-15-string.php"
+            }
+        ]
         }
     ]
 },
