@@ -1,5 +1,7 @@
-<a href="https://en.wikipedia.org/wiki/3B_series_computers#3B2" target="_blank">
-<img alt="Picture of AT&T 3B2 Minicomputer" src="1076px-3B2_model_400_sitting_on_grass.jpg" style="padding: 5px; float:right; width:240px;"/>
+<a href="../">
+<img alt="Picture of Dr. Chuck in the 1990's wearing a members only jacket - which was a thing back then"
+   src="../1990-Chuck-Members-Only-Jacket.png"
+   style="padding: 5px; float:right; width:240px;"/>
 </a>
 <h1>LBS 290 - C Programming</h1>
 <p>
@@ -9,6 +11,12 @@ at
 <a href="https://www.msu.edu/" target="_blank">Michigan State University</a>.
 It featured writing three programs per week.  It met three times per week and
 after each lecture a new assignment was handed out.
+The course was taught on UNIX running on an
+<a href="https://en.wikipedia.org/wiki/3B_series_computers" target="_blank">
+AT&T 3B2 Microcomputer
+</a> which was physically present in the lab with student terminals.
+Dr Chuck was also the system administrator of the UNIX system.
+We did not use the Kernighan and Ritchie book.
 </p>
 <ul>
 <li><a href="syllabus.txt" target="_blank">Course Syllabus</a></li>
@@ -33,5 +41,11 @@ after each lecture a new assignment was handed out.
 <li><a href="assn23.txt" target="_blank">ASSIGNMENT 23 - SORTING - Due 12/4/91</a></li>
 <li><a href="assn24.txt" target="_blank">ASSIGNMENT 24 - PUTTING IT ALL TOGETHER - Due 12/12/91</a></li>
 </ul>
+<br clear="all">
 
+<center>
+<a href="https://en.wikipedia.org/wiki/3B_series_computers" target="_blank">
+<img alt="Picture of AT&T 3B2 Minicomputer" src="1076px-3B2_model_400_sitting_on_grass.jpg" style="padding: 5px; width:80%;"/>
+</a>
+</center>
 

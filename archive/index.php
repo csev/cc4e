@@ -3,7 +3,9 @@
 </head>
 <body>
 <a href="../">
-<img src="1990-Chuck-Members-Only-Jacket.png" style="padding: 5px; float:right; width:240px;"/>
+<img alt="Picture of Dr. Chuck in the 1990's wearing a members only jacket - which was a thing back then"
+   src="1990-Chuck-Members-Only-Jacket.png"
+    style="padding: 5px; float:right; width:240px;"/>
 </a>
 <h1>Archives of Courses Taught by Dr. Chuck</h1>
 <p>These are related courses taught by Dr. Chuck in the past.</p>
