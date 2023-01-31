@@ -23,3 +23,12 @@ Dr. Chuck taught at the University of Michigan.
 </p>
 </li>
 </ul>
+<br clear="all">
+<p>
+This is a picture of Dr. Chuck's undergraduate project for the year-long compiler
+course.  He was the first and last student at MSU to ever do the compiler project
+in Pascal.
+<center>
+<img src="1980-06-03-pascal-compiler.jpg">
+</center>
+</p>
