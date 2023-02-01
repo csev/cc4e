@@ -467,6 +467,17 @@
                 "value": "2-10-lower.php"
             }
         ]
+        },
+        {
+        "title" : "LBS-8: Average numbers",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_lb_08",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "lb-08-average.php"
+            }
+        ]
         }
     ],
 

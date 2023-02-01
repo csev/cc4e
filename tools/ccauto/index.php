@@ -43,6 +43,7 @@ $assignments = array(
     'rs-11-rstrip.php' => 'rs-11 Implement rstrip()',
     'rs-12-lstrip.php' => 'rs-12 Implement lstrip()',
     'lb-04-syntax.php' => 'LBS280-4 Fix syntax errors',
+    'lb-08-average.php' => 'LBS280-8 Average five numbers',
     'lb-13-calcpay.php' => 'LBS280-13 Function calcpay',
     'lb-14-arrays.php' => 'LBS280-14 Array of integers',
     'lb-15-string.php' => 'LBS280-15 Array of characters',
