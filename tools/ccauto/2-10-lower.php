@@ -23,7 +23,7 @@ function ccauto_instructions($LAUNCH) {
     that converts its input parameter to lower case.  If the letter is not
     an upper case ASCII letter - just return the parameter unchanged.
     You should not use ctype.h and your code can assume the ASCII character set.
-    You should use the queston mark operator and not an if-then-else construct.
+    You should use the question mark (?) operator and not an if-then-else construct.
     </p>
     <p>
     Each time you run the program, the values you need to convert 
