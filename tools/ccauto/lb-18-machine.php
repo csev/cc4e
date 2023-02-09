@@ -65,25 +65,22 @@ int main()
     char memory[256];
     char opcode;
     int count,address,value;
-    int debug = 0;
 
     while(fgets(line, 256, stdin) != NULL) {
+        printf("\\nLine: %s\\n",line);
         if ( line[0] == 'X' ) break;
         if ( line[0] == '*' ) {
             printf("%s\\n",line);
             continue;
         }
-        if ( debug ) printf("\\nLine: %s\\n",line);
         count = sscanf(line, "%d %c %d", &address, &opcode, &value);
         if ( count != 3 ) continue;
-        if ( debug ) printf("address: %d opcode: %c value: %d\\n", address, opcode, value);
+        printf("address: %d opcode: %c value: %d\\n", address, opcode, value);
 
         /* Do something here */
 
-        if ( debug ) printf("Memory:\\n%s\\n", memory);
-
+        printf("Memory:\\n%s\\n", memory);
     }
-
     printf("Memory:\\n%s\\n", memory);
 }
 EOF
@@ -103,6 +100,7 @@ function ccauto_prohibit($LAUNCH) {
     return array(
         array('Hello', "Your program should not include 'Hello'"),
         array('world', "Your program should not include 'world'"),
+        array('Do something here', 'You have work to do'),
     );
 }
 
@@ -122,7 +120,6 @@ int main()
     char memory[256];
     char opcode;
     int count,address,value;
-    int debug = 0;
 
     while(fgets(line, 256, stdin) != NULL) {
         if ( line[0] == 'X' ) break;
@@ -133,9 +130,6 @@ int main()
         if ( debug ) printf("\\nLine: %s\\n",line);
         count = sscanf(line, "%d %c %d", &address, &opcode, &value);
         if ( count != 3 ) continue;
-        if ( debug ) printf("address: %d opcode: %c value: %d\\n", address, opcode, value);
-
-        /* Do something here */
 
         if ( opcode == '=' ) {
             memory[address] = value;
@@ -144,11 +138,7 @@ int main()
         } else if ( opcode == '-' ) {
             memory[address] = memory[address] - value;
         }
-
-        if ( debug ) printf("Memory:\\n%s\\n", memory);
-
     }
-
     printf("Memory:\\n%s\\n", memory);
 }
 

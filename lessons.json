@@ -576,6 +576,17 @@
         ]
         },
         {
+        "title" : "LBS-17: A Touring Machine",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_lb_17",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "lb-17-touring.php"
+            }
+        ]
+        },
+        {
         "title" : "LBS-18: A Simple Machine",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc4e_lb_18",
