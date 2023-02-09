@@ -565,6 +565,17 @@
         ]
         },
         {
+        "title" : "LBS-16: A Calculator",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_lb_16",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "lb-16-calculator.php"
+            }
+        ]
+        },
+        {
         "title" : "LBS-18: A Simple Machine",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc4e_lb_18",
