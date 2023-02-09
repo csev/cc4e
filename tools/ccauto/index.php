@@ -47,6 +47,7 @@ $assignments = array(
     'lb-13-calcpay.php' => 'LBS280-13 Function calcpay',
     'lb-14-arrays.php' => 'LBS280-14 Array of integers',
     'lb-15-string.php' => 'LBS280-15 Array of characters',
+    'lb-18-machine.php' => 'LBS280-18 Machine Language I',
     '1-03-heading.php' => '1-3 Add a header',
     '1-04-celsius.php' => '1-4 Celsius / Farenheight Table',
     '1-05-reverse.php' => '1-5 Reversed Farenheight / Celsius Table',
