@@ -11,7 +11,7 @@ function ccauto_instructions($LAUNCH) {
     global $CFG;
     return <<< EOF
 <p>
-<b>LBS290 Exercise 18.</b> 
+<b>LBS290 Exercise 18 - A Simple Machine.</b> 
 You are ito implement a simple low-level maching language.  Your computer has 256 characters of memory.  You are to
 read a sequence of instructions from input and perform those instructions.  At the end of the program you print the
 memory out as a zero-terminated C character array.  Here are the instructions you need to support:

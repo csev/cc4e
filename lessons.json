@@ -563,6 +563,17 @@
                 "value": "3-06-uniq.php"
             }
         ]
+        },
+        {
+        "title" : "LBS-18: A Simple Machine",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_lb_18",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "lb-18-machine.php"
+            }
+        ]
         }
     ],
 
