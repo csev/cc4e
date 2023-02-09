@@ -116,7 +116,11 @@ var span = document.getElementsByClassName("close")[0];
 span.onclick = function() { 
   modal.style.display = "none";
 }
-</script>   
+</script> 
+<?php
+require_once "../top.php";
+require_once "../nav.php";
+?>  
 <h1>Archives of Courses Taught by Dr. Chuck</h1>
 <p>These are related courses taught by Dr. Chuck in the past.</p>
 <ul>
