@@ -16,7 +16,10 @@ function buildMenu() {
     }
     
     if ( isset($_SESSION['id']) ) {
-        $set->addLeft('Write C', $R.'play');
+        $submenu = new \Tsugi\UI\Menu();
+        $submenu->addLink('Playground', $R.'play');
+        $submenu->addLink('Online Compilers', $R.'compilers');
+        $set->addLeft('Write C', $submenu);
         $submenu = new \Tsugi\UI\Menu();
         $submenu->addLink('Profile', $R.'profile');
         if ( isset($CFG->google_map_api_key) ) {

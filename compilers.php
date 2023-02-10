@@ -1,3 +1,7 @@
+<?php
+require_once "top.php";
+require_once "nav.php";
+?>
 <h1> Free online C compilers</h1>
 <p>
 These are free online C-Compilers available on other sites.
