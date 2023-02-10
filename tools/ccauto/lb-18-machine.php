@@ -127,7 +127,6 @@ int main()
             printf("%s\\n",line);
             continue;
         }
-        if ( debug ) printf("\\nLine: %s\\n",line);
         count = sscanf(line, "%d %c %d", &address, &opcode, &value);
         if ( count != 3 ) continue;
 
