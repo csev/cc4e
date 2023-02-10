@@ -31,3 +31,5 @@ You could even edit the
 the source code for this file</a>
 and send a GitHub Pull Request.
 </p>
+<?php
+require_once "footer.php";

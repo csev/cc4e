@@ -92,9 +92,10 @@ cc4e_play_header($lines);
 <body>
 <p>
 <?php if ( $LOGGED_IN ) { ?>
-This is the <a href="index.php">www.cc4e.com</a> code playground for writing C programs
-It is a very limited environment - you can find more full-featured
-C compilers <a href="compilers.php">online</a>.
+This is the <a href="index.php">www.cc4e.com</a> code playground for writing C programs.
+You can also check
+<a href="https://status.cc4e.com" target="_blank">recent status</a> of this
+compiler page.
 <?php
     if ( U::get($_REQUEST, "sample", null) != null ) {
 	    echo(' Note that not all of the sample programs in the book compile and run using a modern compiler.');
