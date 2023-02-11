@@ -20,6 +20,7 @@ function buildMenu() {
         $submenu->addLink('Playground', $R.'play');
         $submenu->addLink('Status', "https://status.cc4e.com");
         $submenu->addLink('Online Compilers', $R.'compilers');
+        $submenu->addLink('JSLinux', 'https://bellard.org/jslinux/vm.html?url=alpine-x86.cfg&mem=192');
         $set->addLeft('Write C', $submenu);
         $submenu = new \Tsugi\UI\Menu();
         $submenu->addLink('Profile', $R.'profile');
