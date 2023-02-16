@@ -725,6 +725,10 @@
     ],
     "videos" : [
         {
+            "title" : "Historical Context For Chapter 5 - Pointers and Arrays",
+            "youtube" : "tBmc_bbGAEk"
+        },
+        {
             "title" : "Chapter 5 - Pointers and Arrays",
             "youtube" : "f3RB6XW48q4"
         }
