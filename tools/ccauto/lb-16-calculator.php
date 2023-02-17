@@ -60,10 +60,11 @@ int main()
     float value, display = 0.0;
 
     while(fgets(line, 256, stdin) != NULL) {
-        if ( line[0] == 'S' ) break;
+        // Use sscanf to parse data from a string
         sscanf(line, "%c %f", &opcode, &value);
+        if ( opcode == 'S' ) break;
 
-        /* Do something here */
+        /* Replace this with your code */
 
         printf("Display: %.2f\\n", display);
     }
@@ -89,7 +90,7 @@ function ccauto_prohibit($LAUNCH) {
     return array(
         array('Hello', "Your program should not include 'Hello'"),
         array('world', "Your program should not include 'world'"),
-        array('Do something here', 'You have work to do'),
+        array('Replace this with your code', 'Remove the placeholder comment'),
     );
 }
 
@@ -110,10 +111,9 @@ int main()
     float value, display = 0.0;
 
     while(fgets(line, 256, stdin) != NULL) {
-        if ( line[0] == 'S' ) break;
         sscanf(line, "%c %f", &opcode, &value);
+        if ( opcode == 'S' ) break;
 
-        /* Do something here */
         if ( opcode == '=' ) display = value;
         else if ( opcode == '+' ) display = display + value;
         else if ( opcode == '-' ) display = display - value;

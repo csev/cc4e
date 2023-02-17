@@ -47,7 +47,7 @@ table, th, td {
     padding: 5px;
 }
 
-table.darkmode, th.darkmode, td.darkmode {
+.dark-mode table, .dark-mode th, .dark-mode td {
     border: 1px solid yellow;
     border-collapse: collapse;
     padding: 5px;
@@ -56,6 +56,14 @@ table.darkmode, th.darkmode, td.darkmode {
 
 tr:nth-child(even) {
   background-color: gray;
+}
+
+.dark-mode a {
+    color: white;
+}
+
+.dark-mode a:visited {
+    color: white;
 }
 
 a.xyzzy, a.xyzzy:hover, a.xyzzy:focus, a.xyzzy:active {

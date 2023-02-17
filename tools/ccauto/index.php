@@ -49,6 +49,7 @@ $assignments = array(
     'lb-15-string.php' => 'LBS280-15 Array of characters',
     'lb-16-calculator.php' => 'LBS280-16 Calculator',
     'lb-17-touring.php' => 'LBS280-17 A Touring Machine',
+    'lb-99-touring.php' => 'LBS280-99 A Touring Machine',
     'lb-18-machine.php' => 'LBS280-18 Machine Language I',
     '1-03-heading.php' => '1-3 Add a header',
     '1-04-celsius.php' => '1-4 Celsius / Farenheight Table',

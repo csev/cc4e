@@ -104,12 +104,14 @@ void itob(n, s)
 int n;
 char s[];
 {
+    void reverse();
     strcpy(s,"101010");
 }
 void itoh(n, s)
 int n;
 char s[];
 {
+    void reverse();
     strcpy(s,"2a");
 }
 EOF
@@ -118,6 +120,7 @@ EOF
 
 function ccauto_prohibit($LAUNCH) { 
     return array(
+        array("strcpy", 'You should not use strcpy - that is sample code for you to replace'),
     );
 }
 

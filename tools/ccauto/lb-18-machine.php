@@ -77,7 +77,7 @@ int main()
         if ( count != 3 ) continue;
         printf("address: %d opcode: %c value: %d\\n", address, opcode, value);
 
-        /* Do something here */
+        /* Replace this with your code */
 
         printf("Memory:\\n%s\\n", memory);
     }
@@ -100,7 +100,7 @@ function ccauto_prohibit($LAUNCH) {
     return array(
         array('Hello', "Your program should not include 'Hello'"),
         array('world', "Your program should not include 'world'"),
-        array('Do something here', 'You have work to do'),
+        array('Replace this with your code', 'Remove the placeholder comment'),
     );
 }
 
@@ -127,6 +127,7 @@ int main()
             printf("%s\\n",line);
             continue;
         }
+        // Use sscanf to parse data from a string
         count = sscanf(line, "%d %c %d", &address, &opcode, &value);
         if ( count != 3 ) continue;
 

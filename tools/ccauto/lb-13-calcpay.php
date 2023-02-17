@@ -16,6 +16,7 @@ This program will read an un-specified number of employee time
 records from input.  Each time record will contain an employee number
 (integer), an employee rate per hour (float) and number of hours
 worked.
+You should give the employee time-and-a-half for overtime (hours over 40).
 You must write a function named <b>calcpay()</b> to calculate the pay.
 The function should have no
 return value and must not use any global variables.  The calculated pay
@@ -81,7 +82,7 @@ function ccauto_prohibit($LAUNCH) {
 
 function ccauto_require($LAUNCH) { 
     return array(
-        array('.5', "Time and a half for over time :)."),
+        array('if', "You might want to use an if statement :)."),
     );
 }
 
