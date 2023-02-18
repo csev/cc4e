@@ -89,6 +89,10 @@ You can write and compile some C code below.
 if ( $return_value !== False ) {
     if ( $return_value === 0 ) {
         echo('<p style="color:green;">Your code compiled successfully.  </p>'."\n");
+        echo('<pre style="color:white; background-color:black;">'."\n");
+        echo("$ gcc -ansi hello.c\n");
+        if ( strlen($stdout) > 0 ) echo(htmlentities($stdout));
+        echo("\n</pre>\n");
     } else {
         echo('<pre style="color:white; background-color:black;">'."\n");
         echo("$ gcc -ansi hello.c\n");
