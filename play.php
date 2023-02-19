@@ -31,6 +31,11 @@ if ( isset($_POST['code']) ) {
     return;
 }
 
+if (isset($_POST['code']) && strlen($code) < 1)  {
+    header("");
+    return;
+}
+
 $sample = U::get($_REQUEST, 'sample');
 // if ( ! preg_match('/^[a-zA-Z_0-9]+.md$/', $sample) ) $sample = false;
 if ( is_string($sample) ) {
