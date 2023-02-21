@@ -751,6 +751,21 @@
     ],
      "lti" : [
         {
+            "title" : "Quiz: Arrays and Pointers",
+            "launch" : "mod/gift/?quiz=chap05.txt",
+            "resource_link_id" : "cc4e_05_quiz",
+            "custom" : [
+                {
+                    "key": "tries",
+                    "value": "11"
+                },
+                {
+                    "key": "delay",
+                    "value": "601"
+                }
+            ]
+        },
+        {
         "title" : "Exercise RS-10: Concatenate Two Strings",
         "launch" : "tools/ccauto/",
         "resource_link_id": "rs_10_concat",
