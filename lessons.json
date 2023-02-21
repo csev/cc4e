@@ -70,6 +70,10 @@
         {
             "title" : "Web Site: The Faces of Open Source - UNIX" ,
             "href" : "https://www.facesofopensource.com/unix/"
+        },
+        {
+            "title" : "Report: Portability of C Programs and the UNIX System",
+            "href" : "https://www.bell-labs.com/usr/dmr/www/portpap.pdf"
         }
     ],
      "lti" : [
@@ -619,8 +623,8 @@
             "href" : "{apphome}/book/chap04.md"
         },
         {
-            "title" : "Audio version of the book",
-            "href" : "https://audio.cc4e.com/"
+            "title" : "Stack (from Wikipedia)",
+            "href" : "https://en.wikipedia.org/wiki/Stack_(abstract_data_type)"
         }
     ],
     "videos" : [
@@ -715,12 +719,16 @@
             "href" : "{apphome}/book/chap05.md"
         },
         {
-            "title" : "Audio version of the book",
-            "href" : "https://audio.cc4e.com/"
+            "title" : "Article: Pointers (from Wikipedia)",
+            "href" : "https://en.wikipedia.org/wiki/Pointer_(computer_programming)"
         },
         {
-            "title" : "Report: Portability of C Programs and the UNIX System",
-            "href" : "https://www.bell-labs.com/usr/dmr/www/portpap.pdf"
+            "title" : "Article: Buffer Overflow (from Wikipedia)",
+            "href" : "https://en.wikipedia.org/wiki/Buffer_overflow"
+        },
+        {
+            "title" : "Article: Stack Buffer Overflow (from Wikipedia)",
+            "href" : "https://en.wikipedia.org/wiki/Stack_buffer_overflow"
         }
     ],
     "videos" : [
