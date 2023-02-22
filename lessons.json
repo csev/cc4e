@@ -420,6 +420,10 @@
             "href" : "{apphome}/book/chap02.md"
         },
         {
+            "title" : "Lecture sample source code",
+            "href" : "{apphome}/lectures/code"
+        },
+        {
             "title" : "Audio version of the book",
             "href" : "https://audio.cc4e.com/"
         }
@@ -503,6 +507,10 @@
         {
             "title" : "Chapter 3: Control Flow (html)",
             "href" : "{apphome}/book/chap03.md"
+        },
+        {
+            "title" : "Lecture sample source code",
+            "href" : "{apphome}/lectures/code"
         },
         {
             "title" : "Audio version of the book",
@@ -623,6 +631,10 @@
             "href" : "{apphome}/book/chap04.md"
         },
         {
+            "title" : "Lecture sample source code",
+            "href" : "{apphome}/lectures/code"
+        },
+        {
             "title" : "Stack (from Wikipedia)",
             "href" : "https://en.wikipedia.org/wiki/Stack_(abstract_data_type)"
         }
@@ -717,6 +729,10 @@
         {
             "title" : "Chapter 5: Pointers and Arrays (html)",
             "href" : "{apphome}/book/chap05.md"
+        },
+        {
+            "title" : "Lecture sample source code",
+            "href" : "{apphome}/lectures/code"
         },
         {
             "title" : "Article: Pointers (from Wikipedia)",
@@ -832,6 +848,10 @@
         {
             "title" : "Chapter 6: Structures (html)",
             "href" : "{apphome}/book/chap06.md"
+        },
+        {
+            "title" : "Lecture sample source code",
+            "href" : "{apphome}/lectures/code"
         },
         {
             "title" : "Behind the Scenes: Recording Chapter 6",
