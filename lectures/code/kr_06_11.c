@@ -21,7 +21,7 @@ int main() {
     union instruction {
         char ch;
         struct {
-            unsigned bottom : 6;
+            unsigned low : 6;
             unsigned top : 2;
         } parts;
     } ;
@@ -30,7 +30,7 @@ int main() {
         char ch;
         struct {
             unsigned top : 2;
-            unsigned bottom : 6;
+            unsigned low : 6;
         } parts;
     } ;
 #endif
@@ -42,6 +42,6 @@ int main() {
     printf("%s %x %x\n",
         ch2b2(inst.ch),
         inst.parts.top,
-        inst.parts.bottom);
+        inst.parts.low);
 }
 
