@@ -2,11 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-struct point
-{
-    double x;
-    double y;
-};
+#include "pointstruct.h"
 
 void point_dump(const struct point* self)
 {
@@ -29,30 +25,12 @@ struct point * point_new(double x, double y) {
     return p;
 }
 
-struct PointStruct {
-    struct point * (*new)(double x, double y);
-    void (*del)(const struct point* self);
-    void (*dump)(const struct point* self);
-    double (*origin)(const struct point* self);
-};
+void import_pointstruct() {
+     extern struct PointStruct PointClass;
 
-struct PointStruct PointClass;
-
-void import_PointClass() {
-    /* Build the Point class */
+    /* Build the PointClass */
     PointClass.dump = &point_dump;
     PointClass.new = &point_new;
     PointClass.origin = &point_origin;
     PointClass.del = &point_del;
 }
-
-int main(void)
-{
-    import_PointClass();
-
-    struct point * pt = PointClass.new(4.0,5.0);
-    PointClass.dump(pt);
-    printf("Origin %f\n", PointClass.origin(pt));
-    PointClass.del(pt);
-}
-
