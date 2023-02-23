@@ -1,6 +1,6 @@
 import math
 
-class Point:
+class PointClass:
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -11,9 +11,12 @@ class Point:
     def origin(self):
         return math.sqrt(self.x*self.x+self.y*self.y)
         
-pt = Point(4.0, 5.0)
+pt = PointClass(4.0, 5.0)
+PointClass.dump(pt)
+print('Origin',PointClass.origin(pt))
+
 pt.dump()
 print('Origin',pt.origin())
-print('Origin',Point.origin(pt))
 
+del(pt)
 
