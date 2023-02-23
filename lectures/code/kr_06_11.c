@@ -17,6 +17,15 @@ char * ch2b2(char value)
 }
 
 int main() {
+#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+    union instruction {
+        char ch;
+        struct {
+            unsigned bottom : 6;
+            unsigned top : 2;
+        } parts;
+    } ;
+#else
     union instruction {
         char ch;
         struct {
@@ -24,10 +33,11 @@ int main() {
             unsigned bottom : 6;
         } parts;
     } ;
+#endif
 
     union instruction inst;
 
-    inst.ch = 0xF3;
+    inst.ch = 0xF1; /* 11110001 */
 
     printf("%s %x %x\n",
         ch2b2(inst.ch),

@@ -36,14 +36,7 @@ some of them use older (pre-ANSI) syntax that does not work on modern compilers.
 have to adapt the code from the book to make it work.
 </p>
 <p>
-The coding and compiling envronment on this web site 
-(<a href="..">www.cc4e.com</a>)
-is quite limited and focused
-on supporting the needs of the auto-grader for this course.  You can find 
-full-featured 
-<a href="../compilers.php" target="_blank">
-free online 
-C Compilers</a> on other sites.
+You can also view the <a href="../lectures/code">sample code from the lectures</a>.
 </p>
 <?php
 
@@ -111,7 +104,7 @@ foreach($files as $file ) {
 ?>
 <li>
 <a href="../book/chap0<?= $number ?>.md#pg<?= $page ?>" style="margin:0.5em;" class="xyzzy"><?= htmlentities($ref) ?></a>
-<button style="margin:0.5em;display:none;" onclick="myToggle('<?= $id ?>');return false;" id="toggle_<?= $id ?>" >Show</button>
+<button style="margin:0.5em;" onclick="myToggle('<?= $id ?>');return false;" id="toggle_<?= $id ?>" >Show</button>
 <button style="margin:0.5em;" onclick="myCopy('<?= $id ?>');return false;">Copy</button>
 <button style=" margin:0.5em;" onclick="myEdit('<?= $file ?>');return false;"><?= $edit ?></button>
 <pre class="code" id="pre_<?= $id ?>" style="display:none;">

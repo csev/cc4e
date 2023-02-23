@@ -1,6 +1,15 @@
 #include <stdio.h>
 
 int main() {
+#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+    union format {
+        char ch;
+        struct {
+            unsigned bottom : 6;
+            unsigned opcode : 2;
+        } inst;
+    } ;
+#else
     union format {
         char ch;
         struct {
@@ -8,6 +17,7 @@ int main() {
             unsigned bottom : 6;
         } inst;
     } ;
+#endif
 
     unsigned int i, op;
     union format bits;
