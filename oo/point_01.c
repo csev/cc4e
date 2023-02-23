@@ -31,9 +31,9 @@ struct point * point_new(double x, double y) {
 
 int main(void)
 {
-    struct point * pt = point_new(4.0,5.0);
-    point_dump(pt);
-    printf("Origin %f\n", point_origin(pt));
-    point_del(pt);
+    struct point * p1 = point_new(4.0,5.0);
+    point_dump(p1);
+    printf("Origin %f\n", point_origin(p1));
+    point_del(p1);
 }
 
