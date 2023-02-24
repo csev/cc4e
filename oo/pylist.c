@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 
 struct lnode {
     struct pystr *text;
@@ -26,8 +26,15 @@ struct pylist * pylist_new() {
 
 /* Destructor */
 void pylist_del(struct pylist* self) {
-  // free((void *)self->data);
-  free((void *)self);
+    struct lnode *cur, *next;
+    cur = self->head;
+    while(cur) {
+        pystr_del(cur->text);
+        next = cur->next;
+        free(cur);
+        cur = next;
+    }
+    free((void *)self);
 }
 
 struct lnode* pylist_start(struct pylist* self)
@@ -46,10 +53,10 @@ struct lnode* pylist_next(struct pylist* self)
 
 void pylist_dump(struct pylist* self)
 {
-    struct lnode *i;
+    struct lnode *cur;
     printf("Object pylist@%p count=%d\n", self, self->count);
-    for(i = pylist_start(self); i != NULL ; i = pylist_next(self) ) {
-         struct pystr *line = i->text;
+    for(cur = self->head; cur != NULL ; cur = cur->next ) {
+         struct pystr *line = cur->text;
          printf("  %s\n", pystr_str(line));
     }
 }
@@ -59,7 +66,7 @@ int pylist_len(const struct pylist* self)
     return self->count;
 }
 
-// x = x + "Hello world"
+// x.append("Hello world")
 struct pylist * pylist_append(struct pylist* self, char *str) {
     
     struct lnode *new = malloc(sizeof(*new));
@@ -75,5 +82,17 @@ struct pylist * pylist_append(struct pylist* self, char *str) {
     self->count++;
 
     return self; // To allow chaining
+}
+
+int pylist_index(struct pylist* self, char *str)
+{
+    struct lnode *cur;
+    int i;
+    if ( str == NULL ) return -1;
+    for(i=0, cur = self->head; cur != NULL ; i++, cur = cur->next ) {
+         struct pystr *line = cur->text;
+         if ( strcmp(str, pystr_str(line)) == 0 ) return i;
+    }
+    return -1;
 }
 
