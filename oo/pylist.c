@@ -3,7 +3,7 @@
 #include <string.h>
 
 struct lnode {
-    struct pystr *text;
+    char *text;
     struct lnode *next;
 };
 
@@ -29,7 +29,7 @@ void pylist_del(struct pylist* self) {
     struct lnode *cur, *next;
     cur = self->head;
     while(cur) {
-        pystr_del(cur->text);
+        free(cur->text);
         next = cur->next;
         free(cur);
         cur = next;
@@ -56,8 +56,7 @@ void pylist_dump(struct pylist* self)
     struct lnode *cur;
     printf("Object pylist@%p count=%d\n", self, self->count);
     for(cur = self->head; cur != NULL ; cur = cur->next ) {
-         struct pystr *line = cur->text;
-         printf("  %s\n", pystr_str(line));
+         printf("  %s\n", cur->text);
     }
 }
 
@@ -75,9 +74,9 @@ struct pylist * pylist_append(struct pylist* self, char *str) {
     if ( self->tail != NULL ) self->tail->next = new;
     self->tail = new;
 
-    struct pystr * x = pystr_new();
-    pystr_assign(x, str);
-    new->text = x;
+    char *text = malloc(strlen(str)+1);
+    strcpy(text, str);
+    new->text = text;
 
     self->count++;
 
@@ -90,8 +89,7 @@ int pylist_index(struct pylist* self, char *str)
     int i;
     if ( str == NULL ) return -1;
     for(i=0, cur = self->head; cur != NULL ; i++, cur = cur->next ) {
-         struct pystr *line = cur->text;
-         if ( strcmp(str, pystr_str(line)) == 0 ) return i;
+         if ( strcmp(str, cur->text) == 0 ) return i;
     }
     return -1;
 }

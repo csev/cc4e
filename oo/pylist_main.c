@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include "pystr.c"
 #include "pylist.c"
 
 int main(void)
@@ -12,7 +11,7 @@ int main(void)
     printf("Bob? %d\n", pylist_index(lst, "Bob"));
     printf("Brian? %d\n", pylist_index(lst, "Brian"));
     for(struct lnode * cur = pylist_start(lst); cur != NULL ; cur = pylist_next(lst) ) {
-        printf("  %s\n", pystr_str(cur->text));
+        printf("  %s\n", cur->text);
     }
     pylist_del(lst);
 }
