@@ -21,6 +21,11 @@ int main(void)
     for(struct dnode * cur = pydict_start(lst); cur != NULL ; cur = pydict_next(lst) ) {
         printf("%s=%s\n", cur->key, cur->value);
     }
+    pydict_vsort(lst);
+    printf("\nDump 3\n");
+    for(struct dnode * cur = pydict_start(lst); cur != NULL ; cur = pydict_next(lst) ) {
+        printf("%s=%s\n", cur->key, cur->value);
+    }
     pydict_del(lst);
 }
 

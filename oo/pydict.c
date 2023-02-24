@@ -140,8 +140,7 @@ int pydict_index(struct pydict* self, char *str)
 // Bubble sort by value - Order N**2
 struct pydict* pydict_vsort(struct pydict* self) {
 
-    struct dnode *prev, *cur, *next;
-    struct dnode *cur_next, *cur_prev;
+    struct dnode *prev, *cur, *next, *rest;
     int i;
 
     if ( self->head == NULL ) return self;
@@ -152,31 +151,32 @@ struct pydict* pydict_vsort(struct pydict* self) {
             // In order already
             if ( strcmp(cur->value, cur->next->value) <= 0 ) continue;
 
-            pydict_dump(self);
-            printf("Flipping %s %s\n", cur->value, cur->next->value);
             // Lets swap
-            next = cur->next;   // Will always exist
-            prev = cur->prev;   // May be null if cur is the first
+            // printf("Flipping %s %s\n", cur->value, cur->next->value);
 
             // Save the cur values
-            cur_next = cur->next; // Will always exist
-            cur_prev = cur->prev; // May be null
-                                 
-            // Move cur down
-            cur->next = cur_next->next;
-            cur->prev = cur_next;
-
-            // Move next up
-            next->prev = cur_prev;
-            next->next = cur;
-            if ( prev != NULL ) {
-                prev->next = next;
-            } else {
+            next = cur->next;        // Will always exist
+            prev = cur->prev;        // May be null if at the front
+            rest = cur->next->next;  // May be null if next is at the end
+                              
+            if ( prev == NULL ) {
                 self->head = next;
+            } else {
+                prev->next = next;
             }
 
-            if ( cur->next == NULL ) self->tail = cur;
-            pydict_dump(self);
+            cur->next = rest;
+            cur->prev = next;
+
+            next->next = cur;
+            next->prev = prev;  // May be null
+
+            if ( rest == NULL ) {
+                self->tail = cur;
+            } else {
+                rest->prev = cur;
+            }
+
         }
     }
     return self;
