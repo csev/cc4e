@@ -73,6 +73,7 @@ struct dnode* pydict_find(struct pydict* self, char *key)
     return NULL;
 }
 
+// x.get(key) - Returns NULL if not found
 char* pydict_get(struct pydict* self, char *key)
 {
     struct dnode *retval = pydict_find(self, key);
@@ -86,7 +87,7 @@ int pydict_len(const struct pydict* self)
 }
 
 // x[key] = value;
-struct pydict * pydict_put(struct pydict* self, char *key, char *value) {
+struct pydict* pydict_put(struct pydict* self, char *key, char *value) {
     
     struct dnode *old, *new;
     char *new_key, *new_value;
@@ -134,5 +135,50 @@ int pydict_index(struct pydict* self, char *str)
          if ( strcmp(str, cur->value) == 0 ) return i;
     }
     return -1;
+}
+
+// Bubble sort by value - Order N**2
+struct pydict* pydict_vsort(struct pydict* self) {
+
+    struct dnode *prev, *cur, *next;
+    struct dnode *cur_next, *cur_prev;
+    int i;
+
+    if ( self->head == NULL ) return self;
+
+    for (i=0; i<=self->count; i++) {
+        for(cur = self->head; cur != NULL ; cur = cur->next ) {
+            if ( cur->next == NULL ) continue;  // Last item in the list
+            // In order already
+            if ( strcmp(cur->value, cur->next->value) <= 0 ) continue;
+
+            pydict_dump(self);
+            printf("Flipping %s %s\n", cur->value, cur->next->value);
+            // Lets swap
+            next = cur->next;   // Will always exist
+            prev = cur->prev;   // May be null if cur is the first
+
+            // Save the cur values
+            cur_next = cur->next; // Will always exist
+            cur_prev = cur->prev; // May be null
+                                 
+            // Move cur down
+            cur->next = cur_next->next;
+            cur->prev = cur_next;
+
+            // Move next up
+            next->prev = cur_prev;
+            next->next = cur;
+            if ( prev != NULL ) {
+                prev->next = next;
+            } else {
+                self->head = next;
+            }
+
+            if ( cur->next == NULL ) self->tail = cur;
+            pydict_dump(self);
+        }
+    }
+    return self;
 }
 
