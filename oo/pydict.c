@@ -159,22 +159,22 @@ struct pydict* pydict_vsort(struct pydict* self) {
             prev = cur->prev;        // May be null if at the front
             rest = cur->next->next;  // May be null if next is at the end
                               
-            if ( prev == NULL ) {
-                self->head = next;
-            } else {
+            if ( prev != NULL ) {
                 prev->next = next;
+            } else {
+                self->head = next;
             }
 
             cur->next = rest;
             cur->prev = next;
 
             next->next = cur;
-            next->prev = prev;  // May be null
+            next->prev = prev;
 
-            if ( rest == NULL ) {
-                self->tail = cur;
-            } else {
+            if ( rest != NULL ) {
                 rest->prev = cur;
+            } else {
+                self->tail = cur;
             }
 
         }
