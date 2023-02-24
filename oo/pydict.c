@@ -73,6 +73,13 @@ struct dnode* pydict_find(struct pydict* self, char *key)
     return NULL;
 }
 
+char* pydict_get(struct pydict* self, char *key)
+{
+    struct dnode *retval = pydict_find(self, key);
+    if ( retval == NULL ) return NULL;
+    return retval->value;
+}
+
 int pydict_len(const struct pydict* self)
 {
     return self->count;
