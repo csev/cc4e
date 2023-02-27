@@ -869,6 +869,28 @@
         }
     ],
      "lti" : [
+        {
+        "title" : "Autograder: 6-A Linked Lists",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc_6a_list",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "6-A-list.php"
+            }
+        ]
+        },
+        {
+        "title" : "Autograder: 6-B Linked List Delete",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc_6b_delete",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "6-B-delete.php"
+            }
+        ]
+        }
     ],
 
     "discussions" : [

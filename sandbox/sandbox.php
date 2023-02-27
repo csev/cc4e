@@ -268,7 +268,7 @@ function cc4e_compile($code, $input, $main=null)
             '__isoc99_scanf', '__isoc99_sscanf',
             '_stack_chk_guard', '_stack_chk_fail', '_isoc99_scanf', '_isoc99_sscanf',
             '__stdinp',
-            'malloc', 'calloc', 'memset', '__memset_chk',
+            'malloc', 'calloc', 'memset', '__memset_chk', 'free',
             'strlen', 'strcpy', 'strcat', 'strcmp', 'strchr', 'strrchr', 'strncmp', 'strncpy',
             'strrev',
             'sqrt', 'pow', 'ciel', 'floor', 'abs',
