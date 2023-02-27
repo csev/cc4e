@@ -9,7 +9,7 @@ public class Point {
    }
 
    void dump() {
-	   System.out.println(this+" x="+this.x+" y="+this.y);
+	   System.out.printf("%s x=%f y=%f\n", this, this.x, this.y);
    }
 
    double origin() {
