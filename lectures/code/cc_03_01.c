@@ -37,3 +37,4 @@ int main(void)
     point_del(p1);
 }
 
+/* rm -f a.out ; gcc cc_03_01.c; a.out ; rm -f a.out */
