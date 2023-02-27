@@ -9,9 +9,9 @@ and docker setup.  To run:
 
 It will take all the C code files and run them throught the sandboxed compiler.
 
-The file names tell us what the expecte behavior of the sandbox will be:
+The file names tell us what the expected behavior of the sandbox will be:
 
-* If 'allow' is the the name it should be rejected because of whilte list violation
+* If 'allow' is the the name it should be rejected because of white list violation
 
 * If 'minimum' is in the name it should be rejected because it apparently produces no output
 

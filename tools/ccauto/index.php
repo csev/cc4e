@@ -66,6 +66,7 @@ $assignments = array(
     '4-A-faren.php' => '4-A Write a function to convert from Celsius to Farenheight',
     '4-B-extern.php' => '4-B Write a function that uses external data scope',
     '4-C-static.php' => '4-C Write a function that uses static data scope',
+    '6-A-list.php' => '6-A ArrayList of Integers',
     'p-02-03-pay.php' => '2.3 Gross pay (no overtime)',
     'p-03-01-payroll.php' => '3.1 Time and a half for overtime',
     'p-03-04-score.php' => '3.4 Score with else if',
