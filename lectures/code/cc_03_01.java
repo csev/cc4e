@@ -8,4 +8,4 @@ public class cc_03_01 {
     }
 }
 
-// javac Point.java ; javac cc_03_01.java ; java cc_03_01
+// javac Point.java ; javac cc_03_01.java ; java cc_03_01 ; rm *.class
