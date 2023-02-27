@@ -12,9 +12,9 @@ function ccauto_instructions($LAUNCH) {
 <b>Linked List</b> 
 <p>
     You will write a fuction list_add() to append an integer to the end of
-    a linked list.  You will also write a function called list_find() that
-    will return the list node containing the integer value or NULL if the value
-    is not in the list.  The structure of the list and the node are already defined for you:
+    a linked list.  You will also write a function called list_delete() that
+    will find and remove the node containing the integer value if it is in the list.
+    The structure of the list and the node are already defined for you:
 <pre>
 struct lnode {
     int value;
@@ -41,11 +41,11 @@ void list_add(lst, value)
     /* Append the value to the end of the linked list. */
 }
 
-struct lnode * list_find(lst, value)
+void list_remove(lst, value)
     struct list *lst;
     int value;
 {
-    return NULL;
+    /* Remove the value from the linked list. */
 }
 
 EOF
@@ -85,19 +85,13 @@ int main()
     list_add(&mylist, 30);
     list_dump(&mylist);
 
-    mynode = list_find(&mylist, 42);
-    if ( mynode == NULL ) {
-        printf("Did not find 42\\n");
-    } else {
-        printf("Looked for 42, found %d\\n", mynode->value);
-    }
+    list_remove(&mylist, 42);
 
-    mynode = list_find(&mylist, 30);
-    if ( mynode == NULL || mynode->value != 30) {
-        printf("Did not find 30\\n");
-    } else {
-        printf("Found 30\\n");
-    }
+    list_remove(&mylist, 10);
+    list_dump(&mylist);
+
+    list_remove(&mylist, 30);
+    list_dump(&mylist);
 
     list_add(&mylist, 40);
     list_dump(&mylist);
@@ -127,14 +121,18 @@ Dump:
   10
   20
   30
-Did not find 42
-Found 30
 
 Dump:
-  10
   20
   30
+
+Dump:
+  20
+
+Dump:
+  20
   40
+
 EOF
 ;
 }
@@ -169,15 +167,28 @@ void list_add(lst, value)
       if ( lst->head == NULL ) lst->head = new;
 }
 
-struct lnode * list_find(lst, value)
+int list_remove(lst, value)
     struct list *lst;
     int value;
 {
     struct lnode *cur;
+    struct lnode *prev = NULL;
     for(cur=lst->head; cur != NULL; cur=cur->next) {
-        if ( value == cur->value ) return cur;
+        if ( value == cur->value ) {
+            if ( prev == NULL ) {
+                lst->head = cur->next;
+            } else {
+                prev->next = cur->next;
+                if ( cur->next == NULL) {
+                    lst->tail = prev;
+                }
+            }
+            free(cur);
+            return 1;
+        }
+        prev = cur;
     }
-    return NULL;
+    return 0;
 }
 EOF
 ;
