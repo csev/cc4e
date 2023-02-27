@@ -3,6 +3,8 @@ a.out
 *.o
 *.s
 *.bak
+*.jar
+*.class
 .DS_Store
 cc4e-private
 jail

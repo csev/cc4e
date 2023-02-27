@@ -2,12 +2,6 @@
 #include <stdlib.h>
 #include <math.h>
 
-struct point
-{
-    double x;
-    double y;
-};
-
 struct PointStruct {
     double x;
     double y;
