@@ -2,9 +2,9 @@
 #include <math.h>
 
 class Point {
-    public: 
-
+  public: 
     double x, y;
+
     Point(double xc, double yc)  {
         x = xc;
         y = yc;
@@ -20,10 +20,9 @@ class Point {
 };
 
 int main() {
-  Point pt(4.0, 5.0);
-  pt.dump();
-  std::cout << "Origin: " << pt.origin() << "\n";
-  return 0;
+    Point pt(4.0, 5.0);
+    pt.dump();
+    printf("Origin: %f\n", pt.origin());
 }
 
 // rm -f a.out; g++ cc_03_01.cpp; a.out; rm -f a.out
