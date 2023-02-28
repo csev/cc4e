@@ -189,7 +189,7 @@
         ]
         },
         {
-        "title" : "Exercise RS-5: Reading Lines of Input with gets()",
+        "title" : "Exercise RS-5: Reading Lines of Input with fgets()",
         "launch" : "tools/ccauto/",
         "resource_link_id": "rs_05_gets",
         "custom" : [
