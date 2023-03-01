@@ -2,39 +2,47 @@
 #include <stdlib.h>
 #include <math.h>
 
-struct point
-{
+struct PointClass {
     double x;
     double y;
+
+    void (*del)(const struct PointClass* self);
+    void (*dump)(const struct PointClass* self);
+    double (*origin)(const struct PointClass* self);
 };
 
-void point_dump(const struct point* self)
+void point_dump(const struct PointClass* self)
 {
     printf("Object point@%p x=%f y=%f\n", 
             self, self->x, self->y);
 }
 
-void point_del(const struct point* self) {
+void point_del(const struct PointClass* self) {
   free((void *)self);
 }
 
-double point_origin(const struct point* self) {
+double point_origin(const struct PointClass* self) {
     return sqrt(self->x*self->x + self->y*self->y);
 }
 
-struct point * point_new(double x, double y) {
-    struct point *p = malloc(sizeof(*p));
+struct PointClass * point_new(double x, double y) {
+    struct PointClass *p = malloc(sizeof(*p));
     p->x = x;
     p->y = y;
+    p->dump = &point_dump;
+    p->origin = &point_origin;
+    p->del = &point_del;
     return p;
 }
 
 int main(void)
 {
-    struct point * p1 = point_new(4.0,5.0);
-    point_dump(p1);
-    printf("Origin %f\n", point_origin(p1));
-    point_del(p1);
+    struct PointClass * pt = point_new(4.0,5.0);
+    pt->dump(pt);
+    printf("Origin %f\n", pt->origin(pt));
+    pt->del(pt);
 }
 
 /* rm -f a.out ; gcc cc_03_01.c; a.out ; rm -f a.out */
+
+
