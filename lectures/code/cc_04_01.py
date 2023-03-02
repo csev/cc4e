@@ -19,7 +19,6 @@ while (entry) :
     print(entry)
     entry = next(items, False)
 
-
 sd = reversed(sorted(d.items(), key=lambda item: item[1]))
 
 first = next(iter(sd))

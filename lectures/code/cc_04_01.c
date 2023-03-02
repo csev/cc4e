@@ -7,7 +7,8 @@ int main(void)
     printf("Testing Map class\n");
     map->put(map, "z", 8);
     map->put(map, "z", 1);
-    map->put(map, "y", 2)->put(map, "b", 3);
+    map->put(map, "y", 2);
+    map->put(map, "b", 3);
     map->put(map, "a", 4);
     map->dump(map);
 
@@ -29,7 +30,8 @@ int main(void)
     map->dump(map);
 
     printf("\nSorted by value\n");
-    map->vsort(map)->dump(map);
+    map->vsort(map);
+    map->dump(map);
 
     cur = map->first(map);
     printf("The smallest value is %s=%d\n", cur->key, cur->value);
