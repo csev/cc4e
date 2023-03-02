@@ -1,7 +1,7 @@
 
 int main(void)
 {
-    struct mnode *cur;
+    struct MapEntry *cur;
     struct Map * map = Map_new();
 
     printf("Testing Map class\n");
@@ -30,7 +30,7 @@ int main(void)
     map->dump(map);
 
     printf("\nSorted by value\n");
-    map->vsort(map);
+    map->asort(map);
     map->dump(map);
 
     cur = map->first(map);
