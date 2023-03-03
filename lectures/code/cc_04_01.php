@@ -2,7 +2,7 @@
 
 $a = array();
 
-print("Testing dict class\n");
+print("Testing php arrays\n");
 $a["z"] = 8;
 $a["z"] = 1;
 $a["y"] = 9;
