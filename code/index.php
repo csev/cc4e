@@ -115,10 +115,9 @@ foreach($files as $file ) {
     // echo("$file $page $title\n");
     if ( $title != $chap_title ) {
         if ( $inchapter ) echo("</ul></li><li>\n");
-        echo('<a href="../book/chap0'.$number.'.md">');
         echo(htmlentities($title)."\n");
-        echo("</a>\n");
-        echo("<ul>\n");
+        echo(' <span onClick="doToggle(this); return false;">(Show/Hide)</span>' );
+        echo('<ul style="display: none;">'."\n");
         $chap_title = $title;
         $inchapter = true;
     }
@@ -188,10 +187,9 @@ foreach($files as $file ) {
 
     if ( $title != $chap_title ) {
         if ( $inchapter ) echo("</ul></li><li>\n");
-        echo('<a href="../book/chap0'.$chap.'.md">');
         echo(htmlentities($title)."\n");
-        echo("</a>\n");
-        echo("<ul>\n");
+        echo(' <span onClick="doToggle(this); return false;">(Show/Hide)</span>' );
+        echo('<ul style="display: none;">'."\n");
         $chap_title = $title;
         $inchapter = true;
     }
@@ -248,7 +246,8 @@ foreach($files as $file ) {
     if ( $title != $chap_title ) {
         if ( $inchapter ) echo("</ul></li><li>\n");
         echo(htmlentities($title)."\n");
-        echo("<ul>\n");
+        echo(' <span onClick="doToggle(this); return false;">(Show/Hide)</span>' );
+        echo('<ul style="display: none;">'."\n");
         $chap_title = $title;
         $inchapter = true;
     }
@@ -302,6 +301,10 @@ function myToggle(id) {
 
 function myEdit(file) {
     window.open("<?= $CFG->apphome ?>/play?sample="+file);
+}
+
+function doToggle(elem) {
+    $(elem.nextSibling).toggle();
 }
 
 $(document).ready(function() {
