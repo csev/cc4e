@@ -153,10 +153,9 @@ if ( $inchapter ) {
 ?>
 </div>
 <div class="tab-pane fade" id="chapter">
-<h2>K&amp;R Lectures</h2>
 <p>
 This page contains the sample code from the "C Programming
-for Everybody" lectures by Dr. Chuck.
+for Everybody" lectures setting the context for each chapter by Dr. Chuck.
 </p>
 <?php
 
@@ -217,10 +216,9 @@ if ( $inchapter ) {
 
 </div>
 <div class="tab-pane fade" id="lectures">
-<h2>CC4E Lectures</h2>
 <p>
 This page contains the sample code from the "C Programming
-for Everybody" lectures by Dr. Chuck.
+for Everybody" extra topics by Dr. Chuck.
 </p>
 <?php
 
