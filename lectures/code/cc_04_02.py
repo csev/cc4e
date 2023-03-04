@@ -4,10 +4,18 @@ print('x is', x)
 y = list(x)
 print('y is', y)
 
-z = iter(x)
-print('z is', z)
+it = iter(x)
+print('it is', it)
 
 while True :
-    item = next(z, False)
+    item = next(it, False)
+    if item is False : break
+    print('item is', item)
+
+it = iter(reversed(x))
+print('it is', it)
+
+while True :
+    item = next(it, False)
     if item is False : break
     print('item is', item)
