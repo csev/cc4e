@@ -41,6 +41,7 @@ $lectures_cc = array(
     "Rosetta Stone: From Python to C",
     "Object Oriented Patterns",
     "A Data Structure",
+    "Hardware Architecture",
 );
 
 function chapter_title($pageno) {
@@ -70,9 +71,9 @@ function chapter_title($pageno) {
 <p>This page contains the sample code for C Programming for Everybody - A Historical Perspective.
 
 <ul class="nav nav-tabs">
-  <li class="active"><a href="#krbook" data-toggle="tab" aria-expanded="true">K&R Textbook</a></li>
-  <li><a href="#chapter" data-toggle="tab" aria-expanded="false">K&R Lectures</a></li>
-  <li><a href="#lectures" data-toggle="tab" aria-expanded="false">CC4E Lectureas</a></li>
+  <li class="active"><a href="#krbook" data-toggle="tab" aria-expanded="true">K&R Textbook Code</a></li>
+  <li><a href="#chapter" data-toggle="tab" aria-expanded="false">K&R Lecture Code</a></li>
+  <li><a href="#lectures" data-toggle="tab" aria-expanded="false">CC4E Lecture Code</a></li>
 </ul>
 <div id="myTabContent" class="tab-content" style="margin-top:10px;">
   <div class="tab-pane fade active in" id="krbook">
