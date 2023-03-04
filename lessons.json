@@ -1026,7 +1026,7 @@
     "title": "Microprocessor Architecture",
     "anchor": "architecture",
     "icon" : "fa-microchip",
-    "description": "In this section we introduce hardware architecture and explore how we can build simple hardware emulators in C.",
+    "description": "In this section we introduce hardware architecture and explore how we can build simple hardware emulators in C. (under construction)",
     "slides": "{apphome}/lectures/CC-05-Architecture.pptx",
     "ltitbd" : [
         "cc-05",
@@ -1046,7 +1046,7 @@
     "anchor": "pylist",
     "icon" : "fa-list-ol",
     "slides": "{apphome}/lectures/CC-04-Data-Structures.pptx",
-    "description": "In this lecture we begin to look at the kinds of data structures we can build with pointers and dynamic memory allocation in C.  We continue to compare and contract OO design approaches in languages like Python, Java, PHP, C++, and JavaScript.",
+    "description": "In this lecture we begin to look at the kinds of data structures we can build with pointers and dynamic memory allocation in C.  We continue to compare and contract OO design approaches in languages like Python, Java, PHP, C++, and JavaScript.  (under construction)",
     "ltitbd" : [
         "cc-04",
         "Build a map class in several steps"
