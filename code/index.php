@@ -188,7 +188,7 @@ foreach($files as $file ) {
 
     if ( $title != $chap_title ) {
         if ( $inchapter ) echo("</ul></li><li>\n");
-        echo('<a href="../../book/chap0'.$chap.'.md">');
+        echo('<a href="../book/chap0'.$chap.'.md">');
         echo(htmlentities($title)."\n");
         echo("</a>\n");
         echo("<ul>\n");
@@ -243,17 +243,11 @@ foreach($files as $file ) {
     $id = str_replace(".", "_", $file);
     $chap = intval($pieces[1]);
     $example = intval($pieces[2]);
-    if ( strpos($file, "kr_") === 0 ) {
-        $title = U::get($lectures_kr, $chap, "Catch Phrase");
-    } else {
-        $title = U::get($lectures_cc, $chap, "Catch Phrase");;
-    }
+    $title = U::get($lectures_cc, $chap, "Catch Phrase");;
 
     if ( $title != $chap_title ) {
         if ( $inchapter ) echo("</ul></li><li>\n");
-        echo('<a href="../../book/chap0'.$chap.'.md">');
         echo(htmlentities($title)."\n");
-        echo("</a>\n");
         echo("<ul>\n");
         $chap_title = $title;
         $inchapter = true;
