@@ -41,8 +41,8 @@ $lectures_cc = array(
     "N/A",
     "Rosetta Stone: From Python to C",
     "Object Oriented Patterns",
-    "A Data Structure",
     "Hardware Architecture",
+    "A Data Structure",
 );
 
 function chapter_title($pageno) {
