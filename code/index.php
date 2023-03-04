@@ -22,6 +22,7 @@ $LOGGED_IN = U::get($_SESSION, 'id', null) !== null;
 $OUTPUT->header();
 require_once("../book/style.php");
 $OUTPUT->bodystart(false);
+require_once "../nav.php";
 
 $lectures_kr = array(
     "Chapter 0: Introduction",

@@ -122,6 +122,10 @@
             "href" : "https://www.youtube.com/watch?v=DyG9S9nAlUM"
         },
         {
+            "title" : "Sample source code",
+            "href" : "{apphome}/code"
+        },
+        {
             "title" : "Audio version of the book",
             "href" : "https://audio.cc4e.com/"
         }
@@ -279,6 +283,10 @@
             "href" : "https://www.youtube.com/playlist?list=PLlRFEj9H3Oj5NbaFb1b2n8lib01uNPWLa"
         },
         {
+            "title" : "Sample source code",
+            "href" : "{apphome}/code"
+        },
+        {
             "title" : "Audio version of the book",
             "href" : "https://audio.cc4e.com/"
         }
@@ -420,8 +428,8 @@
             "href" : "{apphome}/book/chap02.md"
         },
         {
-            "title" : "Lecture sample source code",
-            "href" : "{apphome}/lectures/code"
+            "title" : "Sample source code",
+            "href" : "{apphome}/code"
         },
         {
             "title" : "Audio version of the book",
@@ -509,8 +517,8 @@
             "href" : "{apphome}/book/chap03.md"
         },
         {
-            "title" : "Lecture sample source code",
-            "href" : "{apphome}/lectures/code"
+            "title" : "Sample source code",
+            "href" : "{apphome}/code"
         },
         {
             "title" : "Audio version of the book",
@@ -631,8 +639,8 @@
             "href" : "{apphome}/book/chap04.md"
         },
         {
-            "title" : "Lecture sample source code",
-            "href" : "{apphome}/lectures/code"
+            "title" : "Sample source code",
+            "href" : "{apphome}/code"
         },
         {
             "title" : "Stack (from Wikipedia)",
@@ -731,8 +739,8 @@
             "href" : "{apphome}/book/chap05.md"
         },
         {
-            "title" : "Lecture sample source code",
-            "href" : "{apphome}/lectures/code"
+            "title" : "Sample source code",
+            "href" : "{apphome}/code"
         },
         {
             "title" : "Article: Pointers (from Wikipedia)",
@@ -850,8 +858,8 @@
             "href" : "{apphome}/book/chap06.md"
         },
         {
-            "title" : "Lecture sample source code",
-            "href" : "{apphome}/lectures/code"
+            "title" : "Sample source code",
+            "href" : "{apphome}/code"
         },
         {
             "title" : "Behind the Scenes: Recording Chapter 6",
