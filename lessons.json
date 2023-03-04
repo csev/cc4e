@@ -994,7 +994,7 @@
     "anchor": "oop",
     "icon" : "fa-magic",
     "slides": "{apphome}/lectures/CC-03-Objects.pptx",
-    "description": "We look at the underpinnings of C-based languages that supported the Object Oriented Pattern and expore how these languages used C as their foundation.  We look at how these languages improved on aspects of C that make C less than ideal as a general putpose language.",
+    "description": "We look at the underpinnings of C-based languages that supported the Object Oriented Pattern and expore how these languages used C as their foundation.  We look at how these languages improved on aspects of C that make C less than ideal as a general purpose language.",
     "references" : [
         {
             "title" : "Audio version of the book",
@@ -1006,6 +1006,12 @@
             "title" : "Chapter 8 - The UNIX System Interface",
             "youtube" : "Au1eiiceVks"
         }
+    ],
+    "ltitbd" : [
+        "cc-03",
+        "Build a string class",
+        "Build a list class",
+        "Build a dict class"
     ],
 
     "discussions" : [
@@ -1017,56 +1023,39 @@
     ]
 },
 {
-    "title": "Building List and Dict Objects",
-    "anchor": "pylist",
-    "icon" : "fa-list-ol",
-    "slides": "{apphome}/lectures/CC-04-List-Dict.pptx",
-    "description": "We look at the underpinnings of C-based languages that supported the Object Oriented Pattern and expore how these languages used C as their foundation.  We look at how these languages improved on aspects of C that make C less than ideal as a general putpose language.",
-    "references" : [
-        {
-            "title" : "Audio version of the book",
-            "href" : "https://audio.cc4e.com/"
-        }
-    ],
-    "videos" : [
-        {
-            "title" : "Chapter 8 - The UNIX System Interface",
-            "youtube" : "Au1eiiceVks"
-        }
-    ],
-
-    "discussions" : [
-        {
-        "title" : "Object Oriented Programming",
-        "launch" : "mod/tdiscus/",
-        "resource_link_id": "cc4e_04_python"
-        }
-    ]
-},
-{
     "title": "Microprocessor Architecture",
     "anchor": "architecture",
     "icon" : "fa-microchip",
     "description": "In this section we introduce hardware architecture and explore how we can build simple hardware emulators in C.",
     "slides": "{apphome}/lectures/CC-05-Architecture.pptx",
-    "references" : [
-        {
-            "title" : "Audio version of the book",
-            "href" : "https://audio.cc4e.com/"
-        }
+    "ltitbd" : [
+        "cc-05",
+        "Touring Assembler assignment",
+        "Touring Binary assignment"
     ],
-    "videos" : [
-        {
-            "title" : "Chapter 8 - The UNIX System Interface",
-            "youtube" : "Au1eiiceVks"
-        }
-    ],
-
     "discussions" : [
         {
-        "title" : "Computer Architecture",
+        "title" : "Microprocessor Architecture",
         "launch" : "mod/tdiscus/",
         "resource_link_id": "cc4e_05_hardware"
+        }
+    ]
+},
+{
+    "title": "Data Structures",
+    "anchor": "pylist",
+    "icon" : "fa-list-ol",
+    "slides": "{apphome}/lectures/CC-04-Data-Structures.pptx",
+    "description": "In this lecture we begin to look at the kinds of data structures we can build with pointers and dynamic memory allocation in C.  We continue to compare and contract OO design approaches in languages like Python, Java, PHP, C++, and JavaScript.",
+    "ltitbd" : [
+        "cc-04",
+        "Build a map class in several steps"
+    ],
+    "discussions" : [
+        {
+        "title" : "A Data Structure",
+        "launch" : "mod/tdiscus/",
+        "resource_link_id": "cc4e_04_python"
         }
     ]
 }
