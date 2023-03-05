@@ -68,6 +68,7 @@ $assignments = array(
     '4-C-static.php' => '4-C Write a function that uses static data scope',
     '6-A-list.php' => '6-A ArrayList of Integers',
     '6-B-delete.php' => '6-B Insert and delete linked list',
+    'cc_03_01-pystr.php' => 'Implement the pystr class (cc_03_01)',
     'p-02-03-pay.php' => '2.3 Gross pay (no overtime)',
     'p-03-01-payroll.php' => '3.1 Time and a half for overtime',
     'p-03-04-score.php' => '3.4 Score with else if',
