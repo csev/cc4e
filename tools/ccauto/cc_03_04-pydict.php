@@ -38,7 +38,7 @@ EOF
 // Make sure to escape \n as \\n
 function ccauto_sample($LAUNCH) {
     return <<< EOF
-/* print(lst) */
+/* print(dct) */
 /* {'z': 'W', 'y': 'B', 'c': 'C', 'a': 'D'} */
 void pydict_print(struct pydict* self)
 {
