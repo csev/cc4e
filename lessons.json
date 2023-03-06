@@ -1037,9 +1037,9 @@
         ]
         },
         {
-        "title" : "Implement a Python list class",
+        "title" : "Implement a Python dict class",
         "launch" : "tools/ccauto/",
-        "resource_link_id": "cc_04_list",
+        "resource_link_id": "cc_04_dict",
         "custom" : [
             {
                 "key": "exercise",
