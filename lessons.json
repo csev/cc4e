@@ -31,7 +31,9 @@
     "anchor": "history",
     "icon" : "fa-history",
     "description": "We read the introduction of the book and place the moment this book was published (1978) in the context of the history of computer hardware, operating systems, and programming languages.  We explore why C (and UNIX) had such a transformative effect on computing when this book introduced them to a mainstream audience.",
-    "slides": "{apphome}/lectures/KR-0.pptx",
+    "slides": [
+        "{apphome}/lectures/KR-0.pptx"
+    ],
     "videos" : [
         {
             "title" : "A History of C, UNIX, and Computation before and after 1978",
@@ -931,6 +933,10 @@
         {
             "title" : "Chapter 6: Structures (audio book)" ,
             "href" : "https://www.youtube.com/watch?v=U6yCkIckOqY"
+        },
+        {
+            "title" : "Blog: Adding Support for User-defined Classes ",
+            "href" : "https://python-history.blogspot.com/2009/02/adding-support-for-user-defined-classes.html"
         }
     ],
     "videos" : [
@@ -940,6 +946,21 @@
         }
     ],
      "lti" : [
+        {
+            "title" : "Quiz: Object Oriented Programming",
+            "launch" : "mod/gift/?quiz=cc-03.txt",
+            "resource_link_id" : "cc_03_quiz",
+            "custom" : [
+                {
+                    "key": "tries",
+                    "value": "11"
+                },
+                {
+                    "key": "delay",
+                    "value": "601"
+                }
+            ]
+        },
         {
         "title" : "Implement a Python str class",
         "launch" : "tools/ccauto/",
