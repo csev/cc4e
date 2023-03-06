@@ -862,12 +862,12 @@
             "href" : "{apphome}/code"
         },
         {
-            "title" : "Behind the Scenes: Recording Chapter 6",
-            "href" : "https://youtu.be/BPWt6g2PUBA"
-        },
-        {
             "title" : "Audio version of the book",
             "href" : "https://audio.cc4e.com/"
+        },
+        {
+            "title" : "Behind the Scenes: Recording the Audio for Chapter 6",
+            "href" : "https://youtu.be/BPWt6g2PUBA"
         }
     ],
     "videos" : [
@@ -997,21 +997,23 @@
     "description": "We look at the underpinnings of C-based languages that supported the Object Oriented Pattern and expore how these languages used C as their foundation.  We look at how these languages improved on aspects of C that make C less than ideal as a general purpose language.",
     "references" : [
         {
-            "title" : "Audio version of the book",
-            "href" : "https://audio.cc4e.com/"
+            "title" : "Sample source code",
+            "href" : "{apphome}/code"
+        },
+        {
+            "title" : "Chapter 6: Structures (html)",
+            "href" : "{apphome}/book/chap06.md"
+        },
+        {
+            "title" : "Chapter 6: Structures (audio book)" ,
+            "href" : "https://www.youtube.com/watch?v=U6yCkIckOqY"
         }
     ],
     "videos" : [
         {
-            "title" : "Chapter 8 - The UNIX System Interface",
-            "youtube" : "Au1eiiceVks"
+            "title" : "Object Oriented Programming (TBD)",
+            "youtube" : "TBD"
         }
-    ],
-    "ltitbd" : [
-        "cc-03",
-        "Build a string class",
-        "Build a list class",
-        "Build a dict class"
     ],
      "lti" : [
         {
