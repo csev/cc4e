@@ -16,7 +16,7 @@ function ccauto_instructions($LAUNCH) {
     method signatures have been provided for you as well as a main() program
     and some support routines from the lecture slides.  
     There is a good deal of discussion of this application in the lecture
-    materials associtate with this assignment.
+    materials associtated with this assignment.
 <pre>
 struct lnode {
     char *text;
