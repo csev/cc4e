@@ -1,7 +1,9 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+/* This code is incomplete - it serves as the starting
+ * point for the assigment */
 
 struct lnode {
     char *text;

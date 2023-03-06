@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* This code is incomplete - it serves as the starting
+ * point for the assigment */
+
 struct pystr
 {
     int length;
