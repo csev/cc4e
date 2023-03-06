@@ -914,6 +914,76 @@
     ]
 },
 {
+    "title": "Object Oriented Programming",
+    "anchor": "oop",
+    "icon" : "fa-magic",
+    "slides": "{apphome}/lectures/CC-03-Objects.pptx",
+    "description": "We look at the underpinnings of C-based languages that supported the Object Oriented Pattern and expore how these languages used C as their foundation.  We look at how these languages improved on aspects of C that make C less than ideal as a general purpose language.",
+    "references" : [
+        {
+            "title" : "Sample source code",
+            "href" : "{apphome}/code"
+        },
+        {
+            "title" : "Chapter 6: Structures (html)",
+            "href" : "{apphome}/book/chap06.md"
+        },
+        {
+            "title" : "Chapter 6: Structures (audio book)" ,
+            "href" : "https://www.youtube.com/watch?v=U6yCkIckOqY"
+        }
+    ],
+    "videos" : [
+        {
+            "title" : "Object Oriented Programming (TBD)",
+            "youtube" : "TBD"
+        }
+    ],
+     "lti" : [
+        {
+        "title" : "Implement a Python str class",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc_02_str",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "cc_03_02-pystr.php"
+            }
+        ]
+        },
+        {
+        "title" : "Implement a Python list class",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc_03_list",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "cc_03_03-pylist.php"
+            }
+        ]
+        },
+        {
+        "title" : "Implement a Python dict class",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc_04_dict",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "cc_03_04-pydict.php"
+            }
+        ]
+        }
+    ],
+
+    "discussions" : [
+        {
+        "title" : "Object Oriented Programming",
+        "launch" : "mod/tdiscus/",
+        "resource_link_id": "cc4e_03_objects"
+        }
+    ]
+},
+{
     "title": "K&R 7: Input / Output",
     "anchor": "io",
     "icon" : "fa-arrows-h",
@@ -986,113 +1056,6 @@
         "title" : "The UNIX System Interface",
         "launch" : "mod/tdiscus/",
         "resource_link_id": "discuss_01_unix"
-        }
-    ]
-},
-{
-    "title": "Object Oriented Programming",
-    "anchor": "oop",
-    "icon" : "fa-magic",
-    "slides": "{apphome}/lectures/CC-03-Objects.pptx",
-    "description": "We look at the underpinnings of C-based languages that supported the Object Oriented Pattern and expore how these languages used C as their foundation.  We look at how these languages improved on aspects of C that make C less than ideal as a general purpose language.",
-    "references" : [
-        {
-            "title" : "Sample source code",
-            "href" : "{apphome}/code"
-        },
-        {
-            "title" : "Chapter 6: Structures (html)",
-            "href" : "{apphome}/book/chap06.md"
-        },
-        {
-            "title" : "Chapter 6: Structures (audio book)" ,
-            "href" : "https://www.youtube.com/watch?v=U6yCkIckOqY"
-        }
-    ],
-    "videos" : [
-        {
-            "title" : "Object Oriented Programming (TBD)",
-            "youtube" : "TBD"
-        }
-    ],
-     "lti" : [
-        {
-        "title" : "Implement a Python str class",
-        "launch" : "tools/ccauto/",
-        "resource_link_id": "cc_02_str",
-        "custom" : [
-            {
-                "key": "exercise",
-                "value": "cc_03_02-pystr.php"
-            }
-        ]
-        },
-        {
-        "title" : "Implement a Python list class",
-        "launch" : "tools/ccauto/",
-        "resource_link_id": "cc_03_list",
-        "custom" : [
-            {
-                "key": "exercise",
-                "value": "cc_03_03-pylist.php"
-            }
-        ]
-        },
-        {
-        "title" : "Implement a Python dict class",
-        "launch" : "tools/ccauto/",
-        "resource_link_id": "cc_04_dict",
-        "custom" : [
-            {
-                "key": "exercise",
-                "value": "cc_03_04-pydict.php"
-            }
-        ]
-        }
-    ],
-
-    "discussions" : [
-        {
-        "title" : "Object Oriented Programming",
-        "launch" : "mod/tdiscus/",
-        "resource_link_id": "cc4e_03_objects"
-        }
-    ]
-},
-{
-    "title": "Microprocessor Architecture",
-    "anchor": "architecture",
-    "icon" : "fa-microchip",
-    "description": "In this section we introduce hardware architecture and explore how we can build simple hardware emulators in C. (under construction)",
-    "slides": "{apphome}/lectures/CC-04-Architecture.pptx",
-    "ltitbd" : [
-        "cc-04",
-        "Touring Assembler assignment",
-        "Touring Binary assignment"
-    ],
-    "discussions" : [
-        {
-        "title" : "Microprocessor Architecture",
-        "launch" : "mod/tdiscus/",
-        "resource_link_id": "cc4e_04_hardware"
-        }
-    ]
-},
-{
-    "title": "Data Structures",
-    "anchor": "pylist",
-    "icon" : "fa-list-ol",
-    "slides": "{apphome}/lectures/CC-05-Data-Structures.pptx",
-    "description": "In this lecture we begin to look at the kinds of data structures we can build with pointers and dynamic memory allocation in C.  We continue to compare and contract OO design approaches in languages like Python, Java, PHP, C++, and JavaScript.  (under construction)",
-    "ltitbd" : [
-        "cc-05",
-        "Build a map class in several steps"
-    ],
-    "discussions" : [
-        {
-        "title" : "A Data Structure",
-        "launch" : "mod/tdiscus/",
-        "resource_link_id": "cc4e_05_python"
         }
     ]
 }
