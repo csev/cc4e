@@ -182,7 +182,7 @@ function cc4e_compile($code, $input, $main=null)
     for($i=0; $i<strlen($input); $i++) {
         $ord = ord($input[$i]);
         if ( $ord < 1 || $ord > 126 ) {
-            $retval->reject = "Input has non-ascii character: ".$ord;
+            $retval->reject = "Input has non-ascii character: ".$ord." @".$i;
             return $retval;
         }
     }
@@ -190,7 +190,7 @@ function cc4e_compile($code, $input, $main=null)
     for($i=0; $i<strlen($code); $i++) {
         $ord = ord($code[$i]);
         if ( $ord < 1 || $ord > 126 ) {
-            $retval->reject = "Code has non-ascii character: ".$ord;
+            $retval->reject = "Code has non-ascii character: ".$ord." @".$i;
             return $retval;
         }
     }

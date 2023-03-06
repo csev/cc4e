@@ -140,16 +140,15 @@ EOF
 
 function ccauto_prohibit($LAUNCH) { 
     return array(
-        // array("main", "Don't include the main() code - the main() code is provided automatically by the autograder."),
-        // array("extern", "You should not use the 'extern' keyword."),
-        // array("[", "You do not need to use any arrays []."),
-        // array("]", "You do not need to use any arrays []."),
+        array("main", "Don't include the main() code - the main() code is provided automatically by the autograder."),
+        array("exit", "Don't use exit()."),
+        array("extern", "You should not use the 'extern' keyword."),
     );
 }
 
 function ccauto_require($LAUNCH) { 
     return array (
-        // array("malloc", "You need to use malloc() to allocate some memory."),
+        array("realloc", "You need to use realloc() to resize the string."),
     );
 }
 
