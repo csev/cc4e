@@ -116,8 +116,9 @@ foreach($files as $file ) {
     // echo("$file $page $title\n");
     if ( $title != $chap_title ) {
         if ( $inchapter ) echo("</ul></li><li>\n");
+        echo(' <span onClick="doToggle(this); return false;">');
         echo(htmlentities($title)."\n");
-        echo(' <span onClick="doToggle(this); return false;">(Show/Hide)</span>' );
+        echo('(Show/Hide)</span>' );
         echo('<ul style="display: none;">'."\n");
         $chap_title = $title;
         $inchapter = true;
@@ -188,8 +189,9 @@ foreach($files as $file ) {
 
     if ( $title != $chap_title ) {
         if ( $inchapter ) echo("</ul></li><li>\n");
+        echo(' <span onClick="doToggle(this); return false;">');
         echo(htmlentities($title)."\n");
-        echo(' <span onClick="doToggle(this); return false;">(Show/Hide)</span>' );
+        echo('(Show/Hide)</span>' );
         echo('<ul style="display: none;">'."\n");
         $chap_title = $title;
         $inchapter = true;
@@ -246,8 +248,9 @@ foreach($files as $file ) {
 
     if ( $title != $chap_title ) {
         if ( $inchapter ) echo("</ul></li><li>\n");
+        echo(' <span onClick="doToggle(this); return false;">');
         echo(htmlentities($title)."\n");
-        echo(' <span onClick="doToggle(this); return false;">(Show/Hide)</span>' );
+        echo('(Show/Hide)</span>' );
         echo('<ul style="display: none;">'."\n");
         $chap_title = $title;
         $inchapter = true;
