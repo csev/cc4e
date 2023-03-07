@@ -836,13 +836,13 @@
         ]
         },
         {
-        "title" : "LBS-99: A Touring Machine",
+        "title" : "LBS-98: A Touring Machine",
         "launch" : "tools/ccauto/",
-        "resource_link_id": "cc4e_lb_99",
+        "resource_link_id": "cc4e_lb_98",
         "custom" : [
             {
                 "key": "exercise",
-                "value": "lb-99-touring.php"
+                "value": "lb-98-touring.php"
             }
         ]
         }
