@@ -596,28 +596,6 @@
                 "value": "lb-16-calculator.php"
             }
         ]
-        },
-        {
-        "title" : "LBS-18: A Simple Machine",
-        "launch" : "tools/ccauto/",
-        "resource_link_id": "cc4e_lb_18",
-        "custom" : [
-            {
-                "key": "exercise",
-                "value": "lb-18-machine.php"
-            }
-        ]
-        },
-        {
-        "title" : "LBS-99: A Touring Machine",
-        "launch" : "tools/ccauto/",
-        "resource_link_id": "cc4e_lb_99",
-        "custom" : [
-            {
-                "key": "exercise",
-                "value": "lb-99-touring.php"
-            }
-        ]
         }
     ],
 
@@ -716,6 +694,17 @@
             {
                 "key": "exercise",
                 "value": "lb-13-calcpay.php"
+            }
+        ]
+        },
+        {
+        "title" : "LBS-18: A Simple Machine",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_lb_18",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "lb-18-machine.php"
             }
         ]
         }
@@ -845,6 +834,17 @@
                 "value": "lb-15-string.php"
             }
         ]
+        },
+        {
+        "title" : "LBS-99: A Touring Machine",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_lb_99",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "lb-99-touring.php"
+            }
+        ]
         }
     ]
 },
@@ -956,7 +956,7 @@
     ],
     "videos" : [
         {
-            "title" : "Object Oriented Programming (TBD)",
+            "title" : "Object Oriented Programming (Coming soon)",
             "youtube" : "TBD"
         }
     ],
