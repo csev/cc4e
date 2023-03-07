@@ -884,6 +884,21 @@
     ],
      "lti" : [
         {
+            "title" : "Quiz: Structures",
+            "launch" : "mod/gift/?quiz=chap06.txt",
+            "resource_link_id" : "cc4e_06_quiz",
+            "custom" : [
+                {
+                    "key": "tries",
+                    "value": "11"
+                },
+                {
+                    "key": "delay",
+                    "value": "601"
+                }
+            ]
+        },
+        {
         "title" : "Autograder: 6-A Linked Lists",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc_6a_list",
