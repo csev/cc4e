@@ -11,7 +11,7 @@ function ccauto_instructions($LAUNCH) {
     return <<< EOF
 <b>Linked List</b> 
 <p>
-    You will write a fuction list_add() to append an integer to the end of
+    You will write a function list_add() to append an integer to the end of
     a linked list.  You will also write a function called list_find() that
     will return the list node containing the integer value or NULL if the value
     is not in the list.  The structure of the list and the node are already defined for you:
