@@ -687,17 +687,6 @@
         ]
         },
         {
-        "title" : "LBS290-13: Calculate Pay",
-        "launch" : "tools/ccauto/",
-        "resource_link_id": "cc4e_lb_13",
-        "custom" : [
-            {
-                "key": "exercise",
-                "value": "lb-13-calcpay.php"
-            }
-        ]
-        },
-        {
         "title" : "LBS-18: A Simple Machine",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc4e_lb_18",
@@ -779,6 +768,17 @@
                     "value": "601"
                 }
             ]
+        },
+        {
+        "title" : "LBS290-13: Calculate Pay",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_lb_13",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "lb-13-calcpay.php"
+            }
+        ]
         },
         {
         "title" : "Exercise RS-10: Concatenate Two Strings",
