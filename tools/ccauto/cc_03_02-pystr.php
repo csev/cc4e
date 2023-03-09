@@ -18,7 +18,7 @@ function ccauto_instructions($LAUNCH) {
     you will allocate a 10 character buffer.  If as data is added, it exceeds
     the length of the buffer use realloc() to expand the buffer by 10.
     There is a good deal of discussion of this application in the lecture
-    materials associtated with this assignment.
+    materials associated with this assignment.
 <pre>
 struct pystr
 {
