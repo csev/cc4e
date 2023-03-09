@@ -11,7 +11,7 @@ function ccauto_instructions($LAUNCH) {
     global $CFG;
     return <<< EOF
 <p>
-<b>LBS290 Exercise 17 - A Touring Machine.</b> 
+<b>LBS290 Exercise 98 - A Touring Machine.</b> 
 This is a subset of an important concept in Computer Science called a
 <a href="https://en.wikipedia.org/wiki/Turing_machine" target="_blank">Turing Machine</a>.
 We call it a "Touring Machine" because
