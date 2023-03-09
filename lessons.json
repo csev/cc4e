@@ -936,6 +936,32 @@
     "icon" : "fa-magic",
     "slides": "{apphome}/lectures/CC-03-Objects.pptx",
     "description": "We look at the underpinnings of C-based languages that supported the Object Oriented Pattern and expore how these languages used C as their foundation.  We look at how these languages improved on aspects of C that make C less than ideal as a general purpose language.",
+    "videos" : [
+        {
+            "title" : "Object Oriented Programming - A Historical Perspective",
+            "youtube" : "GXkwKNEiYEI"
+        },
+        {
+            "title" : "Comparing Object Oriented Programming Approaches Across Languages",
+            "youtube" : "4_gXh8ezVYA"
+        },
+        {
+            "title" : "Implementing Python-like Object Oriented Patterns in C",
+            "youtube" : "NLcouCpM8-s"
+        },
+        {
+            "title" : "Implementing the Python String (str) Class in C",
+            "youtube" : "dMfpD94g6Ho"
+        },
+        {
+            "title" : "Implementing the Python List (list) Class in C",
+            "youtube" : "SX6A66WcFbg"
+        },
+        {
+            "title" : "Implementing the Python Dictionary (dict) Class in C",
+            "youtube" : "1vozbTuYSGw"
+        }
+    ],
     "references" : [
         {
             "title" : "Sample source code",
@@ -952,12 +978,6 @@
         {
             "title" : "Blog: Adding Support for User-defined Classes ",
             "href" : "https://python-history.blogspot.com/2009/02/adding-support-for-user-defined-classes.html"
-        }
-    ],
-    "videos" : [
-        {
-            "title" : "Object Oriented Programming (Coming soon)",
-            "youtube" : "TBD"
         }
     ],
      "lti" : [
