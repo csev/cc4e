@@ -1,21 +1,27 @@
-x = {'a': 1, 'b': 2, 'c': 3}
-print('x is', x)
+d = dict()
 
-y = list(x)
-print('y is', y)
+print("Testing dict class\n");
+d["z"] = 8
+d["z"] = 1
+d["y"] = 9
+d["b"] = 3
+d["a"] = 4
+print(d);
 
-it = iter(x)
-print('it is', it)
+print("z=%d" % (d.get("z", 42), ));
+print("x=%d" %  (d.get("x", 42), ));
 
-while True :
-    item = next(it, False)
-    if item is False : break
-    print('item is', item)
+items = iter(d.items())
+print(type(items));
 
-it = iter(reversed(x))
-print('it is', it)
+entry = next(items, False)
+while (entry) :
+    print(entry)
+    entry = next(items, False)
 
-while True :
-    item = next(it, False)
-    if item is False : break
-    print('item is', item)
+sd = reversed(sorted(d.items(), key=lambda item: item[1]))
+
+first = next(iter(sd))
+print('The largest value', first)
+
+

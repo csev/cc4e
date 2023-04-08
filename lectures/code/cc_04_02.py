@@ -1,7 +1,16 @@
-x = dict()
-x[1] = 40
-print('print x[1]', x.__getitem__(1))
+import math
 
-# x[5] = x[1] +2
-x.__setitem__(5, x.__getitem__(1) + 2)
-print(x)
+class Point:
+    __x = 0.0
+    __y = 0.0
+
+    def __init__(self, x, y):
+        self.__x = x
+        self.__y = y
+
+    def dump(self):
+        print('Object point@%x x=%f y=%f' % (id(self),self.__x,self.__y))
+
+pt = Point(4.0, 5.0)
+Point.dump(pt)
+del(pt)
