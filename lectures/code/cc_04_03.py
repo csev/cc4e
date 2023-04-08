@@ -14,14 +14,10 @@ print("x=%d" %  (d.get("x", 42), ));
 items = iter(d.items())
 print(type(items));
 
+print("Iterate");
 entry = next(items, False)
 while (entry) :
     print(entry)
     entry = next(items, False)
 
-sd = reversed(sorted(d.items(), key=lambda item: item[1]))
-
-first = next(iter(sd))
-print('The largest value', first)
-
-
+# python3 cc_04_03.py

@@ -15,10 +15,10 @@ int main() {
     printf("z=%d\n", (mp.count("z") ? mp["z"] : 42));
     printf("x=%d\n", (mp.count("x") ? mp["x"] : 42));
 
-    printf("\nIterate forwards\n");
+    printf("\nIterate\n");
     for (auto cur = mp.begin(); cur != mp.end(); ++cur) {
         printf(" %s=%d\n", cur->first.c_str(), cur->second);
     }
 }
 
-// rm -f a.out; g++ -std=c++11 cc_04_01.cpp; a.out; rm -f a.out
+// rm -f a.out; g++ -std=c++11 cc_04_03.cpp; a.out; rm -f a.out

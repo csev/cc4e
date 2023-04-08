@@ -18,13 +18,5 @@ foreach( $a as $k => $v ) {
     printf(" %s=%d\n", $k, $v);
 }
 
-ksort($a);
-printf("\nSort by key\n");
-print_r($a);
+// php cc_04_03.php
 
-arsort($a);
-printf("\nSort by value in reverse\n");
-print_r($a);
-
-$k = array_key_first($a);
-printf("Largest value %s=%d\n", $k, $a[$k]);

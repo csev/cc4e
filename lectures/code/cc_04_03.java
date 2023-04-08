@@ -1,7 +1,7 @@
 import java.util.Map;
 import java.util.TreeMap;
 
-public class cc_04_01 {
+public class cc_04_03 {
 
     public static void main(String[] args)
     {   
@@ -18,23 +18,13 @@ public class cc_04_01 {
         System.out.println("z="+map.getOrDefault("z", 42));
         System.out.println("x="+map.getOrDefault("x", 42));
 
-        System.out.printf("\nIterate forwards\n");
+        System.out.printf("\nIterate\n");
         for (Map.Entry<String,Integer> entry : map.entrySet()) {
                 System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
         }
 
-        Integer max = null;
-        String max_key = null;
-        for (Map.Entry<String,Integer> entry : map.entrySet()) {
-                if ( max == null || entry.getValue() > max ) {
-                    max = entry.getValue();
-                    max_key = entry.getKey();
-                }
-        }
-
-        System.out.printf("The largest value is %s=%d\n", max_key, max);
     }
 }
 
-// javac cc_04_01.java ; java cc_04_01 ; rm *.class
+// javac cc_04_03.java ; java cc_04_03 ; rm *.class
 

@@ -15,30 +15,12 @@ int main(void)
     printf("z=%d\n", map->get(map, "z", 42));
     printf("x=%d\n", map->get(map, "x", 42));
 
-    printf("\nIterate forwards\n");
+    printf("\nIterate\n");
     for(cur = map->first(map); cur != NULL; cur = map->next(map) ) {
         printf(" %s=%d\n", cur->key, cur->value);
     }
 
-    printf("\nIterate backwards\n");
-    for(cur = map->last(map); cur != NULL; cur = map->next(map) ) {
-        printf(" %s=%d\n", cur->key, cur->value);
-    }
-
-    map->ksort(map);
-    printf("\nSorted by key\n");
-    map->dump(map);
-
-    printf("\nSorted by value\n");
-    map->asort(map);
-    map->dump(map);
-
-    cur = map->first(map);
-    printf("The smallest value is %s=%d\n", cur->key, cur->value);
-
-    cur = map->last(map);
-    printf("The largest value is %s=%d\n", cur->key, cur->value);
-
     Map_del(map);
 }
 
+// rm a.out; gcc cc_04_03.c ; a.out; rm a.out
