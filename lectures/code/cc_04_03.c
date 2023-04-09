@@ -16,11 +16,15 @@ int main(void)
     printf("x=%d\n", map->get(map, "x", 42));
 
     printf("\nIterate\n");
-    for(cur = map->first(map); cur != NULL; cur = map->next(map) ) {
+    iter = map->iter(map);
+    while(1) {
+        cur = iter->next(iter);
+        if ( cur == NULL ) break;
         printf(" %s=%d\n", cur->key, cur->value);
     }
+    iter->del(iter);
 
-    Map_del(map);
+    map->del(map);
 }
 
 // rm a.out; gcc cc_04_03.c ; a.out; rm a.out
