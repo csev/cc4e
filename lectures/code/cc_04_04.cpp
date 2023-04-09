@@ -20,5 +20,5 @@ int main() {
     printf("printf ten[5] contains %d\n", ten[5]);
 }
 
-// rm -f a.out; g++ cc_04_02.cpp; a.out; rm -f a.out
+// rm -f a.out; g++ cc_04_04.cpp; a.out; rm -f a.out
 

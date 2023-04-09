@@ -1,21 +1,18 @@
-x = {'a': 1, 'b': 2, 'c': 3}
-print('x is', x)
 
-y = list(x)
-print('y is', y)
+class TenInt:
+    values = dict()
 
-it = iter(x)
-print('it is', it)
+    def __setitem__(self, index, value) :
+        self.values[index] = value
 
-while True :
-    item = next(it, False)
-    if item is False : break
-    print('item is', item)
+    def __getitem__(self, index) :
+        return self.values[index]
 
-it = iter(reversed(x))
-print('it is', it)
+ten = TenInt()
+ten[1] = 40;
+print("print ten[1] contains", ten[1]);
 
-while True :
-    item = next(it, False)
-    if item is False : break
-    print('item is', item)
+ten[5] = ten[1] + 2;
+print("Done assigning ten[5]");
+print("print ten[5] contains", ten[5]);
+
