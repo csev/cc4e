@@ -933,7 +933,7 @@
 {
     "title": "Object Oriented Programming",
     "anchor": "oop",
-    "icon" : "fa-magic",
+    "icon" : "fa-ethernet",
     "slides": "{apphome}/lectures/CC-03-Objects.pptx",
     "description": "We look at the underpinnings of C-based languages that supported the Object Oriented Pattern and expore how these languages used C as their foundation.  We look at how these languages improved on aspects of C that make C less than ideal as a general purpose language.",
     "videos" : [
@@ -1042,9 +1042,9 @@
 {
     "title": "Encapsulation and Abstraction",
     "anchor": "map",
-    "icon" : "fa-magic",
+    "icon" : "fa-shopping-bag",
     "slides": "{apphome}/lectures/CC-04-Map.pptx",
-    "description": "In this section, we improve our objects to better meet the encapsulation and abstraction.",
+    "description": "In this section, we improve our object implementation through encapsulation and abstraction.",
     "videos" : [
         {
             "title" : "TBD",
@@ -1082,13 +1082,24 @@
             ]
         },
         {
-        "title" : "TBD",
+        "title" : "Encapsulation",
         "launch" : "tools/ccauto/",
-        "resource_link_id": "cc_04_tbd",
+        "resource_link_id": "cc_04_encasulation",
         "custom" : [
             {
                 "key": "exercise",
-                "value": "cc_04_01-tbd.php"
+                "value": "cc_04_01-encapsulation.php"
+            }
+        ]
+        },
+        {
+        "title" : "Iteration",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc_04_iterator",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "cc_04_02-iterator.php"
             }
         ]
         }
@@ -1105,7 +1116,7 @@
 {
     "title": "Tree Maps and Hash Maps",
     "anchor": "tree",
-    "icon" : "fa-magic",
+    "icon" : "fa-tree",
     "slides": "{apphome}/lectures/CC-05-Tree-Hash.pptx",
     "description": "In this section, we implement a hasmap and a linked tree map.",
     "videos" : [

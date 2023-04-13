@@ -9,7 +9,7 @@ use \Tsugi\Util\Mersenne_Twister;
 // Called first
 function ccauto_instructions($LAUNCH) {
     return <<< EOF
-<b>Python String Class</b> 
+<b>Python List Class</b> 
 <p>
     You will a set of supporting functions using the following structures
     to implement a subset of the Python list class in C.  Some code and
