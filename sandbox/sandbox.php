@@ -272,7 +272,7 @@ function cc4e_compile($code, $input, $main=null)
         $allowed_externals = array(
             'puts', 'printf', 'putchar', 'scanf', 'sscanf', 'getchar', 'gets', 'fgets',
             '__stack_chk_guard', '__stack_chk_fail', '_stack_chk_guard', '_stack_chk_fail',
-            '__isoc99_scanf', '__isoc99_sscanf',
+            '__isoc99_scanf', '__isoc99_sscanf', 'fflush',
             '_stack_chk_guard', '_stack_chk_fail', '_isoc99_scanf', '_isoc99_sscanf',
             '__stdinp',
             'malloc', 'calloc', 'realloc', 'memset', '__memset_chk', 'free',

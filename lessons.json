@@ -1117,7 +1117,7 @@
     "title": "Tree Maps and Hash Maps",
     "anchor": "tree",
     "icon" : "fa-tree",
-    "slides": "{apphome}/lectures/CC-05-Tree-Hash.pptx",
+    "slides": "{apphome}/lectures/CC-05-Trees-Hash.pptx",
     "description": "In this section, we implement a hasmap and a linked tree map.",
     "videos" : [
         {
