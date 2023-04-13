@@ -1040,6 +1040,132 @@
     ]
 },
 {
+    "title": "Encapsulation and Abstraction",
+    "anchor": "map",
+    "icon" : "fa-magic",
+    "slides": "{apphome}/lectures/CC-04-Map.pptx",
+    "description": "In this section, we improve our objects to better meet the encapsulation and abstraction.",
+    "videos" : [
+        {
+            "title" : "TBD",
+            "youtube" : "tbd"
+        }
+    ],
+    "references" : [
+        {
+            "title" : "Sample source code",
+            "href" : "{apphome}/code"
+        },
+        {
+            "title" : "Chapter 6: Structures (html)",
+            "href" : "{apphome}/book/chap06.md"
+        },
+        {
+            "title" : "Chapter 6: Structures (audio book)" ,
+            "href" : "https://www.youtube.com/watch?v=U6yCkIckOqY"
+        }
+    ],
+     "lti" : [
+        {
+            "title" : "Quiz: Abstraction and Encapsulation",
+            "launch" : "mod/gift/?quiz=cc-04.txt",
+            "resource_link_id" : "cc_04_quiz",
+            "custom" : [
+                {
+                    "key": "tries",
+                    "value": "11"
+                },
+                {
+                    "key": "delay",
+                    "value": "601"
+                }
+            ]
+        },
+        {
+        "title" : "TBD",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc_04_tbd",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "cc_04_01-tbd.php"
+            }
+        ]
+        }
+    ],
+
+    "discussions" : [
+        {
+        "title" : "Encapsulation and Abstraction",
+        "launch" : "mod/tdiscus/",
+        "resource_link_id": "cc4e_04_objects"
+        }
+    ]
+},
+{
+    "title": "Tree Maps and Hash Maps",
+    "anchor": "tree",
+    "icon" : "fa-magic",
+    "slides": "{apphome}/lectures/CC-05-Tree-Hash.pptx",
+    "description": "In this section, we implement a hasmap and a linked tree map.",
+    "videos" : [
+        {
+            "title" : "TBD",
+            "youtube" : "tbd"
+        }
+    ],
+    "references" : [
+        {
+            "title" : "Sample source code",
+            "href" : "{apphome}/code"
+        },
+        {
+            "title" : "Chapter 6: Structures (html)",
+            "href" : "{apphome}/book/chap06.md"
+        },
+        {
+            "title" : "Chapter 6: Structures (audio book)" ,
+            "href" : "https://www.youtube.com/watch?v=U6yCkIckOqY"
+        }
+    ],
+     "lti" : [
+        {
+            "title" : "Quiz: Tree Maps and Hash Maps",
+            "launch" : "mod/gift/?quiz=cc-05.txt",
+            "resource_link_id" : "cc_05_quiz",
+            "custom" : [
+                {
+                    "key": "tries",
+                    "value": "11"
+                },
+                {
+                    "key": "delay",
+                    "value": "601"
+                }
+            ]
+        },
+        {
+        "title" : "TBD",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc_05_tbd",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "cc_05_01-tbd.php"
+            }
+        ]
+        }
+    ],
+
+    "discussions" : [
+        {
+        "title" : "Tree Maps and Hash Maps",
+        "launch" : "mod/tdiscus/",
+        "resource_link_id": "cc4e_05_objects"
+        }
+    ]
+},
+{
     "title": "K&R 7: Input / Output",
     "anchor": "io",
     "icon" : "fa-arrows-h",
