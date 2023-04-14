@@ -22,14 +22,10 @@ EOF
 function ccauto_sample($LAUNCH) {
     return <<< EOF
 void __TreeMap_put(struct TreeMap* self, char *key, int value) {
-
     struct TreeMapEntry *cur, *left, *right;
     int cmp;
     struct TreeMapEntry *old, *new;
     char *new_key;
-
-    if ( key == NULL ) return;
-
     cur = self->__root;
     left = NULL;
     right = NULL;
