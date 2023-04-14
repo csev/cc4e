@@ -225,8 +225,14 @@ function cc4e_compile($code, $input, $main=null)
         $after = "";
         $pos = strpos($main, 'int main(');
         if ( $pos > 0 ) {
-            $before = substr($main,0, $pos-1);
+            $before = substr($main, 0, $pos-1);
             $after = substr($main, $pos);
+        }
+	$marker = '#include "student.c"';
+        $pos = strpos($main, $marker);
+        if ( $pos > 0 ) {
+            $before = substr($main, 0, $pos-1);
+            $after = substr($main, $pos+strlen($marker));
         }
         $code = $before . "\n" . $code . "\n" . $after;
     }
@@ -280,7 +286,7 @@ function cc4e_compile($code, $input, $main=null)
             'strrev',
             'sqrt', 'pow', 'ciel', 'floor', 'abs',
             'sin', 'cos', 'tan', 'sinh', 'cosh', 'tanh',
-            'atoi', 'isspace', 
+            'atoi', 'isspace', 'tolower', 'toupper',
             '___chkstk_darwin', '_ctype_b_loc', 'cputchar',
         );
         $more_externals = array();
