@@ -38,41 +38,23 @@ void __Map_put(struct Map* self, char *key, int value) {
     }
 
     new = malloc(sizeof(*new));
-    new->__next = NULL;
-    if ( self->__head == NULL ) self->__head = new;
-    if ( self->__tail != NULL ) self->__tail->__next = new;
-    new->__prev = self->__tail;
-    self->__tail = new;
 
-    new_key = malloc(strlen(key)+1);
-    strcpy(new_key, key);
-    new->key = new_key;
-
-    new->value = value;
+    /* TODO: Link new to the tail of the list */
 
     self->__count++;
 }
 
 struct MapEntry* __MapIter_next(struct MapIter* self)
 {
-    struct MapEntry * retval = self->__current;
-    if ( retval == NULL) return NULL;
-    self->__current = self->__current->__next;
-    return retval;
+    /* TODO: Advance the iterator */
+    return NULL;
 }
 
 struct MapIter* __Map_iter(struct Map* self)
 {
     struct MapIter *iter = malloc(sizeof(*iter));
-    iter->__current = self->__head;
-    iter->next = &__MapIter_next;
-    iter->del = &__MapIter_del;
+    /* TODO: fill in the new iterator */
     return iter;
-}
-
-int __Map_size(struct Map* self)
-{
-    return self->__count;
 }
 
 struct Map * Map_new() {
@@ -85,7 +67,6 @@ struct Map * Map_new() {
     p->get = &__Map_get;
     p->size = &__Map_size;
     p->dump = &__Map_dump;
-    p->iter = &__Map_iter;
     p->del = &__Map_del;
     return p;
 }
@@ -154,7 +135,6 @@ void __Map_dump(struct Map* self)
     for(cur = self->__head; cur != NULL ; cur = cur->__next ) {
          printf("  %s=%d\\n", cur->key, cur->value);
     }
-    fflush(stdout);
 }
 
 struct MapEntry* __Map_find(struct Map* self, char *key)
@@ -172,6 +152,11 @@ int __Map_get(struct Map* self, char *key, int def)
     struct MapEntry *retval = __Map_find(self, key);
     if ( retval == NULL ) return def;
     return retval->value;
+}
+
+int __Map_size(struct Map* self)
+{
+    return self->__count;
 }
 
 /* Student code will be inserted here */
@@ -302,11 +287,6 @@ struct MapIter* __Map_iter(struct Map* self)
     iter->next = &__MapIter_next;
     iter->del = &__MapIter_del;
     return iter;
-}
-
-int __Map_size(struct Map* self)
-{
-    return self->__count;
 }
 
 struct Map * Map_new() {

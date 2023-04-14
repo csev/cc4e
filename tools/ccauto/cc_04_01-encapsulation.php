@@ -52,31 +52,21 @@ void __Map_put(struct Map* self, char *key, int value) {
     }
 
     new = malloc(sizeof(*new));
-    new->__next = NULL;
-    if ( self->__head == NULL ) self->__head = new;
-    if ( self->__tail != NULL ) self->__tail->__next = new;
-    new->__prev = self->__tail;
-    self->__tail = new;
 
-    new_key = malloc(strlen(key)+1);
-    strcpy(new_key, key);
-    new->key = new_key;
-
-    new->value = value;
+    /* Need some code here... */
 
     self->__count++;
 }
 
 int __Map_size(struct Map* self)
 {
-    return self->__count;
+    return 42;
 }
 
 int __Map_get(struct Map* self, char *key, int def)
 {
-    struct MapEntry *retval = __Map_find(self, key);
-    if ( retval == NULL ) return def;
-    return retval->value;
+    /* You need some code here */
+    return def;
 }
 
 struct Map * Map_new() {
@@ -85,11 +75,6 @@ struct Map * Map_new() {
     p->__head = NULL;
     p->__tail = NULL;
     p->__count = 0;
-    p->put = &__Map_put;
-    p->get = &__Map_get;
-    p->size = &__Map_size;
-    p->dump = &__Map_dump;
-    p->del = &__Map_del;
     return p;
 }
 
@@ -156,7 +141,6 @@ struct MapEntry* __Map_find(struct Map* self, char *key)
     }
     return NULL;
 }
-
 
 /* Student code will be inserted here */
 
