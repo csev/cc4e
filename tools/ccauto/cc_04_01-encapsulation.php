@@ -72,6 +72,13 @@ int __Map_size(struct Map* self)
     return self->__count;
 }
 
+int __Map_get(struct Map* self, char *key, int def)
+{
+    struct MapEntry *retval = __Map_find(self, key);
+    if ( retval == NULL ) return def;
+    return retval->value;
+}
+
 struct Map * Map_new() {
     struct Map *p = malloc(sizeof(*p));
 
@@ -150,12 +157,6 @@ struct MapEntry* __Map_find(struct Map* self, char *key)
     return NULL;
 }
 
-int __Map_get(struct Map* self, char *key, int def)
-{
-    struct MapEntry *retval = __Map_find(self, key);
-    if ( retval == NULL ) return def;
-    return retval->value;
-}
 
 /* Student code will be inserted here */
 
@@ -257,6 +258,14 @@ int __Map_size(struct Map* self)
 {
     return self->__count;
 }
+
+int __Map_get(struct Map* self, char *key, int def)
+{
+    struct MapEntry *retval = __Map_find(self, key);
+    if ( retval == NULL ) return def;
+    return retval->value;
+}
+
 
 struct Map * Map_new() {
     struct Map *p = malloc(sizeof(*p));
