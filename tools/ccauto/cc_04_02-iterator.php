@@ -15,6 +15,10 @@ function ccauto_instructions($LAUNCH) {
     There is a good deal of discussion of iterators in the lecture
     materials associated with this assignment.
 </p>
+<p>
+A good starting point for this assignment is the code used for the previous assignment.
+This assignment will add a new feature to the previous assignment.
+</p>
 EOF
 ;
 }
@@ -23,20 +27,16 @@ EOF
 function ccauto_sample($LAUNCH) {
     return <<< EOF
 void __Map_put(struct Map* self, char *key, int value) {
-
     struct MapEntry *old, *new;
     char *new_key;
-
     if ( key == NULL ) return;
 
-    /* First look up */
     old = __Map_find(self, key);
     if ( old != NULL ) {
         old->value = value;
         return;
     }
 
-    /* Not found - time to insert */
     new = malloc(sizeof(*new));
     new->__next = NULL;
     if ( self->__head == NULL ) self->__head = new;
@@ -56,10 +56,8 @@ void __Map_put(struct Map* self, char *key, int value) {
 struct MapEntry* __MapIter_next(struct MapIter* self)
 {
     struct MapEntry * retval = self->__current;
-
     if ( retval == NULL) return NULL;
     self->__current = self->__current->__next;
-
     return retval;
 }
 
@@ -72,13 +70,17 @@ struct MapIter* __Map_iter(struct Map* self)
     return iter;
 }
 
+int __Map_size(struct Map* self)
+{
+    return self->__count;
+}
+
 struct Map * Map_new() {
     struct Map *p = malloc(sizeof(*p));
 
     p->__head = NULL;
     p->__tail = NULL;
     p->__count = 0;
-
     p->put = &__Map_put;
     p->get = &__Map_get;
     p->size = &__Map_size;
@@ -172,11 +174,6 @@ int __Map_get(struct Map* self, char *key, int def)
     return retval->value;
 }
 
-int __Map_size(struct Map* self)
-{
-    return self->__count;
-}
-
 /* Student code will be inserted here */
 
 int main(void)
@@ -185,6 +182,10 @@ int main(void)
     struct MapEntry *cur;
     struct MapIter *iter;
 
+    /* Make sure we see all output up to an error */
+    setvbuf(stdout, NULL, _IONBF, 0); 
+
+    printf("Map test\\n");
     map->put(map, "z", 8);
     map->put(map, "z", 1);
     map->put(map, "y", 2);
@@ -192,13 +193,12 @@ int main(void)
     map->put(map, "a", 4);
     map->dump(map);
 
-
     printf("size=%d\\n", map->size(map));
 
     printf("z=%d\\n", map->get(map, "z", 42));
     printf("x=%d\\n", map->get(map, "x", 42));
 
-    printf("\\\nIterate\\n");
+    printf("\\nIterate\\n");
     iter = map->iter(map);
     while(1) {
         cur = iter->next(iter);
@@ -219,6 +219,7 @@ function ccauto_input($LAUNCH) { return false; }
 function ccauto_output($LAUNCH) {
     GLOBAL $RANDOM_CODE_HOUR, $CHAR_2_10, $LOWER_2_10;
     return <<< EOF
+Map test
 Object Map count=4
   z=1
   y=2
@@ -227,6 +228,7 @@ Object Map count=4
 size=4
 z=1
 x=42
+
 Iterate
 z=1
 y=2
@@ -247,6 +249,11 @@ function ccauto_prohibit($LAUNCH) {
 function ccauto_require($LAUNCH) {
     return array (
         array("malloc", "You need to use malloc() to allocate some memory."),
+        array("&__Map_get", "You need to initialize map->get() in the constructor (encapsulation)."),
+        array("&__Map_put", "You need to initialize map->put() in the constructor. (encapsulation)"),
+        array("&__Map_dump", "You need to initialize map->dump() in the constructor. (encapsulation)"),
+        array("&__Map_iter", "You need to initialize map->iter() in the constructor. (encapsulation)"),
+        array("&__Map_del", "You need to initialize map->del() in the constructor. (encapsulation)"),
     );
 }
 
@@ -254,20 +261,16 @@ function ccauto_require($LAUNCH) {
 function ccauto_solution($LAUNCH) {
     return <<< EOF
 void __Map_put(struct Map* self, char *key, int value) {
-
     struct MapEntry *old, *new;
     char *new_key;
-
     if ( key == NULL ) return;
 
-    /* First look up */
     old = __Map_find(self, key);
     if ( old != NULL ) {
         old->value = value;
         return;
     }
 
-    /* Not found - time to insert */
     new = malloc(sizeof(*new));
     new->__next = NULL;
     if ( self->__head == NULL ) self->__head = new;
@@ -287,10 +290,8 @@ void __Map_put(struct Map* self, char *key, int value) {
 struct MapEntry* __MapIter_next(struct MapIter* self)
 {
     struct MapEntry * retval = self->__current;
-
     if ( retval == NULL) return NULL;
     self->__current = self->__current->__next;
-
     return retval;
 }
 
@@ -303,13 +304,17 @@ struct MapIter* __Map_iter(struct Map* self)
     return iter;
 }
 
+int __Map_size(struct Map* self)
+{
+    return self->__count;
+}
+
 struct Map * Map_new() {
     struct Map *p = malloc(sizeof(*p));
 
     p->__head = NULL;
     p->__tail = NULL;
     p->__count = 0;
-
     p->put = &__Map_put;
     p->get = &__Map_get;
     p->size = &__Map_size;
@@ -318,7 +323,6 @@ struct Map * Map_new() {
     p->del = &__Map_del;
     return p;
 }
-
 EOF
 ;
 }

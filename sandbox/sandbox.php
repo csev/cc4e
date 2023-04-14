@@ -62,8 +62,8 @@ function cc4e_pipe($command, $stdin, $cwd, $env, $timeout)
             // Do this before we read from the stream,
             // this way we can't lose the last bit of output if the process dies between these functions.
             $status = proc_get_status($process);
-        $ppid = $status['pid'];
-        $retval->ppid = $status['pid'];
+            $ppid = $status['pid'];
+            $retval->ppid = $status['pid'];
 
             // Read the contents from the stdout.
             // This function will always return immediately as the stream is non-blocking.
@@ -272,7 +272,7 @@ function cc4e_compile($code, $input, $main=null)
         $allowed_externals = array(
             'puts', 'printf', 'putchar', 'scanf', 'sscanf', 'getchar', 'gets', 'fgets',
             '__stack_chk_guard', '__stack_chk_fail', '_stack_chk_guard', '_stack_chk_fail',
-            '__isoc99_scanf', '__isoc99_sscanf', 'fflush',
+            '__isoc99_scanf', '__isoc99_sscanf', 'fflush', 'setvbuf',
             '_stack_chk_guard', '_stack_chk_fail', '_isoc99_scanf', '_isoc99_sscanf',
             '__stdinp',
             'malloc', 'calloc', 'realloc', 'memset', '__memset_chk', 'free',
