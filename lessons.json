@@ -1156,13 +1156,35 @@
             ]
         },
         {
-        "title" : "TBD",
+        "title" : "Build a HashMap",
         "launch" : "tools/ccauto/",
-        "resource_link_id": "cc_05_tbd",
+        "resource_link_id": "cc_05_hash",
         "custom" : [
             {
                 "key": "exercise",
-                "value": "cc_05_01-tbd.php"
+                "value": "cc_05_01-hash.php"
+            }
+        ]
+        },
+        {
+        "title" : "Build a LinkedTreeMap",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc_05_tree",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "cc_05_02-tree.php"
+            }
+        ]
+        },
+        {
+        "title" : "Throwback: Count words",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc_05_words",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "cc_05_02-words.php"
             }
         ]
         }
