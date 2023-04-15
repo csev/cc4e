@@ -17,7 +17,7 @@ The easiest approach to this assignment is to start with your
 implementation of Map using a linked list and then adapt it
 from a single <b>head</b> value to an array of <b>head</b> values
 that each point to an independent linked list.  We use the getHash()
-function to choose the approariate linked leist head from the array
+function to choose the appropriate linked list head from the array
 of head values.
 </p>
 <p>
