@@ -115,6 +115,9 @@ int main(void)
 {
     struct dnode * cur;
     struct pydict * dct = pydict_new();
+
+    setvbuf(stdout, NULL, _IONBF, 0);  /* Internal */
+
     pydict_put(dct, "z", "Catch phrase");
     pydict_print(dct);
     pydict_put(dct, "z", "W");

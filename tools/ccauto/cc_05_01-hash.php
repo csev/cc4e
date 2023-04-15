@@ -197,6 +197,7 @@ int main(void)
     struct HashMap * map = HashMap_new();
     struct HashMapEntry *cur;
     struct HashMapIter *iter;
+
     setvbuf(stdout, NULL, _IONBF, 0);  /* Internal */
 
     printf("Testing HashMap\\n");

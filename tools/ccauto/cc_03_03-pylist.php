@@ -115,6 +115,8 @@ void pylist_del(struct pylist* self) {
 
 int main(void)
 {
+    setvbuf(stdout, NULL, _IONBF, 0);  /* Internal */
+
     struct pylist * lst = pylist_new();
     pylist_append(lst, "Hello world");
     pylist_print(lst);

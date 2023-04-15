@@ -26,34 +26,24 @@ void __TreeMap_put(struct TreeMap* self, char *key, int value) {
     int cmp;
     struct TreeMapEntry *old, *new;
     char *new_key;
+
     cur = self->__root;
     left = NULL;
     right = NULL;
-    while(cur != NULL ) {
-        cmp = strcmp(key, cur->key);
-        if(cmp == 0 ) {
-            cur->value = value;
-            return;
-        }
-        if( cmp < 0 ) {
-            right = cur;
-            cur = cur->__left;
-        } else {
-            left = cur;
-            cur = cur->__right;
-        }
-    }
+
+    /* TODO: Loop through the tree from the root.  If the matches
+     * the node, update the value and return.  Ad the tree is scanned,
+     * keep track of the node containing largest key less than "key"
+     * in the variable left and the node containing the smallest key
+     * greater than "key" in the variable "right".  So if the key is
+     * not found, left will be the closest lower neighbor or null
+     * and right will be the closest greater neighbor or null.
+     */
 
     /* Not found - time to insert into the linked list after old */
     new = malloc(sizeof(*new));
-    new->__next = NULL;
-    new->__left = NULL;
-    new->__right = NULL;
-    new_key = malloc(strlen(key)+1);
-    strcpy(new_key, key);
-    new->key = new_key;
-    new->value = value;
-    self->__count++;
+
+    /* TODO: Set up the new node with its new data. */
 
     /* Empty list - add first entry */
     if ( self->__head == NULL ) {
@@ -62,32 +52,12 @@ void __TreeMap_put(struct TreeMap* self, char *key, int value) {
         return;
     }
 
-    /* Keep this in here */
+    /* Keep this in here - it will help you debug the above code */
     __Map_check(self, left, key, right);
 
-    /* Insert into the sorted linked list */
-    if ( left != NULL ) {
-        if ( left->__next != right ) {
-            printf("FAIL left->__next != right\\n");
-        }
-        new->__next = right;
-        left->__next = new;
-    } else {
-        if ( self->__head != right ) {
-            printf("FAIL self->__head != right\\n");
-        }
-        new->__next = self->__head;
-        self->__head = new;
-    }
+    /* TODO: Insert into the sorted linked list */
 
-    /* Insert into the tree */
-    if ( right != NULL && right->__left == NULL ) {
-        right->__left = new;
-    } else if ( left != NULL && left->__right == NULL ) {
-        left->__right = new;
-    } else {
-        printf("FAIL Neither right->__left nor left->__right are available\\n");
-    }
+    /* TODO: Insert into the tree */
 
 }
 
@@ -99,23 +69,21 @@ int __TreeMap_get(struct TreeMap* self, char *key, int def)
     if ( self == NULL || key == NULL || self->__root == NULL ) return def;
 
     cur = self->__root;
-    while(cur != NULL ) {
-        cmp = strcmp(key, cur->key);
-        if(cmp == 0 ) return cur->value;
-        else if(cmp < 0 ) cur = cur->__left;
-        else cur = cur->__right;
 
-    }
+    /* TODO: scan down the tree and if the key is found, return the value.
+     * If the key is not found, return the default value (def).
+     */
+
     return def;
 }
 
 struct TreeMapEntry* __TreeMapIter_next(struct TreeMapIter* self)
 {
-    struct TreeMapEntry* retval;
-    if ( self->__current == NULL) return NULL;
-    retval = self->__current;
-    self->__current = self->__current->__next;
-    return retval;
+    /* Advance the iterator.  Recall that when we first 
+     * create the iterator __current points to the first item
+     * so we must return an item and then advance the iterator.
+     */
+    return NULL;
 }
 
 EOF
@@ -149,6 +117,7 @@ struct TreeMap {
    struct TreeMapEntry *__head;
    struct TreeMapEntry *__root;
    int __count;
+   int debug;
 
    /* Methods */
    void (*put)(struct TreeMap* self, char *key, int value);
@@ -205,7 +174,8 @@ void __TreeMap_dump(struct TreeMap* self)
 /* Run a check to see if left and right are broken */
 void __Map_check(struct TreeMap* self, struct TreeMapEntry *left, char *key, struct TreeMapEntry *right)
 {
-    printf("Check position: %s < %s > %s\\n", (left ? left->key : "0"),
+    if ( self->debug ) 
+        printf("Check position: %s < %s > %s\\n", (left ? left->key : "0"),
             key, (right ? right->key : "0") );
 
     /* Check our location in the linked list */
@@ -251,6 +221,7 @@ struct TreeMap * TreeMap_new() {
     p->__head = NULL;
     p->__root = NULL;
     p->__count = 0;
+    p->debug = 0;
 
     p->put = &__TreeMap_put;
     p->get = &__TreeMap_get;
@@ -266,6 +237,10 @@ int main(void)
     struct TreeMap * map = TreeMap_new();
     struct TreeMapEntry *cur;
     struct TreeMapIter *iter;
+
+    setvbuf(stdout, NULL, _IONBF, 0);  /* Internal */
+
+    map->debug = 1 == 1;
 
     printf("Testing TreeMap\\n");
     map->put(map, "h", 42);

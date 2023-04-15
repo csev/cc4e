@@ -55,6 +55,9 @@ int main(void)
 
     setvbuf(stdout, NULL, _IONBF, 0);  /* Internal */
 
+    /* Turn off debug */
+    map->debug = 0;
+
     /* Loop over each word in the file */
     while (scanf("%s", word) != EOF) {
         for (i=0, j=0; word[i] != '\\0'; i++) {
@@ -90,10 +93,8 @@ EOF
 
 function ccauto_input($LAUNCH) { 
 	return <<< EOF
-But soft what light through yonder window breaks
-It is the east and Juliet is the sun
-Arise fair sun and kill the envious moon
-Who is already sick and pale with grief
+the clown ran after the car and the car ran into the
+tent and the tent fell down on the clown and the car
 EOF
 ;
 }
@@ -101,7 +102,7 @@ EOF
 function ccauto_output($LAUNCH) {
     GLOBAL $RANDOM_CODE_HOUR, $CHAR_2_10, $LOWER_2_10;
     return <<< EOF
-Yada
+the 7
 EOF
 ;
 }
@@ -142,6 +143,7 @@ struct TreeMap {
    struct TreeMapEntry *__head;
    struct TreeMapEntry *__root;
    int __count;
+   int debug;
 
    /* Methods */
    void (*put)(struct TreeMap* self, char *key, int value);
@@ -198,7 +200,8 @@ void __TreeMap_dump(struct TreeMap* self)
 /* Run a check to see if left and right are broken */
 void __Map_check(struct TreeMap* self, struct TreeMapEntry *left, char *key, struct TreeMapEntry *right)
 {
-    /* printf("Check position: %s < %s > %s\\n", (left ? left->key : "0"), key, (right ? right->key : "0") ); */
+    if ( self->debug ) 
+        printf("Check position: %s < %s > %s\\n", (left ? left->key : "0"), key, (right ? right->key : "0") );
 
     /* Check our location in the linked list */
     if ( left != NULL ) {
@@ -342,6 +345,7 @@ struct TreeMap * TreeMap_new() {
     p->__head = NULL;
     p->__root = NULL;
     p->__count = 0;
+    p->debug = 0;
 
     p->put = &__TreeMap_put;
     p->get = &__TreeMap_get;

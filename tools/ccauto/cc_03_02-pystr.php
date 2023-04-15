@@ -105,6 +105,8 @@ char *pystr_str(const struct pystr* self)
 
 int main(void)
 {
+    setvbuf(stdout, NULL, _IONBF, 0);  /* Internal */
+
     struct pystr * x = pystr_new();
     pystr_dump(x);
 
