@@ -141,6 +141,7 @@ $stderr = False;
 if ( isset($_POST['reset']) ) {
     unset($_SESSION['retval']);
     unset($_SESSION['code']);
+    unset($_SESSION['actual']);
     GradeUtil::gradeUpdateJson(json_encode(array("code" => null)));
     header( 'Location: '.addSession('index.php') ) ;
     return;
@@ -155,7 +156,10 @@ if ( isset($_POST['code']) ) {
 
 $code = U::get($_SESSION, 'code');
 $retval = U::get($_SESSION, 'retval');
-
+$actual = U::get($_SESSION, 'actual');
+$prohibit_results = null;
+$require_results = null;
+$graderet = false;
 
 if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
    $succinct = preg_replace('/\s+/', ' ', $code);
@@ -169,8 +173,19 @@ if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
         $retval = cc4e_compile($code, $input, $main);
         GradeUtil::gradeUpdateJson(json_encode(array("code" => $code)));
         $_SESSION['retval'] = $retval;
+        $actual = isset($retval->docker->stdout) && strlen($retval->docker->stdout) > 0 ? $retval->docker->stdout : false;
+        $_SESSION['actual'] = $actual;
+        if ( is_string($actual) && is_string($output) && trim($actual) == trim($output) ) {
+            $grade = 1.0;
+            $debug_log = array();
+            $graderet = LTIX::gradeSend($grade, false, $debug_log);
+            error_log("Success: ".$displayname.' '.$email);
+            // $OUTPUT->dumpDebugArray($debug_log);
+	}
     }
 }
+
+$output_compare_fail = is_string($actual) && is_string($output) && trim($actual) != trim($output);
 
 $row = GradeUtil::gradeLoad();
 $json = array();
@@ -269,6 +284,7 @@ table th { border-left: 1px solid #000; padding: 2px;}
 </style>
 
 <?php
+
 $OUTPUT->bodyStart();
 $OUTPUT->topNav($menu);
 
@@ -296,6 +312,7 @@ if ( ! (isset($ASSIGNMENT) && $ASSIGNMENT) ) {
     return;
 }
 
+
 echo("<p>".$instructions."</p>\n");
 ?>
 <div id="editor_panel">
@@ -305,16 +322,22 @@ echo("<p>".$instructions."</p>\n");
 <input type="submit" name="reset" value="Reset Code"
     onclick="return confirm('Do you really want to reset the code to the default?');"
 >
-<input type="submit" style="float:right;" value="Max" id="max_min"
+<input type="submit" style="float:right;display:none;" value="Max" id="max_min"
     onclick="toggleMax();return false;"
 >
 <span id="runstatus"><img src="<?= $OUTPUT->getSpinnerUrl() ?>"/></span>
 <span id="editstatus" style="display: none;">Edit code below:</span>
 <?php
+column_row_start();
+column_editor_start();
+?>
+<?php
 $errors = cc4e_play_errors($retval);
 cc4e_play_inputs($lines, $code);
+
+column_editor_end();
+column_io_start();
 ?>
-</div>
 <?php
 if ( is_string($input) && strlen($input) > 0 ) {
 ?>
@@ -330,11 +353,8 @@ if ( is_string($input) && strlen($input) > 0 ) {
 <?php
 
     // https://code.iamkate.com/php/diff-implementation/
+    $diff_shown = false;
 
-    $output_match = false;
-    $prohibit_results = check_prohibit($code, $prohibit);
-    $require_results = check_require($code, $require);
-    $actual = isset($retval->docker->stdout) && strlen($retval->docker->stdout) > 0 ? $retval->docker->stdout : false;
     if ( is_array($prohibit_results) ) {
         echo '<p style="color:red;">NOT GRADED: '.$prohibit_results[0].'</p>'."\n";
         error_log("Prohibited: ".$displayname.' '.$email.': '.$prohibit_results[0]);
@@ -343,21 +363,10 @@ if ( is_string($input) && strlen($input) > 0 ) {
         error_log("Required: ".$displayname.' '.$email.': '.$require_results[0]);
     } else if ( is_string($actual) && is_string($output) ) {
         if ( trim($actual) == trim($output) ) {
-            $grade = 1.0;
-            $debug_log = array();
-            $graderet = LTIX::gradeSend($grade, false, $debug_log);
-            error_log("Success: ".$displayname.' '.$email);
-            // $OUTPUT->dumpDebugArray($debug_log);
             if ( $graderet == true ) {
                 echo('<p style="color:green;">OUTPUT MATCH - Grade sent to server</p>'."\n");
-    		$output_match = true;
             } else if ( is_string($graderet) ) {
                 echo('<p style="color:red;">OUTPUT MATCH - Grade not sent: '.$graderet."</p>\n");
-            } else {
-                echo('<p style="color:red;">Internal send error</p>'."\n");
-                echo("<pre>\n");
-                var_dump($graderet);
-                echo("</pre>\n");
             }
         } else {
             echo '<p style="color:red;">Output does not match</p>'."\n";
@@ -369,42 +378,44 @@ if ( is_string($input) && strlen($input) > 0 ) {
             $table = str_replace('<br>', '', $table);
             echo($table);
             echo('</div>');
-        }
-    }
-
-    if ( ! $output_match ) {
+	    $diff_shown = true;
+	}
+    } else if (is_string($output) ) {
     	echo '<div style="color: green;">'."\n";
     	echo "Expected output from your program:\n\n";
-    	echo('<div id="expectedoutput" class="pre_text"><pre>');
+    	echo('<div id="expectedoutput" class="xpre_text"><pre>');
     	echo(htmlentities($output, ENT_NOQUOTES));
     	echo("</pre></div>\n");
     	echo("</div>\n");
     }
 
- cc4e_play_output($retval);
+
+if ( ! $diff_shown) cc4e_play_output($retval);
+column_io_end();
 ?>
 </form>
 <?php
+column_main_start();
 
 if ( is_string($main) && strlen($main) > 0 ) {
 echo '<div style="color: blue;">'."\n";
     echo "The main program which will execute your code:\n\n";
-    echo('<div id="mainprogram" class="pre_text"><pre>');
+    echo('<div id="xmainprogram" class="xpre_text"><pre>');
     echo(htmlentities($main, ENT_NOQUOTES));
     echo("</pre></div>\n");
     echo("</div>\n");
 }
 
+column_main_end();
+column_row_end();
+
+echo('<div class="row">'."\n");
+echo('</div>  <!-- class="row" -->'."\n");
+
 cc4e_play_debug($retval);
 
-if ( $LAUNCH->user->instructor && is_string($solution) && strlen($solution) > 0 ) {
-    echo("<div><p>Solution: (instructor only)</p><pre>\n");
-    echo(htmlentities($solution, ENT_NOQUOTES));
-    echo("</pre></div>\n");
-}
-
 ?>
-<p>
+<p style="margin-top: 1em;">
 This compiler uses a pretty complex docker setup to run your code - you
 might get  "docker error" or a "timeout" if there is a problem with the
 compiler environment.  Usually you can just re-try a
@@ -415,11 +426,18 @@ of its C compiler.
 </p>
 <?php
 
+if ( $LAUNCH->user->instructor && is_string($solution) && strlen($solution) > 0 ) {
+    echo("<div><p>Solution: (instructor only)</p><pre>\n");
+    echo(htmlentities($solution, ENT_NOQUOTES));
+    echo("</pre></div>\n");
+}
+
 $OUTPUT->footerStart();
 cc4e_play_footer();
 ?>
 <script>
 $(document).ready( function() {
+    document.getElementById("body_container").className = "container-fluid";
     var width = $('#difftable').parent().width();
     console.log('yada', width);
     $('td:first-child').width(width/2);
@@ -433,6 +451,10 @@ $(document).ready( function() {
         $(tag).css('overflow', 'hidden');
 
     });
+    $(window).resize(function() {
+         window.console && console.log('.resize() called. width='+
+           $(window).width()+' height='+$(window).height());
+     });
 });
 function startRun() {
 	$("#runstatus").show();

@@ -87,7 +87,7 @@ if ( isset($retval->docker->stdout) ) {
     echo '<div style="color: blue;">'."\n";
     echo "Output from your program:\n\n";
     // echo '<textarea id="myouput" readonly name="output" style="color: blue; width:100%; border: 1px black solid;">';
-    echo('<div id="myoutput" class="pre_text"><pre>');
+    echo('<div id="myoutput" class="xpre_text"><pre>');
     echo(htmlentities($retval->docker->stdout, ENT_NOQUOTES));
     // echo("</textarea>\n");
     echo("</pre></div>\n");
