@@ -20,10 +20,6 @@ that each point to an independent linked list.  We use the getHash()
 function to choose the appropriate linked list head from the array
 of head values.
 </p>
-<p>
-There is a good deal of discussion of how hash maps work in the lecture
-materials associated with this assignment.
-</p>
 EOF
 ;
 }

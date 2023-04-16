@@ -19,17 +19,6 @@ function ccauto_instructions($LAUNCH) {
 <a href="https://en.wikipedia.org/wiki/Naming_convention_(programming)" target="_blank">dunder</a>)
 in C.  
     We will also switch the method calls to be stored within the object structure.
-    In the previous assignment we called global functions using a naming covention:
-<pre>
-    pydict_len(self);
-</pre>
-    and instead call methods using the object instance and the "arrow syntax":
-<pre>
-    map-&gt;len(self);
-</pre>
-    Some code and
-    method signatures have been provided for you as well as a main() program
-    and some support routines from the lecture slides.
     There is a good deal of discussion of this application in the lecture
     materials associated with this assignment.
 </p>
