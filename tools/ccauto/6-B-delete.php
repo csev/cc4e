@@ -14,18 +14,6 @@ function ccauto_instructions($LAUNCH) {
 You will extend the previous assignment with list_add() and list_find() and add
 a function called list_delete() that
 will find and remove the node containing the integer value if it is in the list.
-The structure of the list and the node are already defined for you:
-<pre>
-struct lnode {
-    int value;
-    struct lnode *next;
-};
-
-struct list {
-  struct lnode *head;
-  struct lnode *tail;
-};
-</pre>
 </p>
 EOF
 ;

@@ -17,18 +17,6 @@ function ccauto_instructions($LAUNCH) {
     and some support routines from the lecture slides.  
     There is a good deal of discussion of this application in the lecture
     materials associated with this assignment.
-<pre>
-struct lnode {
-    char *text;
-    struct lnode *next;
-};
-
-struct pylist {
-  struct lnode *head;
-  struct lnode *tail;
-  int count;
-};
-</pre>
 </p>
 EOF
 ;
