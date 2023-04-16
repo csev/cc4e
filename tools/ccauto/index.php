@@ -341,7 +341,9 @@ column_io_start();
 <?php
 if ( is_string($input) && strlen($input) > 0 ) {
 ?>
-<p>This will be provided as input to your program:</p>
+<p>This will be provided as input to your program:
+<a href="#" onclick="copyToClipboardNoScroll(this, $('#programinput').text(), true);return false;">Copy</a>
+</p>
 <p>
 <div id="programinput" class="pre_text"><pre>
 <?php
@@ -398,12 +400,14 @@ column_io_end();
 column_main_start();
 
 if ( is_string($main) && strlen($main) > 0 ) {
-echo '<div style="color: blue;">'."\n";
-    echo "The main program which will execute your code:\n\n";
-    echo('<div id="xmainprogram" class="xpre_text"><pre>');
-    echo(htmlentities($main, ENT_NOQUOTES));
-    echo("</pre></div>\n");
-    echo("</div>\n");
+?>
+<div style="color: blue;">
+The main program which will execute your code:
+<div id="mainprogram" class="xpre_text"><pre id="mainpre">
+<?php    echo(htmlentities($main, ENT_NOQUOTES)); ?>
+</pre></div>
+<div>
+<?php
 }
 
 column_main_end();
@@ -411,7 +415,6 @@ column_row_end();
 
 echo('<div class="row">'."\n");
 echo('</div>  <!-- class="row" -->'."\n");
-
 cc4e_play_debug($retval);
 
 ?>
@@ -427,9 +430,14 @@ of its C compiler.
 <?php
 
 if ( $LAUNCH->user->instructor && is_string($solution) && strlen($solution) > 0 ) {
-    echo("<div><p>Solution: (instructor only)</p><pre>\n");
-    echo(htmlentities($solution, ENT_NOQUOTES));
-    echo("</pre></div>\n");
+?>
+<div><p>Solution: (instructor only)
+<a href="#" onclick="copyToClipboardNoScroll(this, $('#instructor_solution').text(), true);return false;">Copy</a>
+</p>
+<pre id="instructor_solution">
+<?php echo(htmlentities($solution, ENT_NOQUOTES)); ?>
+</pre></div>
+<?php
 }
 
 $OUTPUT->footerStart();
