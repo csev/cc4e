@@ -19,14 +19,6 @@ function ccauto_instructions($LAUNCH) {
     the length of the buffer use realloc() to expand the buffer by 10.
     There is a good deal of discussion of this application in the lecture
     materials associated with this assignment.
-<pre>
-struct pystr
-{
-    int length;
-    int alloc; /* the length of *data */
-    char *data;
-};
-</pre>
 </p>
 EOF
 ;

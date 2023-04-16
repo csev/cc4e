@@ -17,19 +17,6 @@ function ccauto_instructions($LAUNCH) {
     and some support routines from the lecture slides.
     There is a good deal of discussion of this application in the lecture
     materials associated with this assignment.
-<pre>
-struct dnode {
-    char *key;
-    char *value;
-    struct dnode *next;
-};
-
-struct pydict {
-  struct dnode *head;
-  struct dnode *tail;
-  int count;
-};
-</pre>
 </p>
 EOF
 ;
