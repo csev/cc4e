@@ -330,8 +330,8 @@ struct HashMapEntry* __HashMapIter_next(struct HashMapIter* self)
 
     /* We might be at the end of a chain so advance the bucket until we find a non-empty bucket */
     while ( self->__current == NULL) {
-        if ( self->__bucket >= self->__map->__buckets ) return NULL;
         self->__bucket++;
+        if ( self->__bucket >= self->__map->__buckets ) return NULL;
         self->__current = self->__map->__heads[self->__bucket];
     }
     retval = self->__current;
