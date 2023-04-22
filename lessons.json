@@ -40,12 +40,13 @@
             "youtube" : "VZ2N0MuAUGA"
         },
         {
-            "title" : "Chapter 0 - Introduction (Video)",
-            "youtube" : "XSEGkAOxKZ4"
+            "title" : "Brian Kernighan - Building C at Bell Labs",
+            "original": "2023-04-Kernighan-C",
+            "youtube" : "v8uLDu7LAEc"
         },
         {
-            "title" : "Video: 'C' Programming Language: Brian Kernighan (from Computerphile)",
-            "youtube" : "de2Hsvxaf8M"
+            "title" : "Chapter 0 - Introduction (Video)",
+            "youtube" : "XSEGkAOxKZ4"
         }
     ],
     "references" : [
@@ -940,6 +941,11 @@
         {
             "title" : "Object Oriented Programming - A Historical Perspective",
             "youtube" : "GXkwKNEiYEI"
+        },
+        {
+            "title" : "Brian Kernighan - C and C++ at Bell Labs",
+            "original": "2023-04-Kernighan-Plus",
+            "youtube" : "vxGOuYvWedg"
         },
         {
             "title" : "Comparing Object Oriented Programming Approaches Across Languages",

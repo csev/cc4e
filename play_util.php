@@ -131,7 +131,7 @@ if ( isset($retval->assembly->stdout) && is_string($retval->assembly->stdout) ) 
 <?php if ( $LOGGED_IN ) { ?>
 <script>
 $(document).ready(function() {
-<?php if ( isset($CFG->cc4e_no_ping) && $CFG->cc4e_no_ping ) { ?>
+<?php if ( U::get($CFG->extensions, 'cc4e_no_ping') ) { ?>
    	$('#runcode').attr('disabled' , false);
    	$('#runstatus').html('');
    	$('#editstatus').show();

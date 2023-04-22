@@ -215,7 +215,8 @@ function cc4e_compile($code, $input, $main=null)
 
     $retval->folder = $folder;
 
-    $gcc_options = $CFG->cc4e_gcc_options ?? '-ansi -Wno-return-type -Wno-pointer-to-int-cast -Wno-builtin-declaration-mismatch -Wno-int-conversion';
+    $gcc_options = '-ansi -Wno-return-type -Wno-pointer-to-int-cast -Wno-builtin-declaration-mismatch -Wno-int-conversion';
+    $gcc_options = U::get($CFG->extensions, 'cc4e_gcc_options', $gcc_options);
 
     $command = 'rm -rf * ; cat > student.c ; gcc '.$gcc_options.' -fno-asm -S student.c ; [ -f student.s ] && cat student.s';
 
@@ -367,7 +368,8 @@ function cc4e_compile($code, $input, $main=null)
 
     $eof = 'EOF' . md5(uniqid());
     if ( $retval->hasmain && $allowed && $minimum && ! $retval->reject ) {
-        $gcc_options = $CFG->cc4e_gcc_options ?? '-ansi -Wno-return-type -Wno-pointer-to-int-cast -Wno-builtin-declaration-mismatch -Wno-int-conversion';
+        $gcc_options = '-ansi -Wno-return-type -Wno-pointer-to-int-cast -Wno-builtin-declaration-mismatch -Wno-int-conversion';
+        $gcc_options = U::get($CFG->extensions, 'cc4e_gcc_options', $gcc_options);
 
         $script = "cd /tmp;\n";
         $script .= "cat > student.c << $eof\n";
