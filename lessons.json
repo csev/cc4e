@@ -970,6 +970,10 @@
     ],
     "references" : [
         {
+            "title" : "C++ Bjarne Stroustrup: Inventing C++",
+            "href" : "https://www.youtube.com/watch?v=9fJ5rZhw4Fc"
+        },
+        {
             "title" : "Sample source code",
             "href" : "{apphome}/code"
         },
