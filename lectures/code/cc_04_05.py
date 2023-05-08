@@ -1,12 +1,12 @@
 
 class TenInt:
-    values = dict()
+    __values = dict()
 
     def __setitem__(self, index, value) :
-        self.values[index] = value
+        self.__values[index] = value
 
     def __getitem__(self, index) :
-        return self.values[index]
+        return self.__values[index]
 
 ten = TenInt()
 ten[1] = 40;

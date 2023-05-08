@@ -1,9 +1,10 @@
 #include <iostream>
 
 class TenInt {
-  public: 
+  private:
     int values[10];
 
+  public:
     int & operator [](const int & index) {
         printf("-- Returning reference to %d\n", index);
         return values[index];
