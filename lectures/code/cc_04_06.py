@@ -11,11 +11,3 @@ while True :
     item = next(it, False)
     if item is False : break
     print('item is', item)
-
-it = iter(reversed(x))
-print('it is', it)
-
-while True :
-    item = next(it, False)
-    if item is False : break
-    print('item is', item)
