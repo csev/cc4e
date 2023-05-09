@@ -17,7 +17,7 @@ int main(void)
     printf("z=%d\n", map->get(map, "z", 42));
     printf("x=%d\n", map->get(map, "x", 42));
 
-    // No iterator (for now)
+    /* No iterator (for now) */
  
     map->del(map);
 }
