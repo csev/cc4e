@@ -1057,8 +1057,24 @@
     "description": "In this section, we improve our object implementation through encapsulation and abstraction.",
     "videos" : [
         {
-            "title" : "TBD",
-            "youtube" : "tbd"
+            "title" : "Implementing Encapsulation and Interfaces in C",
+            "youtube" : "kMVmO0BpoMw"
+        },
+        {
+            "title" : "Exploring the Map Abstraction across Languages",
+            "youtube" : "pK_AOOKqhX8"
+        },
+        {
+            "title" : "A Quick Look at Unique Aspects of the C++ Object Oriented Pattern",
+            "youtube" : "VCrE9jYJBQo"
+        },
+        {
+            "title" : "Implementing Encapsulation in C-Based Objects",
+            "youtube" : "_HfYsyTi-tA"
+        },
+        {
+            "title" : "Building an Iterator Abstraction in C",
+            "youtube" : "Wfln7WdYkN4"
         }
     ],
     "references" : [
