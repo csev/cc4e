@@ -1147,8 +1147,28 @@
     "description": "In this section, we implement a hasmap and a linked tree map.",
     "videos" : [
         {
-            "title" : "TBD",
-            "youtube" : "tbd"
+            "title" : "Introduction: Building a HashMap and LinkedTreeMap in C",
+            "youtube" : "ZlFzDecW9TM"
+        },
+        {
+            "title" : "Understanding Hash Computations",
+            "youtube" : "7u6LStDRY0E"
+        },
+        {
+            "title" : "Building a HashMap object in C",
+            "youtube" : "_if6yo7twCc"
+        },
+        {
+            "title" : "Using Binary Trees as Data Structures",
+            "youtube" : "QWD3c4mZ-tU"
+        },
+        {
+            "title" : "Inserting Data Into a LinkedTreeMap in C",
+            "youtube" : "ACF-H4nQ5Pc"
+        },
+        {
+            "title" : "Counting Words in Python and in C using a LinkedHashMap",
+            "youtube" : "g6Ew4vCPuSs"
         }
     ],
     "references" : [
