@@ -14,7 +14,7 @@ function ccauto_instructions($LAUNCH) {
     You should write a function called bump() that uses an static variable
     so that the first time it is called, it returns int 0, the next time it returns
     1 and so on.  Also write a function called start() which takes an int as its parameter
-    and restarts the sequence from the specivied number.
+    and restarts the sequence from the specified number.
     </p>
 EOF
 ;

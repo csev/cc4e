@@ -12,7 +12,8 @@ function ccauto_instructions($LAUNCH) {
     return <<< EOF
 <p>
 <b>LBS290 Exercise 18 - A Simple Machine.</b> 
-You are to implement an interpretor for a simple programming language.  Your computer has 256 characters of memory.  You are to
+You are to implement an interpreter for a simple programming language.  Your computer has 256 characters
+of memory.  You are to
 read a sequence of instructions from input and perform those instructions.  At the end of the program you print the
 memory out as a zero-terminated C character array.  Here are the instructions you need to support:
 <pre>

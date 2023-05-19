@@ -160,7 +160,7 @@ The next program prints the following table of Fahrenheit temperatures
 and their centigrade or Celsius equivalents, using the formula
 `C=(5/9)(F-32)`.
 
-| Farenheight | Celsius |
+| Fahrenheit  | Celsius |
 | ----------- | ------- |
 | 0           | -17.8   |
 | 20          | -6.7    |

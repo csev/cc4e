@@ -9,11 +9,11 @@ use \Tsugi\Util\Mersenne_Twister;
 // Called first
 function ccauto_instructions($LAUNCH) {
     return <<< EOF
-<b>Celsius to  Farenheight Conversion</b> 
+<b>Celsius to  Fahrenheit Conversion</b> 
     <p>
     You should write a function called faren(cel)
-    that takes as input a double Celsuis temperature and converts it and returns
-    the equivalent Farenheight value.
+    that takes as input a double Celsius temperature and converts it and returns
+    the equivalent Fahrenheit value.
     </p>
 EOF
 ;

@@ -8,7 +8,7 @@ use \Tsugi\Util\Mersenne_Twister;
 
 // Called first
 function ccauto_instructions($LAUNCH) { return <<< EOF
-<b>Exercise RS-7:</b> Write a C program to determine the minmum and maximum
+<b>Exercise RS-7:</b> Write a C program to determine the minimum and maximum
 of a sequence of integer numbers on input, terminated  by the string "done".
 The patterns for input and output should match the following Python application.
 Make sure that the input lines can be at least 1000 characters.

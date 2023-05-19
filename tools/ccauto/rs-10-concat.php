@@ -9,7 +9,7 @@ use \Tsugi\Util\Mersenne_Twister;
 // Called first
 function ccauto_instructions($LAUNCH) { return <<< EOF
 <b>Exercise RS-10:</b> Write a C program to prompt for two strings and 
-concatencate them as shown in in the Python code below.
+concatenate them as shown in in the Python code below.
 <pre>
 print('Enter two strings');
 first = input()
