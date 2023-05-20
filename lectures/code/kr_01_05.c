@@ -7,7 +7,9 @@ int main() {
 int py_len(self) 
     char self[];
 {
-    int i, len=0;
-    for(i=0;self[i]; i++) len=i;
+    int i;
+    for(i=0;self[i]; i++);
     return i;
 }
+
+/* rm a.out ; gcc kr_01_05.c ; a.out ; rm a.out */

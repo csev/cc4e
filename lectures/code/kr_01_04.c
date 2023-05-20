@@ -1,4 +1,4 @@
-#import <stdio.h>
+#include <stdio.h>
 int main() {
     char x[6];
     x[0] = 'H';
