@@ -25,9 +25,11 @@ int main() /* print lines in reverse */
       new->text = save;
       new->next = NULL;
       new->prev = tail;
-      tail = new;
 
       if ( head == NULL ) head = new;
+
+      if ( tail != NULL ) tail->next = new;
+      tail = new;
   }
 
   for (current = tail; current != NULL; current = current->prev ) {
