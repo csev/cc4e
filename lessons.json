@@ -853,7 +853,7 @@
     "title": "K&R 6: Structures",
     "anchor": "structures",
     "icon" : "fa-th-list",
-    "description": "This chapter covers structures.  We don't cover all of the detail in the chapter, preferring instead to focus on the concepts needed to build a singly linked list in C.  The chapter goes into details for doubly linked lists, binary trees, and hash tables.",
+    "description": "This chapter covers structures.  This lesson does n0t cover all of the detail in the chapter, preferring instead to focus on the concepts needed to build a singly linked list in C.  Later modules go into details for doubly linked lists, binary trees, and hash tables.",
     "slides": "{apphome}/lectures/KR-6.pptx",
     "references" : [
         {
@@ -875,11 +875,15 @@
     ],
     "videos" : [
         {
-            "title" : "Historical Context For Chapter 6 - Structures",
-            "youtube" : "IR-vGNrynC8"
+            "title" : "Looking at Chapter 6 of K&R C Using a Poem",
+            "youtube" : "LSvDVGXsvwo"
         },
         {
-            "title" : "Chapter 6 - Structures",
+            "title" : "Chapter 6 of K&R C  - Structures (1978 Edition)",
+            "youtube" : "1MtzsZmcVFE"
+        },
+        {
+            "title" : "Textbook: Chapter 6 - Structures",
             "youtube" : "U6yCkIckOqY"
         }
     ],
