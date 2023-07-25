@@ -131,7 +131,7 @@ logging in to a
 mincomputer.
 </p></li>
 <li><p><a href="1992-lbs290f" target="_blank">Lyman Briggs (LBS290F) - FORTRAN</a><br/>
-Taught Winter 1992 at Michgan State University.
+Taught Winter 1992 at Michigan State University.
 </p></li>
 <li><p>
 <a href="2000-eecs280" target="_blank">EECS 280 - C++</a><br/>
