@@ -1148,7 +1148,7 @@
     "anchor": "tree",
     "icon" : "fa-tree",
     "slides": "{apphome}/lectures/CC-05-Trees-Hash.pptx",
-    "description": "In this section, we implement a hasmap and a linked tree map.",
+    "description": "In this section, we implement a hashmap and a linked tree map.",
     "videos" : [
         {
             "title" : "Introduction: Building a HashMap and LinkedTreeMap in C",
