@@ -550,7 +550,7 @@ The statement
 
 shows a new operator, `++`, which means _increment by one._ You could write
 `nc = nc + 1` but `++nc` is more concise and often more efficient. There
-is a corresponding operator `--` to decrement by 1. The operators `++` and
+is a corresponding operator `--` to decrement by 1. The operators `++` and `--`
 can be either prefix operators (`++nc`) or postfix (`nc++`); these two forms
 have different values in expressions, as will be shown in [Chapter 2](chap02.md), but
 `++nc` and `nc++` both increment `nc`. For the moment we will stick to
