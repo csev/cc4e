@@ -37,15 +37,17 @@
     "videos" : [
         {
             "title" : "A History of C, UNIX, and Computation before and after 1978",
+            "original": "CC-01-History.m4v",
             "youtube" : "VZ2N0MuAUGA"
         },
         {
             "title" : "Brian Kernighan - Building C at Bell Labs",
-            "original": "2023-04-Kernighan-C",
+            "original": "2023-04-Kernighan-C.m4v",
             "youtube" : "v8uLDu7LAEc"
         },
         {
             "title" : "Chapter 0 - Introduction (Video)",
+            "original": "Chapter00-2021-06-06-720.mov",
             "youtube" : "XSEGkAOxKZ4"
         }
     ],
@@ -59,7 +61,7 @@
             "href" : "https://www.cs.princeton.edu/~bwk/cbook.html"
         },
         {
-            "title" : "Video: Making Computers Easier To Use -- AT&T Archives film from 1982, Bell Laboratories " ,
+            "title" : "Video: Making Computers Easier To Use -- AT&T Archives film from 1982, Bell Laboratories",
             "href" : "https://www.youtube.com/watch?v=XvDZLjaCJuw"
         },
         {
@@ -121,7 +123,7 @@
             "href" : "https://www.youtube.com/watch?v=NcaiHcBvDR4"
         },
         {
-            "title" : " Arrays vs Linked Lists - Computerphile",
+            "title" : "Arrays vs Linked Lists - Computerphile",
             "href" : "https://www.youtube.com/watch?v=DyG9S9nAlUM"
         },
         {
@@ -136,6 +138,7 @@
     "videos" : [
         {
             "title" : "From Python to C - The Rosetta Stone Lecture",
+            "original": "CC-02-Python-1080.mov",
             "youtube" : "LMMG8d-JjtQ"
         }
     ],
@@ -269,10 +272,12 @@
     "videos" : [
         {
             "title" : "Historical Context For Chapter 1: A Tutorial Introduction",
+            "original": "KR-01.m4v",
             "youtube" : "tlroPQSX5Ss"
         },
         {
             "title" : "A Reading of Chapter 1: A Tutorial Introduction",
+            "original": "Chapter-01.m4v",
             "youtube" : "rPwBgsSnxCw"
         }
     ],
@@ -442,10 +447,12 @@
     "videos" : [
         {
             "title" : "Historical Context For Chapter 2: Types, Operators, and Expressions",
+            "original": "KR-02.mov",
             "youtube" : "Pwajo2Zxius"
         },
         {
             "title" : "A Reading of Chapter 2: Types, Operators, and Expressions",
+            "original": "Chapter-02.m4v",
             "youtube" : "q0Ql0jhTPDU"
         }
     ],
@@ -531,10 +538,12 @@
     "videos" : [
         {
             "title" : "Historical Context For Chapter 3 - Control Flow",
-            "youtube" : "-mIMYytS020"
+            "original": "KR-03.mov",
+            "-mIMYytS020youtube" : "-mIMYytS020"
         },
         {
             "title" : "Chapter 3 - Control Flow",
+            "original": "Chapter-03.m4v",
             "youtube" : "5YZd9lebqDo"
         }
     ],
@@ -631,10 +640,12 @@
     "videos" : [
         {
             "title" : "Historical Context For Chapter 4 - Functions and Program Structure",
+            "original": "KR-04-1080.mov",
             "youtube" : "r3v5igV_CnU"
         },
         {
             "title" : "Chapter 4 - Functions and Program Structure",
+            "original": "Chapter-04.m4v",
             "youtube" : "4dyBj0Jm914"
         }
     ],
@@ -739,10 +750,12 @@
     "videos" : [
         {
             "title" : "Historical Context For Chapter 5 - Pointers and Arrays",
+            "original": "KR-05.m4v",
             "youtube" : "2RKRXVL-oks"
         },
         {
             "title" : "Chapter 5 - Pointers and Arrays",
+            "original": "Chapter-05.m4v",
             "youtube" : "f3RB6XW48q4"
         }
     ],
@@ -876,14 +889,17 @@
     "videos" : [
         {
             "title" : "Looking at Chapter 6 of K&R C Using a Poem",
+            "original" : "KR-06-Frost.m4v",
             "youtube" : "dSgt1uEqe9s"
         },
         {
             "title" : "Chapter 6 of K&R C  - Structures (1978 Edition)",
+            "original" : "KR-06-Structures.m4v",
             "youtube" : "1MtzsZmcVFE"
         },
         {
             "title" : "Textbook: Chapter 6 - Structures",
+            "original" : "Chapter-06.m4v",
             "youtube" : "U6yCkIckOqY"
         }
     ],
@@ -944,6 +960,7 @@
     "videos" : [
         {
             "title" : "Object Oriented Programming - A Historical Perspective",
+            "original": "CC-03-01-Objects-1080.mov",
             "youtube" : "GXkwKNEiYEI"
         },
         {
@@ -953,22 +970,27 @@
         },
         {
             "title" : "Comparing Object Oriented Programming Approaches Across Languages",
+            "original": "CC-03-02-Variants.m4v",
             "youtube" : "4_gXh8ezVYA"
         },
         {
             "title" : "Implementing Python-like Object Oriented Patterns in C",
+            "original": "CC-03-03-Objects.m4v",
             "youtube" : "NLcouCpM8-s"
         },
         {
             "title" : "Implementing the Python String (str) Class in C",
+            "original": "CC-03-04-String.m4v",
             "youtube" : "dMfpD94g6Ho"
         },
         {
             "title" : "Implementing the Python List (list) Class in C",
+            "original": "CC-03-05-List.m4v",
             "youtube" : "SX6A66WcFbg"
         },
         {
             "title" : "Implementing the Python Dictionary (dict) Class in C",
+            "original": "CC-03-06-Dict.m4v",
             "youtube" : "1vozbTuYSGw"
         }
     ],
@@ -1062,22 +1084,27 @@
     "videos" : [
         {
             "title" : "Implementing Encapsulation and Interfaces in C",
+            "original": "CC-04-01-Boundary.m4v",
             "youtube" : "kMVmO0BpoMw"
         },
         {
             "title" : "Exploring the Map Abstraction across Languages",
+            "original": "CC-04-02-Maps.m4v",
             "youtube" : "pK_AOOKqhX8"
         },
         {
             "title" : "A Quick Look at Unique Aspects of the C++ Object Oriented Pattern",
+            "original": "CC-04-03-CPP.m4v",
             "youtube" : "VCrE9jYJBQo"
         },
         {
             "title" : "Implementing Encapsulation in C-Based Objects",
+            "original": "CC-04-04-Encapsulation.m4v",
             "youtube" : "_HfYsyTi-tA"
         },
         {
             "title" : "Building an Iterator Abstraction in C",
+            "original": "CC-04-05-Iterators.m4v",
             "youtube" : "Wfln7WdYkN4"
         }
     ],
@@ -1152,26 +1179,32 @@
     "videos" : [
         {
             "title" : "Introduction: Building a HashMap and LinkedTreeMap in C",
+            "original": "CC-05-01-Intro.m4v",
             "youtube" : "ZlFzDecW9TM"
         },
         {
             "title" : "Understanding Hash Computations",
+            "original": "CC-05-02-Hashing.m4v",
             "youtube" : "7u6LStDRY0E"
         },
         {
             "title" : "Building a HashMap object in C",
+            "original": "CC-05-03-HashMap.m4v",
             "youtube" : "_if6yo7twCc"
         },
         {
             "title" : "Using Binary Trees as Data Structures",
+            "original": "CC-05-04-Trees.m4v",
             "youtube" : "QWD3c4mZ-tU"
         },
         {
             "title" : "Inserting Data Into a LinkedTreeMap in C",
+            "original": "CC-05-05-LinkedTreeMap.m4v",
             "youtube" : "ACF-H4nQ5Pc"
         },
         {
             "title" : "Counting Words in Python and in C using a LinkedHashMap",
+            "original": "CC-05-06-Counting.m4v",
             "youtube" : "g6Ew4vCPuSs"
         }
     ],
@@ -1266,6 +1299,7 @@
     "videos" : [
         {
             "title" : "Chapter 7 - Input / Output",
+            "original" : "Chapter-07.m4v",
             "youtube" : "p0utHe1VCKM"
         }
     ],
@@ -1312,6 +1346,7 @@
     "videos" : [
         {
             "title" : "Chapter 8 - The UNIX System Interface",
+            "original" : "Chapter-08.m4v",
             "youtube" : "Au1eiiceVks"
         }
     ],
