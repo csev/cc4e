@@ -11,8 +11,11 @@ function ccauto_instructions($LAUNCH) {
     return <<< EOF
 <b>Simple Structures</b> 
 <p>
-You will write a function day_of_year() to compute the day of the year for a partcular
-date stored in a structure.  There is smaple code to do this in Chapter 6 of the K&amp;R book.
+You will write two function dealing with a simple strcuture as shown below.
+
+The first function will dump the internal values of the simpledate structure.
+The second will compute the day of the year similar to the sample code in
+Chapter 6 of the K&amp;R book.
 </p>
 EOF
 ;
