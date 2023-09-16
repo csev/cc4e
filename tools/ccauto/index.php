@@ -404,6 +404,7 @@ if ( is_string($main) && strlen($main) > 0 ) {
 ?>
 <div style="color: blue;">
 The main program which will execute your code:
+</div>
 <div id="mainprogram" class="xpre_text"><pre id="mainpre">
 <?php    echo(htmlentities($main, ENT_NOQUOTES)); ?>
 </pre></div>

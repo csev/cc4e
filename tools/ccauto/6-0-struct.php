@@ -22,9 +22,17 @@ EOF
 function ccauto_sample($LAUNCH) {
     return <<< EOF
 int day_of_year(pd) /* set day of year from month, day */
-struct date *pd;
+struct simpledate *pd;
 {
     return 42;
+}
+
+void dump_date(pd) /* print date from year, month, day */
+struct simpledate *pd;
+{
+    /* The date should be in the following format - note that */
+    /* The month and day are always two digits with leading zeros */
+    printf("2023/03/07\\n");
 }
 EOF
 ;
@@ -49,12 +57,27 @@ static int day_tab[2][13] = {
 
 
 main() {
-    printf("Hello world\\n");
-    string simpledate sd;
-    sd.year = 2;
+    void dump_date();
+    printf("Playing with structures\\n");
+    struct simpledate sd;
+
+    sd.year = 2023;
     sd.month = 2;
-    sd.day = 12;
-    printf("Day of year %d\\n", day_of_year(sd));
+    sd.day = 11;
+    dump_date(&sd);
+    printf("Day of year %d\\n", day_of_year(&sd));
+
+    sd.year = 2023;
+    sd.month = 9;
+    sd.day = 15;
+    dump_date(&sd);
+    printf("Day of year %d\\n", day_of_year(&sd));
+
+    sd.year = 2024;
+    sd.month = 9;
+    sd.day = 15;
+    dump_date(&sd);
+    printf("Day of year %d\\n", day_of_year(&sd));
 }
 EOF
 ;
@@ -66,18 +89,13 @@ function ccauto_input($LAUNCH) { return false; }
 function ccauto_output($LAUNCH) { 
     GLOBAL $RANDOM_CODE_HOUR, $CHAR_2_10, $LOWER_2_10;
     return <<< EOF
-Dump:
-  10
-  20
-  30
-Did not find 42
-Found 30
-
-Dump:
-  10
-  20
-  30
-  40
+Playing with structures
+2023/02/11
+Day of year 42
+2023/09/15
+Day of year 258
+2024/09/15
+Day of year 259
 EOF
 ;
 }
@@ -86,14 +104,12 @@ function ccauto_prohibit($LAUNCH) {
     return array(
         array("main", "Don't include the main() code - the main() code is provided automatically by the autograder."),
         array("extern", "You should not use the 'extern' keyword."),
-        array("[", "You do not need to use any arrays []."),
-        array("]", "You do not need to use any arrays []."),
     );
 }
 
 function ccauto_require($LAUNCH) { 
     return array (
-        array("malloc", "You need to use malloc() to allocate some memory."),
+        array("%", "This is difficult to do without the modulo operation (%)."),
     );
 }
 
@@ -101,7 +117,7 @@ function ccauto_require($LAUNCH) {
 function ccauto_solution($LAUNCH) {
     return <<< EOF
 int day_of_year(pd) /* set day of year from month, day */
-struct date *pd;
+struct simpledate *pd;
 {
     int i, day, leap;
 
@@ -110,6 +126,12 @@ struct date *pd;
     for (i = 1; i < pd->month; i++)
         day += day_tab[leap][i];
     return (day);
+}
+
+void dump_date(pd) /* print date from year, month, day */
+struct simpledate *pd;
+{
+    printf("%04d/%02d/%02d\\n", pd->year, pd->month, pd->day);
 }
 EOF
 ;

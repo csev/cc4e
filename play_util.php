@@ -1,4 +1,8 @@
-<?php function cc4e_play_header($lines)  {
+<?php 
+
+use \Tsugi\Util\U;
+
+function cc4e_play_header($lines)  {
      global $CFG;
 ?>
     <link href="<?= $CFG->apphome ?>/static/codemirror-5.62.0/lib/codemirror.css" rel="stylesheet"/>

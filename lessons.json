@@ -920,6 +920,17 @@
             ]
         },
         {
+        "title" : "Autograder: 6-0 Structures",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc_6a_struct",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "6-0-struct.php"
+            }
+        ]
+        },
+        {
         "title" : "Autograder: 6-A Linked Lists",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc_6a_list",
