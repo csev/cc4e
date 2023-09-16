@@ -271,7 +271,7 @@
     "slides": "{apphome}/lectures/KR-1.pptx",
     "videos" : [
         {
-            "title" : "Historical Context For Chapter 1: A Tutorial Introduction",
+            "title" : "Lecture: Historical Context For Chapter 1: A Tutorial Introduction",
             "original": "KR-01.m4v",
             "youtube" : "tlroPQSX5Ss"
         },
@@ -446,7 +446,7 @@
     ],
     "videos" : [
         {
-            "title" : "Historical Context For Chapter 2: Types, Operators, and Expressions",
+            "title" : "Lecture: Historical Context For Chapter 2: Types, Operators, and Expressions",
             "original": "KR-02.mov",
             "youtube" : "Pwajo2Zxius"
         },
@@ -537,12 +537,12 @@
     ],
     "videos" : [
         {
-            "title" : "Historical Context For Chapter 3 - Control Flow",
+            "title" : "Lecture: Historical Context For Chapter 3 - Control Flow",
             "original": "KR-03.mov",
             "youtube" : "-mIMYytS020"
         },
         {
-            "title" : "Chapter 3 - Control Flow",
+            "title" : "A Reading of Chapter 3 - Control Flow",
             "original": "Chapter-03.m4v",
             "youtube" : "5YZd9lebqDo"
         }
@@ -639,12 +639,12 @@
     ],
     "videos" : [
         {
-            "title" : "Historical Context For Chapter 4 - Functions and Program Structure",
+            "title" : "Lecture: Historical Context For Chapter 4 - Functions and Program Structure",
             "original": "KR-04-1080.mov",
             "youtube" : "r3v5igV_CnU"
         },
         {
-            "title" : "Chapter 4 - Functions and Program Structure",
+            "title" : "A Reading of Chapter 4 - Functions and Program Structure",
             "original": "Chapter-04.m4v",
             "youtube" : "4dyBj0Jm914"
         }
@@ -749,12 +749,12 @@
     ],
     "videos" : [
         {
-            "title" : "Historical Context For Chapter 5 - Pointers and Arrays",
+            "title" : "Lecture: Historical Context For Chapter 5 - Pointers and Arrays",
             "original": "KR-05.m4v",
             "youtube" : "2RKRXVL-oks"
         },
         {
-            "title" : "Chapter 5 - Pointers and Arrays",
+            "title" : "A Reading of Chapter 5 - Pointers and Arrays",
             "original": "Chapter-05.m4v",
             "youtube" : "f3RB6XW48q4"
         }
@@ -888,17 +888,17 @@
     ],
     "videos" : [
         {
-            "title" : "Looking at Chapter 6 of K&R C Using a Poem",
+            "title" : "Lecture: Looking at Chapter 6 of K&R C Using a Poem",
             "original" : "KR-06-Frost.m4v",
             "youtube" : "dSgt1uEqe9s"
         },
         {
-            "title" : "Chapter 6 of K&R C  - Structures (1978 Edition)",
+            "title" : "Lecture: Chapter 6 of K&R C  - Structures (1978 Edition)",
             "original" : "KR-06-Structures.m4v",
             "youtube" : "1MtzsZmcVFE"
         },
         {
-            "title" : "Textbook: Chapter 6 - Structures",
+            "title" : "A Reading of Chapter 6 - Structures",
             "original" : "Chapter-06.m4v",
             "youtube" : "U6yCkIckOqY"
         }
@@ -1298,7 +1298,7 @@
     ],
     "videos" : [
         {
-            "title" : "Chapter 7 - Input / Output",
+            "title" : "A Reading of Chapter 7 - Input / Output",
             "original" : "Chapter-07.m4v",
             "youtube" : "p0utHe1VCKM"
         }
@@ -1345,7 +1345,7 @@
     ],
     "videos" : [
         {
-            "title" : "Chapter 8 - The UNIX System Interface",
+            "title" : "A Reading of Chapter 8 - The UNIX System Interface",
             "original" : "Chapter-08.m4v",
             "youtube" : "Au1eiiceVks"
         }

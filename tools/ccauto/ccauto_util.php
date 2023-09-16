@@ -12,7 +12,7 @@ function getLinkCode($LAUNCH) {
 
 // Unique to user + course
 function getLinkCodeHour($LAUNCH) {
-    $hour = (time() / 3600) % 24;
+    $hour = ( (int) (time() / 3600) ) % 24;
     return $hour*10000+$LAUNCH->link->id*4200+$LAUNCH->user->id*42+$LAUNCH->context->id;
 }
 
