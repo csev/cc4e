@@ -26,7 +26,7 @@ $OUTPUT->flashMessages();
 // Show the basic info for this user
 GradeUtil::gradeShowInfo($row, false);
 
-if ( U::isEmpty($row) ) {
+if ( U::isEmpty($row['json']) ) {
     echo("<p>No submission</p>\n");
     $OUTPUT->footer();
     return;
