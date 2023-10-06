@@ -37,7 +37,7 @@ function cc4e_pipe($command, $stdin, $cwd, $env, $timeout)
         stream_set_blocking($pipes[2], 0);
 
         // Turn the timeout into microseconds.
-        $timeout = $timeout * 1000000;
+        $timeout = (int) ($timeout * 1000000);
 
         // Output buffer.
         $stdout = '';
@@ -56,7 +56,7 @@ function cc4e_pipe($command, $stdin, $cwd, $env, $timeout)
             // Wait until we have output or the timer expired.
             $read  = array($pipes[1]);
             $other = array();
-            stream_select($read, $other, $other, 0, $timeout);
+            stream_select($read, $other, $other, 0, (int) $timeout);
 
             // Get the status of the process.
             // Do this before we read from the stream,
