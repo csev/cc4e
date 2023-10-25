@@ -32,6 +32,7 @@
     "icon" : "fa-history",
     "description": "We read the introduction of the book and place the moment this book was published (1978) in the context of the history of computer hardware, operating systems, and programming languages.  We explore why C (and UNIX) had such a transformative effect on computing when this book introduced them to a mainstream audience.",
     "slides": [
+        "{apphome}/lectures/CC-01-History.pptx",
         "{apphome}/lectures/KR-0.pptx"
     ],
     "videos" : [
