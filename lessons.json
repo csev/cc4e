@@ -796,7 +796,7 @@
         ]
         },
         {
-        "title" : "Exercise RS-10: Concatenate Two Strings",
+        "title" : "Exercise RS-10: Concatenate Two Strings.  Pre-allocate your character arrays large enought to handle up to 100 characters on input for each string.",
         "launch" : "tools/ccauto/",
         "resource_link_id": "rs_10_concat",
         "custom" : [

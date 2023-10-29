@@ -8,8 +8,12 @@ use \Tsugi\Util\Mersenne_Twister;
 
 // Called first
 function ccauto_instructions($LAUNCH) { return <<< EOF
-<b>Exercise RS-10:</b> Write a C program to prompt for two strings and 
+<b>Exercise RS-10:</b> Write a C program to prompt for two strings and
 concatenate them as shown in in the Python code below.
+Use the functions <b>strcpy</b> and <b>strcat</b> from the 
+<b>string.h</b> library in your code.
+Pre-allocate your character arrays large enought to handle up to 100 characters on input for each string (i.e. do not use malloc as we have
+not yet covered that yet).
 <pre>
 print('Enter two strings');
 first = input()
@@ -53,6 +57,7 @@ EOF
 
 function ccauto_sample($LAUNCH) {  return <<< EOF
 #include <stdio.h>
+#include <string.h>
 int main() {
     printf("Hello world\\n");
 }
