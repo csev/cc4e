@@ -700,6 +700,17 @@
         ]
         },
         {
+        "title" : "Exercise 4-D: Write a recussive function",
+        "launch" : "tools/ccauto/",
+        "resource_link_id": "cc4e_4_D",
+        "custom" : [
+            {
+                "key": "exercise",
+                "value": "4-D-recursive.php"
+            }
+        ]
+        },
+        {
         "title" : "LBS-18: A Simple Machine",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc4e_lb_18",
