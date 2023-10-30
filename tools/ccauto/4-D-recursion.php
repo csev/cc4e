@@ -15,7 +15,7 @@ function ccauto_instructions($LAUNCH) {
     input a single integer and returns the sum of all the numbers from 1..the provided number.
     This is very similar to the function described in lecture except for some error checking.
     First, if the provided number is less than one, return zero as the sum.  Also,
-    in order to avoid stack overflow, if the number is above 100 return -1.
+    in order to avoid stack overflow, if the provided number is above 100 return -1.
     You cannot use a <b>do</b>, <b>for</b>, or integer division to compute the sum since that
     would not be recursive :).
     </p>
@@ -47,11 +47,14 @@ function ccauto_input($LAUNCH) { return false; }
 function ccauto_output($LAUNCH) { 
     GLOBAL $RANDOM_CODE_HOUR, $CHAR_2_10, $LOWER_2_10;
     return <<< EOF
-bump() returns 0
-bump() returns 1
-bump() returns 2
-bump() returns 42
-bump() returns 43
+sumseries(0) returns 0
+sumseries(1) returns 1
+sumseries(5) returns 15
+sumseries(42) returns 903
+sumseries(-42) returns 0
+sumseries(100) returns 5050
+sumseries(101) returns -1
+sumseries(1000) returns -1
 EOF
 ;
 }
@@ -94,7 +97,7 @@ int sumseries(ival)
    if ( ival > 100 ) return -1;
    if ( ival < 1 ) return 0;
    if ( ival == 1 ) return 1;
-   return ival + subseries(ival-1);
+   return ival + sumseries(ival-1);
 }
 EOF
 ;
