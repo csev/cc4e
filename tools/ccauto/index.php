@@ -66,6 +66,7 @@ $assignments = array(
     '4-A-faren.php' => '4-A Write a function to convert from Celsius to Fahrenheit',
     '4-B-extern.php' => '4-B Write a function that uses external data scope',
     '4-C-static.php' => '4-C Write a function that uses static data scope',
+    '4-D-recursion.php' => '4-D Write a recursive function',
     '6-0-struct.php' => '6-0 Structures',
     '6-A-list.php' => '6-A ArrayList of Integers',
     '6-B-delete.php' => '6-B Insert and delete linked list',
