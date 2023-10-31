@@ -7,6 +7,7 @@ int n;
     "February",
     "March",
     "April",
+    "May",
     "June",
     "July",
     "August",
@@ -14,7 +15,7 @@ int n;
     "October",
     "November",
     "December"
-  } ;
+  };
 
   return((n < 1 || n > 12) ? name[0] : name[n]);
 }
