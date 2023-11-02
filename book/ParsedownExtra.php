@@ -508,7 +508,12 @@ class ParsedownExtra extends Parsedown
             ),
         );
 
-        uasort($this->DefinitionData['Footnote'], 'self::sortFootnotes');
+        // Breaks in PHP 8.2
+        // uasort($this->DefinitionData['Footnote'], 'self::sortFootnotes');
+
+        // https://github.com/aws/aws-sdk-php/commit/9f12e1d99d8e09593702878e8a4aff52f8bf3775
+        // https://www.php.net/manual/en/language.types.callable.php
+        uasort($this->DefinitionData['Footnote'], ['ParseDownExtra', 'sortFootnotes']);
 
         foreach ($this->DefinitionData['Footnote'] as $definitionId => $DefinitionData)
         {
@@ -625,7 +630,13 @@ class ParsedownExtra extends Parsedown
         $DOMDocument = new DOMDocument;
 
         # http://stackoverflow.com/q/11309194/200145
-        $elementMarkup = mb_convert_encoding($elementMarkup, 'HTML-ENTITIES', 'UTF-8');
+        # Breaks for PHP 8.2
+        // $elementMarkup = mb_convert_encoding($elementMarkup, 'HTML-ENTITIES', 'UTF-8');
+
+        # https://www.drupal.org/files/issues/2023-03-27/3342481-8.patch
+        # https://github.com/FriendsOfREDAXO/mblock/pull/156/files
+        # https://git.drupalcode.org/project/smart_trim/-/commit/f672fe5d2ca603d4ec6ed89bcd80aa8e9261708f
+        $elementMarkup = htmlspecialchars_decode(iconv('UTF-8', 'ISO-8859-1', htmlentities($elementMarkup, ENT_COMPAT, 'UTF-8')), ENT_QUOTES);
 
         # http://stackoverflow.com/q/4879946/200145
         $DOMDocument->loadHTML($elementMarkup);
