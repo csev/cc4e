@@ -160,6 +160,54 @@ function cc4e_compile($code, $input, $main=null)
 {
     global $CFG;
 
+    $remote_compile_url = $CFG->getExtension('remote_compile_url', '');
+    $remote_compile_password = $CFG->getExtension('remote_compile_password', '');
+
+    if ( strlen($remote_compile_url) > 0 && strlen($remote_compile_password) > 0 ) {
+	error_log("Calling remote ".$remote_compile_url);
+        $data = array(
+            'password' => $remote_compile_password,
+            'code' => $code,
+            'input' => $input,
+        );
+
+        if ( is_string($main) && strlen($main) > 0 ) {
+            $data['main'] = $main;
+        }
+
+        $ch = curl_init($remote_compile_url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            // 'Content-Type: application/json',
+        ));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $resultStr = curl_exec($ch);
+	if ( ! is_string($resultStr) || (is_string($resultStr) && strlen($resultStr) < 1) ) {
+		error_log("No response from remote compile at ".$remote_compile_url);
+	} else if ( $resultStr[0] != '{' ) {
+		error_log("Non JSON response from remote compile at ".$remote_compile_url);
+		error_log(substr($resultStr, 0, 255));
+	} else {
+        	$retval=json_decode($resultStr, false);
+		if ( is_object($retval) ) {
+        		error_log("Retval good");
+		} else {
+			error_log("Un parseable JSON response from remote compile at ".$remote_compile_url);
+			error_log(substr($resultStr, 0, 255));
+			$retval = null;
+		}
+	}
+
+    } 
+
+    return cc4e_compile_internal($code, $input, $main);
+}
+
+function cc4e_compile_internal($code, $input, $main=null)
+{
+    global $CFG;
     $retval = new \stdClass();
     $now = str_replace('@', 'T', gmdate("Y-m-d@H-i-s"));
     $retval->now = $now;
@@ -210,7 +258,7 @@ function cc4e_compile($code, $input, $main=null)
             'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
     );
 
-    $docker_command = $CFG->docker_command ?? 'docker run --network none --memory="200m" --memory-swap="200m" --rm -i alpine_gcc:latest "-"';
+    $docker_command = $CFG->getExtension('docker_command', 'docker run --network none --memory="200m" --memory-swap="200m" --rm -i alpine_gcc:latest "-"');
     $retval->docker_command = $docker_command;
 
     $retval->folder = $folder;
