@@ -1,56 +1,105 @@
 
-
-As User
+As Root
 =======
 
-    apt-get install uidmap
+    cd /root
+    git clone https://github.com/tsugiproject/tsugi-build.git
+    cd tsugi-build
+    bash ubuntu/build-prod.sh
 
-    root@ip-172-31-16-241:/home/csev# cat /etc/subgid
-    www-data:100000:65536
-    root@ip-172-31-16-241:/home/csev# cat /etc/subuid
-    www-data:100000:65536
-    root@ip-172-31-16-241:/home/csev# 
+    apt-get install apt-transport-https ca-certificates curl gnupg lsb-release
+    apt-get update
 
-    root@ip-172-31-16-241:/home/csev# su -s "/bin/bash" www-data
-    www-data@ip-172-31-16-241:/home/csev$ id -u
-    33
-    www-data@ip-172-31-16-241:/home/csev$ whoami
-    www-data
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+    echo \
+    "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+    apt-get update
+    apt-get install docker-ce docker-ce-cli containerd.io
+
+    cd /var/www
+    git clone https://github.com/csev/cc4e.git
+    replace html with cc4e
+    cd cc4e
+
+    git config --global user.name "Charles R. Severance"
+    git config --global user.email csev@umich.edu
+    git config --global core.editor vim
+
+Install/Use Root Docker (If you fail getting rootless to work)
+--------------------------------------------------------------
+
+    sudo bash
+
+    Add www-data to the docker group in /etc/groups
+    docker:x:999:www-data
+
+    groups www-data
+
+    service docker status
+    service docker start
+
+    ls -l /var/run/docker.sock 
+
+    export DOCKER_HOST=unix:///var/run/docker.sock
+    docker info
+
+    su -s "/bin/bash" www-data
+    cd /var/www/html/docker-alpine
+
+    export DOCKER_HOST=unix:///var/run/docker.sock
+    docker info
+
+    docker build . --tag alpine_gcc
+
+    cat hello.sh | docker run --network none --rm -i alpine_gcc:latest "-"
+
+Install Rootless Docker As User
+===============================
+
+    (I have not gotten this to work in Unbuntu 22)
+
+    https://docs.docker.com/engine/security/rootless/
+
+    sudo systemctl disable --now docker.service docker.socket
+
+    shutdown -r now
+
+    login as csev / ubuntu
+
+    sudo bash
+    apt-get install -y uidmap
+
+    echo "www-data:100000:65536" >> /etc/subuid
+    echo "www-data:100000:65536" >> /etc/subgid
 
     sudo systemctl disable --now docker.service docker.socket
 
     su -s "/bin/bash" www-data
 
-    root@ip-172-31-16-241:/home/csev# su -s "/bin/bash" www-data
-    www-data@ip-172-31-16-241:/home/csev$ cd
-    www-data@ip-172-31-16-241:~$ pwd
-    /var/www
-    www-data@ip-172-31-16-241:~$ /usr/bin/do
-    do-release-upgrade             docker-proxy                   dockerd-rootless.sh            dotlock.mailutils
-    docker                         dockerd                        domainname                     
-    docker-init                    dockerd-rootless-setuptool.sh  dotlock                        
-    www-data@ip-172-31-16-241:~$ /usr/bin/dockerd-rootless-setuptool.sh install
-    [INFO] systemd not detected, dockerd-rootless.sh needs to be started manually:
+    /usr/bin/dockerd-rootless-setuptool.sh install
 
-    PATH=/usr/bin:/sbin:/usr/sbin:$PATH dockerd-rootless.sh 
+Start the rootless Docker (as user)
+-----------------------------------
 
-    [INFO] Creating CLI context "rootless"
-    Successfully created context "rootless"
+After install - or after reboot
 
-    [INFO] Make sure the following environment variables are set (or add them to ~/.bashrc):
+    sudo bash
+    sudo systemctl disable --now docker.service docker.socket
 
-    # WARNING: systemd not found. You have to remove XDG_RUNTIME_DIR manually on every logout.
+    su -s "/bin/bash" www-data
+    cd /var/www/html/docker-alpine
+
     export XDG_RUNTIME_DIR=/var/www/.docker/run
     export PATH=/usr/bin:$PATH
     export DOCKER_HOST=unix:///var/www/.docker/run/docker.sock
+    rm -r $XDG_RUNTIME_DIR
+    mkdir $XDG_RUNTIME_DIR
+    dockerd-rootless.sh &
 
-    www-data@ip-172-31-16-241:~$ 
-
-    www-data@ip-172-31-16-241:~$     export XDG_RUNTIME_DIR=/var/www/.docker/run
-    www-data@ip-172-31-16-241:~$     export PATH=/usr/bin:$PATH
-    www-data@ip-172-31-16-241:~$     export DOCKER_HOST=unix:///var/www/.docker/run/docker.sock
-    www-data@ip-172-31-16-241:~$ dockerd-rootless.sh &
-
+    docker info
 
 In another window:
 
@@ -60,6 +109,9 @@ In another window:
     export XDG_RUNTIME_DIR=/var/www/.docker/run
     export PATH=/usr/bin:$PATH
     export DOCKER_HOST=unix:///var/www/.docker/run/docker.sock
+
+    docker info
+
     docker build . --tag alpine_gcc 
     cat hello.sh | docker run --network none --rm -i alpine_gcc:latest "-"
 
@@ -70,4 +122,15 @@ enable.php :
 
 
 
+WTF???
+=====
+
+    https://docs.docker.com/engine/security/rootless/
+
+    # mkdir -p /etc/systemd/system/user@.service.d
+    # cat > /etc/systemd/system/user@.service.d/delegate.conf << EOF
+    [Service]
+    Delegate=cpu cpuset io memory pids
+    EOF
+    # systemctl daemon-reload
 
