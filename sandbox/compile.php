@@ -35,11 +35,15 @@ if ( is_string($public) ) {
 }
  */
 
+$displayname = U::get($_SESSION,'displayname', null);
+
 $code = $_POST['code'] ?? false;
 $input = $_POST['input'] ?? false;
 if ( ! is_string($code) ) die('No code');
 
-$retval = cc4e_compile($code, $input);
+$main = null;
+
+$retval = cc4e_compile($code, $input, $main, $displayname);
 
 header("Content-type: application/json; charset=utf-8");
 echo(json_encode($retval, JSON_PRETTY_PRINT));

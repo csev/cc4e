@@ -156,7 +156,7 @@ function cc4e_pipe($command, $stdin, $cwd, $env, $timeout)
 //  callq   _zap                        ## Both local and external :(
 //  leaq    L_.str(%rip), %rdi
 //  leaq    _fun(%rip), %rax
-function cc4e_compile($code, $input, $main=null)
+function cc4e_compile($code, $input, $main=null, $note=null)
 {
     global $CFG;
 
@@ -164,7 +164,7 @@ function cc4e_compile($code, $input, $main=null)
     $remote_compile_password = $CFG->getExtension('remote_compile_password', '');
 
     if ( strlen($remote_compile_url) > 0 && strlen($remote_compile_password) > 0 ) {
-	error_log("Calling remote ".$remote_compile_url);
+        error_log("Calling remote ".$remote_compile_url);
         $data = array(
             'password' => $remote_compile_password,
             'code' => $code,
@@ -173,6 +173,17 @@ function cc4e_compile($code, $input, $main=null)
 
         if ( is_string($main) && strlen($main) > 0 ) {
             $data['main'] = $main;
+        }
+        $data['note'] = "Internal";
+
+        if ( is_string($note) && strlen($note) > 0 ) {
+            $data['note'] = $note;
+        } else if ( $note == null && isset($_SESSION) ) {
+            $displayname = U::get($_SESSION,'displayname', null);
+            $email = U::get($_SESSION,'email', null);
+            if ( is_string($email) || is_string($displayname) ) {
+                $data['note'] = $displayname . ' / ' . $email;
+            }
         }
 
         $ch = curl_init($remote_compile_url);
@@ -184,28 +195,28 @@ function cc4e_compile($code, $input, $main=null)
         ));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $resultStr = curl_exec($ch);
-	if ( ! is_string($resultStr) || (is_string($resultStr) && strlen($resultStr) < 1) ) {
-		error_log("No response from remote compile at ".$remote_compile_url);
-	} else if ( $resultStr[0] != '{' ) {
-		error_log("Non JSON response from remote compile at ".$remote_compile_url);
-		error_log(substr($resultStr, 0, 255));
-	} else {
-        	$retval=json_decode($resultStr, false);
-		if ( is_object($retval) ) {
-        		error_log("Retval good");
-		} else {
-			error_log("Un parseable JSON response from remote compile at ".$remote_compile_url);
-			error_log(substr($resultStr, 0, 255));
-			$retval = null;
-		}
-	}
+        if ( ! is_string($resultStr) || (is_string($resultStr) && strlen($resultStr) < 1) ) {
+                error_log("No response from remote compile at ".$remote_compile_url);
+        } else if ( $resultStr[0] != '{' ) {
+                error_log("Non JSON response from remote compile at ".$remote_compile_url);
+                error_log(substr($resultStr, 0, 255));
+        } else {
+                $retval=json_decode($resultStr, false);
+                if ( is_object($retval) ) {
+                        error_log("Retval good");
+                } else {
+                        error_log("Un parseable JSON response from remote compile at ".$remote_compile_url);
+                        error_log(substr($resultStr, 0, 255));
+                        $retval = null;
+                }
+        }
 
     } 
 
-    return cc4e_compile_internal($code, $input, $main);
+    return cc4e_compile_internal($code, $input, $main, $note);
 }
 
-function cc4e_compile_internal($code, $input, $main=null)
+function cc4e_compile_internal($code, $input, $main=null, $note=null)
 {
     global $CFG;
     $retval = new \stdClass();
@@ -277,7 +288,7 @@ function cc4e_compile_internal($code, $input, $main=null)
             $before = substr($main, 0, $pos-1);
             $after = substr($main, $pos);
         }
-	$marker = '#include "student.c"';
+        $marker = '#include "student.c"';
         $pos = strpos($main, $marker);
         if ( $pos > 0 ) {
             $before = substr($main, 0, $pos-1);

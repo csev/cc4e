@@ -77,8 +77,10 @@ if ( is_string($sample) ) {
         } else {
             $newbucket[] = $now;
             $succinct = preg_replace('/\s+/', ' ', $code);
-            error_log("Compile by ".$displayname.' '.$email.': '.substr($succinct,0, 250));
-            $retval = cc4e_compile($code, $input);
+            $note = "Compile by ".$displayname.' '.$email.': '.substr($succinct,0, 250);
+            error_log($note);
+            $main = null;
+            $retval = cc4e_compile($code, $input, $main, $note);
             $_SESSION['retval'] = $retval;
             $_SESSION["leaky_bucket"] = $newbucket;
         }
@@ -103,7 +105,7 @@ You can also check
 compiler page.
 <?php
     if ( U::get($_REQUEST, "sample", null) != null ) {
-	    echo(' Note that not all of the sample programs in the book compile and run using a modern compiler.');
+        echo(' Note that not all of the sample programs in the book compile and run using a modern compiler.');
     }
     echo("<!-- leaky bucket \n");
     $bucket = U::get($_SESSION,"leaky_bucket", null);

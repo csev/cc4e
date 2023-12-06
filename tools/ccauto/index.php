@@ -171,8 +171,9 @@ if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
         $_SESSION['retval'] = false;
         GradeUtil::gradeUpdateJson(json_encode(array("code" => $code)));
     } else {
-        error_log("Autograde by ".$displayname.' '.$email.': '.substr($succinct,0, 250));
-        $retval = cc4e_compile($code, $input, $main);
+        $note = "Assn: ".$assn." by ".$displayname.' '.$email.': '.substr($succinct,0, 250);
+        error_log($note);
+        $retval = cc4e_compile($code, $input, $main, $note);
         GradeUtil::gradeUpdateJson(json_encode(array("code" => $code)));
         $_SESSION['retval'] = $retval;
         $actual = isset($retval->docker->stdout) && strlen($retval->docker->stdout) > 0 ? $retval->docker->stdout : false;

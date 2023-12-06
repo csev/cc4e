@@ -45,8 +45,9 @@ main() {
 EOF;
 
 $input = "";
+$main = null;
 
-$retval = cc4e_compile($code, $input);
+$retval = cc4e_compile($code, $input, $main, "ping.php");
 $retval->pingdelta = $delta;
 
 U::appCacheSet("pingretval", $retval);

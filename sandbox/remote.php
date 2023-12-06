@@ -15,10 +15,11 @@ $password = $_POST['password'] ?? false;
 $code = $_POST['code'] ?? false;
 $input = $_POST['input'] ?? false;
 $main = $_POST['main'] ?? null;
+$note = $_POST['note'] ?? null;
 if ( ! is_string($code) ) die('No code');
 if ( $cfg_password != $password ) die('Bad password');
 
-error_log("Running from remote");
+error_log("Remote incoming: ".$note);
 
 $retval = cc4e_compile_internal($code, $input, $main);
 
