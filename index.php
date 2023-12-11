@@ -59,17 +59,6 @@ require_once "nav.php";
 <iframe width="400" height="225" src="https://www.youtube.com/embed/XteaWkvontg?rel=0" frameborder="0" allowfullscreen></iframe>
 </div>
 <h1>C Programming <br/> A Historical Perspective</h1>
-<!--
-<blockquote>
-<p><b>Update:</b> I am planning on having this site ready to "Beta Teach" September 2021.
-To participate in that couse when it is ready, simply log in and you will be notified when
-I start teaching this material.
-I used this book to teach "LBS290 - Programming for Scientists" in September 1991 - almost
-30 years ago and if all goes well we will re-trace the syllabus of that course.
-</p>
-</blockquote>
--->
-<p>
 This web site is dedicated to understanding computer architecture and low-level programming
 by studying the "classic" version of
 the
@@ -79,6 +68,25 @@ from the 1978 book written by
 Brian W. Kernighan
 </a>
 and Dennis M. Ritchie.
+In this course we will be reflecting on how C provided an important foundation for the creation of
+modern programming languages.
+</p>
+</p>
+<p>
+You can take this course and receive a certificate at:
+<ul>
+<li><a href="https://www.coursera.org/specializations/c-programming-for-everybody" target="_blank">Coursera: C Programming for Everybody Specialization</a></li>
+<li><a href="https://www.youtube.com/watch?v=j-_s8f5K30I" target="_blank">FreeCodeCamp</a></li>
+</ul>
+</p>
+You need to have a basic understanding of Python before starting this course.
+The first lesson is a quick introduction to C by by leveraging your understanding of Python.
+A suggested pre-requisite is:
+<ul>
+<li><a href="https://www.py4e.com" target="_blank">Python for Everybody</a></li>
+</ul>
+</p>
+<p>
 The K&amp;R book places the reader in the middle of the 1970's transition from
 a hardware-centered computer science to a focus on writing portable and efficient
 software.  C was used to develop operating systems like Unix, Minix, and Linux and
@@ -87,23 +95,6 @@ You can no longer purchase the 1978 edition and should
 instead purchase the second edition (1988) of
 <a href="https://www.cs.princeton.edu/~bwk/cbook.html" target="_blank">
 The C Programming Language</a>.
-</p>
-<p>
-You can also view this material on:
-<ul>
-<li><a href="https://www.youtube.com/watch?v=j-_s8f5K30I" target="_blank">FreeCodeCamp</a></li>
-</ul>
-</p>
-<p>
-In this course we will be reflecting on how C provided an important foundation for the creation of
-modern programming languages.  This is not a good place to start unless you
-have some programming experience.  Some suggested pre-requisites include:
-<ul>
-<li><a href="https://www.py4e.com" target="_blank">Python for Everybody</a></li>
-<li><a href="https://www.dj4e.com" target="_blank">Django for Everybody</a></li>
-<li><a href="https://www.wa4e.com" target="_blank">Web Applications for Everybody</a></li>
-<li><a href="https://www.pg4e.com" target="_blank">PostgreSQL for Everybody</a></li>
-</ul>
 </p>
 <p>
 This site uses <a href="http://www.tsugi.org" target="_blank">Tsugi</a>
@@ -132,5 +123,5 @@ var_dump($USER);
 ?>
 -->
 </div>
-<?php 
+<?php
 require_once "footer.php";
