@@ -74,7 +74,8 @@ modern programming languages.
 <p>
 You can take this course and receive a certificate at:
 <ul>
-<li><a href="https://www.coursera.org/specializations/c-programming-for-everybody" target="_blank">Coursera: C Programming for Everybody Specialization</a></li>
+<li><a href="https://www.coursera.org/specializations/c-programming-for-everybody?utm_source=cc4e_com"
+ target="_blank">Coursera: C Programming for Everybody Specialization</a></li>
 <li><a href="https://www.youtube.com/watch?v=j-_s8f5K30I" target="_blank">FreeCodeCamp</a></li>
 </ul>
 </p>
