@@ -59,7 +59,7 @@ require_once "nav.php";
 <iframe width="400" height="225" src="https://www.youtube.com/embed/XteaWkvontg?rel=0" frameborder="0" allowfullscreen></iframe>
 </div>
 <h1>C Programming <br/> A Historical Perspective</h1>
-This web site is dedicated to understanding computer architecture and low-level programming
+This material is dedicated to understanding computer architecture and low-level programming
 by studying the "classic" version of
 the
 C Programming language
@@ -70,7 +70,6 @@ Brian W. Kernighan
 and Dennis M. Ritchie.
 In this course we will be reflecting on how C provided an important foundation for the creation of
 modern programming languages.
-</p>
 </p>
 <p>
 You can take this course and receive a certificate at:
