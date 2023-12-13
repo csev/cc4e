@@ -10,6 +10,9 @@ require_once("../config.php");
 <form method="post" action="compile.php" target="compile">
 Secret: <input type="password" name="secret"><br/>
 <textarea name="code" style="width:95%;" rows="20">
+#include <stdio.h>
+
+main() { printf("hello world\n"); }
 </textarea>
 <br/>
 <input type="submit">
