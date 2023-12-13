@@ -204,6 +204,7 @@ function cc4e_compile($code, $input, $main=null, $note=null)
                 $retval=json_decode($resultStr, false);
                 if ( is_object($retval) ) {
                         error_log("Retval good");
+			return $retval;
                 } else {
                         error_log("Un parseable JSON response from remote compile at ".$remote_compile_url);
                         error_log(substr($resultStr, 0, 255));
