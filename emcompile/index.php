@@ -9,7 +9,7 @@ require_once("../config.php");
 
 <form method="post" id="form">
 Secret: <input type="password" name="secret"><br/>
-<textarea name="code" style="width:95%;" rows="20">
+<textarea name="code" style="width:95%;" rows="5">
 #include <stdio.h>
 
 main() { printf("hello world\n"); }
@@ -18,44 +18,6 @@ main() { printf("hello world\n"); }
 <input type="submit" onclick="runCompile(); return false;">
 </form>
 
-<script>
-function runCompile() {
-
-fetch("compile.php", {
-    credentials: "same-origin",
-    mode: "same-origin",
-    method: "post",
-    // body: formData
-    body: new FormData(document.getElementById("form"))
-})
-    .then(resp => {
-        if (resp.status === 200) {
-            return resp.json()
-        } else {
-            console.log("Status: " + resp.status)
-            return Promise.reject("server")
-        }
-    })
-    .then(dataJson => {
-        console.log(dataJson);
-        // var element = document.getElementById("executable");
-        // if ( element ) element.parentNode.removeChild(element);
-
-        var executable = dataJson.js;
-        console.log(`Javascript: ${executable}`);
-        const s = document.createElement('script');
-
-        s.setAttribute('id', 'executable');
-        s.setAttribute('src', executable);
-        document.body.appendChild(s);
-    })
-    .catch(err => {
-        if (err === "server") return
-        console.log(err)
-    })
-
-}
-</script>
 
     <div class="spinner" id='spinner'></div>
     <div class="emscripten" id="status">Downloading...</div>
@@ -64,19 +26,18 @@ fetch("compile.php", {
       <progress value="0" max="100" id="progress" hidden=1></progress>
     </div>
 
-    <div class="emscripten_border">
-      <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
-    </div>
-
 <textarea id="output" rows="8"></textarea>
 
+<script type='text/javascript'>
 
-    <script type='text/javascript'>
+var Module;
+function runCompile() {
+
+    // Rebuild every time
       var statusElement = document.getElementById('status');
       var progressElement = document.getElementById('progress');
       var spinnerElement = document.getElementById('spinner');
-
-      var Module = {
+      Module = {
         print: (function() {
           var element = document.getElementById('output');
           if (element) element.value = ''; // clear browser cache
@@ -93,16 +54,6 @@ fetch("compile.php", {
               element.scrollTop = element.scrollHeight; // focus on bottom
             }
           };
-        })(),
-        canvas: (() => {
-          var canvas = document.getElementById('canvas');
-
-          // As a default initial behavior, pop up an alert when webgl context is lost. To make your
-          // application robust, you may want to override this behavior before shipping!
-          // See http://www.khronos.org/registry/webgl/specs/latest/1.0/#5.15.2
-          canvas.addEventListener("webglcontextlost", (e) => { alert('WebGL context lost. You will need to reload the page.'); e.preventDefault(); }, false);
-
-          return canvas;
         })(),
         setStatus: (text) => {
           if (!Module.setStatus.last) Module.setStatus.last = { time: Date.now(), text: '' };
@@ -141,6 +92,43 @@ fetch("compile.php", {
           if (text) console.error('[post-exception status] ' + text);
         };
       };
-    </script>
+
+fetch("compile.php", {
+    credentials: "same-origin",
+    mode: "same-origin",
+    method: "post",
+    // body: formData
+    body: new FormData(document.getElementById("form"))
+})
+    .then(resp => {
+        if (resp.status === 200) {
+            return resp.json()
+        } else {
+            console.log("Status: " + resp.status)
+            return Promise.reject("server")
+        }
+    })
+    .then(dataJson => {
+        console.log(dataJson);
+        // var element = document.getElementById("executable");
+        // if ( element ) element.parentNode.removeChild(element);
+
+        var executable = dataJson.js;
+        console.log(`Javascript: ${executable}`);
+        const s = document.createElement('script');
+
+        s.setAttribute('id', 'executable');
+        s.setAttribute('src', executable);
+        document.body.appendChild(s);
+    })
+    .catch(err => {
+        if (err === "server") return
+        console.log(err)
+    })
+
+}
+</script>
+
+
 </body>
 </html>
