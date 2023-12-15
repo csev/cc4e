@@ -20,7 +20,7 @@ main() { printf("hello world\n"); }
 
 
     <div class="spinner" id='spinner'></div>
-    <div class="emscripten" id="status">Downloading...</div>
+    <div class="emscripten" id="status">Ready...</div>
 
     <div class="emscripten">
       <progress value="0" max="100" id="progress" hidden=1></progress>
@@ -30,7 +30,7 @@ main() { printf("hello world\n"); }
 
 <script type='text/javascript'>
 
-var Module;
+Module = 42;
 function runCompile() {
 
     // Rebuild every time
@@ -83,7 +83,7 @@ function runCompile() {
           Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
         }
       };
-      Module.setStatus('Downloading...');
+      Module.setStatus('Ready...');
       window.onerror = (event) => {
         // TODO: do not warn on ok events like simulating an infinite loop or exitStatus
         Module.setStatus('Exception thrown, see JavaScript console');
@@ -110,8 +110,8 @@ fetch("compile.php", {
     })
     .then(dataJson => {
         console.log(dataJson);
-        // var element = document.getElementById("executable");
-        // if ( element ) element.parentNode.removeChild(element);
+        var element = document.getElementById("executable");
+        if ( element ) element.parentNode.removeChild(element);
 
         var executable = dataJson.js;
         console.log(`Javascript: ${executable}`);
