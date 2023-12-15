@@ -700,7 +700,7 @@
         ]
         },
         {
-        "title" : "Exercise 4-D: Write a recussive function",
+        "title" : "Exercise 4-D: Write a recursive function",
         "launch" : "tools/ccauto/",
         "resource_link_id": "cc4e_4_D",
         "custom" : [
