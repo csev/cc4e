@@ -7,7 +7,7 @@ require_once("../config.php");
 </body>
 <h1>EmScriptEn Compiler</h1>
 
-<form method="post" action="compile.php" target="compile">
+<form method="post" id="form">
 Secret: <input type="password" name="secret"><br/>
 <textarea name="code" style="width:95%;" rows="20">
 #include <stdio.h>
@@ -15,9 +15,47 @@ Secret: <input type="password" name="secret"><br/>
 main() { printf("hello world\n"); }
 </textarea>
 <br/>
-<input type="submit">
+<input type="submit" onclick="runCompile(); return false;">
 </form>
-<a href="https://emscripten.org/" target="_blank">Emscripten</a>.
+
+<script>
+function runCompile() {
+
+fetch("compile.php", {
+    credentials: "same-origin",
+    mode: "same-origin",
+    method: "post",
+    // body: formData
+    body: new FormData(document.getElementById("form"))
+})
+    .then(resp => {
+        if (resp.status === 200) {
+            return resp.json()
+        } else {
+            console.log("Status: " + resp.status)
+            return Promise.reject("server")
+        }
+    })
+    .then(dataJson => {
+        console.log(dataJson);
+        // var element = document.getElementById("executable");
+        // if ( element ) element.parentNode.removeChild(element);
+
+        var executable = dataJson.js;
+        console.log(`Javascript: ${executable}`);
+        const s = document.createElement('script');
+
+        s.setAttribute('id', 'executable');
+        s.setAttribute('src', executable);
+        document.body.appendChild(s);
+    })
+    .catch(err => {
+        if (err === "server") return
+        console.log(err)
+    })
+
+}
+</script>
 
     <div class="spinner" id='spinner'></div>
     <div class="emscripten" id="status">Downloading...</div>
@@ -104,6 +142,5 @@ main() { printf("hello world\n"); }
         };
       };
     </script>
-<script async="" type="text/javascript" src="load.php/2f746d702f7a6170/a.out.js"></script>
 </body>
 </html>

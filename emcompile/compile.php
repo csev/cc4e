@@ -24,7 +24,7 @@ $tempdir = "/tmp/zap";
 $input = $tempdir . "/student.c";
 file_put_contents($input, $code);
 
-$command = "/opt/homebrew/bin/emcc -Wno-implicit-int student.c";
+$command = "/opt/homebrew/bin/emcc -sEXIT_RUNTIME=1 -Wno-implicit-int student.c";
 $stdin = null;
 $cwd = $tempdir; 
 $env = null;
@@ -35,8 +35,8 @@ $compile = cc4e_pipe($command, $stdin, $cwd, $env, $timeout);
 header("Content-type:application/json");
 
 $hexfolder = bin2hex($tempdir);
-$js = 'load.php/' . $hexfolder . '.js';
-$wasm = 'load.php/' . $hexfolder . '.wasm';
+$js = $CFG->apphome . '/emcompile/load.php/' . $hexfolder . '/a.out.js';
+$wasm = $CFG->apphome . '/emcompile/load.php/' . $hexfolder . '/a.out.wasm';
 
 $retval = array('code' => $code, 'tmpdir' => $tempdir, 'command' => $command, 'js' => $js, 'wasm' => $wasm, 'compile' => $compile);
 echo(json_encode($retval));

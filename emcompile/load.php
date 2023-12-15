@@ -11,7 +11,7 @@ $path = hex2bin($pathhex);
 
 $file = $path . "/" . $basename;
 
-if ( ! file_exists($file) ) die('File not found');
+if ( ! file_exists($file) ) die('File not found'.$file);
 
 if ( $extension == 'js' ) {
     header('Content-Type: application/javascript');
