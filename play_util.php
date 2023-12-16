@@ -53,6 +53,8 @@ function cc4e_play_errors($retval) {
     } else if ( isset($retval->hasmain) && $retval->hasmain === false ) {
         echo('<p style="color:blue;">Compile only: You need a main() for your code to be run</p>'."\n");
         return true;
+    } else if ( isset($retval->docker->stdout) && strlen($retval->docker->stdout) > 0 ) {
+        return false;
     } else if ( isset($retval->minimum) && $retval->minimum === false ) {
          echo('<p style="color:red;">Your program did not produce any output</p>'."\n");
         return true;

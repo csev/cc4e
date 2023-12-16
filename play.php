@@ -27,6 +27,7 @@ if ( isset($_POST['code']) ) {
     unset($_SESSION['retval']);
     $_SESSION['code'] = U::get($_POST, 'code', false);
     $_SESSION['input'] = U::get($_POST, 'input', false);
+    $_SESSION['output'] = U::get($_POST, 'output', false);
     header("Location: play.php");
     return;
 }
@@ -41,15 +42,22 @@ $sample = U::get($_REQUEST, 'sample');
 if ( is_string($sample) ) {
     unset($_SESSION['code']);
     unset($_SESSION['input']);
+    unset($_SESSION['output']);
     unset($_SESSION['retval']);
     $code = file_get_contents('book/code/'.$sample);
     $retval = null;
     $input = null;  /* TODO - Get this as well */
+    $output = null;
 } else {
     $code = U::get($_SESSION, 'code');
     $input = U::get($_SESSION, 'input');
     $retval = U::get($_SESSION, 'retval');
-    if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
+    $output = U::get($_SESSION, 'output', '');
+    if ( strlen($output) > 0 && strlen($CFG->getExtension('emscripten_secret', '')) > 0 ) {
+        if ( $retval == null ) $retval = new \stdClass();
+        if ( ! isset($retval->docker) ) $retval->docker = new \stdClass();
+        $retval->docker->stdout = $output;
+    } else if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
         $bucket = U::get($_SESSION,"leaky_bucket", null);
         $now = time();
         if ( ! is_array($bucket) ) $bucket = array();
@@ -69,7 +77,7 @@ if ( is_string($sample) ) {
             $deltas[] = $delta;
         }
 
-        if ( $count >= $BUCKET_SIZE ) {
+        if ( false && $count >= $BUCKET_SIZE ) {
             $retval = new \stdClass();
             $retval->assembly = new \stdClass();
             $retval->assembly->stderr = "Rate Exceeded...";
@@ -116,7 +124,7 @@ compiler page.
     echo("-->\n");
 } else {
 ?>
-You must be logged in to run your program on this site.  There are a number of 
+You must be logged in to run your program on this site.  There are a number of
 free online <a href="compilers.php">C Compilers</a> that you can use.
 <?php } ?>
 <p>
@@ -152,13 +160,24 @@ if ( is_string($input) ) {
 } ?>
 </textarea>
 </p>
+<?php
+if ( is_string($output) && strlen($output) > 0 ) {
+?>
+<textarea id="myoutput" name="output" style="width:100%; border: 1px black solid;">
+<?php echo(htmlentities($output));
+} else {
+?>
+<textarea id="myoutput" name="output" style="display:none; width:100%; border: 1px black solid;">
+<?php } ?>
+</textarea>
+</p>
 <?php cc4e_play_output($retval); ?>
 </form>
 <p>
-This compiler uses a pretty complex docker setup to run your code - you 
+This compiler uses a pretty complex docker setup to run your code - you
 might get  "docker error" or a "timeout" if there is a problem with the
 compiler environment.  Usually you can just re-try a
-compile and it will work.  There is a 
+compile and it will work.  There is a
 <a href="https://status.cc4e.com/" target="_blank">status page</a>
 that runs a test every minute or two on this site and monitors the reliability
 of its C compiler.
@@ -171,7 +190,7 @@ having a precise "allowed functions" list.  As we gain experience, the list will
 <a href="<?= $CFG->apphome ?>/discussions">Discussions</a>
 area.
 </p>
-<?php 
+<?php
 cc4e_play_debug($retval);
 } else {
     echo("\n</form>\n");
