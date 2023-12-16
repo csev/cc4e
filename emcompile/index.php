@@ -10,7 +10,7 @@ if ( strlen($code) < 1 ) {
     $code = <<< EOF
 #include <stdio.h>
 
-main() { printf("hello world\n"); }
+main() { printf("hello world\\n"); }
 EOF
 ;
 }

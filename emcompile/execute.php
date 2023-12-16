@@ -25,7 +25,7 @@ $tempdir = "/tmp/zap";
 $student_code = $tempdir . "/student.c";
 file_put_contents($student_code, $code);
 
-$command = "/opt/homebrew/bin/emcc -sEXIT_RUNTIME=1 -Wno-implicit-int student.c";
+$command = "/opt/homebrew/bin/emcc -sFORCE_FILESYSTEM -sEXIT_RUNTIME=1 -Wno-implicit-int student.c";
 $stdin = null;
 $cwd = $tempdir; 
 $env = null;
@@ -68,10 +68,14 @@ if ( strlen($retval['js'] ?? '' ) > 0 ) {
 </textarea>
 <br/>
 <textarea name="output" id="output" style="width:95%;" rows="5"></textarea>
+<br/>
+<textarea name="stderr" id="stderr" style="width:95%;" rows="5"></textarea>
 <input type="submit">
 </form>
 
 <script type='text/javascript'>
+
+var inputPosition = 0;
 
       var statusElement = document.getElementById('status');
       var progressElement = document.getElementById('progress');
@@ -115,6 +119,28 @@ if ( strlen($retval['js'] ?? '' ) > 0 ) {
             if (!text) spinnerElement.style.display = 'none';
           }
           statusElement.innerHTML = text;
+        },
+        preRun: function() {
+          // Return ASCII code of character, or null if no input
+          function stdin() {
+              var inputText = document.getElementById('input').value;
+              if ( inputPosition >= inputText.length ) return null;
+              return inputText.charCodeAt(inputPosition++);
+          }
+
+          // Do something with the asciiCode
+          function stdout(asciiCode) {
+            var element = document.getElementById('output');
+            element.value += String.fromCharCode(asciiCode);
+          }
+
+          // Do something with the asciiCode
+          function stderr(asciiCode) {
+            var element = document.getElementById('stderr');
+            element.value += String.fromCharCode(asciiCode);
+          }
+
+          FS.init(stdin, stdout, stderr);
         },
         totalDependencies: 0,
         monitorRunDependencies: (left) => {
