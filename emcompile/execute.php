@@ -58,7 +58,7 @@ if ( strlen($retval['js'] ?? '' ) > 0 ) {
 
 
 
-<form method="post" action="index.php">
+<form method="post" action="index.php" id="form">
 <textarea name="code" id="code" style="width:95%;" rows="5">
 <?php echo(htmlentities($code)); ?>
 </textarea>
@@ -141,6 +141,10 @@ var inputPosition = 0;
           }
 
           FS.init(stdin, stdout, stderr);
+        },
+        onExit: (status) => {
+            console.log('onExit '+status);
+            document.getElementById("form").submit();
         },
         totalDependencies: 0,
         monitorRunDependencies: (left) => {
