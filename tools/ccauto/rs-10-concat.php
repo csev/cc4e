@@ -39,6 +39,7 @@ int main() {
     printf("Enter two strings\\n");
     scanf("%100s", first);
     scanf("%100s", second);
+    concat[0] = '\0';
     strcpy(concat, first);
     strcat(concat, " & ");
     strcat(concat, second);
