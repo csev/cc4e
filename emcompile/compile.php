@@ -9,7 +9,7 @@ $code = $_POST['code'] ?? '';
 $secret = $_POST['secret'] ?? '';
 if ( strlen($code) < 1 ) die('Need code');
 if ( strlen($code) > 100000 ) die ('Need less code');
-if ( strlen($secret) < 1 || $CFG->getExtension('emscripten_secret') != $secret ) die("Bletchley Park");
+if ( strlen($secret) < 1 || $CFG->getExtension('emcc_secret') != $secret ) die("Bletchley Park");
 
 function tempdir() {
     $tempfile=tempnam(sys_get_temp_dir(),'');

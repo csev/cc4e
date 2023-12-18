@@ -1,56 +1,26 @@
 <!DOCTYPE html>
 <?php
-require_once("../tsugi/config.php");
-require_once("util.php");
 
-// global $CFG;
+use \Tsugi\Util\U;
+use \Tsugi\Core\LTIX;
 
-$code = $_POST['code'] ?? '';
-$secret = $_POST['secret'] ?? '';
-$input = $_POST['input'] ?? '';
+if (!defined('COOKIE_SESSION')) define('COOKIE_SESSION', true);
+require_once "tsugi/config.php";
+$LAUNCH = LTIX::session_start();
+
+$code = U::get($_SESSION, 'code');
+$input = U::get($_SESSION, 'input');
+$retval = U::get($_SESSION, 'retval');
+
 if ( strlen($code) < 1 ) die('Need code');
-if ( strlen($code) > 100000 ) die ('Need less code');
-if ( strlen($secret) < 1 || $CFG->getExtension('emcc_secret') != $secret ) die("Bletchley Park");
-if ( strlen($CFG->getExtension('emcc_path', '')) < 1 ) die("EmScriptEn compiles not available");
+if ( ! is_object($retval) || ! is_string($retval->js) || strlen($retval->js) < 1 ) die('need compile results in session');
 
-function tempdir() {
-    $tempfile=tempnam(sys_get_temp_dir(),'');
-    // tempnam creates file on disk
-    if (file_exists($tempfile)) { unlink($tempfile); }
-    mkdir($tempfile);
-    if (is_dir($tempfile)) { return $tempfile; }
-}
-
-$tempdir = tempdir();
-$tempdir = "/tmp/zap";
-$student_code = $tempdir . "/student.c";
-file_put_contents($student_code, $code);
-
-$emcc = $CFG->getExtension('emcc_path', "/opt/homebrew/bin/emcc");
-$command = "$emcc -sFORCE_FILESYSTEM -sEXIT_RUNTIME=1 -Wno-implicit-int student.c";
-$stdin = null;
-$cwd = $tempdir; 
-$env = null;
-$timeout = 10.0;
-
-$compile = cc4e_pipe($command, $stdin, $cwd, $env, $timeout);
-
-$hexfolder = bin2hex($tempdir);
-$js = $CFG->apphome . '/emcompile/load.php/' . $hexfolder . '/a.out.js';
-$wasm = $CFG->apphome . '/emcompile/load.php/' . $hexfolder . '/a.out.wasm';
-
-$retval = array('code' => $code, 'tmpdir' => $tempdir, 'command' => $command, 'js' => $js, 'wasm' => $wasm, 'compile' => $compile);
-// echo("<pre>\n");print_r($retval);die();
+$js = $retval->js;
 ?>
 <head>
 </head>
 </body>
 <h1>EmScriptEn Executor</h1>
-
-<?php 
-
-if ( strlen($retval['js'] ?? '' ) > 0 ) {
-?>
 
     <div class="spinner" id='spinner'></div>
     <div class="emscripten" id="status">Ready...</div>
@@ -61,16 +31,16 @@ if ( strlen($retval['js'] ?? '' ) > 0 ) {
 
 
 
-<form method="post" action="index.php" id="form">
-<textarea name="code" id="code" style="width:95%;" rows="5">
+<form method="post" action="play.php" id="form">
+<textarea name="code_dont_post" id="code" style="width:95%;" rows="5">
 <?php echo(htmlentities($code)); ?>
 </textarea>
 
-<textarea name="input" id="input" style="width:95%;" rows="5">
+<textarea name="input_dont_post" id="input" style="width:95%;" rows="5">
 <?php echo(htmlentities($input)); ?>
 </textarea>
 <br/>
-<textarea name="output" id="output" style="width:95%;" rows="5"></textarea>
+<textarea name="emcc_output" id="output" style="width:95%;" rows="5"></textarea>
 <br/>
 <textarea name="stderr" id="stderr" style="width:95%;" rows="5"></textarea>
 <input type="submit">
@@ -167,15 +137,11 @@ var inputPosition = 0;
 
 </script>
 
-<script src="<?= $retval['js'] ?>"></script>
-
-<?php } ?>
-
-
+<script src="<?= $js ?>"></script>
 
 <!--
 <pre>
-<?php 
+<?php
 var_dump($retval);
 var_dump($_POST);
 ?>

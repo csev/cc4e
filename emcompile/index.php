@@ -5,7 +5,8 @@ $code = $_POST['code'] ?? '';
 $input = $_POST['input'] ?? '42';
 $output = $_POST['output'] ?? '';
 if ( strlen($code) > 100000 ) die ('Need less code');
-if ( strlen($CFG->getExtension('emscripten_secret', '')) < 1 ) die("EmScriptEn Compiles not available on this server");
+if ( strlen($CFG->getExtension('emcc_secret', '')) < 1 ) die("EmScriptEn Compiles not available on this server");
+if ( strlen($CFG->getExtension('emcc_path', '')) < 1 ) die("EmScriptEn Compiles not available on this server");
 if ( strlen($code) < 1 ) {
     $code = <<< EOF
 #include <stdio.h>

@@ -468,6 +468,116 @@ function cc4e_compile_internal($code, $input, $main=null, $note=null)
     return $retval;
 }
 
+function cc4e_emcc($code, $input, $main=null, $note=null)
+{
+    global $CFG;
+    $retval = new \stdClass();
+    $now = str_replace('@', 'T', gmdate("Y-m-d@H-i-s"));
+    $retval->now = $now;
+    $retval->code = $code;
+    $retval->input = $input;
+    $retval->reject = false;
+    $retval->hasmain = false;
+
+    // Some sanity checks
+    if ( strlen($code) > 20000 ) {
+        $retval->reject = "Code too large";
+        return $retval;
+    }
+
+    if ( strlen($input) > 20000 ) {
+        $retval->reject = "Input too large";
+        return $retval;
+    }
+
+    for($i=0; $i<strlen($input); $i++) {
+        $ord = ord($input[$i]);
+        if ( $ord < 1 || $ord > 126 ) {
+            $retval->reject = "Input has non-ascii character: ".$ord." @".$i;
+            return $retval;
+        }
+    }
+
+    for($i=0; $i<strlen($code); $i++) {
+        $ord = ord($code[$i]);
+        if ( $ord < 1 || $ord > 126 ) {
+            $retval->reject = "Code has non-ascii character: ".$ord." @".$i;
+            return $retval;
+        }
+    }
+
+    $env = array(
+            'some_option' => 'aeiou',
+            'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+    );
+
+    function tempdir() {
+        $tempfile=tempnam(sys_get_temp_dir(),'');
+        // tempnam creates file on disk
+        if (file_exists($tempfile)) { unlink($tempfile); }
+        mkdir($tempfile);
+        if (is_dir($tempfile)) { return $tempfile; }
+    }
+
+    // Add any driver code that is required
+    if ( is_string($main) && strlen($main) > 0 ) {
+        $before = $main;
+        $after = "";
+        $pos = strpos($main, 'int main(');
+        if ( $pos > 0 ) {
+            $before = substr($main, 0, $pos-1);
+            $after = substr($main, $pos);
+        }
+        $marker = '#include "student.c"';
+        $pos = strpos($main, $marker);
+        if ( $pos > 0 ) {
+            $before = substr($main, 0, $pos-1);
+            $after = substr($main, $pos+strlen($marker));
+        }
+        $code = $before . "\n" . $code . "\n" . $after;
+    }
+
+
+    $tempdir = tempdir();
+    $tempdir = "/tmp/zap";
+    $student_code = $tempdir . "/student.c";
+    file_put_contents($student_code, $code);
+
+    $gcc_options = '-ansi -Wno-return-type -Wno-pointer-to-int-cast -Wno-builtin-declaration-mismatch -Wno-int-conversion -Wno-deprecated-declarations';
+    $gcc_options = U::get($CFG->extensions, 'cc4e_gcc_options', $gcc_options);
+    $emcc_path = U::get($CFG->extensions, 'emcc_path', "/opt/homebrew/bin/emcc");
+
+
+    // $command = "$emcc_path -sFORCE_FILESYSTEM -sEXIT_RUNTIME=1 -Wno-implicit-int student.c";
+    $command = "$emcc_path -sFORCE_FILESYSTEM -sEXIT_RUNTIME=1 $gcc_options student.c";
+    $stdin = null;
+    $cwd = $tempdir;
+    $env = null;
+    $timeout = 10.0;
+
+    $retval->docker = cc4e_pipe($command, $stdin, $cwd, $env, $timeout);
+
+    $hexfolder = bin2hex($tempdir);
+    if ( strlen($retval->docker->stderr) < 1 ) {
+        $retval->js = $CFG->apphome . '/emcompile/load.php/' . $hexfolder . '/a.out.js';
+        $retval->wasm = $CFG->apphome . '/emcompile/load.php/' . $hexfolder . '/a.out.wasm';
+        $retval->hasmain = true;
+    }
+
+    $cleanup = false;
+    $minimum = $retval->minimum ?? null;
+    $allowed = $retval->allowed ?? null;
+    if ( $minimum === false || $allowed === false || is_string($retval->reject) ) {
+        $json = json_encode($retval, JSON_PRETTY_PRINT);
+        file_put_contents($tempdir . '/result.json', $json);
+    } else if ( $cleanup ) {
+        system("rm -rf $folder");
+    }
+
+    // echo("<pre>\n");print_r($retval);die();
+    return $retval;
+}
+
 // Weirdness in shell copying input
 // Note, we can't use <<- because it is ash :(
 function escape_heredoc($doc) {
