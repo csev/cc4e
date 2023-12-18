@@ -513,7 +513,6 @@ function cc4e_emcc($code, $input, $main=null, $note=null)
 
     function tempdir() {
         $tempfile=tempnam(sys_get_temp_dir(),'');
-        // tempnam creates file on disk
         if (file_exists($tempfile)) { unlink($tempfile); }
         mkdir($tempfile);
         if (is_dir($tempfile)) { return $tempfile; }
@@ -537,19 +536,23 @@ function cc4e_emcc($code, $input, $main=null, $note=null)
         $code = $before . "\n" . $code . "\n" . $after;
     }
 
+    $emcc_folder = U::get($CFG->extensions, 'emcc_folder', "/tmp");
 
-    $tempdir = tempdir();
-    $tempdir = "/tmp/zap";
+    $now = str_replace('@', 'T', gmdate("Y-m-d@H-i-s"));
+    $retval->now = $now;
+    $tempdir = $emcc_folder . '/' . $now . '-' . substr(md5(uniqid()),0,5);
+    mkdir($tempdir);
+
+    // $tempdir = "/tmp/zap";
     $student_code = $tempdir . "/student.c";
     file_put_contents($student_code, $code);
 
-    $gcc_options = '-ansi -Wno-return-type -Wno-pointer-to-int-cast -Wno-builtin-declaration-mismatch -Wno-int-conversion -Wno-deprecated-declarations';
-    $gcc_options = U::get($CFG->extensions, 'cc4e_gcc_options', $gcc_options);
+    $emcc_options = '-ansi -Wno-return-type -Wno-pointer-to-int-cast -Wno-int-conversion -Wno-deprecated-declarations';
+    $emcc_options = U::get($CFG->extensions, 'emcc_options', $emcc_options);
     $emcc_path = U::get($CFG->extensions, 'emcc_path', "/opt/homebrew/bin/emcc");
 
-
     // $command = "$emcc_path -sFORCE_FILESYSTEM -sEXIT_RUNTIME=1 -Wno-implicit-int student.c";
-    $command = "$emcc_path -sFORCE_FILESYSTEM -sEXIT_RUNTIME=1 $gcc_options student.c";
+    $command = "$emcc_path -sFORCE_FILESYSTEM -sEXIT_RUNTIME=1 $emcc_options student.c";
     $stdin = null;
     $cwd = $tempdir;
     $env = null;

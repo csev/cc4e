@@ -18,9 +18,55 @@ if ( ! is_object($retval) || ! is_string($retval->js) || strlen($retval->js) < 1
 $js = $retval->js;
 ?>
 <head>
+<!-- https://stackoverflow.com/a/20741964/1994792 -->
+<style>
+.loading {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(256,256,256,.9);
+}
+.loading-wheel {
+    width: 20px;
+    height: 20px;
+    margin-top: -40px;
+    margin-left: -40px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    border-width: 30px;
+    border-radius: 50%;
+    -webkit-animation: spin 1s linear infinite;
+}
+.style-2 .loading-wheel {
+    border-style: double;
+    border-color: #ccc transparent;
+}
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0);
+    }
+    100% {
+        -webkit-transform: rotate(-360deg);
+    }
+}
+</style>
 </head>
-</body>
-<h1>EmScriptEn Executor</h1>
+<body>
+<div class="loading style-2" id="loading"><div class="loading-wheel"></div></div>
+
+<p>Executing...</p>
+<div id="debug" style="display:none;">
+<p>You should not see this screen.  It should briefly blink, run your compiled code in the browser, and
+then send the output back to the main page.  If this screen stops or waits long enought for you to see it, 
+something is likely happening incorrectly - or you have an infinite loop :)
+</p>
 
     <div class="spinner" id='spinner'></div>
     <div class="emscripten" id="status">Ready...</div>
@@ -45,6 +91,7 @@ $js = $retval->js;
 <textarea name="stderr" id="stderr" style="width:95%;" rows="5"></textarea>
 <input type="submit">
 </form>
+</div>
 
 <script type='text/javascript'>
 
@@ -116,7 +163,7 @@ var inputPosition = 0;
           FS.init(stdin, stdout, stderr);
         },
         onExit: (status) => {
-            console.log('onExit '+status);
+            console.log('Execution complete status='+status);
             document.getElementById("form").submit();
         },
         totalDependencies: 0,
@@ -129,6 +176,7 @@ var inputPosition = 0;
       window.onerror = (event) => {
         // TODO: do not warn on ok events like simulating an infinite loop or exitStatus
         Module.setStatus('Exception thrown, see JavaScript console');
+        console.log('Exception thrown, see JavaScript console');
         spinnerElement.style.display = 'none';
         Module.setStatus = (text) => {
           if (text) console.error('[post-exception status] ' + text);
@@ -138,6 +186,15 @@ var inputPosition = 0;
 </script>
 
 <script src="<?= $js ?>"></script>
+
+<script>
+console.log('Loading your application...');
+setTimeout( () => {
+    console.log('Exception taking too long, showing debug detail');
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("debug").style.display = "block";
+}, "2000");
+</script>
 
 <!--
 <pre>

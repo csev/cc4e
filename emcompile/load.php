@@ -1,6 +1,6 @@
 <?php
 
-require_once("../config.php");
+require_once("../tsugi/config.php");
 
 $pathinfo = pathinfo($_SERVER['PATH_INFO']);
 $extension = $pathinfo['extension'] ?? '';

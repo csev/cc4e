@@ -178,13 +178,17 @@ if ( is_string($input) ) {
 </textarea>
 </p>
 </form>
-<?php if ( is_object($retval) && is_object($retval->docker) && is_string($retval->docker->stdout) ) { ?>
+<?php if ( is_object($retval) && is_object($retval->docker) && is_string($retval->docker->stdout) && strlen($retval->docker->stdout) > 0 ) {
+  $rows = substr_count( $retval->docker->stdout, "\n" );
+  if ( $rows < 5 ) $rows = 5;
+  if ( $rows > 30 ) $rows = 30;
+?>
 <p>
 Program Output:
 </p>
 <p>
-<textarea id="myoutput" name="output" style="width:100%; border: 1px black solid;">
-<?php echo(htmlentities($output)); ?>
+<textarea id="myoutput" name="output" style="width:100%; border: 1px black solid;" rows="<?= $rows ?>">
+<?php echo(htmlentities($retval->docker->stdout)); ?>
 </textarea>
 </p>
 <?php } ?>
