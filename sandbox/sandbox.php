@@ -212,7 +212,7 @@ function cc4e_compile($code, $input, $main=null, $note=null)
                 }
         }
 
-    } 
+    }
 
     return cc4e_compile_internal($code, $input, $main, $note);
 }
@@ -349,6 +349,7 @@ function cc4e_compile_internal($code, $input, $main=null, $note=null)
             'sin', 'cos', 'tan', 'sinh', 'cosh', 'tanh',
             'atoi', 'isspace', 'tolower', 'toupper',
             '___chkstk_darwin', '_ctype_b_loc', 'cputchar',
+            'atof', 'get_line',
         );
         $more_externals = array();
         foreach($allowed_externals as $external) {
