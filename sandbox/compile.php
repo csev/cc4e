@@ -18,7 +18,6 @@ if ( U::get($_SESSION,'id', null) === null ) {
 }
 
 require_once "sandbox.php";
-require_once "enable.php";
 
 /*
 $ip = $_SERVER['REMOTE_ADDR'] ?? false;

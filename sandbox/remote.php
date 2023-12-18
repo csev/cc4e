@@ -4,7 +4,6 @@ use \Tsugi\Util\U;
 
 require_once "../tsugi/config.php";
 require_once "sandbox.php";
-require_once "enable.php";
 
 $cfg_password = $CFG->getExtension('remote_incoming_password', '');
 if ( strlen($cfg_password) < 1 ) die('Remote not configured');
