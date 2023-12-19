@@ -191,6 +191,8 @@ if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
         error_log($note);
         GradeUtil::gradeUpdateJson(json_encode(array("code" => $code)));
         if ( $use_emcc ) {
+            $note = "EMCC Assn: ".$assn." by ".$displayname.' '.$email.': '.substr($succinct,0, 250);
+            error_log($note);
             $retval = cc4e_emcc($code, $input, $main, $note);
             $_SESSION['retval'] = $retval;
             $_SESSION['input'] = $input;
@@ -199,6 +201,8 @@ if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
                 return;
             }
         } else {
+            $note = "Docker Assn: ".$assn." by ".$displayname.' '.$email.': '.substr($succinct,0, 250);
+            error_log($note);
             $retval = cc4e_compile($code, $input, $main, $note);
         }
         $_SESSION['retval'] = $retval;
