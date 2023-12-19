@@ -194,7 +194,7 @@ Program Output:
 <?php } ?>
 <p>
 <?php  if ( $use_emcc) { ?>
-This pages uses a server-based compiler called
+This page uses a server-based compiler called
 <a href="https://emscripten.org/" target="_blank">Emscripten</a> that compiles
 your code to JavaScript and then executes your code in the browser.  You can watch
 your browser developer console to monitor how your code is being executed.
