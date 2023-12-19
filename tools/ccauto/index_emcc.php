@@ -13,7 +13,10 @@ use \Tsugi\UI\SettingsForm;
 use \Tsugi\UI\Lessons;
 use \Tsugi\Grades\GradeUtil;
 
-$use_emcc = $CFG->getExtension('emcc_autograder', 'false') == 'true' && strlen($CFG->getExtension('emcc_path', '')) > 0;
+$emcc_available = strlen($CFG->getExtension('emcc_path', '')) > 0;
+$use_emcc = $emcc_available && (
+    $CFG->getExtension('emcc_autograder', 'false') == 'true' ||
+    U::get($_COOKIE, 'emcc_autograder', 'false') == 'true' );
 
 $LAUNCH = LTIX::requireData();
 $p = $CFG->dbprefix;
@@ -151,8 +154,9 @@ if ( isset($_POST['reset']) ) {
     return;
 }
 
-if ( isset($_POST['run']) ) {
+if ( isset($_POST["run"]) ) {
     unset($_SESSION['retval']);
+    unset($_SESSION['actual']);
     $_SESSION['code'] = U::get($_POST, 'code', false);
     header( 'Location: '.addSession('index.php') ) ;
     return;
@@ -163,9 +167,10 @@ $retval = U::get($_SESSION, 'retval');
 $actual = U::get($_SESSION, 'actual');
 
 if ( is_object($retval) && is_object($retval->docker) && strlen(U::get($_POST, "emcc_output", '')) > 0 ) {
-    $_SESSION['output'] = U::get($_POST, 'emcc_output', '');
-    $retval->docker->stdout = $_SESSION['output'];
+    $_SESSION['actual'] = U::get($_POST, 'emcc_output', '');
+    $retval->docker->stdout = $_SESSION['actual'];
     $_SESSION['retval'] = $retval;
+    $_SESSION['checkgrade'] = 'true';
     header( 'Location: '.addSession('index.php') ) ;
     return;
 }
@@ -186,8 +191,9 @@ if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
         error_log($note);
         GradeUtil::gradeUpdateJson(json_encode(array("code" => $code)));
         if ( $use_emcc ) {
-             $retval = cc4e_emcc($code, $input, $main, $note);
+            $retval = cc4e_emcc($code, $input, $main, $note);
             $_SESSION['retval'] = $retval;
+            $_SESSION['input'] = $input;
             if ( isset($retval->js) ) {
                 header("Location: ".addSession("em_run.php"));
                 return;
@@ -198,17 +204,28 @@ if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
         $_SESSION['retval'] = $retval;
         $actual = isset($retval->docker->stdout) && strlen($retval->docker->stdout) > 0 ? $retval->docker->stdout : false;
         $_SESSION['actual'] = $actual;
-        if ( is_string($actual) && is_string($output) && trim($actual) == trim($output) ) {
-            $grade = 1.0;
-            $debug_log = array();
-            $graderet = LTIX::gradeSend($grade, false, $debug_log);
-            error_log("Success: ".$displayname.' '.$email);
-            // $OUTPUT->dumpDebugArray($debug_log);
-	}
+        $_SESSION['checkgrade'] = 'true';
     }
 }
 
-$output_compare_fail = is_string($actual) && is_string($output) && trim($actual) != trim($output);
+// String non-printing other than  newline
+// https://stackoverflow.com/a/67538726/1994792
+if ( is_string($actual) ) $actual = trim(preg_replace('/[^\n[:print:]]/', '', $actual));
+if ( is_string($output) ) $output = trim(preg_replace('/[^\n[:print:]]/', '', $output));
+
+$output_compare_fail = true;
+if ( is_string($actual) && is_string($output) ) {
+    $output_compare_fail = $actual != $output;
+}
+
+if ( (! $output_compare_fail ) && U::get($_SESSION, 'checkgrade', 'false') == 'true') {
+    $grade = 1.0;
+    $debug_log = array();
+    $graderet = LTIX::gradeSend($grade, false, $debug_log);
+    error_log("Success: ".$displayname.' '.$email);
+    unset($_SESSION['checkgrade']);
+    // $OUTPUT->dumpDebugArray($debug_log);
+}
 
 $row = GradeUtil::gradeLoad();
 $json = array();
@@ -325,6 +342,8 @@ if ( isset($_SESSION['error']) ) {
 
 $OUTPUT->flashMessages();
 
+// echo("<pre>\n");var_dump($actual); var_dump($output); echo("\n</pre>\n");
+
 if ( ! (isset($ASSIGNMENT) && $ASSIGNMENT) ) {
     if ( $LAUNCH->user->instructor ) {
         echo("<p>Please use settings to select an assignment for this tool.</p>\n");
@@ -334,7 +353,6 @@ if ( ! (isset($ASSIGNMENT) && $ASSIGNMENT) ) {
     $OUTPUT->footer();
     return;
 }
-
 
 echo("<p>".$instructions."</p>\n");
 ?>
@@ -403,8 +421,8 @@ if ( is_string($input) && strlen($input) > 0 ) {
             $table = str_replace('<br>', '', $table);
             echo($table);
             echo('</div>');
-	    $diff_shown = true;
-	}
+            $diff_shown = true;
+        }
     } else if (is_string($output) ) {
     	echo '<div style="color: green;">'."\n";
     	echo "Expected output from your program:\n\n";
@@ -444,8 +462,8 @@ cc4e_play_debug($retval);
 if ( $use_emcc ) {
 ?>
 <p>
-This page uses a server-based compiler called
-<a href="https://emscripten.org/" target="_blank">Emscripten</a> that compiles
+This page uses a compiler called
+<a href="https://emscripten.org/" target="_blank">Emscripten</a> that translates
 your code to JavaScript and then executes your code in the browser.  You can watch
 your browser developer console to monitor how your code is being executed.
 If this fails with an unexpected error, please let us know.
