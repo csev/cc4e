@@ -23,6 +23,25 @@ $p = $CFG->dbprefix;
 $displayname = $LAUNCH->user->displayname;
 $email = $LAUNCH->user->email;
 
+if ( $emcc_available && strlen(U::get($_REQUEST, 'switch_emcc', '')) > 0 ) {
+    setcookie('emcc_autograder', 'true', 0);
+    unset($_SESSION['retval']);
+    unset($_SESSION['actual']);
+    unset($_SESSION['code']);
+    header("Location: ".addSession('index.php'));
+    return;
+}
+
+if ( $emcc_available && strlen(U::get($_REQUEST, 'switch_docker', '')) > 0 ) {
+    setcookie('emcc_autograder', 'false', 0);
+    unset($_SESSION['retval']);
+    unset($_SESSION['actual']);
+    unset($_SESSION['code']);
+    header("Location: ".addSession('index.php'));
+    return;
+}
+
+
 $LOGGED_IN = true;
 $RANDOM_CODE = getLinkCode($LAUNCH);
 $RANDOM_CODE_HOUR = getLinkCodeHour($LAUNCH);
@@ -471,6 +490,7 @@ This page uses a compiler called
 your code to JavaScript and then executes your code in the browser.  You can watch
 your browser developer console to monitor how your code is being executed.
 If this fails with an unexpected error, please let us know.
+<a href="index.php?switch_docker=true">Switch back to our server-based execution environment</a>.
 </p>
 <?php
 } else {
@@ -483,6 +503,9 @@ compile and it will work.  There is a
 <a href="https://status.cc4e.com/" target="_blank">status page</a>
 that runs a test every minute or two on this site and monitors the reliability
 of its C compiler.
+<?php if ( $emcc_available ) { ?>
+<a href="index.php?switch_emcc=true">Experiment with our in-browser execution environment</a>.
+<?php } ?>
 </p>
 <?php
 }

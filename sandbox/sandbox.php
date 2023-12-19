@@ -275,7 +275,7 @@ function cc4e_compile_internal($code, $input, $main=null, $note=null)
 
     $retval->folder = $folder;
 
-    $gcc_options = '-ansi -Wno-return-type -Wno-pointer-to-int-cast -Wno-builtin-declaration-mismatch -Wno-int-conversion -Wno-deprecated-declarations';
+    $gcc_options = '-ansi -Wno-fortify-source -Wno-return-type -Wno-pointer-to-int-cast -Wno-builtin-declaration-mismatch -Wno-int-conversion -Wno-deprecated-declarations';
     $gcc_options = U::get($CFG->extensions, 'cc4e_gcc_options', $gcc_options);
 
     $command = 'rm -rf * ; cat > student.c ; gcc '.$gcc_options.' -fno-asm -S student.c ; [ -f student.s ] && cat student.s';
@@ -429,7 +429,7 @@ function cc4e_compile_internal($code, $input, $main=null, $note=null)
 
     $eof = 'EOF' . md5(uniqid());
     if ( $retval->hasmain && $allowed && $minimum && ! $retval->reject ) {
-        $gcc_options = '-ansi -Wno-return-type -Wno-pointer-to-int-cast -Wno-builtin-declaration-mismatch -Wno-int-conversion -Wno-deprecated-declarations';
+        $gcc_options = '-ansi -Wno-fortify-source -Wno-return-type -Wno-pointer-to-int-cast -Wno-builtin-declaration-mismatch -Wno-int-conversion -Wno-deprecated-declarations';
         $gcc_options = U::get($CFG->extensions, 'cc4e_gcc_options', $gcc_options);
 
         $script = "cd /tmp;\n";
@@ -548,7 +548,7 @@ function cc4e_emcc($code, $input, $main=null, $note=null)
     $student_code = $tempdir . "/student.c";
     file_put_contents($student_code, $code);
 
-    $emcc_options = '-ansi -Wno-return-type -Wno-deprecated-non-prototype -Wno-pointer-to-int-cast -Wno-int-conversion -Wno-deprecated-declarations';
+    $emcc_options = '-ansi -Wno-fortify-source -Wno-return-type -Wno-deprecated-non-prototype -Wno-pointer-to-int-cast -Wno-int-conversion -Wno-deprecated-declarations';
     $emcc_options = U::get($CFG->extensions, 'emcc_options', $emcc_options);
     $emcc_path = U::get($CFG->extensions, 'emcc_path', "/opt/homebrew/bin/emcc");
 
