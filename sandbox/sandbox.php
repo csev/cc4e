@@ -548,7 +548,7 @@ function cc4e_emcc($code, $input, $main=null, $note=null)
     $student_code = $tempdir . "/student.c";
     file_put_contents($student_code, $code);
 
-    $emcc_options = '-ansi -Wno-return-type -Wno-pointer-to-int-cast -Wno-int-conversion -Wno-deprecated-declarations';
+    $emcc_options = '-ansi -Wno-return-type -Wno-deprecated-non-prototype -Wno-pointer-to-int-cast -Wno-int-conversion -Wno-deprecated-declarations';
     $emcc_options = U::get($CFG->extensions, 'emcc_options', $emcc_options);
     $emcc_path = U::get($CFG->extensions, 'emcc_path', "/opt/homebrew/bin/emcc");
 
