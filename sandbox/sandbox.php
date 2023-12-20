@@ -196,20 +196,20 @@ function cc4e_compile($code, $input, $main=null, $note=null)
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $resultStr = curl_exec($ch);
         if ( ! is_string($resultStr) || (is_string($resultStr) && strlen($resultStr) < 1) ) {
-                error_log("No response from remote compile at ".$remote_compile_url);
+            error_log("No response from remote compile at ".$remote_compile_url);
         } else if ( $resultStr[0] != '{' ) {
-                error_log("Non JSON response from remote compile at ".$remote_compile_url);
-                error_log(substr($resultStr, 0, 255));
+            error_log("Non JSON response from remote compile at ".$remote_compile_url);
+            error_log(substr($resultStr, 0, 255));
         } else {
-                $retval=json_decode($resultStr, false);
-                if ( is_object($retval) ) {
-                        error_log("Retval good");
-			return $retval;
-                } else {
-                        error_log("Un parseable JSON response from remote compile at ".$remote_compile_url);
-                        error_log(substr($resultStr, 0, 255));
-                        $retval = null;
-                }
+            $retval=json_decode($resultStr, false);
+            if ( is_object($retval) ) {
+                error_log("Retval good");
+                return $retval;
+            } else {
+                error_log("Un parseable JSON response from remote compile at ".$remote_compile_url);
+                error_log(substr($resultStr, 0, 255));
+                $retval = null;
+            }
         }
 
     }
@@ -512,13 +512,6 @@ function cc4e_emcc($code, $input, $main=null, $note=null)
             'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
     );
 
-    function tempdir() {
-        $tempfile=tempnam(sys_get_temp_dir(),'');
-        if (file_exists($tempfile)) { unlink($tempfile); }
-        mkdir($tempfile);
-        if (is_dir($tempfile)) { return $tempfile; }
-    }
-
     // Add any driver code that is required
     if ( is_string($main) && strlen($main) > 0 ) {
         $before = $main;
@@ -544,15 +537,17 @@ function cc4e_emcc($code, $input, $main=null, $note=null)
     $tempdir = $emcc_folder . '/' . $now . '-' . substr(md5(uniqid()),0,5);
     mkdir($tempdir);
 
-    // $tempdir = "/tmp/zap";
     $student_code = $tempdir . "/student.c";
     file_put_contents($student_code, $code);
+    if ( is_string($note) && strlen($note) > 1 ) {
+	    $student_note = $tempdir . "/note.txt";
+	    file_put_contents($student_note, $note);
+    }
 
     $emcc_options = '-ansi -Wno-fortify-source -Wno-implicit-function-declaration -Wno-return-type -Wno-deprecated-non-prototype -Wno-pointer-to-int-cast -Wno-int-conversion -Wno-deprecated-declarations';
     $emcc_options = U::get($CFG->extensions, 'emcc_options', $emcc_options);
     $emcc_path = U::get($CFG->extensions, 'emcc_path', "/opt/homebrew/bin/emcc");
 
-    // $command = "$emcc_path -sFORCE_FILESYSTEM -sEXIT_RUNTIME=1 -Wno-implicit-int student.c";
     $command = "$emcc_path -sFORCE_FILESYSTEM -sEXIT_RUNTIME=1 $emcc_options student.c";
     $stdin = null;
     $cwd = $tempdir;
