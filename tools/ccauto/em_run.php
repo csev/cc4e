@@ -10,6 +10,7 @@ $LAUNCH = LTIX::session_start();
 $code = U::get($_SESSION, 'code', '');
 $input = U::get($_SESSION, 'input', '');
 $retval = U::get($_SESSION, 'retval');
+// TODO: Add isInstrutor()
 $pause = U::get($_COOKIE, 'emcc_pause', 'false') == 'true';
 
 if ( strlen($code) < 1 ) die('Need code');
@@ -64,7 +65,7 @@ $js = $retval->js;
 <p>Executing...</p>
 <div id="debug" style="display:none;">
 <p>You should not see this screen.  It should briefly blink, run your compiled code in the browser, and
-then send the output back to the main page.  If this screen stops or waits long enought for you to see it, 
+then send the output back to the main page.  If this screen stops or waits long enough for you to see it, 
 something is likely happening incorrectly - or you have an infinite loop :)
 </p>
 
