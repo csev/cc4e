@@ -11,6 +11,8 @@ $LAUNCH = LTIX::session_start();
 $code = U::get($_SESSION, 'code');
 $input = U::get($_SESSION, 'input');
 $retval = U::get($_SESSION, 'retval');
+// TODO: Add isInstrutor()
+$pause = U::get($_COOKIE, 'emcc_pause', 'false') == 'true';
 
 if ( strlen($code) < 1 ) die('Need code');
 if ( ! is_object($retval) || ! is_string($retval->js) || strlen($retval->js) < 1 ) die('need compile results in session');
@@ -96,6 +98,7 @@ something is likely happening incorrectly - or you have an infinite loop :)
 <script type='text/javascript'>
 
 var inputPosition = 0;
+var lastReturnCharacter = 0;
 
       var statusElement = document.getElementById('status');
       var progressElement = document.getElementById('progress');
@@ -144,8 +147,16 @@ var inputPosition = 0;
           // Return ASCII code of character, or null if no input
           function stdin() {
               var inputText = document.getElementById('input').value;
-              if ( inputPosition >= inputText.length ) return null;
-              return inputText.charCodeAt(inputPosition++);
+              if ( inputPosition >= inputText.length ) {
+                  // Make sure that the last character of input is a newline
+                  if (lastReturnCharacter != 10 ) {
+                      lastReturnCharacter = 10;
+                      return lastReturnCharacter;
+                  }
+                  return null;
+              }
+              lastReturnCharacter = inputText.charCodeAt(inputPosition++);
+              return lastReturnCharacter;
           }
 
           // Do something with the asciiCode
@@ -164,7 +175,9 @@ var inputPosition = 0;
         },
         onExit: (status) => {
             console.log('Execution complete status='+status);
+<?php if ( ! $pause ) { ?>
             document.getElementById("form").submit();
+<?php } ?>
         },
         totalDependencies: 0,
         monitorRunDependencies: (left) => {
