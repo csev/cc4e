@@ -9,16 +9,16 @@ $PING_CACHE = 20;
 
 $secret = U::appCacheGet("pingsecret", null);
 if ( $secret === null ) {
-	U::appCacheSet("pingsecret", "42");
-	$secret = U::appCacheGet("pingsecret", null);
+    U::appCacheSet("pingsecret", "42");
+    $secret = U::appCacheGet("pingsecret", null);
 }
 
 header("Content-type: application/json; charset=utf-8");
 if ( $secret != '42' ) {
-	$retval = new \stdCLass();
-	$retval->pingstatus = "No APC";
-	echo(json_encode($retval, JSON_PRETTY_PRINT));
-	return;
+    $retval = new \stdCLass();
+    $retval->pingstatus = "No APC";
+    echo(json_encode($retval, JSON_PRETTY_PRINT));
+    return;
 }
 
 $prev = U::appCacheGet("pingtime", 0);
@@ -29,9 +29,9 @@ $delta = $now - $prev;
 $retval->pingdelta = $delta;
 
 if ( $delta < $PING_CACHE ) {
-	$retval->pingstatus = "Cache";
-	echo(json_encode($retval, JSON_PRETTY_PRINT));
-	return;
+    $retval->pingstatus = "Cache";
+    echo(json_encode($retval, JSON_PRETTY_PRINT));
+    return;
 }
 
 U::appCacheSet("pingtime", $now);
@@ -47,10 +47,15 @@ EOF;
 $input = "";
 $main = null;
 
-$retval = cc4e_compile($code, $input, $main, "ping.php");
+$retval = cc4e_emcc($code, $input, $main, "ping.php");
 $retval->pingdelta = $delta;
 
 U::appCacheSet("pingretval", $retval);
 $retval->pingstatus = "Compile";
+
+// unset($retval->js); $retval->docker->stderr = "ERROR GOES HERE"; // DEBUG
+
+// Pretend we executed...
+if ( isset($retval->js) ) $retval->docker->stdout = "Hello World\n";
 
 echo(json_encode($retval, JSON_PRETTY_PRINT));

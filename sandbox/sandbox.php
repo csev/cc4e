@@ -507,9 +507,11 @@ function cc4e_emcc($code, $input, $main=null, $note=null)
         }
     }
 
+    $is_ping = is_string($note) && $note == "ping.php";
+
     $env = array(
-            'some_option' => 'aeiou',
-            'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+       'some_option' => 'aeiou',
+       'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
     );
 
     // Add any driver code that is required
@@ -535,13 +537,19 @@ function cc4e_emcc($code, $input, $main=null, $note=null)
     $now = str_replace('@', 'T', gmdate("Y-m-d@H-i-s"));
     $retval->now = $now;
     $tempdir = $emcc_folder . '/' . $now . '-' . substr(md5(uniqid()),0,5);
+    if ( $is_ping ) $tempdir .= '-ping';
     mkdir($tempdir);
 
     $student_code = $tempdir . "/student.c";
     file_put_contents($student_code, $code);
     if ( is_string($note) && strlen($note) > 1 ) {
-	    $student_note = $tempdir . "/note.txt";
-	    file_put_contents($student_note, $note);
+        $student_note = $tempdir . "/note.txt";
+        file_put_contents($student_note, $note);
+    }
+
+    if ( is_string($input) && strlen($input) > 1 ) {
+        $student_input = $tempdir . "/input.txt";
+        file_put_contents($student_input, $input);
     }
 
     $emcc_options = '-ansi -Wno-fortify-source -Wno-implicit-function-declaration -Wno-return-type -Wno-deprecated-non-prototype -Wno-pointer-to-int-cast -Wno-int-conversion -Wno-deprecated-declarations';
@@ -563,15 +571,8 @@ function cc4e_emcc($code, $input, $main=null, $note=null)
         $retval->hasmain = true;
     }
 
-    $cleanup = false;
-    $minimum = $retval->minimum ?? null;
-    $allowed = $retval->allowed ?? null;
-    if ( $minimum === false || $allowed === false || is_string($retval->reject) ) {
-        $json = json_encode($retval, JSON_PRETTY_PRINT);
-        file_put_contents($tempdir . '/result.json', $json);
-    } else if ( $cleanup ) {
-        system("rm -rf $folder");
-    }
+    $json = json_encode($retval, JSON_PRETTY_PRINT);
+    file_put_contents($tempdir . '/result.json', $json);
 
     // echo("<pre>\n");print_r($retval);die();
     return $retval;
