@@ -50,12 +50,10 @@ $main = null;
 $retval = cc4e_emcc($code, $input, $main, "ping.php");
 $retval->pingdelta = $delta;
 
-U::appCacheSet("pingretval", $retval);
-$retval->pingstatus = "Compile";
-
-// unset($retval->js); $retval->docker->stderr = "ERROR GOES HERE"; // DEBUG
-
 // Pretend we executed...
 if ( isset($retval->js) ) $retval->docker->stdout = "Hello World\n";
+
+U::appCacheSet("pingretval", $retval);
+$retval->pingstatus = "Compile";
 
 echo(json_encode($retval, JSON_PRETTY_PRINT));
