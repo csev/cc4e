@@ -28,10 +28,7 @@ body {
 function cc4e_play_errors($retval) { 
     global $LOGGED_IN;
     if ( ! $LOGGED_IN ) return false;
-    $compiler = $retval->assembly->stderr ?? false;
-    if ($compiler == false) {
-        $compiler = $retval->docker->stderr ?? false;
-    }
+    $compiler = $retval->docker->stderr ?? false;
 
     if ( is_string($compiler) && strlen($compiler) > 0 ) {
         echo '<pre style="color:red;">'."\n";
@@ -137,30 +134,9 @@ if ( isset($retval->assembly->stdout) && is_string($retval->assembly->stdout) ) 
 <?php if ( $LOGGED_IN ) { ?>
 <script>
 $(document).ready(function() {
-<?php if ( U::get($CFG->extensions, 'cc4e_no_ping') ) { ?>
    	$('#runcode').attr('disabled' , false);
    	$('#runstatus').html('');
    	$('#editstatus').show();
-<?php } else { ?>
-	$.getJSON( "<?= $CFG->apphome ?>/ping.php", function( data ) { 
-    if ( typeof data === "undefined" ) {
-      $('#runstatus').html('Compiler unavailable');
-      return;
-    }
-
-    if ( data.hasOwnProperty('docker') && data.docker.hasOwnProperty('stdout') ) {
-    	var output = data.docker.stdout;
-    	$('#runcode').attr('disabled' , false);
-    	$('#runstatus').html('');
-   	$('#editstatus').show();
-	return;
-    }
-    $('#runstatus').html('Compiler unavailable');
-
-  }).fail(function() {
-    $('#runstatus').html('Unable to contact compiler');
-  });
-<?php } ?>
 });
 </script>
 <?php } ?>
