@@ -13,8 +13,6 @@ if ( ! isset($CFG) ) {
     $LAUNCH = LTIX::session_start();
 }
 
-$use_emcc = strlen($CFG->getExtension('emcc_path', '')) > 0;
-
 $BUCKET_RATE = 30; // One compile per 30 seconds
 $BUCKET_MAX = 4;
 
@@ -28,7 +26,6 @@ require_once "play_util.php";
 // If this is a new compile request - post - session - redirect
 if ( isset($_POST['new_compile']) ) {
     unset($_SESSION['retval']);
-    unset($_SESSION['output']);
     $_SESSION['code'] = U::get($_POST, 'code', false);
     $_SESSION['input'] = U::get($_POST, 'input', '');
     header("Location: play.php");
@@ -38,8 +35,7 @@ if ( isset($_POST['new_compile']) ) {
 $retval = U::get($_SESSION, 'retval');
 
 if ( is_object($retval) && is_object($retval->docker) && strlen(U::get($_POST, "emcc_output", '')) > 0 ) {
-    $_SESSION['output'] = U::get($_POST, 'emcc_output', '');
-    $retval->docker->stdout = $_SESSION['output'];
+    cc4e_emcc_get_output($retval, $displayname, $email, $_SESSION['id']);
     $_SESSION['retval'] = $retval;
 }
 
@@ -48,7 +44,6 @@ $sample = U::get($_REQUEST, 'sample');
 if ( is_string($sample) ) {
     unset($_SESSION['code']);
     unset($_SESSION['input']);
-    unset($_SESSION['output']);
     unset($_SESSION['retval']);
     $code = file_get_contents('book/code/'.$sample);
     $retval = null;
@@ -58,56 +53,20 @@ if ( is_string($sample) ) {
     $code = U::get($_SESSION, 'code');
     $input = U::get($_SESSION, 'input');
     $retval = U::get($_SESSION, 'retval');
-    $output = U::get($_SESSION, 'output', '');
-    if ( strlen($output) > 0 && $use_emcc ) {
-        if ( $retval == null ) $retval = new \stdClass();
-        if ( ! isset($retval->docker) ) $retval->docker = new \stdClass();
-        $retval->docker->stdout = $output;
-    } else if ( $use_emcc && $retval == NULL && is_string($code) && strlen($code) > 0 ) {
-        $succinct = preg_replace('/\s+/', ' ', $code);
-        $note = "EnScriptEm by ".$displayname.' '.$email.': '.substr($succinct,0, 250);
-        error_log($note);
-        $main = null;
-        $retval = cc4e_emcc($code, $input, $main, $note);
-        $_SESSION['retval'] = $retval;
-        if ( isset($retval->js) ) {
-            header("Location: em_run.php");
-            return;
-        }
-    } else if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
-        $bucket = U::get($_SESSION,"leaky_bucket", null);
-        $now = time();
-        if ( ! is_array($bucket) ) $bucket = array();
-        $deltas = array();
-        $newbucket = array();
-        $count = 0;
-
-        $BUCKET_RATE = 30; // One compile per 30 seconds
-        $BUCKET_SIZE = 4;  // Burst rate
-        $BUCKET_TIME = $BUCKET_RATE * $BUCKET_MAX;
-        foreach($bucket as $when) {
-            $delta = $now - $when;
-            // Drop compiles beyond period
-            if ( $delta > $BUCKET_TIME ) continue;
-            $newbucket[] = $when;
-            $count = $count + 1;
-            $deltas[] = $delta;
-        }
-
-        if ( false && $count >= $BUCKET_SIZE ) {
-            $retval = new \stdClass();
-            $retval->assembly = new \stdClass();
-            $retval->assembly->stderr = "Rate Exceeded...";
-            $_SESSION['retval'] = $retval;
+    if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
+        if ( cc4e_rate_limit($retval) ) {
+            $retval = $_SESSION['retval']; // reload
         } else {
-            $newbucket[] = $now;
             $succinct = preg_replace('/\s+/', ' ', $code);
-            $note = "Compile by ".$displayname.' '.$email.': '.substr($succinct,0, 250);
+            $note = "play.php ".$displayname.' '.$email.': '.substr($succinct,0, 250);
             error_log($note);
             $main = null;
-            $retval = cc4e_compile($code, $input, $main, $note);
+            $retval = cc4e_emcc($_SESSION['id'], $code, $input, $main, $note);
             $_SESSION['retval'] = $retval;
-            $_SESSION["leaky_bucket"] = $newbucket;
+            if ( isset($retval->js) ) {
+                header("Location: em_run.php");
+                return;
+            }
         }
     }
 }
@@ -149,7 +108,7 @@ free online <a href="compilers.php">C Compilers</a> that you can use.
 <p>
 <?php
 if ( $LOGGED_IN ) {
-    echo('<input type="submit" name="new_compile" value="Run Code" id="runcode" disabled>');
+    echo('<input type="submit" name="new_compile" value="Run Code" id="runcode">');
 }
 ?>
 <script>
@@ -160,9 +119,6 @@ if ( window.opener ) {
 }
 </script>
 <?php
-if ( $LOGGED_IN ) {
-    echo('<span id="runstatus"><img src="'.$OUTPUT->getSpinnerUrl().'"/></span>');
-}
 echo("</p>\n");
 $errors = cc4e_play_errors($retval);
 cc4e_play_inputs($lines, $code);
@@ -178,7 +134,7 @@ if ( is_string($input) ) {
 </textarea>
 </p>
 </form>
-<?php if ( is_object($retval) && is_object($retval->docker) && is_string($retval->docker->stdout) && strlen($retval->docker->stdout) > 0 ) {
+<?php if ( is_object($retval) && isset($retval->docker) && is_object($retval->docker) && is_string($retval->docker->stdout) && strlen($retval->docker->stdout) > 0 ) {
   $rows = substr_count( $retval->docker->stdout, "\n" );
   if ( $rows < 5 ) $rows = 5;
   if ( $rows > 30 ) $rows = 30;
@@ -193,7 +149,6 @@ Program Output:
 </p>
 <?php } ?>
 <p>
-<?php  if ( $use_emcc) { ?>
 This page uses a server-based compiler called
 <a href="https://emscripten.org/" target="_blank">Emscripten</a> that compiles
 your code to JavaScript and then executes your code in the browser.  You can watch
@@ -201,22 +156,6 @@ your browser developer console to monitor how your code is being executed.
 If this fails with an unexpected error, please add a note in the
 <a href="<?= $CFG->apphome ?>/discussions">Discussions</a>
 area.
-<?php } else { ?>
-This compiler uses a pretty complex docker setup to run your code - you
-might get  "docker error" or a "timeout" if there is a problem with the
-compiler environment.  Usually you can just re-try a
-compile and it will work.  There is a
-<a href="https://status.cc4e.com/" target="_blank">status page</a>
-that runs a test every minute or two on this site and monitors the reliability
-of its C compiler.
-</p>
-<p>This code execution environment has extensive security filters that
-start by blocking every function you might call and then
-having a precise "allowed functions" list.  As we gain experience, the list will be expanded.
-If you think that it is blocking function calls that it should allow, please add a note in the
-<a href="<?= $CFG->apphome ?>/discussions">Discussions</a>
-area.
-<?php } ?>
 </p>
 <?php
 cc4e_play_debug($retval);

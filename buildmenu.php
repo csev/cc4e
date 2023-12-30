@@ -18,9 +18,9 @@ function buildMenu() {
     if ( isset($_SESSION['id']) ) {
         $submenu = new \Tsugi\UI\Menu();
         $submenu->addLink('Playground', $R.'play');
-        $submenu->addLink('Status', "https://status.cc4e.com");
         $submenu->addLink('Online Compilers', $R.'compilers');
         $submenu->addLink('JSLinux', 'https://bellard.org/jslinux/vm.html?url=alpine-x86.cfg&mem=192');
+        $submenu->addLink('EmScriptEn', "https://emscripten.org");
         $set->addLeft('Write C', $submenu);
         $submenu = new \Tsugi\UI\Menu();
         $submenu->addLink('Profile', $R.'profile');

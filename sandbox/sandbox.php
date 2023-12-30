@@ -136,88 +136,7 @@ function cc4e_pipe($command, $stdin, $cwd, $env, $timeout)
     return $retval;
 }
 
-// Linux check:
-//     call    puts@PLT
-//     call    zap@PLT                     ## External unknown
-//     movq    puts@GOTPCREL(%rip), %rax   ## External unknown
-//
-// Linux OK:
-//     call    zap                         ## Internal known
-//     leaq    fun(%rip), %rax             ## Internal known
-
-// Mac check:
-//  movq    _puts@GOTPCREL(%rip), %rax
-//  callq    _printf
-//  callq   _zap                        ## Both local and external :(
-//
-// Mac OK:
-// _zap:
-//    .cfi_startproc
-//  callq   _zap                        ## Both local and external :(
-//  leaq    L_.str(%rip), %rdi
-//  leaq    _fun(%rip), %rax
-function cc4e_compile($code, $input, $main=null, $note=null)
-{
-    global $CFG;
-
-    $remote_compile_url = $CFG->getExtension('remote_compile_url', '');
-    $remote_compile_password = $CFG->getExtension('remote_compile_password', '');
-
-    if ( strlen($remote_compile_url) > 0 && strlen($remote_compile_password) > 0 ) {
-        error_log("Calling remote ".$remote_compile_url);
-        $data = array(
-            'password' => $remote_compile_password,
-            'code' => $code,
-            'input' => $input,
-        );
-
-        if ( is_string($main) && strlen($main) > 0 ) {
-            $data['main'] = $main;
-        }
-        $data['note'] = "Internal";
-
-        if ( is_string($note) && strlen($note) > 0 ) {
-            $data['note'] = $note;
-        } else if ( $note == null && isset($_SESSION) ) {
-            $displayname = U::get($_SESSION,'displayname', null);
-            $email = U::get($_SESSION,'email', null);
-            if ( is_string($email) || is_string($displayname) ) {
-                $data['note'] = $displayname . ' / ' . $email;
-            }
-        }
-
-        $ch = curl_init($remote_compile_url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            // 'Content-Type: application/json',
-        ));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $resultStr = curl_exec($ch);
-        if ( ! is_string($resultStr) || (is_string($resultStr) && strlen($resultStr) < 1) ) {
-            error_log("No response from remote compile at ".$remote_compile_url);
-        } else if ( $resultStr[0] != '{' ) {
-            error_log("Non JSON response from remote compile at ".$remote_compile_url);
-            error_log(substr($resultStr, 0, 255));
-        } else {
-            $retval=json_decode($resultStr, false);
-            if ( is_object($retval) ) {
-                error_log("Retval good");
-                return $retval;
-            } else {
-                error_log("Un parseable JSON response from remote compile at ".$remote_compile_url);
-                error_log(substr($resultStr, 0, 255));
-                $retval = null;
-            }
-        }
-
-    }
-
-    return cc4e_compile_internal($code, $input, $main, $note);
-}
-
-function cc4e_compile_internal($code, $input, $main=null, $note=null)
+function cc4e_emcc($user_id, $code, $input, $main=null, $note=null)
 {
     global $CFG;
     $retval = new \stdClass();
@@ -254,260 +173,6 @@ function cc4e_compile_internal($code, $input, $main=null, $note=null)
             return $retval;
         }
     }
-
-    // $folder = sys_get_temp_dir() . '/compile-' . $now . '-' . md5(uniqid());
-    // $folder = '/tmp/compile';
-    $folder = '/tmp/compile-' . $now . '-' . md5(uniqid());
-    // TODO: Figure out why we need this
-    if ( is_dir('/zork') ) $folder = '/zork/compile-' . $now . '-' . md5(uniqid());
-    if ( file_exists($folder) ) {
-            system("rm -rf $folder/*");
-    } else {
-            mkdir($folder);
-    }
-    $env = array(
-            'some_option' => 'aeiou',
-            'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-    );
-
-    $docker_command = $CFG->getExtension('docker_command', 'docker run --network none --memory="200m" --memory-swap="200m" --rm -i alpine_gcc:latest "-"');
-    $retval->docker_command = $docker_command;
-
-    $retval->folder = $folder;
-
-    $gcc_options = '-ansi -Wno-fortify-source -Wno-return-type -Wno-pointer-to-int-cast -Wno-builtin-declaration-mismatch -Wno-int-conversion -Wno-deprecated-declarations';
-    $gcc_options = U::get($CFG->extensions, 'cc4e_gcc_options', $gcc_options);
-
-    $command = 'rm -rf * ; cat > student.c ; gcc '.$gcc_options.' -fno-asm -S student.c ; [ -f student.s ] && cat student.s';
-
-    // Add any driver code that is required
-    if ( is_string($main) && strlen($main) > 0 ) {
-        $before = $main;
-        $after = "";
-        $pos = strpos($main, 'int main(');
-        if ( $pos > 0 ) {
-            $before = substr($main, 0, $pos-1);
-            $after = substr($main, $pos);
-        }
-        $marker = '#include "student.c"';
-        $pos = strpos($main, $marker);
-        if ( $pos > 0 ) {
-            $before = substr($main, 0, $pos-1);
-            $after = substr($main, $pos+strlen($marker));
-        }
-        $code = $before . "\n" . $code . "\n" . $after;
-    }
-
-    $pipe1 = cc4e_pipe($command, $code, $folder, $env, 10.0);
-    $retval->assembly = $pipe1;
-    $retval->docker = false;
-    if ( is_string($pipe1->failure) ) {
-        $retval->reject = "pipe1 error: ". $pipe1->failure;
-    }
-
-    $allowed = false;
-
-    if ( $pipe1->status === 0 ) {
-        $assembly = $retval->assembly->stdout;
-        $lines = explode("\n", $assembly);
-        $newlines = array();
-
-        // Make a symbol table
-        $symbol = array();
-        foreach ( $lines as $line) {
-            $matches = array();
-            if ( preg_match('/^([a-zA-Z0-9_]+):/', $line, $matches ) ) {
-                if ( count($matches) > 1 ) {
-                    $match = $matches[1];
-                    if ( strpos($match,'_') === 0 && strlen($match) > 1 ) $match = substr($match, 1);
-                    $symbol[] = $match;
-                }
-            }
-            if ( preg_match('/\t.comm\t([a-zA-Z0-9_]+),/', $line, $matches) ) {
-                if ( count($matches) > 1 ) {
-                    $match = $matches[1];
-                    if ( strpos($match,'_') === 0 && strlen($match) > 1 ) $match = substr($match, 1);
-                    $symbol[] = $match;
-                }
-            }
-        }
-        $retval->symbol = $symbol;
-
-        $retval->hasmain = in_array('main', $symbol);
-        // var_dump($retval->hasmain); die();
-
-        $allowed_externals = array(
-            'puts', 'printf', 'putchar', 'scanf', 'sscanf', 'getchar', 'gets', 'fgets',
-            '__stack_chk_guard', '__stack_chk_fail', '_stack_chk_guard', '_stack_chk_fail',
-            '__isoc99_scanf', '__isoc99_sscanf', 'fflush', 'setvbuf',
-            '_stack_chk_guard', '_stack_chk_fail', '_isoc99_scanf', '_isoc99_sscanf',
-            '__stdinp',
-            'malloc', 'calloc', 'realloc', 'memset', '__memset_chk', 'free',
-            'strlen', 'strcpy', 'strcat', 'strcmp', 'strchr', 'strrchr', 'strncmp', 'strncpy',
-            'strrev',
-            'sqrt', 'pow', 'ciel', 'floor', 'abs',
-            'sin', 'cos', 'tan', 'sinh', 'cosh', 'tanh',
-            'atoi', 'isspace', 'tolower', 'toupper',
-            '___chkstk_darwin', '_ctype_b_loc', 'cputchar',
-            'atof', 'get_line',
-        );
-        $more_externals = array();
-        foreach($allowed_externals as $external) {
-            if ( strpos($external,"-") !== false ) continue;
-            $more_externals[] = "__" . $external . '_chk';
-        }
-
-        $allowed_externals = array_merge($allowed_externals, $more_externals);
-
-        $minimum_externals = array(
-            'puts', 'printf', 'putchar'
-        );
-
-        $externals = array();
-        foreach ( $lines as $line) {
-            if ( strlen($line) < 1                 // blank lines
-                || (! preg_match('/^\s/', $line))  // _main:
-                || preg_match('/^\s+\./', $line)   //     .cfi_startproc
-                || preg_match('/^\s.#/', $line)    // comment
-            ) {
-                $new[] = $line;
-                continue;
-            }
-
-            $matches = array();
-            if ( preg_match('/([a-zA-Z0-9_]+)@PLT/', $line, $matches) ) {
-                if ( count($matches) > 1 ) {
-                    $external = $matches[1];
-                    if ( strpos($external,'_') === 0 && strlen($external) > 1 ) $external = substr($external, 1);
-                    if ( ! in_array($external,$externals) ) $externals[] = $external;
-                }
-            }
-
-            $matches = array();
-            if ( preg_match('/([a-zA-Z0-9_]+)@GOTPCREL/', $line, $matches) ) {
-                if ( count($matches) > 1 ) {
-                    $external = $matches[1];
-                    if ( strpos($external,'_') === 0 && strlen($external) > 1 ) $external = substr($external, 1);
-                    if ( ! in_array($external,$externals) ) $externals[] = $external;
-                }
-            }
-
-            $pieces = explode("\t", $line);
-            // var_dump($pieces);
-
-            // Mac internal and external
-            //  callq    _printf
-            if ( count($pieces) > 2 ) {
-                if ( $pieces[1] == 'callq' ) {
-                    $external = $pieces[2];
-                    if ( strpos($external,'_') === 0 && strlen($external) > 1 ) {
-                        $external = substr($external, 1);
-                        if ( ! in_array($external,$externals) ) $externals[] = $external;
-                    }
-                }
-            }
-        }
-        $retval->externals = $externals;
-
-        // Run the check
-        $minimum = false;
-        $allowed = true;
-        $disallowed = array();
-        foreach($externals as $external) {
-            if ( in_array($external, $minimum_externals) ) $minimum = true;
-            if ( in_array($external, $retval->symbol) ) continue;
-        if ( ! in_array($external, $allowed_externals) ) {
-            // var_dump($allowed_externals); echo("\n=============\n" . $external."\n");
-            $allowed = false;
-            $disallowed[] = $external;
-        }
-        }
-        $retval->minimum = $minimum;
-        $retval->allowed = $allowed;
-        $retval->disallowed = $disallowed;
-    }
-
-    $eof = 'EOF' . md5(uniqid());
-    if ( $retval->hasmain && $allowed && $minimum && ! $retval->reject ) {
-        $gcc_options = '-ansi -Wno-fortify-source -Wno-return-type -Wno-pointer-to-int-cast -Wno-builtin-declaration-mismatch -Wno-int-conversion -Wno-deprecated-declarations';
-        $gcc_options = U::get($CFG->extensions, 'cc4e_gcc_options', $gcc_options);
-
-        $script = "cd /tmp;\n";
-        $script .= "cat > student.c << $eof\n";
-        $script .= escape_heredoc($code);
-        $script .= "\n$eof\n";
-        $script .= "/usr/bin/gcc -ansi ";
-        $script .= $gcc_options;
-        $script .= " -fno-asm student.c\n";
-        if ( is_string($input) && strlen($input) > 0 ) {
-            $script .= "[ -f a.out ] && cpulimit --limit=25 --include-children ./a.out << $eof | head -n 5000\n";
-            $script .= escape_heredoc($input);
-            $script .= "\n$eof\n";
-        } else {
-            $script .= "[ -f a.out ] && cpulimit --limit=25 --include-children ./a.out | head -n 5000\n";
-        }
-
-        // echo("-----\n");echo($script);echo("-----\n");
-        $retval->script = $script;
-        $retval->docker = cc4e_pipe($docker_command, $script, $folder, $env, 10.0);
-        if ( is_string($retval->docker->failure) ) {
-            $retval->reject = "docker error: ". $retval->docker->failure;
-        }
-
-    }
-
-    $cleanup = false;
-    $minimum = $retval->minimum ?? null;
-    $allowed = $retval->allowed ?? null;
-    if ( $minimum === false || $allowed === false || is_string($retval->reject) ) {
-        $json = json_encode($retval, JSON_PRETTY_PRINT);
-        file_put_contents($folder . '/result.json', $json);
-    } else if ( $cleanup ) {
-        system("rm -rf $folder");
-    }
-
-    return $retval;
-}
-
-function cc4e_emcc($code, $input, $main=null, $note=null)
-{
-    global $CFG;
-    $retval = new \stdClass();
-    $now = str_replace('@', 'T', gmdate("Y-m-d@H-i-s"));
-    $retval->now = $now;
-    $retval->code = $code;
-    $retval->input = $input;
-    $retval->reject = false;
-    $retval->hasmain = false;
-
-    // Some sanity checks
-    if ( strlen($code) > 20000 ) {
-        $retval->reject = "Code too large";
-        return $retval;
-    }
-
-    if ( strlen($input) > 20000 ) {
-        $retval->reject = "Input too large";
-        return $retval;
-    }
-
-    for($i=0; $i<strlen($input); $i++) {
-        $ord = ord($input[$i]);
-        if ( $ord < 1 || $ord > 126 ) {
-            $retval->reject = "Input has non-ascii character: ".$ord." @".$i;
-            return $retval;
-        }
-    }
-
-    for($i=0; $i<strlen($code); $i++) {
-        $ord = ord($code[$i]);
-        if ( $ord < 1 || $ord > 126 ) {
-            $retval->reject = "Code has non-ascii character: ".$ord." @".$i;
-            return $retval;
-        }
-    }
-
-    $is_ping = is_string($note) && $note == "ping.php";
 
     $env = array(
        'some_option' => 'aeiou',
@@ -537,19 +202,13 @@ function cc4e_emcc($code, $input, $main=null, $note=null)
     $now = str_replace('@', 'T', gmdate("Y-m-d@H-i-s"));
     $retval->now = $now;
     $tempdir = $emcc_folder . '/' . $now . '-' . substr(md5(uniqid()),0,5);
-    if ( $is_ping ) $tempdir .= '-ping';
     mkdir($tempdir);
 
     $student_code = $tempdir . "/student.c";
     file_put_contents($student_code, $code);
-    if ( is_string($note) && strlen($note) > 1 ) {
-        $student_note = $tempdir . "/note.txt";
-        file_put_contents($student_note, $note);
-    }
 
-    if ( is_string($input) && strlen($input) > 1 ) {
-        $student_input = $tempdir . "/input.txt";
-        file_put_contents($student_input, $input);
+    if ( is_string($note) && strlen($note) > 1 ) {
+        $retval->note = $note;
     }
 
     $emcc_options = '-ansi -Wno-fortify-source -Wno-implicit-function-declaration -Wno-return-type -Wno-deprecated-non-prototype -Wno-pointer-to-int-cast -Wno-int-conversion -Wno-deprecated-declarations';
@@ -564,6 +223,9 @@ function cc4e_emcc($code, $input, $main=null, $note=null)
 
     $retval->docker = cc4e_pipe($command, $stdin, $cwd, $env, $timeout);
 
+    $retval->tempdir = $tempdir;
+    $retval->user_id = $user_id;
+
     $hexfolder = bin2hex($tempdir);
     if ( strlen($retval->docker->stderr) < 1 ) {
         $retval->js = $CFG->apphome . '/emcompile/load.php/' . $hexfolder . '/a.out.js';
@@ -576,6 +238,278 @@ function cc4e_emcc($code, $input, $main=null, $note=null)
 
     // echo("<pre>\n");print_r($retval);die();
     return $retval;
+}
+
+function cc4e_emcc_get_output($retval, $displayname, $email, $user_id)
+{
+    if ( ! is_object($retval) ) return;
+    if ( ! is_object($retval->docker) ) return;
+    if ( strlen(U::get($_POST, "emcc_output", '')) < 1 ) return;
+
+    $tempdir = $retval->tempdir ?? '';
+    if ( strlen($tempdir) < 1 || ! is_dir($tempdir) ) {
+        $retval->reject = "Unable to find compiler working directory";
+    } else if ( ($retval->user_id ?? -1) != $user_id ) {
+        $retval->reject = "Unable to re-connect user in compiler working directory";
+    } else {
+        $output = substr(U::get($_POST, 'emcc_output', ''), 0, 20000);
+        $_SESSION['output'] = $output;
+        $retval->docker->stdout = $output;
+        $retval->displayname = $displayname;
+        $retval->email = $email;
+
+        $json = json_encode($retval, JSON_PRETTY_PRINT);
+        file_put_contents($tempdir . '/result.json', $json);
+    }
+}
+
+function cc4e_emcc_execute($post_url, $retval, $pause) {
+
+    $js = $retval->js;
+    if ( ! is_object($retval) || ! is_string($retval->js) || strlen($retval->js) < 1 ) die('need compile results in session');
+    $code = $retval->code ?? '';
+    $input = $retval->input ?? '';
+    if ( strlen($code) < 1 ) die('Need code');
+?>
+<head>
+<!-- https://stackoverflow.com/a/20741964/1994792 -->
+<style>
+.loading {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(256,256,256,.9);
+}
+.loading-wheel {
+    width: 20px;
+    height: 20px;
+    margin-top: -40px;
+    margin-left: -40px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    border-width: 30px;
+    border-radius: 50%;
+    -webkit-animation: spin 1s linear infinite;
+}
+.style-2 .loading-wheel {
+    border-style: double;
+    border-color: #ccc transparent;
+}
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0);
+    }
+    100% {
+        -webkit-transform: rotate(-360deg);
+    }
+}
+</style>
+</head>
+<body>
+<div class="loading style-2" id="loading"><div class="loading-wheel"></div></div>
+
+<p>Executing...</p>
+<div id="debug" style="display:none;">
+<p>You should not see this screen.  It should briefly blink, run your compiled code in the browser, and
+then send the output back to the main page.  If this screen stops or waits long enough for you to see it,
+something is likely happening incorrectly - or you have an infinite loop :)
+</p>
+
+    <div class="spinner" id='spinner'></div>
+    <div class="emscripten" id="status">Ready...</div>
+
+    <div class="emscripten">
+      <progress value="0" max="100" id="progress" hidden=1></progress>
+    </div>
+
+
+
+    <form method="post" action="<?= $post_url ?>" id="form">
+<textarea name="code_dont_post" id="code" style="width:95%;" rows="5">
+<?php echo(htmlentities($code)); ?>
+</textarea>
+
+<textarea name="input_dont_post" id="input" style="width:95%;" rows="5">
+<?php echo(htmlentities($input)); ?>
+</textarea>
+<br/>
+<textarea name="emcc_output" id="output" style="width:95%;" rows="5"></textarea>
+<br/>
+<textarea name="stderr" id="stderr" style="width:95%;" rows="5"></textarea>
+<input type="submit">
+</form>
+</div>
+
+<script type='text/javascript'>
+
+var inputPosition = 0;
+var lastReturnCharacter = 0;
+
+      var statusElement = document.getElementById('status');
+      var progressElement = document.getElementById('progress');
+      var spinnerElement = document.getElementById('spinner');
+      var Module = {
+        print: (function() {
+          var element = document.getElementById('output');
+          if (element) element.value = ''; // clear browser cache
+          return function(text) {
+            if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
+            // These replacements are necessary if you render to raw HTML
+            //text = text.replace(/&/g, "&amp;");
+            //text = text.replace(/</g, "&lt;");
+            //text = text.replace(/>/g, "&gt;");
+            //text = text.replace('\n', '<br>', 'g');
+            console.log(text);
+            if (element) {
+              element.value += text + "\n";
+              element.scrollTop = element.scrollHeight; // focus on bottom
+            }
+          };
+        })(),
+        setStatus: (text) => {
+          if (!Module.setStatus.last) Module.setStatus.last = { time: Date.now(), text: '' };
+          if (text === Module.setStatus.last.text) return;
+          var m = text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
+          var now = Date.now();
+          if (m && now - Module.setStatus.last.time < 30) return; // if this is a progress update, skip it if too soon
+          Module.setStatus.last.time = now;
+          Module.setStatus.last.text = text;
+          if (m) {
+            text = m[1];
+            progressElement.value = parseInt(m[2])*100;
+            progressElement.max = parseInt(m[4])*100;
+            progressElement.hidden = false;
+            spinnerElement.hidden = false;
+          } else {
+            progressElement.value = null;
+            progressElement.max = null;
+            progressElement.hidden = true;
+            if (!text) spinnerElement.style.display = 'none';
+          }
+          statusElement.innerHTML = text;
+        },
+        preRun: function() {
+          // Return ASCII code of character, or null if no input
+          function stdin() {
+              var inputText = document.getElementById('input').value;
+              if ( inputPosition >= inputText.length ) {
+                  // Make sure that the last character of input is a newline
+                  if (lastReturnCharacter != 10 ) {
+                      lastReturnCharacter = 10;
+                      return lastReturnCharacter;
+                  }
+                  return null;
+              }
+              lastReturnCharacter = inputText.charCodeAt(inputPosition++);
+              return lastReturnCharacter;
+          }
+
+          // Do something with the asciiCode
+          function stdout(asciiCode) {
+            var element = document.getElementById('output');
+            element.value += String.fromCharCode(asciiCode);
+          }
+
+          // Do something with the asciiCode
+          function stderr(asciiCode) {
+            var element = document.getElementById('stderr');
+            element.value += String.fromCharCode(asciiCode);
+          }
+
+          FS.init(stdin, stdout, stderr);
+        },
+        onExit: (status) => {
+            console.log('Execution complete status='+status);
+<?php if ( ! $pause ) { ?>
+            document.getElementById("form").submit();
+<?php } ?>
+        },
+        totalDependencies: 0,
+        monitorRunDependencies: (left) => {
+          this.totalDependencies = Math.max(this.totalDependencies, left);
+          Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
+        }
+      };
+      Module.setStatus('Ready...');
+      window.onerror = (event) => {
+        // TODO: do not warn on ok events like simulating an infinite loop or exitStatus
+        Module.setStatus('Exception thrown, see JavaScript console');
+        console.log('Exception thrown, see JavaScript console');
+        spinnerElement.style.display = 'none';
+        Module.setStatus = (text) => {
+          if (text) console.error('[post-exception status] ' + text);
+        };
+      };
+
+</script>
+
+<script src="<?= $js ?>"></script>
+
+<script>
+console.log('Loading your application...');
+setTimeout( () => {
+    console.log('Exception taking too long, showing debug detail');
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("debug").style.display = "block";
+}, "2000");
+</script>
+
+<!--
+<pre>
+<?php
+var_dump($retval);
+var_dump($_POST);
+?>
+</pre>
+-->
+
+
+<?php
+}
+
+function cc4e_rate_limit($retval)
+{
+    $bucket = U::get($_SESSION,"leaky_bucket", null);
+    $now = time();
+    if ( ! is_array($bucket) ) $bucket = array();
+    $deltas = array();
+    $newbucket = array();
+    $count = 0;
+
+    $BUCKET_MAX = 4;
+    $BUCKET_RATE = 30; // One compile per 30 seconds
+    $BUCKET_SIZE = 4;  // Burst rate
+    $BUCKET_TIME = $BUCKET_RATE * $BUCKET_MAX;
+    foreach($bucket as $when) {
+        $delta = $now - $when;
+        // Drop compiles beyond period
+        if ( $delta > $BUCKET_TIME ) continue;
+        $newbucket[] = $when;
+        $count = $count + 1;
+        $deltas[] = $delta;
+    }
+
+    if ( $count >= $BUCKET_SIZE ) {
+        if ( ! is_object($retval) ) {
+            $retval = new \stdClass();
+            $retval->docker = new \stdClass();
+        }
+        $retval->docker->stdout = "";
+        $retval->docker->stderr = "Rate Exceeded...";
+        $_SESSION['retval'] = $retval;
+        return true;
+    } else {
+        $newbucket[] = $now;
+        $_SESSION["leaky_bucket"] = $newbucket;
+        return false;
+    }
 }
 
 // Weirdness in shell copying input

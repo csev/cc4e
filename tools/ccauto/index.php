@@ -14,33 +14,11 @@ use \Tsugi\UI\Lessons;
 use \Tsugi\Grades\GradeUtil;
 
 $emcc_available = strlen($CFG->getExtension('emcc_path', '')) > 0;
-$use_emcc = $emcc_available && (
-    $CFG->getExtension('emcc_autograder', 'false') == 'true' ||
-    U::get($_COOKIE, 'emcc_autograder', 'false') == 'true' );
 
 $LAUNCH = LTIX::requireData();
 $p = $CFG->dbprefix;
 $displayname = $LAUNCH->user->displayname;
 $email = $LAUNCH->user->email;
-
-if ( $emcc_available && strlen(U::get($_REQUEST, 'switch_emcc', '')) > 0 ) {
-    setcookie('emcc_autograder', 'true', 0);
-    unset($_SESSION['retval']);
-    unset($_SESSION['actual']);
-    unset($_SESSION['code']);
-    header("Location: ".addSession('index.php'));
-    return;
-}
-
-if ( $emcc_available && strlen(U::get($_REQUEST, 'switch_docker', '')) > 0 ) {
-    setcookie('emcc_autograder', 'false', 0);
-    unset($_SESSION['retval']);
-    unset($_SESSION['actual']);
-    unset($_SESSION['code']);
-    header("Location: ".addSession('index.php'));
-    return;
-}
-
 
 $LOGGED_IN = true;
 $RANDOM_CODE = getLinkCode($LAUNCH);
@@ -187,7 +165,7 @@ $actual = U::get($_SESSION, 'actual');
 
 if ( is_object($retval) && is_object($retval->docker) && strlen(U::get($_POST, "emcc_output", '')) > 0 ) {
     $_SESSION['actual'] = U::get($_POST, 'emcc_output', '');
-    $retval->docker->stdout = $_SESSION['actual'];
+    cc4e_emcc_get_output($retval, $displayname, $email, $LAUNCH->user->id);
     $_SESSION['retval'] = $retval;
     $_SESSION['checkgrade'] = 'true';
     header( 'Location: '.addSession('index.php') ) ;
@@ -209,20 +187,15 @@ if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
         $note = "Assn: ".$assn." by ".$displayname.' '.$email.': '.substr($succinct,0, 250);
         error_log($note);
         GradeUtil::gradeUpdateJson(json_encode(array("code" => $code)));
-        if ( $use_emcc ) {
-            $note = "EMCC Assn: ".$assn." by ".$displayname.' '.$email.': '.substr($succinct,0, 250);
-            error_log($note);
-            $retval = cc4e_emcc($code, $input, $main, $note);
-            $_SESSION['retval'] = $retval;
-            $_SESSION['input'] = $input;
-            if ( isset($retval->js) ) {
-                header("Location: ".addSession("em_run.php"));
-                return;
-            }
-        } else {
-            $note = "Docker Assn: ".$assn." by ".$displayname.' '.$email.': '.substr($succinct,0, 250);
-            error_log($note);
-            $retval = cc4e_compile($code, $input, $main, $note);
+
+        $note = "Assn: ".$assn." by ".$displayname.' '.$email.': '.substr($succinct,0, 250);
+        error_log($note);
+        $retval = cc4e_emcc($LAUNCH->user->id, $code, $input, $main, $note);
+        $_SESSION['retval'] = $retval;
+        $_SESSION['input'] = $input;
+        if ( isset($retval->js) ) {
+            header("Location: ".addSession("em_run.php"));
+            return;
         }
         $_SESSION['retval'] = $retval;
         $actual = isset($retval->docker->stdout) && strlen($retval->docker->stdout) > 0 ? $retval->docker->stdout : false;
@@ -447,12 +420,12 @@ if ( is_string($input) && strlen($input) > 0 ) {
             $diff_shown = true;
         }
     } else if (is_string($output) ) {
-    	echo '<div style="color: green;">'."\n";
-    	echo "Expected output from your program:\n\n";
-    	echo('<div id="expectedoutput" class="xpre_text"><pre>');
-    	echo(htmlentities($output, ENT_NOQUOTES));
-    	echo("</pre></div>\n");
-    	echo("</div>\n");
+        echo '<div style="color: green;">'."\n";
+        echo "Expected output from your program:\n\n";
+        echo('<div id="expectedoutput" class="pre_text"><pre>');
+        echo(htmlentities($output, ENT_NOQUOTES));
+        echo("</pre></div>\n");
+        echo("</div>\n");
     }
 
 
@@ -468,7 +441,7 @@ if ( is_string($main) && strlen($main) > 0 ) {
 <div style="color: blue;">
 The main program which will execute your code:
 </div>
-<div id="mainprogram" class="xpre_text"><pre id="mainpre">
+<div id="mainprogram" class="pre_text"><pre id="mainpre">
 <?php    echo(htmlentities($main, ENT_NOQUOTES)); ?>
 </pre></div>
 <div>
@@ -482,33 +455,14 @@ echo('<div class="row">'."\n");
 echo('</div>  <!-- class="row" -->'."\n");
 cc4e_play_debug($retval);
 
-if ( $use_emcc ) {
 ?>
 <p>
 This page uses a compiler called
 <a href="https://emscripten.org/" target="_blank">Emscripten</a> that translates
 your code to JavaScript and then executes your code in the browser.  You can watch
 your browser developer console to monitor how your code is being executed.
-If this fails with an unexpected error, please let us know.
-<a href="index.php?switch_docker=true">Switch back to our server-based execution environment</a>.
 </p>
 <?php
-} else {
-?>
-<p style="margin-top: 1em;">
-This compiler uses a pretty complex docker setup to run your code - you
-might get  "docker error" or a "timeout" if there is a problem with the
-compiler environment.  Usually you can just re-try a
-compile and it will work.  There is a
-<a href="https://status.cc4e.com/" target="_blank">status page</a>
-that runs a test every minute or two on this site and monitors the reliability
-of its C compiler.
-<?php if ( $emcc_available ) { ?>
-<a href="index.php?switch_emcc=true">Experiment with our in-browser execution environment</a>.
-<?php } ?>
-</p>
-<?php
-}
 
 if ( $LAUNCH->user->instructor && is_string($solution) && strlen($solution) > 0 ) {
 ?>
@@ -546,8 +500,8 @@ $(document).ready( function() {
      });
 });
 function startRun() {
-	$("#runstatus").show();
-	$("#editstatus").hide();
+    $("#runstatus").show();
+    $("#editstatus").hide();
 }
 function toggleMax() {
     var editor_panel = document.getElementById("editor_panel");
