@@ -220,6 +220,16 @@ if ( (! $output_compare_fail ) && U::get($_SESSION, 'checkgrade', 'false') == 't
     $graderet = LTIX::gradeSend($grade, false, $debug_log);
     error_log("Success: ".$displayname.' '.$email);
     unset($_SESSION['checkgrade']);
+
+    // Store grade for later
+    if ( is_object($retval) && is_string($retval->tempdir) && 
+        strlen($retval->tempdir)  >0 && is_dir($retval->tempdir) ) {
+
+        $retval->grade = 1.0;
+        $json = json_encode($retval, JSON_PRETTY_PRINT);
+        file_put_contents($retval->tempdir . '/result.json', $json);
+    }
+
     // $OUTPUT->dumpDebugArray($debug_log);
 }
 
