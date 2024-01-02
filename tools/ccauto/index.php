@@ -191,6 +191,7 @@ if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
         $note = "Assn: ".$assn." by ".$displayname.' '.$email.': '.substr($succinct,0, 250);
         error_log($note);
         $retval = cc4e_emcc($LAUNCH->user->id, $code, $input, $main, $note);
+        $retval->assn = $assn;
         $_SESSION['retval'] = $retval;
         $_SESSION['input'] = $input;
         if ( isset($retval->js) ) {

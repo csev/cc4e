@@ -62,6 +62,7 @@ if ( is_string($sample) ) {
             error_log($note);
             $main = null;
             $retval = cc4e_emcc($_SESSION['id'], $code, $input, $main, $note);
+            $retval->assn = 'play.php';
             $_SESSION['retval'] = $retval;
             if ( isset($retval->js) ) {
                 header("Location: em_run.php");
