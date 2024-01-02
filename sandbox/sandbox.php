@@ -255,6 +255,7 @@ function cc4e_emcc_get_output($retval, $displayname, $email, $user_id)
         $output = substr(U::get($_POST, 'emcc_output', ''), 0, 20000);
         $_SESSION['output'] = $output;
         $retval->docker->stdout = $output;
+        $retval->output = $output;
         $retval->displayname = $displayname;
         $retval->email = $email;
 
