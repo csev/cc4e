@@ -422,7 +422,7 @@ arguments of the function.
 
 The scope of an external variable lasts from the point at which it is
 declared in a source file to the end of that file. For example, if `val`, `sp`,
-`push`, `pop`, and `clear` are defined in one file, in the order shown above,
+`push`, `pop`, and `clear` are defined in one file, in the order shown below,
 that is,
 
     int sp = 0;
