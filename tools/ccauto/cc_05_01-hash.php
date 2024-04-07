@@ -16,7 +16,7 @@ a hash map as the inderlying structure rather than a linked list.
 The easiest approach to this assignment is to start with your
 implementation of Map using a linked list and then adapt it
 from a single <b>head</b> value to an array of <b>head</b> values
-that each point to an independent linked list.  We use the getHash()
+that each point to an independent linked list.  We use the getBucket()
 function to choose the appropriate linked list head from the array
 of head values.
 </p>
