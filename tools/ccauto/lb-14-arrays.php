@@ -98,6 +98,24 @@ function ccauto_require($LAUNCH) {
 // Make sure to escape \n as \\n
 function ccauto_solution($LAUNCH) { 
 	return <<< EOF
+#include <stdio.h>
+int main() {
+   int i, v, arr[10], count;
+   for(i=0;i<10;i++) {
+       scanf("%d", &v);
+       arr[i] = v;
+   }
+   for(i=9; i>=0; i-- ) printf("numb[%d] = %d\\n",i, arr[i]);
+
+   printf("\\nSearching for entries equal to 100\\n\\n");
+   count = 0;
+   for(i=0;i<10;i++) {
+      if ( arr[i] != 100 ) continue;
+      count++;
+      printf("Found 100 at %d\\n", i);
+   }
+   printf("\\nFound %d entries with 100\\n", count);
+}
 EOF
 ;
 }
