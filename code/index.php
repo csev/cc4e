@@ -75,6 +75,7 @@ function chapter_title($pageno) {
   <li class="active"><a href="#krbook" data-toggle="tab" aria-expanded="true">K&R Textbook Code</a></li>
   <li><a href="#chapter" data-toggle="tab" aria-expanded="false">K&R Lecture Code</a></li>
   <li><a href="#lectures" data-toggle="tab" aria-expanded="false">CC4E Lecture Code</a></li>
+  <li><a href="#epilogue" data-toggle="tab" aria-expanded="false">Epilogue Code</a></li>
 </ul>
 <div id="myTabContent" class="tab-content" style="margin-top:10px;">
   <div class="tab-pane fade active in" id="krbook">
@@ -274,6 +275,42 @@ if ( $inchapter ) {
 }
 ?>
 
+</div>
+<div class="tab-pane fade" id="epilogue">
+<p>
+This page contains the sample code from the "C Programming
+for Everybody" extra topics by Dr. Chuck.
+</p>
+<?php
+
+$chapter = 0;
+$files = scandir("../epilogue/");
+
+$chap_title = "Catch Phrase";
+// echo("<pre>\n"); var_dump($files); echo("</pre>\n");
+
+echo("<ul>\n");
+
+$inchapter = false;
+foreach($files as $file ) {
+    $text = @file_get_contents("../epilogue/".$file);
+    if ( strlen($text) < 1 ) continue;
+    $id = str_replace(".", "_", $file);
+
+    echo("<li>\n");
+    echo(htmlentities($file));
+?>
+<button style="margin:0.5em;" onclick="myToggle('<?= $id ?>');return false;" id="toggle_<?= $id ?>" >Show</button>
+<button style="margin:0.5em;" onclick="myCopy('<?= $id ?>');return false;">Copy</button>
+<pre class="code" id="pre_<?= $id ?>" style="display:none;"><code class="language-c" id="<?= $id ?>"><?php
+    echo(htmlentities($text));
+?></code></pre>
+</li>
+<?php
+    echo("</li>\n");
+}
+echo("</ul>\n");  // End of the files
+?>
 </div>
 </div>
 <?php
