@@ -5,7 +5,6 @@
 struct dnode {
     char *key;
     int value;
-    struct dnode *prev;
     struct dnode *next;
 };
 
@@ -37,12 +36,12 @@ void dict_del(struct dict* self)
 /** getBucket - Compute a dict bucket from a string */
 int getBucket(char *str, int buckets)
 {
-    int dict = 42;
+    int bucket = 42;
     if ( str == NULL ) return 0;
     for( ; *str ; str++) {
-        dict = ( dict << 3 ) ^ *str;
+        bucket = ( bucket << 3 ) ^ *str;
     }
-    return dict % buckets;
+    return bucket % buckets;
 }
 
 void dict_dump(struct dict* self)
@@ -89,7 +88,6 @@ void dict_put(struct dict* self, char *key, int value) {
 
     if ( self->heads[bucket] == NULL ) self->heads[bucket] = new;
     if ( self->tails[bucket] != NULL ) self->tails[bucket]->next = new;
-    new->prev = self->tails[bucket];
     self->tails[bucket] = new;
 
     new_key = malloc(strlen(key)+1);
@@ -130,12 +128,15 @@ struct dict * dict_new() {
 int main(void)
 {
     struct dict * d = dict_new();
-    struct dnode *cur;
 
     dict_put(d, "z", 8);
+    dict_dump(d);
     dict_put(d, "z", 1);
+    dict_dump(d);
     dict_put(d, "y", 2);
+    dict_dump(d);
     dict_put(d, "b", 3);
+    dict_dump(d);
     dict_put(d, "a", 4);
     dict_dump(d);
 
