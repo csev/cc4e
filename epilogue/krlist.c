@@ -7,15 +7,15 @@ struct lnode {
     struct lnode *next;
 };
 
-struct pylist {
+struct krlist {
   struct lnode *head;
   struct lnode *tail;
   int count;
 };
 
 /* Constructor - lst = list() */
-struct pylist * pylist_new() {
-    struct pylist *p = malloc(sizeof(*p));
+struct krlist * krlist_new() {
+    struct krlist *p = malloc(sizeof(*p));
     p->head = NULL;
     p->tail = NULL;
     p->count = 0;
@@ -23,7 +23,7 @@ struct pylist * pylist_new() {
 }
 
 /* Destructor - del(lst) */
-void pylist_del(struct pylist* self) {
+void krlist_del(struct krlist* self) {
     struct lnode *cur, *next;
     cur = self->head;
     while(cur) {
@@ -36,7 +36,7 @@ void pylist_del(struct pylist* self) {
 }
 
 /* print(lst) */
-void pylist_print(struct pylist* self)
+void krlist_print(struct krlist* self)
 {
     int first = 1;
     struct lnode *cur;
@@ -50,13 +50,13 @@ void pylist_print(struct pylist* self)
 }
 
 /* len(lst) */
-int pylist_len(const struct pylist* self)
+int krlist_len(const struct krlist* self)
 {
     return self->count;
 }
 
 /* lst.append("Hello world") */
-void pylist_append(struct pylist* self, char *str) {
+void krlist_append(struct krlist* self, char *str) {
     
     struct lnode *new = malloc(sizeof(*new));
     new->next = NULL;
@@ -72,7 +72,7 @@ void pylist_append(struct pylist* self, char *str) {
 }
 
 /* lst.index("Hello world") - if not found -1 */
-int pylist_index(struct pylist* self, char *str)
+int krlist_index(struct krlist* self, char *str)
 {
     struct lnode *cur;
     int i;
@@ -85,18 +85,18 @@ int pylist_index(struct pylist* self, char *str)
 
 int main(void)
 {
-    struct pylist * lst = pylist_new();
-    pylist_append(lst, "Hello world");
-    pylist_print(lst);
-    pylist_append(lst, "Catch phrase");
-    pylist_print(lst);
-    pylist_append(lst, "Brian");
-    pylist_print(lst);
-    printf("Length = %d\n", pylist_len(lst));
-    printf("Brian? %d\n", pylist_index(lst, "Brian"));
-    printf("Bob? %d\n", pylist_index(lst, "Bob"));
-    pylist_del(lst);
+    struct krlist * lst = krlist_new();
+    krlist_append(lst, "Hello world");
+    krlist_print(lst);
+    krlist_append(lst, "Catch phrase");
+    krlist_print(lst);
+    krlist_append(lst, "Brian");
+    krlist_print(lst);
+    printf("Length = %d\n", krlist_len(lst));
+    printf("Brian? %d\n", krlist_index(lst, "Brian"));
+    printf("Bob? %d\n", krlist_index(lst, "Bob"));
+    krlist_del(lst);
 }
 
-// rm -f a.out ; gcc pylist.c; a.out ; rm -f a.out
+// rm -f a.out ; gcc krlist.c; a.out ; rm -f a.out
 
