@@ -18,7 +18,7 @@ int lim;
             ungetch(c);
             break;
         }
-        *(w-1) = '\0';
-        return (LETTER);
     }
+    *(w-1) = '\0';
+    return (LETTER);
 }
