@@ -147,6 +147,8 @@ void p3dict_put(struct p3dict* self, char *key, char *value) {
             position = p3dict_find(self, self->items[i].key);
             self->index[position] = i;
         }
+
+        position = p3dict_find(self, key);
     }
 
     new_value = malloc(strlen(value)+1);
