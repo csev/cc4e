@@ -20,7 +20,7 @@ struct p1list * p1list_new() {
 /* Destructor - del(lst) */
 void p1list_del(struct p1list* self) {
     int i;
-    for(i=0; i< self->length; i++ ) {
+    for(i=0; i<self->length; i++ ) {
         free(self->items[i]);
     }
     free((void *)self->items);
@@ -33,7 +33,7 @@ void p1list_print(struct p1list* self)
     int i;
     int first = 1;
     printf("[");
-    for(i=0; i< self->length; i++ ) {
+    for(i=0; i<self->length; i++ ) {
          if ( ! first ) printf(", ");
          printf("'%s'", self->items[i]);
          first = 0;

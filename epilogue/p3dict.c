@@ -2,12 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+// An approximation of the Python 3.7 dictionary 
+
 struct dnode {
     char *key;
     char *value;
 };
 
-/* Index will always be 2x the length of dnode - load factor 50% */
+/* index will always be 2x the length of items - load factor 50% */
 struct p3dict {
    int alloc;
    int length;
@@ -111,6 +113,8 @@ void p3dict_put(struct p3dict* self, char *key, char *value) {
 
     if ( key == NULL || value == NULL ) return;
 
+    printf("Put %s=%s\n", key, value);
+
     /* First look up */
     position = p3dict_find(self, key);
     if ( self->index[position] != -1 ) {
@@ -167,8 +171,10 @@ int main(void)
     p3dict_print(dct);
     p3dict_put(dct, "z", "W");
     p3dict_print(dct);
-    p3dict_put(dct, "y", "B");
-    p3dict_put(dct, "c", "C");
+    p3dict_put(dct, "SAKAI", "B");
+    p3dict_print(dct);
+    p3dict_put(dct, "sally", "C");
+    p3dict_print(dct);
     p3dict_put(dct, "a", "D");
     p3dict_print(dct);
     printf("Length=%d\n", p3dict_len(dct));

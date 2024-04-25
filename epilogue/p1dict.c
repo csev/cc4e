@@ -77,6 +77,7 @@ struct dnode *p1dict_find(struct p1dict* self, char *key)
     int i, bucket, offset;
     if ( key == NULL ) return NULL;
     bucket = getBucket(key, self->alloc);
+    // Linear collision resolution
     for(offset=0; offset < self->alloc; offset++) {
         i = (offset + bucket) % self->alloc;
         if ( self->items[i].key == NULL ) {
@@ -109,6 +110,8 @@ void p1dict_put(struct p1dict* self, char *key, char *value) {
 
     if ( key == NULL || value == NULL ) return;
 
+    printf("Put %s=%s\n", key, value);
+
     /* First look up */
     old = p1dict_find(self, key);
     if ( old != NULL && old->key != NULL ) {
@@ -118,7 +121,7 @@ void p1dict_put(struct p1dict* self, char *key, char *value) {
         return;
     }
 
-    /* TODO: Check if we need to re-hash the items */
+    /* Check if we need to re-hash the items */
     if ( self->length >= (self->alloc*0.7) ) {
         printf("We are making space for %s\n", key);
         old_alloc = self->alloc;
@@ -160,7 +163,6 @@ void p1dict_put(struct p1dict* self, char *key, char *value) {
 
 int main(void)
 {
-    struct dnode * cur;
     struct p1dict * dct = p1dict_new();
     p1dict_print(dct);
     p1dict_put(dct, "z", "Catch phrase");
@@ -177,13 +179,6 @@ int main(void)
 
     printf("z=%s\n", p1dict_get(dct, "z"));
     printf("x=%s\n", p1dict_get(dct, "x"));
-
-    /*
-    printf("\nDump\n");
-    for(cur = dct->head; cur != NULL ; cur = cur->next ) {
-        printf("%s=%s\n", cur.key, cur.value);
-    }
-    */
 
     p1dict_del(dct);
 }

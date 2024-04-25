@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Python 1 String - Simple reference counting
+
 struct p1str
 {
     int length;
