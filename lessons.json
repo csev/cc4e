@@ -1312,52 +1312,52 @@
     "description": "In this section, we look back at the object implementations we built in Chapter 6 and wonder if Guido van Rossum used a similar approach when he built the object implementation in Python 0.0.9.  We go and visit Guido and learn a lot about the approach he used when designing the object oriented aproach in Python as well as the actual implementations of string, list, and dictionary.  There are a few plot twists along the way :).",
     "videos" : [
         {
-            "title" : "Welcome to the CC4E Epilogue",
+            "title" : "Welcome to the CC4E Epilogue (9:12)",
             "original": "CC-06-01.m4v",
             "youtube" : "Jdu7vQbyTu4"
         },
         {
-            "title" : "Guido van Rossum: Designing the Python Object Oriented Pattern",
+            "title" : "Guido van Rossum: Designing the Python Object Oriented Pattern (15:40)",
             "original": "2024-02-04-Guido-OO.m4v",
             "youtube" : "TyqBvsGMx2o"
         },
         {
-            "title" : "Looking at Guido's Implementation of String and List Classes in Python 0.0.9",
+            "title" : "Looking at Guido's Implementation of String and List Classes in Python 0.0.9 (12:20)",
             "original": "CC-06-02.m4v",
             "youtube" : "2pD2zD02qgg"
         },
         {
-            "title" : "Looking at Guido's Implementation of the Dictionary Class in Python 0.0.9",
+            "title" : "Looking at Guido's Implementation of the Dictionary Class in Python 0.0.9 (13:40)",
             "original": "CC-06-03.m4v",
             "youtube" : "7N02xXVNfs4"
         },
         {
-            "title" : "Looking at the Python 3.7 re-implementation of the Dictionary class",
+            "title" : "Looking at the Python 3.7 re-implementation of the Dictionary class (11:12)",
             "original": "CC-06-04.m4v",
             "youtube" : "o1Rfuqrc_hY"
         },
         {
-            "title" : "Guido van Rossum: Designing the Python Object Oriented Pattern",
+            "title" : "Guido van Rossum: Designing the Python Object Oriented Pattern (15:40)",
             "original": "2024-02-04-Guido-OO.m4v",
             "youtube" : "TyqBvsGMx2o"
         },
         {
-            "title" : "Code Walkthrough: Exploring Reference Counting in the Python String Object",
+            "title" : "Code Walkthrough: Exploring Reference Counting in the Python String Object (9:24)",
             "original": "CC-06-p1str-demo.m4v",
             "youtube" : "g-Zq9Oj24IE"
         },
         {
-            "title" : "Code Walkthrough: Building the Python 0.0.9 list() Implementation",
+            "title" : "Code Walkthrough: Building the Python 0.0.9 list() Implementation (14:24)",
             "original": "CC-06-p1list-demo.m4v",
             "youtube" : "f-AdH22VF34"
         },
         {
-            "title" : "Code Walkthrough: Building the Python 0.0.9 dict() Implementation",
+            "title" : "Code Walkthrough: Building the Python 0.0.9 dict() Implementation (39:27)",
             "original": "CC-06-p1dict-demo.m4v",
             "youtube" : "Evau1mKsMvM"
         },
         {
-            "title" : "Code Walkthrough: Building the Python 3.7 dict() Implementation",
+            "title" : "Code Walkthrough: Building the Python 3.7 dict() Implementation (23:22)",
             "original": "CC-06-p3dict-demo.m4v",
             "youtube" : "eCtkUg5lMcg"
         }
