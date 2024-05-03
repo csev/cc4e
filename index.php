@@ -7,7 +7,7 @@ if ( isset($_POST['secret']) && ($_POST['secret'] == '42' || $_POST['secret'] ==
 ?>
 <body style="font-family: Courier,monospace; width: 80%; max-width:500px;margin-left: auto; margin-right: auto;">
 <center>
-<h1>C Programming<br/> A Historical Perspective</h1>
+<h1>C Programming for Everybody</h1>
 <form method="post">
 <input type="text" name="secret" aria-label="The value for the secret is a two digit integer and is the result of multiplying 6 times 7.  This number appears many times in Dr. Chuck's earlier courses.">
 <input type="submit" value="Unlock">
@@ -58,7 +58,7 @@ require_once "nav.php";
 <div style="margin-left: 10px; float:right">
 <iframe width="400" height="225" src="https://www.youtube.com/embed/XteaWkvontg?rel=0" frameborder="0" allowfullscreen></iframe>
 </div>
-<h1>C Programming <br/> A Historical Perspective</h1>
+<h1>C Programming for Everybody</h1>
 This material is dedicated to understanding computer architecture and low-level programming
 by studying the "classic" version of
 the
