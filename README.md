@@ -130,14 +130,20 @@ You can always test the tools using the "App Store" at:
 This allows you to do test launches as the instructor and student in a test environment using the
 key '12345'.
 
-Setting up EmScripten
+Setting up Emscripten
 ---------------------
 
 To compile, run, and autograde code, this site uses Emscripten which compiles C to Web Assembly:
 
 https://emscripten.org/
 
-You need to install the Emscriptem compiler.  On Ubuntu:
+Using this means that we can run student in their browser rather than on the server.  This
+saves a bunch of compute resources, reliability issues, and security vulnerabilities when
+running student code on the server.  The code is compiled to WASM and JS using `emcc`
+and then the code is sent to the browser for execution and the ouytput is thenn returned
+from the browser.
+
+You need to install the Emscripten compiler.  On Ubuntu:
 
      apt install emscripten  
 
