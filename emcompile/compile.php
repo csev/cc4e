@@ -1,7 +1,7 @@
 <?php
 
 require_once("../tsugi/config.php");
-require_once("util.php");
+require_once("../sandbox/sandbox.php");
 
 // global $CFG;
 

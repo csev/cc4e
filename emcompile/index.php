@@ -20,7 +20,7 @@ EOF
 <head>
 </head>
 </body>
-<h1>EmScriptEn Compiler</h1>
+<h1>EmScriptEn Test Harness</h1>
 
 <form method="post" action="execute.php" id="form">
 Secret: <input type="password" name="secret"><br/>
