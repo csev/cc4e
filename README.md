@@ -130,6 +130,50 @@ You can always test the tools using the "App Store" at:
 This allows you to do test launches as the instructor and student in a test environment using the
 key '12345'.
 
+Setting up EmScripten
+---------------------
+
+To compile, run, and autograde code, this site uses Emscripten which compiles C to Web Assembly:
+
+https://emscripten.org/
+
+You need to install the Emscriptem compiler.  On Ubuntu:
+
+     apt install emscripten  
+
+On Macintosh:
+
+    brew install emscripten
+
+You also need to make a folder `/var/www/compile` where the student code will be stored
+and compiled and chown it to www-root:
+
+    mkdir /var/www/compile
+    chown -R www-data.www-data /var/www/compile
+
+This folder will accumulate student programs and results.  You probably want to make a 
+`cron` job to clear out this folder for data more than a week old so it does not grow.
+
+Here are the configuration options to setup the compiler for Ubuntu:
+
+    $CFG->setExtension('emcc_path', '/var/www/emsdk/upstream/emscripten/emcc');
+    $CFG->setExtension('emcc_folder', '/var/www/compile');
+    $CFG->setExtension('emcc_secret', 'changeme');
+
+On Macintosh: 
+
+    $CFG->setExtension('emcc_path', '/opt/homebrew/bin/emcc');
+    $CFG->setExtension('emcc_folder', '/tmp/zap');
+    $CFG->setExtension('emcc_secret', 'zap');
+
+If you want to debug the Emscripten process, you can add this configuration option:
+
+    $CFG->setExtension('emcc_pause', 'true');
+
+Instead of the spinner and flash, the process wqill pause sou you can look at
+the in-browser code to load and run the WASM and then send the output back to
+be graded or shown.
+
 Using the Application
 ---------------------
 
