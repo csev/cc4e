@@ -163,7 +163,7 @@ $code = U::get($_SESSION, 'code');
 $retval = U::get($_SESSION, 'retval');
 $actual = U::get($_SESSION, 'actual');
 
-if ( is_object($retval) && is_object($retval->docker) && strlen(U::get($_POST, "emcc_output", '')) > 0 ) {
+if ( is_object($retval) && is_object($retval->pipe) && strlen(U::get($_POST, "emcc_output", '')) > 0 ) {
     $_SESSION['actual'] = U::get($_POST, 'emcc_output', '');
     cc4e_emcc_get_output($retval, $displayname, $email, $LAUNCH->user->id);
     $_SESSION['retval'] = $retval;
@@ -199,7 +199,7 @@ if ( $retval == NULL && is_string($code) && strlen($code) > 0 ) {
             return;
         }
         $_SESSION['retval'] = $retval;
-        $actual = isset($retval->docker->stdout) && strlen($retval->docker->stdout) > 0 ? $retval->docker->stdout : false;
+        $actual = isset($retval->pipe->stdout) && strlen($retval->pipe->stdout) > 0 ? $retval->pipe->stdout : false;
         $_SESSION['actual'] = $actual;
         $_SESSION['checkgrade'] = 'true';
     }

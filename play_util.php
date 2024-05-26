@@ -28,7 +28,7 @@ body {
 function cc4e_play_errors($retval) { 
     global $LOGGED_IN;
     if ( ! $LOGGED_IN ) return false;
-    $compiler = $retval->docker->stderr ?? false;
+    $compiler = $retval->pipe->stderr ?? false;
 
     if ( is_string($compiler) && strlen($compiler) > 0 ) {
         echo '<pre style="color:red;">'."\n";
@@ -50,7 +50,7 @@ function cc4e_play_errors($retval) {
     } else if ( isset($retval->hasmain) && $retval->hasmain === false ) {
         echo('<p style="color:blue;">Compile only: You need a main() for your code to be run</p>'."\n");
         return true;
-    } else if ( isset($retval->docker->stdout) && strlen($retval->docker->stdout) > 0 ) {
+    } else if ( isset($retval->pipe->stdout) && strlen($retval->pipe->stdout) > 0 ) {
         return false;
     } else if ( isset($retval->minimum) && $retval->minimum === false ) {
          echo('<p style="color:red;">Your program did not produce any output</p>'."\n");
@@ -85,13 +85,13 @@ function cc4e_play_output($retval) {
 <?php
 if ( ! $LOGGED_IN ) return;
 // https://stackoverflow.com/questions/3008035/stop-an-input-field-in-a-form-from-being-submitted
-if ( isset($retval->docker->stdout) ) {
+if ( isset($retval->pipe->stdout) ) {
     echo '<form style="color: blue;">'."\n";
     echo '<div style="color: blue;">'."\n";
     echo "Output from your program:\n\n";
     // echo '<textarea id="myouput" readonly name="output" style="color: blue; width:100%; border: 1px black solid;">';
     echo('<div id="myoutput" class="xpre_text"><pre>');
-    echo(htmlentities($retval->docker->stdout, ENT_NOQUOTES));
+    echo(htmlentities($retval->pipe->stdout, ENT_NOQUOTES));
     // echo("</textarea>\n");
     echo("</pre></div>\n");
     echo("</div>\n");

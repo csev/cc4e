@@ -221,13 +221,13 @@ function cc4e_emcc($user_id, $code, $input, $main=null, $note=null)
     $env = null;
     $timeout = 10.0;
 
-    $retval->docker = cc4e_pipe($command, $stdin, $cwd, $env, $timeout);
+    $retval->pipe = cc4e_pipe($command, $stdin, $cwd, $env, $timeout);
 
     $retval->tempdir = $tempdir;
     $retval->user_id = $user_id;
 
     $hexfolder = bin2hex($tempdir);
-    if ( strlen($retval->docker->stderr) < 1 ) {
+    if ( strlen($retval->pipe->stderr) < 1 ) {
         $retval->js = $CFG->apphome . '/emcompile/load.php/' . $hexfolder . '/a.out.js';
         $retval->wasm = $CFG->apphome . '/emcompile/load.php/' . $hexfolder . '/a.out.wasm';
         $retval->hasmain = true;
@@ -243,7 +243,7 @@ function cc4e_emcc($user_id, $code, $input, $main=null, $note=null)
 function cc4e_emcc_get_output($retval, $displayname, $email, $user_id)
 {
     if ( ! is_object($retval) ) return;
-    if ( ! is_object($retval->docker) ) return;
+    if ( ! is_object($retval->pipe) ) return;
     if ( strlen(U::get($_POST, "emcc_output", '')) < 1 ) return;
 
     $tempdir = $retval->tempdir ?? '';
@@ -254,7 +254,7 @@ function cc4e_emcc_get_output($retval, $displayname, $email, $user_id)
     } else {
         $output = substr(U::get($_POST, 'emcc_output', ''), 0, 20000);
         $_SESSION['output'] = $output;
-        $retval->docker->stdout = $output;
+        $retval->pipe->stdout = $output;
         $retval->output = $output;
         $retval->displayname = $displayname;
         $retval->email = $email;
@@ -500,10 +500,10 @@ function cc4e_rate_limit($retval)
     if ( $count >= $BUCKET_SIZE ) {
         if ( ! is_object($retval) ) {
             $retval = new \stdClass();
-            $retval->docker = new \stdClass();
+            $retval->pipe = new \stdClass();
         }
-        $retval->docker->stdout = "";
-        $retval->docker->stderr = "Rate Exceeded...";
+        $retval->pipe->stdout = "";
+        $retval->pipe->stderr = "Rate Exceeded...";
         $_SESSION['retval'] = $retval;
         return true;
     } else {

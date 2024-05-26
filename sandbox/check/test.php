@@ -18,7 +18,7 @@ foreach ($files as $file) {
     $fail = false;
 
     $compile = $retval->assembly->status == 0;
-    $failure = isset($retval->docker->failure) && is_string($retval->docker->failure) ? $retval->docker->failure : false;
+    $failure = isset($retval->pipe->failure) && is_string($retval->pipe->failure) ? $retval->pipe->failure : false;
 
     if ( ! $compile ) {
        $fail = "Compiler error"; 
@@ -47,10 +47,10 @@ foreach ($files as $file) {
             } else if ( strpos($failure, "exceeded")> 0  && $stdout ) {
                 // Cool
             } else {
-                $fail = "Docker failure: ". $failure;
+                $fail = "Pipe/process failure: ". $failure;
             }
-        } else if ( isset($retval->docker->stdout) )  {
-            $output =  $retval->docker->stdout;
+        } else if ( isset($retval->pipe->stdout) )  {
+            $output =  $retval->pipe->stdout;
             if ( strlen($output) < 1 ) {
                 $fail = "Did not produce any output";
             }

@@ -34,7 +34,7 @@ if ( isset($_POST['new_compile']) ) {
 
 $retval = U::get($_SESSION, 'retval');
 
-if ( is_object($retval) && is_object($retval->docker) && strlen(U::get($_POST, "emcc_output", '')) > 0 ) {
+if ( is_object($retval) && is_object($retval->pipe) && strlen(U::get($_POST, "emcc_output", '')) > 0 ) {
     cc4e_emcc_get_output($retval, $displayname, $email, $_SESSION['id']);
     $_SESSION['retval'] = $retval;
 }
@@ -135,8 +135,8 @@ if ( is_string($input) ) {
 </textarea>
 </p>
 </form>
-<?php if ( is_object($retval) && isset($retval->docker) && is_object($retval->docker) && is_string($retval->docker->stdout) && strlen($retval->docker->stdout) > 0 ) {
-  $rows = substr_count( $retval->docker->stdout, "\n" );
+<?php if ( is_object($retval) && isset($retval->pipe) && is_object($retval->pipe) && is_string($retval->pipe->stdout) && strlen($retval->pipe->stdout) > 0 ) {
+  $rows = substr_count( $retval->pipe->stdout, "\n" );
   if ( $rows < 5 ) $rows = 5;
   if ( $rows > 30 ) $rows = 30;
 ?>
@@ -145,7 +145,7 @@ Program Output:
 </p>
 <p>
 <textarea id="myoutput" name="output" style="width:100%; border: 1px black solid;" rows="<?= $rows ?>">
-<?php echo(htmlentities($retval->docker->stdout)); ?>
+<?php echo(htmlentities($retval->pipe->stdout)); ?>
 </textarea>
 </p>
 <?php } ?>
