@@ -1,8 +1,8 @@
 #include <stdio.h>
 int main() {
-    char line[1000];
+    char line[101];
     printf("Enter line\n");
-    scanf("%[^\n]1000s", line);
+    scanf("%100[^\n]s", line);
     printf("Line: %s\n", line);
 }
 
