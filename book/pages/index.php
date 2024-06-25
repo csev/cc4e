@@ -22,15 +22,21 @@ $pageno = false;
 if ( count($pieces) >= 2 ) {
    $page = $pieces[count($pieces)-1];
    $file = $page . '.jpg';
+   if ( ! file_exists($file) ) {
+       $page = "page_001";
+       $file = "page_001.jpg";
+    }
    $pieces = explode('_', $page);
    if ( count($pieces) >= 2 && is_numeric($pieces[1]) ) {
        $pageno = $pieces[1]+0;
        $next = $pieces[0] . '_' . substr('000' . ($pageno + 1), -3);
        $prev = $pieces[0] . '_' . substr('000' . ($pageno - 1), -3);
+       if ( ! file_exists($prev . '.jpg') ) $prev = false;
+       if ( ! file_exists($next . '.jpg') ) $next = false;
+    } else {
+        $prev = false;
+        $next = false;
     }
-   if ( ! file_exists($file) ) $file = false;
-   if ( ! file_exists($prev . '.jpg') ) $prev = false;
-   if ( ! file_exists($next . '.jpg') ) $next = false;
 }
 ?>
 <html>
