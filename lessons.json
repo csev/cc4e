@@ -1305,7 +1305,7 @@
     ]
 },
 {
-    "title": "Epilogue (draft)",
+    "title": "Epilogue",
     "anchor": "epilogue",
     "icon" : "fa-refresh",
     "slides": "{apphome}/lectures/CC-06-Epilogue.pptx",
