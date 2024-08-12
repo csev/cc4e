@@ -71,7 +71,7 @@ int main()
         printf("\\nLine: %s\\n",line);
         if ( line[0] == 'X' ) break;
         if ( line[0] == '*' ) {
-            printf("%s\\n",line);
+            printf("%s",line);
             continue;
         }
         count = sscanf(line, "%d %c %d", &address, &opcode, &value);
@@ -90,6 +90,7 @@ EOF
 
 function ccauto_output($LAUNCH) { 
     return <<< EOF
+* Beginning
 Memory:
 Hello
 world
@@ -125,7 +126,7 @@ int main()
     while(fgets(line, 256, stdin) != NULL) {
         if ( line[0] == 'X' ) break;
         if ( line[0] == '*' ) {
-            printf("%s\\n",line);
+            printf("%s",line);
             continue;
         }
         // Use sscanf to parse data from a string
