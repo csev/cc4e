@@ -15,7 +15,7 @@ function ccauto_instructions($LAUNCH) {
 You are to perform the following steps in a function named process():
 (1)  Print out the string you are passed.
 (2)  Count the number of characters in the string.
-(3)  If there are more than 10 characters in the string print out the 9th character.
+(3)  If there are more than 10 characters in the string print out the 10th character (line[9])
 (4)  Go through the string and replace every blank with a dash '-'
 (5)  Print out the new string with dashes.
 <br/>
