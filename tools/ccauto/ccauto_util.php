@@ -44,10 +44,13 @@ function check_require($code, $require) {
 function check_prohibit($code, $prohibit) {
     if ( ! is_array($prohibit) ) return false;
 
+    $pattern = '/(\/\*[\s\S]*?\*\/)|(\/\/[^\r\n]*)/';
+    $cleaned_code = preg_replace($pattern, '', $code);
+
     $retval = array();
     foreach($prohibit as $rule) {
         if ( ! is_array($rule) || count($rule) != 2 ) continue;
-        if ( strpos($code, $rule[0]) !== false ) {
+        if ( strpos($cleaned_code, $rule[0]) !== false ) {
             $retval[] = $rule[1];
         }
     }
