@@ -1,0 +1,25 @@
+
+Original Idea from Raymond Hettingher
+
+Inada Naoki (methane)
+
+https://morepypy.blogspot.com/2015/01/faster-more-memory-efficient-and-more.html
+
+https://mail.python.org/pipermail/python-dev/2016-June/145299.html
+
+https://github.com/methane/cpython/issues/1
+
+https://github.com/methane
+
+Inada Naoki methane
+KLab Inc,
+
+Japa
+13:23 - 13h ahead
+
+songofacandy@gmail.com
+
+https://methane.github.io/about/
+
+Armin Ronacher <armin.ronacher@active-4.com>, Raymond Hettinger <python@rcn.com>
+
