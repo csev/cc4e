@@ -78,6 +78,7 @@ You can take this course and receive a certificate at:
  target="_blank">Coursera: C Programming for Everybody Specialization</a></li>
 <li><a href="https://www.youtube.com/watch?v=PaPN51Mm5qQ" target="_blank">FreeCodeCamp</a></li>
 <li><a href="https://online.umich.edu/series/c-programming-for-everybody/?utm_source=cc4e_com" target="_blank">Free Certificates for University of Michigan students and staff</a></li>
+<li><a href="https://codekidz.ai/lesson-intro/c-programmin-3636b2" target="_blank">CodeKidz</a></li>
 </ul>
 </p>
 You need to have a basic understanding of Python before starting this course.
