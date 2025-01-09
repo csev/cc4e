@@ -102,8 +102,10 @@ function myEdit(me) {
 </script>
 </head>
 <?php
+$darkmode = false;
 if ( U::get($_COOKIE,'darkmode') == 'yes' ) {
     echo('<body class="dark-mode">'."\n");
+    $darkmode = true;
 } else {
     echo("<body>\n");
 }
@@ -122,7 +124,11 @@ if ( U::get($_COOKIE,'darkmode') == 'yes' ) {
   <option <?= x_sel("chap06.md") ?>>Chapter 6</option>
   <option <?= x_sel("chap07.md") ?>>Chapter 7</option>
   <option <?= x_sel("chap08.md") ?>>Chapter 8</option>
+<?php if ( $darkmode ) { ?>
+  <option value="darkmode">Light Mode</option>
+<?php } else { ?>
   <option value="darkmode">Dark Mode</option>
+<?php } ?>
 </select>
 </div>
 <?php
@@ -150,7 +156,7 @@ if ( U::get($_COOKIE,'darkmode') == 'yes' ) {
                 // $newcontent[] = '<div style="padding-left: 5px; padding-bottom: 0.5em; float:right;"><a onclick="window.open(\'pages/page_'.$pno.'\');return false;" href="#" id="pg'.($numb+0).'">Page '.($numb+0).'</a></div>'."\n";
             }
         }
-        if ( strpos($line, "[comment]: <> (code") === 0 || 
+        if ( strpos($line, "[comment]: <> (code") === 0 ||
              strpos($line, "[comment]: <> (note") === 0 ) {
             $pieces = preg_split("/[\s,(){}]+/", $line);
             $code = false;
