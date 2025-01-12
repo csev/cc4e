@@ -137,6 +137,17 @@ if ( U::get($_COOKIE,'darkmode') == 'yes' ) {
     $lines = explode("\n",$contents);
     $newcontent = array();
     foreach($lines as $line) {
+        if ( strpos($line, "-------") === 0 ) {
+            $sofar = count($newcontent);
+            $sectitle = false;
+            if ( $sofar > 2 ) {
+                $sectitle = $newcontent[$sofar-1];
+                $newcontent[$sofar-1] = '<div style="padding-left: 5px; padding-bottom: 0.5em; float:right;"><a onclick="window.open(\'pages/page_'.$pno.'\');return false;" href="#" id="pg'.($numb+0).'">Page '.($numb+0).'</a></div>'."\n";
+                $newcontent[] = $sectitle;
+            }
+            $newcontent [] = $line;
+            continue;
+        }
         if ( strpos($line, "[comment]: <> (page") === 0 ) {
             $pieces = preg_split("/[\s,(){}]+/", $line);
             $page = false;
