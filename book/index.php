@@ -3,8 +3,9 @@
 require_once "Parsedown.php";
 require_once "ParsedownExtra.php";
 
+$comeback = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 if ( !isset($_COOKIE['secret']) || $_COOKIE['secret'] != '42' ) {
-    header("Location: ../index.php");
+    header("Location: ../index.php?next=".$comeback);
     return;
 }
 

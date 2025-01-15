@@ -1,7 +1,10 @@
 <?php
+$next = "index.php";
+if ( isset($_REQUEST['next']) ) $next = $_REQUEST['next'];
+
 if ( isset($_POST['secret']) && ($_POST['secret'] == '42' || $_POST['secret'] == ':wq') ) {
     setCookie('secret', '42', time() + 15 * 3600 * 24);
-    header("Location: index.php");
+    header("Location: ".$next);
     return;
 } else if ( !isset($_COOKIE['secret']) || $_COOKIE['secret'] != '42' ) {
 ?>
@@ -10,6 +13,7 @@ if ( isset($_POST['secret']) && ($_POST['secret'] == '42' || $_POST['secret'] ==
 <h1>C Programming for Everybody</h1>
 <form method="post">
 <input type="text" name="secret" aria-label="The value for the secret is a two digit integer and is the result of multiplying 6 times 7.  This number appears many times in Dr. Chuck's earlier courses.">
+<input type="hidden" name="next" value="<?= htmlentities($next) ?>">
 <input type="submit" value="Unlock">
 <p>
 The unlock code is a number.  You won't be given the number.  It is a puzzle
