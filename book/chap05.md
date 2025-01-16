@@ -160,7 +160,7 @@ One common use of pointer arguments is in functions that must return
 more than a single value. (You might say that `swap` returns two values, the
 new values of its arguments.) As an example, consider a function `get_int`
 which performs free-format input conversion by breaking a stream of characters
-into integer values, one integer per call. `get_int` as to return the
+into integer values, one integer per call. `get_int` has to return the
 value it found, or an end of file signal when there is no more input. These
 values have to be returned as separate objects, for no matter what value is
 used for EOF, that could also be the value of an input integer.
