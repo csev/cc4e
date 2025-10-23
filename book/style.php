@@ -39,6 +39,7 @@ code, pre {
 pre {
   padding: 10px 16px;
   border-radius: 5px;
+  overflow-x: auto;
 }
 
 p > code {
