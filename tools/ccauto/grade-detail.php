@@ -37,7 +37,7 @@ echo("<p>Submission:</p>\n");
 $json = json_decode($row['json']);
 if ( is_object($json) && isset($json->code)) {
     echo("<pre>\n");
-    echo(htmlent_utf8($json->code));
+    echo(htmlentities($json->code));
     echo("\n");
     echo("</pre>\n");
 }
