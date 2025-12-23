@@ -57,12 +57,10 @@ function buildMenu() {
 
     $imenu = new \Tsugi\UI\Menu();
 
-    $imenu->addLink('Instructor', 'http://online.dr-chuck.com');
-    $imenu->addLink('Office Hours', 'http://www.dr-chuck.com/office/');
-    $imenu->addLink('Lecture podcast', $R . 'podcast');
-    $imenu->addLink('Old Courses', $R . 'archive');
     $set->addRight('Book', $R . 'book');
-    $set->addRight('Instructor', $imenu);
+    $set->addRight('Instructor', 'https://online.dr-chuck.com', true, array('target' => '_self'));
+    $set->addRight('Old Courses', $R . 'archive');
+
 
     return($set);
 }
