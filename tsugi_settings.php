@@ -15,6 +15,7 @@ $CFG->servicedesc = 'C Programming - A Historical Perspective ';
 $CFG->context_title = "C Programming for Everybody";
 
 $CFG->lessons = $CFG->dirroot.'/../lessons.json';
+$CFG->youtube_playlist = 'PLlRFEj9H3Oj5NbaFb1b2n8lib01uNPWLa';
 
 // $CFG->youtube_url = $CFG->apphome . '/mod/youtube/';
 
