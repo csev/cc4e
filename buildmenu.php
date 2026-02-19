@@ -28,11 +28,14 @@ function buildMenu() {
             $submenu->addLink('Map', $R.'map');
         }
     
-        $submenu->addLink('Badges', $R.'badges');
+        // $submenu->addLink('Badges', $R.'badges');
         $submenu->addLink('Materials', $R.'materials');
-        if ( $CFG->providekeys ) {
-            $submenu->addLink('LMS Integration', $T . 'settings');
-        }
+        $submenu->addLink('Announcements', $R.'announcements');
+        $submenu->addLink('Notifications', $R.'notifications');
+        $submenu->addLink('Grades', $R.'grades');
+        $submenu->addLink('Pages', $R.'pages');
+        $submenu->addLink('LMS Integration', $T . 'settings');
+
         if ( isset($CFG->google_classroom_secret) ) {
             $submenu->addLink('Google Classroom', $T.'gclass/login');
         }
