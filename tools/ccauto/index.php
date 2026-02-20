@@ -366,14 +366,14 @@ echo("<p>".$instructions."</p>\n");
 <div id="editor_panel">
 <form method="post">
 <p>
-<input type="submit" name="run" onclick="startRun();" value="Run Code" disabled id="runcode">
+<input type="submit" name="run" onclick="startRun();" value="Run Code" disabled id="runcode" aria-label="Run code">
 <input type="submit" name="reset" value="Reset Code"
     onclick="return confirm('Do you really want to reset the code to the default?');"
->
+    aria-label="Reset code to default">
 <input type="submit" style="float:right;display:none;" value="Max" id="max_min"
     onclick="toggleMax();return false;"
->
-<span id="runstatus"><img src="<?= $OUTPUT->getSpinnerUrl() ?>"/></span>
+    aria-label="Toggle full screen">
+<span id="runstatus"><img src="<?= $OUTPUT->getSpinnerUrl() ?>" alt=""/></span>
 <span id="editstatus" style="display: none;">Edit code below:</span>
 <?php
 column_row_start();
@@ -390,7 +390,7 @@ column_io_start();
 if ( is_string($input) && strlen($input) > 0 ) {
 ?>
 <p>This will be provided as input to your program:
-<a href="#" onclick="copyToClipboardNoScroll(this, $('#programinput').text(), true);return false;">Copy</a>
+<a href="#" role="button" onclick="copyToClipboardNoScroll(this, $('#programinput').text(), true);return false;" aria-label="Copy input to clipboard">Copy</a>
 </p>
 <p>
 <div id="programinput" class="pre_text"><pre>
@@ -469,7 +469,7 @@ cc4e_play_debug($retval);
 ?>
 <p>
 This page uses a compiler called
-<a href="https://emscripten.org/" target="_blank">Emscripten</a> that translates
+<a href="https://emscripten.org/" target="_blank" rel="noopener noreferrer">Emscripten</a> that translates
 your code to JavaScript and then executes your code in the browser.  You can watch
 your browser developer console to monitor how your code is being executed.
 </p>
@@ -478,7 +478,7 @@ your browser developer console to monitor how your code is being executed.
 if ( $LAUNCH->user->instructor && is_string($solution) && strlen($solution) > 0 ) {
 ?>
 <div><p>Solution: (instructor only)
-<a href="#" onclick="copyToClipboardNoScroll(this, $('#instructor_solution').text(), true);return false;">Copy</a>
+<a href="#" role="button" onclick="copyToClipboardNoScroll(this, $('#instructor_solution').text(), true);return false;" aria-label="Copy instructor solution to clipboard">Copy</a>
 </p>
 <pre id="instructor_solution">
 <?php echo(htmlentities($solution, ENT_NOQUOTES)); ?>

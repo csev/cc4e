@@ -62,18 +62,22 @@ if ( strlen($retval['js'] ?? '' ) > 0 ) {
 
 
 <form method="post" action="index.php" id="form">
-<textarea name="code" id="code" style="width:95%;" rows="5">
+<label for="code">Compiled code (read-only):</label>
+<textarea name="code" id="code" style="width:95%;" rows="5" aria-label="Compiled code">
 <?php echo(htmlentities($code)); ?>
 </textarea>
 
+<label for="input">Input:</label>
 <textarea name="input" id="input" style="width:95%;" rows="5">
 <?php echo(htmlentities($input)); ?>
 </textarea>
 <br/>
-<textarea name="output" id="output" style="width:95%;" rows="5"></textarea>
+<label for="output">Output:</label>
+<textarea name="output" id="output" style="width:95%;" rows="5" aria-label="Program output"></textarea>
 <br/>
-<textarea name="stderr" id="stderr" style="width:95%;" rows="5"></textarea>
-<input type="submit">
+<label for="stderr">Stderr:</label>
+<textarea name="stderr" id="stderr" style="width:95%;" rows="5" aria-label="Error output"></textarea>
+<input type="submit" value="Back" aria-label="Return to compiler">
 </form>
 
 <script type='text/javascript'>

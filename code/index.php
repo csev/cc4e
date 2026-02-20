@@ -133,9 +133,9 @@ foreach($files as $file ) {
 ?>
 <li>
 <a href="../book/chap0<?= $number ?>.md#pg<?= $page ?>" style="margin:0.5em;" class="xyzzy"><?= htmlentities($ref) ?></a>
-<button style="margin:0.5em;" onclick="myToggle('<?= $id ?>');return false;" id="toggle_<?= $id ?>" >Show</button>
-<button style="margin:0.5em;" onclick="myCopy('<?= $id ?>');return false;">Copy</button>
-<button style=" margin:0.5em;display:none;" onclick="myEdit('<?= $file ?>');return false;"><?= $edit ?></button>
+<button style="margin:0.5em;" onclick="myToggle('<?= $id ?>');return false;" id="toggle_<?= $id ?>" aria-label="Show code">Show</button>
+<button style="margin:0.5em;" onclick="myCopy('<?= $id ?>');return false;" aria-label="Copy code">Copy</button>
+<button style=" margin:0.5em;display:none;" onclick="myEdit('<?= $file ?>');return false;" aria-label="<?= $edit ?> code"><?= $edit ?></button>
 <pre class="code" id="pre_<?= $id ?>" style="display:none;">
 <code class="language-c" id="<?= $id ?>">
 <?php
@@ -201,8 +201,8 @@ foreach($files as $file ) {
     echo("<li>\n");
     echo(htmlentities($file));
 ?>
-<button style="margin:0.5em;" onclick="myToggle('<?= $id ?>');return false;" id="toggle_<?= $id ?>" >Show</button>
-<button style="margin:0.5em;" onclick="myCopy('<?= $id ?>');return false;">Copy</button>
+<button style="margin:0.5em;" onclick="myToggle('<?= $id ?>');return false;" id="toggle_<?= $id ?>" aria-label="Show code">Show</button>
+<button style="margin:0.5em;" onclick="myCopy('<?= $id ?>');return false;" aria-label="Copy code">Copy</button>
 <pre class="code" id="pre_<?= $id ?>" style="display:none;"><code class="language-c" id="<?= $id ?>"><?php
     echo(htmlentities($text));
 ?></code></pre>
@@ -260,8 +260,8 @@ foreach($files as $file ) {
     echo("<li>\n");
     echo(htmlentities($file));
 ?>
-<button style="margin:0.5em;" onclick="myToggle('<?= $id ?>');return false;" id="toggle_<?= $id ?>" >Show</button>
-<button style="margin:0.5em;" onclick="myCopy('<?= $id ?>');return false;">Copy</button>
+<button style="margin:0.5em;" onclick="myToggle('<?= $id ?>');return false;" id="toggle_<?= $id ?>" aria-label="Show code">Show</button>
+<button style="margin:0.5em;" onclick="myCopy('<?= $id ?>');return false;" aria-label="Copy code">Copy</button>
 <pre class="code" id="pre_<?= $id ?>" style="display:none;"><code class="language-c" id="<?= $id ?>"><?php
     echo(htmlentities($text));
 ?></code></pre>
@@ -300,8 +300,8 @@ foreach($files as $file ) {
     echo("<li>\n");
     echo(htmlentities($file));
 ?>
-<button style="margin:0.5em;" onclick="myToggle('<?= $id ?>');return false;" id="toggle_<?= $id ?>" >Show</button>
-<button style="margin:0.5em;" onclick="myCopy('<?= $id ?>');return false;">Copy</button>
+<button style="margin:0.5em;" onclick="myToggle('<?= $id ?>');return false;" id="toggle_<?= $id ?>" aria-label="Show code">Show</button>
+<button style="margin:0.5em;" onclick="myCopy('<?= $id ?>');return false;" aria-label="Copy code">Copy</button>
 <pre class="code" id="pre_<?= $id ?>" style="display:none;"><code class="language-c" id="<?= $id ?>"><?php
     echo(htmlentities($text));
 ?></code></pre>

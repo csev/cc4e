@@ -86,7 +86,7 @@ cc4e_play_header($lines);
 <?php if ( $LOGGED_IN ) { ?>
 This is the <a href="index.php">www.cc4e.com</a> code playground for writing C programs.
 You can also check
-<a href="https://status.cc4e.com" target="_blank">recent status</a> of this
+<a href="https://status.cc4e.com" target="_blank" rel="noopener noreferrer">recent status</a> of this
 compiler page.
 <?php
     if ( U::get($_REQUEST, "sample", null) != null ) {
@@ -109,14 +109,14 @@ free online <a href="compilers.php">C Compilers</a> that you can use.
 <p>
 <?php
 if ( $LOGGED_IN ) {
-    echo('<input type="submit" name="new_compile" value="Run Code" id="runcode">');
+    echo('<input type="submit" name="new_compile" value="Run Code" id="runcode" aria-label="Run code">');
 }
 ?>
 <script>
 if ( window.opener ) {
-    document.write('<button onclick="window.close();">Close</button>');
+    document.write('<button onclick="window.close();" aria-label="Close window">Close</button>');
 } else {
-    document.write('<input type="submit" onclick="window.location=\'index.php\'; return false;" value="Back to CC4E">');
+    document.write('<input type="submit" onclick="window.location=\'index.php\'; return false;" value="Back to CC4E" aria-label="Back to CC4E home">');
 }
 </script>
 <?php
@@ -125,7 +125,9 @@ $errors = cc4e_play_errors($retval);
 cc4e_play_inputs($lines, $code);
 if ( $LOGGED_IN ) {
 ?>
-<p>Input to your program:</p>
+<p>
+<label for="myinput">Input to your program:</label>
+</p>
 <p>
 <textarea id="myinput" name="input" style="width:100%; border: 1px black solid;">
 <?php
@@ -151,7 +153,7 @@ Program Output:
 <?php } ?>
 <p>
 This page uses a server-based compiler called
-<a href="https://emscripten.org/" target="_blank">Emscripten</a> that compiles
+<a href="https://emscripten.org/" target="_blank" rel="noopener noreferrer">Emscripten</a> that compiles
 your code to JavaScript and then executes your code in the browser.  You can watch
 your browser developer console to monitor how your code is being executed.
 If this fails with an unexpected error, please add a note in the

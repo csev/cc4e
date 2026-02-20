@@ -104,14 +104,15 @@ if ( $return_value !== False ) {
 
 ?>
 <form method="post">
-<input type="submit" value="Compile">
+<label for="mycode">C code</label>
+<input type="submit" value="Compile" aria-label="Compile code">
 <script>
 if ( window.opener ) {
-    document.write('<button onclick="window.close();">Close</button>');
+    document.write('<button onclick="window.close();" aria-label="Close window">Close</button>');
 }
 </script>
 <br/>&nbsp;<br/>
-<textarea id="mycode" name="code" rows="<?= $lines ?>" style="height: <?= $lines ?>em; border: 1px black solid;">
+<textarea id="mycode" name="code" rows="<?= $lines ?>" style="height: <?= $lines ?>em; border: 1px black solid;" aria-label="C code to compile">
 <?php
 if ( $code ) {
     echo(htmlentities($code));

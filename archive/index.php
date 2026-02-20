@@ -1,36 +1,27 @@
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">   
-<title>CC4E Archive</title>
-</head>
+<?php
+require_once "../top.php";
+?>
 <style>
 #chuck:hover {opacity: 0.7; cursor: pointer;}
-
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+#archive-modal {
+  display: none;
+  position: fixed;
+  z-index: 1050;
+  padding-top: 100px;
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.9);
 }
-
-/* Modal Content (image) */
-.modal-content {
+#archive-modal .modal-content {
   margin: auto;
   display: block;
   width: 80%;
   max-width: 700px;
 }
-
-/* Caption of Modal Image */
-#caption {
+#archive-modal #archive-caption {
   margin: auto;
   display: block;
   width: 80%;
@@ -40,94 +31,44 @@
   padding: 10px 0;
   height: 150px;
 }
-
-/* Add Animation */
-.modal-content, #caption {  
-  -webkit-animation-name: zoom;
-  -webkit-animation-duration: 0.6s;
-  animation-name: zoom;
-  animation-duration: 0.6s;
-}
-
-@-webkit-keyframes zoom {
-  from {-webkit-transform:scale(0)} 
-  to {-webkit-transform:scale(1)}
-}
-
-@keyframes zoom {
-  from {transform:scale(0)} 
-  to {transform:scale(1)}
-}
-
-/* The Close Button */
-.close {
+#archive-modal .archive-close {
   position: absolute;
   top: 15px;
   right: 35px;
   color: #f1f1f1;
   font-size: 40px;
   font-weight: bold;
-  transition: 0.3s;
-}
-
-.close:hover,
-.close:focus {
-  color: #bbb;
-  text-decoration: none;
   cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
 }
-
-/* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 700px){
-  .modal-content {
-    width: 100%;
-  }
+#archive-modal .archive-close:hover,
+#archive-modal .archive-close:focus {
+  color: #bbb;
 }
-</style>   
-<body>
+</style>
+<?php
+require_once "../nav.php";
+?>
+<div id="container">
 <img id="chuck" alt="Picture of Dr. Chuck in the 1990's wearing a members only jacket - which was a thing back then"
    src="1990-Chuck-Members-Only-Jacket.png"
-    style="padding: 5px; float:right; width:240px;"/>
+   style="padding: 5px; float:right; width:240px;"/>
 
-<div id="cModal" class="modal">
-  <span class="close">&times;</span>
-  <img class="modal-content" id="img01">
-  <div id="caption"></div>
+<div id="archive-modal" role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <button type="button" class="archive-close" aria-label="Close modal">&times;</button>
+  <img class="modal-content" id="img01" alt="">
+  <div id="archive-caption"></div>
 </div>
 
-<script>
-// Get the modal
-var modal = document.getElementById("cModal");
-
-// Get the image and insert it inside the modal - use its "alt" text as a caption
-var img = document.getElementById("chuck");
-var modalImg = document.getElementById("img01");
-var captionText = document.getElementById("caption");
-img.onclick = function(){
-  modal.style.display = "block";
-  modalImg.src = this.src;
-  captionText.innerHTML = this.alt;
-}
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() { 
-  modal.style.display = "none";
-}
-</script> 
-<?php
-require_once "../top.php";
-require_once "../nav.php";
-?>  
 <h1>Archives of Courses Taught by Dr. Chuck</h1>
 <p>These are related courses taught by Dr. Chuck in the past.</p>
 <ul>
 <li><p><a href="1991-lbs290">Lyman Briggs (LBS290) - C</a>
 Taught Fall 1991 at Michigan State University.  This was taught with students
 logging in to a 
-<a href="https://en.wikipedia.org/wiki/3B_series_computers#3B2" target="_blank">AT&T 3B2</a>
+<a href="https://en.wikipedia.org/wiki/3B_series_computers#3B2" target="_blank" rel="noopener noreferrer">AT&T 3B2</a>
 mincomputer.
 </p></li>
 <li><p><a href="1992-lbs290f" target="_blank">Lyman Briggs (LBS290F) - FORTRAN</a><br/>
@@ -142,3 +83,31 @@ Dr. Chuck taught at the University of Michigan.
 </li>
 </ul>
 <br clear="all">
+</div>
+
+<script>
+(function() {
+  var modal = document.getElementById("archive-modal");
+  var img = document.getElementById("chuck");
+  var modalImg = document.getElementById("img01");
+  var captionText = document.getElementById("archive-caption");
+  var closeBtn = document.querySelector("#archive-modal .archive-close");
+
+  if (img) img.onclick = function() {
+    modal.style.display = "block";
+    modalImg.src = this.src;
+    captionText.innerHTML = this.alt;
+  };
+  if (closeBtn) closeBtn.onclick = function() {
+    modal.style.display = "none";
+  };
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && modal.style.display === "block") {
+      modal.style.display = "none";
+    }
+  });
+})();
+</script>
+<?php
+require_once "../footer.php";
+?>

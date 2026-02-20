@@ -94,8 +94,8 @@ foreach($files as $file ) {
     echo("<li>\n");
     echo(htmlentities($file));
 ?>
-<button style="margin:0.5em;" onclick="myToggle('<?= $id ?>');return false;" id="toggle_<?= $id ?>" >Show</button>
-<button style="margin:0.5em;" onclick="myCopy('<?= $id ?>');return false;">Copy</button>
+<button style="margin:0.5em;" onclick="myToggle('<?= $id ?>');return false;" id="toggle_<?= $id ?>" aria-label="Show code">Show</button>
+<button style="margin:0.5em;" onclick="myCopy('<?= $id ?>');return false;" aria-label="Copy code">Copy</button>
 <pre class="code" id="pre_<?= $id ?>" style="display:none;"><code class="language-c" id="<?= $id ?>"><?php
     echo(htmlentities($text));
 ?></code></pre>

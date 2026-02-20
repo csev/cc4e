@@ -83,9 +83,9 @@ require_once "../../nav.php";
 <img id="chuck" alt="Picture of Dr. Chuck in the 1990's wearing a members only jacket - which was a thing back then"
    src="../1990-Chuck-Members-Only-Jacket.png"
    style="padding: 5px; float:right; width:240px;"/>
-<div id="cModal" class="modal">
-  <span class="close">&times;</span>
-  <img class="modal-content" id="img01">
+<div id="cModal" class="modal" role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <button type="button" class="close" aria-label="Close modal">&times;</button>
+  <img class="modal-content" id="img01" alt="">
   <div id="caption"></div>
 </div>
 <script>
@@ -100,12 +100,18 @@ img.onclick = function(){
   modalImg.src = this.src;
   captionText.innerHTML = this.alt;
 }
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() { 
+// Get the close button
+var closeBtn = document.getElementsByClassName("close")[0];
+// When the user clicks the close button
+closeBtn.onclick = function() { 
   modal.style.display = "none";
 }
+// Close on Escape key
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape" && modal.style.display === "block") {
+    modal.style.display = "none";
+  }
+});
 </script>   
 <h1>LBS 290 - C Programming</h1>
 <p>

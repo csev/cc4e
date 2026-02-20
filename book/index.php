@@ -237,8 +237,8 @@ if ( U::get($_COOKIE,'darkmode') == 'yes' ) {
         $md = str_replace('<p></div></p>', '</div>', $md);
         // $md = str_replace('class="language-', 'class="code" id="', $md);
         $file_name = '<a href="#" style="float:right; margin:0.5em;" class="xyzzy"></a>';
-        $copy_button = '<button style="float:right; margin:0.5em;" onclick="myCopy(this);return false;">Copy</button>';
-        $edit_button = '<button style="float:right; margin:0.5em;" onclick="myEdit(this);return false;">Edit</button>';
+        $copy_button = '<button style="float:right; margin:0.5em;" onclick="myCopy(this);return false;" aria-label="Copy code">Copy</button>';
+        $edit_button = '<button style="float:right; margin:0.5em;" onclick="myEdit(this);return false;" aria-label="Edit code">Edit</button>';
         $md = str_replace('<pre><code class="language-', '<pre class="code">'.$edit_button.$copy_button.$file_name.'<code class="language-c" id="', $md);
         $pieces = explode("\n", $md);
         $new = array();
@@ -268,7 +268,7 @@ if ( U::get($_COOKIE,'darkmode') == 'yes' ) {
 This is a work in progress start here: 
 <a href="chap01.md">Chapter 1</a>,
 Please feel free to improve this text in 
-<a href="https://github.com/csev/cc4e/tree/main/md" target="_blank">Github</a>.
+<a href="https://github.com/csev/cc4e/tree/main/md" target="_blank" rel="noopener noreferrer">Github</a>.
 </p>
 <?php
 }
@@ -293,11 +293,11 @@ Please feel free to improve this text in
 <hr/>
 <small>
 <blockquote>
-<a href="https://en.wikipedia.org/wiki/The_C_Programming_Language" target="_blank"><img src="pages/front.jpg" style="width:150px; float:right; padding-left: 10px;"></a>
+<a href="https://en.wikipedia.org/wiki/The_C_Programming_Language" target="_blank" rel="noopener noreferrer"><img src="pages/front.jpg" alt="Front cover of The C Programming Language (1978)" style="width:150px; float:right; padding-left: 10px;"></a>
 <p>
 This work
 (<a href="https://www.cc4e.com">www.cc4e.com</a>) is based on the 1978 
-<a href="https://en.wikipedia.org/wiki/The_C_Programming_Language" target="_blank">"The C Programming Language"</a>
+<a href="https://en.wikipedia.org/wiki/The_C_Programming_Language" target="_blank" rel="noopener noreferrer">"The C Programming Language"</a>
 book written by Brian W. Kernighan and
 Dennis M. Ritchie.  Their book
 is copyright all rights reserved by AT&amp;T but is being used
@@ -318,15 +318,15 @@ how the C language was evolving as it laid the ground work for a future with por
 <p>
 If you want to learn modern C programming from a book that reflects the modern C language,
 I suggest you use the
-<a href="https://amzn.to/3hNp6QH" target="_blank">C Programming Language, 2nd Edition</a>,
+<a href="https://amzn.to/3hNp6QH" target="_blank" rel="noopener noreferrer">C Programming Language, 2nd Edition</a>,
 also written by Brian W. Kernighan and Dennis M. Ritchie, initially published in
 1988 and based on the 
-<a href="https://en.wikipedia.org/wiki/ANSI_C" target="_blank">ANSI C</a> (C89) version
+<a href="https://en.wikipedia.org/wiki/ANSI_C" target="_blank" rel="noopener noreferrer">ANSI C</a> (C89) version
 of the language.
 </p>
 <p>
 The source code to this book is at 
-<a href="https://github.com/csev/cc4e" target="_blank">https://github.com/csev/cc4e</a>.
+<a href="https://github.com/csev/cc4e" target="_blank" rel="noopener noreferrer">https://github.com/csev/cc4e</a>.
 You are welcome to help in the creation and editing of the book.
 </blockquote>
 </small>

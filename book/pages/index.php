@@ -53,6 +53,22 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+
+.nav-btn {
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  margin: 0 0.25em;
+  border: 1px solid #999;
+  border-radius: 4px;
+  background: #eee;
+  color: #333;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.nav-btn:hover {
+  background: #ddd;
+}
 </style>
 </head>
 <body>
@@ -61,11 +77,11 @@ if ( $prev || $next ) {
     echo('<div style="float:right">');
 }
 if ( $prev ) {
-    echo('<a href="'.$prev.'"><button>Prev</button></a> ');
+    echo('<a href="'.$prev.'" class="nav-btn">Prev</a> ');
 }
 echo(' Page '.$pageno.' ');
 if ( $next ) {
-    echo('<a href="'.$next.'"><button>Next</button></a> ');
+    echo('<a href="'.$next.'" class="nav-btn">Next</a> ');
 }
 if ( $prev || $next ) {
     echo("</div>\n");
@@ -73,8 +89,8 @@ if ( $prev || $next ) {
 ?>
 <script>
 if ( window.opener ) {
-    document.write('<button onclick="window.close();">Close</button><br/>');
+    document.write('<button onclick="window.close();" aria-label="Close window">Close</button><br/>');
 }
 </script>
-<img class="scan" src='<?= $file ?>'>
+<img class="scan" src='<?= $file ?>' alt="Page scan">
 </body>

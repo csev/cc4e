@@ -25,21 +25,21 @@ and the links from this page.
 It is not too long and has none of those funny hex (abcde) characters.
 It is a very significant number with that
 makes a regular appearance throughout Dr. Chuck's other online courses
-(<a href="https://www.py4e.com" target="_blank">Python</a>,
-<a href="https://www.dj4e.com" target="_blank">Django</a>,
-<a href="https://www.wa4e.com" target="_blank">PHP</a>, and
-<a href="https://www.pg4e.com" target="_blank">PostgreSQL</a>).
+(<a href="https://www.py4e.com" target="_blank" rel="noopener noreferrer">Python</a>,
+<a href="https://www.dj4e.com" target="_blank" rel="noopener noreferrer">Django</a>,
+<a href="https://www.wa4e.com" target="_blank" rel="noopener noreferrer">PHP</a>, and
+<a href="https://www.pg4e.com" target="_blank" rel="noopener noreferrer">PostgreSQL</a>).
 </p>
 <p>
 If you get tired of trying to guess the number, you can take
 a fun break and look at some cool pictures of
-<a href="https://www.sakaiger.com/sakaicar/" target="_blank">Dr. Chuck's Race Car</a>.
+<a href="https://www.sakaiger.com/sakaicar/" target="_blank" rel="noopener noreferrer">Dr. Chuck's Race Car</a>.
 It is pretty awesome and he races in a series called
-<a href="https://www.24hoursoflemons.com" target="_blank">24 Hours of Lemons</a>.
+<a href="https://www.24hoursoflemons.com" target="_blank" rel="noopener noreferrer">24 Hours of Lemons</a>.
 </p>
 <p>
 You can view the
-<a href="privacy" target="_new">Privacy policies</a> for this web site before you enter.
+<a href="privacy" target="_blank" rel="noopener noreferrer">Privacy policies</a> for this web site before you enter.
 We take your privacy seriously.
 </p>
 </form>
@@ -60,7 +60,7 @@ require_once "nav.php";
 ?>
 <div id="container">
 <div style="margin-left: 10px; float:right">
-<iframe width="400" height="225" src="https://www.youtube.com/embed/XteaWkvontg?rel=0" frameborder="0" allowfullscreen></iframe>
+<iframe width="400" height="225" src="https://www.youtube.com/embed/XteaWkvontg?rel=0" frameborder="0" allowfullscreen title="C Programming for Everybody introductory video"></iframe>
 </div>
 <h1>C Programming for Everybody</h1>
 This material is dedicated to understanding computer architecture and low-level programming
@@ -68,7 +68,7 @@ by studying the "classic" version of
 the
 C Programming language
 from the 1978 book written by
-<a href="https://www.cs.princeton.edu/~bwk/" target="_blank">
+<a href="https://www.cs.princeton.edu/~bwk/" target="_blank" rel="noopener noreferrer">
 Brian W. Kernighan
 </a>
 and Dennis M. Ritchie.
@@ -79,17 +79,17 @@ modern programming languages.
 You can take this course and receive a certificate at:
 <ul>
 <li><a href="https://www.coursera.org/specializations/c-programming-for-everybody?utm_source=cc4e_com"
- target="_blank">Coursera: C Programming for Everybody Specialization</a></li>
-<li><a href="https://www.youtube.com/watch?v=PaPN51Mm5qQ" target="_blank">FreeCodeCamp</a></li>
-<li><a href="https://online.umich.edu/series/c-programming-for-everybody/?utm_source=cc4e_com" target="_blank">Free Certificates for University of Michigan students and staff</a></li>
-<li><a href="https://codekidz.ai/lesson-intro/c-programmin-3636b2" target="_blank">CodeKidz</a></li>
+ target="_blank" rel="noopener noreferrer">Coursera: C Programming for Everybody Specialization</a></li>
+<li><a href="https://www.youtube.com/watch?v=PaPN51Mm5qQ" target="_blank" rel="noopener noreferrer">FreeCodeCamp</a></li>
+<li><a href="https://online.umich.edu/series/c-programming-for-everybody/?utm_source=cc4e_com" target="_blank" rel="noopener noreferrer">Free Certificates for University of Michigan students and staff</a></li>
+<li><a href="https://codekidz.ai/lesson-intro/c-programmin-3636b2" target="_blank" rel="noopener noreferrer">CodeKidz</a></li>
 </ul>
 </p>
 You need to have a basic understanding of Python before starting this course.
 The first lesson is a quick introduction to C by by leveraging your understanding of Python.
 A suggested pre-requisite is:
 <ul>
-<li><a href="https://www.py4e.com" target="_blank">Python for Everybody</a></li>
+<li><a href="https://www.py4e.com" target="_blank" rel="noopener noreferrer">Python for Everybody</a></li>
 </ul>
 </p>
 <p>
@@ -99,27 +99,27 @@ software.  C was used to develop operating systems like Unix, Minix, and Linux a
 programming languages like C++, Java, JavaScript, and Python.
 You can no longer purchase the 1978 edition and should
 instead purchase the second edition (1988) of
-<a href="https://www.cs.princeton.edu/~bwk/cbook.html" target="_blank">
+<a href="https://www.cs.princeton.edu/~bwk/cbook.html" target="_blank" rel="noopener noreferrer">
 The C Programming Language</a>.
 </p>
 <p>
-This site uses <a href="http://www.tsugi.org" target="_blank">Tsugi</a>
+This site uses <a href="http://www.tsugi.org" target="_blank" rel="noopener noreferrer">Tsugi</a>
 framework to embed a learning management system into this site and
 provide the autograders.
 If you are interested in collaborating
 to build these kinds of sites for yourself, please see the
-<a href="http://www.tsugi.org" target="_blank">tsugi.org</a> website and/or
+<a href="http://www.tsugi.org" target="_blank" rel="noopener noreferrer">tsugi.org</a> website and/or
 contact me.
 </p>
 <p>
 And yes, Dr. Chuck actually has a race car - it is called the
-<a href="https://www.sakaiger.com/sakaicar/" target=_blank">SakaiCar</a>.
+<a href="https://www.sakaiger.com/sakaicar/" target="_blank" rel="noopener noreferrer">SakaiCar</a>.
 He races in a series called
-<a href="https://www.24hoursoflemons.com" target="_blank">24 Hours of Lemons</a>.
+<a href="https://www.24hoursoflemons.com" target="_blank" rel="noopener noreferrer">24 Hours of Lemons</a>.
 </p>
 <p>
 If you would like to help to develop the content of this site, please join us at
-<a href="https://github.com/csev/cc4e" target="_blank">https://github.com/csev/cc4e</a>.
+<a href="https://github.com/csev/cc4e" target="_blank" rel="noopener noreferrer">https://github.com/csev/cc4e</a>.
 Thanks in advance.
 </p>
 <!--

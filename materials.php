@@ -1,7 +1,7 @@
 <?php include("top.php");?>
 <?php include("nav.php");?>
 <div id="iframe-dialog" title="Read Only Dialog" style="display: none;">
-   <iframe name="iframe-frame" style="height:600px" id="iframe-frame"
+   <iframe name="iframe-frame" style="height:600px" id="iframe-frame" title="Course material download"
     src="<?= $OUTPUT->getSpinnerUrl() ?>"></iframe>
 </div>
 <h1>Using this Course in Your Local LMS</h1>

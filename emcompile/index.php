@@ -23,7 +23,8 @@ EOF
 <h1>EmScriptEn Test Harness</h1>
 
 <form method="post" action="execute.php" id="form">
-Secret: <input type="password" name="secret"><br/>
+<label for="emcc_secret">Secret:</label>
+<input type="password" name="secret" id="emcc_secret"><br/>
 <textarea name="code" style="width:95%;" rows="5">
 <?= htmlentities($code); ?>
 </textarea>
@@ -33,7 +34,7 @@ Secret: <input type="password" name="secret"><br/>
 <?= htmlentities($input); ?>
 </textarea>
 <br/>
-<input type="submit" value="Compile">
+<input type="submit" value="Compile" aria-label="Compile code">
 </form>
 
 <?php
