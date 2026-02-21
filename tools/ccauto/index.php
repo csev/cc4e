@@ -373,7 +373,7 @@ echo("<p>".$instructions."</p>\n");
 <input type="submit" style="float:right;display:none;" value="Max" id="max_min"
     onclick="toggleMax();return false;"
     aria-label="Toggle full screen">
-<span id="runstatus"><img src="<?= $OUTPUT->getSpinnerUrl() ?>" alt=""/></span>
+<span id="runstatus" role="status" aria-live="polite"><img src="<?= $OUTPUT->getSpinnerUrl() ?>" alt="Loading"></span>
 <span id="editstatus" style="display: none;">Edit code below:</span>
 <?php
 column_row_start();

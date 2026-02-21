@@ -68,6 +68,8 @@
   color: #bbb;
   text-decoration: none;
   cursor: pointer;
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
 }
 /* 100% Image Width on Smaller Screens */
 @media only screen and (max-width: 700px){
@@ -91,70 +93,73 @@ require_once "../../nav.php";
 <script>
 // Get the modal
 var modal = document.getElementById("cModal");
-// Get the image and insert it inside the modal - use its "alt" text as a caption
 var img = document.getElementById("chuck");
 var modalImg = document.getElementById("img01");
 var captionText = document.getElementById("caption");
+var closeBtn = document.getElementsByClassName("close")[0];
+var lastFocused;
+
 img.onclick = function(){
+  lastFocused = document.activeElement;
   modal.style.display = "block";
   modalImg.src = this.src;
+  modalImg.alt = this.alt;
   captionText.innerHTML = this.alt;
+  closeBtn.focus();
 }
-// Get the close button
-var closeBtn = document.getElementsByClassName("close")[0];
-// When the user clicks the close button
-closeBtn.onclick = function() { 
+closeBtn.onclick = function() {
   modal.style.display = "none";
+  if (lastFocused) lastFocused.focus();
 }
-// Close on Escape key
 document.addEventListener("keydown", function(e) {
   if (e.key === "Escape" && modal.style.display === "block") {
     modal.style.display = "none";
+    if (lastFocused) lastFocused.focus();
   }
 });
 </script>   
 <h1>LBS 290 - C Programming</h1>
 <p>
 This course was taught Fall 1991 in the
-<a href="https://lbc.msu.edu/" target="_blank">Lyman Briggs School</a>
+<a href="https://lbc.msu.edu/" target="_blank" rel="noopener noreferrer">Lyman Briggs School</a>
 at
-<a href="https://www.msu.edu/" target="_blank">Michigan State University</a>.
+<a href="https://www.msu.edu/" target="_blank" rel="noopener noreferrer">Michigan State University</a>.
 It featured writing three programs per week.  It met three times per week and
 after each lecture a new assignment was handed out.
 The course was taught on UNIX running on an
-<a href="https://en.wikipedia.org/wiki/3B_series_computers" target="_blank">
+<a href="https://en.wikipedia.org/wiki/3B_series_computers" target="_blank" rel="noopener noreferrer">
 AT&T 3B2 Microcomputer
 </a> which was physically present in the lab with student terminals.
 Dr Chuck was also the system administrator of the UNIX system.
 We did not use the Kernighan and Ritchie book.
 </p>
 <ul>
-<li><a href="syllabus.txt" target="_blank">Course Syllabus</a></li>
-<li><a href="assn03.txt" target="_blank">ASSIGNMENT 3 - THE FIRST C PROGRAM - Due 10/7/91</a></li>
-<li><a href="assn06.txt" target="_blank">ASSIGNMENT 6 - Mathematics - Due 10/14/91</a></li>
-<li><a href="assn07.txt" target="_blank">ASSIGNMENT 7 - INPUT AND OUTPUT - Due 10/16/91</a></li>
-<li><a href="assn08.txt" target="_blank">ASSIGNMENT 8 - CALCULATING AN AVERAGE - Due 10/18/91</a></li>
-<li><a href="assn09.txt" target="_blank">ASSIGNMENT 9 - IF STATEMENTS - Due 10/23/91</a></li>
-<li><a href="assn10.txt" target="_blank">ASSIGNMENT 10 - LOOPING - Due 10/25/91</a></li>
-<li><a href="assn11.txt" target="_blank">ASSIGNMENT 11 - FUNCTIONS - Due 10/28/91</a></li>
-<li><a href="assn12.txt" target="_blank">ASSIGNMENT 12 - SCOPING RULES - Due 10/30/91</a></li>
-<li><a href="assn13.txt" target="_blank">ASSIGNMENT 13 - CALL BY VALUE SUBROUTINE - Due 11/04/91</a></li>
-<li><a href="assn14.txt" target="_blank">ASSIGNMENT 14 - ARRAYS - Due 11/06/91</a></li>
-<li><a href="assn15.txt" target="_blank">ASSIGNMENT 15 - Strings - Due 11/06/91</a></li>
-<li><a href="assn16.txt" target="_blank">ASSIGNMENT 16 - A CALCULATOR - Due 11/15/91</a></li>
-<li><a href="assn17.txt" target="_blank">ASSIGNMENT 17 - AN INVENTORY PROGRAM - Due 11/18/91</a></li>
-<li><a href="assn18.txt" target="_blank">ASSIGNMENT 18 - MACHINE LANGUAGE - I - Due 11/20/91</a></li>
-<li><a href="assn19.txt" target="_blank">ASSIGNMENT 19 - MACHINE LANGUAGE - II - Due Before the final</a></li>
-<li><a href="assn20.txt" target="_blank">ASSIGNMENT 20 - ALGEBRA - Due 11/25/91</a></li>
-<li><a href="assn21.txt" target="_blank">ASSIGNMENT 21 - ALGEBRA - Due 11/25/91</a></li>
-<li><a href="assn22.txt" target="_blank">ASSIGNMENT 22 - PHYSICS/HEAT FLOW - Due 12/3/91</a></li>
-<li><a href="assn23.txt" target="_blank">ASSIGNMENT 23 - SORTING - Due 12/4/91</a></li>
-<li><a href="assn24.txt" target="_blank">ASSIGNMENT 24 - PUTTING IT ALL TOGETHER - Due 12/12/91</a></li>
+<li><a href="syllabus.txt" target="_blank" rel="noopener noreferrer">Course Syllabus</a></li>
+<li><a href="assn03.txt" target="_blank" rel="noopener noreferrer">ASSIGNMENT 3 - THE FIRST C PROGRAM - Due 10/7/91</a></li>
+<li><a href="assn06.txt" target="_blank" rel="noopener noreferrer">ASSIGNMENT 6 - Mathematics - Due 10/14/91</a></li>
+<li><a href="assn07.txt" target="_blank" rel="noopener noreferrer">ASSIGNMENT 7 - INPUT AND OUTPUT - Due 10/16/91</a></li>
+<li><a href="assn08.txt" target="_blank" rel="noopener noreferrer">ASSIGNMENT 8 - CALCULATING AN AVERAGE - Due 10/18/91</a></li>
+<li><a href="assn09.txt" target="_blank" rel="noopener noreferrer">ASSIGNMENT 9 - IF STATEMENTS - Due 10/23/91</a></li>
+<li><a href="assn10.txt" target="_blank" rel="noopener noreferrer">ASSIGNMENT 10 - LOOPING - Due 10/25/91</a></li>
+<li><a href="assn11.txt" target="_blank" rel="noopener noreferrer">ASSIGNMENT 11 - FUNCTIONS - Due 10/28/91</a></li>
+<li><a href="assn12.txt" target="_blank" rel="noopener noreferrer">ASSIGNMENT 12 - SCOPING RULES - Due 10/30/91</a></li>
+<li><a href="assn13.txt" target="_blank" rel="noopener noreferrer">ASSIGNMENT 13 - CALL BY VALUE SUBROUTINE - Due 11/04/91</a></li>
+<li><a href="assn14.txt" target="_blank" rel="noopener noreferrer">ASSIGNMENT 14 - ARRAYS - Due 11/06/91</a></li>
+<li><a href="assn15.txt" target="_blank" rel="noopener noreferrer">ASSIGNMENT 15 - Strings - Due 11/06/91</a></li>
+<li><a href="assn16.txt" target="_blank" rel="noopener noreferrer">ASSIGNMENT 16 - A CALCULATOR - Due 11/15/91</a></li>
+<li><a href="assn17.txt" target="_blank" rel="noopener noreferrer">ASSIGNMENT 17 - AN INVENTORY PROGRAM - Due 11/18/91</a></li>
+<li><a href="assn18.txt" target="_blank" rel="noopener noreferrer">ASSIGNMENT 18 - MACHINE LANGUAGE - I - Due 11/20/91</a></li>
+<li><a href="assn19.txt" target="_blank" rel="noopener noreferrer">ASSIGNMENT 19 - MACHINE LANGUAGE - II - Due Before the final</a></li>
+<li><a href="assn20.txt" target="_blank" rel="noopener noreferrer">ASSIGNMENT 20 - ALGEBRA - Due 11/25/91</a></li>
+<li><a href="assn21.txt" target="_blank" rel="noopener noreferrer">ASSIGNMENT 21 - ALGEBRA - Due 11/25/91</a></li>
+<li><a href="assn22.txt" target="_blank" rel="noopener noreferrer">ASSIGNMENT 22 - PHYSICS/HEAT FLOW - Due 12/3/91</a></li>
+<li><a href="assn23.txt" target="_blank" rel="noopener noreferrer">ASSIGNMENT 23 - SORTING - Due 12/4/91</a></li>
+<li><a href="assn24.txt" target="_blank" rel="noopener noreferrer">ASSIGNMENT 24 - PUTTING IT ALL TOGETHER - Due 12/12/91</a></li>
 </ul>
 <br clear="all">
 
 <center>
-<a href="https://en.wikipedia.org/wiki/3B_series_computers" target="_blank">
+<a href="https://en.wikipedia.org/wiki/3B_series_computers" target="_blank" rel="noopener noreferrer">
 <img alt="Picture of AT&T 3B2 Minicomputer" src="1076px-3B2_model_400_sitting_on_grass.jpg" style="padding: 5px; width:80%;"/>
 </a>
 </center>

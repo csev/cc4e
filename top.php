@@ -22,5 +22,9 @@ body {
     color: var(--text);
     background-color: var(--background-color);
 }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
 </style>
 

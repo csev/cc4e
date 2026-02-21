@@ -63,7 +63,7 @@ function cc4e_play_errors($retval) {
 function cc4e_play_inputs($lines, $code) { 
 ?>
 <p>
-<textarea id="mycode" name="code" style="height: auto;">
+<textarea id="mycode" name="code" aria-label="C program code editor" style="height: auto;">
 <?php
 if ( is_string($code) ) {
     echo(htmlentities($code));

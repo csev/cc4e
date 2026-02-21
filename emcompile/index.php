@@ -19,18 +19,19 @@ EOF
 <html>
 <head>
 </head>
-</body>
+<body>
 <h1>EmScriptEn Test Harness</h1>
 
 <form method="post" action="execute.php" id="form">
 <label for="emcc_secret">Secret:</label>
 <input type="password" name="secret" id="emcc_secret"><br/>
-<textarea name="code" style="width:95%;" rows="5">
+<label for="emcc_code">C code:</label>
+<textarea name="code" id="emcc_code" aria-label="C program source code" style="width:95%;" rows="5">
 <?= htmlentities($code); ?>
 </textarea>
 <br/>
-<p>Input</p>
-<textarea name="input" style="width:95%;" rows="5">
+<label for="emcc_input">Input:</label>
+<textarea name="input" id="emcc_input" aria-label="Program input" style="width:95%;" rows="5">
 <?= htmlentities($input); ?>
 </textarea>
 <br/>
@@ -40,7 +41,7 @@ EOF
 <?php
 if ( strlen($output) > 0 ) {
     echo("<p>Program Output</p>\n");
-    echo('<textarea name="code" style="width:95%;" rows="5">'."\n");
+    echo('<textarea name="code" aria-label="Compiled program output" style="width:95%;" rows="5">'."\n");
     echo($output);
     echo("\n</textarea>\n");
 }
