@@ -60,7 +60,7 @@ require_once "nav.php";
 ?>
 <div id="container">
 <div style="margin-left: 10px; float:right">
-<iframe width="400" height="225" src="https://www.youtube.com/embed/XteaWkvontg?rel=0" frameborder="0" allowfullscreen title="C Programming for Everybody introductory video"></iframe>
+<iframe width="400" height="225" src="https://www.youtube.com/embed/XteaWkvontg?list=PLlRFEj9H3Oj5NbaFb1b2n8lib01uNPWLa&rel=0" frameborder="0" allowfullscreen title="C Programming for Everybody introductory video"></iframe>
 </div>
 <h1>C Programming for Everybody</h1>
 This material is dedicated to understanding computer architecture and low-level programming
