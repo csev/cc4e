@@ -63,7 +63,7 @@ function buildMenu() {
     }
 
     $set->addRight('Book', $R . 'book');
-    $set->addRight('Instructor', 'https://online.dr-chuck.com', true, array('target' => '_self'));
+    $set->addRight('Courses', 'https://online.dr-chuck.com', true, array('target' => '_self'));
     $set->addRight('Old Courses', $R . 'archive');
 
 
