@@ -34,6 +34,7 @@ function buildMenu() {
         $submenu->addLink('Notifications', $R.'notifications');
         $submenu->addLink('Grades', $R.'grades');
         $submenu->addLink('Pages', $R.'pages');
+        $submenu->addLink('Courses', 'https://online.dr-chuck.com');
         $submenu->addLink('LMS Integration', $T . 'settings');
 
         if ( isset($CFG->google_classroom_secret) ) {
@@ -60,10 +61,14 @@ function buildMenu() {
 
     if ( isset($_SESSION['id']) ) {
         $set->addRight('<tsugi-notifications api-url="'. htmlspecialchars($T . 'api/notifications.php') . '" notifications-view-url="'. htmlspecialchars($R . 'notifications') . '" announcements-view-url="'. htmlspecialchars($R . 'announcements') . '"></tsugi-notifications>', false);
+        $discordUrl = 'https://discord.dr-chuck.com';
+        $discordIcon = '<i class="fab fa-discord" aria-hidden="true" style="font-size:1.75em;color:#fff;"></i>';
+        $set->addRight($discordIcon, $discordUrl, true, 'title="Discord" aria-label="Discord"');
+    } else {
+        $set->addRight('Courses', 'https://online.dr-chuck.com', true, array('target' => '_self'));
     }
 
     $set->addRight('Book', $R . 'book');
-    $set->addRight('Courses', 'https://online.dr-chuck.com', true, array('target' => '_self'));
     $set->addRight('Old Courses', $R . 'archive');
 
 
