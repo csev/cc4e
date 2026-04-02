@@ -40,6 +40,7 @@ function buildMenu() {
         if ( isset($CFG->google_classroom_secret) ) {
             $submenu->addLink('Google Classroom', $T.'gclass/login');
         }
+        $submenu->addLink('Old Courses', $R . 'archive');
         $submenu->addLink('Free App Store', 'https://www.tsugicloud.org');
         $submenu->addLink('Rate this course', 'https://www.class-central.com/mooc/7363/python-for-everybody');
         $submenu->addLink('Privacy', $R.'privacy');
@@ -65,11 +66,11 @@ function buildMenu() {
         $discordIcon = '<i class="fab fa-discord" aria-hidden="true" style="font-size:1.75em;color:#fff;"></i>';
         $set->addRight($discordIcon, $discordUrl, true, 'title="Discord" aria-label="Discord"');
     } else {
+        $set->addRight('Old Courses', $R . 'archive');
         $set->addRight('Courses', 'https://online.dr-chuck.com', true, array('target' => '_self'));
     }
 
     $set->addRight('Book', $R . 'book');
-    $set->addRight('Old Courses', $R . 'archive');
 
 
     return($set);
