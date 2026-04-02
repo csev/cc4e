@@ -32,9 +32,3 @@ $CFG->theme = array(
     "font-size" => "14px", // This is the base font size used for body copy. Headers,etc. are scaled off this value
 );
 
-$buildmenu = $CFG->dirroot.'/../buildmenu.php';
-if ( file_exists($buildmenu) ) {
-    require_once $buildmenu;
-    $CFG->defaultmenu = buildMenu();
-}
-
