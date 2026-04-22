@@ -32,3 +32,6 @@ $CFG->theme = array(
     "font-size" => "14px", // This is the base font size used for body copy. Headers,etc. are scaled off this value
 );
 
+$CFG->tool_folders = array("admin", "../tools", "../mod", "tool");
+
+
