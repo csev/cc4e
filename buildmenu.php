@@ -84,9 +84,6 @@ function buildMenu() {
                 'hidden-xs tsugi-wc-nav-item'
             );
         }
-        $discordUrl = 'https://discord.dr-chuck.com';
-        $discordIcon = '<i class="fab fa-discord" aria-hidden="true" style="font-size:1.75em;color:#fff;"></i>';
-        $set->addRight($discordIcon, $discordUrl, true, 'title="Discord" aria-label="Discord"');
     } else {
         $set->addRight('Old Courses', $R . 'archive');
     }
