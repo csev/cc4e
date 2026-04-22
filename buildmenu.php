@@ -34,7 +34,7 @@ function buildMenu() {
         $submenu->addLink('Notifications', $R.'notifications');
         $submenu->addLink('Grades', $R.'grades');
         $submenu->addLink('Pages', $R.'pages');
-        $submenu->addLink('Courses', 'https://online.dr-chuck.com');
+        $submenu->addLink('Courses', $R.'coursesredirect.php');
         $submenu->addLink('LMS Integration', $T . 'settings');
 
         if ( isset($CFG->google_classroom_secret) ) {
@@ -67,7 +67,7 @@ function buildMenu() {
         $set->addRight($discordIcon, $discordUrl, true, 'title="Discord" aria-label="Discord"');
     } else {
         $set->addRight('Old Courses', $R . 'archive');
-        $set->addRight('Courses', 'https://online.dr-chuck.com', true, array('target' => '_self'));
+        $set->addRight('Courses', $R.'coursesredirect.php');
     }
 
     $set->addRight('Book', $R . 'book');
