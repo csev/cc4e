@@ -1,0 +1,1923 @@
+{
+    "title": "C Programming for Everybody (CC4E)",
+    "description": "Hello and welcome to my site where you learn computer architecture and the history of computing by studying C.",
+    "count": true,
+    "required_modules": [
+        "https://github.com/tsugitools/youtube"
+    ],
+    "discussions": [
+        {
+            "title": "Welcome to C Programming for Everybody",
+            "launch": "tsugi/tool/tdiscus/",
+            "resource_link_id": "discussion_welcome"
+        },
+        {
+            "title": "Report Bugs in Course Material",
+            "launch": "tsugi/tool/tdiscus/",
+            "resource_link_id": "discussion_bugs"
+        },
+        {
+            "title": "Problems in the Code Screen",
+            "launch": "tsugi/tool/tdiscus/",
+            "resource_link_id": "discussion_code"
+        }
+    ],
+    "modules": [
+        {
+            "title": "K&R 0: Historical Context",
+            "anchor": "history",
+            "icon": "fa-history",
+            "description": "We read the introduction of the book and place the moment this book was published (1978) in the context of the history of computer hardware, operating systems, and programming languages.  We explore why C (and UNIX) had such a transformative effect on computing when this book introduced them to a mainstream audience.",
+            "items": [
+                {
+                    "type": "header",
+                    "text": "Slides",
+                    "level": 2
+                },
+                {
+                    "type": "slide",
+                    "title": "CC-01-History.pptx",
+                    "href": "{apphome}/lectures/CC-01-History.pptx"
+                },
+                {
+                    "type": "slide",
+                    "title": "KR-0.pptx",
+                    "href": "{apphome}/lectures/KR-0.pptx"
+                },
+                {
+                    "type": "header",
+                    "text": "Videos",
+                    "level": 2
+                },
+                {
+                    "type": "video",
+                    "title": "A History of C, UNIX, and Computation before and after 1978",
+                    "original": "CC-01-History.m4v",
+                    "youtube": "VZ2N0MuAUGA"
+                },
+                {
+                    "type": "video",
+                    "title": "Brian Kernighan - Building C at Bell Labs",
+                    "original": "2023-04-Kernighan-C.m4v",
+                    "youtube": "v8uLDu7LAEc"
+                },
+                {
+                    "type": "video",
+                    "title": "Chapter 0 - Introduction (Video)",
+                    "original": "Chapter00-2021-06-06-720.mov",
+                    "youtube": "XSEGkAOxKZ4"
+                },
+                {
+                    "type": "header",
+                    "text": "References",
+                    "level": 2
+                },
+                {
+                    "type": "reference",
+                    "title": "Chapter 0: Introduction (html)",
+                    "href": "{apphome}/book/chap00.md"
+                },
+                {
+                    "type": "reference",
+                    "title": "Brian W. Kernighan's web site for the 1988 version of the C Programming Language book",
+                    "href": "https://www.cs.princeton.edu/~bwk/cbook.html"
+                },
+                {
+                    "type": "reference",
+                    "title": "Video: Making Computers Easier To Use -- AT&T Archives film from 1982, Bell Laboratories",
+                    "href": "https://www.youtube.com/watch?v=XvDZLjaCJuw"
+                },
+                {
+                    "type": "reference",
+                    "title": "Video: Gordon Bell on the Building Blocks of Computing (PDP-1)",
+                    "href": "https://www.youtube.com/watch?v=8skBtQS-VVE&list=PL4660FB7F523B1770&t=483"
+                },
+                {
+                    "type": "reference",
+                    "title": "Video: Resurrecting the CDC 6500 Supercomputer",
+                    "href": "https://www.youtube.com/watch?v=wDc1630krls&list=PL4660FB7F523B1770&index=8"
+                },
+                {
+                    "type": "reference",
+                    "title": "Web Site: The Faces of Open Source - UNIX",
+                    "href": "https://www.facesofopensource.com/unix/"
+                },
+                {
+                    "type": "reference",
+                    "title": "Report: Portability of C Programs and the UNIX System",
+                    "href": "https://www.bell-labs.com/usr/dmr/www/portpap.pdf"
+                },
+                {
+                    "type": "header",
+                    "text": "Discussions",
+                    "level": 2
+                },
+                {
+                    "type": "discussion",
+                    "title": "History / Introduction",
+                    "launch": "tsugi/tool/tdiscus/",
+                    "resource_link_id": "discuss_00_history"
+                },
+                {
+                    "type": "header",
+                    "text": "Tools",
+                    "level": 2
+                },
+                {
+                    "type": "lti",
+                    "title": "Quiz: History / Introduction",
+                    "launch": "tsugi/tool/gift/?quiz=chap00.txt",
+                    "resource_link_id": "cc4e_00_quiz",
+                    "custom": [
+                        {
+                            "key": "tries",
+                            "value": "11"
+                        },
+                        {
+                            "key": "delay",
+                            "value": "601"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "From Python to C",
+            "anchor": "python",
+            "icon": "fa-university",
+            "description": "To quickly get up to speed with C, we translate some Python code to C and compare and contrast the two languages to prepare you for Chapter 1 of the book.  This course assumes you know at least Python and hopefully passing understanding of JavaScript and maybe even PHP, so the overall C syntax should not be 100% new to you.",
+            "items": [
+                {
+                    "type": "header",
+                    "text": "Slides",
+                    "level": 2
+                },
+                {
+                    "type": "slide",
+                    "title": "CC-02-Python.pptx",
+                    "href": "{apphome}/lectures/CC-02-Python.pptx"
+                },
+                {
+                    "type": "header",
+                    "text": "Videos",
+                    "level": 2
+                },
+                {
+                    "type": "video",
+                    "title": "From Python to C - The Rosetta Stone Lecture",
+                    "original": "CC-02-Python.mov",
+                    "youtube": "M4aPIiX3k9I"
+                },
+                {
+                    "type": "header",
+                    "text": "References",
+                    "level": 2
+                },
+                {
+                    "type": "reference",
+                    "title": "Chapter 1: A Tutorial Introduction (html)",
+                    "href": "{apphome}/book/chap01.md"
+                },
+                {
+                    "type": "reference",
+                    "title": "Endianness Explained With an Egg - Computerphile",
+                    "href": "https://www.youtube.com/watch?v=NcaiHcBvDR4"
+                },
+                {
+                    "type": "reference",
+                    "title": "Arrays vs Linked Lists - Computerphile",
+                    "href": "https://www.youtube.com/watch?v=DyG9S9nAlUM"
+                },
+                {
+                    "type": "reference",
+                    "title": "Sample source code",
+                    "href": "{apphome}/code"
+                },
+                {
+                    "type": "reference",
+                    "title": "Audio version of the book",
+                    "href": "https://audio.cc4e.com/"
+                },
+                {
+                    "type": "header",
+                    "text": "Discussions",
+                    "level": 2
+                },
+                {
+                    "type": "discussion",
+                    "title": "From Python to C",
+                    "launch": "tsugi/tool/tdiscus/",
+                    "resource_link_id": "discuss_00_python"
+                },
+                {
+                    "type": "header",
+                    "text": "Tools",
+                    "level": 2
+                },
+                {
+                    "type": "lti",
+                    "title": "Autograder: Write Hello World",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_00_hello",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "1-01-hello.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise RS-1: Produce output",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "rs_01_output",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "rs-01-output.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise RS-2: Read Input",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "rs_02_input",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "rs-02-input.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise RS-3: Input / Output",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "rs_03_io",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "rs-03-io.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise RS-4: Reading Lines of Input",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "rs_04_line",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "rs-04-line.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise RS-5: Reading Lines of Input with fgets()",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "rs_05_gets",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "rs-05-gets.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise RS-6: Write a simple for loop",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "rs_06_for",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "rs-06-for.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise RS-7: Compute Minimum and Maximum",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "rs_07_minmax",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "rs-07-minmax.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise RS-8: Write a Guessing Game",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "rs_08_guess",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "rs-08-guess.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise RS-9: Write a Function",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "rs_9_function",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "rs-09-function.php"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "K&R 1: A Tutorial Introduction",
+            "anchor": "tutorial",
+            "icon": "fa-building",
+            "description": "This chapter covers what might be called the conventional core of C.",
+            "items": [
+                {
+                    "type": "header",
+                    "text": "Slides",
+                    "level": 2
+                },
+                {
+                    "type": "slide",
+                    "title": "KR-1.pptx",
+                    "href": "{apphome}/lectures/KR-1.pptx"
+                },
+                {
+                    "type": "header",
+                    "text": "Videos",
+                    "level": 2
+                },
+                {
+                    "type": "video",
+                    "title": "Lecture: Historical Context For Chapter 1: A Tutorial Introduction",
+                    "original": "KR-01.m4v",
+                    "youtube": "tlroPQSX5Ss"
+                },
+                {
+                    "type": "video",
+                    "title": "A Reading of Chapter 1: A Tutorial Introduction",
+                    "original": "Chapter-01.m4v",
+                    "youtube": "rPwBgsSnxCw"
+                },
+                {
+                    "type": "header",
+                    "text": "References",
+                    "level": 2
+                },
+                {
+                    "type": "reference",
+                    "title": "Chapter 1: A Tutorial Introduction (html)",
+                    "href": "{apphome}/book/chap01.md"
+                },
+                {
+                    "type": "reference",
+                    "title": "CC4E Video Playlist",
+                    "href": "https://www.youtube.com/playlist?list=PLlRFEj9H3Oj5NbaFb1b2n8lib01uNPWLa"
+                },
+                {
+                    "type": "reference",
+                    "title": "Sample source code",
+                    "href": "{apphome}/code"
+                },
+                {
+                    "type": "reference",
+                    "title": "Audio version of the book",
+                    "href": "https://audio.cc4e.com/"
+                },
+                {
+                    "type": "header",
+                    "text": "Discussions",
+                    "level": 2
+                },
+                {
+                    "type": "discussion",
+                    "title": "Tutorial Introduction",
+                    "launch": "tsugi/tool/tdiscus/",
+                    "resource_link_id": "discuss_01_tutorial"
+                },
+                {
+                    "type": "header",
+                    "text": "Tools",
+                    "level": 2
+                },
+                {
+                    "type": "lti",
+                    "title": "Quiz: Tutorial Introduction",
+                    "launch": "tsugi/tool/gift/?quiz=chap01.txt",
+                    "resource_link_id": "cc4e_01_quiz",
+                    "custom": [
+                        {
+                            "key": "tries",
+                            "value": "11"
+                        },
+                        {
+                            "key": "delay",
+                            "value": "601"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise 1-1: Write Hello World",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_1_01",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "1-01-hello.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise 1-3: Fahrenheit / Celsius with Header",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_1_03",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "1-03-heading.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise 1-4: Celsius / Fahrenheit Table",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_1_04",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "1-04-celsius.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise 1-5: Reverse Table",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_1_05",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "1-05-reverse.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise 1-6: Count spaces and newlines",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_1_06",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "1-06-count.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise 1-7: Multiple spaces to one",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_1_07",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "1-07-single.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise 1-10: Print words",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_1_10",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "1-10-words.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise 1-17: Reverse a String",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_1_17",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "1-17-reverse.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Autograder: LBS290-04 Fix Syntax Errors",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_lb_04",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "lb-04-syntax.php"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "K&R 2: Types, Operators, and Expressions",
+            "anchor": "core",
+            "icon": "fa-binoculars",
+            "description": "This chapter covers types, operators, and expressions.",
+            "items": [
+                {
+                    "type": "header",
+                    "text": "Slides",
+                    "level": 2
+                },
+                {
+                    "type": "slide",
+                    "title": "KR-2.pptx",
+                    "href": "{apphome}/lectures/KR-2.pptx"
+                },
+                {
+                    "type": "header",
+                    "text": "Videos",
+                    "level": 2
+                },
+                {
+                    "type": "video",
+                    "title": "Lecture: Historical Context For Chapter 2: Types, Operators, and Expressions",
+                    "original": "KR-02.mov",
+                    "youtube": "Pwajo2Zxius"
+                },
+                {
+                    "type": "video",
+                    "title": "A Reading of Chapter 2: Types, Operators, and Expressions",
+                    "original": "Chapter-02.m4v",
+                    "youtube": "q0Ql0jhTPDU"
+                },
+                {
+                    "type": "header",
+                    "text": "References",
+                    "level": 2
+                },
+                {
+                    "type": "reference",
+                    "title": "Chapter 2: Types, Operators, and Expressions (html)",
+                    "href": "{apphome}/book/chap02.md"
+                },
+                {
+                    "type": "reference",
+                    "title": "Sample source code",
+                    "href": "{apphome}/code"
+                },
+                {
+                    "type": "reference",
+                    "title": "Audio version of the book",
+                    "href": "https://audio.cc4e.com/"
+                },
+                {
+                    "type": "header",
+                    "text": "Discussions",
+                    "level": 2
+                },
+                {
+                    "type": "discussion",
+                    "title": "Types, Operators, and Expressions",
+                    "launch": "tsugi/tool/tdiscus/",
+                    "resource_link_id": "discuss_01_core"
+                },
+                {
+                    "type": "header",
+                    "text": "Tools",
+                    "level": 2
+                },
+                {
+                    "type": "lti",
+                    "title": "Quiz: Types, Operators, and Expressions",
+                    "launch": "tsugi/tool/gift/?quiz=chap02.txt",
+                    "resource_link_id": "cc4e_02_quiz",
+                    "custom": [
+                        {
+                            "key": "tries",
+                            "value": "11"
+                        },
+                        {
+                            "key": "delay",
+                            "value": "601"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise 2-2: Hex to Integer",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_2_02",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "2-02-htoi.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise 2-10: Function lower - conditional expression",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_2_10",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "2-10-lower.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "LBS-8: Average numbers",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_lb_08",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "lb-08-average.php"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "K&R 3: Control Flow",
+            "anchor": "control",
+            "icon": "fa-code-fork",
+            "description": "This chapter covers control flow.",
+            "items": [
+                {
+                    "type": "header",
+                    "text": "Slides",
+                    "level": 2
+                },
+                {
+                    "type": "slide",
+                    "title": "KR-3.pptx",
+                    "href": "{apphome}/lectures/KR-3.pptx"
+                },
+                {
+                    "type": "header",
+                    "text": "Videos",
+                    "level": 2
+                },
+                {
+                    "type": "video",
+                    "title": "Lecture: Historical Context For Chapter 3 - Control Flow",
+                    "original": "KR-03.mov",
+                    "youtube": "-mIMYytS020"
+                },
+                {
+                    "type": "video",
+                    "title": "A Reading of Chapter 3 - Control Flow",
+                    "original": "Chapter-03.m4v",
+                    "youtube": "5YZd9lebqDo"
+                },
+                {
+                    "type": "header",
+                    "text": "References",
+                    "level": 2
+                },
+                {
+                    "type": "reference",
+                    "title": "Chapter 3: Control Flow (html)",
+                    "href": "{apphome}/book/chap03.md"
+                },
+                {
+                    "type": "reference",
+                    "title": "Sample source code",
+                    "href": "{apphome}/code"
+                },
+                {
+                    "type": "reference",
+                    "title": "Audio version of the book",
+                    "href": "https://audio.cc4e.com/"
+                },
+                {
+                    "type": "header",
+                    "text": "Discussions",
+                    "level": 2
+                },
+                {
+                    "type": "discussion",
+                    "title": "Control Flow",
+                    "launch": "tsugi/tool/tdiscus/",
+                    "resource_link_id": "discuss_01_control"
+                },
+                {
+                    "type": "header",
+                    "text": "Tools",
+                    "level": 2
+                },
+                {
+                    "type": "lti",
+                    "title": "Quiz: Control Flow",
+                    "launch": "tsugi/tool/gift/?quiz=chap03.txt",
+                    "resource_link_id": "cc4e_03_quiz",
+                    "custom": [
+                        {
+                            "key": "tries",
+                            "value": "11"
+                        },
+                        {
+                            "key": "delay",
+                            "value": "601"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise 3-1: Using Switch",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_3_01",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "3-01-expand.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise 3-4: Hex and Binary Conversions",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_3_04",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "3-04-itob.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise 3-6: A simple UNIX uniq implementation",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_3_06",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "3-06-uniq.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "LBS-16: A Calculator",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_lb_16",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "lb-16-calculator.php"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "K&R 4: Functions and Program Structure",
+            "anchor": "functions",
+            "icon": "fa-flask",
+            "description": "This chapter covers functions and program structure.",
+            "items": [
+                {
+                    "type": "header",
+                    "text": "Slides",
+                    "level": 2
+                },
+                {
+                    "type": "slide",
+                    "title": "KR-4.pptx",
+                    "href": "{apphome}/lectures/KR-4.pptx"
+                },
+                {
+                    "type": "header",
+                    "text": "Videos",
+                    "level": 2
+                },
+                {
+                    "type": "video",
+                    "title": "Lecture: Historical Context For Chapter 4 - Functions and Program Structure",
+                    "original": "KR-04-1080.mov",
+                    "youtube": "r3v5igV_CnU"
+                },
+                {
+                    "type": "video",
+                    "title": "A Reading of Chapter 4 - Functions and Program Structure",
+                    "original": "Chapter-04.m4v",
+                    "youtube": "4dyBj0Jm914"
+                },
+                {
+                    "type": "header",
+                    "text": "References",
+                    "level": 2
+                },
+                {
+                    "type": "reference",
+                    "title": "Chapter 4: Functions and Program Structure (html)",
+                    "href": "{apphome}/book/chap04.md"
+                },
+                {
+                    "type": "reference",
+                    "title": "Sample source code",
+                    "href": "{apphome}/code"
+                },
+                {
+                    "type": "reference",
+                    "title": "Stack (from Wikipedia)",
+                    "href": "https://en.wikipedia.org/wiki/Stack_(abstract_data_type)"
+                },
+                {
+                    "type": "header",
+                    "text": "Discussions",
+                    "level": 2
+                },
+                {
+                    "type": "discussion",
+                    "title": "Functions and Program Structure",
+                    "launch": "tsugi/tool/tdiscus/",
+                    "resource_link_id": "discuss_01_functions"
+                },
+                {
+                    "type": "header",
+                    "text": "Tools",
+                    "level": 2
+                },
+                {
+                    "type": "lti",
+                    "title": "Quiz: Functions and Program Structure",
+                    "launch": "tsugi/tool/gift/?quiz=chap04.txt",
+                    "resource_link_id": "cc4e_04_quiz",
+                    "custom": [
+                        {
+                            "key": "tries",
+                            "value": "11"
+                        },
+                        {
+                            "key": "delay",
+                            "value": "601"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise 4-A: Temperature Conversion",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_4_A",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "4-A-faren.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise 4-B: Using extern data scope",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_4_B",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "4-B-extern.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise 4-C: Using static data scope",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_4_C",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "4-C-static.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise 4-D: Write a recursive function",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_4_D",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "4-D-recursion.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "LBS-18: A Simple Machine",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_lb_18",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "lb-18-machine.php"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "K&R 5: Pointers and Arrays",
+            "anchor": "pointers",
+            "icon": "fa-mouse-pointer",
+            "description": "This chapter covers pointers and arrays.",
+            "items": [
+                {
+                    "type": "header",
+                    "text": "Slides",
+                    "level": 2
+                },
+                {
+                    "type": "slide",
+                    "title": "KR-5.pptx",
+                    "href": "{apphome}/lectures/KR-5.pptx"
+                },
+                {
+                    "type": "header",
+                    "text": "Videos",
+                    "level": 2
+                },
+                {
+                    "type": "video",
+                    "title": "Lecture: Historical Context For Chapter 5 - Pointers and Arrays",
+                    "original": "KR-05.m4v",
+                    "youtube": "2RKRXVL-oks"
+                },
+                {
+                    "type": "video",
+                    "title": "A Reading of Chapter 5 - Pointers and Arrays",
+                    "original": "Chapter-05.m4v",
+                    "youtube": "f3RB6XW48q4"
+                },
+                {
+                    "type": "header",
+                    "text": "References",
+                    "level": 2
+                },
+                {
+                    "type": "reference",
+                    "title": "Chapter 5: Pointers and Arrays (html)",
+                    "href": "{apphome}/book/chap05.md"
+                },
+                {
+                    "type": "reference",
+                    "title": "Sample source code",
+                    "href": "{apphome}/code"
+                },
+                {
+                    "type": "reference",
+                    "title": "Article: Pointers (from Wikipedia)",
+                    "href": "https://en.wikipedia.org/wiki/Pointer_(computer_programming)"
+                },
+                {
+                    "type": "reference",
+                    "title": "Article: Buffer Overflow (from Wikipedia)",
+                    "href": "https://en.wikipedia.org/wiki/Buffer_overflow"
+                },
+                {
+                    "type": "reference",
+                    "title": "Article: Stack Buffer Overflow (from Wikipedia)",
+                    "href": "https://en.wikipedia.org/wiki/Stack_buffer_overflow"
+                },
+                {
+                    "type": "header",
+                    "text": "Discussions",
+                    "level": 2
+                },
+                {
+                    "type": "discussion",
+                    "title": "Arrays and Pointers",
+                    "launch": "tsugi/tool/tdiscus/",
+                    "resource_link_id": "discuss_01_pointers"
+                },
+                {
+                    "type": "header",
+                    "text": "Tools",
+                    "level": 2
+                },
+                {
+                    "type": "lti",
+                    "title": "Quiz: Arrays and Pointers",
+                    "launch": "tsugi/tool/gift/?quiz=chap05.txt",
+                    "resource_link_id": "cc4e_05_quiz",
+                    "custom": [
+                        {
+                            "key": "tries",
+                            "value": "11"
+                        },
+                        {
+                            "key": "delay",
+                            "value": "601"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "LBS290-13: Calculate Pay",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_lb_13",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "lb-13-calcpay.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise RS-10: Concatenate Two Strings.  Pre-allocate your character arrays large enought to handle up to 100 characters on input for each string.",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "rs_10_concat",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "rs-10-concat.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise RS-11: Write a function like Python rstrip()",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "rs_11_rstrip",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "rs-11-rstrip.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Exercise RS-12: Write a function like Python lstrip()",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "rs_12_lstrip",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "rs-12-lstrip.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Autograder: LBS290-14 Play with Arrays",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_lb_14",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "lb-14-arrays.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Autograder: LBS290-15 Play with Strings",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_lb_15",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "lb-15-string.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "LBS-98: A Touring Machine",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc4e_lb_98",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "lb-98-touring.php"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "K&R 6: Structures",
+            "anchor": "structures",
+            "icon": "fa-th-list",
+            "description": "This chapter covers structures.  This lesson does n0t cover all of the detail in the chapter, preferring instead to focus on the concepts needed to build a singly linked list in C.  Later modules go into details for doubly linked lists, binary trees, and hash tables.",
+            "items": [
+                {
+                    "type": "header",
+                    "text": "Slides",
+                    "level": 2
+                },
+                {
+                    "type": "slide",
+                    "title": "KR-6.pptx",
+                    "href": "{apphome}/lectures/KR-6.pptx"
+                },
+                {
+                    "type": "header",
+                    "text": "Videos",
+                    "level": 2
+                },
+                {
+                    "type": "video",
+                    "title": "Lecture: Looking at Chapter 6 of K&R C Using a Poem",
+                    "original": "KR-06-Frost.m4v",
+                    "youtube": "dSgt1uEqe9s"
+                },
+                {
+                    "type": "video",
+                    "title": "Lecture: Chapter 6 of K&R C  - Structures (1978 Edition)",
+                    "original": "KR-06-Structures.m4v",
+                    "youtube": "1MtzsZmcVFE"
+                },
+                {
+                    "type": "video",
+                    "title": "A Reading of Chapter 6 - Structures",
+                    "original": "Chapter-06.m4v",
+                    "youtube": "U6yCkIckOqY"
+                },
+                {
+                    "type": "header",
+                    "text": "References",
+                    "level": 2
+                },
+                {
+                    "type": "reference",
+                    "title": "Chapter 6: Structures (html)",
+                    "href": "{apphome}/book/chap06.md"
+                },
+                {
+                    "type": "reference",
+                    "title": "Sample source code",
+                    "href": "{apphome}/code"
+                },
+                {
+                    "type": "reference",
+                    "title": "Audio version of the book",
+                    "href": "https://audio.cc4e.com/"
+                },
+                {
+                    "type": "reference",
+                    "title": "Behind the Scenes: Recording the Audio for Chapter 6",
+                    "href": "https://youtu.be/BPWt6g2PUBA"
+                },
+                {
+                    "type": "header",
+                    "text": "Discussions",
+                    "level": 2
+                },
+                {
+                    "type": "discussion",
+                    "title": "Structures",
+                    "launch": "tsugi/tool/tdiscus/",
+                    "resource_link_id": "discuss_01_structures"
+                },
+                {
+                    "type": "header",
+                    "text": "Tools",
+                    "level": 2
+                },
+                {
+                    "type": "lti",
+                    "title": "Quiz: Structures",
+                    "launch": "tsugi/tool/gift/?quiz=chap06.txt",
+                    "resource_link_id": "cc4e_06_quiz",
+                    "custom": [
+                        {
+                            "key": "tries",
+                            "value": "11"
+                        },
+                        {
+                            "key": "delay",
+                            "value": "601"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Autograder: 6-0 Structures",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc_6a_struct",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "6-0-struct.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Autograder: 6-A Linked Lists",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc_6a_list",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "6-A-list.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Autograder: 6-B Linked List Delete",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc_6b_delete",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "6-B-delete.php"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Object Oriented Programming",
+            "anchor": "oop",
+            "icon": "fa-ethernet",
+            "description": "We look at the underpinnings of C-based languages that supported the Object Oriented Pattern and expore how these languages used C as their foundation.  We look at how these languages improved on aspects of C that make C less than ideal as a general purpose language.",
+            "items": [
+                {
+                    "type": "header",
+                    "text": "Slides",
+                    "level": 2
+                },
+                {
+                    "type": "slide",
+                    "title": "CC-03-Objects.pptx",
+                    "href": "{apphome}/lectures/CC-03-Objects.pptx"
+                },
+                {
+                    "type": "header",
+                    "text": "Videos",
+                    "level": 2
+                },
+                {
+                    "type": "video",
+                    "title": "Object Oriented Programming - A Historical Perspective",
+                    "original": "CC-03-01-Objects-1080.mov",
+                    "youtube": "GXkwKNEiYEI"
+                },
+                {
+                    "type": "video",
+                    "title": "Brian Kernighan - C and C++ at Bell Labs",
+                    "original": "2023-04-Kernighan-Plus",
+                    "youtube": "CtAysS8AlsE"
+                },
+                {
+                    "type": "video",
+                    "title": "Comparing Object Oriented Programming Approaches Across Languages",
+                    "original": "CC-03-02-Variants.m4v",
+                    "youtube": "4_gXh8ezVYA"
+                },
+                {
+                    "type": "video",
+                    "title": "Implementing Python-like Object Oriented Patterns in C",
+                    "original": "CC-03-03-Objects.m4v",
+                    "youtube": "NLcouCpM8-s"
+                },
+                {
+                    "type": "video",
+                    "title": "Implementing the Python String (str) Class in C",
+                    "original": "CC-03-04-String.m4v",
+                    "youtube": "dMfpD94g6Ho"
+                },
+                {
+                    "type": "video",
+                    "title": "Implementing the Python List (list) Class in C",
+                    "original": "CC-03-05-List.m4v",
+                    "youtube": "SX6A66WcFbg"
+                },
+                {
+                    "type": "video",
+                    "title": "Implementing the Python Dictionary (dict) Class in C",
+                    "original": "CC-03-06-Dict.m4v",
+                    "youtube": "1vozbTuYSGw"
+                },
+                {
+                    "type": "header",
+                    "text": "References",
+                    "level": 2
+                },
+                {
+                    "type": "reference",
+                    "title": "C++ Bjarne Stroustrup: Inventing C++",
+                    "href": "https://www.youtube.com/watch?v=9fJ5rZhw4Fc"
+                },
+                {
+                    "type": "reference",
+                    "title": "Sample source code",
+                    "href": "{apphome}/code"
+                },
+                {
+                    "type": "reference",
+                    "title": "Chapter 6: Structures (html)",
+                    "href": "{apphome}/book/chap06.md"
+                },
+                {
+                    "type": "reference",
+                    "title": "Chapter 6: Structures (audio book)",
+                    "href": "https://www.youtube.com/watch?v=U6yCkIckOqY"
+                },
+                {
+                    "type": "reference",
+                    "title": "Blog: Adding Support for User-defined Classes ",
+                    "href": "https://python-history.blogspot.com/2009/02/adding-support-for-user-defined-classes.html"
+                },
+                {
+                    "type": "header",
+                    "text": "Discussions",
+                    "level": 2
+                },
+                {
+                    "type": "discussion",
+                    "title": "Object Oriented Programming",
+                    "launch": "tsugi/tool/tdiscus/",
+                    "resource_link_id": "cc4e_03_objects"
+                },
+                {
+                    "type": "header",
+                    "text": "Tools",
+                    "level": 2
+                },
+                {
+                    "type": "lti",
+                    "title": "Quiz: Object Oriented Programming",
+                    "launch": "tsugi/tool/gift/?quiz=cc-03.txt",
+                    "resource_link_id": "cc_03_quiz",
+                    "custom": [
+                        {
+                            "key": "tries",
+                            "value": "11"
+                        },
+                        {
+                            "key": "delay",
+                            "value": "601"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Implement a Python str class",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc_02_str",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "cc_03_02-pystr.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Implement a Python list class",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc_03_list",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "cc_03_03-pylist.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Implement a Python dict class",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc_04_dict",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "cc_03_04-pydict.php"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Encapsulation and Abstraction",
+            "anchor": "map",
+            "icon": "fa-shopping-bag",
+            "description": "In this section, we improve our object implementation through encapsulation and abstraction.",
+            "items": [
+                {
+                    "type": "header",
+                    "text": "Slides",
+                    "level": 2
+                },
+                {
+                    "type": "slide",
+                    "title": "CC-04-Maps.pptx",
+                    "href": "{apphome}/lectures/CC-04-Maps.pptx"
+                },
+                {
+                    "type": "header",
+                    "text": "Videos",
+                    "level": 2
+                },
+                {
+                    "type": "video",
+                    "title": "Implementing Encapsulation and Interfaces in C",
+                    "original": "CC-04-01-Boundary.m4v",
+                    "youtube": "kMVmO0BpoMw"
+                },
+                {
+                    "type": "video",
+                    "title": "Exploring the Map Abstraction across Languages",
+                    "original": "CC-04-02-Maps.m4v",
+                    "youtube": "pK_AOOKqhX8"
+                },
+                {
+                    "type": "video",
+                    "title": "A Quick Look at Unique Aspects of the C++ Object Oriented Pattern",
+                    "original": "CC-04-03-CPP.m4v",
+                    "youtube": "VCrE9jYJBQo"
+                },
+                {
+                    "type": "video",
+                    "title": "Implementing Encapsulation in C-Based Objects",
+                    "original": "CC-04-04-Encapsulation.m4v",
+                    "youtube": "_HfYsyTi-tA"
+                },
+                {
+                    "type": "video",
+                    "title": "Building an Iterator Abstraction in C",
+                    "original": "CC-04-05-Iterators.m4v",
+                    "youtube": "Wfln7WdYkN4"
+                },
+                {
+                    "type": "header",
+                    "text": "References",
+                    "level": 2
+                },
+                {
+                    "type": "reference",
+                    "title": "Sample source code",
+                    "href": "{apphome}/code"
+                },
+                {
+                    "type": "reference",
+                    "title": "Chapter 6: Structures (html)",
+                    "href": "{apphome}/book/chap06.md"
+                },
+                {
+                    "type": "reference",
+                    "title": "Chapter 6: Structures (audio book)",
+                    "href": "https://www.youtube.com/watch?v=U6yCkIckOqY"
+                },
+                {
+                    "type": "header",
+                    "text": "Discussions",
+                    "level": 2
+                },
+                {
+                    "type": "discussion",
+                    "title": "Encapsulation and Abstraction",
+                    "launch": "tsugi/tool/tdiscus/",
+                    "resource_link_id": "cc4e_04_objects"
+                },
+                {
+                    "type": "header",
+                    "text": "Tools",
+                    "level": 2
+                },
+                {
+                    "type": "lti",
+                    "title": "Quiz: Abstraction and Encapsulation",
+                    "launch": "tsugi/tool/gift/?quiz=cc-04.txt",
+                    "resource_link_id": "cc_04_quiz",
+                    "custom": [
+                        {
+                            "key": "tries",
+                            "value": "11"
+                        },
+                        {
+                            "key": "delay",
+                            "value": "601"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Encapsulation",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc_04_encasulation",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "cc_04_01-encapsulation.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Iteration",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc_04_iterator",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "cc_04_02-iterator.php"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Tree Maps and Hash Maps",
+            "anchor": "tree",
+            "icon": "fa-tree",
+            "description": "In this section, we implement a hashmap and a linked tree map.",
+            "items": [
+                {
+                    "type": "header",
+                    "text": "Slides",
+                    "level": 2
+                },
+                {
+                    "type": "slide",
+                    "title": "CC-05-Trees-Hash.pptx",
+                    "href": "{apphome}/lectures/CC-05-Trees-Hash.pptx"
+                },
+                {
+                    "type": "header",
+                    "text": "Videos",
+                    "level": 2
+                },
+                {
+                    "type": "video",
+                    "title": "Introduction: Building a HashMap and LinkedTreeMap in C",
+                    "original": "CC-05-01-Intro.m4v",
+                    "youtube": "ZlFzDecW9TM"
+                },
+                {
+                    "type": "video",
+                    "title": "Understanding Hash Computations",
+                    "original": "CC-05-02-Hashing.m4v",
+                    "youtube": "7u6LStDRY0E"
+                },
+                {
+                    "type": "video",
+                    "title": "Building a HashMap object in C",
+                    "original": "CC-05-03-HashMap.m4v",
+                    "youtube": "_if6yo7twCc"
+                },
+                {
+                    "type": "video",
+                    "title": "Using Binary Trees as Data Structures",
+                    "original": "CC-05-04-Trees.m4v",
+                    "youtube": "QWD3c4mZ-tU"
+                },
+                {
+                    "type": "video",
+                    "title": "Inserting Data Into a LinkedTreeMap in C",
+                    "original": "CC-05-05-LinkedTreeMap.m4v",
+                    "youtube": "ACF-H4nQ5Pc"
+                },
+                {
+                    "type": "video",
+                    "title": "Counting Words in Python and in C using a LinkedHashMap",
+                    "original": "CC-05-06-Counting.m4v",
+                    "youtube": "g6Ew4vCPuSs"
+                },
+                {
+                    "type": "header",
+                    "text": "References",
+                    "level": 2
+                },
+                {
+                    "type": "reference",
+                    "title": "Sample source code",
+                    "href": "{apphome}/code"
+                },
+                {
+                    "type": "reference",
+                    "title": "Chapter 6: Structures (html)",
+                    "href": "{apphome}/book/chap06.md"
+                },
+                {
+                    "type": "reference",
+                    "title": "Chapter 6: Structures (audio book)",
+                    "href": "https://www.youtube.com/watch?v=U6yCkIckOqY"
+                },
+                {
+                    "type": "header",
+                    "text": "Discussions",
+                    "level": 2
+                },
+                {
+                    "type": "discussion",
+                    "title": "Tree Maps and Hash Maps",
+                    "launch": "tsugi/tool/tdiscus/",
+                    "resource_link_id": "cc4e_05_objects"
+                },
+                {
+                    "type": "header",
+                    "text": "Tools",
+                    "level": 2
+                },
+                {
+                    "type": "lti",
+                    "title": "Quiz: Tree Maps and Hash Maps",
+                    "launch": "tsugi/tool/gift/?quiz=cc-05.txt",
+                    "resource_link_id": "cc_05_quiz",
+                    "custom": [
+                        {
+                            "key": "tries",
+                            "value": "11"
+                        },
+                        {
+                            "key": "delay",
+                            "value": "601"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Build a HashMap",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc_05_hash",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "cc_05_01-hash.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Build a LinkedTreeMap",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc_05_tree",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "cc_05_02-tree.php"
+                        }
+                    ]
+                },
+                {
+                    "type": "lti",
+                    "title": "Throwback: Count words",
+                    "launch": "tools/ccauto/",
+                    "resource_link_id": "cc_05_words",
+                    "custom": [
+                        {
+                            "key": "exercise",
+                            "value": "cc_05_03-words.php"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Epilogue",
+            "anchor": "epilogue",
+            "icon": "fa-refresh",
+            "description": "In this section, we look back at the object implementations we built in Chapter 6 and wonder if Guido van Rossum used a similar approach when he built the object implementation in Python 0.0.9.  We go and visit Guido and learn a lot about the approach he used when designing the object oriented aproach in Python as well as the actual implementations of string, list, and dictionary.  There are a few plot twists along the way :).",
+            "items": [
+                {
+                    "type": "header",
+                    "text": "Slides",
+                    "level": 2
+                },
+                {
+                    "type": "slide",
+                    "title": "CC-06-Epilogue.pptx",
+                    "href": "{apphome}/lectures/CC-06-Epilogue.pptx"
+                },
+                {
+                    "type": "header",
+                    "text": "Videos",
+                    "level": 2
+                },
+                {
+                    "type": "video",
+                    "title": "Welcome to the CC4E Epilogue (9:12)",
+                    "original": "CC-06-01.m4v",
+                    "youtube": "Jdu7vQbyTu4"
+                },
+                {
+                    "type": "video",
+                    "title": "Guido van Rossum: Inside the Object Implementations in Python (18:31)",
+                    "original": "2024-02-04-Guido-OO.m4v",
+                    "youtube": "yJ-D9IkLK3Y"
+                },
+                {
+                    "type": "video",
+                    "title": "Looking at Guido's Implementation of String and List Classes in Python 0.0.9 (12:20)",
+                    "original": "CC-06-02.m4v",
+                    "youtube": "R0DInCT6SOQ"
+                },
+                {
+                    "type": "video",
+                    "title": "Looking at Guido's Implementation of the Dictionary Class in Python 0.0.9 (13:40)",
+                    "original": "CC-06-03.m4v",
+                    "youtube": "7N02xXVNfs4"
+                },
+                {
+                    "type": "video",
+                    "title": "Looking at the Python 3.7 re-implementation of the Dictionary class (11:12)",
+                    "original": "CC-06-04.m4v",
+                    "youtube": "UcwlMNym0pc"
+                },
+                {
+                    "type": "video",
+                    "title": "Guido van Rossum: Designing the Python Object Oriented Pattern (15:40)",
+                    "original": "2024-02-04-Guido-OO.m4v",
+                    "youtube": "fU8BmX2Clsk"
+                },
+                {
+                    "type": "video",
+                    "title": "Code Walkthrough: Exploring Reference Counting in the Python String Object (9:24)",
+                    "original": "CC-06-p1str-demo.m4v",
+                    "youtube": "g-Zq9Oj24IE"
+                },
+                {
+                    "type": "video",
+                    "title": "Code Walkthrough: Building the Python 0.0.9 list() Implementation (14:24)",
+                    "original": "CC-06-p1list-demo.m4v",
+                    "youtube": "f-AdH22VF34"
+                },
+                {
+                    "type": "video",
+                    "title": "Code Walkthrough: Building the Python 0.0.9 dict() Implementation (39:27)",
+                    "original": "CC-06-p1dict-demo.m4v",
+                    "youtube": "Evau1mKsMvM"
+                },
+                {
+                    "type": "video",
+                    "title": "Code Walkthrough: Building the Python 3.7 dict() Implementation (23:22)",
+                    "original": "CC-06-p3dict-demo.m4v",
+                    "youtube": "eCtkUg5lMcg"
+                },
+                {
+                    "type": "header",
+                    "text": "References",
+                    "level": 2
+                },
+                {
+                    "type": "reference",
+                    "title": "Sample source code",
+                    "href": "{apphome}/code"
+                },
+                {
+                    "type": "reference",
+                    "title": "Chapter 6: Structures (html)",
+                    "href": "{apphome}/book/chap06.md"
+                },
+                {
+                    "type": "reference",
+                    "title": "Chapter 6: Structures (audio book)",
+                    "href": "https://www.youtube.com/watch?v=U6yCkIckOqY"
+                },
+                {
+                    "type": "header",
+                    "text": "Discussions",
+                    "level": 2
+                },
+                {
+                    "type": "discussion",
+                    "title": "Epilogue",
+                    "launch": "tsugi/tool/tdiscus/",
+                    "resource_link_id": "cc4e_06_epilogue"
+                }
+            ]
+        },
+        {
+            "title": "K&R 7: Input / Output",
+            "anchor": "io",
+            "icon": "fa-arrows-h",
+            "description": "This chapter covers input / output features of C.",
+            "items": [
+                {
+                    "type": "header",
+                    "text": "Videos",
+                    "level": 2
+                },
+                {
+                    "type": "video",
+                    "title": "A Reading of Chapter 7 - Input / Output",
+                    "original": "Chapter-07.m4v",
+                    "youtube": "p0utHe1VCKM"
+                },
+                {
+                    "type": "header",
+                    "text": "References",
+                    "level": 2
+                },
+                {
+                    "type": "reference",
+                    "title": "Chapter 7: Input / Output (html)",
+                    "href": "{apphome}/book/chap07.md"
+                },
+                {
+                    "type": "reference",
+                    "title": "Audio version of the book",
+                    "href": "https://audio.cc4e.com/"
+                },
+                {
+                    "type": "header",
+                    "text": "Discussions",
+                    "level": 2
+                },
+                {
+                    "type": "discussion",
+                    "title": "Input / Output",
+                    "launch": "tsugi/tool/tdiscus/",
+                    "resource_link_id": "discuss_01_io"
+                }
+            ]
+        },
+        {
+            "title": "K&R 8: The UNIX System Interface",
+            "anchor": "unix",
+            "icon": "fa-hashtag",
+            "description": "This chapter covers input / output features of C.",
+            "items": [
+                {
+                    "type": "header",
+                    "text": "Videos",
+                    "level": 2
+                },
+                {
+                    "type": "video",
+                    "title": "A Reading of Chapter 8 - The UNIX System Interface",
+                    "original": "Chapter-08.m4v",
+                    "youtube": "Au1eiiceVks"
+                },
+                {
+                    "type": "header",
+                    "text": "References",
+                    "level": 2
+                },
+                {
+                    "type": "reference",
+                    "title": "Chapter 8: The UNIX System Interface (html)",
+                    "href": "{apphome}/book/chap08.md"
+                },
+                {
+                    "type": "reference",
+                    "title": "Audio version of the book",
+                    "href": "https://audio.cc4e.com/"
+                },
+                {
+                    "type": "reference",
+                    "title": "Ken Thompson and Dennis Ritchie Explain UNIX (Bell Labs)",
+                    "href": "https://www.youtube.com/watch?v=JoVQTPbD6UY"
+                },
+                {
+                    "type": "reference",
+                    "title": "Pushing the Limits of Technology: The Ken Thompson and Dennis Ritchie Story",
+                    "href": "https://www.youtube.com/watch?v=g3jOJfrOknA"
+                },
+                {
+                    "type": "reference",
+                    "title": "AT&T Archives: The UNIX Operating System",
+                    "href": "https://www.youtube.com/watch?v=tc4ROCJYbm0"
+                },
+                {
+                    "type": "reference",
+                    "title": "UNIX: Making Computers Easier To Use -- AT&T Archives film from 1982, Bell Laboratories",
+                    "href": "https://www.youtube.com/watch?v=XvDZLjaCJuw"
+                },
+                {
+                    "type": "header",
+                    "text": "Discussions",
+                    "level": 2
+                },
+                {
+                    "type": "discussion",
+                    "title": "The UNIX System Interface",
+                    "launch": "tsugi/tool/tdiscus/",
+                    "resource_link_id": "discuss_01_unix"
+                }
+            ]
+        }
+    ]
+}

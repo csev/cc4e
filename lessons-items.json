@@ -3,25 +3,22 @@
     "description": "Hello and welcome to my site where you learn computer architecture and the history of computing by studying C.",
     "count": true,
     "required_modules": [
-        "https://github.com/tsugitools/gift",
-        "https://github.com/tsugitools/youtube",
-        "https://github.com/tsugitools/peer-grade",
-        "https://github.com/tsugitools/tdiscus"
+        "https://github.com/tsugitools/youtube"
     ],
     "discussions": [
         {
             "title": "Welcome to C Programming for Everybody",
-            "launch": "mod/tdiscus/",
+            "launch": "tsugi/tool/tdiscus/",
             "resource_link_id": "discussion_welcome"
         },
         {
             "title": "Report Bugs in Course Material",
-            "launch": "mod/tdiscus/",
+            "launch": "tsugi/tool/tdiscus/",
             "resource_link_id": "discussion_bugs"
         },
         {
             "title": "Problems in the Code Screen",
-            "launch": "mod/tdiscus/",
+            "launch": "tsugi/tool/tdiscus/",
             "resource_link_id": "discussion_code"
         }
     ],
@@ -118,7 +115,7 @@
                 {
                     "type": "discussion",
                     "title": "History / Introduction",
-                    "launch": "mod/tdiscus/",
+                    "launch": "tsugi/tool/tdiscus/",
                     "resource_link_id": "discuss_00_history"
                 },
                 {
@@ -129,7 +126,7 @@
                 {
                     "type": "lti",
                     "title": "Quiz: History / Introduction",
-                    "launch": "mod/gift/?quiz=chap00.txt",
+                    "launch": "tsugi/tool/gift/?quiz=chap00.txt",
                     "resource_link_id": "cc4e_00_quiz",
                     "custom": [
                         {
@@ -209,7 +206,7 @@
                 {
                     "type": "discussion",
                     "title": "From Python to C",
-                    "launch": "mod/tdiscus/",
+                    "launch": "tsugi/tool/tdiscus/",
                     "resource_link_id": "discuss_00_python"
                 },
                 {
@@ -405,7 +402,7 @@
                 {
                     "type": "discussion",
                     "title": "Tutorial Introduction",
-                    "launch": "mod/tdiscus/",
+                    "launch": "tsugi/tool/tdiscus/",
                     "resource_link_id": "discuss_01_tutorial"
                 },
                 {
@@ -416,7 +413,7 @@
                 {
                     "type": "lti",
                     "title": "Quiz: Tutorial Introduction",
-                    "launch": "mod/gift/?quiz=chap01.txt",
+                    "launch": "tsugi/tool/gift/?quiz=chap01.txt",
                     "resource_link_id": "cc4e_01_quiz",
                     "custom": [
                         {
@@ -600,7 +597,7 @@
                 {
                     "type": "discussion",
                     "title": "Types, Operators, and Expressions",
-                    "launch": "mod/tdiscus/",
+                    "launch": "tsugi/tool/tdiscus/",
                     "resource_link_id": "discuss_01_core"
                 },
                 {
@@ -611,7 +608,7 @@
                 {
                     "type": "lti",
                     "title": "Quiz: Types, Operators, and Expressions",
-                    "launch": "mod/gift/?quiz=chap02.txt",
+                    "launch": "tsugi/tool/gift/?quiz=chap02.txt",
                     "resource_link_id": "cc4e_02_quiz",
                     "custom": [
                         {
@@ -723,7 +720,7 @@
                 {
                     "type": "discussion",
                     "title": "Control Flow",
-                    "launch": "mod/tdiscus/",
+                    "launch": "tsugi/tool/tdiscus/",
                     "resource_link_id": "discuss_01_control"
                 },
                 {
@@ -734,7 +731,7 @@
                 {
                     "type": "lti",
                     "title": "Quiz: Control Flow",
-                    "launch": "mod/gift/?quiz=chap03.txt",
+                    "launch": "tsugi/tool/gift/?quiz=chap03.txt",
                     "resource_link_id": "cc4e_03_quiz",
                     "custom": [
                         {
@@ -858,7 +855,7 @@
                 {
                     "type": "discussion",
                     "title": "Functions and Program Structure",
-                    "launch": "mod/tdiscus/",
+                    "launch": "tsugi/tool/tdiscus/",
                     "resource_link_id": "discuss_01_functions"
                 },
                 {
@@ -869,7 +866,7 @@
                 {
                     "type": "lti",
                     "title": "Quiz: Functions and Program Structure",
-                    "launch": "mod/gift/?quiz=chap04.txt",
+                    "launch": "tsugi/tool/gift/?quiz=chap04.txt",
                     "resource_link_id": "cc4e_04_quiz",
                     "custom": [
                         {
@@ -1015,7 +1012,7 @@
                 {
                     "type": "discussion",
                     "title": "Arrays and Pointers",
-                    "launch": "mod/tdiscus/",
+                    "launch": "tsugi/tool/tdiscus/",
                     "resource_link_id": "discuss_01_pointers"
                 },
                 {
@@ -1026,7 +1023,7 @@
                 {
                     "type": "lti",
                     "title": "Quiz: Arrays and Pointers",
-                    "launch": "mod/gift/?quiz=chap05.txt",
+                    "launch": "tsugi/tool/gift/?quiz=chap05.txt",
                     "resource_link_id": "cc4e_05_quiz",
                     "custom": [
                         {
@@ -1197,7 +1194,7 @@
                 {
                     "type": "discussion",
                     "title": "Structures",
-                    "launch": "mod/tdiscus/",
+                    "launch": "tsugi/tool/tdiscus/",
                     "resource_link_id": "discuss_01_structures"
                 },
                 {
@@ -1208,7 +1205,7 @@
                 {
                     "type": "lti",
                     "title": "Quiz: Structures",
-                    "launch": "mod/gift/?quiz=chap06.txt",
+                    "launch": "tsugi/tool/gift/?quiz=chap06.txt",
                     "resource_link_id": "cc4e_06_quiz",
                     "custom": [
                         {
@@ -1360,7 +1357,7 @@
                 {
                     "type": "discussion",
                     "title": "Object Oriented Programming",
-                    "launch": "mod/tdiscus/",
+                    "launch": "tsugi/tool/tdiscus/",
                     "resource_link_id": "cc4e_03_objects"
                 },
                 {
@@ -1371,7 +1368,7 @@
                 {
                     "type": "lti",
                     "title": "Quiz: Object Oriented Programming",
-                    "launch": "mod/gift/?quiz=cc-03.txt",
+                    "launch": "tsugi/tool/gift/?quiz=cc-03.txt",
                     "resource_link_id": "cc_03_quiz",
                     "custom": [
                         {
@@ -1501,7 +1498,7 @@
                 {
                     "type": "discussion",
                     "title": "Encapsulation and Abstraction",
-                    "launch": "mod/tdiscus/",
+                    "launch": "tsugi/tool/tdiscus/",
                     "resource_link_id": "cc4e_04_objects"
                 },
                 {
@@ -1512,7 +1509,7 @@
                 {
                     "type": "lti",
                     "title": "Quiz: Abstraction and Encapsulation",
-                    "launch": "mod/gift/?quiz=cc-04.txt",
+                    "launch": "tsugi/tool/gift/?quiz=cc-04.txt",
                     "resource_link_id": "cc_04_quiz",
                     "custom": [
                         {
@@ -1636,7 +1633,7 @@
                 {
                     "type": "discussion",
                     "title": "Tree Maps and Hash Maps",
-                    "launch": "mod/tdiscus/",
+                    "launch": "tsugi/tool/tdiscus/",
                     "resource_link_id": "cc4e_05_objects"
                 },
                 {
@@ -1647,7 +1644,7 @@
                 {
                     "type": "lti",
                     "title": "Quiz: Tree Maps and Hash Maps",
-                    "launch": "mod/gift/?quiz=cc-05.txt",
+                    "launch": "tsugi/tool/gift/?quiz=cc-05.txt",
                     "resource_link_id": "cc_05_quiz",
                     "custom": [
                         {
@@ -1807,7 +1804,7 @@
                 {
                     "type": "discussion",
                     "title": "Epilogue",
-                    "launch": "mod/tdiscus/",
+                    "launch": "tsugi/tool/tdiscus/",
                     "resource_link_id": "cc4e_06_epilogue"
                 }
             ]
@@ -1852,7 +1849,7 @@
                 {
                     "type": "discussion",
                     "title": "Input / Output",
-                    "launch": "mod/tdiscus/",
+                    "launch": "tsugi/tool/tdiscus/",
                     "resource_link_id": "discuss_01_io"
                 }
             ]
@@ -1917,7 +1914,7 @@
                 {
                     "type": "discussion",
                     "title": "The UNIX System Interface",
-                    "launch": "mod/tdiscus/",
+                    "launch": "tsugi/tool/tdiscus/",
                     "resource_link_id": "discuss_01_unix"
                 }
             ]
