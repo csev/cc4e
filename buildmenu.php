@@ -19,7 +19,6 @@ function buildMenu() {
         // $set->addLeft('OER', $R.'materials');
     }
     $set->addLeft('Book', $R . 'book');
-    $set->addLeft('Courses', $R.'coursesredirect.php');
     
     if ( isset($_SESSION['id']) ) {
         $submenu = new \Tsugi\UI\Menu();
@@ -64,6 +63,7 @@ function buildMenu() {
         }
     } else {
         $set->addRight('Login', $R.'login');
+        $set->addRight('Courses', $R.'coursesredirect.php');
     }
 
     if ( isset($_SESSION['id']) ) {
