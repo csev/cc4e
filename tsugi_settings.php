@@ -32,4 +32,14 @@ $CFG->theme = array(
 
 $CFG->tool_folders = array("admin", "../tools", "../mod", "tool");
 
+$CFG->top_menu_callback = function() {
+    global $CFG;
+    $buildmenu = $CFG->dirroot.'/../buildmenu.php';
+    if ( ! file_exists($buildmenu) ) {
+        return false;
+    }
+    require_once $buildmenu;
+    return buildMenu();
+};
+
 
