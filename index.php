@@ -55,6 +55,11 @@ We take your privacy seriously.
 use \Tsugi\Core\LTIX;
 use \Tsugi\UI\Output;
 
+if ( ! defined('COOKIE_SESSION') ) {
+    define('COOKIE_SESSION', true);
+}
+
+require_once "sanity.php";
 require_once "top.php";
 require_once "nav.php";
 ?>
