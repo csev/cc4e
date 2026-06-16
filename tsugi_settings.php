@@ -14,10 +14,11 @@ $CFG->servicedesc = 'C Programming - A Historical Perspective ';
 
 $CFG->context_title = "C Programming for Everybody";
 
-$CFG->lessons = $CFG->dirroot.'/../lessons-items.json';
+$CFG->lessons = $CFG->dirroot.'/../lessons.json';
 $CFG->youtube_playlist = 'PLlRFEj9H3Oj5NbaFb1b2n8lib01uNPWLa';
 
 $CFG->tdiscus = $CFG->wwwroot . '/tool/tdiscus/';
+$CFG->google_login_redirect = $CFG->apphome . "/login";
 
 $CFG->theme = array(
     "primary" => "#336791", //default color for nav background, splash background, buttons, text of tool menu
