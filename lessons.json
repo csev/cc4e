@@ -52,19 +52,19 @@
                 {
                     "type": "video",
                     "title": "A History of C, UNIX, and Computation before and after 1978",
-                    "original": "CC-01-History.m4v",
+                    "media": "cc4e-media/week01-history/02-CC-01-History-Max.m4v",
                     "youtube": "VZ2N0MuAUGA"
                 },
                 {
                     "type": "video",
                     "title": "Brian Kernighan - Building C at Bell Labs",
-                    "original": "2023-04-Kernighan-C.m4v",
+                    "media": "cc4e-media/week01-history/03-2023-04-Kernighan-C.m4v",
                     "youtube": "v8uLDu7LAEc"
                 },
                 {
                     "type": "video",
                     "title": "Chapter 0 - Introduction (Video)",
-                    "original": "Chapter00-2021-06-06-720.mov",
+                    "media": "cc4e/output/Chapter-00.m4v",
                     "youtube": "XSEGkAOxKZ4"
                 },
                 {
@@ -165,7 +165,7 @@
                 {
                     "type": "video",
                     "title": "From Python to C - The Rosetta Stone Lecture",
-                    "original": "CC-02-Python.mov",
+                    "media": "cc4e-media/week02-python/01-CC-02-Python.m4v",
                     "youtube": "M4aPIiX3k9I"
                 },
                 {
@@ -360,13 +360,13 @@
                 {
                     "type": "video",
                     "title": "Lecture: Historical Context For Chapter 1: A Tutorial Introduction",
-                    "original": "KR-01.m4v",
+                    "media": "cc4e-media/week03-kr-01-intro/02-KR-01.m4v",
                     "youtube": "tlroPQSX5Ss"
                 },
                 {
                     "type": "video",
                     "title": "A Reading of Chapter 1: A Tutorial Introduction",
-                    "original": "Chapter-01.m4v",
+                    "media": "cc4e/output/Chapter-01.m4v",
                     "youtube": "rPwBgsSnxCw"
                 },
                 {
@@ -560,13 +560,13 @@
                 {
                     "type": "video",
                     "title": "Lecture: Historical Context For Chapter 2: Types, Operators, and Expressions",
-                    "original": "KR-02.mov",
+                    "media": "cc4e-media/week04-kr-02-types/02-KR-02.m4v",
                     "youtube": "Pwajo2Zxius"
                 },
                 {
                     "type": "video",
                     "title": "A Reading of Chapter 2: Types, Operators, and Expressions",
-                    "original": "Chapter-02.m4v",
+                    "media": "cc4e/output/Chapter-02.m4v",
                     "youtube": "q0Ql0jhTPDU"
                 },
                 {
@@ -683,13 +683,13 @@
                 {
                     "type": "video",
                     "title": "Lecture: Historical Context For Chapter 3 - Control Flow",
-                    "original": "KR-03.mov",
+                    "media": "cc4e-media/week05-kr-03-control/02-KR-03.m4v",
                     "youtube": "-mIMYytS020"
                 },
                 {
                     "type": "video",
                     "title": "A Reading of Chapter 3 - Control Flow",
-                    "original": "Chapter-03.m4v",
+                    "media": "cc4e/output/Chapter-03.m4v",
                     "youtube": "5YZd9lebqDo"
                 },
                 {
@@ -818,13 +818,13 @@
                 {
                     "type": "video",
                     "title": "Lecture: Historical Context For Chapter 4 - Functions and Program Structure",
-                    "original": "KR-04-1080.mov",
+                    "media": "cc4e-media/week06-kr-04-functions/02-KR-04.m4v",
                     "youtube": "r3v5igV_CnU"
                 },
                 {
                     "type": "video",
                     "title": "A Reading of Chapter 4 - Functions and Program Structure",
-                    "original": "Chapter-04.m4v",
+                    "media": "cc4e/output/Chapter-04.m4v",
                     "youtube": "4dyBj0Jm914"
                 },
                 {
@@ -965,13 +965,13 @@
                 {
                     "type": "video",
                     "title": "Lecture: Historical Context For Chapter 5 - Pointers and Arrays",
-                    "original": "KR-05.m4v",
+                    "media": "cc4e-media/week07-kr-05-pointers/01-KR-05.m4v",
                     "youtube": "2RKRXVL-oks"
                 },
                 {
                     "type": "video",
                     "title": "A Reading of Chapter 5 - Pointers and Arrays",
-                    "original": "Chapter-05.m4v",
+                    "media": "cc4e/output/Chapter-05.m4v",
                     "youtube": "f3RB6XW48q4"
                 },
                 {
@@ -1146,19 +1146,19 @@
                 {
                     "type": "video",
                     "title": "Lecture: Looking at Chapter 6 of K&R C Using a Poem",
-                    "original": "KR-06-Frost.m4v",
+                    "media": "cc4e-media/week08-kr-06-structures/01-KR-06-Frost.m4v",
                     "youtube": "dSgt1uEqe9s"
                 },
                 {
                     "type": "video",
                     "title": "Lecture: Chapter 6 of K&R C  - Structures (1978 Edition)",
-                    "original": "KR-06-Structures.m4v",
+                    "media": "cc4e-media/week08-kr-06-structures/02-KR-06-Structures.m4v",
                     "youtube": "1MtzsZmcVFE"
                 },
                 {
                     "type": "video",
                     "title": "A Reading of Chapter 6 - Structures",
-                    "original": "Chapter-06.m4v",
+                    "media": "cc4e/output/Chapter-06.m4v",
                     "youtube": "U6yCkIckOqY"
                 },
                 {
@@ -1280,43 +1280,43 @@
                 {
                     "type": "video",
                     "title": "Object Oriented Programming - A Historical Perspective",
-                    "original": "CC-03-01-Objects-1080.mov",
+                    "media": "cc4e-media/week09-oo/01-CC-03-01-Objects.m4v",
                     "youtube": "GXkwKNEiYEI"
                 },
                 {
                     "type": "video",
                     "title": "Brian Kernighan - C and C++ at Bell Labs",
-                    "original": "2023-04-Kernighan-Plus",
+                    "media": "cc4e-media/week09-oo/02-2023-04-Kernighan-Plus.m4v",
                     "youtube": "CtAysS8AlsE"
                 },
                 {
                     "type": "video",
                     "title": "Comparing Object Oriented Programming Approaches Across Languages",
-                    "original": "CC-03-02-Variants.m4v",
+                    "media": "cc4e-media/week09-oo/04-CC-03-02-Variants.m4v",
                     "youtube": "4_gXh8ezVYA"
                 },
                 {
                     "type": "video",
                     "title": "Implementing Python-like Object Oriented Patterns in C",
-                    "original": "CC-03-03-Objects.m4v",
+                    "media": "cc4e-media/week09-oo/05-CC-03-03-Objects.m4v",
                     "youtube": "NLcouCpM8-s"
                 },
                 {
                     "type": "video",
                     "title": "Implementing the Python String (str) Class in C",
-                    "original": "CC-03-04-String.m4v",
+                    "media": "cc4e-media/week09-oo/06-CC-03-04-String.m4v",
                     "youtube": "dMfpD94g6Ho"
                 },
                 {
                     "type": "video",
                     "title": "Implementing the Python List (list) Class in C",
-                    "original": "CC-03-05-List.m4v",
+                    "media": "cc4e-media/week09-oo/07-CC-03-05-List.m4v",
                     "youtube": "SX6A66WcFbg"
                 },
                 {
                     "type": "video",
                     "title": "Implementing the Python Dictionary (dict) Class in C",
-                    "original": "CC-03-06-Dict.m4v",
+                    "media": "cc4e-media/week09-oo/08-CC-03-06-Dict.m4v",
                     "youtube": "1vozbTuYSGw"
                 },
                 {
@@ -1443,31 +1443,31 @@
                 {
                     "type": "video",
                     "title": "Implementing Encapsulation and Interfaces in C",
-                    "original": "CC-04-01-Boundary.m4v",
+                    "media": "cc4e-media/week10-abstraction/01-CC-04-01-Boundary.m4v",
                     "youtube": "kMVmO0BpoMw"
                 },
                 {
                     "type": "video",
                     "title": "Exploring the Map Abstraction across Languages",
-                    "original": "CC-04-02-Maps.m4v",
+                    "media": "cc4e-media/week10-abstraction/02-CC-04-02-Maps.m4v",
                     "youtube": "pK_AOOKqhX8"
                 },
                 {
                     "type": "video",
                     "title": "A Quick Look at Unique Aspects of the C++ Object Oriented Pattern",
-                    "original": "CC-04-03-CPP.m4v",
+                    "media": "cc4e-media/week10-abstraction/03-CC-04-03-CPP.m4v",
                     "youtube": "VCrE9jYJBQo"
                 },
                 {
                     "type": "video",
                     "title": "Implementing Encapsulation in C-Based Objects",
-                    "original": "CC-04-04-Encapsulation.m4v",
+                    "media": "cc4e-media/week10-abstraction/04-CC-04-04-Encapsulation.m4v",
                     "youtube": "_HfYsyTi-tA"
                 },
                 {
                     "type": "video",
                     "title": "Building an Iterator Abstraction in C",
-                    "original": "CC-04-05-Iterators.m4v",
+                    "media": "cc4e-media/week10-abstraction/05-CC-04-05-Iterators.m4v",
                     "youtube": "Wfln7WdYkN4"
                 },
                 {
@@ -1572,37 +1572,37 @@
                 {
                     "type": "video",
                     "title": "Introduction: Building a HashMap and LinkedTreeMap in C",
-                    "original": "CC-05-01-Intro.m4v",
+                    "media": "cc4e-media/week11-maps/01-CC-05-01-Intro.m4v",
                     "youtube": "ZlFzDecW9TM"
                 },
                 {
                     "type": "video",
                     "title": "Understanding Hash Computations",
-                    "original": "CC-05-02-Hashing.m4v",
+                    "media": "cc4e-media/week11-maps/02-CC-05-02-Hashing.m4v",
                     "youtube": "7u6LStDRY0E"
                 },
                 {
                     "type": "video",
                     "title": "Building a HashMap object in C",
-                    "original": "CC-05-03-HashMap.m4v",
+                    "media": "cc4e-media/week11-maps/03-CC-05-03-HashMap.m4v",
                     "youtube": "_if6yo7twCc"
                 },
                 {
                     "type": "video",
                     "title": "Using Binary Trees as Data Structures",
-                    "original": "CC-05-04-Trees.m4v",
+                    "media": "cc4e-media/week11-maps/04-CC-05-04-Trees.m4v",
                     "youtube": "QWD3c4mZ-tU"
                 },
                 {
                     "type": "video",
                     "title": "Inserting Data Into a LinkedTreeMap in C",
-                    "original": "CC-05-05-LinkedTreeMap.m4v",
+                    "media": "cc4e-media/week11-maps/05-CC-05-05-LinkedTreeMap.m4v",
                     "youtube": "ACF-H4nQ5Pc"
                 },
                 {
                     "type": "video",
                     "title": "Counting Words in Python and in C using a LinkedHashMap",
-                    "original": "CC-05-06-Counting.m4v",
+                    "media": "cc4e-media/week11-maps/06-CC-05-06-Counting.m4v",
                     "youtube": "g6Ew4vCPuSs"
                 },
                 {
@@ -1719,61 +1719,61 @@
                 {
                     "type": "video",
                     "title": "Welcome to the CC4E Epilogue (9:12)",
-                    "original": "CC-06-01.m4v",
+                    "media": "cc4e-media/week12-epilogue/01-CC-06-01.m4v",
                     "youtube": "Jdu7vQbyTu4"
                 },
                 {
                     "type": "video",
                     "title": "Guido van Rossum: Inside the Object Implementations in Python (18:31)",
-                    "original": "2024-02-04-Guido-OO.m4v",
+                    "media": "cc4e-media/week12-epilogue/02-2024-02-04-Guido-Impl.m4v",
                     "youtube": "yJ-D9IkLK3Y"
                 },
                 {
                     "type": "video",
                     "title": "Looking at Guido's Implementation of String and List Classes in Python 0.0.9 (12:20)",
-                    "original": "CC-06-02.m4v",
+                    "media": "cc4e-media/week12-epilogue/03-CC-06-02.m4v",
                     "youtube": "R0DInCT6SOQ"
                 },
                 {
                     "type": "video",
                     "title": "Looking at Guido's Implementation of the Dictionary Class in Python 0.0.9 (13:40)",
-                    "original": "CC-06-03.m4v",
+                    "media": "cc4e-media/week12-epilogue/06-CC-06-03.m4v",
                     "youtube": "7N02xXVNfs4"
                 },
                 {
                     "type": "video",
                     "title": "Looking at the Python 3.7 re-implementation of the Dictionary class (11:12)",
-                    "original": "CC-06-04.m4v",
+                    "media": "cc4e-media/week12-epilogue/09-CC-06-04.m4v",
                     "youtube": "UcwlMNym0pc"
                 },
                 {
                     "type": "video",
                     "title": "Guido van Rossum: Designing the Python Object Oriented Pattern (15:40)",
-                    "original": "2024-02-04-Guido-OO.m4v",
+                    "media": "cc4e-media/week12-epilogue/10-2024-02-04-Guido-OO.m4v",
                     "youtube": "fU8BmX2Clsk"
                 },
                 {
                     "type": "video",
                     "title": "Code Walkthrough: Exploring Reference Counting in the Python String Object (9:24)",
-                    "original": "CC-06-p1str-demo.m4v",
+                    "media": "cc4e-media/week12-epilogue/04-CC-06-p1str-demo.m4v",
                     "youtube": "g-Zq9Oj24IE"
                 },
                 {
                     "type": "video",
                     "title": "Code Walkthrough: Building the Python 0.0.9 list() Implementation (14:24)",
-                    "original": "CC-06-p1list-demo.m4v",
+                    "media": "cc4e-media/week12-epilogue/05-CC-06-p1list-demo.m4v",
                     "youtube": "f-AdH22VF34"
                 },
                 {
                     "type": "video",
                     "title": "Code Walkthrough: Building the Python 0.0.9 dict() Implementation (39:27)",
-                    "original": "CC-06-p1dict-demo.m4v",
+                    "media": "cc4e-media/week12-epilogue/07-CC-06-p1dict-demo.m4v",
                     "youtube": "Evau1mKsMvM"
                 },
                 {
                     "type": "video",
                     "title": "Code Walkthrough: Building the Python 3.7 dict() Implementation (23:22)",
-                    "original": "CC-06-p3dict-demo.m4v",
+                    "media": "cc4e-media/week12-epilogue/08-CC-06-p3dict-demo.m4v",
                     "youtube": "eCtkUg5lMcg"
                 },
                 {
@@ -1823,7 +1823,7 @@
                 {
                     "type": "video",
                     "title": "A Reading of Chapter 7 - Input / Output",
-                    "original": "Chapter-07.m4v",
+                    "media": "cc4e/output/Chapter-07.m4v",
                     "youtube": "p0utHe1VCKM"
                 },
                 {
@@ -1868,7 +1868,7 @@
                 {
                     "type": "video",
                     "title": "A Reading of Chapter 8 - The UNIX System Interface",
-                    "original": "Chapter-08.m4v",
+                    "media": "cc4e/output/Chapter-08.m4v",
                     "youtube": "Au1eiiceVks"
                 },
                 {
