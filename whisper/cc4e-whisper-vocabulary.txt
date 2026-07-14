@@ -1,0 +1,244 @@
+C Programming for Everybody
+Computer Architecture for Everybody
+CC4E
+Dr. Chuck
+Charles Severance
+Charles R. Severance
+Brian Kernighan
+Dennis Ritchie
+Kernighan and Ritchie
+K and R
+Bjarne Stroustrup
+Guido van Rossum
+Niklaus Wirth
+Donald Knuth
+Alan Turing
+Helen Spence
+Jane Margolis
+
+C programming language
+C compiler
+C preprocessor
+source code
+object code
+machine code
+assembly language
+compiled language
+interpreted language
+procedural programming
+object-oriented programming
+structured programming
+computer architecture
+Von Neumann architecture
+Turing machine
+
+Unix
+UNIX
+Linux
+macOS
+Digital Equipment Corporation
+DEC
+PDP-11
+IBM
+FORTRAN
+Fortran
+ALGOL
+Algol
+Pascal
+PL/I
+Python
+Java
+JavaScript
+PHP
+C++
+C sharp
+SQL
+Django
+HTML
+CSS
+
+hello world
+main function
+standard library
+header file
+include file
+stdio.h
+stdlib.h
+string.h
+ctype.h
+math.h
+printf
+scanf
+sprintf
+fprintf
+fscanf
+getchar
+putchar
+gets
+puts
+fgets
+fputs
+malloc
+calloc
+realloc
+free
+sizeof
+typedef
+struct
+union
+enum
+static
+extern
+register
+volatile
+const
+unsigned
+signed
+short
+long
+double
+float
+integer
+character
+character string
+string constant
+escape sequence
+newline character
+null character
+null terminator
+NULL pointer
+pointer arithmetic
+pointer to pointer
+address operator
+dereference operator
+ampersand
+asterisk
+subscript operator
+array index
+zero-based indexing
+command-line arguments
+argc
+argv
+function prototype
+function declaration
+function definition
+return value
+call stack
+stack frame
+recursion
+scope
+block scope
+file scope
+storage class
+automatic variable
+external variable
+local variable
+global variable
+static variable
+
+bitwise AND
+bitwise OR
+exclusive OR
+XOR
+left shift
+right shift
+one's complement
+two's complement
+operator precedence
+associativity
+increment operator
+decrement operator
+pre-increment
+post-increment
+pre-decrement
+post-decrement
+assignment operator
+conditional operator
+ternary operator
+logical AND
+logical OR
+short-circuit evaluation
+
+while loop
+do-while loop
+for loop
+switch statement
+case label
+break statement
+continue statement
+goto statement
+if statement
+else statement
+control flow
+
+end of file
+EOF constant
+standard input
+standard output
+standard error
+stdin
+stdout
+stderr
+file pointer
+file descriptor
+random access
+sequential access
+binary file
+text file
+buffer
+buffer overflow
+segmentation fault
+core dump
+memory leak
+dangling pointer
+null pointer
+heap memory
+stack memory
+dynamic memory allocation
+
+linked list
+binary tree
+binary search tree
+hash table
+hash map
+TreeMap
+HashMap
+MapEntry
+TreeMapEntry
+HashMapEntry
+iterator
+MapIter
+collision
+hash function
+bucket
+load factor
+
+ASCII
+Unicode
+byte
+word
+endianness
+big endian
+little endian
+bit
+nibble
+octal
+hexadecimal
+binary
+
+makefile
+Makefile
+compiler warning
+compiler error
+syntax error
+runtime error
+linker
+loader
+executable
+a.out
+GNU Compiler Collection
+GCC
+Clang
+cc command
+
+MAXLINE
