@@ -1,0 +1,159 @@
+ So now we're going to talk about a hashed-based implementation of our map.
+ And this is the answer to the world's most common
+ programming interview question.
+ But we're going to do hash maps and then tree maps.
+ Tree maps are harder.
+ So hash maps turn out to be beautifully simple.
+ And that's kind of the reason that everyone likes these as interview questions,
+ because the interviewer can remember the answer.
+ A tree map, they might have trouble remembering.
+ And so it's the perfect thing in an interview to say,
+ "Draw me a hash map," because they still remember the answer
+ from when they went to school.
+ They'd have to do a little review to get the tree map right.
+ So here we go.
+ So let's talk a little bit about our hash map implementation.
+ It's got a weird order.
+ And once you see the data structure internally,
+ it'll be clear why there's a weird order.
+ It is like a Python 2 dictionary, and it's like a Java hash map.
+ It's very similar to both of these things.
+ I'm guessing the code we're going to write is very similar
+ to when Guido made his first dictionary.
+ It's going to have an extremely fast insert and looked up.
+ Just like Python 2 dictionaries and Java hash maps,
+ it's going to be iterable like Python 2's dictionaries
+ and Java's hash maps, and it builds on linked lists.
+ Surprisingly, it's really easy to build a hash map
+ if you understand linked lists.
+ And so it's covered in chapters 6.5.1 and 6.6 in Kernigan and Ritchie.
+ 6.5.2 is literally the hardest part of the book.
+ And that's why we kind of start with 6.6
+ and then kind of go back to 6.5.
+ Okay, so let's take a look at our data structures
+ and how we're going to go from the list map to the hash map.
+ So our list map is pretty simple.
+ We've got the entries in the map, which are key value,
+ which we've decided are going to stay public.
+ We've got the pre even the next for the map entry,
+ which is just, you know, we're going to link these things together.
+ And then the list map itself, it's got a head and it's got a tail
+ and maybe a count and a few other things,
+ and then the methods, et cetera, because we've done encapsulation.
+ So the hash map entry, if you look at it, it's pretty much identical.
+ And that's because the entries in a hash map
+ are just part of a linked list.
+ The key to the hash map is there's multiple linked lists.
+ And we see that in struct hash map,
+ and underscore buckets is how many buckets we have.
+ In a more sophisticated hash map implementation,
+ we would have the number of buckets grow as size grew
+ and the list got too long, but we're going to keep that.
+ So that's called rehashing,
+ and we're going to keep that out of our conversation.
+ So what we're going to have a number of buckets,
+ and in this case, it's going to be eight.
+ So those are called hash buckets.
+ And then we're going to have heads, plural,
+ we're going to have eight of them, and tails, eight of them.
+ But within a particular head and a tail, it really is a hash map.
+ So as you're writing the code for the hash map,
+ go back to the list map.
+ I mean, literally copy the list map code,
+ and then change the singular to plural.
+ And you'll see some of the things I show you in the actual code.
+ So if we look at how a list map looks, it's got a head,
+ and it's got a bunch of entries that have preves and necks.
+ I'm not even showing the preves and the arrows,
+ I'm just showing the necks, but assume there's always preves there,
+ because it's a way for us to link things in.
+ But if you look at the hash map, so you take the actual key,
+ you run it through a hash function,
+ which creates some big number, no matter how, but it is just a number.
+ No matter how long the key is,
+ it can be one character or 2,000 characters,
+ eventually the hash runs a calculation that gives us back a number.
+ Sort of a pseudo random number that has, you know, equally likely,
+ and there's a whole science of hashing.
+ And then we take a modulo, and in this case, we have four buckets.
+ So we take this hash calculation, modulo four,
+ and that gives us a number from zero through three.
+ And with that number, we pick the linked list,
+ and then we add it to the linked list,
+ just as if we were doing this with a linked list.
+ So once we've done the hash and we picked a bucket,
+ it really is exactly the same as a linked list.
+ So a hash map with four buckets is the same as four linked lists.
+ And you pick the linked list by the hash computation.
+ And hash computation is deterministic and predictable.
+ So wherever we put D, it's going to be in bucket one.
+ We can look it up in bucket one, we can store it in bucket one, etc.
+ And so for inserting M equals 90, that's going to hash into bucket two,
+ and we're going to put it in that linked list.
+ Okay, so it is beautifully simple. Now, what is a hash calculation?
+ This is actually from my Postgres for Everybody course.
+ Basically, the hash maps large data items to a single number,
+ basically, and these are called hash values.
+ So the whole concept of a hash function,
+ when used with a modulo, in this case, I've got 16,
+ modulo 16, in this picture, it maps a big string into some fixed number
+ of buckets and often the buckets are power of two,
+ but they don't have to be, it's really a modulo operation.
+ And so there's a whole science of hashing and hash functions.
+ And it turns out the hashing and hash functions
+ are a big part of security and digital signatures and all that stuff.
+ And so there are people who spend their whole lives
+ researching how to build good hash functions.
+ And so there's this SHA-256 compression function,
+ you can go look it up, you can see what's going on here
+ is like the arrows are shifting,
+ and the plus with a circle is exclusive ORs.
+ And they sort of both show you the shifting and the exclusive OR
+ and they give you a diagram of all these things
+ and they shift and exclusive OR, yada yada,
+ and they're taking the pieces of a value,
+ it's computed in a loop and updated and what they're showing you
+ is what happens each iteration through the loop.
+ And so the idea is, is we are going to take a string, string array,
+ and we're going to take a number of buckets.
+ And the idea of a hash is it is just some integer number.
+ And we're going to go through each of the items,
+ each of the characters in the string,
+ that's the 4 * * * *++,
+ and we're going to take the current value of hash,
+ in this case, we're going to shift it 3 to the left,
+ and then we're going to exclusive OR it
+ with the character we're looking at.
+ So you can say, shift 3, exclusive OR, shift 3, exclusive OR.
+ So you can think of it as like an accumulation,
+ but the exclusive OR is a nice form of accumulation
+ in that it increases the randomness,
+ the pseudo-randomness of this thing.
+ And so exclusive OR just turns out to be a super valuable calculation.
+ And so this loop is going to run so many times.
+ And so we're going to print it out, you're going to see the hex,
+ if we're just taking the letters HI,
+ you can see kind of the internal hash value growing and changing,
+ and you can kind of see it going from right to left as it sort of grows.
+ And there's new data being put in bitwise,
+ it's a bit, you know, bit exclusive OR.
+ But at the very end, it says return hash percent buckets,
+ which takes the modulo operator of the number of buckets.
+ And in this case, I'm going to be using eight buckets
+ just to run the hash function, right?
+ Give me the bucket for this string,
+ so you can see me running different things on the right-hand side
+ and getting back the ultimate final bucket.
+ So HI goes in bucket one, Hello goes in bucket seven,
+ and world goes into bucket four.
+ This is really inspired by, you know, the shifting and the masking,
+ but I've simplified it so you can kind of see what's going on.
+ And in our particular hash, it's good enough for our purposes.
+ But it's probably going to have collisions
+ when treated against a whole series of random data,
+ it's not going to be as good.
+ And that's where a fancy hash like SHA-256 would be helpful.
+ So now that we understand the basic data structures,
+ and how hashing functions work, let's, up next,
+ we're going to take a look at actually building a hash map,
+ or at least adapting our list map and turning it into a hash map.

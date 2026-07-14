@@ -1,0 +1,85 @@
+ So now what we're going to do is we're going to try to build objects in C.
+ C doesn't have object-oriented support, so in a sense we're going to do it by writing functions and using structures and pointers, et cetera.
+ So we're kind of answering the question about how was Python's object-oriented layer layered on top of a C structure?
+ So we can kind of put ourselves in the position of Guido van Rossum as he was building Python in 1991,
+ and say, how are we going to make this syntax work?
+ How are we going to, in C, which is underneath all of this, how can we make this syntax work?
+ And so this is just review, you know, we've got class point, we've got a constructor, takes two parameters, self is our instance pointer,
+ and we've got dump, and we've got origin, and then if we look at the main program, we create a new point, call the constructor,
+ we can see that point.dump, that is the function name dump inside a point, but then we've also got to pass the instance in,
+ or the shortcut syntax, and so the pt.origin() that is kind of paying more homage to the way C++ would have called methods,
+ and then of course the del operator at the end.
+ So, let's build ourselves some code in C. We are building, in effect, a point object in C.
+ So, we're going to just start with a structure, and the structure is going to be point, and there's some instance variables,
+ we're going to just allocate a double x and a double y inside of it, but then the methods are kind of weird.
+ We are going to take the del method, the dump method, and the origin method, and we're going to define them
+ as pointers to functions. So, void open paren star del close paren open paren construct point star self close paren semicolon.
+ The void is the return type of this function. Star del means a function named del that the code is not here,
+ but this points to a function somewhere else, and then the construct point star self, that's the first parameter, right?
+ And so, construct point star self is the fact we're going to have one parameter, it's going to be named self,
+ and it is a pointer to a structure, and we've got something similar to dump.
+ The origin is pretty much the same, except it's got a return value, okay?
+ And so, that now is a structure. This is C. So, the structure is going to allocate one double, two doubles,
+ which should be eight bytes each, and then three pointers, which is eight bytes each.
+ So, we've got eight times five, that's going to be 40 bytes. It's not a dynamic structure.
+ It is exactly 40 bytes of allocation, because C structures are just memory.
+ And so, it's not like you can sort of throw more stuff in there. You've got to define it, you've got to define what type it is,
+ and it's going to allocate space. We are going to use a naming convention for now,
+ and we're going to create the dump function, and the dump function is going to take a self parameter,
+ and we're going to name it point_dump. That's just a naming convention.
+ And we're going to name the first parameter as it comes into our function, self, just like Python.
+ We're going to print out object, point, at, and then percent p, which is the way we print a pointer out.
+ So, self is a pointer. X equals percent f, y equals percent f, and then we're going to print out self,
+ and self, arrow, x, and self, arrow, y. Now, remember, that kind of looks like PHP,
+ because self is a pointer to a structure, not a structure itself.
+ So, we use the arrow operator to both dereference self and then look up the attribute variable x.
+ So, if you look at the output, you see it's object, point, at, big long hex number for the address, and x equals four, y equals five.
+ And then we have the void point del, which is very similar, construct point star self.
+ So, the first parameter to del is self, and all of the first parameters are always going to be self
+ when we create these functions that we're going to treat as methods.
+ And then we're going to free. All that's going to do is call free on the pointer where we originally allocated it.
+ Then we're going to create the origin method, and again, take a single parameter self,
+ and we're going to return the square root of self x times self x plus self y times self y,
+ and that's going to have return value. And then we're going to go and do the constructor.
+ And the constructor is going to return a pointer to a point, and it's called point new.
+ We're going to sort of follow the new convention, and it's going to take two parameters, an x and a y.
+ So, the first thing we've got to do is we've got to allocate the 40 bytes, size of star p, which is a double, a double,
+ two doubles and two pointers to functions, which I think I've got it right, is 40 characters.
+ And then we're going to set the, we'll get that address of 40 characters back,
+ and we're going to set the x value to be x from the constructor, the y value to y from the constructor call,
+ and then we're going to set the dump pointer to ampersand point dump.
+ Now, this is done on purpose where point dump is defined earlier in the file,
+ and then put p origin as the same thing, point ampersand point origin.
+ So, in each object that we're creating, we are going to record the address of three in effect global functions, right?
+ They're named point underscore, but these are just regular old functions in the global function namespace.
+ Right now, you know, we don't have namespaces. We're in C, folks.
+ We can't sort of do that fancy stuff, so we just use a naming convention to accomplish it.
+ And then when we're done with the constructor, we do return p so that whatever is calling us gets their instance back.
+ So, p is the instance, but we are in the constructor allocating and filling the instance up with data.
+ And it's just a struct. It's just 40 bytes of memory with some labels.
+ So, in the main code, we say struct point star pt equals point underscore new and then paren 4.0 comma 5.0.
+ And this looks a lot like OO code, except it's not.
+ We're using a pointer to a structure, and we're calling a global function called point new.
+ We just happen to have named it in a way that looks a lot like object orientation.
+ And so now what we can do is we can say pt arrow dump, which means go look up the dump variable inside the point object that's pointed to by pt and then call it.
+ But we still have to pass in pt as that first parameter because that is self. That is the instance.
+ So, all these functions, dump, del, origin, all need to have as their first parameter self.
+ And so pt dump looks up dump, but then we still have to put pt in as a parameter.
+ And that syntax, we're just going to do the same thing for pt arrow origin, open paren pt, close paren, and then to clean things up.
+ And in this case, we need to, well, the program is done, but you know, you need to free up allocated memory.
+ So, the memory is allocated in the constructor. 40 bytes is allocated in the constructor.
+ And then those same 40 bytes are deallocated by calling free in the destructor.
+ And so we, for all intents and purposes, there is, other than conceptually, there is no objects involved in this.
+ There's structs, there's pointers, and there's functions.
+ The fact that you can get a pointer to a function means that we've kind of imitated it.
+ And again, I look at this as how Guido van Rossum actually was like facing this and thought to himself, how am I going to figure this out?
+ How am I going to make it look like this is object orientation?
+ So, this is kind of probably some of the code looked a lot like this in the early days of Python.
+ And then there was kind of a simple syntactic transformation layer in the Python sort of parsing to call these things with naming conventions.
+ So, you can do a lot of object orientation with naming conventions.
+ And if you recall, C++ started as a language preprocessor.
+ And so, again, you could almost look at this as how did C++ get built, right?
+ C++ had some OO syntax that then transformed the OO syntax into C code that looks a lot like this, which is, oh, we got some functions.
+ The functions have naming conventions, and we create a struct, and that struct has data in it, but it also has pointers to function in it.
+ And we'll call the data the attributes, and we'll call the pointers to the functions the methods, and voila, we have object oriented programming.
+ So, up next, we're going to actually implement the Python string class or at least a little bit of the Python string class.

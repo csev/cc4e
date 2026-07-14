@@ -1,0 +1,532 @@
+1
+00:00:00,000 --> 00:00:26,500
+ [Music]
+
+2
+00:00:26,500 --> 00:00:33,000
+ I was trying to characterize, what is C++ particularly useful for, what did I actually build it for,
+
+3
+00:00:33,000 --> 00:00:43,000
+ and what is its strength today after almost 30 years of evolution, and also where is the limits to where it is.
+
+4
+00:00:43,000 --> 00:00:55,000
+ So, the way I see it is, there's a core domain for C++, and that's what you would call traditional systems programming,
+
+5
+00:00:55,000 --> 00:01:01,000
+ but that's not the right term, because it's just a style of language and a style of programming.
+
+6
+00:01:01,000 --> 00:01:10,000
+ So, I go a little bit further, I said, what is it that requires the kind of services that C++ has?
+
+7
+00:01:10,000 --> 00:01:18,000
+ What is the sum of all these applications I've been dealing with? Where did it work, and where was it essential?
+
+8
+00:01:18,000 --> 00:01:27,000
+ And I came up with the phrase infrastructure, and I roughly define it as, if it breaks, somebody gets hurt or somebody gets ruined.
+
+9
+00:01:27,000 --> 00:01:37,000
+ These are the kind of foundational things in our systems that must work for the system, for society to work.
+
+10
+00:01:37,000 --> 00:01:43,000
+ The question I'm trying to phrase is, what matters in those areas?
+
+11
+00:01:43,000 --> 00:01:56,000
+ And I've come up with some notions of compact data structures, very strongly typed interfaces for maintainability and for minimizing errors,
+
+12
+00:01:56,000 --> 00:02:08,000
+ a heavier emphasis on algorithms or random code, because we need reliability, we need the stuff to be comprehensible, analyzable,
+
+13
+00:02:08,000 --> 00:02:18,000
+ we want to make sure that it's actually correct. And so, the paper I was writing comes from that kind of thinking.
+
+14
+00:02:18,000 --> 00:02:29,000
+ What is the right style, and what are the supports for that style we need for infrastructure software, for software that must be dependable?
+
+15
+00:02:29,000 --> 00:02:43,000
+ I don't get real examples, sort of the keys of some of the modern operating systems, the basics of our phone system, the brakes in my car.
+
+16
+00:02:43,000 --> 00:02:52,000
+ How do we make that dependable? How do we make sure that space probes don't get the logical equivalent of a blue screen of death
+
+17
+00:02:52,000 --> 00:03:00,000
+ halfway to Mars, where we can't send a repairman? How do we make sure that they actually go into the right orbits?
+
+18
+00:03:00,000 --> 00:03:11,000
+ JPL lost a probe off Mars because two groups had communicated nicely, they thought.
+
+19
+00:03:11,000 --> 00:03:18,000
+ But in fact, one of them spoke imperial measures, and the other one spoke the SI system, the MKS system.
+
+20
+00:03:18,000 --> 00:03:30,000
+ And the result was a misnavigation that sent more than $500 million worth of equipment into the wrong orbit.
+
+21
+00:03:30,000 --> 00:03:39,000
+ Not a good idea. It was the work of 200 good engineers, lifetime's work, down the drain.
+
+22
+00:03:39,000 --> 00:03:48,000
+ And that could have been avoided by ever so slight improvement in the interfaces between the parts of that program.
+
+23
+00:03:48,000 --> 00:03:58,000
+ So things like that I'm interested in. So there's a core area where I think the facilities for C++, they're not perfect,
+
+24
+00:03:58,000 --> 00:04:03,000
+ the kind of things I would like, the kind of things I work on are essential.
+
+25
+00:04:03,000 --> 00:04:13,000
+ And then there's a huge gray area where you have choices, they can help in my opinion, but they're not essential.
+
+26
+00:04:13,000 --> 00:04:22,000
+ Then you have areas where it probably is unsuitable to apply that kind of stringency technique.
+
+27
+00:04:22,000 --> 00:04:30,000
+ I want to essentially get 100% reliability if I'm putting up a small application for my own use,
+
+28
+00:04:30,000 --> 00:04:36,000
+ or if somebody is trying to push out a little cute web app.
+
+29
+00:04:36,000 --> 00:04:43,000
+ They don't need that kind of reliability, and maybe what I'm talking about in terms of programming is not for them.
+
+30
+00:04:43,000 --> 00:04:49,000
+ But I think the really important thing here is to realize that there are different techniques,
+
+31
+00:04:49,000 --> 00:04:54,000
+ different languages that apply to different areas, and we have to recognize this.
+
+32
+00:04:54,000 --> 00:05:02,000
+ We can't have a single language for everybody, a single technique of using that language for everybody.
+
+33
+00:05:02,000 --> 00:05:11,000
+ We can't have a single tool chain or a single kind of system, and from there we can go a little bit further.
+
+34
+00:05:11,000 --> 00:05:19,000
+ We probably don't need the same kind of training for education for everybody.
+
+35
+00:05:19,000 --> 00:05:26,000
+ The engineer, software developer, or whatever that is building infrastructure,
+
+36
+00:05:26,000 --> 00:05:34,000
+ say the mechanism that automatically updates the software on a cell phone,
+
+37
+00:05:34,000 --> 00:05:42,000
+ has to have a different education, different knowledge, different training from the one that makes a little game.
+
+38
+00:05:42,000 --> 00:05:55,000
+ Because the one can actually destroy a whole day or a whole week for millions of people by a little slip.
+
+39
+00:05:55,000 --> 00:06:01,000
+ Maybe even somebody gets hurt if the 911 calls don't get through, bad things happen.
+
+40
+00:06:01,000 --> 00:06:05,000
+ And it's not just the software that runs on it, it's the update software.
+
+41
+00:06:05,000 --> 00:06:14,000
+ It's anything in the chain of safety critical issues that has to be dealt with.
+
+42
+00:06:14,000 --> 00:06:20,000
+ But somebody doing that has to think differently from somebody who writes a little application,
+
+43
+00:06:20,000 --> 00:06:26,000
+ maybe to make a couple of bugs quickly.
+
+44
+00:06:26,000 --> 00:06:29,000
+ There's nothing wrong with that, but they have to think different.
+
+45
+00:06:29,000 --> 00:06:37,000
+ As a matter of fact, if you apply this very strange engineering-oriented thinking to little commercial apps,
+
+46
+00:06:37,000 --> 00:06:42,000
+ you'll probably be a year late to market, and it'll be irrelevant.
+
+47
+00:06:42,000 --> 00:06:47,000
+ On the other hand, if you took the attitude of first to market is the only thing that happens,
+
+48
+00:06:47,000 --> 00:06:54,000
+ and apply them to the steering wheel of my car, no, that's not a good idea.
+
+49
+00:06:54,000 --> 00:07:03,000
+ Most people have to think different, and the way you get people to think differently is to give them different educations.
+
+50
+00:07:03,000 --> 00:07:07,000
+ We don't have an anti-standard programmer, and we shouldn't have.
+
+51
+00:07:07,000 --> 00:07:10,000
+ If it was, we should have several.
+
+52
+00:07:10,000 --> 00:07:18,000
+ And I think the field has to, in some sense, clean up its act before somebody else comes in and tries to clean it up for us.
+
+53
+00:07:18,000 --> 00:07:24,000
+ You can sort of make your own constants and have seconds after the constants.
+
+54
+00:07:24,000 --> 00:07:31,000
+ Is that a feature that you added at some intermediate stage, or is that simple sort of operator overloading?
+
+55
+00:07:31,000 --> 00:07:40,000
+ We were observing that we were getting a whole zoo of little suffixes out of the various fundamental types.
+
+56
+00:07:40,000 --> 00:07:48,000
+ The U suffix is for unsigned, and L is for long, I think, and I can't remember them all anymore, and we thought, you know,
+
+57
+00:07:48,000 --> 00:07:53,000
+ you can do anything in C++, but you can't make your own literals.
+
+58
+00:07:53,000 --> 00:08:02,000
+ And then I'd observed separately that there was techniques that were effective,
+
+59
+00:08:02,000 --> 00:08:07,000
+ except that people would not use them because the notation was too ugly.
+
+60
+00:08:07,000 --> 00:08:12,000
+ The Unix example is one of those.
+
+61
+00:08:12,000 --> 00:08:17,000
+ You've been able to do everything in the Unix example I showed.
+
+62
+00:08:17,000 --> 00:08:21,000
+ Not quite as elegant, but you can do everything I showed for the last ten years.
+
+63
+00:08:21,000 --> 00:08:23,000
+ Libraries have been available.
+
+64
+00:08:23,000 --> 00:08:29,000
+ There was a nice one from Fermilabs, back to Nice Places and Nice People again.
+
+65
+00:08:29,000 --> 00:08:34,000
+ But it wasn't used as much as it should because the users didn't believe in the notation.
+
+66
+00:08:34,000 --> 00:08:36,000
+ They didn't like it.
+
+67
+00:08:36,000 --> 00:08:42,000
+ And so we were looking at how can you basically clean up people's source code?
+
+68
+00:08:42,000 --> 00:08:48,000
+ How can we make code look the way it would look in an ideal language?
+
+69
+00:08:48,000 --> 00:08:52,000
+ How can we make code look much as it does in the textbooks?
+
+70
+00:08:52,000 --> 00:09:02,000
+ So the Unix example is simply a way of getting your code to look the way equations look in your physics textbook.
+
+71
+00:09:02,000 --> 00:09:06,000
+ We know how to avoid that Mars climate orbital problem.
+
+72
+00:09:06,000 --> 00:09:10,000
+ Everybody had been taught it in physics in high school.
+
+73
+00:09:10,000 --> 00:09:15,000
+ First, make sure your units match, then do the detailed calculation.
+
+74
+00:09:15,000 --> 00:09:17,000
+ So why didn't people do it?
+
+75
+00:09:17,000 --> 00:09:20,000
+ It was too cumbersome and it was too ugly when they did it.
+
+76
+00:09:20,000 --> 00:09:24,000
+ Or too costly if they used runtime techniques.
+
+77
+00:09:24,000 --> 00:09:30,000
+ So I, together with friends, we thought this problem was worth addressing.
+
+78
+00:09:30,000 --> 00:09:35,000
+ We tried to figure out what solutions we had, went through several evolutions.
+
+79
+00:09:35,000 --> 00:09:41,000
+ I think the last finishing touches was done by David.
+
+80
+00:09:41,000 --> 00:09:43,000
+ And it's now standard.
+
+81
+00:09:43,000 --> 00:09:48,000
+ This is one of the features that is not shipping widely today.
+
+82
+00:09:48,000 --> 00:09:54,000
+ But wait a year and that example will probably run on your computer too.
+
+83
+00:09:54,000 --> 00:10:02,000
+ Are there other kind of examples where you've let people from within a class create their own literals beyond sort of suffixes?
+
+84
+00:10:02,000 --> 00:10:12,000
+ When I started out with C++, I provided constructors which allows you to construct objects of a certain type from arguments.
+
+85
+00:10:12,000 --> 00:10:14,000
+ And that has been very effective.
+
+86
+00:10:14,000 --> 00:10:21,000
+ And people have used constructors as if they were literals.
+
+87
+00:10:21,000 --> 00:10:23,000
+ But they weren't.
+
+88
+00:10:23,000 --> 00:10:25,000
+ That's a runtime cost.
+
+89
+00:10:25,000 --> 00:10:36,000
+ So the first thing we did with C++ OX, C++ 11, was we introduced constant expressions as a more fundamental unit.
+
+90
+00:10:36,000 --> 00:10:41,000
+ This was work between me and my colleague Gabriel Das Reis.
+
+91
+00:10:41,000 --> 00:10:46,000
+ And we have constexpr functions that can be evaluated at compile time.
+
+92
+00:10:46,000 --> 00:10:52,000
+ And we have constexpr types so that you can use type rich programming at compile time.
+
+93
+00:10:52,000 --> 00:10:59,000
+ This is very important in sort of the high-performance computing and in the embedded systems world.
+
+94
+00:10:59,000 --> 00:11:01,000
+ That was what we did to address that.
+
+95
+00:11:01,000 --> 00:11:12,000
+ Constant expression evaluation is much more general, much easier to use, and yes, more pretty in C++ 11 than earlier versions.
+
+96
+00:11:12,000 --> 00:11:16,000
+ So that just strengthens what the direction had gone before.
+
+97
+00:11:16,000 --> 00:11:27,000
+ So you could write complex 1, 2 to make a complex number in C++ in 1984.
+
+98
+00:11:27,000 --> 00:11:35,000
+ Today you can write the same thing and have the complex number created at compile time.
+
+99
+00:11:35,000 --> 00:11:37,000
+ And therefore, say, put in ROM.
+
+100
+00:11:37,000 --> 00:11:44,000
+ I don't know why you'd want a complex number on ROM, but you might want a point which is the same thing, point of 1, 2.
+
+101
+00:11:44,000 --> 00:11:48,000
+ Now, you still have to write point or complex.
+
+102
+00:11:48,000 --> 00:11:58,000
+ And the other thread of thinking in C++ works was to generalize and make safer the initialization.
+
+103
+00:11:58,000 --> 00:12:06,000
+ And so it happens that if you know the type you need, like you have a function returning a complex number,
+
+104
+00:12:06,000 --> 00:12:13,000
+ you can simply write open curly 1, 2, and it says, oh, 1, 2 is supposed to make you a complex number.
+
+105
+00:12:13,000 --> 00:12:17,000
+ And it will make a complex number and return it.
+
+106
+00:12:17,000 --> 00:12:22,000
+ And if you happen to be at compile time, you'll do that at compile time.
+
+107
+00:12:22,000 --> 00:12:27,000
+ So things work together. You get better notation. You get better performance.
+
+108
+00:12:27,000 --> 00:12:34,000
+ And anything you can do at compile time works even better in a concurrent system because you can't get a race condition on a constant.
+
+109
+00:12:34,000 --> 00:12:39,000
+ If it's been calculated before the program starts, you can't get the threading problems.
+
+110
+00:12:39,000 --> 00:12:45,000
+ So open curly means find a constructor for the thing that I'm about to put this in.
+
+111
+00:12:45,000 --> 00:12:47,000
+ It looks at where the destination is.
+
+112
+00:12:47,000 --> 00:12:53,000
+ And it says, is there a two parameter constructor or a three parameter constructor or whatever?
+
+113
+00:12:53,000 --> 00:12:57,000
+ Or if it's just a struct, it will take the first element and put in the first element.
+
+114
+00:12:57,000 --> 00:12:59,000
+ It does it for a struct as well?
+
+115
+00:12:59,000 --> 00:13:00,000
+ Oh, yeah.
+
+116
+00:13:00,000 --> 00:13:04,000
+ See, I haven't played in C++ in a while. That's a great idea.
+
+117
+00:13:04,000 --> 00:13:14,000
+ It refers to this as uniform initialization. It will initialize if it can.
+
+118
+00:13:14,000 --> 00:13:18,000
+ And if there's any ambiguity, it of course finds the ambiguity.
+
+119
+00:13:18,000 --> 00:13:29,000
+ If you're in a context where, like you're calling a function, and the target could be a point or a complex number, it's a tough luck.
+
+120
+00:13:29,000 --> 00:13:31,000
+ Tell me. Or tell me.
+
+121
+00:13:31,000 --> 00:13:35,000
+ The error checking has actually been improved.
+
+122
+00:13:35,000 --> 00:13:43,000
+ C++11 is slightly better at finding bugs than C++98 was.
+
+123
+00:13:43,000 --> 00:13:54,000
+ I come from the school of philosophy that says that the compiler is your best friend when you generate code, when you build programs.
+
+124
+00:13:54,000 --> 00:14:00,000
+ And to make it your best friend, you actually have to have more types.
+
+125
+00:14:00,000 --> 00:14:05,000
+ If everything is an integer, well, what can the type system help you there?
+
+126
+00:14:05,000 --> 00:14:14,000
+ No, it can't. If everything is a floating point number, it can't tell you whether it's imperial or OSI units, and you'll get bugs.
+
+127
+00:14:14,000 --> 00:14:21,000
+ So you need type rich interfaces, and for that you need to be able to build cheap types, basically, and flexible types.
+
+128
+00:14:21,000 --> 00:14:22,000
+ And convenient.
+
+129
+00:14:22,000 --> 00:14:33,000
+ Types that's easy to use, simple. And so we worked from complex of 1,0, 1,2, or something like that.
+
+130
+00:14:33,000 --> 00:14:39,000
+ So curly is 1,2, and type is optional. It's only needed when it's needed.
+
+131
+00:14:39,000 --> 00:14:59,000
+ And then finally, we can now write, if we wanted to, 1+2i. Define i as the unit for the imaginary parts, and you get complex arithmetic without ever saying complex.
+
+132
+00:14:59,000 --> 00:15:03,000
+ It's down in the definition of the i-surfix.
+
+133
+00:15:09,000 --> 00:15:23,000
+ [Music]
+

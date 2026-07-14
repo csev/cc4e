@@ -1,0 +1,563 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.960
+ So I want to talk about the C++ programming language for just a bit because C++ plays a really,
+
+00:00:06.960 --> 00:00:12.160
+ really important role in the development of object-oriented programming. C of course came
+
+00:00:12.160 --> 00:00:20.160
+ out like '72 through '78 and then C++ came out in '80 and then both C++ and C co-evolved through
+
+00:00:20.160 --> 00:00:28.800
+ the early 1980s and then you see things like C# and Java and Python and PHP all informed heavily
+
+00:00:28.800 --> 00:00:39.680
+ by C++. If we look at how object-oriented was happening kind of before C++, it was like C++
+
+00:00:39.680 --> 00:00:45.680
+ wasn't really appreciated by the typical mainstream procedural programmer of the day
+
+00:00:45.680 --> 00:00:53.280
+ and so things like ALGOL and Simula, it was kind of like there were tribes that liked procedural
+
+00:00:53.280 --> 00:01:00.880
+ and tribes that liked object-oriented. But then C++ came along and sort of pretty much unified it,
+
+00:01:00.880 --> 00:01:06.320
+ which meant that you probably learned Python as your first programming language and you were using
+
+00:01:06.320 --> 00:01:12.400
+ object-oriented programming from the time that you started and C++ is what sort of unified that
+
+00:01:12.400 --> 00:01:19.520
+ and it was the C++ as the quickly number one procedural programming language and then C++
+
+00:01:20.400 --> 00:01:27.360
+ as the number one object-oriented programming language that kind of brought order to the notion
+
+00:01:27.360 --> 00:01:34.240
+ of procedural, object-oriented, hybrid, etc. and sort of everything that kind of came after 1980
+
+00:01:34.240 --> 00:01:42.800
+ was really strongly influenced and informed by C and C++. So let's take a look at how this
+
+00:01:42.800 --> 00:01:49.440
+ sort of changed over time by looking at some syntactical influence. So C++, which was the
+
+00:01:49.440 --> 00:01:54.720
+ earliest, which is a preprocessor plus a compiler, it turned into a compiler on its own eventually,
+
+00:01:54.720 --> 00:02:01.280
+ but it has this concept of a map that has a separately selectable type of the key, type of
+
+00:02:01.280 --> 00:02:08.480
+ the value, and it uses the square brackets, map open square bracket, z closed square bracket equals
+
+00:02:08.480 --> 00:02:16.160
+ eight, and that is in effect a put. That's like a insert into the map or update of the key and it's
+
+00:02:16.160 --> 00:02:23.840
+ a pretty succinct syntax and so Python came up with a way. Python really didn't want to make a
+
+00:02:23.840 --> 00:02:30.160
+ more complex syntax than C++, so Python worked on its language to make it so that you could just say
+
+00:02:30.160 --> 00:02:35.600
+ d equals d i c t and it was a typeless language and so we don't care the fact that it's going
+
+00:02:35.600 --> 00:02:41.200
+ to be strings mapping to integers because you can map lots of things to lots of things in Python,
+
+00:02:41.200 --> 00:02:47.200
+ but it did follow the d sub z equals eight and again you you use this from the beginning when
+
+00:02:47.200 --> 00:02:51.120
+ you first started programming in Python and you thought that was just natural, but what's really
+
+00:02:51.120 --> 00:02:56.480
+ going on is more like what Java did in 1995. We're not going to use the square bracket to do
+
+00:02:56.480 --> 00:03:00.880
+ put stuff into a map. We're going to be more pure here and we're going to create methods. Now if you
+
+00:03:00.880 --> 00:03:06.800
+ look under the covers in Python you see that that is really a method that does that insert of the
+
+00:03:07.440 --> 00:03:13.680
+ key of z and the value of eight, but if you look at Java it says map string integer so we again
+
+00:03:13.680 --> 00:03:21.680
+ have this notion of a generic class capital map map string integer map which is our object variable
+
+00:03:21.680 --> 00:03:26.640
+ equals new tree map string integer which of course is choosing the underlying implementation
+
+00:03:26.640 --> 00:03:34.640
+ and then they have the syntax of a setter style map dot put and then they're giving the key and
+
+00:03:34.640 --> 00:03:38.960
+ the value as two different parameters. There's choices that each of these languages are making
+
+00:03:38.960 --> 00:03:44.800
+ and I'll try to highlight them as we go through it. I want to talk a little bit about how C++
+
+00:03:44.800 --> 00:03:54.080
+ and its object-oriented approach and design made it so that a class like the map works almost the
+
+00:03:54.080 --> 00:03:59.760
+ same as like a sort of a low level class like a float or an int and it has access in particular
+
+00:03:59.760 --> 00:04:05.440
+ to kind of the special characters or operators like square brackets or plus or minus how that
+
+00:04:05.440 --> 00:04:14.160
+ happens and it is that you can create a specially named method inside of a C++ class that the
+
+00:04:14.160 --> 00:04:21.840
+ compiler will consult and call when it encounters certain what you think of as language syntax
+
+00:04:21.840 --> 00:04:26.720
+ meaning that as it's parsing the language syntax like square brackets it's like oh I've got some
+
+00:04:26.720 --> 00:04:32.240
+ code to do some work here this concept is called operator overloading meaning that the operator
+
+00:04:32.240 --> 00:04:40.080
+ the behavior of the operator is controlled by the writer of the class you are writing a class so in
+
+00:04:40.080 --> 00:04:48.640
+ this bit of code here I've created for no particular reason a a class that I call 10 integers in a row
+
+00:04:48.640 --> 00:04:54.800
+ and I have a array of 10 integer values but that's private so that's something that the
+
+00:04:54.800 --> 00:05:02.560
+ outer class can't talk to right so you can't say 10 and 10 like in the main you 10 dot values is
+
+00:05:02.560 --> 00:05:09.440
+ like no you're not allowed to touch that because it's private but then what I do is I create a
+
+00:05:09.440 --> 00:05:16.240
+ public method which is the square brackets operator method the method to be called when
+
+00:05:16.240 --> 00:05:23.680
+ the compiler encounters square brackets my class name my object name followed by square brackets
+
+00:05:23.680 --> 00:05:31.280
+ call me now the first thing we see is the return type of this operator square bracket operator code
+
+00:05:31.280 --> 00:05:37.200
+ is an integer reference an integer that can either be read or written which means it can be on the
+
+00:05:37.200 --> 00:05:44.960
+ left or right hand side of an assignment statement and the parameter that it's being given is an
+
+00:05:44.960 --> 00:05:50.880
+ integer index which is the thing inside of the square brackets now it is a reference because of
+
+00:05:50.880 --> 00:05:57.840
+ the ampersand but it is a constant reference meaning we are not allowed to change it inside
+
+00:05:57.840 --> 00:06:04.480
+ of this function okay so const means we're leaving it alone which means we are not allowed to say
+
+00:06:04.480 --> 00:06:13.280
+ index equals 42 inside the operator the square bracket operator method and so what we're returning
+
+00:06:13.280 --> 00:06:19.120
+ is that private variable values sub index but we are returning a reference to it so wherever it
+
+00:06:19.120 --> 00:06:25.440
+ appears in the original c++ code in the main what happens is that reference can be like I said on
+
+00:06:25.440 --> 00:06:30.000
+ the left or right side of an assignment state so let's take a look at how this works in the main
+
+00:06:30.000 --> 00:06:39.520
+ code I am going to create a variable called 10 of type 10 int and I say 10 sub 1 equals 40 which
+
+00:06:39.520 --> 00:06:46.560
+ means I'm storing 40 in position 1 but when it sees that 10 sub 1 it says oh oh this little class
+
+00:06:46.560 --> 00:06:52.880
+ has an operator square bracket operator so I better call that little method pass the 1 in then
+
+00:06:52.880 --> 00:07:01.520
+ that returns a reference to values sub 1 and then into that reference the 40 is assigned now python
+
+00:07:01.520 --> 00:07:10.800
+ doesn't have return a reference and it doesn't have a call a reference c kind of does but it's
+
+00:07:10.800 --> 00:07:15.680
+ very they're pointers and so references and pointers are different references you'll notice
+
+00:07:15.680 --> 00:07:20.960
+ there's no special syntax to dereference a reference whereas you when you get a pointer
+
+00:07:20.960 --> 00:07:26.880
+ you got to have special syntax to dereference a pointer so this notion of call by reference
+
+00:07:26.880 --> 00:07:33.680
+ and return by reference is like impressive in c++ and allows it to do a lot of things
+
+00:07:33.680 --> 00:07:40.960
+ and allows us to have this seemingly native line of code 10 sub 1 equals 40 which is really just
+
+00:07:40.960 --> 00:07:47.360
+ a bunch of method calls amazing and then we immediately say print 10 sub 1 contains and then
+
+00:07:47.360 --> 00:07:52.800
+ 10 sub 1 and again when this is kind of a right hand side of an assignment statement it's looking
+
+00:07:52.800 --> 00:07:59.920
+ it up it calls the method the operator the square bracket operator method passes 1 into it and then
+
+00:07:59.920 --> 00:08:08.080
+ we return values sub 1 and then that's what gets printed out and so then we say 10 sub 5 equals 10
+
+00:08:08.080 --> 00:08:15.520
+ sub 1 plus 2 and now we see 10 sub 1 on the right hand side of an assignment statement which calls
+
+00:08:15.520 --> 00:08:24.000
+ that same code in the operator brackets method within the class passes in the 1 returning the
+
+00:08:24.000 --> 00:08:30.800
+ reference to value sub 1 but then that reference is just 40 and then we add 2 to it and then we
+
+00:08:30.800 --> 00:08:37.680
+ assign it into 10 sub 5 which is again calling the in operator method to get a reference to values
+
+00:08:37.680 --> 00:08:47.600
+ sub 5 and that assignment happens all i really did was kind of faked it but i i used it to show you
+
+00:08:47.600 --> 00:08:56.000
+ this like lovely ability to do operator overloading when i first found my way into java
+
+00:08:56.000 --> 00:09:03.040
+ my greatest disappointment and because i taught a c++ class and then i learned java i wasn't a
+
+00:09:03.040 --> 00:09:10.000
+ wiz at c++ but i really thought it was pretty elegant so for me my brain was so i didn't learn
+
+00:09:10.000 --> 00:09:14.960
+ python first i learned c++ first and i'm like hey that's what object oriented ought to be
+
+00:09:14.960 --> 00:09:21.360
+ and then i'm like i'm going java and java didn't do that java basically does not want and did not
+
+00:09:21.360 --> 00:09:29.840
+ want as a choice to take values by reference in method calls and even more it did not want to
+
+00:09:29.840 --> 00:09:36.880
+ return references in the return values of method calls that those two things the ampersand in the
+
+00:09:36.880 --> 00:09:44.240
+ return type and the ampersand in the call parameter call those are essential for c++ to accomplish
+
+00:09:44.240 --> 00:09:52.320
+ this and java did not want to return references in particular because it has to do with garbage
+
+00:09:52.320 --> 00:09:56.800
+ collection variables going out of scope etc etc if you return a reference you don't know when it's
+
+00:09:56.800 --> 00:10:07.040
+ out of scope etc um these are powerful complex and potentially quite dangerous things right
+
+00:10:07.040 --> 00:10:14.560
+ but the c++ design was hey you are a samurai warrior and you are going to
+
+00:10:14.560 --> 00:10:22.400
+ you are going to use these very wisely and we don't want to take power away from you we want
+
+00:10:22.400 --> 00:10:28.720
+ to give you all the power that you might want and just trust that you're not going to make mistakes
+
+00:10:28.720 --> 00:10:33.600
+ right and so choices that java make and python make are like no no no we don't want you to make
+
+00:10:33.600 --> 00:10:37.360
+ mistakes so we're not even going to give you this kind of thing but there are other ways to do
+
+00:10:37.360 --> 00:10:46.960
+ everything uh things like tuple returns in c is a good example of um kind of an homage to this
+
+00:10:46.960 --> 00:10:54.480
+ notion of returning things is not always just a single thing so um but c++ is kind of unique now
+
+00:10:54.480 --> 00:11:06.720
+ again um python emulated the c syntax that was quite beautiful that was a result of c's support
+
+00:11:06.720 --> 00:11:14.800
+ for operator overload and here's the here's the thing where like it all comes together so python
+
+00:11:14.800 --> 00:11:21.040
+ saw the beautiful syntax that c++ when you did the right things the compiler would give you this
+
+00:11:21.040 --> 00:11:25.760
+ let you use this beautiful syntax and still call your methods inside the object but they didn't
+
+00:11:25.760 --> 00:11:33.920
+ want to do the call by reference and return by re return reference that c++ did and so what they
+
+00:11:33.920 --> 00:11:41.360
+ did is they did basically a syntax transformation if you look python is in a sense very java like
+
+00:11:41.360 --> 00:11:47.680
+ in that everything has to happen through methods but then there's these hidden methods okay let's
+
+00:11:47.680 --> 00:11:53.280
+ take a look at the code so i'll create a dictionary named x and then we say x sub 1 equals 40 and again
+
+00:11:53.280 --> 00:11:57.280
+ we know what this means that means somewhere in the key the key under the key one there's 40
+
+00:11:57.280 --> 00:12:04.640
+ now i can print this out by saying x dot double underscore get item double underscore open paren
+
+00:12:04.640 --> 00:12:11.360
+ one close print that's taking the index inside of the square brackets and passing it to a predefined
+
+00:12:11.360 --> 00:12:20.320
+ python understood rule for what get item that the square brackets turn into double underscore get
+
+00:12:20.320 --> 00:12:26.960
+ item double underscore where the x is the object and the parameter is the syntax so if we think
+
+00:12:26.960 --> 00:12:32.400
+ about it on the right hand side of an assignment statement where we're just reading it it's just
+
+00:12:32.400 --> 00:12:38.480
+ doing the get right it's kind of doing a getter like thing give me item one and then out comes
+
+00:12:38.480 --> 00:12:45.360
+ the 40 and that's how the print of x sub 1 is a 40 that's really what happens under the covers is
+
+00:12:45.360 --> 00:12:50.720
+ there is a class which has underscore underscore get item underscore underscore defined in it as
+
+00:12:50.720 --> 00:12:58.880
+ a method and that's how it loads x sub 1 so if we go down another line and we say x sub 5 equals
+
+00:12:58.880 --> 00:13:04.960
+ x sub 1 plus 2 seems simple enough and and literally for years python software developers
+
+00:13:04.960 --> 00:13:10.720
+ don't even need to know that this is miraculously and beautifully complex but what this translates
+
+00:13:10.720 --> 00:13:19.520
+ into at runtime by compiler syntax transformation is the x sub 1 on the right hand side turns into
+
+00:13:19.520 --> 00:13:27.440
+ a x dot get item paren one which pulls up the 40 and then plus 2 gets added to it but then that
+
+00:13:27.440 --> 00:13:34.080
+ expression is passed into x dot set item in position five so the the left hand side of
+
+00:13:34.080 --> 00:13:40.800
+ the assignment statement is the x sub 5 equals part and that's calling set item so if it's doing
+
+00:13:40.800 --> 00:13:44.640
+ a square bracket look up on the right hand side it's calling get item and if it's doing a square
+
+00:13:44.640 --> 00:13:49.280
+ bracket on the left hand side of an assignment statement it's doing a set item so this means
+
+00:13:49.280 --> 00:13:55.280
+ that there was no need to return references no need to process references none of the hoops
+
+00:13:56.960 --> 00:14:03.200
+ that c++ went through and so you see that python did not did not choose to implement
+
+00:14:03.200 --> 00:14:09.520
+ the way c++ did but they supported the very elegant syntax now and then you'll see that java
+
+00:14:09.520 --> 00:14:16.960
+ in 1995 takes it or 94 takes it one step further in that they're not even going to give you that
+
+00:14:16.960 --> 00:14:24.240
+ cool syntax they're like no we're going to say just do x dot put and x dot get and call it good
+
+00:14:24.240 --> 00:14:29.120
+ if you if you know that x is an object and you need to do a get in the put do the get in the put
+
+00:14:29.120 --> 00:14:33.520
+ we're not going to do this little syntax transformation that makes it pretty and we're
+
+00:14:33.520 --> 00:14:39.920
+ also not going to give you uh operator overloading because again operator overloading requires
+
+00:14:39.920 --> 00:14:47.120
+ references because it allows the class to return a thing that can be used on either the left or
+
+00:14:47.120 --> 00:14:55.840
+ right hand side and again java did that because they did not want to make their memory management
+
+00:14:55.840 --> 00:15:09.040
+ more complex so it's hard to argue but what this kind of shows you is like the amazing
+
+00:15:10.240 --> 00:15:17.520
+ interplay between these languages yarn stro strip went to school in denmark and started working on
+
+00:15:17.520 --> 00:15:26.400
+ c++ in denmark but then was hired to go to bell labs in new jersey where he met and worked with
+
+00:15:26.400 --> 00:15:32.800
+ for a number of years uh yarn stro strip and dennis richie and all the folks at bell labs
+
+00:15:32.800 --> 00:15:39.840
+ that gave us unix and c over the decades and so c++ kind of came to the world from bell labs from
+
+00:15:39.840 --> 00:15:45.760
+ murray hill and and guido van rossum who was in netherlands at the time really was just looking
+
+00:15:45.760 --> 00:15:51.760
+ at all this stuff and using all this stuff and an expert in c and c++ and back in those days we
+
+00:15:51.760 --> 00:15:57.120
+ tended to look a lot at like the code that c++ generated and guido's like i'm just gonna i'm
+
+00:15:57.120 --> 00:16:02.240
+ gonna borrow these are really good patterns and so that's how we see so much influence of not just
+
+00:16:02.240 --> 00:16:08.800
+ the syntax but the actual runtime conventions and and like if you if you look at some of the generated
+
+00:16:08.800 --> 00:16:13.840
+ c++ code the concept of private is often done with underscores they use underscores a lot
+
+00:16:13.840 --> 00:16:17.120
+ python's like yeah i'll just borrow that i'll just use double underscore as my
+
+00:16:17.120 --> 00:16:28.320
+ signal is as private and away you go so to show the influence that c++ and c had over python both
+
+00:16:28.320 --> 00:16:34.000
+ in the syntax and in the runtime you can take a quick look at some internal details of how python
+
+00:16:34.000 --> 00:16:42.400
+ works and python turns out to almost identically implemented operator overloading in as as c++ but
+
+00:16:42.400 --> 00:16:48.000
+ we don't see it it's all internal you have to kind of look so on on the left hand side that's
+
+00:16:48.000 --> 00:16:53.520
+ the code that i just got done going through that's the c++ code that has the private values and then
+
+00:16:53.520 --> 00:16:59.920
+ the public operator overload and now if we look on the right hand side we see a class tenant and
+
+00:16:59.920 --> 00:17:05.760
+ i'm creating a double underscore values which is values private as a dictionary and then i'm going
+
+00:17:05.760 --> 00:17:11.360
+ to define the set item so this is like a private method called set item and then private method
+
+00:17:11.360 --> 00:17:18.640
+ called get item python basically has the left side and right side assignment of a bracket lookup
+
+00:17:18.640 --> 00:17:24.080
+ operators different and the set item is the left hand side and the get item is the right hand side
+
+00:17:24.080 --> 00:17:30.080
+ you'll see that in the set item i'm just taking self values sub index equals value and i'm in the
+
+00:17:30.080 --> 00:17:36.560
+ in the getter i'm returning self underscore values sub index so that's the right hand side so if we
+
+00:17:36.560 --> 00:17:44.000
+ look at the code i see let's make a tenant on the variable 10 10 sub 1 equals 40 now python transforms
+
+00:17:44.000 --> 00:17:53.440
+ that 10 sub 1 syntax into a set item of 10 comma the number 1 comma 40 and then call set item and
+
+00:17:53.440 --> 00:18:02.560
+ you can see of course it worked right it the three values are self index and value well self is 10
+
+00:18:02.560 --> 00:18:08.080
+ which is the object instance the index is the thing inside the square brackets and the value
+
+00:18:08.080 --> 00:18:12.240
+ is the result of the expression on the right hand side it's not just 40 but it's the expression on
+
+00:18:12.240 --> 00:18:20.240
+ the right hand side and so that goes in right we see the print 10 sub 1 well that is a right hand
+
+00:18:20.240 --> 00:18:28.640
+ side reference to 10 sub 1 so that's going to call get item self is 10 and then index is the 1 and
+
+00:18:28.640 --> 00:18:33.200
+ we're going to just return it and that's going to print out a nice little happy little integer
+
+00:18:33.200 --> 00:18:39.040
+ which is exactly the variable 40 so it says 10 sub 1 contains 40 and at this point it should be
+
+00:18:39.040 --> 00:18:44.400
+ obvious what's going on when i say 10 sub 5 equals 10 sub 1 plus 2 well the 10 sub 1 on the right hand
+
+00:18:44.400 --> 00:18:51.440
+ side turns into a get item that gives us back the 40 value then the 40 and the two are added
+
+00:18:51.440 --> 00:18:56.000
+ together to finish the right hand side of the expression then we're going to sign that into 10
+
+00:18:56.000 --> 00:19:05.360
+ sub 5 which then turns into a set item of 10 comma 5 comma 42 and then that stores 42 in position 5
+
+00:19:05.360 --> 00:19:12.960
+ in our private variable values private values variable and then i printed out which is left hand
+
+00:19:12.960 --> 00:19:20.720
+ side lookup of 10 sub 5 which calls get item again with self is 10 and index is 5 and so we get the
+
+00:19:20.720 --> 00:19:29.520
+ 42 and so you see how they're so similar inside i mean again like if you look at generated c++
+
+00:19:29.520 --> 00:19:34.800
+ code from early c++ code compilers you'll see these double underscores used in various places
+
+00:19:34.800 --> 00:19:40.560
+ which means that python in its internal implementation use the same patterns as c++ did
+
+00:19:40.560 --> 00:19:46.240
+ in its internal implementation python chose not to do call by reference and return by reference
+
+00:19:46.240 --> 00:19:52.880
+ java chose not to be not to do call by reference and return by reference and java chose not to do
+
+00:19:52.880 --> 00:20:00.720
+ the fancy syntax transformation but you know who knows maybe maybe one of these days java could do
+
+00:20:00.720 --> 00:20:07.520
+ that syntax transformation and be like whoa java has everything and then to some degree python has
+
+00:20:07.520 --> 00:20:14.640
+ shown the way about how you do this without doing um without doing call call by reference and again
+
+00:20:14.640 --> 00:20:19.920
+ that ampersand operator and ampersand index on the left hand side that's the like scary part where
+
+00:20:19.920 --> 00:20:28.000
+ language designers are like oh sure i want to go do that because c++ is not a garbage collected
+
+00:20:28.000 --> 00:20:33.280
+ language but python and java are garbage collected languages and that's not the only reason
+
+00:20:33.280 --> 00:20:39.840
+ that's that python and java didn't want to do call by reference but it is one of the reasons that you
+
+00:20:39.840 --> 00:20:46.400
+ kind of just simplifies to know that there when a function is done it's done and there's not like
+
+00:20:46.400 --> 00:20:51.440
+ sneaky little pointers inside that function that need to stay alive so it allows you to throw stuff
+
+00:20:51.440 --> 00:20:59.440
+ away when functions are finished okay enough of that just again i'm just trying to show you in the
+
+00:20:59.440 --> 00:21:05.920
+ simplest possible examples the kinds of design decisions that all these languages and library
+
+00:21:05.920 --> 00:21:32.960
+ designers were doing as they built the languages that we know love and use today
+

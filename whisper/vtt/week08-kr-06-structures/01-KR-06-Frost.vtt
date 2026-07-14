@@ -1,0 +1,269 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:02.580
+ - So hello, welcome to chapter six.
+
+00:00:02.580 --> 00:00:06.740
+ In this chapter we talk about structures, but so much more.
+
+00:00:06.740 --> 00:00:12.220
+ There is a mid-chapter surprise in this book,
+
+00:00:12.220 --> 00:00:15.940
+ and I am sure that it's so surprising that it's caused
+
+00:00:15.940 --> 00:00:20.100
+ a few too many people to drop out of computer science,
+
+00:00:20.100 --> 00:00:23.520
+ first computer science course.
+
+00:00:23.520 --> 00:00:27.520
+ And that's because in sections 6.1 through 6.4,
+
+00:00:29.080 --> 00:00:31.960
+ we're learning the C language.
+
+00:00:31.960 --> 00:00:34.480
+ And we're learning just what a structure is.
+
+00:00:34.480 --> 00:00:37.560
+ It's a simple, beautiful, elegant concept.
+
+00:00:37.560 --> 00:00:39.900
+ It's sort of a wrapper for a whole bunch of types.
+
+00:00:39.900 --> 00:00:42.920
+ It groups them together so that you can create a new type.
+
+00:00:42.920 --> 00:00:45.820
+ And it really at this point is the last foundational
+
+00:00:45.820 --> 00:00:50.400
+ component of the core C languages, core C language.
+
+00:00:50.400 --> 00:00:53.980
+ And then in section 6.5, the authors pivot
+
+00:00:57.660 --> 00:01:00.000
+ to talking about data structures.
+
+00:01:00.000 --> 00:01:04.700
+ And that is the applications of C structures.
+
+00:01:04.700 --> 00:01:08.240
+ And it's the foundational notion in computer science.
+
+00:01:08.240 --> 00:01:10.140
+ It's the kind of thing where how do you build
+
+00:01:10.140 --> 00:01:12.220
+ a Python dictionary in C.
+
+00:01:12.220 --> 00:01:18.200
+ And so this is a pattern we call the knee of the curve,
+
+00:01:18.200 --> 00:01:22.040
+ where things are going along just fine up to 6.4.
+
+00:01:22.040 --> 00:01:25.500
+ Like, oh, here's a for loop, and here's a string,
+
+00:01:25.500 --> 00:01:27.640
+ and here's an array.
+
+00:01:27.640 --> 00:01:29.660
+ And here's even a pointer that's not that hard.
+
+00:01:29.660 --> 00:01:31.140
+ And structures are not that hard.
+
+00:01:31.140 --> 00:01:34.680
+ But then when we start talking about applications
+
+00:01:34.680 --> 00:01:37.880
+ of structures, what we call data structures.
+
+00:01:37.880 --> 00:01:41.280
+ Structures was named because data structures was a concept.
+
+00:01:41.280 --> 00:01:45.780
+ But how we use structures is a next level thing.
+
+00:01:45.780 --> 00:01:47.860
+ We're kind of leveling up.
+
+00:01:47.860 --> 00:01:51.740
+ So I want you, starting from here,
+
+00:01:51.740 --> 00:01:55.620
+ chapter six is the last real chapter that I'm gonna cover.
+
+00:01:55.620 --> 00:01:59.260
+ But it is expanding, 'cause chapter six is the beginning
+
+00:01:59.260 --> 00:02:03.420
+ of a whole additional course, a course on data structures.
+
+00:02:03.420 --> 00:02:09.040
+ So I want you, if you're rushing, I want you to slow down.
+
+00:02:09.040 --> 00:02:12.580
+ I want you to take your time and understand.
+
+00:02:12.580 --> 00:02:17.140
+ Because if you understand this, you can literally,
+
+00:02:17.140 --> 00:02:21.000
+ you have a doorway into a lot of computer science.
+
+00:02:21.000 --> 00:02:24.140
+ We'll talk about recursion even by the end.
+
+00:02:24.140 --> 00:02:26.140
+ And so just don't rush.
+
+00:02:26.140 --> 00:02:28.900
+ Work on mastery.
+
+00:02:28.900 --> 00:02:30.520
+ These are complex concepts.
+
+00:02:30.520 --> 00:02:33.520
+ They are not natural to understand.
+
+00:02:33.520 --> 00:02:38.740
+ And so before we start, I wanna do something different.
+
+00:02:38.740 --> 00:02:42.260
+ I wanna read you a poem.
+
+00:02:42.260 --> 00:02:45.820
+ One of my favorite poems from Robert Frost.
+
+00:02:45.820 --> 00:02:49.980
+ I was lucky enough, fortunate enough to be a good friend
+
+00:02:49.980 --> 00:02:53.540
+ of Bob Frost, who was a grandson of Robert Frost.
+
+00:02:53.540 --> 00:02:56.600
+ Bob Frost had a connection to the University of Michigan.
+
+00:02:56.600 --> 00:02:58.340
+ Robert Frost has a Michigan
+
+00:02:58.340 --> 00:03:01.380
+ and University of Michigan connection.
+
+00:03:01.380 --> 00:03:06.100
+ And I loved this poem that I'm about to read you
+
+00:03:06.100 --> 00:03:10.580
+ long before I met Bob Frost, the grandson of Robert Frost.
+
+00:03:10.580 --> 00:03:17.100
+ So the poem that I talk a lot about,
+
+00:03:17.100 --> 00:03:23.380
+ and really it's one line, miles to go before I sleep.
+
+00:03:24.300 --> 00:03:26.500
+ This is the poem called Stopping by the Woods
+
+00:03:26.500 --> 00:03:28.380
+ on a Snowy Evening.
+
+00:03:28.380 --> 00:03:31.960
+ And to me, it speaks of the notion
+
+00:03:31.960 --> 00:03:36.960
+ that journeys are not short nor easy, and it's okay.
+
+00:03:36.960 --> 00:03:40.420
+ Except that.
+
+00:03:40.420 --> 00:03:41.660
+ So here we go.
+
+00:03:41.660 --> 00:03:43.880
+ Dr. Chuck in poetry.
+
+00:03:43.880 --> 00:03:49.200
+ Whose woods these are, I think I know.
+
+00:03:49.200 --> 00:03:51.780
+ His house is in the village though.
+
+00:03:51.780 --> 00:03:54.580
+ He will not see me stopping here to watch his woods
+
+00:03:54.580 --> 00:03:56.540
+ fill up with snow.
+
+00:03:56.540 --> 00:03:58.900
+ My little horse must think it queer
+
+00:03:58.900 --> 00:04:01.260
+ to stop without a farmhouse near,
+
+00:04:01.260 --> 00:04:03.780
+ between the woods and frozen lake,
+
+00:04:03.780 --> 00:04:05.920
+ the darkest evening of the year.
+
+00:04:05.920 --> 00:04:09.660
+ He gives his harness bells a shake
+
+00:04:09.660 --> 00:04:12.820
+ to ask if there is some mistake.
+
+00:04:12.820 --> 00:04:15.060
+ The only other sounds the sweep
+
+00:04:15.060 --> 00:04:18.020
+ of easy wind and downy flake.
+
+00:04:18.020 --> 00:04:22.140
+ The woods are lovely, dark, and deep,
+
+00:04:22.140 --> 00:04:24.480
+ but I have promises to keep,
+
+00:04:24.480 --> 00:04:28.380
+ and miles to go before I sleep,
+
+00:04:28.380 --> 00:04:31.980
+ and miles to go before I sleep.
+
+00:04:31.980 --> 00:04:38.900
+ So the essence of this is that you have come a long way
+
+00:04:38.900 --> 00:04:44.500
+ to get to 6.4 in this book,
+
+00:04:44.500 --> 00:04:48.420
+ and it may feel like you've gone long enough,
+
+00:04:48.420 --> 00:04:52.300
+ and you should just pat yourself on the back,
+
+00:04:52.300 --> 00:04:56.740
+ but after 6.4, there are miles to go before I sleep.
+
+00:04:56.740 --> 00:05:00.780
+ But the good news is, when you're done, you can relax.
+
+00:05:00.780 --> 00:05:04.380
+ So what I want you to do is take your time,
+
+00:05:04.380 --> 00:05:08.820
+ things get much more complex really fast going forward,
+
+00:05:08.820 --> 00:05:11.260
+ and I don't want to lose you.
+
+00:05:14.660 --> 00:05:17.740
+ (gentle piano music)
+

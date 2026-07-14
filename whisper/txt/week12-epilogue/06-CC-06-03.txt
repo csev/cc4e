@@ -1,0 +1,128 @@
+ So now I want to talk to you about the Python 1.0 dictionary as built by Guido back in 1989-1991.
+ And this sample code is available under /code and it's the epilogue code and it's p1dict.c.
+ So the key thing is is that instead of reading the C programming book and KNR in chapter 6,
+ Guido van Rossum was reading page 518 of a much earlier document which is more about pure data
+ structures and algorithms. And so this was kind of like our bible on how to write good fast code
+ and this was our bible on how to write sophisticated algorithms. So Guido found this
+ and he decided he didn't want to make linked lists and that's partly because of his experience in
+ ABC. And so this is open hashing using an array. So this is an array based hash concept and in the
+ bucket styles there's an array of hash link lists and so this is an array that actually
+ everything is stored in the array rather than a pointer to things that are outside the array.
+ The key in open addressing is how you probe and find open slots when your initial hash
+ leads to a collision in hashes. We try to make hashes not collide but they can't collide.
+ And so this is basically it uses a circular iteration and it actually if you look at there
+ at L3 it's subtracting one and if it's less than zero set i to i plus m go back to step L2.
+ It's probably just easier to show you a picture of what's going on. So let's imagine that we've got
+ an array of eight key value pairs and this is literally an array. In our case these will become
+ pointers. Key will be a pointer, value will be a pointer but Knuth is not thinking about that.
+ As far as Knuth is concerned everything is just a variable. So it's an array of key value pairs
+ and the key thing to the hash it's the same hash computation and the same modulo operation
+ that looks at the number of buckets. But when it picks a slot in that the array that slot is just
+ where we hope to store it but if that's already occupied we got to find another place. And we
+ presuppose that there's always space and we'll talk about how that ends up getting solved later
+ with rehashing. But the key is is we got to figure out where we want to put it assuming that there's
+ space and linear probing algorithm is you start going backwards. So you go from three to two and
+ is that available? Great, use it. If two is not available go to one, go to zero. And if you get
+ to zero you've got to go all the way to the end. This is kind of a circular list. Eventually it's
+ going to visit all eight entries but it's going to start at whatever entry the hash indicated it's
+ supposed to start. And the whole purpose of the hash is to get to the entry that has the key and
+ value in question more rapidly or to know that it's not there. And the way you know that it's
+ not there is you run this loop and when you find a key and a value of zero which means it's empty
+ then you know that it's not there and you also know where you're supposed to put it. So if we
+ look at the data structures that I wrote to implement this Python 1 dictionary we have a
+ denode which is just a pointer to a key and a pointer to a value because we're going to do
+ strings key value pairs to simplify this. The dictionary itself has the size of the array,
+ the alloc which we've been using all along, count or length, I switch back and forth in some of this
+ code, and then an array of denodes. Now remember that that's a struct. So if we look at the
+ constructor we allocate the dictionary, we set its length which is the number of things in it
+ to zero, and we set the alloc which is the size of the space we can store things to two. And then
+ we allocate our two item array of struct denodes and then we have to mark them. We can't just assume
+ they're zeros when we get it back from malloc. Some mallocs give us zeros, some mallocs don't,
+ but in this case we need to no matter what ensure that we have them marked as null because our null
+ is an indication of emptiness so that later when we're looking around we can find which areas are
+ empty. And so if we take a look at the put, the hash tells us where to look and we put this all
+ in p1 dict find which does the hash computation and does the modulo of the number of buckets
+ and gives us back a pointer to the denode in question. Now this pointer is either where that
+ key belongs and already exists or it's where that key belongs and it's empty. Now if we found an
+ empty slot we don't have to allocate the denode because it's already the array. We just have to
+ set up the key with a malloc and a copy, set up the value with a malloc and a copy, and then record
+ the fact that we now have one key value pair in our array. We're going to use this not only to
+ return like len but also to know when we filled it up because when len gets to be the size of
+ alloc it's full and we'll talk more about that in a second. So that's what it looks like after
+ we've inserted one key value pair. Now let's say we're getting a put request for a key that's
+ already in there so we're going to say z equals w instead of catchphrase. So we run p dict underscore
+ find and it comes back and it says here's your thing but the difference is you look and the key
+ the one it's pointing to the one it gave us back the one it found already has a key. Now you might
+ think that's bad news. No it's great news. It means z already has a slot and then all we have to do
+ is update the value because dictionaries function like assignment statements. If you have z that has
+ catchphrase and then we get z equals w you just you're supposed to store w and then throw catchphrase
+ away and so that's you see it do that right it it frees old value which was catchphrase and then
+ mallocs the new one and then stir copies into it and now at the end of this one we still have a
+ length of one and z maps to w in our hash mat. So now let's add let's do another put let's say y
+ equals b we're going to do p dict underscore find and it's going to hash the value y it's going to
+ give us back position one now that could be because it hashed to position zero and linear probing found
+ its way to position one or maybe it hashed to position one it just doesn't matter p dict find
+ says look this is the best possible place to store y in this particular array.
+ So now at the end of that we will have z and y and we have an alloc of two and a length of two
+ but now let's say we want to insert c so the problem is is that we're full which means that
+ p dict underscore find is not going to find one it whatever it hashes to it's going to look through
+ all the rest of them but there's no space there's no space in the array so what we have to do is if
+ it's not there and we're out of space we have to expand items that is the code what we call rehashing
+ so let's take a look at the rehashing code we'll look at this in some detail at the high level we
+ store the size and the array of items in old alloc and old items respectively then we double
+ the size that's just how we do it and then we allocate a brand new array of d nodes in this
+ case four d nodes get allocated and that's in items and then we do some code that pretty much
+ looks like it came from the constructor we're going to take those four nodes four d nodes and
+ we're going to set their key and value to null because at this point we're kind of like halfway
+ through reorganizing this thing our old items are available to us but new items are empty that means
+ that we can use find and do inserting into the new one and so that's what we're going to do
+ before we throw old alloc away we're just going to write a simple for loop to go through them now
+ we've got to check to see if old item sub i is null because when we're done with this we're not
+ just going to wait till it's 100 full we're going to actually reallocate when it's 70 full if old
+ item sub i is null dot key is null that means it's empty we don't have to reinsert it that's all we're
+ saying is we don't have to reinsert it but if we find one then we go and ask the p1 dict underscore
+ find where to put it and in this case we're only going to always get a new slot because
+ keys are unique which means we can go through all the old item keys and never hit the same one twice
+ and there will always be space because we just alloc a thing that's twice as big as the thing
+ it's coming from so there was two and we've allocated it for it we will always find a place
+ to put it because the keys are unique think about it for just a minute and then we just say key equal
+ and value equals copy and we don't have to reallocate them or anything they're just pointers
+ to the saved strings that are key and value and then the only thing we throw away is old items
+ and so you know it's it's it's it's kind of pretty now the last thing where we say old equals p1
+ dict find self key we used old before to figure out that oh wait a sec we need to make some more
+ space so we have to then find where the incoming key because we're in the middle of an insert
+ right now so we have to know in the new items where that belongs and so that's why we say that
+ so if we take a look at the moment where we're inserting the c key we've got we're full up we've
+ got two allocated right and we're looking we're saying where should we put c and the answer is
+ you can't so now we drop in to the reallocation code so the first thing the reallocation code does
+ is make a copy of old items and old alec so there's the two items z and y are there and then what we
+ do is we double the size and make an empty array of four d nodes and set their key and value to null
+ and so we kind of have the old array and the new array sitting around right now so then what we do
+ is we start looping through the old array and we see oh z equals w so we just run a simple hash
+ calculation and say where does z belong in the new items and then we put it in there now we don't
+ have to deallocate or reallocate the actual z or the actual w we just have to change the pointers
+ now you'll notice at this moment we've got a pointer in the top one and the bottom one that's
+ pointing to the same allocated memory that's a reference count problem but we're going to throw
+ old items away in just a bit so we loop through that right so we find the z and we put the z in
+ the right spot remember we're still in the middle of trying to insert c we've kind of temporarily
+ paused and clean or cleaning up our hash map to give us space to insert so then we go through
+ the loop again and now we find that the y belongs in position three y equals b goes into position
+ three and now we're at the point where what we have done we're still again trying to insert c
+ but we have to first make space now we're kind of done with old items we've got pointers in the new
+ items that point to the key value pairs and we can actually just throw that away not only when
+ we throw that away it not only throws away the array itself but it really kind of resolves our
+ problem that we had two pointers pointing to the same thing which leads us to like memory leaks
+ potentially but now we've cleaned our mess up we've freed the old items we're still in the middle of
+ inserting c and this is one of the like downsides to hashing is this cleanup phase can take a little
+ while i just moved everything around so it looks like what we had before and now that we've got
+ this thing rehashed and we've got our z equals w and y equals b in an array that is for long rather
+ than too long we are ready to continue with the insertion of c so we say okay where does c belong
+ we run the hash again with the pdict underscore find of the c key and it says that belongs in two
+ and again it might be in two because it's empty it might be in two because something was not empty
+ and we did collision resolution but it doesn't matter when it comes back from find remember
+ it's bigger so there's always going to be space so we don't have to worry too much about there not
+ being space but now we got an empty slot and we can put that value in and put the key in and and
+ update it so that there are three items the length becomes three so that's how they did it how geeto
+ did it in python 1.0 but up next we're going to talk with geet we already talked with geeto
+ about how things changed between python 3.6 and python 3.7 the same implementation was like python
+ 0.1 through python 3.6 roughly the same shape i just covered but things changed in python 3.7

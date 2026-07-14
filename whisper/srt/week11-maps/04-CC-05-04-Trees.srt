@@ -1,0 +1,1476 @@
+1
+00:00:00,000 --> 00:00:03,160
+ So up to now, we've done all the easy stuff.
+
+2
+00:00:03,160 --> 00:00:07,960
+ So it's time to do the linked TreeMaP.
+
+3
+00:00:07,960 --> 00:00:12,200
+ Which really is kind of a modern, flexible key value store.
+
+4
+00:00:12,200 --> 00:00:14,400
+ This is a nice key value store that you
+
+5
+00:00:14,400 --> 00:00:18,400
+ would want to use if you were a software developer.
+
+6
+00:00:18,400 --> 00:00:24,880
+ Our linked TreeMaP is ordered, like Python order dictionaries.
+
+7
+00:00:24,880 --> 00:00:29,680
+ It stays sorted, meaning that not only does it stay in order,
+
+8
+00:00:29,680 --> 00:00:31,320
+ it stays in sorted order.
+
+9
+00:00:31,320 --> 00:00:34,920
+ We insert things, and they go in an order, like a Java TreeMaP.
+
+10
+00:00:34,920 --> 00:00:40,400
+ You can be iterated, like a C++ map or an ordered dictionary,
+
+11
+00:00:40,400 --> 00:00:42,040
+ but not a Java TreeMaP.
+
+12
+00:00:42,040 --> 00:00:45,120
+ This just boggles my mind why you can't--
+
+13
+00:00:45,120 --> 00:00:47,560
+ well, we'll talk about actually why they didn't do it.
+
+14
+00:00:47,560 --> 00:00:51,600
+ But it's not that hard.
+
+15
+00:00:51,600 --> 00:00:53,480
+ And we're going to have fast lookups.
+
+16
+00:00:53,480 --> 00:00:56,720
+ So the problem with a list map is it's
+
+17
+00:00:56,720 --> 00:00:58,120
+ got a lot of nice features.
+
+18
+00:00:58,120 --> 00:00:59,760
+ And we can make a sorted list map,
+
+19
+00:00:59,760 --> 00:01:03,440
+ and we're going to in this section.
+
+20
+00:01:03,440 --> 00:01:05,800
+ But the problem with a list map is lookup is slow.
+
+21
+00:01:05,800 --> 00:01:09,160
+ And so we're going to actually pretty much use the tree part
+
+22
+00:01:09,160 --> 00:01:10,400
+ to do fast lookup.
+
+23
+00:01:10,400 --> 00:01:13,760
+ And you can see this in 6.5.2 of the textbook.
+
+24
+00:01:13,760 --> 00:01:16,200
+ So we are going to do something that's
+
+25
+00:01:16,200 --> 00:01:17,560
+ pretty common in data structures.
+
+26
+00:01:17,560 --> 00:01:19,880
+ And that is we're going to maintain two--
+
+27
+00:01:19,880 --> 00:01:21,240
+ whatever the entries, and they're
+
+28
+00:01:21,240 --> 00:01:24,160
+ going to maintain simultaneously a sorted linked
+
+29
+00:01:24,160 --> 00:01:27,620
+ list through the entries and a binary tree.
+
+30
+00:01:27,620 --> 00:01:29,480
+ And so we're going to look at them separately,
+
+31
+00:01:29,480 --> 00:01:32,800
+ and then we're ultimately going to find them together.
+
+32
+00:01:32,800 --> 00:01:34,960
+ We're going to put them together.
+
+33
+00:01:34,960 --> 00:01:39,200
+ So let's talk about what a tree is.
+
+34
+00:01:39,200 --> 00:01:45,400
+ A tree is a structure that the TreeMaP entry you see
+
+35
+00:01:45,400 --> 00:01:47,120
+ has a left and a right.
+
+36
+00:01:47,120 --> 00:01:49,520
+ So the things to the left are things
+
+37
+00:01:49,520 --> 00:01:52,320
+ where the key is lower than the current, right?
+
+38
+00:01:52,320 --> 00:01:54,360
+ So H equals 42.
+
+39
+00:01:54,360 --> 00:01:57,680
+ The question is, where would A go?
+
+40
+00:01:57,680 --> 00:01:59,480
+ Well, A goes to the left.
+
+41
+00:01:59,480 --> 00:02:00,960
+ Where would T go?
+
+42
+00:02:00,960 --> 00:02:02,680
+ Well, T goes to the right.
+
+43
+00:02:02,680 --> 00:02:07,680
+ So the idea of the tree is that whatever entry you're in,
+
+44
+00:02:07,680 --> 00:02:09,640
+ there's a key in the entry.
+
+45
+00:02:09,640 --> 00:02:11,600
+ And then you can either go left or right
+
+46
+00:02:11,600 --> 00:02:14,920
+ based on the comparison of the key.
+
+47
+00:02:14,920 --> 00:02:18,480
+ And instead of having a head and a tail, there is just a root.
+
+48
+00:02:18,480 --> 00:02:22,200
+ So the root is the top entry of this tree.
+
+49
+00:02:22,200 --> 00:02:24,440
+ And then there's a series of left and right choices
+
+50
+00:02:24,440 --> 00:02:25,600
+ that you make.
+
+51
+00:02:25,600 --> 00:02:28,560
+ And each entry has a left and a right.
+
+52
+00:02:28,560 --> 00:02:32,720
+ And the TreeMaP entry has a key value pair.
+
+53
+00:02:32,720 --> 00:02:36,400
+ And we're going to keep key and value as public,
+
+54
+00:02:36,400 --> 00:02:38,120
+ because it's just an entry.
+
+55
+00:02:38,120 --> 00:02:40,560
+ But now there is no next, right?
+
+56
+00:02:40,560 --> 00:02:43,080
+ This is why we are using abstraction,
+
+57
+00:02:43,080 --> 00:02:46,240
+ because we're not even going to give them a next.
+
+58
+00:02:46,240 --> 00:02:49,120
+ We're going to have a left and a right, OK?
+
+59
+00:02:49,120 --> 00:02:50,760
+ And we're not going to show that.
+
+60
+00:02:50,760 --> 00:02:52,720
+ We're not going to let people see that.
+
+61
+00:02:52,720 --> 00:02:55,160
+ We're just going to give them a set of methods
+
+62
+00:02:55,160 --> 00:02:56,560
+ to mess with our TreeMaP.
+
+63
+00:02:56,560 --> 00:02:58,400
+ And we're going to deal with all this stuff.
+
+64
+00:02:58,400 --> 00:03:00,640
+ And we need a left and a right to do it.
+
+65
+00:03:00,640 --> 00:03:03,360
+ So just taking a look at how it works
+
+66
+00:03:03,360 --> 00:03:05,040
+ is let's just say we're going to--
+
+67
+00:03:05,040 --> 00:03:07,360
+ in this current tree that I've sort of built,
+
+68
+00:03:07,360 --> 00:03:08,560
+ they're not always balanced.
+
+69
+00:03:08,560 --> 00:03:10,600
+ I happen to balance it just because it looks better
+
+70
+00:03:10,600 --> 00:03:12,480
+ on PowerPoint slides.
+
+71
+00:03:12,480 --> 00:03:17,080
+ But let's just say we're going to insert in this tree
+
+72
+00:03:17,080 --> 00:03:22,920
+ g equals 25, so it's got a key of g and a value of 25.
+
+73
+00:03:22,920 --> 00:03:26,280
+ So what you do is you start at the root, and you compare it.
+
+74
+00:03:26,280 --> 00:03:29,720
+ And you say, oh, g is less than h.
+
+75
+00:03:29,720 --> 00:03:32,200
+ So we're going to go down the left-hand side.
+
+76
+00:03:32,200 --> 00:03:34,600
+ So you can think of it as you're walking down
+
+77
+00:03:34,600 --> 00:03:36,040
+ the left-hand side.
+
+78
+00:03:36,040 --> 00:03:39,680
+ Then you are encountering d equals 8.
+
+79
+00:03:39,680 --> 00:03:43,240
+ And then you're like, OK, g is greater than d.
+
+80
+00:03:43,240 --> 00:03:47,280
+ So we've got to take the-- it's like driving a car.
+
+81
+00:03:47,280 --> 00:03:52,480
+ Turn right at intersection d.
+
+82
+00:03:52,480 --> 00:03:53,520
+ And so we do.
+
+83
+00:03:53,520 --> 00:03:55,120
+ And we're working our way down.
+
+84
+00:03:55,120 --> 00:03:58,160
+ And now we have-- we're looking at intersection f.
+
+85
+00:03:58,160 --> 00:04:00,400
+ And we've really got to go left or right.
+
+86
+00:04:00,400 --> 00:04:03,240
+ And so f, g.
+
+87
+00:04:03,240 --> 00:04:04,600
+ g is greater than f.
+
+88
+00:04:04,600 --> 00:04:08,000
+ And so we're going to go to the right, not the left.
+
+89
+00:04:08,000 --> 00:04:09,240
+ So we do.
+
+90
+00:04:09,240 --> 00:04:13,640
+ And so that basically is the path that we took.
+
+91
+00:04:13,640 --> 00:04:17,160
+ And so to insert g into the tree,
+
+92
+00:04:17,160 --> 00:04:23,680
+ we find the greatest value less than, which is f.
+
+93
+00:04:23,680 --> 00:04:25,960
+ And you're kind of inserting it, if you think about it,
+
+94
+00:04:25,960 --> 00:04:28,280
+ between f and h.
+
+95
+00:04:28,280 --> 00:04:32,160
+ So the next higher one in the tree is h.
+
+96
+00:04:32,160 --> 00:04:34,760
+ And the next lower one in the tree is f.
+
+97
+00:04:34,760 --> 00:04:37,500
+ And that was the trip we did.
+
+98
+00:04:37,500 --> 00:04:41,120
+ I like to think of this sort of trickling down the tree
+
+99
+00:04:41,120 --> 00:04:46,280
+ and making these decisions as almost like a pachinko machine,
+
+100
+00:04:46,280 --> 00:04:47,840
+ where you hit the balls.
+
+101
+00:04:47,840 --> 00:04:49,500
+ They go ding, ding, ding, ding, ding, ding.
+
+102
+00:04:49,500 --> 00:04:51,040
+ It's not random, of course.
+
+103
+00:04:51,040 --> 00:04:52,440
+ It's very precise.
+
+104
+00:04:52,440 --> 00:04:54,920
+ But it is kind of like you stop at the top
+
+105
+00:04:54,920 --> 00:04:58,680
+ and you make a bunch of binary left, right decisions.
+
+106
+00:04:58,680 --> 00:05:03,800
+ And eventually you find yourself somewhere at the bottom.
+
+107
+00:05:03,800 --> 00:05:08,160
+ And so if we kind of look at the tree map put,
+
+108
+00:05:08,160 --> 00:05:11,760
+ and we are going to start at the root,
+
+109
+00:05:11,760 --> 00:05:16,120
+ and then we're going to do a comparison,
+
+110
+00:05:16,120 --> 00:05:19,760
+ and if we find it, the comparison is going to be 0.
+
+111
+00:05:19,760 --> 00:05:21,920
+ We update the value.
+
+112
+00:05:21,920 --> 00:05:26,600
+ And if we don't find it and it's less than, we're going to go left.
+
+113
+00:05:26,600 --> 00:05:28,920
+ And if it's greater than, we're going to go right.
+
+114
+00:05:28,920 --> 00:05:31,840
+ And so this is basically the idea.
+
+115
+00:05:31,840 --> 00:05:35,120
+ This while loop will trickle down the tree going left
+
+116
+00:05:35,120 --> 00:05:36,120
+ and going right.
+
+117
+00:05:36,120 --> 00:05:40,840
+ And it will either find the value if there's a match.
+
+118
+00:05:40,840 --> 00:05:43,120
+ Like if we're looking for f, we'd have found it,
+
+119
+00:05:43,120 --> 00:05:45,440
+ and we'd have stopped, and we would have returned.
+
+120
+00:05:45,440 --> 00:05:48,280
+ If we're looking for g, we won't find it,
+
+121
+00:05:48,280 --> 00:05:52,680
+ but we will find where we're supposed to insert it.
+
+122
+00:05:52,680 --> 00:05:54,400
+ So the last thing that we talk to,
+
+123
+00:05:54,400 --> 00:05:58,560
+ which g will find its way down to the right of f,
+
+124
+00:05:58,560 --> 00:06:01,080
+ we will find where to put it.
+
+125
+00:06:01,080 --> 00:06:03,080
+ So as long as the tree is correctly maintained,
+
+126
+00:06:03,080 --> 00:06:06,720
+ you will either find a match or you will find the right place
+
+127
+00:06:06,720 --> 00:06:07,640
+ to insert it.
+
+128
+00:06:07,640 --> 00:06:12,400
+ And the tree will-- it's not guaranteed to be balanced.
+
+129
+00:06:12,400 --> 00:06:15,400
+ There's further algorithms that can make the tree balanced.
+
+130
+00:06:15,400 --> 00:06:20,800
+ But the key thing is that the order will be right.
+
+131
+00:06:20,800 --> 00:06:23,080
+ So by inserting, following these rules,
+
+132
+00:06:23,080 --> 00:06:26,480
+ following this algorithm, the order will be right,
+
+133
+00:06:26,480 --> 00:06:30,320
+ and you will always find the right place to put it.
+
+134
+00:06:30,320 --> 00:06:32,920
+ Or you will find a matching place.
+
+135
+00:06:32,920 --> 00:06:35,280
+ And think about how dictionaries work, right?
+
+136
+00:06:35,280 --> 00:06:40,280
+ You say x sub hello equals something.
+
+137
+00:06:40,280 --> 00:06:43,600
+ Well, there's either going to be a hello key in there or not.
+
+138
+00:06:43,600 --> 00:06:45,840
+ If there's not, we're going to put it in.
+
+139
+00:06:45,840 --> 00:06:47,400
+ If there is, we're going to update it.
+
+140
+00:06:47,400 --> 00:06:51,840
+ And that's what this code does.
+
+141
+00:06:51,840 --> 00:06:54,000
+ We're going to create a new tree map.
+
+142
+00:06:54,000 --> 00:06:57,160
+ We're going to put h equals 22, and then we're
+
+143
+00:06:57,160 --> 00:07:00,640
+ going to do h equals 42, which replaces h, right?
+
+144
+00:07:00,640 --> 00:07:02,920
+ Then we're going to do d equals 8.
+
+145
+00:07:02,920 --> 00:07:05,240
+ Then we do b equals 1, 2, 3.
+
+146
+00:07:05,240 --> 00:07:07,080
+ And then we're going to do f equals 6.
+
+147
+00:07:07,080 --> 00:07:09,120
+ And it turns out I'm kind of doing this in order
+
+148
+00:07:09,120 --> 00:07:10,840
+ so it doesn't get too long on the page.
+
+149
+00:07:10,840 --> 00:07:12,240
+ And then I'm going to do a dump.
+
+150
+00:07:12,240 --> 00:07:14,680
+ And remember how important a debug is.
+
+151
+00:07:14,680 --> 00:07:17,080
+ When I first wrote this code, you can darn well bet you
+
+152
+00:07:17,080 --> 00:07:19,280
+ that I had map dump.
+
+153
+00:07:19,280 --> 00:07:21,400
+ It was map put, map dump, map put, map dump,
+
+154
+00:07:21,400 --> 00:07:24,920
+ map put, map dump, so I could see what it does.
+
+155
+00:07:24,920 --> 00:07:28,000
+ And so the dump, if you look at the dump,
+
+156
+00:07:28,000 --> 00:07:31,720
+ then we put in k and m and j, and then we dump it again.
+
+157
+00:07:31,720 --> 00:07:34,960
+ And so what I've done is, if you look at the map output,
+
+158
+00:07:34,960 --> 00:07:38,160
+ you see that the map output has these h equals 42.
+
+159
+00:07:38,160 --> 00:07:40,560
+ And then it's kind of trying to give you
+
+160
+00:07:40,560 --> 00:07:44,240
+ some sense of the tree-ness of it,
+
+161
+00:07:44,240 --> 00:07:51,600
+ meaning that the b equals 123, f equals 6, and d equals 8.
+
+162
+00:07:51,600 --> 00:07:53,520
+ The number of vertical bars tell you
+
+163
+00:07:53,520 --> 00:07:55,240
+ how deep in the tree you are.
+
+164
+00:07:55,240 --> 00:07:59,320
+ And so you can see that the immediate child nodes of h
+
+165
+00:07:59,320 --> 00:08:01,760
+ in the second dump are d and k.
+
+166
+00:08:01,760 --> 00:08:04,200
+ And the child nodes of k are j and m.
+
+167
+00:08:04,200 --> 00:08:05,480
+ So you can draw this all up.
+
+168
+00:08:05,480 --> 00:08:08,400
+ And so the idea of my dump code is
+
+169
+00:08:08,400 --> 00:08:11,080
+ I'm trying to sort of draw you a tree.
+
+170
+00:08:11,080 --> 00:08:12,720
+ So here is the dump code.
+
+171
+00:08:12,720 --> 00:08:16,680
+ Now this is very, very different.
+
+172
+00:08:16,680 --> 00:08:20,880
+ And literally, this is the first time-- well,
+
+173
+00:08:20,880 --> 00:08:22,640
+ I talked about recursions and functions.
+
+174
+00:08:22,640 --> 00:08:24,760
+ I talked about stack frames and stuff like that.
+
+175
+00:08:24,760 --> 00:08:28,640
+ But if you go all the way back to Python for everybody,
+
+176
+00:08:28,640 --> 00:08:31,480
+ I delay talking about recursion until there's
+
+177
+00:08:31,480 --> 00:08:33,160
+ a real value for it.
+
+178
+00:08:33,160 --> 00:08:39,160
+ And it turns out, this is a beautiful use of recursion.
+
+179
+00:08:39,160 --> 00:08:41,160
+ And if you didn't write this recursively,
+
+180
+00:08:41,160 --> 00:08:43,200
+ you'd probably have to write your own stack.
+
+181
+00:08:43,200 --> 00:08:45,720
+ And that would be like a bummer, because we're
+
+182
+00:08:45,720 --> 00:08:47,400
+ going to recursively go down the tree,
+
+183
+00:08:47,400 --> 00:08:49,160
+ and we're going to keep track of the depth.
+
+184
+00:08:49,160 --> 00:08:51,000
+ And the idea of the depth is it tells me
+
+185
+00:08:51,000 --> 00:08:52,840
+ how many vertical bars to print.
+
+186
+00:08:52,840 --> 00:08:55,840
+ So we come in, and we're pointed at a particular place
+
+187
+00:08:55,840 --> 00:08:58,480
+ in the tree, maybe the root, maybe the top one.
+
+188
+00:08:58,480 --> 00:09:00,640
+ And depth is going to be 0.
+
+189
+00:09:00,640 --> 00:09:03,680
+ And so if cur is null, we're done.
+
+190
+00:09:03,680 --> 00:09:05,240
+ A key thing to recursion is you've
+
+191
+00:09:05,240 --> 00:09:08,440
+ got to have a way to get out.
+
+192
+00:09:08,440 --> 00:09:12,400
+ So if we get to the end of some tree, subtree,
+
+193
+00:09:12,400 --> 00:09:14,360
+ and we get to a null, we go left or right,
+
+194
+00:09:14,360 --> 00:09:16,320
+ and that it's a null, don't print anything out.
+
+195
+00:09:16,320 --> 00:09:17,000
+ Just you're done.
+
+196
+00:09:17,000 --> 00:09:21,040
+ You've gone one beyond the leaf of the tree.
+
+197
+00:09:21,040 --> 00:09:23,680
+ And cur is null, so just return.
+
+198
+00:09:23,680 --> 00:09:26,040
+ Then what we do is we have a for loop,
+
+199
+00:09:26,040 --> 00:09:29,880
+ depending on depth, that prints vertical bar space.
+
+200
+00:09:29,880 --> 00:09:32,760
+ That spaces it over.
+
+201
+00:09:32,760 --> 00:09:35,920
+ And we're going to go down the left tree,
+
+202
+00:09:35,920 --> 00:09:37,540
+ and then we're going to come back,
+
+203
+00:09:37,540 --> 00:09:38,960
+ and we're going down the right tree.
+
+204
+00:09:38,960 --> 00:09:41,120
+ And this is what's called a depth-first search
+
+205
+00:09:41,120 --> 00:09:44,240
+ for those computer science nerds.
+
+206
+00:09:44,240 --> 00:09:47,080
+ And so we're going to go down the left.
+
+207
+00:09:47,080 --> 00:09:49,740
+ And you'll notice that when we go down the left,
+
+208
+00:09:49,740 --> 00:09:52,320
+ if the left is not equal to null,
+
+209
+00:09:52,320 --> 00:09:56,600
+ we are going to dump the tree on the left
+
+210
+00:09:56,600 --> 00:09:58,080
+ with depth equals depth plus 1.
+
+211
+00:09:58,080 --> 00:09:59,840
+ And so if we start with a depth of 0,
+
+212
+00:09:59,840 --> 00:10:00,920
+ that's going to become 1.
+
+213
+00:10:00,920 --> 00:10:03,160
+ And then if we recursively go down further,
+
+214
+00:10:03,160 --> 00:10:05,360
+ then it's going to be 2.
+
+215
+00:10:05,360 --> 00:10:12,120
+ And then when that recursion comes back,
+
+216
+00:10:12,120 --> 00:10:13,640
+ if cur right is not equal to null,
+
+217
+00:10:13,640 --> 00:10:15,440
+ we're going to dump the tree on the right.
+
+218
+00:10:15,440 --> 00:10:18,940
+ So what you see is dump the tree on the left recursively,
+
+219
+00:10:18,940 --> 00:10:20,600
+ which means go all the way down the left,
+
+220
+00:10:20,600 --> 00:10:23,280
+ then come back up, then dump the right node,
+
+221
+00:10:23,280 --> 00:10:26,060
+ then come back up, go up again, and dump the right node.
+
+222
+00:10:26,060 --> 00:10:28,840
+ And so you see this like how the order-- this
+
+223
+00:10:28,840 --> 00:10:35,760
+ is a depth-first search of H. We're going down past D.
+
+224
+00:10:35,760 --> 00:10:38,960
+ Then we're going even further past B.
+
+225
+00:10:38,960 --> 00:10:41,360
+ And then we're coming up from B, and we're going back down
+
+226
+00:10:41,360 --> 00:10:45,640
+ from D to F. We're coming up from F. Then we come up from D.
+
+227
+00:10:45,640 --> 00:10:50,000
+ Then we go across H. And then we go down to K.
+
+228
+00:10:50,000 --> 00:10:54,040
+ Then we go to the left of K, which is J. We go back up.
+
+229
+00:10:54,040 --> 00:10:57,120
+ And then we go to the right of K, which is M.
+
+230
+00:10:57,120 --> 00:11:00,200
+ And then we go back up, go back up, and we're done.
+
+231
+00:11:00,200 --> 00:11:05,020
+ So the calling sequence to this is tree map, dump tree,
+
+232
+00:11:05,020 --> 00:11:07,660
+ self-root with a depth of 0.
+
+233
+00:11:07,660 --> 00:11:08,480
+ I will say this.
+
+234
+00:11:08,480 --> 00:11:09,980
+ When I wrote this code the first time,
+
+235
+00:11:09,980 --> 00:11:12,680
+ I had printfs all over the place.
+
+236
+00:11:12,680 --> 00:11:16,560
+ Now I pretty much know how to do a depth-first search of a tree.
+
+237
+00:11:16,560 --> 00:11:22,680
+ But still, in a debugging, sometimes you
+
+238
+00:11:22,680 --> 00:11:24,080
+ make your tree incorrectly.
+
+239
+00:11:24,080 --> 00:11:26,240
+ And your debugging is like, huh?
+
+240
+00:11:26,240 --> 00:11:29,880
+ That doesn't look like what I thought it was going to be.
+
+241
+00:11:29,880 --> 00:11:34,080
+ And so don't be ashamed if you have
+
+242
+00:11:34,080 --> 00:11:37,040
+ to put print statements in all over the place.
+
+243
+00:11:37,040 --> 00:11:38,560
+ First, get your dump working.
+
+244
+00:11:38,560 --> 00:11:40,520
+ Just make sure your dump works, because then you
+
+245
+00:11:40,520 --> 00:11:43,840
+ can debug everything else with the dump.
+
+246
+00:11:43,840 --> 00:11:46,400
+ And the get's pretty simple.
+
+247
+00:11:46,400 --> 00:11:48,840
+ And we've got the default. We've got the key.
+
+248
+00:11:48,840 --> 00:11:50,080
+ And we've got the tree.
+
+249
+00:11:50,080 --> 00:11:52,440
+ So we're going to start a while loop, where
+
+250
+00:11:52,440 --> 00:11:55,800
+ we're going to go down left, right, left, right, left, right.
+
+251
+00:11:55,800 --> 00:11:57,760
+ So we're going to start at the root.
+
+252
+00:11:57,760 --> 00:11:59,920
+ We're going to compare the key to the key we're searching
+
+253
+00:11:59,920 --> 00:12:01,640
+ for, the current key.
+
+254
+00:12:01,640 --> 00:12:05,320
+ If they're the same, then return the value.
+
+255
+00:12:05,320 --> 00:12:07,960
+ We could do this recursively, but you
+
+256
+00:12:07,960 --> 00:12:10,640
+ don't do recursion if you don't need to.
+
+257
+00:12:10,640 --> 00:12:15,840
+ If the key we're looking for is less than the key we found,
+
+258
+00:12:15,840 --> 00:12:17,320
+ we're going to go down the left.
+
+259
+00:12:17,320 --> 00:12:19,080
+ And if the current key-- otherwise, we're
+
+260
+00:12:19,080 --> 00:12:20,200
+ going to go down the right.
+
+261
+00:12:20,200 --> 00:12:22,820
+ And so you can see this thing is just going to pachinko its way
+
+262
+00:12:22,820 --> 00:12:25,540
+ down, ding, ding, ding, ding, ding, to the right spot.
+
+263
+00:12:25,540 --> 00:12:29,160
+ And if it gets to null, then we return the default.
+
+264
+00:12:29,160 --> 00:12:31,160
+ Remember, this is like a dictionary.
+
+265
+00:12:31,160 --> 00:12:34,640
+ If the key's not there on a get, we return the default.
+
+266
+00:12:34,640 --> 00:12:44,400
+ You can see why Guido van Rossum, in Christmas 1987,
+
+267
+00:12:44,400 --> 00:12:48,420
+ created a function called get, which looked for a key
+
+268
+00:12:48,420 --> 00:12:51,440
+ and took a default value.
+
+269
+00:12:51,440 --> 00:12:54,800
+ Because this code is what you write,
+
+270
+00:12:54,800 --> 00:12:57,220
+ what I'm going to return null and then I have an if statement.
+
+271
+00:12:57,220 --> 00:12:58,120
+ Heck no.
+
+272
+00:12:58,120 --> 00:13:00,520
+ Just pass in a default. If you get to the bottom of the tree
+
+273
+00:13:00,520 --> 00:13:02,880
+ and you haven't found it, return the default.
+
+274
+00:13:02,880 --> 00:13:05,960
+ If I want it to be null, I can make the default null, right?
+
+275
+00:13:05,960 --> 00:13:07,080
+ Away we go.
+
+276
+00:13:07,080 --> 00:13:09,240
+ So this is beautiful.
+
+277
+00:13:09,240 --> 00:13:10,840
+ This is beautiful.
+
+278
+00:13:10,840 --> 00:13:20,880
+ So from that beauty, both the dump are beautiful
+
+279
+00:13:20,880 --> 00:13:24,640
+ and the get is beautiful.
+
+280
+00:13:24,640 --> 00:13:26,800
+ Iterator is a pain.
+
+281
+00:13:26,800 --> 00:13:31,280
+ You just can't easily build an iterator for a pure tree.
+
+282
+00:13:31,280 --> 00:13:34,320
+ If you have nothing more than that tree.
+
+283
+00:13:34,320 --> 00:13:39,200
+ So a list map can support an ordered iterator.
+
+284
+00:13:39,200 --> 00:13:44,520
+ We saw before a hash map can support an unordered iterator.
+
+285
+00:13:44,520 --> 00:13:47,840
+ But a tree map cannot support an iterator
+
+286
+00:13:47,840 --> 00:13:49,720
+ without building some kind of a stack.
+
+287
+00:13:49,720 --> 00:13:55,680
+ And the problem is that the concept of current
+
+288
+00:13:55,680 --> 00:13:57,800
+ is just so complex.
+
+289
+00:13:57,800 --> 00:14:00,800
+ When we're doing recursion, the concept of current
+
+290
+00:14:00,800 --> 00:14:03,440
+ is just so implicit.
+
+291
+00:14:03,440 --> 00:14:06,000
+ It's actually in the call stack, the notion of current.
+
+292
+00:14:06,000 --> 00:14:10,640
+ Because there's really, when you're doing the dump,
+
+293
+00:14:10,640 --> 00:14:12,400
+ you have a call stack of currents.
+
+294
+00:14:12,400 --> 00:14:14,800
+ And then when you go back up the call stack,
+
+295
+00:14:14,800 --> 00:14:16,200
+ you're getting a different current.
+
+296
+00:14:16,200 --> 00:14:17,240
+ So you're switching back.
+
+297
+00:14:17,240 --> 00:14:20,560
+ And so you either have to make your own stack of currents.
+
+298
+00:14:20,560 --> 00:14:22,840
+ You could build an iterator for a tree,
+
+299
+00:14:22,840 --> 00:14:24,520
+ but you have to build a stack.
+
+300
+00:14:24,520 --> 00:14:28,520
+ So a lot of folks sort of don't want to do that.
+
+301
+00:14:28,520 --> 00:14:31,160
+ We could build a stack, but we're not going to.
+
+302
+00:14:31,160 --> 00:14:32,920
+ So what we're going to do is we're
+
+303
+00:14:32,920 --> 00:14:35,960
+ going to do a technique for our iterator
+
+304
+00:14:35,960 --> 00:14:38,860
+ that is a common technique.
+
+305
+00:14:38,860 --> 00:14:42,560
+ When you have a data structure that almost does what you want,
+
+306
+00:14:42,560 --> 00:14:45,160
+ and then you have another data structure that
+
+307
+00:14:45,160 --> 00:14:47,640
+ does what you want, you combine them.
+
+308
+00:14:47,640 --> 00:14:49,320
+ So if you look at this tree, there's
+
+309
+00:14:49,320 --> 00:14:53,160
+ a lot of nice things for searching, for replacing,
+
+310
+00:14:53,160 --> 00:14:54,520
+ for inserting.
+
+311
+00:14:54,520 --> 00:14:58,040
+ And it does all that very fast, because it's actually
+
+312
+00:14:58,040 --> 00:15:00,560
+ log n, because the height of the tree
+
+313
+00:15:00,560 --> 00:15:02,760
+ is log base 2 of the width of the tree,
+
+314
+00:15:02,760 --> 00:15:04,360
+ the number of items in the tree.
+
+315
+00:15:04,360 --> 00:15:05,960
+ So it's log base 2-ish.
+
+316
+00:15:05,960 --> 00:15:07,920
+ So it's super fast.
+
+317
+00:15:07,920 --> 00:15:08,880
+ All my trees are small.
+
+318
+00:15:08,880 --> 00:15:12,280
+ But if these trees get big, they're super fast.
+
+319
+00:15:12,280 --> 00:15:14,520
+ It goes down, the pachinko sits way down
+
+320
+00:15:14,520 --> 00:15:16,120
+ to the bottom really fast.
+
+321
+00:15:16,120 --> 00:15:18,440
+ But I can't easily build an iterator.
+
+322
+00:15:18,440 --> 00:15:20,120
+ So what I'm going to do is I'm going
+
+323
+00:15:20,120 --> 00:15:23,400
+ to add to this a linked list.
+
+324
+00:15:23,400 --> 00:15:27,920
+ But I'm going to have the linked list simultaneously
+
+325
+00:15:27,920 --> 00:15:31,040
+ working with the tree.
+
+326
+00:15:31,040 --> 00:15:33,600
+ So each of these items is going to have
+
+327
+00:15:33,600 --> 00:15:36,800
+ a next and a pre and a left and a right.
+
+328
+00:15:36,800 --> 00:15:41,080
+ And we're going to almost write the code mentally independently
+
+329
+00:15:41,080 --> 00:15:45,040
+ for the tree code and the linked list code.
+
+330
+00:15:45,040 --> 00:15:47,920
+ So we're ultimately going to combine these things together.
+
+331
+00:15:47,920 --> 00:15:52,360
+ There's not a separate linked list and a separate tree.
+
+332
+00:15:52,360 --> 00:15:56,120
+ It looks like this in a linked tree map.
+
+333
+00:15:56,120 --> 00:15:58,680
+ So think of each one of these things having a next
+
+334
+00:15:58,680 --> 00:16:01,240
+ and a pre and a left and a right.
+
+335
+00:16:01,240 --> 00:16:04,920
+ And we maintain them in such a way when we're doing inserts
+
+336
+00:16:04,920 --> 00:16:07,800
+ that everything works perfectly.
+
+337
+00:16:07,800 --> 00:16:10,840
+ So we're going to simultaneously maintain
+
+338
+00:16:10,840 --> 00:16:14,200
+ with the same entries a tree and a list.
+
+339
+00:16:14,200 --> 00:16:17,760
+ But we're only going to use the list to build the iterator.
+
+340
+00:16:17,760 --> 00:16:19,800
+ And we're going to make this a sorted list,
+
+341
+00:16:19,800 --> 00:16:21,840
+ because these things are in order.
+
+342
+00:16:21,840 --> 00:16:24,840
+ The tree is helping us quickly find the place to put it.
+
+343
+00:16:24,840 --> 00:16:27,560
+ But also, we're to put it in order.
+
+344
+00:16:27,560 --> 00:16:29,680
+ So let's take advantage of that.
+
+345
+00:16:29,680 --> 00:16:36,160
+ So this is a sorted, ordered dictionary in Python lingo.
+
+346
+00:16:36,160 --> 00:16:40,840
+ So just remember that these entries, these list tree map
+
+347
+00:16:40,840 --> 00:16:46,640
+ entries, are simultaneously participating in a tree
+
+348
+00:16:46,640 --> 00:16:48,720
+ and at the same time in another layer,
+
+349
+00:16:48,720 --> 00:16:52,400
+ as it were, participating in a linked list.
+
+350
+00:16:52,400 --> 00:16:56,240
+ The tree map, which is the tree map structure,
+
+351
+00:16:56,240 --> 00:16:58,880
+ has a head and a root.
+
+352
+00:16:58,880 --> 00:17:01,240
+ Because at the same time, tree map
+
+353
+00:17:01,240 --> 00:17:04,720
+ is both a tree and a linked list.
+
+354
+00:17:04,720 --> 00:17:09,760
+ And the map entry is going to have a next and a left
+
+355
+00:17:09,760 --> 00:17:10,800
+ and a right.
+
+356
+00:17:10,800 --> 00:17:13,680
+ And again, you just almost keep these things
+
+357
+00:17:13,680 --> 00:17:16,000
+ separate in your mind.
+
+358
+00:17:16,000 --> 00:17:17,520
+ When we're doing tree things, we're
+
+359
+00:17:17,520 --> 00:17:19,320
+ going to use left and right and root.
+
+360
+00:17:19,320 --> 00:17:20,560
+ And when we're doing list things,
+
+361
+00:17:20,560 --> 00:17:22,600
+ we're going to use head and next.
+
+362
+00:17:22,600 --> 00:17:24,320
+ And these are things now by now that should
+
+363
+00:17:24,320 --> 00:17:27,120
+ be sort of familiar to you.
+
+364
+00:17:27,120 --> 00:17:29,240
+ So this is the structure that we're
+
+365
+00:17:29,240 --> 00:17:31,600
+ going to build and maintain.
+
+366
+00:17:31,600 --> 00:17:36,080
+ And up next, we're going to build the put code,
+
+367
+00:17:36,080 --> 00:17:39,900
+ or this combined two-layer data structure that
+
+368
+00:17:39,900 --> 00:17:44,360
+ has a tree and a sorted linked list all at the same time.
+
+369
+00:17:50,800 --> 00:17:54,160
+ [MUSIC PLAYING]
+

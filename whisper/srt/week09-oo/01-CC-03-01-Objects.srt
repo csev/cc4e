@@ -1,0 +1,340 @@
+1
+00:00:00,000 --> 00:00:05,000
+ Hello and welcome to Object Oriented Patterns, A Historical Perspective.
+
+2
+00:00:05,000 --> 00:00:08,000
+ We're going to cover a number of different things in this lecture.
+
+3
+00:00:08,000 --> 00:00:12,000
+ First, we're going to do a bit of a review of object orientation from previous courses.
+
+4
+00:00:12,000 --> 00:00:18,000
+ Then we're going to take a look at historical perspective across time and a bunch of different programming languages.
+
+5
+00:00:18,000 --> 00:00:24,000
+ The important part about that is that object orientation is a concept, it's not just a syntax.
+
+6
+00:00:24,000 --> 00:00:29,000
+ And so by looking at different syntaxes, we'll have a better understanding of the underlying concept.
+
+7
+00:00:29,000 --> 00:00:39,000
+ Then what we're going to do is we'll look at how one might have used C to build object oriented support into a language like, say, Python, for example, or C++.
+
+8
+00:00:39,000 --> 00:00:47,000
+ And then we're going to look at building a Python string class in C, a Python list class in C, and then a Python dictionary class in C.
+
+9
+00:00:47,000 --> 00:00:55,000
+ Sort of showing how C is also the foundation of most modern object oriented languages.
+
+10
+00:00:55,000 --> 00:01:00,000
+ So if you take a look at the other courses that I've taught, I have been teaching object oriented.
+
+11
+00:01:00,000 --> 00:01:05,000
+ If you take in my courses, I have been teaching you object orientation for a long time.
+
+12
+00:01:05,000 --> 00:01:09,000
+ One of the things you'll notice is that I just keep coming back to it.
+
+13
+00:01:09,000 --> 00:01:14,000
+ If you look at Python for Everybody Chapter 14, it's about object orientation.
+
+14
+00:01:14,000 --> 00:01:24,000
+ I claim that Django for Everybody is really a class in object orientation because Django itself is a collection of cooperating objects.
+
+15
+00:01:24,000 --> 00:01:33,000
+ You create Django applications by creating objects that are being sent messages, which is very much a purely object oriented concept.
+
+16
+00:01:33,000 --> 00:01:38,000
+ I cover object oriented JavaScript, particularly because JavaScript is a little bit different.
+
+17
+00:01:38,000 --> 00:01:43,000
+ I cover that in both Django for Everybody and in web applications for everybody.
+
+18
+00:01:43,000 --> 00:01:53,000
+ And so we're going to take a look at all these different syntaxes of object orientation, and then we're going to try to build our own objects.
+
+19
+00:01:53,000 --> 00:01:56,000
+ But in a non-object oriented language, i.e. C.
+
+20
+00:01:56,000 --> 00:01:59,000
+ I am not going to teach you object orientation in this lecture.
+
+21
+00:01:59,000 --> 00:02:02,000
+ I am going to do a very, very brief review.
+
+22
+00:02:02,000 --> 00:02:05,000
+ On my other lectures, mostly what I wanted you to know was terminology.
+
+23
+00:02:05,000 --> 00:02:07,000
+ So the most important terminology is a class.
+
+24
+00:02:07,000 --> 00:02:11,000
+ A class is not an object. It's a template to make objects.
+
+25
+00:02:11,000 --> 00:02:14,000
+ It's like the cookie cutter in the cookie methodology.
+
+26
+00:02:14,000 --> 00:02:18,000
+ An attribute is some data that you can contain in each instance of the class.
+
+27
+00:02:18,000 --> 00:02:23,000
+ And a method is some code like a function that operates within the context of the instance of the class.
+
+28
+00:02:23,000 --> 00:02:30,000
+ The object is a particular instance of the class stamped out from the class when a new instance of the class is requested.
+
+29
+00:02:30,000 --> 00:02:33,000
+ So you have one class that you have many, many instances.
+
+30
+00:02:33,000 --> 00:02:42,000
+ So if you do a user defined class in Python, you see that we have a special keyword class, which is different than def.
+
+31
+00:02:42,000 --> 00:02:47,000
+ And within it, we have attributes and we have methods.
+
+32
+00:02:47,000 --> 00:02:49,000
+ So the methods look like functions.
+
+33
+00:02:49,000 --> 00:02:58,000
+ But in particular, the methods inside of a class always have this first parameter, which by convention we call self.
+
+34
+00:02:58,000 --> 00:03:02,000
+ You could call it literally anything else, but if you did, people would be confused.
+
+35
+00:03:02,000 --> 00:03:10,000
+ Because the convention is so strong that self is always the first parameter of every method inside of Python.
+
+36
+00:03:10,000 --> 00:03:15,000
+ So in it is the instance and then two parameters.
+
+37
+00:03:15,000 --> 00:03:24,000
+ And then we can look at attributes like self.x and self.y and then assign them in this case to the x and y from the call.
+
+38
+00:03:24,000 --> 00:03:27,000
+ So we have a couple of methods like def dump.
+
+39
+00:03:27,000 --> 00:03:34,000
+ And again, a dump itself is a zero parameter method, but it always has the instance.
+
+40
+00:03:34,000 --> 00:03:39,000
+ And then we look within it, we can say self.x and self.y and look at all the attributes.
+
+41
+00:03:39,000 --> 00:03:46,000
+ And we can use the ID function, which we learned in the last chapter, which is kind of like an address look up function in Python.
+
+42
+00:03:46,000 --> 00:03:53,000
+ And so what we have here is we have a little method called origin, which takes the distance for our point from the origin to our point
+
+43
+00:03:53,000 --> 00:03:56,000
+ and takes the square root of the two sides of the triangle squared.
+
+44
+00:03:56,000 --> 00:04:05,000
+ So if we then get out of the class definition and move into the actual code, we call pt equals .4050.
+
+45
+00:04:05,000 --> 00:04:07,000
+ That is how we call the constructor.
+
+46
+00:04:07,000 --> 00:04:13,000
+ Point is the class name and then the parameters to the constructor are four and five in that example.
+
+47
+00:04:13,000 --> 00:04:17,000
+ Point.dump, that's the dump method inside a point.
+
+48
+00:04:17,000 --> 00:04:21,000
+ And you can pass the parameter pt, which is the instance.
+
+49
+00:04:21,000 --> 00:04:25,000
+ So pt ends up being the instance of this point object.
+
+50
+00:04:25,000 --> 00:04:32,000
+ But the more common syntax is to not use the class name and the method name and explicitly pass self in.
+
+51
+00:04:32,000 --> 00:04:36,000
+ But instead in the next line, we see print origin and then pt.origin.
+
+52
+00:04:36,000 --> 00:04:47,000
+ Well, pt.origin is expanded to point.origin and then the first parameter is kind of added on, which is pt, which is the instance.
+
+53
+00:04:47,000 --> 00:04:53,000
+ Now I've got a del parenthesis pt close parenthesis and that is the destructor.
+
+54
+00:04:53,000 --> 00:04:57,000
+ Now in Python, the destructor would get run automatically at the end of the program.
+
+55
+00:04:57,000 --> 00:05:01,000
+ So in this case, that destructor is a little bit redundant.
+
+56
+00:05:01,000 --> 00:05:05,000
+ So now I want to take a bit of a historical look at object orientation.
+
+57
+00:05:05,000 --> 00:05:12,000
+ So if you've seen any of my other classes, I try to put the programming languages that we're learning in context.
+
+58
+00:05:12,000 --> 00:05:17,000
+ And these are the common programming languages like Python and PHP and JavaScript.
+
+59
+00:05:17,000 --> 00:05:20,000
+ And now we're teaching C.
+
+60
+00:05:20,000 --> 00:05:33,000
+ And so if you look at this, the idea is you can see that the language C has been the inspiration for virtually all of the modern languages that we use today and that I've taught you.
+
+61
+00:05:33,000 --> 00:05:40,000
+ While the syntax of Python doesn't look like C, Python has been inspired.
+
+62
+00:05:40,000 --> 00:05:51,000
+ We see things like there's formatted printing that talks directly to the underlying C implementation because C Python, not every Python, but the C Python that we normally use is written in C.
+
+63
+00:05:51,000 --> 00:06:01,000
+ So C, as we've said many times in this class already, is profoundly influential in the syntactical evolution of procedural programming language.
+
+64
+00:06:01,000 --> 00:06:16,000
+ So we've seen this before. But if we think about object orientation, object orientation, the inspiration and evolution of object orientation really took sort of a different path through a bunch of languages that you may or may not have seen or heard.
+
+65
+00:06:16,000 --> 00:06:34,000
+ So the oldest language on this is Fortran in 1955 and Algal 60. Algal 60, I don't have it marked as like that Algal 60 was inspired by Fortran, but probably the better thing to say was that Algal 60 was created in spite of Fortran.
+
+66
+00:06:34,000 --> 00:06:44,000
+ So Fortran was loved by some and not loved by others. And Algal 60 is more what the computer scientists of the day in 1960 decided.
+
+67
+00:06:44,000 --> 00:06:59,000
+ So there's a series of languages that were popular in computer science, but not necessarily popular in general purpose programming, like Simula 67, which took a lot of the object oriented ideas from Algal 60.
+
+68
+00:06:59,000 --> 00:07:08,000
+ And Pascal, which is a procedural language, which is another language that I learned in the 70s when I was going to school.
+
+69
+00:07:08,000 --> 00:07:18,000
+ And if you look for, so Algal and Simula were languages that were mostly procedural but had object oriented concepts in them.
+
+70
+00:07:18,000 --> 00:07:29,000
+ I always think of the most object oriented languages as small talk. It's not necessarily the first one, but it feels like it's the one that developed the notion of object orientation the most.
+
+71
+00:07:29,000 --> 00:07:42,000
+ But it really took inspiration from an earlier language, which was Lisp. And so Lisp was an early, early 1960 interpreted language. Lisp was often thought of as the foundations of artificial intelligence.
+
+72
+00:07:42,000 --> 00:07:55,000
+ Now Scheme in 1975 was a derivative of Lisp, inspired by Lisp, kind of the next generation of Lisp 15 years later. And it had a bunch of object oriented concepts in it as well.
+
+73
+00:07:55,000 --> 00:08:09,000
+ And so you can kind of see where, where the object oriented notation, the object oriented notions were evolving kind of independently from the preferred syntax.
+
+74
+00:08:09,000 --> 00:08:24,000
+ And then in the 70s, when C came along, it really changed the way we think of syntax. And so it inspired C++, inspired Java, JavaScript, C# and PHP.
+
+75
+00:08:24,000 --> 00:08:31,000
+ But then what happened is each of these things kind of took different inspiration from different object orientation.
+
+76
+00:08:31,000 --> 00:08:42,000
+ So there's really almost an independent inheritance of where the inspiration for the language came from versus where the inspiration for the object oriented pattern.
+
+77
+00:08:42,000 --> 00:09:03,000
+ And probably the biggest thing that you see is C++, which is early 80s, took its inspiration both from Simula and from C. So it was the hybrid language that tried to take the object oriented notations from Simula and layer them on top of the procedural syntax of C.
+
+78
+00:09:03,000 --> 00:09:17,000
+ Now, another interesting thing here is, is that Python in 1991 was quite aware of C++. And so if you look at PHP, which in 1995 was not at all object oriented, it wasn't object oriented until 2000.
+
+79
+00:09:17,000 --> 00:09:35,000
+ Python was object oriented in sort of almost 1991, 92, because the computer scientists of the day were quite aware of these kinds of things. And so Python sort of implemented object orientation almost as soon as Python was implemented.
+
+80
+00:09:35,000 --> 00:09:48,000
+ And so, like I said, Python 1991 implemented object orientation, and I really like the object orientation in Python. PHP implemented non-object oriented in 95, but then added objects in 2000.
+
+81
+00:09:48,000 --> 00:09:58,000
+ Java took a lot of inspiration from C++. Java was trying to be the next C. And so it's got a lot from C. It's got a lot from C++.
+
+82
+00:09:58,000 --> 00:10:19,000
+ And then C# was inspired by C++ and Java. But then JavaScript is kind of like the outlier. JavaScript, even though it came out in 1995 and was very much informed by Java, it took its object oriented pattern more from Scheme, which is a more pure object orientation rather than an object oriented layer.
+
+83
+00:10:19,000 --> 00:10:37,000
+ And so JavaScript, among all of these things that we'll look at, JavaScript is sort of the outlier in terms of its object oriented approach. And if you've taken classes from me in the past, I've mentioned that before, because JavaScript has first class functions and the way you create things, et cetera, et cetera, et cetera.
+
+84
+00:10:37,000 --> 00:10:50,000
+ So we're going to take a look at some of these object oriented implementations over time. I've already talked about the Python inspiration. I flipped Python in C++ in the early days, because at least Python we kind of know.
+
+85
+00:10:50,000 --> 00:11:11,000
+ C++ is 1980, Java in '95, JavaScript in '95, PHP in 2000, and then C# in 2001.
+

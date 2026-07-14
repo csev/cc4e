@@ -1,0 +1,356 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.520
+ So now we come to the last section of this module, and that is iterators. It's all been
+
+00:00:05.520 --> 00:00:13.360
+ building up to iterators. And this is a situation where you might say, wow, I don't like iterators.
+
+00:00:13.360 --> 00:00:20.640
+ Iterators seem like a more complex way to write loops than just looking at like head and next and
+
+00:00:20.640 --> 00:00:26.720
+ sneaking in and violating the abstraction boundary. But as you'll see in the overall next module,
+
+00:00:26.720 --> 00:00:32.480
+ you're going to have to have very different underlying data structures. And we want to be
+
+00:00:32.480 --> 00:00:41.120
+ able to write the same code over and over again. So at some level, what we're doing here is we're
+
+00:00:41.120 --> 00:00:49.920
+ building a map implementation that can be a linked list, a hash map list, I mean, a hash-based map,
+
+00:00:50.480 --> 00:00:57.840
+ a list-based map, or a tree-based map. And what we want is this code right here. This code
+
+00:00:57.840 --> 00:01:04.240
+ should not change. We should say, hey, give me a map. We got a map entry, we got a map iterator.
+
+00:01:04.240 --> 00:01:11.600
+ Those are all part of the contract that we have with the object, be it a linked list, tree, or map,
+
+00:01:11.600 --> 00:01:21.040
+ a hash. We're going to do a put, put, put, put, dump, get, get. Now we're going to iterate. The hash
+
+00:01:21.040 --> 00:01:26.960
+ won't even have like a-- it doesn't have a head. And the next, it's not going to work, right? So
+
+00:01:26.960 --> 00:01:33.040
+ we're going to have to say, hey, there's this abstraction. Give me an iterator for your map,
+
+00:01:33.040 --> 00:01:39.760
+ OK? And we don't know what's in the iterator. We don't need to know what's in the iterator.
+
+00:01:39.760 --> 00:01:46.320
+ The only thing we need to know is it has a method called next. That's it. So we're basically saying,
+
+00:01:46.320 --> 00:01:53.440
+ let's get started. Give me an iterator from the map. Call the iterator method, passing the map
+
+00:01:53.440 --> 00:01:57.280
+ instance as a parameter, and give me back iterator. And then we write a while loop.
+
+00:01:57.280 --> 00:02:03.760
+ And we say, hey, iterator, give me the next thing. It is up to the iterator to start at the beginning
+
+00:02:04.320 --> 00:02:12.240
+ and then advance and move down. And when we get null, we break. If not, we print key and value
+
+00:02:12.240 --> 00:02:19.840
+ from the cur. Now, cur is of type map entry. There's a map iter, iter next, and then
+
+00:02:19.840 --> 00:02:25.280
+ cur is what we get back from iterator. So we get from iter, iter next, we get back a map entry.
+
+00:02:25.280 --> 00:02:32.800
+ And so if you recall, key and value are public in the map entry. So I could have had you hide those
+
+00:02:32.800 --> 00:02:37.920
+ behind sort of getters and have a get key and whatever and name those underscore. But we're
+
+00:02:37.920 --> 00:02:45.680
+ just going to leave them public attributes for now. If we were implementing Java-- I mean,
+
+00:02:45.680 --> 00:02:50.640
+ right now, we're kind of hard coding this string key integer throughout. So it's going to be OK.
+
+00:02:50.640 --> 00:02:55.520
+ And then, of course, we call the destructor on the iterator once we're kind of done with that loop.
+
+00:02:55.520 --> 00:03:01.760
+ And then we call the destructor on the overall map. And this code should be roughly the same
+
+00:03:03.280 --> 00:03:11.360
+ when we go from linked lists, hashes, to trees. This is the moment. And it's this iteration pattern.
+
+00:03:11.360 --> 00:03:19.760
+ So I'm going to do a bunch of pictures. And so I just want to-- I've been drawing some pretty complex
+
+00:03:19.760 --> 00:03:25.600
+ pictures on these things. But by now, the whole pattern of what next means and prev and these
+
+00:03:25.600 --> 00:03:33.520
+ things being null, a doubly linked list, and that key, pointing to another little-- a char star key,
+
+00:03:33.520 --> 00:03:37.920
+ which points to another little statically allocated thing, and a head points to the tail,
+
+00:03:37.920 --> 00:03:43.760
+ and a head and a tail, and all that stuff. I'm just going to, for this section, really simplify
+
+00:03:43.760 --> 00:03:49.840
+ these pictures. It's to say, look, there's a variable called head somewhere. And it points
+
+00:03:49.840 --> 00:03:54.560
+ to a z equals 22. Then it points to a w equals 42. And then that's the last one. And that points--
+
+00:03:54.560 --> 00:04:01.200
+ the next there points to null. And so I'm going to really use a succinct representation of linked
+
+00:04:01.200 --> 00:04:10.880
+ lists going forward. If we review what we don't want to do, we do not want our calling code to
+
+00:04:10.880 --> 00:04:16.880
+ know about count. We do not want it to know about head. We don't even want it to know about next
+
+00:04:16.880 --> 00:04:23.120
+ within the entries. We don't want to know that. We do want to know about key and value. And so
+
+00:04:23.120 --> 00:04:30.960
+ the calling code where map arrow number underscore head, current underscore next, no, no, no, no,
+
+00:04:30.960 --> 00:04:37.120
+ no. That's not allowed. Those are private. So in our calling code, if we're looking at things
+
+00:04:37.120 --> 00:04:41.280
+ have underscores, technically we could do it, because there's nothing in C that's stopping us.
+
+00:04:41.280 --> 00:04:49.600
+ We create those things. So we don't want to call head or count, because then if we change when we're
+
+00:04:49.600 --> 00:04:55.840
+ doing a map, head's not there anymore. I mean, hash, head's not there. Next doesn't work. I mean,
+
+00:04:55.840 --> 00:05:00.800
+ we've got to hide that. We've got to wrap it. We've got to create a strong abstraction around
+
+00:05:00.800 --> 00:05:07.440
+ this notion of starting a loop and then iterating one iteration of a loop, and then ending the loop.
+
+00:05:07.440 --> 00:05:14.320
+ We have to abstract that away. This is the concept of separation of concerns. Our calling code does
+
+00:05:14.320 --> 00:05:23.760
+ not need to be concerned about how the object can be looped through. So we need a generic notion of
+
+00:05:23.760 --> 00:05:32.080
+ looping. So you can think of the iterator object itself as a thing you create, and it sort of starts
+
+00:05:32.080 --> 00:05:38.400
+ at the beginning, and then you hit it. Next, give me another one. Give me another one. Give me another
+
+00:05:38.400 --> 00:05:45.120
+ one. And inside the iterator, the state is changing. It's like advancing. And it just gives them to you
+
+00:05:45.120 --> 00:05:50.240
+ one at a time. You can't ask it for the same one. Once it's been given to you, it's sort of like
+
+00:05:50.240 --> 00:05:56.560
+ ratcheted down to the next one. So if we look at this Python code, we start with a dictionary.
+
+00:05:56.560 --> 00:06:00.640
+ A maps to one, B to two, C to three. And we print it, and there's the dictionary. And we say,
+
+00:06:00.640 --> 00:06:06.400
+ oh, let's convert that to a list. And that list is the keys, which is A, B, C. And then say,
+
+00:06:06.400 --> 00:06:11.840
+ give me an iterator from that dictionary. We print that out, and we print the type of it.
+
+00:06:11.840 --> 00:06:19.840
+ It is of type dict underscore key iterator object. And so the iterator itself is not the entire
+
+00:06:19.840 --> 00:06:25.600
+ dictionary. It is not a list of all the keys. It is an internal structure that Python is going to
+
+00:06:25.600 --> 00:06:32.000
+ maintain. And then we're going to poke it by calling next, next, next. Now, the whole next thing,
+
+00:06:32.000 --> 00:06:36.400
+ that's probably calling an internal method like double underscore, next double underscore.
+
+00:06:36.400 --> 00:06:42.640
+ So next is part of the Python language. So if you look at the while loop, it's a while true loop.
+
+00:06:42.640 --> 00:06:49.520
+ We say item equals next. So that means give me the next available item in the iterator,
+
+00:06:49.520 --> 00:06:54.960
+ and then advance it. And if we're past the end, return me false. Then I say if item is false,
+
+00:06:54.960 --> 00:07:02.080
+ break. And otherwise, I print the item. And so I'm getting that item is A, B, and C. But the key
+
+00:07:02.080 --> 00:07:08.560
+ thing here in Python, just we're using Python to keep it as simple as possible, is the iterator is
+
+00:07:08.560 --> 00:07:15.200
+ something that's created. The iterator doesn't contain all the data. The iterator contains
+
+00:07:15.200 --> 00:07:23.120
+ pointers inside of it so that it knows what to do next. And we repeatedly probe the iterator with
+
+00:07:23.120 --> 00:07:30.240
+ the next call to get the next thing. And that both advances, returns, and indicates when we have run
+
+00:07:30.240 --> 00:07:40.240
+ out of things. So it's weird because we're so used to say like for blah, in blah, or for this, that.
+
+00:07:40.240 --> 00:07:48.480
+ But that's not how iterators work. Iterators want this next thing to happen. Let's C code to do the
+
+00:07:48.480 --> 00:07:54.160
+ iterator. You create it. You loop next through. And the C one is going to look pretty much the same
+
+00:07:54.160 --> 00:08:00.000
+ as the Python one. So if we look at the map iterator structure, it is going to have the kind
+
+00:08:00.000 --> 00:08:04.640
+ of things that we needed. We just are going to pull them in. So the concept of current,
+
+00:08:04.640 --> 00:08:09.680
+ like we've used the variable current in the past for these loops, is in the map iterator structure.
+
+00:08:09.680 --> 00:08:16.000
+ And it's private. So we've moved that from sort of a variable that was in the main scope to inside
+
+00:08:16.000 --> 00:08:21.440
+ this and made it private. The only public things we have are a next method and a del method.
+
+00:08:21.440 --> 00:08:26.320
+ And so now what we have is a simple contract. You can see our kind of outside contract for this
+
+00:08:26.320 --> 00:08:34.320
+ class is it's created by the map class. But once it's constructed, next and del are the only thing
+
+00:08:34.320 --> 00:08:38.800
+ that you can do with this. And that's that. And then we get to decide inside this class.
+
+00:08:39.520 --> 00:08:46.400
+ And so when we construct it, we're basically going to start it. We're going to allocate the
+
+00:08:46.400 --> 00:08:51.200
+ right size. We're going to take the current and point it at the first item pulling from the head
+
+00:08:51.200 --> 00:08:57.600
+ of the linked list. And then we're going to set the two methods next and del based on the address
+
+00:08:57.600 --> 00:09:03.680
+ of the implementations of the functions that implement it. And then we're done. And so because
+
+00:09:03.680 --> 00:09:09.520
+ we're inside of the map, and that's map iter, so this is what you get when you go map arrow iter,
+
+00:09:09.520 --> 00:09:17.680
+ you get this code. And so we're totally allowed to do everything private with map, because again,
+
+00:09:17.680 --> 00:09:24.640
+ the developer of the map class is the same person or team that's developing map iter. And if we
+
+00:09:24.640 --> 00:09:30.960
+ wanted to change head to x, we could, because we would just go inside all our code and change it.
+
+00:09:30.960 --> 00:09:35.040
+ But head is not exposed to the calling code, so they wouldn't notice that change. Again, that's
+
+00:09:35.040 --> 00:09:41.360
+ the key. At the moment the constructor is called before the first call to next, this is what the
+
+00:09:41.360 --> 00:09:48.320
+ map iter looks like. Current is pointing to the first item in our linked list. Then the while loop
+
+00:09:48.320 --> 00:09:54.560
+ starts and it calls head. Now you'll notice that it's kind of got this weird thing where it grabs
+
+00:09:54.560 --> 00:09:59.520
+ the current. And that's because current starts at, we could have implemented this differently,
+
+00:09:59.520 --> 00:10:05.680
+ but the way I did it was, current is pointing at head, and I have to, for the return, it's got to
+
+00:10:05.680 --> 00:10:12.880
+ return the first call to next, I grab current, and then I advance current. So at the moment that it
+
+00:10:12.880 --> 00:10:21.520
+ returns, the return value is b equals 14, and current now points at 21, d equals 21, preparing
+
+00:10:21.520 --> 00:10:30.160
+ for the next call to the next function. So then it comes in, and retval grabs 21, and that's what
+
+00:10:30.160 --> 00:10:36.240
+ we return, and then we advance to 19, and you can kind of see retval and current chase each other
+
+00:10:36.240 --> 00:10:43.440
+ down this linked list. So we return f equals 19, and then current points to null, and then we
+
+00:10:43.440 --> 00:10:49.600
+ notice that current is null, and then we return null to tell our calling code that we are finished.
+
+00:10:50.160 --> 00:10:55.680
+ So to start the iteration, to prime the iteration, we call the map object and say, hey, give me an
+
+00:10:55.680 --> 00:11:00.560
+ iterator for the map, and we get that back, and we're going to store that in our variable iterator.
+
+00:11:00.560 --> 00:11:05.600
+ Then we're going to start an infinite loop that says while one, or while true,
+
+00:11:05.600 --> 00:11:11.040
+ cur equals iter next, give me the next one, which the first time too is going to give me the first
+
+00:11:11.040 --> 00:11:16.080
+ one. Then if I got a null, I'm done with the loop, otherwise I print the key and the value of the one
+
+00:11:16.080 --> 00:11:21.120
+ I got, and then I go up and I iterate to the next one, print it, up print, up print, up print,
+
+00:11:21.120 --> 00:11:28.480
+ oh, I got a null, and then I delete the iterator. And this is super equivalent to what we do in
+
+00:11:28.480 --> 00:11:35.520
+ Python, where we say x equal, give me the iterator for the dictionary x in the variable it, then while
+
+00:11:35.520 --> 00:11:41.520
+ true, we advance to the advanced next of it, otherwise give me false. If we got a false,
+
+00:11:41.520 --> 00:11:48.000
+ we're done, and otherwise we printed it. So these two are very, very parallel. And you'll notice that
+
+00:11:48.000 --> 00:11:55.760
+ Java and C++ don't do iterators the same thing, but I wrote this C code to mimic Python's way of
+
+00:11:55.760 --> 00:12:06.320
+ doing this. So it's been quite a long journey. We really focused on abstraction and encapsulation,
+
+00:12:06.320 --> 00:12:13.920
+ and we've done it with iterators. And all we've done now is we've laid the groundwork for multiple
+
+00:12:13.920 --> 00:12:19.280
+ implementations of the map. We shouldn't have to change our main code anymore. We should be able
+
+00:12:19.280 --> 00:12:25.280
+ to put a, we build a list map, a list map, and then we're going to build a hash map, and we're
+
+00:12:25.280 --> 00:12:32.080
+ going to build a tree map. Those have increasing complexity and improved performance characteristics.
+
+00:12:32.080 --> 00:12:39.280
+ And now you really are going to start seeing why we say have abstraction so that we can fool around
+
+00:12:39.280 --> 00:12:46.160
+ underneath the abstraction and accomplish really cool things and get closer to what Python really
+
+00:12:46.160 --> 00:12:49.280
+ does underneath of a dictionary implementation.
+

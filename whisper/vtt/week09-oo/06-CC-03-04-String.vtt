@@ -1,0 +1,455 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.760
+ So now we're gonna switch from my little point class which is just two doubles to an actual string class.
+
+00:00:05.760 --> 00:00:11.360
+ So what's interesting about the Python string class is that you can extend it and so we've been
+
+00:00:11.360 --> 00:00:17.520
+ talking a lot about pointers and arrays and even when you call malloc you can't just keep extending
+
+00:00:17.520 --> 00:00:24.160
+ things whereas in Python thankfully we can just extend things. We create a string, we can append
+
+00:00:24.160 --> 00:00:30.560
+ an H to it, we can print it, append "lo world" and print it and then assign it to some other string
+
+00:00:30.560 --> 00:00:37.520
+ and then print that and get its length and we never had to allocate or deallocate any memory
+
+00:00:37.520 --> 00:00:42.080
+ during this time. When you get done looking at the code what we're going to have to do to allocate
+
+00:00:42.080 --> 00:00:49.760
+ and deallocate memory what you should be thinking is wow I'm glad I'm programming in Python. I'm glad
+
+00:00:49.760 --> 00:00:54.960
+ that Guido Van Rossum gave me a string class rather than a character array of fixed length,
+
+00:00:54.960 --> 00:00:59.360
+ an expandable string class rather than a character array of fixed length. So we're going to
+
+00:00:59.360 --> 00:01:09.600
+ create in C using our little convention of naming a string class and so if we look at the code what
+
+00:01:09.600 --> 00:01:17.600
+ we're going to try to do here is we're going to basically emulate the Python syntax but in C.
+
+00:01:17.600 --> 00:01:22.640
+ So we're going to start by making a structure, pyster structure, we're going to get a pointer
+
+00:01:22.640 --> 00:01:26.800
+ back, we're going to name that x, we're going to call the constructor pyster new, we're going to
+
+00:01:26.800 --> 00:01:32.000
+ dump it, we're going to have a little dumper, we're going to append an H to it, we're going to dump
+
+00:01:32.000 --> 00:01:37.840
+ it again, then we're going to append a whole string. Now H in C is a character and "lo world"
+
+00:01:37.840 --> 00:01:42.960
+ is a multi-character string and so we're appending many characters. We're going to dump that then
+
+00:01:42.960 --> 00:01:46.960
+ we're going to assign it to a completely new string and then we're going to print it out like
+
+00:01:46.960 --> 00:01:52.400
+ pi give me the string version of this object or the length of it and then we're going to delete it
+
+00:01:52.400 --> 00:01:59.760
+ throw it away. So you can see all of the Python operations are sort of mimicked but with naming
+
+00:01:59.760 --> 00:02:07.120
+ conventions in C. Now the one thing you'll notice here is in this main code we never allocated any
+
+00:02:07.120 --> 00:02:13.200
+ memory and we never de-allocated any memory. That is within the object. Now within the object we
+
+00:02:13.200 --> 00:02:19.360
+ have a responsibility to properly allocate and de-allocate but one of the interesting things
+
+00:02:19.360 --> 00:02:26.880
+ here is is I haven't shown you the code to do any of that and so you don't know that but that's cool
+
+00:02:26.880 --> 00:02:34.400
+ because we can use this as long as we do a new play with it and then do a del we can do stuff
+
+00:02:34.400 --> 00:02:41.840
+ with it it underneath pyster it does all of that memory management for us and that's one of the
+
+00:02:41.840 --> 00:02:49.280
+ beautiful things about an object-oriented approach. Again the syntax on the one side in C is pretty
+
+00:02:49.280 --> 00:02:54.800
+ heavy but in the syntax on the on the other side which is the the Python is pretty light
+
+00:02:54.800 --> 00:03:01.440
+ but the idea is is that in Python we never had to worry about over making a string too long or too
+
+00:03:01.440 --> 00:03:08.960
+ short or having buffer overrun or anything like that. So as we dive in we have to realize that
+
+00:03:08.960 --> 00:03:16.560
+ part of the job of this pyster object is to handle all memory allocation on our behalf so we as
+
+00:03:16.560 --> 00:03:25.040
+ programmers can write much simpler code. Okay so now we are going to build the pyster class. We're
+
+00:03:25.040 --> 00:03:29.600
+ going to create a structure called pyster and in that we're going to have three things the length
+
+00:03:29.600 --> 00:03:35.280
+ of the string we have how much data we've got allocated in the string and then char data is
+
+00:03:35.280 --> 00:03:41.120
+ the actual character array and so we have to have a character array inside of it. We're not we're
+
+00:03:41.120 --> 00:03:45.600
+ not going to let the outside code touch this character array directly we're going to completely
+
+00:03:45.600 --> 00:03:51.360
+ manage it inside this object. We draw a little bubble around us and it's like you can do stuff
+
+00:03:51.360 --> 00:03:55.920
+ you can use my object but I'm going to deal with everything for you so don't mess around with my
+
+00:03:55.920 --> 00:04:01.280
+ internal stuff. So what we would think of is all of this instruct pyster is sort of private and see
+
+00:04:01.280 --> 00:04:07.600
+ we don't have a good way to force it to be private but in the concept of object orientation length
+
+00:04:07.600 --> 00:04:13.760
+ alloc and data would be something we'd think of it as private. In our constructor we are being asked
+
+00:04:13.760 --> 00:04:19.360
+ to create a new python string and we're going to return a pointer to that structure when it's done.
+
+00:04:19.360 --> 00:04:26.720
+ So the first thing we do is we alloc alloc it now int int is usually 32 bits so that's four
+
+00:04:28.160 --> 00:04:35.280
+ alloc there's four eight there's probably 16 characters in pyster. When we do malloc size
+
+00:04:35.280 --> 00:04:41.120
+ of p is 16 that's the number 16 and so it's going to give me 16 characters. Now the the key
+
+00:04:41.120 --> 00:04:46.960
+ thing is is that that is not allocating the actual string data it's just allocated eight
+
+00:04:46.960 --> 00:04:52.640
+ bytes for a pointer to the string. Star data is a pointer and that first malloc is only giving us
+
+00:04:52.640 --> 00:04:57.840
+ the pointer not the actual data. So then we just sort of set it up we say our length of the string
+
+00:04:57.840 --> 00:05:03.680
+ is zero there's nothing in it our allocated length of the underlying data string is 10 and then we
+
+00:05:03.680 --> 00:05:11.120
+ immediately call malloc to get 10 characters so now data is a 10 character character array and
+
+00:05:11.120 --> 00:05:16.000
+ alloc tells us how much we've allocated because it's our job inside this thing to keep track of
+
+00:05:16.000 --> 00:05:23.280
+ that stuff and then just to be good we throw backslash zero at the zero position in that
+
+00:05:23.280 --> 00:05:27.600
+ allocated character we don't know what the rest of them are we just know that the first one is zero
+
+00:05:27.600 --> 00:05:32.480
+ and then we return the pointer to the structure not the pointer to the data the pointer to the
+
+00:05:32.480 --> 00:05:39.920
+ structure and this gets called inside the main as struct pyster star x equals pyster new and when
+
+00:05:39.920 --> 00:05:45.600
+ we're done we get back this cool little two pieces of data that have been dynamically allocated and
+
+00:05:45.600 --> 00:05:51.600
+ it's all it's all ready for us to do cool stuff with we got the struct we've got the constructor
+
+00:05:51.600 --> 00:05:58.400
+ and then we've got the destructor which is pyster del and that again passes in self now we're calling
+
+00:05:58.400 --> 00:06:04.400
+ free now if you recall there are two allocated things one is the data which is the character
+
+00:06:04.400 --> 00:06:09.520
+ array that we've got we've got to get rid of that and then we got to get rid of the object itself
+
+00:06:09.520 --> 00:06:15.360
+ and so at the end of del we have given back all of the data that we've alloc'd now one thing
+
+00:06:15.360 --> 00:06:21.280
+ important here is the order of these two statements matters a lot so when we free self we're not
+
+00:06:21.280 --> 00:06:26.240
+ supposed to access self anymore after that point i'm i'm sure there could be some data just laying
+
+00:06:26.240 --> 00:06:31.440
+ in there that's not been ruined but you just don't know and so that's why we have to free self
+
+00:06:31.440 --> 00:06:39.200
+ arrow data before we free self just because it's just wrong to do that in the other order and so
+
+00:06:39.200 --> 00:06:45.120
+ we do a pyster dump and in that we dump out the length we dump out how much we've allocated so far
+
+00:06:45.120 --> 00:06:51.600
+ and what the data is in it so far and then pyster len pyster len returns an integer and it takes
+
+00:06:51.600 --> 00:06:56.960
+ self as a parameter the key to this is it returns self length and you might ask why it is that we
+
+00:06:56.960 --> 00:07:02.560
+ don't just let our calling code access self length and this again is encapsulation we don't want to
+
+00:07:02.560 --> 00:07:06.960
+ reveal the fact that we're keeping track of length in this variable because we don't want the calling
+
+00:07:06.960 --> 00:07:14.800
+ code to be messing with it remember that length data and alloc are kind of private and so instead
+
+00:07:14.800 --> 00:07:21.280
+ of saying just go look at self length no i would like you to call my function and i will give you
+
+00:07:21.280 --> 00:07:25.440
+ the thing you want so you just call the len function to pass in the instance and that allows
+
+00:07:25.440 --> 00:07:30.160
+ me to change the name of length it allows me to interpret length differently allows me to do all
+
+00:07:30.160 --> 00:07:37.120
+ kinds of things but at least the object writer is in control of the contract with the outside world
+
+00:07:37.120 --> 00:07:43.600
+ so by hiding all the data and giving methods to act we call these accessors to access this data
+
+00:07:43.600 --> 00:07:48.480
+ is a good idea now the underscore stir if you think of python it's like you can say stir open
+
+00:07:48.480 --> 00:07:54.080
+ paren close paren anything inside the parentheses and it converts it to a string well it just so
+
+00:07:54.080 --> 00:07:59.760
+ happens that we're going to maintain self dot data as a valid string so when you say take this
+
+00:07:59.760 --> 00:08:04.880
+ string object and convert it to a string ready for printing i'm just going to return the pointer
+
+00:08:04.880 --> 00:08:08.640
+ to the string we've been maintaining all along internally we have some other methods that we've
+
+00:08:08.640 --> 00:08:14.160
+ got to add we've got a add an append to add a single character you can see that it's got
+
+00:08:14.160 --> 00:08:22.080
+ two parameters it's got self and a single character ch you got append s which is a got two
+
+00:08:22.080 --> 00:08:27.040
+ parameters the self the instance and a whole character string which is a pointer to a character
+
+00:08:27.040 --> 00:08:34.000
+ then we have a sign which is uh got two parameters one is self and one is a pointer to a character
+
+00:08:34.000 --> 00:08:39.360
+ string now i'm not going to give you these lines of code i'm going to give you an assignment to
+
+00:08:39.360 --> 00:08:43.280
+ write these lines of code i'm going to show you how they're supposed to work but i'm not going to
+
+00:08:43.280 --> 00:08:50.160
+ give you the code so i'm telling you that pyster append is about 10 lines of code pyster append s
+
+00:08:50.160 --> 00:08:55.760
+ is just one line of code it's a for loop pyster assign is about three lines of code so pyster
+
+00:08:55.760 --> 00:09:02.560
+ append s calls pyster append and pyster assign calls pyster append s and so we do a lot of reuse
+
+00:09:02.560 --> 00:09:07.680
+ here so let's take a look at how these are going to be used in our main program we say struct pyster
+
+00:09:07.680 --> 00:09:13.600
+ star x equals pyster new which is give me a new string object and then we're going to append a
+
+00:09:13.600 --> 00:09:19.440
+ single character h to it and then we're going to append s a multi-character string and we're going
+
+00:09:19.440 --> 00:09:24.640
+ to dump it each time and then we're going to overwrite our object with a completely new string
+
+00:09:24.640 --> 00:09:31.760
+ and so the key thing is you have got to build this this is what you're going to build okay but
+
+00:09:31.760 --> 00:09:37.360
+ i'm talking a little bit about how to do it so let's walk through what you might need to do in
+
+00:09:37.360 --> 00:09:45.040
+ pyster append now recall that when we set this thing up we created length we allocated 10 characters
+
+00:09:45.040 --> 00:09:50.000
+ and a 10 character array and had data point to that 10 character array and we remembered that we
+
+00:09:50.000 --> 00:09:57.600
+ had 10 characters so the first thing that append does is it checks if the the the length is greater
+
+00:09:57.600 --> 00:10:01.920
+ than what we've allocated meaning that you know if we're going to put in character zero like the
+
+00:10:01.920 --> 00:10:06.960
+ letter h we can just append it and then update length we still have 10 characters allocated and
+
+00:10:06.960 --> 00:10:14.400
+ we've used one of them and so we can just start appending into data right and we have to put in
+
+00:10:14.400 --> 00:10:20.080
+ zero at the after it so that the data is a valid string all the time and so if you kind of imagine
+
+00:10:21.120 --> 00:10:27.600
+ that we create the new object we have a new object it has a length of zero and it has 10 character
+
+00:10:27.600 --> 00:10:33.360
+ array and it has a string end character in the first character we're good we have 10 allocated
+
+00:10:33.360 --> 00:10:39.120
+ and we know we have 10 allocated then if we add an h character single character h all we have to do
+
+00:10:39.120 --> 00:10:46.160
+ is add h into that array data sub zero in that case and then update length to be one and then say
+
+00:10:46.160 --> 00:10:51.440
+ data sub one is backslash zero so that we terminate it correctly so after that first line
+
+00:10:51.440 --> 00:10:59.360
+ the data is h it's a valid h string so we've appended a single character we've updated the
+
+00:10:59.360 --> 00:11:05.280
+ length and then we have terminated the string and then we go to the next line and see where we're
+
+00:11:05.280 --> 00:11:10.720
+ just in this case we're going to append the letter e and we look at the length of the of it because
+
+00:11:10.720 --> 00:11:17.520
+ it tells us where to put it the length is one so we put it in sub one and add backslash zero and
+
+00:11:17.520 --> 00:11:23.360
+ then we check to make sure that we have space for it because we've got 10 but we've only used two
+
+00:11:23.360 --> 00:11:29.360
+ we really use three because h e end of character string so we really use three but the length of
+
+00:11:29.360 --> 00:11:36.560
+ the string we've got is three so as long as no one asks us to append more than 10 characters
+
+00:11:37.120 --> 00:11:43.600
+ append is a pretty simple operation you just add to the the character array that we've already got
+
+00:11:43.600 --> 00:11:53.600
+ allocated okay but of course it gets interesting you can pen h e l l o space w o r and at that
+
+00:11:53.600 --> 00:12:01.040
+ point we have uh nine characters in our length of the string that's in data is nine we've got
+
+00:12:01.040 --> 00:12:07.040
+ it properly terminated so we have used the 10th character to terminate the string so we're really
+
+00:12:07.040 --> 00:12:17.840
+ good things are great but now the problem is we have got to append the l after the r so we have
+
+00:12:17.840 --> 00:12:23.920
+ to append the l after the r so what we have to do is we have to call a function we called malloc
+
+00:12:23.920 --> 00:12:30.960
+ in the constructor and now in append we're going to have to call realloc to say oh i asked for 10
+
+00:12:30.960 --> 00:12:38.960
+ characters but now i want to extend that from 10 to 20 characters and realloc does that realloc
+
+00:12:38.960 --> 00:12:45.840
+ says here's a pointer and it knows how many characters it is please reallocate this pointer
+
+00:12:45.840 --> 00:12:52.880
+ take this date in this pointer and give me make it 20 long instead of 10 long it might have to
+
+00:12:52.880 --> 00:12:58.720
+ copy it so let's take a look at what realloc does so we can extend the size of a dynamically
+
+00:12:58.720 --> 00:13:04.080
+ allocated area by calling realloc with the current pointer to the area and the new size
+
+00:13:04.080 --> 00:13:12.000
+ so in the constructor you see that we malloc 10 and then we're in the append and we say if
+
+00:13:12.000 --> 00:13:17.920
+ the length is greater than self alloc minus two we don't have space for two characters left then
+
+00:13:17.920 --> 00:13:22.400
+ we're going to have to realloc so what we're going to do is we're going to change this from
+
+00:13:22.400 --> 00:13:28.320
+ 10 to 20 characters so we're going to take self alloc which is 10 and add 10 to it so now self
+
+00:13:28.320 --> 00:13:37.200
+ alloc is 20 and then we're going to set self data to a to realloc the old self data 20 characters
+
+00:13:37.200 --> 00:13:45.280
+ so this this realloc takes a pointer and a new size and gives us back a new pointer now it
+
+00:13:45.280 --> 00:13:52.880
+ actually may have to move it in memory so you can't assume that self data is the same before and
+
+00:13:52.880 --> 00:14:01.840
+ after but you can assume that if it had to move the data to find you a 20 character slot in its
+
+00:14:01.840 --> 00:14:07.120
+ free space that it will have copied all the first 10 characters will be copied and then
+
+00:14:07.120 --> 00:14:13.360
+ you'll get a new parameter and that's why you see self data on both sides both in the call to realloc
+
+00:14:13.360 --> 00:14:18.880
+ and as the assignment statement so we go back here and we can see that oh yeah now we have 20
+
+00:14:18.880 --> 00:14:25.120
+ and it's got plenty of space for the l and the d and the backslash zero so now we're going to
+
+00:14:25.120 --> 00:14:30.720
+ show the code that's going to basically test our class we're going to create a new we're going to
+
+00:14:30.720 --> 00:14:36.320
+ dump it we're going to append a single character h we're going to dump it we're going to append a
+
+00:14:36.320 --> 00:14:43.200
+ string one way to make this simple is just have append s call append repeatedly for nine characters
+
+00:14:43.200 --> 00:14:48.960
+ because appending nine character string is the same as appending nine characters not appending one
+
+00:14:48.960 --> 00:14:55.840
+ character time nine times then assign assigning a completely new string which means that you got to
+
+00:14:55.840 --> 00:15:01.040
+ you got to take length back and you got to set some things and you got to check the size and
+
+00:15:01.040 --> 00:15:07.440
+ do a whole bunch of stuff and then we're going to ask the pyster underscore stir to give us back a
+
+00:15:07.440 --> 00:15:13.360
+ printable string and then we're going to ask the pister underscore length to tell us how long this
+
+00:15:13.360 --> 00:15:22.400
+ thing is and so you get to write some code not too much code probably 15 lines of code but it is code
+
+00:15:22.400 --> 00:15:26.880
+ that you will need to think deeply about and you're going to need to understand the structures you're
+
+00:15:26.880 --> 00:15:36.000
+ going to need to understand the pointers etc etc etc up next we are going to make a list class
+
+00:15:37.600 --> 00:15:48.000
+ so
+

@@ -1,0 +1,248 @@
+1
+00:00:00,000 --> 00:00:05,680
+ Hello and welcome to the last lecture in this course. We're going to talk about TreeMaps and
+
+2
+00:00:05,680 --> 00:00:11,840
+ HashMaps. Up till now we've built a map abstraction, we've looked at how iterators work, we've created a
+
+3
+00:00:11,840 --> 00:00:16,800
+ linked list implementation of the hash abstraction, and now we're going to go and build a hash
+
+4
+00:00:16,800 --> 00:00:24,400
+ version and a tree version of that same thing. If you recall some lectures ago I read a Robert Frost
+
+5
+00:00:24,400 --> 00:00:30,560
+ poem, you know, miles to go before I sleep. Well, that's where we're at now. We're coming to the end
+
+6
+00:00:30,560 --> 00:00:35,760
+ of this miles to go, although as you'll see the end is really just the beginning of the next phase.
+
+7
+00:00:35,760 --> 00:00:43,440
+ And with a little foreshadowing, if you have been with me for a very long time, all the way
+
+8
+00:00:43,440 --> 00:00:48,400
+ since Python for Everybody, which for me was recorded a number of years ago already,
+
+9
+00:00:48,960 --> 00:00:54,800
+ this is the first complete piece of code that I showed you, and that was the code to count the
+
+10
+00:00:54,800 --> 00:01:01,360
+ number of words in a file by splitting them, then creating a dictionary, and then counting them.
+
+11
+00:01:01,360 --> 00:01:07,760
+ Now we're going to finish this lecture by implementing this in C, but I'm getting ahead
+
+12
+00:01:07,760 --> 00:01:14,640
+ of myself. So the idea here is we're exploring, you know, different key value implementation
+
+13
+00:01:14,640 --> 00:01:22,000
+ alternatives. We built an unordered Java-based hash map, which is like a Python 2 dictionary.
+
+14
+00:01:22,000 --> 00:01:28,880
+ If you recall, Python 2 had unordered hash maps, which meant you sort of ended up with your stuff
+
+15
+00:01:28,880 --> 00:01:33,120
+ coming out in a random order. It was the same order, but every time you inserted something,
+
+16
+00:01:33,120 --> 00:01:39,360
+ the order might change. Now Python 3, they tend to, later versions of Python 3, they tend to be
+
+17
+00:01:39,360 --> 00:01:47,520
+ ordered, which are more like the list map that we did. We're going to have a map that is sorted,
+
+18
+00:01:47,520 --> 00:01:56,720
+ that's more like Java's tree map with an iterator, and it is sort of chapter 6.5 or section 6.5 of
+
+19
+00:01:56,720 --> 00:02:06,240
+ the book, and it is a combination of a tree map and a linked list map, but Java doesn't have such
+
+20
+00:02:06,240 --> 00:02:10,400
+ thing, which really kind of surprises me. They got a tree map and they got a hash map, but they don't
+
+21
+00:02:10,400 --> 00:02:19,200
+ have a linked tree map or a linked map. So here we go. Now these, the two abstractions, I mean,
+
+22
+00:02:19,200 --> 00:02:24,640
+ two implementations we're going to build, kind of, you see them in Python, you see them in C++,
+
+23
+00:02:24,640 --> 00:02:30,800
+ and you pretty much see them in Java as well, but we're going to do our own thing.
+
+24
+00:02:32,480 --> 00:02:43,040
+ So I would say to you when you're writing this code, I don't want you to think that when I wrote
+
+25
+00:02:43,040 --> 00:02:48,400
+ this code that I gave you as samples or when I wrote these slides, that it was easy for me.
+
+26
+00:02:48,400 --> 00:02:56,400
+ The concept of trees and hashes are pretty straightforward, but then you got to solve
+
+27
+00:02:56,400 --> 00:03:02,080
+ the little problems of how to take the previous and hook it to the current and hook the next to the
+
+28
+00:03:03,120 --> 00:03:08,400
+ current next to the next from the preview. And so you've got to draw pictures, and this is actual
+
+29
+00:03:08,400 --> 00:03:12,720
+ picture that I drew. I really wrote all this code from scratch. I mean, I didn't come up with the
+
+30
+00:03:12,720 --> 00:03:18,320
+ idea of a tree from scratch, but I wrote this code from scratch. And you can see that the,
+
+31
+00:03:18,320 --> 00:03:25,040
+ like when I was building the tree map, my goal was to find the right place in the tree to insert
+
+32
+00:03:25,040 --> 00:03:32,000
+ the next item. And so you see I've got this 1, 3, 5, 7, 9, 11, 13. So I kind of constructed this tree
+
+33
+00:03:32,000 --> 00:03:37,040
+ that was right, it was in order. And then I was trying to figure out where I might put 4 and where
+
+34
+00:03:37,040 --> 00:03:44,800
+ I might put 8 and where I might put 14. And then I kind of had this notion when I was writing the
+
+35
+00:03:44,800 --> 00:03:49,360
+ picture that I, you'll see I had the words lowest, node, greater than, and then I cross them all out
+
+36
+00:03:49,360 --> 00:03:53,760
+ because that wasn't enough. And you'll see when we get there that I have the lowest node greater
+
+37
+00:03:53,760 --> 00:03:57,920
+ than and the greatest node less than. And I've got to get both of those things. And so as we
+
+38
+00:03:57,920 --> 00:04:03,040
+ work our way down the tree, we've got to keep track of this. I'm getting way ahead of myself.
+
+39
+00:04:03,040 --> 00:04:12,560
+ Like many data structure programming tasks, they, you can draw the picture and it makes a lot of
+
+40
+00:04:12,560 --> 00:04:16,480
+ sense. You see the hash map, which is the first one we're going to do. That's really just nothing
+
+41
+00:04:16,480 --> 00:04:21,360
+ more than a bunch of linked lists with a hash function picking the head. Instead of one head,
+
+42
+00:04:21,360 --> 00:04:26,960
+ it has in this case four heads. So that one turns out to be easy and that's the first one that we're
+
+43
+00:04:26,960 --> 00:04:34,000
+ going to do. But when I wrote this, I mean, I knew what I was doing. I knew what a tree was. I knew
+
+44
+00:04:34,000 --> 00:04:38,240
+ what a hash was. That's the easy part. The hard part's writing the code. Now taking the code from
+
+45
+00:04:38,240 --> 00:04:43,760
+ someone else, like if you're taking it from Python or C++ or Java, that's easy. Thank heaven. They
+
+46
+00:04:43,760 --> 00:04:49,360
+ wrote it and they tested it. And we have a nice tested working implementations. So you shouldn't
+
+47
+00:04:49,360 --> 00:04:53,760
+ have to write this stuff in most languages. And so we're just understanding how to write it. But
+
+48
+00:04:54,800 --> 00:05:01,360
+ if you do it right, you're going to make mistakes and you're going to, you're going to be 80% right.
+
+49
+00:05:01,360 --> 00:05:06,560
+ But then it's going to be real hard to debug this stuff. So part of what you need to figure,
+
+50
+00:05:06,560 --> 00:05:12,640
+ you need to accept the fact that you will, you're not likely to write it perfect the first time
+
+51
+00:05:12,640 --> 00:05:20,160
+ and debugging is difficult. You're going to print out a bunch of like percent P's and hex
+
+52
+00:05:20,160 --> 00:05:25,120
+ values and stuff. And you're going to just go through it slowly. Like what did I do wrong?
+
+53
+00:05:25,120 --> 00:05:29,920
+ Because the main programs for the programming assignments that I give you are really kind of
+
+54
+00:05:29,920 --> 00:05:34,960
+ like unit tests. They're sort of pushing your implementation to see if it's capable of handling
+
+55
+00:05:34,960 --> 00:05:43,120
+ all of the common situations. And so don't, don't stress if it doesn't work right away.
+
+56
+00:05:43,760 --> 00:05:50,160
+ My implementations didn't work right away. They failed. You can, you know, if you can go to some
+
+57
+00:05:50,160 --> 00:05:55,440
+ website and get the solution. I mean, if you're going to do that, just go to Python and make a
+
+58
+00:05:55,440 --> 00:06:02,800
+ dictionary. If that's your goal, your goal is to struggle with doing something that you understand.
+
+59
+00:06:02,800 --> 00:06:07,680
+ You know how to do it. You know what a tree is. You kind of know that you got prebs and necks and
+
+60
+00:06:07,680 --> 00:06:14,160
+ lefts and rights, but you still got to write the code and making one or two mistakes and then fixing
+
+61
+00:06:14,160 --> 00:06:20,240
+ those one or two mistakes is essential to understanding. So with that up next, we're
+
+62
+00:06:20,240 --> 00:06:23,120
+ going to talk about the HashMap.
+

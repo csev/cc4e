@@ -1,0 +1,479 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:04.400
+ Welcome to another code walkthrough for C programming for everybody.
+
+00:00:04.400 --> 00:00:13.200
+ In this code walkthrough, we are going to compare how Guido implemented list in the earliest versions of Python
+
+00:00:13.200 --> 00:00:19.400
+ versus how I implemented list while teaching Chapter 6 of Carnegie and Ritchie.
+
+00:00:19.400 --> 00:00:25.400
+ And so this was, if you watched the video of my interview with Guido Van Rossum,
+
+00:00:25.400 --> 00:00:29.400
+ this was like my greatest, like, revelation. Like, what?
+
+00:00:29.400 --> 00:00:41.800
+ And so the big revelation is, is that Python's list object in, you know, Python 0.01 was an array of pointers.
+
+00:00:41.800 --> 00:00:48.600
+ And if we look at the Carnegie and Ritchie list item, this was a linked list. I did a linked list.
+
+00:00:48.600 --> 00:00:56.400
+ And so the actual KR list struct has a pointer to the head and the tail of its linked list and account.
+
+00:00:56.400 --> 00:01:02.400
+ And again, this is classic linked list. And to some degree, while I was teaching this in Carnegie and Ritchie Chapter 6,
+
+00:01:02.400 --> 00:01:08.400
+ I was really teaching you linked lists and using the Python list abstraction to teach it.
+
+00:01:08.400 --> 00:01:17.000
+ And so we have two data structures. We have this node, which just has a pointer to a text saved and a pointer to the next one.
+
+00:01:17.000 --> 00:01:21.800
+ So this is like classic linked list. I'm not going to I'm not going to go through that again.
+
+00:01:21.800 --> 00:01:28.300
+ So you just go back and watch the Chapter 6 stuff. And I talk about linked lists all the time.
+
+00:01:28.300 --> 00:01:34.300
+ But that's not how Python does it, did it or does it.
+
+00:01:34.300 --> 00:01:43.900
+ And it's not clear to me exactly why, but he I think he was just trying to build the simplest possible data structure.
+
+00:01:43.900 --> 00:01:50.500
+ And we'll look at some code and you'll see that there is a certain simplicity, like already in just the struct definition.
+
+00:01:50.500 --> 00:02:00.600
+ We see the struct P1 list. There's only one of them. If it's a linked list, you have sort of a struct for the node and a struct for the list itself.
+
+00:02:00.600 --> 00:02:10.000
+ The constructor P1 list new. Well, we're just going to malloc the object and then we're going to say, OK, let's allocate.
+
+00:02:10.000 --> 00:02:15.500
+ Let's allocate to an array of pointers to characters.
+
+00:02:15.500 --> 00:02:26.800
+ And so so if we look at the struct P1 list and we see char star star items, that is syntax for a array of pointers.
+
+00:02:26.800 --> 00:02:32.600
+ OK, and so you think of each pointer as either 32 bits in the old days or 64 bits in the modern days.
+
+00:02:32.600 --> 00:02:42.600
+ So that's an array. And so so what I'm doing in this P items equals malloc open print P alloc times size of char star.
+
+00:02:42.600 --> 00:02:51.800
+ That means I'm allocating two elements that are pointers, which means, again, two times 64 bits in the modern world.
+
+00:02:51.800 --> 00:02:59.600
+ And noting that I have two in there and length, which is the Python view of the number of items is zero.
+
+00:02:59.600 --> 00:03:03.000
+ So we've got we've got space for two and we have zero.
+
+00:03:03.000 --> 00:03:10.900
+ And that's an array that we know Alec tells us how long the array is and length tells us how much of the array we've used.
+
+00:03:10.900 --> 00:03:15.200
+ And just to go back, I'll try not to compare and contrast too much.
+
+00:03:15.200 --> 00:03:23.700
+ But just think about the complexity of linked lists the way I did them in Kernigan and Richey, my Kernigan and Richey chapter six.
+
+00:03:23.700 --> 00:03:28.900
+ You have this thing called head. You have this thing called tail, which is null and count is zero.
+
+00:03:28.900 --> 00:03:33.500
+ And again, for those of us who know linked list, this is obvious.
+
+00:03:33.500 --> 00:03:37.600
+ It's what you do. But an array is simpler than a linked list.
+
+00:03:37.600 --> 00:03:41.600
+ And so, you know, there we go.
+
+00:03:41.600 --> 00:03:47.700
+ OK, OK, OK, OK. So that's what we're what we've got when we're done with our constructor.
+
+00:03:47.700 --> 00:03:54.200
+ We've got an array of two pointers, two characters. Allocated to and length one.
+
+00:03:54.200 --> 00:03:57.900
+ So let's go take a look at let's take a look at the main code right now.
+
+00:03:57.900 --> 00:04:05.800
+ And so the key to this main code is that in a sense, here's the Kernigan Richey main code,
+
+00:04:05.800 --> 00:04:12.700
+ because this is like an interface and an abstraction, the main code should be pretty much the same.
+
+00:04:12.700 --> 00:04:18.200
+ And the main code pretty much is the same, meaning that we create a linked list, we append some stuff to it,
+
+00:04:18.200 --> 00:04:22.100
+ we print the list, we check the length, we look something up and then we delete it.
+
+00:04:22.100 --> 00:04:30.400
+ And we do both things because below the abstraction, below the interface, both of these implementations,
+
+00:04:30.400 --> 00:04:38.300
+ both the KR list and the P1 list are supposed to provide to us, the caller, the same abstraction.
+
+00:04:38.300 --> 00:04:43.900
+ We can append, we can print, we can check the length, we can check the index and we can delete it.
+
+00:04:43.900 --> 00:04:46.000
+ And it does not matter what the implementation is.
+
+00:04:46.000 --> 00:04:54.900
+ And that's so that's more the builders of the Python runtime get to decide how to do this because we've got a contract with them.
+
+00:04:54.900 --> 00:04:58.400
+ Again, an interface. So let's just take a look at the code.
+
+00:04:58.400 --> 00:05:00.800
+ We're going to add hello world to our list and print it.
+
+00:05:00.800 --> 00:05:02.600
+ Then we're going to add catchphrase and print it.
+
+00:05:02.600 --> 00:05:05.100
+ Then we're going to add Brian and print it.
+
+00:05:05.100 --> 00:05:07.800
+ And then we're going to say, how big is it?
+
+00:05:07.800 --> 00:05:11.500
+ And then we're going to ask, where is Brian in there and where is Bob in there?
+
+00:05:11.500 --> 00:05:13.300
+ And then we're going to delete it.
+
+00:05:13.300 --> 00:05:19.100
+ And if you look at the run, you see, you know, the list starts out as hello world and the list is hello world catchphrase.
+
+00:05:19.100 --> 00:05:24.400
+ And we'll see what this extending because we started with two slots in our array.
+
+00:05:24.400 --> 00:05:26.800
+ And for the first two, you didn't have to get bigger.
+
+00:05:26.800 --> 00:05:30.200
+ But then we're like, oh, wow, we're running out of space.
+
+00:05:30.200 --> 00:05:32.200
+ So we got to like extend this array.
+
+00:05:32.200 --> 00:05:34.000
+ We'll show that code in a bit.
+
+00:05:34.000 --> 00:05:36.600
+ But then we end up with three things in the list.
+
+00:05:36.600 --> 00:05:40.800
+ Again, that's not our job as the caller, three things in the list.
+
+00:05:40.800 --> 00:05:47.700
+ And Brian is in position two, which zero, one, two, hello world is zero, catchphrase is one and Brian is two.
+
+00:05:47.700 --> 00:05:51.200
+ And Bob is not there. So we get back a negative one.
+
+00:05:51.200 --> 00:05:55.000
+ Pretty stuff. OK, so let's take a look at the append code,
+
+00:05:55.000 --> 00:06:00.400
+ because this is where the fun happens.
+
+00:06:00.400 --> 00:06:02.700
+ So here's the append code.
+
+00:06:02.700 --> 00:06:05.500
+ So let's take a look at the let's go back.
+
+00:06:05.500 --> 00:06:11.500
+ How I taught you append, you know, a month or so ago.
+
+00:06:11.500 --> 00:06:14.700
+ And so so again, you got this.
+
+00:06:14.700 --> 00:06:16.900
+ The lecture has pictures of all this. Right.
+
+00:06:16.900 --> 00:06:23.100
+ So if you're appending, if it's empty, your self head is new.
+
+00:06:23.100 --> 00:06:29.700
+ If the self tail is not equal, no, then self tail next equals new and then self tail new equals new.
+
+00:06:29.700 --> 00:06:35.100
+ So that's just like you got to draw the picture and add the little arrows and away you go.
+
+00:06:35.100 --> 00:06:37.700
+ And then you can save the string itself.
+
+00:06:37.700 --> 00:06:44.900
+ But now we look at the P1 list and we we have to extend it if necessary.
+
+00:06:44.900 --> 00:06:51.300
+ Right. So if self length, i.e. is greater than self Alex.
+
+00:06:51.300 --> 00:06:55.300
+ So we allocated two in the first in the in the constructor.
+
+00:06:55.300 --> 00:07:02.500
+ And then if the length is two, we don't have enough space because our next one would be sub two.
+
+00:07:02.500 --> 00:07:07.100
+ And that you can have sub zero and sub one in a two long array.
+
+00:07:07.100 --> 00:07:14.800
+ And so all we're going to do then is we're going to have chunking and Guido mentioned chunking in the video.
+
+00:07:14.800 --> 00:07:21.800
+ We're going to chunk it to add 10. And so we're going to basically extend from two to 10.
+
+00:07:21.800 --> 00:07:28.000
+ So we're going to add 10. We're going to increase the Alex size and then we're going to call realic.
+
+00:07:28.000 --> 00:07:37.100
+ And realic is going to take the array of items and say how big that was, free it, move it, whatever.
+
+00:07:37.100 --> 00:07:41.200
+ Extend it depending on what realic is, how realic is working.
+
+00:07:41.200 --> 00:07:48.900
+ And we're going to say, OK, we want to have 12 of these things now, 12 and that becomes our new items.
+
+00:07:48.900 --> 00:07:54.900
+ Now, realic will also so there's two things in it and we extended 12.
+
+00:07:54.900 --> 00:07:57.300
+ Realic will copy the two things.
+
+00:07:57.300 --> 00:08:04.100
+ So we don't have to do any copying because realic copies the first two things because it knows that items is too long.
+
+00:08:04.100 --> 00:08:08.200
+ And so it copies the first two things and then gives us 10 more.
+
+00:08:08.200 --> 00:08:10.400
+ So there's no copy code here.
+
+00:08:10.400 --> 00:08:17.000
+ And so I think Guido really liked the realic and a lot of C programmers don't like realic and he did.
+
+00:08:17.000 --> 00:08:21.600
+ He's like, look, realic says it's going to do this and I want to do this.
+
+00:08:21.600 --> 00:08:24.300
+ So react realic, do your job.
+
+00:08:24.300 --> 00:08:33.600
+ And so I think back to my own time as a software developer, I just felt because again, we were taught linked list, linked list, linked list.
+
+00:08:33.600 --> 00:08:40.500
+ I just didn't think about realic as a useful thing and Guido clearly felt like realic is the answer.
+
+00:08:40.500 --> 00:08:44.400
+ And it lets him have this simple array mentality.
+
+00:08:44.400 --> 00:08:48.400
+ So you just realic it and say, look, here's an array of this two, I want it to be 12.
+
+00:08:48.400 --> 00:08:50.000
+ Help me and we're done.
+
+00:08:50.000 --> 00:08:51.800
+ And so that's really simple code.
+
+00:08:51.800 --> 00:08:55.400
+ I think very easy to understand.
+
+00:08:55.400 --> 00:08:59.000
+ And then we make a save string.
+
+00:08:59.000 --> 00:09:05.600
+ And then we just add at the end of the array self length, which in this case is sub 2, is that string.
+
+00:09:05.600 --> 00:09:07.800
+ And then we add one to the length.
+
+00:09:07.800 --> 00:09:09.700
+ So this code is really simple.
+
+00:09:09.700 --> 00:09:17.900
+ And if you were doing debug print, you don't really need any addresses because if you recall when I'm printing in all my linked list stuff,
+
+00:09:17.900 --> 00:09:23.800
+ so that you can debug it and redraw your lines and figure everything out, I'm printing addresses out all the time.
+
+00:09:23.800 --> 00:09:25.400
+ But no, this is just a position.
+
+00:09:25.400 --> 00:09:28.900
+ So this is the 0, the 1, and now the 2 in this case.
+
+00:09:28.900 --> 00:09:32.700
+ And so that's where you see when it says extending from 2 to 12.
+
+00:09:32.700 --> 00:09:40.300
+ That's as a side effect of adding the third item to a list that was pre-allocated with two slots.
+
+00:09:40.300 --> 00:09:41.600
+ OK.
+
+00:09:41.600 --> 00:09:44.300
+ And that's it.
+
+00:09:44.300 --> 00:09:50.000
+ But let's take a look at the print code, right?
+
+00:09:50.000 --> 00:09:56.500
+ Let's look at the print code for both of them.
+
+00:09:56.500 --> 00:09:58.600
+ This is KRList print.
+
+00:09:58.600 --> 00:10:04.400
+ Let's take a look at the print code in Guido van Rossum's version.
+
+00:10:04.400 --> 00:10:06.800
+ OK.
+
+00:10:06.800 --> 00:10:13.000
+ So the key to this is the for loop in P1_List_Print.
+
+00:10:13.000 --> 00:10:25.000
+ The for loop is for i equals 0, semicolon, i less than self length, let's take that blank out, i less than self length, i plus plus.
+
+00:10:25.000 --> 00:10:34.700
+ That is like really basic chapter 4, chapter 5 stuff in Kernigan and Ritchie.
+
+00:10:34.700 --> 00:10:36.700
+ So it's just an array.
+
+00:10:36.700 --> 00:10:39.400
+ So you write a simple incremented for loop.
+
+00:10:39.400 --> 00:10:42.500
+ It's fast, cash efficient.
+
+00:10:42.500 --> 00:10:45.100
+ It's beautifully simple, right?
+
+00:10:45.100 --> 00:10:48.300
+ So in this print, this is obvious.
+
+00:10:48.300 --> 00:10:58.800
+ Now, when I showed you the same thing in Kernigan and Ritchie chapter 6, I had this for in KRList_Print.
+
+00:10:58.800 --> 00:11:05.100
+ It says for ker equals self arrow head, ker not equal null, ker equals ker next.
+
+00:11:05.100 --> 00:11:06.900
+ And I apologize for this line.
+
+00:11:06.900 --> 00:11:12.100
+ I'm like, you will eventually write this because it's an idiom.
+
+00:11:12.100 --> 00:11:19.100
+ You will write this quite naturally and it'll make a lot of sense to you, right?
+
+00:11:19.100 --> 00:11:23.300
+ But in Python 1, we didn't do that.
+
+00:11:23.300 --> 00:11:24.900
+ It was an array.
+
+00:11:24.900 --> 00:11:37.000
+ And the only place that we have to worry about its dynamic nature, the only place we have to worry about its dynamic nature is in the append, right?
+
+00:11:37.000 --> 00:11:38.800
+ Where we reallocate it.
+
+00:11:38.800 --> 00:11:45.300
+ So everything we're doing here is a simple for loop.
+
+00:11:45.300 --> 00:11:50.400
+ So like even the del command here, the del basically says, let's free all those little items.
+
+00:11:50.400 --> 00:11:57.900
+ Let's free those character strings with a for loop for i equals zero, i less than self length, i plus plus.
+
+00:11:57.900 --> 00:12:03.000
+ Again, a beginning C programmer can understand this code.
+
+00:12:03.000 --> 00:12:09.000
+ And if we look at the C code in KRList_del, we just see a while loop.
+
+00:12:09.000 --> 00:12:13.100
+ And remember, you had to do these in a certain order.
+
+00:12:13.100 --> 00:12:15.900
+ And so the whole free and I talked about all this stuff.
+
+00:12:15.900 --> 00:12:18.900
+ The fact that you got to do it in a certain order.
+
+00:12:18.900 --> 00:12:24.400
+ Well, this is pretty simple, right?
+
+00:12:24.400 --> 00:12:27.600
+ So it frees each of the items.
+
+00:12:27.600 --> 00:12:35.100
+ It's for i equals zero in P1List_del, you free each of the characters strings that we point to.
+
+00:12:35.100 --> 00:12:40.400
+ Then we free the array that's got those pointers, which are now valid because we got rid of them.
+
+00:12:40.400 --> 00:12:42.500
+ And then you free the object itself.
+
+00:12:42.500 --> 00:12:54.300
+ And so to some degree, one can appreciate the simplicity of what Guido did in this by going with arrays.
+
+00:12:54.300 --> 00:13:06.000
+ And again, the key thing that misled me or that Guido just took a different approach, it really came down to Realloc.
+
+00:13:06.000 --> 00:13:12.600
+ And so he believed in, I was trained to not think about Realloc as plan A.
+
+00:13:12.600 --> 00:13:18.200
+ And so I thought linked lists were plan A because then you don't have to do so many Reallocs.
+
+00:13:18.200 --> 00:13:22.400
+ And he was like, I want an array and Realloc says it's going to do this for me.
+
+00:13:22.400 --> 00:13:23.500
+ And away we go.
+
+00:13:23.500 --> 00:13:35.800
+ So I encourage you to take a look at P1List and KRList and put them in two windows next to each other and sort of compare and contrast.
+
+00:13:35.800 --> 00:13:42.800
+ And what I really want you to do as you're comparing and contrasting is I want you to think about the complexity of writing,
+
+00:13:42.800 --> 00:13:56.100
+ debugging, and then later the complexity of understanding and how much knowledge a programmer has to understand to be able to make sense of these two bits of code.
+
+00:13:56.100 --> 00:14:03.200
+ And again, for those of us computer scientists for whom linked lists are very natural, we just write this stuff.
+
+00:14:03.200 --> 00:14:07.400
+ I can write it pretty fast, but that doesn't mean that it's the easiest to learn.
+
+00:14:07.400 --> 00:14:09.400
+ So away we go.
+
+00:14:09.400 --> 00:14:12.100
+ And so I hope you found this comparison interesting.
+
+00:14:12.100 --> 00:14:14.100
+ Cheers.
+

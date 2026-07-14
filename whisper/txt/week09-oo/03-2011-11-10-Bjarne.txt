@@ -1,0 +1,133 @@
+ [Music]
+ I was trying to characterize, what is C++ particularly useful for, what did I actually build it for,
+ and what is its strength today after almost 30 years of evolution, and also where is the limits to where it is.
+ So, the way I see it is, there's a core domain for C++, and that's what you would call traditional systems programming,
+ but that's not the right term, because it's just a style of language and a style of programming.
+ So, I go a little bit further, I said, what is it that requires the kind of services that C++ has?
+ What is the sum of all these applications I've been dealing with? Where did it work, and where was it essential?
+ And I came up with the phrase infrastructure, and I roughly define it as, if it breaks, somebody gets hurt or somebody gets ruined.
+ These are the kind of foundational things in our systems that must work for the system, for society to work.
+ The question I'm trying to phrase is, what matters in those areas?
+ And I've come up with some notions of compact data structures, very strongly typed interfaces for maintainability and for minimizing errors,
+ a heavier emphasis on algorithms or random code, because we need reliability, we need the stuff to be comprehensible, analyzable,
+ we want to make sure that it's actually correct. And so, the paper I was writing comes from that kind of thinking.
+ What is the right style, and what are the supports for that style we need for infrastructure software, for software that must be dependable?
+ I don't get real examples, sort of the keys of some of the modern operating systems, the basics of our phone system, the brakes in my car.
+ How do we make that dependable? How do we make sure that space probes don't get the logical equivalent of a blue screen of death
+ halfway to Mars, where we can't send a repairman? How do we make sure that they actually go into the right orbits?
+ JPL lost a probe off Mars because two groups had communicated nicely, they thought.
+ But in fact, one of them spoke imperial measures, and the other one spoke the SI system, the MKS system.
+ And the result was a misnavigation that sent more than $500 million worth of equipment into the wrong orbit.
+ Not a good idea. It was the work of 200 good engineers, lifetime's work, down the drain.
+ And that could have been avoided by ever so slight improvement in the interfaces between the parts of that program.
+ So things like that I'm interested in. So there's a core area where I think the facilities for C++, they're not perfect,
+ the kind of things I would like, the kind of things I work on are essential.
+ And then there's a huge gray area where you have choices, they can help in my opinion, but they're not essential.
+ Then you have areas where it probably is unsuitable to apply that kind of stringency technique.
+ I want to essentially get 100% reliability if I'm putting up a small application for my own use,
+ or if somebody is trying to push out a little cute web app.
+ They don't need that kind of reliability, and maybe what I'm talking about in terms of programming is not for them.
+ But I think the really important thing here is to realize that there are different techniques,
+ different languages that apply to different areas, and we have to recognize this.
+ We can't have a single language for everybody, a single technique of using that language for everybody.
+ We can't have a single tool chain or a single kind of system, and from there we can go a little bit further.
+ We probably don't need the same kind of training for education for everybody.
+ The engineer, software developer, or whatever that is building infrastructure,
+ say the mechanism that automatically updates the software on a cell phone,
+ has to have a different education, different knowledge, different training from the one that makes a little game.
+ Because the one can actually destroy a whole day or a whole week for millions of people by a little slip.
+ Maybe even somebody gets hurt if the 911 calls don't get through, bad things happen.
+ And it's not just the software that runs on it, it's the update software.
+ It's anything in the chain of safety critical issues that has to be dealt with.
+ But somebody doing that has to think differently from somebody who writes a little application,
+ maybe to make a couple of bugs quickly.
+ There's nothing wrong with that, but they have to think different.
+ As a matter of fact, if you apply this very strange engineering-oriented thinking to little commercial apps,
+ you'll probably be a year late to market, and it'll be irrelevant.
+ On the other hand, if you took the attitude of first to market is the only thing that happens,
+ and apply them to the steering wheel of my car, no, that's not a good idea.
+ Most people have to think different, and the way you get people to think differently is to give them different educations.
+ We don't have an anti-standard programmer, and we shouldn't have.
+ If it was, we should have several.
+ And I think the field has to, in some sense, clean up its act before somebody else comes in and tries to clean it up for us.
+ You can sort of make your own constants and have seconds after the constants.
+ Is that a feature that you added at some intermediate stage, or is that simple sort of operator overloading?
+ We were observing that we were getting a whole zoo of little suffixes out of the various fundamental types.
+ The U suffix is for unsigned, and L is for long, I think, and I can't remember them all anymore, and we thought, you know,
+ you can do anything in C++, but you can't make your own literals.
+ And then I'd observed separately that there was techniques that were effective,
+ except that people would not use them because the notation was too ugly.
+ The Unix example is one of those.
+ You've been able to do everything in the Unix example I showed.
+ Not quite as elegant, but you can do everything I showed for the last ten years.
+ Libraries have been available.
+ There was a nice one from Fermilabs, back to Nice Places and Nice People again.
+ But it wasn't used as much as it should because the users didn't believe in the notation.
+ They didn't like it.
+ And so we were looking at how can you basically clean up people's source code?
+ How can we make code look the way it would look in an ideal language?
+ How can we make code look much as it does in the textbooks?
+ So the Unix example is simply a way of getting your code to look the way equations look in your physics textbook.
+ We know how to avoid that Mars climate orbital problem.
+ Everybody had been taught it in physics in high school.
+ First, make sure your units match, then do the detailed calculation.
+ So why didn't people do it?
+ It was too cumbersome and it was too ugly when they did it.
+ Or too costly if they used runtime techniques.
+ So I, together with friends, we thought this problem was worth addressing.
+ We tried to figure out what solutions we had, went through several evolutions.
+ I think the last finishing touches was done by David.
+ And it's now standard.
+ This is one of the features that is not shipping widely today.
+ But wait a year and that example will probably run on your computer too.
+ Are there other kind of examples where you've let people from within a class create their own literals beyond sort of suffixes?
+ When I started out with C++, I provided constructors which allows you to construct objects of a certain type from arguments.
+ And that has been very effective.
+ And people have used constructors as if they were literals.
+ But they weren't.
+ That's a runtime cost.
+ So the first thing we did with C++ OX, C++ 11, was we introduced constant expressions as a more fundamental unit.
+ This was work between me and my colleague Gabriel Das Reis.
+ And we have constexpr functions that can be evaluated at compile time.
+ And we have constexpr types so that you can use type rich programming at compile time.
+ This is very important in sort of the high-performance computing and in the embedded systems world.
+ That was what we did to address that.
+ Constant expression evaluation is much more general, much easier to use, and yes, more pretty in C++ 11 than earlier versions.
+ So that just strengthens what the direction had gone before.
+ So you could write complex 1, 2 to make a complex number in C++ in 1984.
+ Today you can write the same thing and have the complex number created at compile time.
+ And therefore, say, put in ROM.
+ I don't know why you'd want a complex number on ROM, but you might want a point which is the same thing, point of 1, 2.
+ Now, you still have to write point or complex.
+ And the other thread of thinking in C++ works was to generalize and make safer the initialization.
+ And so it happens that if you know the type you need, like you have a function returning a complex number,
+ you can simply write open curly 1, 2, and it says, oh, 1, 2 is supposed to make you a complex number.
+ And it will make a complex number and return it.
+ And if you happen to be at compile time, you'll do that at compile time.
+ So things work together. You get better notation. You get better performance.
+ And anything you can do at compile time works even better in a concurrent system because you can't get a race condition on a constant.
+ If it's been calculated before the program starts, you can't get the threading problems.
+ So open curly means find a constructor for the thing that I'm about to put this in.
+ It looks at where the destination is.
+ And it says, is there a two parameter constructor or a three parameter constructor or whatever?
+ Or if it's just a struct, it will take the first element and put in the first element.
+ It does it for a struct as well?
+ Oh, yeah.
+ See, I haven't played in C++ in a while. That's a great idea.
+ It refers to this as uniform initialization. It will initialize if it can.
+ And if there's any ambiguity, it of course finds the ambiguity.
+ If you're in a context where, like you're calling a function, and the target could be a point or a complex number, it's a tough luck.
+ Tell me. Or tell me.
+ The error checking has actually been improved.
+ C++11 is slightly better at finding bugs than C++98 was.
+ I come from the school of philosophy that says that the compiler is your best friend when you generate code, when you build programs.
+ And to make it your best friend, you actually have to have more types.
+ If everything is an integer, well, what can the type system help you there?
+ No, it can't. If everything is a floating point number, it can't tell you whether it's imperial or OSI units, and you'll get bugs.
+ So you need type rich interfaces, and for that you need to be able to build cheap types, basically, and flexible types.
+ And convenient.
+ Types that's easy to use, simple. And so we worked from complex of 1,0, 1,2, or something like that.
+ So curly is 1,2, and type is optional. It's only needed when it's needed.
+ And then finally, we can now write, if we wanted to, 1+2i. Define i as the unit for the imaginary parts, and you get complex arithmetic without ever saying complex.
+ It's down in the definition of the i-surfix.
+ [Music]

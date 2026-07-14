@@ -1,0 +1,281 @@
+ [MUSIC PLAYING]
+ Where in the Python 001 did you start building the objects?
+ And where did the objects come first, and then a syntax came?
+ Or did you build a syntax, and then the objects?
+ I think in my head, I had both.
+ Because I was building a stripped down version of ABC.
+ And I was very familiar with how ABC implemented
+ its data structures.
+ And I had pretty well-developed ideas
+ about how I would do it instead of the ABC way,
+ both for the syntax and for the data structures.
+ So for the syntax, actually, my main gripe about ABC
+ was that it used uppercase letters for the keywords
+ of the language.
+ They had a reason for that, but I
+ didn't think it was a good reason.
+ And it just looked horrible to a Unix hacker like myself.
+ So that's what I wanted to change for the syntax.
+ But I knew that I wanted to do the indentation.
+ And I had already participated in the parser for ABC,
+ so I knew how to do that stuff.
+ I had some of my own ideas, but I knew what I wanted.
+ I literally actually started with a parser.
+ And actually, I started with a lexer and a parser.
+ Those were actually the first bits of the language
+ that I wrote.
+ But before I started, I knew I had very specific ideas
+ on how the primitive data types would be implemented.
+ I would use the same reference count mechanism
+ that I knew well from ABC.
+ I would implement integers in a similar way,
+ because I wanted--
+ Integers would be an easy choice not to put in the object.
+ Yeah, I wanted everything to be an object.
+ That was also a thing I approved of about ABC.
+ And I think I have to take it back
+ about the arbitrary precision integers.
+ Those came quickly, but I don't think
+ that they came immediately.
+ There was an integer type, which was 32 bits.
+ There was a separate long type, which
+ survived until the end of Python 2,
+ which was arbitrary precision.
+ And there was a flow type.
+ Then for the more complex data structures--
+ and the numeric types were not all that different
+ or interesting, not that different from ABC.
+ But for the rest, I sort of had seen
+ what ABC did, which was that everything was implemented
+ as a tree, even strings.
+ And I did not like that, because I
+ wanted to interface with system calls and C libraries.
+ And I said, I want strings to be arbitrary length,
+ but I want them to be a linear buffer.
+ And so too bad if one string sort of requires
+ allocating a large buffer at once.
+ Most strings aren't that long.
+ I'll make sure that it works for any size.
+ But I'll optimize for the short strings that
+ are the bread and butter of so many programs
+ I imagine would be written in Python.
+ That is a brilliant choice, but not automatic or intuitive,
+ that that would be the right answer.
+ Having sort of written a lot of C code
+ and knowing that I wanted Python to be extensible with C,
+ that was also one of the very early choices.
+ I wanted to sort of link back to C code in a natural way.
+ So the import system was part of that.
+ So when Python was a month old or maybe two months old,
+ if you were appending to a string in a loop,
+ was it basically extending, reallocating, and copying?
+ Now, strings were always immutable.
+ Sorry, yes, it was calculating the size of the result,
+ allocating a new string object, and then copying
+ the two originals into that.
+ There is a string resize internal operation
+ that is sort of intended to be only used when you're building
+ up a string before you've shown it to anyone else.
+ And I needed that because I was envisioning an I/O system
+ where you say, oh, I'm going to read a line
+ and I don't know how long that line is going to be,
+ or maybe I'm going to slurp an entire file
+ into a single string and I don't know how long that file is.
+ So I'm allocating a large enough buffer.
+ I'm reading into that buffer.
+ And then if it turns out that I allocated 1,000 bytes,
+ but what I read was only 15 bytes,
+ I reallocated to give the sort of remaining 85 or whatever,
+ 900 bytes.
+ Are we talking about your thinking
+ before you released the very first version of Python,
+ meaning you didn't like--
+ at some point, you came back from vacation
+ and you handed it to somebody at work.
+ This is your thinking when there's only one person before
+ even the 0.01--
+ Oh, yeah, yeah.
+ I wanted strings to be done that way,
+ including the little detail that if you
+ have a string of, say, 10 bytes, you allocate 11 bytes
+ and you put a no byte at the end,
+ just so that if you happen to want to pass that string
+ to a C library function that expected
+ zero terminated strings, no byte terminated strings,
+ you wouldn't have to copy it.
+ There might be a no byte in the middle,
+ so things might still go wrong.
+ But if you sort of knew or trusted that that wasn't the case,
+ you wouldn't have to make a copy with one extra byte
+ just to make sure that that no byte was there.
+ The no byte is part of the data structure, only, of course,
+ visible on the C side.
+ So for lists, I had a similar idea.
+ Again, lists in ABC were a tree structure
+ that was sort of super efficient,
+ even if you grew a very large list from small ones.
+ And I thought that tree structure was way too complicated,
+ so I said, OK, a list is a mutable data structure.
+ That was sort of a concept that didn't really exist in ABC.
+ In ABC, everything was immutable.
+ I thought, well, pragmatically speaking,
+ I prefer my larger data structures,
+ meaning lists and dictionaries, to be mutable.
+ And so the list was--
+ the implementation was always just a pointer
+ to a buffer that could be reallocated.
+ We call it list in Python.
+ It really is an array that just is an array of pointers.
+ And each pointer points to an object.
+ We know how long that array is.
+ That's in the object header.
+ And so if there's no room, we reallocate it.
+ And if we throw something away from the middle,
+ then we shift everything over, and we also reallocate.
+ The only improvement that happened
+ to that data structure in the last, well,
+ let's say, 34 years is that the original implementation did not
+ have over allocation.
+ I was relying on realloc doing some kind of chunking.
+ So if you realloc something from 1,000 bytes to 1,004 bytes,
+ I imagine, well, internally, realloc probably
+ aligns everything in chunks of 16 bytes or more.
+ And so it's not going to move that memory in that sort of--
+ eventually, that was shown to be either false or just
+ inefficient.
+ You assumed realloc would do it as well as you would have done
+ it, but eventually, it didn't.
+ It didn't, yeah.
+ And so eventually, there are sort of internally,
+ there are two sizes that are held in the list object header.
+ One tells you what the length of the array
+ is of the list is to the Python user,
+ and the other one tells you how much space there
+ is in the array, and the second is always larger than the first.
+ And then--
+ I'm shocked that it wasn't a linked list.
+ Oh, really?
+ Yeah, I'm shocked.
+ Oh, I'm sorry.
+ It's named list.
+ But OK.
+ Yeah, I know.
+ I get what you're doing.
+ So then talk through, as you built the earliest dictionary
+ structure, what's different between that?
+ So again, in ABC, dictionaries were trees,
+ and in the case of dictionaries,
+ they were kept in sorted order by the key.
+ The key was always some orderable object.
+ Well, I think in ABC, everything was comparable.
+ At least two things of the same type.
+ So ABC-- and again, I thought that was too complex,
+ and I had skimmed at least Knuth volume 3, which explains
+ the concept of hash tables.
+ And I was familiar with hash tables in Perl,
+ where I think they're called hashes.
+ And so I just sort of--
+ I leafed through the table of contents of Knuth volume 3,
+ and I picked a hashing algorithm and sort of a hash table
+ organization that felt right.
+ And so I chose open hashing instead of sort
+ of having separate linked lists for buckets.
+ And the original hash algorithm for strings, at least,
+ was something-- I don't know if I
+ picked the hash function out of Knuth also,
+ but I probably did.
+ Between Python 3.7 and Python 3.8,
+ dictionaries kept their order.
+ Ah.
+ Ah.
+ Like, what happened?
+ Was it the revenge of ABC?
+ You know, meaning that trees--
+ No.
+ So it's a different kind of order.
+ In ABC, the keys were sorted.
+ So if you have numeric keys, if you have the 1, 12, and 500
+ in your dictionary, in ABC at least,
+ the keys are ordered 1, 12, 500, or 1, 2, 3, or whatever.
+ And if you insert 11, it gets inserted between 1 and 12.
+ On the other hand, in the newer Python dictionaries
+ that preserve order, it is insertion order.
+ So it is not made-- because the sort of--
+ Python dictionaries don't require
+ that the key type is sortable, is comparable.
+ It only needs to be hashable.
+ And so we can-- well, and of course, it needs to be--
+ you need to have an equality comparison.
+ Is this string equal to that string?
+ But you don't need-- you never need to look at,
+ is this string less than that string?
+ So what did you do to make it keep insertion order?
+ So that was in a time when I had long relinquished
+ or delegated development of most of the basic data types.
+ I think we had a developer in Japan
+ who for years had been improving the efficiency
+ of the dictionary type.
+ And one of the problems of the original design
+ with open hashing that I picked from Knuth
+ is that it's pretty space inefficient.
+ Because if you have--
+ let's see if I can reconstruct-- for each key value pair,
+ you have to have a pointer to the key.
+ Let's be old-fashioned and say that's four bytes.
+ You have a pointer to the value.
+ That's another four bytes.
+ Then you have the hash, which is another four bytes.
+ So now the hash table is an array of structs
+ that are each 12 bytes long.
+ And for the hash table algorithm to the lookup and insertion
+ and deletion algorithm to work at all,
+ you can't have the table be more than 2/3 full.
+ So that means that if you have an array of 1,000 entries,
+ you can store at most 600 or 700 key value pairs.
+ And so you have 300 or 400 times 24 bytes wasted space.
+ And so our Japanese core dev figured out
+ a way to have separate tables where the hash table only
+ contained one thing and the actual key value pairs
+ and hashes were kept in a table that had no holes in it.
+ So they were basically kind of growing, filling, remembering.
+ Everything is remembering where things are laid out.
+ And so first, he stumbled upon sort of--
+ I think he refined the algorithm a few times,
+ having these separate arrays.
+ And then he stumbled upon the property that, oh, hey,
+ it happens to preserve insertion order.
+ In the second table, for sure, right?
+ Exactly, in the second table.
+ Because the sort of the table in which you jump around
+ based on the hash value now just has an index
+ in into the other table.
+ And so there is an additional space saving.
+ Because if your hash table has less than 256 elements,
+ that array only needs to have one byte for the index.
+ And so there is like all kinds of cleverness there.
+ It comes as a surprise to me that you don't do linked lists.
+ Really?
+ I could have told you that 10 years ago.
+ That it doesn't do linked lists.
+ I mean, I guess, and that has probably
+ to do with your desire to interoperate the seed kind of
+ just percolates through about blocks of things
+ that can be extended and then filled in
+ seem to be better than generic linked lists.
+ What I didn't know at the time that that's also
+ a good architecture for modern hardware,
+ because you have better cache locality, which is not
+ a concept that I think I even knew existed in '89.
+ So I think I just avoided linked lists
+ because I didn't like them for some other reason.
+ That's cool.
+ That's exactly-- well, it's not exactly what I hoped you'd say.
+ I'd hope you'd do linked lists over and over and over again,
+ because I just have assumed all my life that linked lists
+ are the--
+ linked lists and hash maps and linked lists on top of hash maps
+ and linked lists, linked lists, linked lists.
+ Because computer science thinks about linked lists all the time.
+ There are plenty of pointers in Python,
+ but sort of the classic linked list is not used much.
+ [MUSIC PLAYING]

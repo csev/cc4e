@@ -1,0 +1,797 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:01.600
+ - Hello, welcome to chapter three.
+
+00:00:01.600 --> 00:00:04.380
+ I'm Charles Severance, and I'm your instructor.
+
+00:00:04.380 --> 00:00:07.360
+ So here in chapter three, again, I want you to read the book.
+
+00:00:07.360 --> 00:00:10.560
+ I'm just gonna call your attention to a few of the
+
+00:00:10.560 --> 00:00:14.960
+ unique things that might help you make more sense of the book.
+
+00:00:14.960 --> 00:00:17.720
+ So we're gonna talk about semicolon use,
+
+00:00:17.720 --> 00:00:21.080
+ how it started in C and is used across multiple languages,
+
+00:00:21.080 --> 00:00:24.400
+ how else if is a little different across languages,
+
+00:00:24.400 --> 00:00:26.120
+ the switch statement and a bit of motivation
+
+00:00:26.120 --> 00:00:28.840
+ why the switch statement is even in C,
+
+00:00:28.840 --> 00:00:32.640
+ is a comma, I don't know, operator, separator,
+
+00:00:32.640 --> 00:00:37.440
+ and then sort of this tendency towards excessive succinctness
+
+00:00:37.440 --> 00:00:41.600
+ or brevity that is pretty common in C programming, right?
+
+00:00:41.600 --> 00:00:45.720
+ It just, it's like there's such a value
+
+00:00:45.720 --> 00:00:47.320
+ in making things really, really short,
+
+00:00:47.320 --> 00:00:49.840
+ and that makes it kind of different.
+
+00:00:49.840 --> 00:00:52.760
+ So I love semicolon-based languages,
+
+00:00:52.760 --> 00:00:57.080
+ and we have a whole bunch of semicolon-based languages
+
+00:00:57.080 --> 00:01:00.880
+ that we've learned and are going to learn.
+
+00:01:00.880 --> 00:01:04.480
+ Certainly 1978, the C programming language
+
+00:01:04.480 --> 00:01:08.320
+ with its non-syntactically important spacing.
+
+00:01:08.320 --> 00:01:13.200
+ The key to C is that C, the semicolon, is a terminator,
+
+00:01:13.200 --> 00:01:17.120
+ and every statement must be terminated by a semicolon.
+
+00:01:17.120 --> 00:01:19.520
+ So we say x equals x plus one semicolon,
+
+00:01:19.520 --> 00:01:22.000
+ and x equals x divided by two semicolon, right?
+
+00:01:22.000 --> 00:01:26.120
+ And that's the idea, the printf ends in a semicolon.
+
+00:01:26.120 --> 00:01:27.920
+ So you may or may not know, in Python,
+
+00:01:27.920 --> 00:01:30.400
+ you're allowed to have semicolons.
+
+00:01:30.400 --> 00:01:32.360
+ They're pretty much optional,
+
+00:01:32.360 --> 00:01:34.720
+ like on the print open paren x closed paren,
+
+00:01:34.720 --> 00:01:37.040
+ that semicolon does not need to be there.
+
+00:01:37.040 --> 00:01:39.960
+ But it is a separator, not a terminator.
+
+00:01:39.960 --> 00:01:41.920
+ So you can think of the print open paren x
+
+00:01:41.920 --> 00:01:45.640
+ closed paren semicolon as one statement
+
+00:01:45.640 --> 00:01:48.160
+ followed by a separator followed by an empty statement,
+
+00:01:48.160 --> 00:01:49.720
+ which does nothing.
+
+00:01:49.720 --> 00:01:52.080
+ But the interesting thing is you can put
+
+00:01:52.080 --> 00:01:55.360
+ more than one line on one line.
+
+00:01:55.360 --> 00:01:56.960
+ You can put more than one line of code
+
+00:01:56.960 --> 00:01:58.240
+ by using a separator.
+
+00:01:58.240 --> 00:02:01.200
+ So there I say x equals x plus one semicolon,
+
+00:02:01.200 --> 00:02:03.600
+ x equals x over two semicolon.
+
+00:02:03.600 --> 00:02:04.960
+ I don't have to indent that.
+
+00:02:04.960 --> 00:02:09.800
+ I just, it's two lines in the same block of code,
+
+00:02:09.800 --> 00:02:11.720
+ and that's legal.
+
+00:02:11.720 --> 00:02:15.440
+ Most of the time, people choose not to use semicolon.
+
+00:02:15.440 --> 00:02:18.560
+ The other thing about that is that shell scripting,
+
+00:02:18.560 --> 00:02:21.840
+ which is sort of the Linux automation,
+
+00:02:21.840 --> 00:02:22.920
+ treats it as a separator.
+
+00:02:22.920 --> 00:02:25.120
+ And so that sort of looks a bit like shell scripting
+
+00:02:25.120 --> 00:02:28.520
+ to have multiple statements on the same line
+
+00:02:28.520 --> 00:02:30.520
+ separated by semicolons.
+
+00:02:30.520 --> 00:02:34.600
+ In Java, it tends to follow the C pattern
+
+00:02:34.600 --> 00:02:36.460
+ where it's a terminator.
+
+00:02:36.460 --> 00:02:38.320
+ I tend to like it as a terminator.
+
+00:02:38.320 --> 00:02:40.920
+ I don't like the idea that you can leave it off
+
+00:02:40.920 --> 00:02:42.160
+ the way JavaScript does.
+
+00:02:42.160 --> 00:02:45.120
+ And so you see it's on two assignment statements
+
+00:02:45.120 --> 00:02:47.680
+ and the system out printlin in Java.
+
+00:02:47.680 --> 00:02:52.280
+ In PHP, PHP follows C very closely.
+
+00:02:52.280 --> 00:02:56.600
+ And so it is a terminator there as well.
+
+00:02:56.600 --> 00:02:59.040
+ And so I think that's natural.
+
+00:02:59.040 --> 00:03:00.800
+ And the good news, if it's a separator,
+
+00:03:00.800 --> 00:03:03.160
+ like in JavaScript in the next example,
+
+00:03:03.160 --> 00:03:05.320
+ where it's separating it.
+
+00:03:05.320 --> 00:03:08.740
+ And so in this case, the x equals x divided by two
+
+00:03:08.740 --> 00:03:10.400
+ does not need to be terminated
+
+00:03:10.400 --> 00:03:14.320
+ 'cause the closed curly brace is gonna terminate that.
+
+00:03:14.320 --> 00:03:18.560
+ And like even the console.log, open paren, closed paren,
+
+00:03:18.560 --> 00:03:21.720
+ semicolon, that semicolon is optional.
+
+00:03:21.720 --> 00:03:23.320
+ When I tend to write JavaScript,
+
+00:03:23.320 --> 00:03:25.580
+ I tend to put semicolons everywhere.
+
+00:03:25.580 --> 00:03:29.560
+ When I tend to write Python, I put semicolons nowhere.
+
+00:03:29.560 --> 00:03:31.740
+ And then in PHP and Java,
+
+00:03:31.740 --> 00:03:36.040
+ I tend to put semicolons everywhere.
+
+00:03:36.040 --> 00:03:39.200
+ Even though sometimes there are things you can leave out.
+
+00:03:39.200 --> 00:03:42.340
+ Another thing that is very, very subtle
+
+00:03:42.340 --> 00:03:45.680
+ is the notion of else if.
+
+00:03:45.680 --> 00:03:48.120
+ So C predates Python.
+
+00:03:48.120 --> 00:03:53.120
+ And C in this book shows else if
+
+00:03:53.120 --> 00:03:54.560
+ as two separate words.
+
+00:03:54.560 --> 00:03:57.800
+ And there's an else keyword and an if keyword.
+
+00:03:57.800 --> 00:04:00.080
+ And so you say else space if.
+
+00:04:00.080 --> 00:04:02.920
+ And then you have the expression and another statement.
+
+00:04:02.920 --> 00:04:05.300
+ Else space if expression and another statement.
+
+00:04:05.300 --> 00:04:07.000
+ And then else for the one
+
+00:04:07.000 --> 00:04:08.800
+ where none of those expressions are true.
+
+00:04:08.800 --> 00:04:12.520
+ And if you look at Python, it looks almost identical.
+
+00:04:12.520 --> 00:04:16.640
+ It says if expression, then elif expression,
+
+00:04:16.640 --> 00:04:18.320
+ elif expression and else.
+
+00:04:18.320 --> 00:04:24.500
+ The key is that elif is a separate language construct
+
+00:04:24.500 --> 00:04:25.520
+ in Python.
+
+00:04:25.520 --> 00:04:28.420
+ And I think it's actually really beautiful and elegant.
+
+00:04:28.420 --> 00:04:31.700
+ And the key is that this else if,
+
+00:04:31.700 --> 00:04:33.640
+ while it is, I can think of it in C
+
+00:04:33.640 --> 00:04:36.400
+ as like indented incorrectly.
+
+00:04:36.400 --> 00:04:39.380
+ So you can look at it as the very first if
+
+00:04:39.380 --> 00:04:41.880
+ has an if and an else.
+
+00:04:41.880 --> 00:04:44.120
+ And everything from the second if on down
+
+00:04:44.120 --> 00:04:46.200
+ is really part of that else.
+
+00:04:46.200 --> 00:04:48.080
+ And so if you look to the right,
+
+00:04:48.080 --> 00:04:49.440
+ you see the curly braces
+
+00:04:49.440 --> 00:04:51.460
+ with the indentation that's explicit.
+
+00:04:51.460 --> 00:04:53.360
+ It's exactly the same thing.
+
+00:04:53.360 --> 00:04:57.040
+ But what you're going to see is you can see that it's,
+
+00:04:57.040 --> 00:05:00.000
+ if you were gonna truly correctly indent
+
+00:05:00.000 --> 00:05:03.380
+ an if, else if, else if, else in C,
+
+00:05:03.380 --> 00:05:06.120
+ you would indent it the way it's shown on the right side.
+
+00:05:06.120 --> 00:05:09.440
+ And it's neither here nor there.
+
+00:05:09.440 --> 00:05:11.440
+ Very, very, it is very rare
+
+00:05:11.440 --> 00:05:14.040
+ that you would see any C programmer, you know,
+
+00:05:14.040 --> 00:05:16.400
+ do all the indentation the technically right way.
+
+00:05:16.400 --> 00:05:18.460
+ But I just want to call your attention to it
+
+00:05:18.460 --> 00:05:20.160
+ that it's different than eleph.
+
+00:05:20.160 --> 00:05:22.520
+ Eleph is its own language element
+
+00:05:22.520 --> 00:05:24.400
+ that is not a deeper nesting,
+
+00:05:24.400 --> 00:05:25.920
+ deeper and deeper nesting.
+
+00:05:25.920 --> 00:05:26.760
+ If you were to nest it,
+
+00:05:26.760 --> 00:05:28.040
+ you see on the right hand side,
+
+00:05:28.040 --> 00:05:31.080
+ you see I've got three closed curly braces.
+
+00:05:31.080 --> 00:05:32.520
+ Curly brace, curly brace, curly brace.
+
+00:05:32.520 --> 00:05:33.840
+ And it's just, ugh.
+
+00:05:33.840 --> 00:05:36.680
+ So the eleph, I think, is a really elegant addition
+
+00:05:36.680 --> 00:05:38.440
+ that Python has added.
+
+00:05:38.440 --> 00:05:40.740
+ Thus, which statement?
+
+00:05:42.000 --> 00:05:44.020
+ (sighs)
+
+00:05:44.020 --> 00:05:46.080
+ I think that the reason that the authors
+
+00:05:46.080 --> 00:05:48.340
+ put the switch statement into C
+
+00:05:48.340 --> 00:05:52.320
+ is there was a time where we would write code
+
+00:05:52.320 --> 00:05:55.760
+ in assembly language using what we call a jump table,
+
+00:05:55.760 --> 00:05:58.160
+ where we take sort of the, take a number,
+
+00:05:58.160 --> 00:06:01.720
+ maybe take it, mask it so it's only from zero through 16,
+
+00:06:01.720 --> 00:06:03.920
+ and then look up a series of addresses
+
+00:06:03.920 --> 00:06:06.000
+ and jump through a jump table.
+
+00:06:06.000 --> 00:06:09.920
+ And the computed go-to was the way in Fortran
+
+00:06:09.920 --> 00:06:11.400
+ of expressing a jump table.
+
+00:06:11.400 --> 00:06:13.480
+ But in Fortran, it was just a mess.
+
+00:06:13.480 --> 00:06:17.160
+ You got these labels and columns one through six,
+
+00:06:17.160 --> 00:06:20.480
+ and the continue statement doesn't work like the continuing
+
+00:06:20.480 --> 00:06:23.160
+ in C and C-like languages.
+
+00:06:23.160 --> 00:06:24.640
+ And you had to have these go-tos
+
+00:06:24.640 --> 00:06:27.260
+ to get out of the switch statement.
+
+00:06:27.260 --> 00:06:28.160
+ If you think about it
+
+00:06:28.160 --> 00:06:29.920
+ from an assembly language perspective,
+
+00:06:29.920 --> 00:06:32.260
+ it's not that hard to build the computed go-to
+
+00:06:32.260 --> 00:06:34.040
+ with a little tiny jump table.
+
+00:06:34.040 --> 00:06:37.640
+ And so I think to some degree,
+
+00:06:37.640 --> 00:06:40.720
+ whether or not we have to use a jump table in modern C
+
+00:06:40.720 --> 00:06:43.280
+ is really, it's really, really rare
+
+00:06:43.280 --> 00:06:44.760
+ where you have to use a jump table.
+
+00:06:44.760 --> 00:06:48.660
+ We just would do a few repeating LSIFs, and it's just fine.
+
+00:06:48.660 --> 00:06:52.040
+ Back then, a few extra statements might have bothered
+
+00:06:52.040 --> 00:06:54.520
+ something if you were gonna do it a million times,
+
+00:06:54.520 --> 00:06:57.180
+ you know, a million times a minute or something.
+
+00:06:57.180 --> 00:06:58.760
+ The switch statement is much prettier.
+
+00:06:58.760 --> 00:07:00.480
+ You do have to put the break statements in there.
+
+00:07:00.480 --> 00:07:03.400
+ You can kind of nest the, you have the stack cases,
+
+00:07:03.400 --> 00:07:04.920
+ and then there's a default case.
+
+00:07:04.920 --> 00:07:08.320
+ So if I, at least I compare the C switch statement
+
+00:07:08.320 --> 00:07:10.920
+ with the Fortran computed go-to,
+
+00:07:10.920 --> 00:07:12.800
+ I wanna say that the C switch statement
+
+00:07:12.800 --> 00:07:15.040
+ was pretty much a lot more elegant,
+
+00:07:15.040 --> 00:07:17.760
+ a lot easier to use, a lot easier to understand.
+
+00:07:17.760 --> 00:07:20.240
+ And because assembly language programmers of the time
+
+00:07:20.240 --> 00:07:22.420
+ did think in terms of jump tables,
+
+00:07:22.420 --> 00:07:24.640
+ if a high-level language didn't have a way
+
+00:07:24.640 --> 00:07:27.040
+ to express a jump table in that language,
+
+00:07:27.040 --> 00:07:30.200
+ then we would kind of think of it as missing.
+
+00:07:30.200 --> 00:07:32.960
+ But frankly, you know, in your programming,
+
+00:07:32.960 --> 00:07:36.160
+ I'm not sure I've written a switch statement in,
+
+00:07:36.160 --> 00:07:37.640
+ 'cause Java has a switch statement too.
+
+00:07:37.640 --> 00:07:39.120
+ I probably haven't written a switch statement
+
+00:07:39.120 --> 00:07:42.360
+ in over 20 years and maybe more.
+
+00:07:42.360 --> 00:07:45.920
+ So I like the fact that it improved on Fortran,
+
+00:07:45.920 --> 00:07:48.080
+ but that doesn't mean that you should use it.
+
+00:07:48.080 --> 00:07:52.600
+ The comma operator or comma separator,
+
+00:07:52.600 --> 00:07:54.640
+ I like to think of it as like a light version
+
+00:07:54.640 --> 00:07:56.120
+ of the semicolon.
+
+00:07:56.120 --> 00:08:00.560
+ And most people almost never use it,
+
+00:08:00.560 --> 00:08:05.560
+ and the only place we use it is when it is sort of idiomatic,
+
+00:08:06.000 --> 00:08:08.040
+ where in a for statement,
+
+00:08:08.040 --> 00:08:10.280
+ because we're already using semicolon
+
+00:08:10.280 --> 00:08:12.600
+ to separate the start before the loop,
+
+00:08:12.600 --> 00:08:17.600
+ the loop test, and then the loop increment per iteration,
+
+00:08:17.600 --> 00:08:19.240
+ we're using semicolon for that.
+
+00:08:19.240 --> 00:08:21.940
+ So if we wanna do like two statements,
+
+00:08:21.940 --> 00:08:23.840
+ we are gonna like, oh, i equals zero,
+
+00:08:23.840 --> 00:08:26.320
+ j equals strlen s minus one,
+
+00:08:26.320 --> 00:08:27.480
+ with a comma in between to say,
+
+00:08:27.480 --> 00:08:30.200
+ do these two things before the loop starts.
+
+00:08:30.200 --> 00:08:34.240
+ And then at the end, you say i plus plus comma j minus minus,
+
+00:08:34.240 --> 00:08:37.480
+ that says do these two things at the end of each loop.
+
+00:08:37.480 --> 00:08:41.400
+ So I only see it in idiomatic situations.
+
+00:08:41.400 --> 00:08:44.860
+ Just think of it as like we couldn't use a semicolon here.
+
+00:08:44.860 --> 00:08:47.960
+ It functions exactly like a semicolon,
+
+00:08:47.960 --> 00:08:50.060
+ although the syntax already has a semicolon in it.
+
+00:08:50.060 --> 00:08:54.760
+ So I think it's actually a pretty clever way to say,
+
+00:08:54.760 --> 00:08:56.160
+ I wanna put two statements in here.
+
+00:08:56.160 --> 00:08:58.120
+ Maybe you could put curly braces in there or something,
+
+00:08:58.120 --> 00:09:00.520
+ but I thought the comma was a pretty cool thing.
+
+00:09:02.120 --> 00:09:05.800
+ Another problem is that there was just this notion
+
+00:09:05.800 --> 00:09:09.160
+ that we, as assembly language programmers,
+
+00:09:09.160 --> 00:09:10.920
+ we could do things like be smart
+
+00:09:10.920 --> 00:09:13.200
+ and leave some value in a register
+
+00:09:13.200 --> 00:09:15.760
+ and then check the register a couple of different ways,
+
+00:09:15.760 --> 00:09:19.440
+ and that would lead to really succinct, fast code.
+
+00:09:19.440 --> 00:09:22.620
+ Hand-tuned code where you might have to look at it
+
+00:09:22.620 --> 00:09:23.760
+ to figure out what it's doing,
+
+00:09:23.760 --> 00:09:26.780
+ but then you realize, well, I did that in six statements
+
+00:09:26.780 --> 00:09:28.140
+ rather than 12 statements.
+
+00:09:28.140 --> 00:09:29.500
+ 12 statements might have made more sense,
+
+00:09:29.500 --> 00:09:32.200
+ but the six statements were really fast.
+
+00:09:32.200 --> 00:09:34.360
+ And in the early days, in the early '70s,
+
+00:09:34.360 --> 00:09:36.960
+ they were changing their compilers so fast
+
+00:09:36.960 --> 00:09:39.220
+ and changing their hardware so fast
+
+00:09:39.220 --> 00:09:41.320
+ that they really didn't build
+
+00:09:41.320 --> 00:09:43.600
+ super great optimizing compilers.
+
+00:09:43.600 --> 00:09:45.560
+ So they would look at the source code
+
+00:09:45.560 --> 00:09:46.800
+ that came out of the compiler
+
+00:09:46.800 --> 00:09:48.400
+ and they're like, I could do better than that.
+
+00:09:48.400 --> 00:09:50.920
+ So there was a lot of a kind of comparison
+
+00:09:50.920 --> 00:09:55.920
+ of the source code between what the C compiler would generate
+
+00:09:55.920 --> 00:09:58.600
+ and whatever, and so they found over time
+
+00:09:58.600 --> 00:10:01.800
+ that if they would kind of use these tricks
+
+00:10:01.800 --> 00:10:06.680
+ that told the compiler to take this C equals getchar
+
+00:10:06.680 --> 00:10:11.680
+ and leave the C in a register and compare it to a space,
+
+00:10:11.680 --> 00:10:14.200
+ and then compare it again to a new line
+
+00:10:14.200 --> 00:10:16.440
+ and compare it again to a tab, we would think,
+
+00:10:16.440 --> 00:10:19.000
+ oh, I can see how that would run in assembly language.
+
+00:10:19.000 --> 00:10:21.340
+ And I can hope that the compiler
+
+00:10:21.340 --> 00:10:23.340
+ would generate the assembly language
+
+00:10:23.340 --> 00:10:28.340
+ that would make me happy.
+
+00:10:28.840 --> 00:10:30.440
+ And then another pattern you see in this
+
+00:10:30.440 --> 00:10:33.120
+ is the number four thing where all the work's been done
+
+00:10:33.120 --> 00:10:36.040
+ in the loop test, and so while loop,
+
+00:10:36.040 --> 00:10:38.320
+ that whole big expression is just the test
+
+00:10:38.320 --> 00:10:41.220
+ to know when it's done, but it's actually reading the data,
+
+00:10:41.220 --> 00:10:44.760
+ comparing it three times, storing it in a variable,
+
+00:10:44.760 --> 00:10:47.520
+ and when that's all done, there's nothing to do in the loop,
+
+00:10:47.520 --> 00:10:50.640
+ and so that's why you say close paren semicolon.
+
+00:10:50.640 --> 00:10:52.400
+ And you'll see a lot of those things,
+
+00:10:52.400 --> 00:10:53.900
+ especially when doing string stuff
+
+00:10:53.900 --> 00:10:55.720
+ where you're sort of zooming through an array
+
+00:10:55.720 --> 00:10:57.480
+ and you did it all in the for loop
+
+00:10:57.480 --> 00:10:59.720
+ and you don't really have anything to do in the for loop.
+
+00:10:59.720 --> 00:11:03.320
+ And again, we're thinking in the early days
+
+00:11:03.320 --> 00:11:05.640
+ of how this is gonna translate into assembly language,
+
+00:11:05.640 --> 00:11:08.000
+ and so you're trying to make that loop really, really small.
+
+00:11:08.000 --> 00:11:10.680
+ And again, it's amazing how often they looked
+
+00:11:10.680 --> 00:11:13.280
+ at the resulting assembly language
+
+00:11:13.280 --> 00:11:15.400
+ in a non-optimizing compiler situation
+
+00:11:15.400 --> 00:11:18.080
+ and then wondered if the compiler could have done better.
+
+00:11:18.080 --> 00:11:21.880
+ So that gets us going in this chapter.
+
+00:11:21.880 --> 00:11:23.160
+ We talked about the semicolon,
+
+00:11:23.160 --> 00:11:24.920
+ we talked about the switch statement,
+
+00:11:24.920 --> 00:11:29.200
+ the else if, subtle syntax difference between Python and C,
+
+00:11:29.200 --> 00:11:32.080
+ the comma, and just get used to the notion
+
+00:11:32.080 --> 00:11:33.640
+ that it's obtuse code.
+
+00:11:33.640 --> 00:11:35.400
+ Please don't write obtuse code.
+
+00:11:35.400 --> 00:11:38.240
+ These days, the optimizers are so great,
+
+00:11:38.240 --> 00:11:40.760
+ and so don't write obtuse code,
+
+00:11:40.760 --> 00:11:43.360
+ but don't be too upset as you read the textbook
+
+00:11:43.360 --> 00:11:45.240
+ and see obtuse code.
+
+00:11:45.240 --> 00:11:47.820
+ (gentle music)
+
+00:11:54.920 --> 00:11:57.500
+ (upbeat music)
+

@@ -1,0 +1,248 @@
+1
+00:00:00,000 --> 00:00:13,000
+ So now let's talk about what happened between Python 3.6 and Python 3.7, where dictionaries began to maintain insert order, not key order, but insert order.
+
+2
+00:00:13,000 --> 00:00:22,000
+ So it really, what the basic idea here is, is that the hashing is a quick way to find a starting position in an array.
+
+3
+00:00:22,000 --> 00:00:26,000
+ But it doesn't necessarily mean that everything has to be stored in hash list.
+
+4
+00:00:26,000 --> 00:00:33,000
+ So now what happens, and you saw this, the code we wrote with trees, the TreeMap exercises.
+
+5
+00:00:33,000 --> 00:00:38,000
+ You can have sort of more than one data structure that you're maintaining at the same time.
+
+6
+00:00:38,000 --> 00:00:41,000
+ And so that's what's happening in Python 3.7.
+
+7
+00:00:41,000 --> 00:00:47,000
+ Now in Python 3.6, we made a big fuss about how there was no order.
+
+8
+00:00:47,000 --> 00:00:53,000
+ And when you go through the code walkthroughs, you'll see that sometimes the order changes at the moment of rehashing.
+
+9
+00:00:53,000 --> 00:01:01,000
+ So the order is pseudo-random, as it were, but the order can then change at any moment because of rehashing.
+
+10
+00:01:01,000 --> 00:01:14,000
+ But the pseudo-randomness is because of hashing, and it's not even consistent from insert to insert because rehashing and not database hash map reorganization.
+
+11
+00:01:14,000 --> 00:01:24,000
+ So like I said, Python 3.7 separated the notion of the hash index from the key value store.
+
+12
+00:01:24,000 --> 00:01:37,000
+ And so this leads to the fact that iterators that go through Python 3.7 dictionaries function much more like Python lists, which are iterated in key order.
+
+13
+00:01:37,000 --> 00:01:44,000
+ You don't have a sub 0 or sub 1 because dictionaries don't want to give you that semantic.
+
+14
+00:01:44,000 --> 00:01:51,000
+ But it basically is a Python list plus a hash index for quick lookup and quick for inserts and gets.
+
+15
+00:01:51,000 --> 00:02:00,000
+ And iterating through the dictionary is just like the Python 1.0 list, and key lookup by key and insert by key is still very quick.
+
+16
+00:02:00,000 --> 00:02:09,000
+ Now I have a whole long walkthrough that goes through all this, and I'll just kind of give you the high level picture.
+
+17
+00:02:09,000 --> 00:02:12,000
+ And that will help you when you go through the walkthrough.
+
+18
+00:02:12,000 --> 00:02:22,000
+ So if you look at struct P dict, it's got an allocation and it's got a length and it's got a struct D node that is an array of items.
+
+19
+00:02:22,000 --> 00:02:37,000
+ OK, but now we have an integer array, this index, and in the code that I wrote, I just made index be twice as big as the number of items and index was twice as big as the number of items and items.
+
+20
+00:02:37,000 --> 00:02:40,000
+ And that basically meant that I.
+
+21
+00:02:40,000 --> 00:02:45,000
+ Always had space, and so I end up with a load factor of point five.
+
+22
+00:02:45,000 --> 00:03:00,000
+ And so if you look at items, it's a list, meaning that we insert Z equals catchphrase Z equals W Y equals B and C equals 42 and they maintain insert order and a new insert is just done at the end.
+
+23
+00:03:00,000 --> 00:03:03,000
+ So what we're seeing here is a list that's three quarters full.
+
+24
+00:03:03,000 --> 00:03:12,000
+ But we don't care about that in the same way as we did in the Python 1 because the load factor of the items is irrelevant.
+
+25
+00:03:12,000 --> 00:03:15,000
+ It's the load factor of the index that matters.
+
+26
+00:03:15,000 --> 00:03:26,000
+ And because I'm making the index twice as large as items, it never reaches a load factor above 50, meaning we we reallocate when we need to make the list bigger.
+
+27
+00:03:26,000 --> 00:03:28,000
+ But then we also make index bigger too.
+
+28
+00:03:28,000 --> 00:03:36,000
+ And so we never exceed a load factor of 50 percent, which makes things really smooth and really easy.
+
+29
+00:03:36,000 --> 00:03:50,000
+ Now, the key thing is the index is an array of integers and what's stored in each integer, as you can see with these arrows, is simply the index that the key value pair lives in the items.
+
+30
+00:03:50,000 --> 00:03:55,000
+ So, again, this is kind of two simultaneous data structures.
+
+31
+00:03:55,000 --> 00:03:58,000
+ The index is a hash.
+
+32
+00:03:58,000 --> 00:04:02,000
+ Items is a list.
+
+33
+00:04:02,000 --> 00:04:20,000
+ And index points to the offset within the list. Now, I didn't do it, but Guido could easily have they could easily have shared some of the code between and some of the optimizations between list and the items in a dict.
+
+34
+00:04:20,000 --> 00:04:26,000
+ So I'm not going to go into it. I do have a code walkthrough that takes a good bit of time that goes through all this code.
+
+35
+00:04:26,000 --> 00:04:34,000
+ Just remember this picture, but it's really kind of extracting the hash index into its own table.
+
+36
+00:04:34,000 --> 00:04:46,000
+ So in summary, we learn from Guido, surprisingly, that he loved Realloc and expandable arrays of structs with pointers to his objects.
+
+37
+00:04:46,000 --> 00:04:57,000
+ The linked list is not hardly used in Python's core data structures, and it turns out to be a really, really good choice in retrospect. The code is surprisingly simple once you start taking a look at it.
+
+38
+00:04:57,000 --> 00:05:02,000
+ And you're kind of glad. I was kind of glad to leave linked list behind, even though I'm pretty good at linked lists.
+
+39
+00:05:02,000 --> 00:05:15,000
+ And moving memory management into Python from Realloc was something that happened like 10 years later that Guido mentioned, because the Realloc wasn't as predictable as he wanted it to be.
+
+40
+00:05:15,000 --> 00:05:27,000
+ There's this concept of garbage collection, which is underneath Realloc, and it was too difficult to hope that Realloc was going to do the things that Python wanted done.
+
+41
+00:05:27,000 --> 00:05:33,000
+ So the places in the code that you've looked at here that use Realloc now use a Python allocator.
+
+42
+00:05:33,000 --> 00:05:44,000
+ And what happens is Realloc gives us bigger chunks of memory, and then Python manages those and garbage collects them and cleans them up, et cetera.
+
+43
+00:05:44,000 --> 00:06:02,000
+ The modern era of Python really depended a lot less on the cleverness of Realloc, because it just turned out to not always be as clever as we thought.
+
+44
+00:06:02,000 --> 00:06:16,000
+ But there's more. Guido and I didn't stop talking after we talked about the data structure shape, the whole surprise linked list thing.
+
+45
+00:06:16,000 --> 00:06:38,000
+ And so if you recall, I had this picture, which was kind of like not just how things worked. In this picture, I'm placing C in the context of all the languages that influenced C and all the languages that C influenced.
+
+46
+00:06:38,000 --> 00:06:48,000
+ And so you've seen this picture before. But what I wanted to talk to Guido about is I wanted to talk to him about what were the influences on Python.
+
+47
+00:06:48,000 --> 00:07:11,000
+ So we had C, C++, ABC, and as you will see in the video, Modula. I wasn't expecting that. But I was expecting--I don't know what I was--well, I do know what I was expecting. I was expecting that he didn't like C++ and he loves C, and I'd forgotten--I didn't know as much how strongly ABC had influenced him.
+
+48
+00:07:11,000 --> 00:07:35,000
+ Because in ABC, there was much to like and for him, much to dislike. So C++, something Guido used it. He wrote code in it. He wrote a series--sounds like a series of experimentation as to like--to some degree, I guess maybe his question was should I--is C++ so awesome that I can get done what I want to get done in Python in C++?
+
+49
+00:07:35,000 --> 00:07:48,000
+ And so he did some C++ experiments that he found somewhat disappointing. And so that's why he used C instead of C++ because he had to--he could get done what he wanted to get done.
+
+50
+00:07:48,000 --> 00:08:06,000
+ And so Guido chose C as a language to build Python. But Guido learned a lot about how to layer object-oriented concepts on top of an otherwise procedural programming language. And so C++ had a big influence.
+
+51
+00:08:06,000 --> 00:08:19,000
+ And I bet at some point he thought C++ was the answer and then said no, I've got to use C. And of course, ABC, if you look at the Wikipedia entries, like ABC influenced Python.
+
+52
+00:08:19,000 --> 00:08:33,000
+ And the answer is yes, but it influenced it more than you might think. And that is that there were things that Guido liked and things that Guido didn't like about ABC, places he wanted to improve.
+
+53
+00:08:33,000 --> 00:08:42,000
+ So it had a lot of--ABC had a lot of cool types. ABC handled allocation and deallocation using reference counting. Guido liked all that stuff.
+
+54
+00:08:42,000 --> 00:08:49,000
+ But it used B-trees internally. And B-trees are not binary trees. B-trees are a thing that's most commonly done on databases.
+
+55
+00:08:49,000 --> 00:09:04,000
+ The other thing is it had no mechanism for user-defined classes. All the concept of object-orientation was in the language itself and in the language implementation itself. And there was no chance for users to define their own objects in ABC.
+
+56
+00:09:04,000 --> 00:09:21,000
+ And so, I mean, ABC did what it did well. And Guido knew ABC well and worked on ABC and knew what he wanted to take from ABC and knew what he wanted to build beyond ABC. I mean, I think that in some ways the language ABC is kind of pretty.
+
+57
+00:09:21,000 --> 00:09:37,000
+ I mean, I can read that. And you can see things like split and in and other concepts, the for loop, the sort of implicit iteration in the for loop, for line and document. You can see that that just came straight to Python, except he made it all lowercase, of course.
+
+58
+00:09:37,000 --> 00:10:01,000
+ ABC was kind of cobalt-like. You wanted how to return words, document as parameter. That first line is a little bit tricky, right? He also wanted real object orientation and he wanted to stay much closer to the C libraries because ABC didn't really care about being able to call, like, C string libraries or C socket libraries or anything like that.
+
+59
+00:10:01,000 --> 00:10:18,000
+ And he wanted lowercase keywords. Another thing that surprised me was the fact that Modula 3 was a significant influence. So Modula 3 was a rather European centered language. It kind of came from Pascal, which came from Zurich, Etihad, and Zurich.
+
+60
+00:10:18,000 --> 00:10:32,000
+ And so this was the kind of thing where folks like myself in the United States really didn't think too much of Modula, but Guido was clearly investigating how to do things and there were some really good ideas in Modula 3.
+
+61
+00:10:32,000 --> 00:10:49,000
+ And he went and talked to the folks at Modula 3 and the concept of self as the first parameter is a way to layer an object oriented mechanism on top of a procedural language. Really, the concept of self was inspired by Guido's interaction with Modula 3.
+
+62
+00:10:49,000 --> 00:11:02,000
+ I'm going to give Guido the last word here. So I'm going to put the second half of my interview and just let Guido talk about what inspired him as he was designing object orientation in Python.
+

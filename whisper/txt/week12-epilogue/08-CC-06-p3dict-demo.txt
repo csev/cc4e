@@ -1,0 +1,334 @@
+ >> Hello, and welcome to another programming walkthrough for C programming for everybody.
+ This is one of the last walkthroughs for the epilogue code.
+ And in this walkthrough, we are going to look at how dictionary,
+ the internal data structures in Python for
+ dictionaries changed between the first version and the 3.7 version.
+ And so we talked previously P1 dict.c about, in effect, Python 0.01 through Python 3.6.
+ And then Python 3.7 and later has a new dictionary that maintains insert order.
+ But it also saves a lot in terms of efficiency.
+ So here is our approximation and
+ simplification of the Python 3.7 dictionary.
+ And so, let's talk a little bit about the problem that the Python 3.7
+ dictionary solved by looking at the Python 0.01 dictionary.
+ Now, if you listen to the Ida Van Rossum video that I've got,
+ these key value pairs in the real version of the dictionary,
+ it stores the pointer to a key, pointer to the value, and the hash value.
+ So it doesn't have to recompute the hash.
+ Now, I kept it simple and all my stuff was going to be small, so
+ I didn't do this optimization to recompute the hash.
+ I could have, but I just kind of want to keep the code as small as possible.
+ So I just recompute the hash in the few places I need it.
+ But this means that in a 64-bit system, this is 3 times 8 or 24 bytes.
+ And the problem is, let me delete this line so I don't break my code,
+ the load factor.
+ We never let the load factor get above 0.7, which means that by definition and
+ the larger the structure gets, the larger the wastage is.
+ 30% of the entries have to be empty in the key value pair array.
+ And again, that's 30% of 24 bytes wasted.
+ 30% of the size of the array times 24 bytes, that's always wasted.
+ You cannot not waste it.
+ [COUGH] And so what happened is, is that in the Python 3.7 version,
+ in effect, items was treated more like a simple linear array
+ of pointers to key value pairs.
+ So now you've got your key value pair, and Python has key value hash and
+ a few other things.
+ So this is a larger data structure.
+ Dnode is a larger data structure.
+ And then we have a separate simple integer array that is the index,
+ because items is an array, and index is the offset into that array.
+ But that's just one integer.
+ And so we're gonna do all the hash indexing and resolution and
+ conflict resolution and collision resolution in this index array,
+ which itself is a much smaller item.
+ And I'm gonna just make it, and I don't know if Python does this.
+ I'm just gonna let index be twice as long as items.
+ Which means from an indexing perspective, we never get a load factor above 50%.
+ And we're only going to extend the array when we run out of space in items.
+ And we're gonna store the key value pairs linearly, 0, 1, 2, 3, 4, 5 in items.
+ And then we're gonna just realloc it.
+ So in many ways, all of a sudden, the kind of reallocing.
+ Let me open a new tab here, p1list.c.
+ The reallocing code, if we go back to the p1list, extend if necessary,
+ you're gonna see that in p1list append and p3list append,
+ we're going to see that it looks a lot like the realloc pattern in
+ the Python list, because it is an array, okay?
+ The actual key value pairs are stored linearly in an array.
+ And that's also how you end up with maintaining insert order.
+ It wasn't they tried to maintain insert order.
+ But at some point, if you're just using a linear list, 0, 1, 2, 3, 4,
+ insert order is gonna be maintained.
+ And if you delete one, you shift them all up and it just treats.
+ So I would guess that ultimately inside of Python itself, after 3.7,
+ there might be some overlap in the code between dictionary and list.
+ Cuz they pulled out the hashing lookup in this separate data structure,
+ which is an array of integers.
+ Okay, so then if we look at the get bucket is the same.
+ It allows hash function.
+ I did it as small as I could, just so it didn't take up a lot of screen space.
+ If we look at the constructor, p3dict_new,
+ we see we're allocating the actual dictionary object.
+ And then we're allocating two key value pairs, two struct D nodes.
+ And then we're allocating four, two times the alloc size of integers.
+ So our index is four, and our D node array is two.
+ And we don't have to initialize the key value pair array, the items array,
+ because we know with length which ones are valid and which ones aren't valid.
+ But we do have to take this new index and put negative 1 in there.
+ We did this a little differently in Python 1 dictionary.
+ We used nulls, but right now it's an array of integers and
+ the negative 1 is gonna be my marker.
+ That's gonna be my marker to say this is an available index slot, okay?
+ So that's what the data structures look like.
+ Let's go ahead and run the code.
+ Now you'll note that this code is in effect exactly the same as the p1dict code
+ that we went through before.
+ And so we'll run it and it will look stunningly familiar.
+ Meaning that we have an empty dictionary.
+ We're putting z equals catchphrase, I'm putting z equals w,
+ so chi equals b, sally equals c, a equals d, and we're printing it out.
+ So now we're printing it out.
+ This is like an iterator, so z catchphrase.
+ And then zero is the position in the index, not the position in the items.
+ It's the position in the index.
+ So this is in index position zero.
+ And so we see z maps to w, so chi maps to b, and
+ they're in index positions zero and one.
+ It's kinda hard to hash, because we don't have to rehash
+ until it's completely full, and we have two items.
+ The alloc is two, so we can put z equals w and chi equals b.
+ Remember that index is four when alloc is two.
+ So index has four integers, so we still have a load factor of 50%.
+ But now what happens, we're gonna put sally equals c in.
+ And now we have to extend the items, and we automatically extend the index.
+ So we have a 50% load average before the extend, and
+ then we have a 50% load average after the extend.
+ Well, actually less than 50% load average.
+ But the point is, is because I just, by definition,
+ had my hash index be double the length, I never get to a load average of 0.5.
+ Above 0.5, and again, you can make this more complex and
+ let the load average get to 0.7, but I'm keeping it really simple.
+ The other thing that you'll notice is in the rehash, again,
+ thinking back to the Python one, so you'll notice that the hash position of z,
+ just like in the previous one, after it went from two to four,
+ went from position zero to position two.
+ And I talked about how it's not gonna completely move randomly, but
+ it hopped in this case, because whatever the hash value,
+ modulo two was zero, and modulo four was two.
+ And that's because zero is modulo two.
+ So these things kinda go by powers of two.
+ But b equals one stayed in the same place, etc., etc., etc.
+ But here's the thing, notice the order of the things printing out.
+ These zeros and ones, etc., that's the hash position,
+ but it's not the position in items.
+ So z equals catchphrase in item sub zero.
+ Z equals w is in item sub zero.
+ Sakai is b, that's in item sub one, hash position.
+ So z equals w in this output is in hash position two,
+ but items position zero.
+ And so you'll notice that insert order is maintained in this, unlike the p1.
+ Again, this wasn't to make insert order work.
+ It was a side effect of changing the data structures to make items be
+ just an indexed array starting at zero.
+ And again, pulling the hash computation, sorry.
+ Yeah, items is an array that's linear.
+ And index is an array that is looked up by a hash.
+ Okay, so let's take a look.
+ So let's take a look at put.
+ And of course, the first thing we see is p3 find, and just underscore find.
+ So recall from the previous one that the goal of find is to
+ find a bucket position that's free and available, okay?
+ And so remember that get bucket is just the hash computation for
+ that particular key we're looking for.
+ And we have the same kind of circular.
+ This will give us a number between zero and eight, like zero through seven.
+ If there's eight entries or zero through three,
+ if there's four, zero through zero or one, if there's two.
+ And then we have to go with the circular look, okay?
+ But you'll notice now when I say four offset equals zero,
+ offset less than self alloc times two.
+ I am now looping through the index array, not the items array.
+ And I do the same little trick to do the modulo so
+ that it goes like five, six, seven, zero, one, two, three, four.
+ So i goes five, six, seven, zero, one, two, three, four,
+ which is exactly what you need to do to do collision resolution using linear probing,
+ which is the way we do it.
+ And it's very simple.
+ If we find an empty spot in the index, now the data is not an index,
+ the data is still in items, right?
+ So if we find an empty spot in index, meaning it's a negative one,
+ that's a free one, and that's what we're gonna return.
+ Notice that in this one, I'm returning an integer rather than a pointer.
+ I probably should go back and
+ change all those others to return integers instead of pointers.
+ Cuz it, I think, makes code easier, looks a little more complex in some places, but
+ easier to understand in other places.
+ If it's negative one, we're done.
+ If we look at the key and we find in items now,
+ this one's a little trickier.
+ We're comparing the key to self items, which is the key value pairs, right?
+ But it's self index sub i.
+ Self index sub i is the position within items of a particular key value pair.
+ So we have to look up using self index to find the right spot.
+ Cuz self items is like a linear list, it's not really a hash map.
+ The only thing that's hashing here is the index.
+ And then we go grab the key out of the thing.
+ And if we match it, we're like, oh, this is the position.
+ Oh, by the way, I found it.
+ So in our calling code, we'll check to see if it's empty or not.
+ But right now, if it's empty, we turn i.
+ And if it matches, we return i.
+ Otherwise, we keep incrementing.
+ Now the key thing is because the load factor is only 0.5,
+ this is always going to succeed.
+ That's another nice thing about this.
+ It always is going to succeed.
+ Because when we increase the size of items,
+ we also increase the size of index, so that index is always two times the size
+ of items, so we never get a load factor above 0.5.
+ Which means this feels, to me, like a lot more reliable code.
+ And if we don't find an empty slot, which in the other one,
+ that was a trigger for reallocation.
+ But in this one, we reallocate differently.
+ So returning negative 1, that's just not a good sign.
+ Okay, so let's take a look again at find, I mean at the put.
+ So this code here, when we do the find, position equals p3 dict find of
+ the inserted key, we basically say if the position is not equal to negative 1,
+ that means this is a valid entry, which means we're replacing the value.
+ And again, that's the scenario where we have z equals catchphrase and
+ then we say z equals w, we're just going to replace the value.
+ We're not going to change the key.
+ The key is already in the right position.
+ The key is already hashed properly.
+ The index is correct.
+ The items is correct.
+ And all we need to do is grab the value and get rid of it and
+ then alloc the new value and stir copy it in and we're done.
+ So we're done.
+ So if we find it, that's great, okay?
+ So we don't find it, we have to insert it.
+ But we know where to insert it right here.
+ But now what we do is we simply say if self length is greater than or
+ equal to self alloc, that's when we're going to expand it.
+ So here we're saying if self length is greater than or equal to self alloc 0.7.
+ Now the alloc here is the number of things in the items which we're
+ using linearly, which means we can build up 100% before we have to extend it.
+ So we're looking to see if the length is greater than or equal to self alloc.
+ Here we were looking at is the length greater than or
+ equal to self alloc times the load factor 0.7.
+ That's only triggered in Python 1 dictionaries.
+ But if we look, this again, this append says, now we're in P1 list.
+ This is again that duality between Python 1 lists and Python 3.7 dictionaries.
+ Because in a sense, the items is just a list, right?
+ So if self length, which means now it's full, it's 100% full,
+ it's 100% utilized, there are no spaces in items.
+ If self length is greater than self alloc, we're going to extend it.
+ So that means that this code here, self length, self alloc,
+ is really quite simple, right?
+ So we just realloc the items and realloc whatever.
+ We're going to do twice as big in this case.
+ And so that is exactly copied from the list, we just realloc.
+ Okay, but now we got a little bit more work to do in Python 3.
+ Because the items was easy, we just realloced it.
+ We did exactly what lists would do in this situation.
+ But now we got to fix the index, okay?
+ And so self items at this point is right, okay?
+ So self items is right, because realloc did all the work for us.
+ We doubled the size of it, but then it copied all that stuff, okay?
+ And the other thing we don't have to do here, which we did have to do in Python 1,
+ is we didn't have to set all these new items that have been allocated.
+ Because in items, because it's like a list, alloc and length is all that matters.
+ And we haven't changed length yet, we have changed alloc.
+ So the fact there might be garbage in all that new data, it might be zeros,
+ it might be garbage is okay.
+ Now what we're going to do is rebuild the index, items hasn't moved.
+ And so we don't need it, we just free index right now.
+ Remember, index is that integer array that's twice alloc, right?
+ So now we just allocate another integer array that's twice the size
+ of whatever we've got allocated in items, an integer array.
+ So self arrow alloc times two times size of int, boom.
+ And then we just have a little for loop, for i equals less than or
+ equal to self alloc two i plus plus, set it to negative one.
+ Cuz what we're doing is we're creating a new completely empty index.
+ The key value pairs are just sitting there happy as a clam in items.
+ But now we gotta make a new index, okay?
+ So we're gonna refill this index, but it's really simple.
+ So now we're going not to alloc, for i equals zero, i less than self length.
+ Now we're gonna go through the items, and that's length.
+ And then we're gonna call the find operation based on the key of each of
+ the items, and that's gonna give us a position.
+ And it's going to do conflict resolution,
+ collision resolution using linear probing.
+ And so at that point, all the index at that position is,
+ the position is where in this array should it go?
+ And that means that if it's in the third position in the hash map, and
+ we're looking at the zeroth position in items, i is zero and position is three.
+ And so this code, if you compare this code again, it's better memory wise.
+ If you compare this code to the code inside, if you compare this
+ real code between the Python one code and the Python three code.
+ And I don't even do it in KR because it was gonna be so ugly,
+ I didn't wanna show it to you, right?
+ So it's ugly in Python one, it is pretty in Python two.
+ I'm seriously, if you look at this code in underscore put for a while, and
+ we're like, why didn't they think of that back in 1989?
+ Why did it take them till whatever 2018 or something to see this?
+ It's a beautiful data structure, right?
+ It is a beautiful data structure, okay.
+ So here we are in this code where we have refilled the index.
+ And again, self index is changing, right?
+ And because that's how the conflict resolution works.
+ And positions in the index might be different before and after.
+ So, after that, we're done extending.
+ We're gonna have to do the actual insert.
+ Cuz the reason we extended is we're gonna insert a new thing.
+ In this case, if we look at, we're trying to put sally equal c in.
+ Then we extend from two through four.
+ And now we're done extending, and so we gotta put sally in, right?
+ So sally's gonna go in.
+ And this is the insert code that we've already looked at, right?
+ But we do have to go find it's the position of sally.
+ Cuz we found it before in the pre-expanded index slash items.
+ And now we're finding it in the post-expanded index slash items.
+ But then we just allocate the key and the value, copy them in, and
+ then add the key value pair at the end of length.
+ Which is not alloc, but
+ length is like the next position in that linear array of items.
+ So we're new items, we set the new key, the new value, and
+ then we set the index to be pointing at this entry in self-items.
+ Cuz index is an integer.
+ So it's like if we're putting it in, so if we're expanding from two to four and
+ we're gonna now use three, position two actually, self-index, whatever.
+ The position is computed by hashing and linear collision cleanup.
+ And then we set it to length and we add one to the length.
+ So if you watch kind of all this stuff, it just, of these four lines of code,
+ only one of those lines has to do with hashing.
+ And that is the self-index position equals self-length.
+ We're recording, it's kinda like recording a cookie crumb in the Hansel-Gradle.
+ So we're just remembering in the index where that is.
+ So we can jump to the right position in index quickly using hashing,
+ rather than doing a linear scan of the key value pairs.
+ But literally, if you took this index away, you have just a list.
+ And so again, let's look at Python list.
+ Yeah, this is simpler cuz I'm not, yeah.
+ But all it does is it extends the, extends, this was a list of strings.
+ So it's actually a little simpler.
+ But all it does is it copies the string and then puts it at the end, and
+ then adds one to the length, and it's done.
+ And so the Python 3 dictionary does that.
+ It's kinda cool.
+ So as we put sallyc, it extends it, it recomputes the index.
+ And that's why the hash position of z moved, but not the position in items.
+ The position in index moved, cuz this sub 2, z maps to w in position 2.
+ That's the index position, not the item's position.
+ The item's position is just like a linked list.
+ Z is in 0, Sakai is in sub 1, and sally is in sub 2.
+ And so that's insert order, and everything works pretty well.
+ And so for me, as I think about the Python 3 dictionary and
+ compare that to a classic Kernigan and
+ Ritchie dictionary where the classic Kernigan and
+ Ritchie dictionary was so complex on rehashing, that I didn't even write code for it.
+ I'm like, let's pretend that's not a problem, okay?
+ And now I can tell you in the Python 3 code, I can tell you,
+ I can go all the way through the rehashing and
+ tell you that it's some of the more beautiful code that I've seen.
+ So I hope that you found this valuable.
+ Cheers, and I hope to see you online.
+ [MUSIC]

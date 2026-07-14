@@ -1,0 +1,53 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:02.580
+ (upbeat music)
+
+00:00:30.000 --> 00:00:57.580
+ It was highly collaborative in the sense that this was a group of, make up a number of 30-ish people, who were all interested in much the same kinds of things, although with tentacles off into theoretical, computer science, math, and so on, physical sciences kind of thing, but mostly, a lot of us at least, were basically software people.
+
+00:00:57.580 --> 00:01:27.320
+ Bjarne came to Bell Labs, I think in 1979, after getting his PhD at Cambridge, and he was interested in simulation, you know, he'd known Simula in particular, which was an object, probably one of the very first object-oriented languages, and he wanted to do simulation, but C was kind of the language that people used at Bell Labs, and so, what he did was to try and take some of the good ideas from Simula, in particular, class ideas,
+
+00:01:27.320 --> 00:01:57.180
+ and put that on top of C, and for a long time, the implementation of C++ was basically translate C++ into C, and then you could run it anywhere, so it's one of many pragmatic engineering decisions that Bjarne made, that if you want, it's hard to get people to buy into a new language, if they have to carry an enormous amount of infrastructure, and support, and other baggage with it, whereas if it's one more program that then fits perfectly into your,
+
+00:01:57.180 --> 00:02:23.500
+ your existing environment, as a language, as libraries, and all the rest of it, much easier, and so C went through a period of evolution, well, it's still evolving, but starting there in the very early, you know, 1980, '81, something like that, the two languages were very much together, because we're all in this one group, and Bell Labs would fit comfortably in this corridor, this building,
+
+00:02:23.500 --> 00:02:41.240
+ and Bjarne would certainly knew C inside out, and then was developing this new language that ran on top of it, that stressed C compilers, so that was useful, because the code that his preprocessor generated was astonishing,
+
+00:02:41.240 --> 00:03:07.260
+ and I think some of the ideas in C++ then retrofitted back into C, in particular the obvious one of how you declared the arguments for a function, I mean, that's just, that was better, and a handful of other things, so for a while, the two languages, you could say that C was a pretty close to perfect subset of C++,
+
+00:03:07.260 --> 00:03:23.980
+ I think that's evolved in both directions, and so it's less true now than it was, but for a long time, you could take a seek program and just run it through C++ compiler, and it would work, there's a general observation that people write code differently than computers write code,
+
+00:03:23.980 --> 00:03:43.220
+ and so machine generated code tends to stress, in particular the compiler or the language for which you're generating, and so in the C++ to C example, they would incredibly deeply nested constructs of one sort or another, parentheses that made Lisp look tame,
+
+00:03:43.220 --> 00:04:01.400
+ and then very convoluted pointer kinds of computations as well, function pointers, all kinds of, and so it was definitely a stress test, and also generating things that had odd sizes, and so on, that were not expected, or at least paths that had maybe not been thoroughly tested in a given compiler,
+
+00:04:01.400 --> 00:04:21.320
+ I think a lot of people did not think that C++ was right in some sense, it had various warts, blemishes, and so on, many of those were again a direct result of Bjarne's engineering judgment, if you want this thing to take off, the more culturally compatible it is, the more likely it will do that,
+
+00:04:21.320 --> 00:04:39.540
+ if you make something that's wildly different, people are going to kind of ignore you, and so some of the syntactic problems of C++ that are still with us, are the same syntactic problems that you can see, for quite a while when I was trying to teach C++ to people,
+
+00:04:39.540 --> 00:04:52.060
+ I would show them the translation that goes from a C++ object into C, and you know, it's basically just pointers into structures with the compiler kind of keeping the names apart so you don't have to think about them,
+
+00:04:52.060 --> 00:05:00.860
+ and seeing that translation, you could see how object-oriented programming could be done, and essentially no overhead, because it's just structure pointers,
+
+00:05:00.860 --> 00:05:19.600
+ and funny function names, and you can pass function pointers around, so it was all pretty well behaved, and I think that helped me understand what was going on in C++, in object-oriented programming, and so on.
+
+00:05:19.600 --> 00:05:39.540
+ I think in modern languages, and in Python, a fine example of that, there's an incredible amount of magic going on there, and I don't quite know how it's done as well as it is, I mean, I can sort of imagine, but the mechanisms to make some of those things, list comprehensions with lambdas in them, and so on, how the heck does that work?
+
+00:05:49.600 --> 00:05:58.760
+ [Music]
+

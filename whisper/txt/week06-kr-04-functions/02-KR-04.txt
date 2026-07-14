@@ -1,0 +1,645 @@
+ Welcome to chapter four, Functions and Program Structure.
+ In this chapter, we're going to start digging a little deeper.
+ Part of the goal of this course is to get you to the point
+ where we can talk about how things really work.
+ Eventually, in the next course, we'll even go down
+ to hardware and architecture and gates.
+ And so it's time to start opening things up
+ and looking at how things work.
+ And so this is a good time to do so.
+ And the big thing we're gonna learn, among other things,
+ is the concept of a stack, how pass-by-reference works,
+ how pass-by-value and pass-by-reference work,
+ a little bit about recursion.
+ Recursion's a thing that I worry about a lot.
+ Well, we'll get there.
+ And preprocessors, these are all things
+ where we're really starting, it's not so much
+ about just how functions work,
+ but how functions are implemented
+ and how that affects how they work.
+ So the first thing I wanna talk to you about
+ is a really nifty computer science concept called a stack.
+ A stack is a data structure that we use
+ and it has a couple of attributes.
+ The idea of a stack is we start with an empty stack
+ and we put things on the stack and then we take things off.
+ We take them off, the last thing we put on
+ is the first thing we get off.
+ And they go up and they go down.
+ You can push things onto them and take things off of them.
+ We can approximate this with a Python list.
+ So we start with an empty list.
+ We append the string one to it
+ and the stack has a one on it.
+ It's kind of growing up from the bottom
+ and it's gonna shrink from the top.
+ And then we append a two to it
+ and then our stack is now one and two.
+ So the bottom thing in the stack is one
+ and the top one is two.
+ And then we append a three to it
+ and we have one, two, three on the stack.
+ At that point, we pop.
+ Pop says, give me the most recent pushed thing
+ and then take it off.
+ So we pop off three and the stack remains with one and two.
+ Again, this is also known as the last in, first out
+ or LIFO queue.
+ Queue is like a line of things.
+ And so the last thing in is the first thing you got out.
+ So that's a stack and we're gonna use stacks
+ in function calls.
+ So historically, when we talk about call by value
+ and call by reference,
+ we basically say that call by value means that somehow
+ this value like in the main program MA with a variable
+ with a value 42 ends up being copied into the function
+ and the parameter OP has got a copy of the 42.
+ It's not the original MA, it's the copy of 42.
+ So 42 gets passed in the function one
+ and OP is a copy of 42.
+ So then inside the function, we can subtract 10 from it
+ and then we can see that.
+ But then when we get back in the main function,
+ we see that MA has been unchanged.
+ It's like, oh, we built a little wall around the function
+ and nothing inside the function happens.
+ The outside world is unaffected by it.
+ And that's a great oversimplification of call by value.
+ Of course, call by reference means the stuff
+ you do in this function can affect outside the function.
+ But let's talk a little bit about how a stack is used
+ to accomplish this.
+ So just to use some terminology,
+ C calls these variables that are allocated inside the function
+ before the function starts as the automatic variables.
+ And frankly, int MA equals 42 in main
+ is an automatic variable inside the main
+ 'cause main is a function inside a C program
+ that happens to be the one that starts everything out.
+ So if we get to the point where it says int MA equals 42
+ and then it prints MA being 42,
+ at that point on the stack, the C runtime
+ has allocated one integer and we've assigned 42 to it.
+ So that's what the stack looks like
+ at that first print statement in main.
+ Then we call the function one and pass MA in.
+ And this is where the C runtime library
+ kind of before everything starts out in the function one,
+ it allocates what's called a stack frame.
+ And a stack frame includes the parameters OP
+ and the automatic variables that are inside of that function.
+ And so in this case, we're gonna get two variables.
+ We're gonna get OP as an integer and TN as an integer.
+ And before the program starts up,
+ the value 42 is copied from MA into OP.
+ And so the stack frame is the context
+ in which that function operates.
+ So when it first starts, you see that OP has 42.
+ You also see we have two copies of the number 42
+ and we have a parameter OP
+ and then we have the automatic variable, the TN.
+ Then the next line runs, okay?
+ And at that point, OP is changed.
+ OP equals OP minus TN.
+ And so OP becomes 32.
+ But you'll notice that on the stack,
+ beyond the stack frame,
+ the stack frame is our current execution of the function one.
+ Beyond the stack frame, the 42 is still there.
+ We can't see it.
+ We're in the function right now
+ and we're only seeing the top part of the stack.
+ We're not seeing the part of the stack
+ that belongs to the main program.
+ So that's where it prints out 32.
+ So 32 in the function says OP is 32 and that's fine.
+ And then we return and that's when the C Runtime
+ removes the stack frame, pops those things off the stack.
+ It remembers how much it put on and it pops all the stuff
+ off the stack that it put on.
+ And then it's basically comes back into MA
+ and the stack frame for the main program
+ has one variable in it and it's MA and it has 42.
+ And that's because one operated in its stack frame
+ and now the main program is back to operating
+ in the same stack frame.
+ You can almost think of this as like one never happened.
+ From main's perspective, it had some variables.
+ One ran and a stack frame was created.
+ Some of the main data was copied into the one stack frame.
+ One operated in its stack frame.
+ And then the stack frame went away right before one
+ or right at the moment that one returned.
+ And the return value ends up in the stack frame too.
+ I just haven't shown you that
+ and these don't send return value.
+ So the return value comes back from the stack frame.
+ But you can see how main started with the stack
+ with one variable on it and then it one ran
+ and all that stuff happened and then it kind of was undone.
+ And that's where the changed variable
+ just kind of went away.
+ And so the stack, it's as if nothing ever happened
+ except it went up and then it went back down.
+ Now one thing we notice and in Python we see this too
+ where you say everything is called by value
+ which implies a copy except for things like certain objects
+ and calling methods and objects.
+ And if, but if you look at say this function zap
+ and we pass in X and X starts out as original
+ and then it calls the zap function and it passes in
+ and it's got the original then it gets changed
+ inside the zap function and that change prints out.
+ But then when it comes back, it is back to the original.
+ So X is back to the original in the main code.
+ And you might say, oh, that looks right.
+ And that's actually quite intuitive
+ and that Python has made it so a call by value
+ inside of this call by value to the zap function.
+ It happened, meaning that nothing changed
+ outside of the zap function.
+ And it was a call by value, not a call by reference.
+ Now, I'm not gonna go into it at least not right now
+ talking about why that really worked.
+ And it's less about call by value and call by reference
+ and more about the fact that Y is really a pointer
+ to an object.
+ And when Y equals changed executes inside of zap
+ the object pointer, it points to a different object
+ and then, but X never changed.
+ And so Python has a slightly different runtime
+ but it leads to this notion that seems like
+ a string variable in Python is call by value.
+ Now, if we look at the similar
+ but quite different code inside of C,
+ we see the main has a character array X
+ of unknown length, which is original.
+ And that just unknown length means that it says,
+ it's looks like eight characters plus a backslash zero
+ which is nine characters.
+ And it prints out kind of like a string.
+ It's a character array with a terminator.
+ And then we call zap pass X in.
+ And then inside of zap, zap takes a character array
+ as its parameter and it can print out the word original
+ when it starts and then it copies changed into it.
+ And then it says at the end, it's Y is at the end
+ is changed, but then we come back
+ and back in the main program, it got changed.
+ So does that mean it was called by reference or what?
+ And the answer is sort of, and this is where it kind of helps.
+ So it turns out that when you are passing
+ an array into a function in C,
+ you're not actually passing the contents of the array.
+ So most of the time we think of that 42 being copied
+ if it's an integer, if it's just like a scalar thing
+ like a float or an enter char or something
+ that's being copied.
+ But when you have an array that could be gigantic.
+ So it doesn't actually copy in the whole array.
+ So when X is being passed into zap and being received as Y,
+ we're not actually passing the string
+ 'cause that could be a million characters for all we know.
+ So it's not like it makes an extra copy
+ of a million characters.
+ What it's doing is it's passing in the address
+ of the start of the string,
+ not on the stack, but somewhere else.
+ It actually could be on the stack somewhere,
+ but it's not in the stack frame
+ and the word original is not copied into the stack frame.
+ The stack frame only includes a pointer
+ or the address, X is the address of the letter O
+ and then Y is also the address of the letter O,
+ which means when we're calling str copy,
+ we are overriding those characters.
+ Oh, and by the way, I carefully made sure
+ that the string changed was shorter
+ than the string original or my program could have blown up
+ because this is C and arrays don't get bigger.
+ Python strings get bigger, but arrays don't.
+ In a couple more lectures, we will build a data structure
+ where it's like a Python string and we can add to it
+ and you'll see that the code is very complex.
+ A character array is very simple, okay?
+ And so it's not exactly a pass by reference.
+ It is a pass by location.
+ And if you happen to misuse that location,
+ meaning you write to that location, you write to location.
+ Now this might've been in like read only memory something,
+ your program might've blown up.
+ So you better be sure what you're doing
+ when you start messing inside of a function
+ with an array that's been passed to you.
+ Now sometimes you're supposed to.
+ Sometimes we tell you to write that.
+ Another thing that you're gonna see in this
+ is the reference to register variables.
+ This is another rather historical notion.
+ And in my opinion, it really had to do with convincing
+ really skilled assembly language programmers
+ that they could get the same performance out of C
+ that they were used to getting inside assembly language.
+ And so what are registers?
+ Well, when you have a central processing unit
+ and you have memory, the data lives in the memory
+ and the registers live in the central processing unit.
+ And depending on the speed of things,
+ a register might be 40 times faster than regular memory.
+ And so if you could keep a variable like i in a loop,
+ you could keep that in a register that's faster.
+ And so what we can do with saying register int x is say,
+ hey, by the way, next few lines,
+ x is a really important variable
+ and I expect to use it a lot.
+ So if you can possibly not store this in memory,
+ please do so.
+ And that's why the only kind of weird thing
+ about the register is you can't get the memory address
+ of a register variable.
+ Now in modern compilers,
+ we have runtime optimizers that are miraculous.
+ I mean, they border on miraculous,
+ even the simplest of runtime optimizers
+ that speed the code up at runtime are miraculous.
+ And saying this is a register or that's a register
+ might actually confuse things.
+ So all the register does is hey,
+ I am never gonna ask you the address of this variable.
+ So don't bother putting it in memory
+ if you don't feel like it.
+ Okay, and so it's probably,
+ but I also think it's kind of fascinating and fun
+ to think about this.
+ Think about how early C developers were so deeply connected
+ to their assembly language that is at the runtime.
+ Recursion, recursion, recursion, recursion.
+ When a function calls itself, it's called recursion.
+ It's a powerful, it's a beautiful concept.
+ There is places when if you're given a tree-like structure,
+ like you parse some XML or something
+ and you're reading through the XML,
+ recursion is such a pretty way to write code.
+ I'm about to show you a very simple recursion example
+ that are two things.
+ First, they're really inefficient and silly uses
+ of recursion and they mislead you
+ as to why you should use recursion.
+ And they misleadingly kind of tell you that like,
+ recursion is great, let's use it for something
+ it is not well used for.
+ So really in this section, I'm not trying to show you
+ what recursion is used for well.
+ I'm more interested in giving you a really
+ artificial synthetic example to show how the call stack works
+ and how recursion works with the call stack.
+ So here we have, I mean some tortured code.
+ It is not pretty code.
+ This is a, I'm writing code that if given a number like three,
+ adds up one plus two plus three, okay?
+ And gives me six.
+ There are so many ways to do this.
+ There's even a closed form solution
+ that doesn't even require a loop that's called algebra.
+ But we're going to use recursion.
+ So if you look at the int main, I'm gonna say sum up three.
+ That means sum up things one, two, three.
+ So sum up is being called from main
+ and then I've got the return value and I say sup.
+ And you'll notice in the printout
+ that sup is the very last thing that comes out.
+ And so if you walk through sum up,
+ you see that there is a parameter called above
+ that's coming, I call that above
+ 'cause it's coming from whoever's calling us.
+ There's a parameter below which is we're gonna compute
+ a value and send it down to the next copy of ourselves down.
+ And then sum is the sum of the above value
+ and the sum of the below values.
+ And then retval is, I mean actually sum is just coming back
+ from the call to ourselves.
+ And then retval is adding those two things together.
+ And I do this in exceedingly slow motion
+ with print statements everywhere
+ that just makes us look ugly
+ because really the only thing that matters
+ is where it says sum equals sum up below.
+ And what we're doing is we're calling the same function again.
+ So if you look in main and you see the sum up call,
+ that is going to create a stack frame.
+ And in that stack frame,
+ it's gonna have whatever the three number is.
+ We're gonna make an above variable,
+ copy three into the above variable
+ and allocate it below sum and retval.
+ So our stack frame is gonna have four integers on it.
+ And then the function starts working.
+ And the way the recursion works
+ is there's always gotta be a time at which it stops.
+ This is kind of like going down, down, down
+ and then has to work its way back up.
+ If it goes down forever, that's called a stack overflow.
+ And then your computer runs out of memory
+ and your application blows up.
+ So you have to have a time at which the stack algorithm stops.
+ So what we're saying is if we're being told
+ to sum up one or less,
+ well, we define the sum of that as one.
+ So we just return the sum of everything up to one as one.
+ And that's our way of stopping the recursion at the bottom.
+ And then what we do is we take below
+ and we subtract one from it.
+ So if we're being called with three, below becomes two.
+ And so you see that over in the lower stack frame,
+ below is two, right?
+ Below is two and we're about to go down
+ deeper into the call tree.
+ And so we're gonna call sum equals sum up below.
+ So what happens now is we're passing two in
+ to another stack frame.
+ And so there's not really another copy of the code,
+ but there's another stack frame.
+ And so now we're calling sum up with two as the parameter.
+ That's our below, but then we see the stack frame.
+ And now this is the stack frame
+ that's kind of on the left-hand side there.
+ Above in this stack frame is two.
+ And then execution begins
+ and we subtract one from below.
+ Well, above is not less than one.
+ So we subtract one and below becomes one
+ because it's two minus one.
+ And we're going to go down.
+ So it says down one, which means it's going to, again,
+ say sum equals sum up below.
+ And below in this case is one.
+ And so it makes another stack frame.
+ So we're actually, there is a maximum of like three calls
+ here and then it's gonna work its way out.
+ So then it calls another stack frame
+ that's not shown on the right-hand side.
+ And then it runs with one as above
+ and then above is less than or equal to one.
+ So it returns one.
+ And that's why it says in one.
+ And it doesn't say anything because then it's returned
+ and it returned the value one.
+ So now the third stack frame comes off.
+ And now we're in the other stack frame and sum
+ is what the return value of the sum up call was.
+ So it says back one, and then it says above.
+ Now we're in the stack frame that's on the right-hand side.
+ So sum is one, below is one, above is two.
+ And so we compute retval, which is one plus two,
+ and that's three.
+ And we print that out and that's kinda where we're indicating.
+ And then we return the three, right?
+ And then it returns retval and it runs some more.
+ It gets three back, then it adds the three to it
+ and returns one more time and the stack all pops up.
+ And eventually you get six.
+ And this is a, you can look at this as long as you like.
+ This code is like a foolish way to make this calculation
+ like most artificial recursion examples.
+ But the key thing here is just think about the stack frame.
+ Every time you call in, another stack frame happens.
+ Call in, stack frame happens.
+ And then when the return value happens,
+ it goes back to that stack frame.
+ So the stack frame is a way of pausing execution
+ at the moment, create a new stack frame,
+ execute in that stack frame, and if you need to,
+ have a yet another stack frame.
+ And so this idea of creating a stack frame
+ with the parameters and automatic variables,
+ each time you call a function,
+ copying the parameters into that stack frame,
+ and then executing the function in that stack frame.
+ We're not making extra copies of the function,
+ we are just creating a new stack frame.
+ That's what the essence of recursion is,
+ is the fact that you have a stack,
+ and each call makes a stack frame,
+ and if you recursively call again,
+ you just make another stack frame.
+ And so it's almost easier in my mind
+ to think through how stack frames work
+ than it is to think through how recursive code works.
+ Now, I wanna talk a little bit about the C preprocessor.
+ It's the last thing in this chapter,
+ and it's in some ways orthogonal
+ to functions and program structure.
+ I mean, it is part of program structure.
+ And so I've talked a lot about how wonderfully
+ the C compiler, and eventually Unix,
+ solved so many problems of software source code portability.
+ And things like endianess, and character arrays,
+ and masking and shifting not being necessary,
+ that those were awesome.
+ But the problem was is that
+ C has always operated in an environment.
+ The language has changed.
+ In the early days, it wasn't standardized.
+ By '84, it got standardized, ANSI-C came out.
+ A lot of people used it outside its original creation,
+ and so a lot of things got fixed
+ in the first decade of C's use.
+ The language evolved a lot.
+ The language kept evolving,
+ and a lot of the things that would make it evolve
+ are things like integers went from 32 bits
+ in some situations to 64 bits,
+ and then you have to say, well, what is a long?
+ It's long 64, long 32.
+ 'Cause it started with int being 16 bits,
+ and long being 32, and then long was 64.
+ Well, for a while, then ints were 32, and longs were 32,
+ and then ints were 32, and longs were 64,
+ and what would happen if ints were 64?
+ And it had to do with computer architecture, 64 bits, right?
+ And so sometimes you would have a bit of code,
+ and you knew you wanted a 32-bit thing,
+ and you weren't sure if an int or a long or a short
+ was gonna give you 32.
+ And so you had to say, you know,
+ I really need different source code.
+ Like if I'm working on a PDP-11, I got one thing,
+ and if I'm working on an Interdata-7-32,
+ I want another thing, 'cause really I want a 32-bit integer.
+ And now there's actually int-32 in some of these things
+ 'cause you do need to know sometimes
+ you're using 32-bit integer.
+ Then libraries changed.
+ There's calling sequences that changed because, again,
+ as computers got bigger and bigger,
+ and memory got bigger, and disk drives got bigger,
+ you would be in a certain version of an operating system,
+ and the calls to reading files might be slightly different.
+ And so it's not really that the source code was portable.
+ It's the calling sequences to libraries started to change.
+ Hardware evolved, operating systems evolved.
+ C started running on non-UNIX
+ because C originally started on UNIX,
+ but then it quickly went to other operating systems
+ 'cause it was such a powerful concept.
+ But sometimes in these other operating systems,
+ just things were kind of different
+ because they weren't working on UNIX.
+ And so the preprocessor really was an effective way
+ to patch your source code so that you could say,
+ look, I wrote this source code 10 years ago,
+ and it worked on a PDP-11,
+ and now I'm gonna run this on an IBM 360 architecture,
+ and I don't want to change,
+ that there's a few changes I need to make
+ that have nothing to do with what a for loop looks like,
+ but it has to do with like what library I'm calling
+ or what the return type for that library might be.
+ So the preprocessor allowed us to put variations
+ in the source code.
+ And the preprocessor, it really feels weird
+ 'cause its syntax is very different
+ because the preprocessor is kind of a line-oriented processor
+ and it has these pound things, right?
+ These like pound if def, pound define, pound else,
+ pound end if, and pound include.
+ That's even a preprocessor.
+ So what the preprocessor is, is not a compiler at all.
+ It is a source code to source code translator.
+ It expands the include files, and then it makes changes.
+ So in the top example where you see pound include stdio.h,
+ you can actually run GCC minus capital E,
+ and it says just run the preprocessor
+ and shows me what comes out.
+ You take 10, 12 lines of code on the left
+ and it puts out hundreds and hundreds of lines of code
+ on the right.
+ I'm just showing you a subset of it.
+ But the biggest part is the fact that include stdio.h
+ is literally expanded.
+ And then that is C code without the pound include, okay?
+ So that's the preprocessor.
+ But then another example here
+ is I'm creating this use_long.
+ This is not really a variable.
+ This is a compile time variable.
+ So I'm gonna create a new string called int_32,
+ and if use_long has been defined,
+ I'm gonna make int32 be a long.
+ Else, I'm gonna make int_32 be an int.
+ And again, this could be a thing
+ where I'm compiling for different architectures,
+ and I want this variable IP address to be a 32-bit integer,
+ and I need it to work on different operating systems.
+ So in this case, because use_long is not defined,
+ int32 as a string substitution,
+ like a macro string substitution
+ before the compiler even does anything,
+ turns int32 into int.
+ And so that's what the five lines of pound if def
+ and all that stuff do is it says
+ change this int32 string in my source code into int.
+ And so what we see on the right is really C code.
+ What we see on the left is kind of preprocessor plus C code.
+ And so the preprocessor transforms source code
+ to source code.
+ So I was looking around at some old code
+ that I happened to have grabbed and put into GitHub,
+ which was some code from 1994 from XMosaic 1.2.
+ And for those of you who took my internet history,
+ technology and security,
+ you know that XMosaic was the first web browser
+ that was portable across multiple operating systems.
+ And the more, and then eventually Mosaic ended up
+ on Unix systems with X windows,
+ that's why it's called XMosaic,
+ and it went to the Mac and went to the PC.
+ And so it was really many Unixes, Mac and PC.
+ And what we're seeing here on the right-hand side
+ is actual source code from that,
+ which was written in like 1993, 1994.
+ And what you see is a bunch of if-defs and if-end-defs
+ and some comments and like there's an if-defs,
+ hilarious nine broken.
+ And it has to do with like,
+ where do we find the error messages on this
+ across all these weird operating systems?
+ 'Cause the way they put error messages,
+ sometimes they would use extern,
+ which are global variables defined inside the runtime.
+ And we would just look at those variables.
+ We would make a function call
+ and it would write into these global variables.
+ But then that global variable might be different.
+ So this is actually from some code that was HTTP and C.
+ That was some early network connections.
+ Now these days, you know, we just do this stuff
+ in like the pound import requests in Python.
+ But in those days, the C libraries for network connections
+ were really different, meaning that they were just,
+ you know, here comes the network,
+ here's this language C, it's been around by, you know,
+ 89, 90, 91, the network was there.
+ And so we were building libraries,
+ but then how each library worked in each operating system
+ was a little wonky.
+ And so they had to write different C code to compensate
+ for the different operating systems that this C program,
+ a web browser would be running on.
+ And so all these if-defs mean that one source code
+ with a few predefined constants, compile time constants,
+ could then work on a wide range of operating systems.
+ And so yes, the C language itself is portability, portable,
+ but we also wanna be portable over time.
+ And so sometimes libraries change, operating systems change,
+ and we want to be able to compensate for that.
+ And so this is an important part of C.
+ These days, it's less important
+ because a lot of the libraries have stabilized
+ and they don't change quite so much.
+ And so this code here would probably just be
+ a bit of socket code and the errors would come back
+ the same way, no matter what version.
+ Like VMS is an operating system that doesn't exist anymore.
+ ThinkC doesn't exist anymore.
+ Next doesn't exist anymore.
+ Solaris doesn't exist anymore.
+ So these are all operating systems
+ that don't even exist anymore.
+ But this code was portable across all those things.
+ And actually, I compiled all this
+ and you can kinda take a look at it.
+ I made a video where I resurrected this code,
+ oh, it's gotta be eight or nine years ago,
+ on a Macintosh, which is evolved from Next.
+ I don't know if I could get it to work again,
+ but back then I got it to work on a Macintosh
+ and I said, defined it as Next.
+ And so I compiled the C code,
+ and there is an X Windows on Macintosh,
+ so I got the X Windows library, got all this stuff working,
+ and I told it, you're a Next, and I recompiled the C code,
+ and eventually something came up.
+ And I made a video about it,
+ because I knew that it'd be very difficult
+ to keep this thing working over time.
+ But to go from 1994 to 2014
+ and recompile something 20 years later,
+ that's still pretty impressive,
+ that Next code would still work.
+ Things like the VM code, VMS code,
+ there's no VMS computers that I know of these days.
+ So it just shows that the idea of portability is a,
+ some of it is simple and elegant,
+ and was laid down in 1978,
+ but then there are things outside the programming language
+ that were evolving, and still are evolving to this day.
+ And if you are doing C coding today,
+ or C++ coding today, you may be using things
+ that start with pound sign,
+ which are compiler directives, rather than C code.
+ So, with that, dive into chapter four,
+ and learn about functions.
+ (gentle music)

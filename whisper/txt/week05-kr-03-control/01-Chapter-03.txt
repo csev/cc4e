@@ -1,0 +1,510 @@
+ Welcome to C Programming for Everybody. My name is Charles Severance. This is my reading of the 1978 C Programming book written by Brian Kernigan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
+ Chapter 3. Control Flow. The control flow statements of a language specify the order in which the computations are done. We have already met the most common control flow constructions of C in earlier examples. Here we will complete the set and be more precise about the ones discussed above.
+ 3.1 Statements and Blocks. An expression such as x=0 or i++ or printf(...) becomes a statement when it is followed by a semicolon, as in x=0; i++; printf(...);
+ In C, the semicolon is a statement terminator rather than a separator as it is in ALGOL-like languages.
+ The braces, the curly braces (open curly brace and closed curly brace) are used to group declarations and statements together into a compound statement or block so that they are syntactically equivalent to a single statement.
+ The braces that actually surround the statements of a function are one obvious example. Braces around multiple statements after an if, else, while, or for are another. Variables can actually be declared inside any block. We will talk about this in Chapter 4. There is never a semicolon after the right curly brace that ends a block.
+ Ah, see, how do I love thee, let me count the ways. Quote by Dr. Chuck with homage to Elizabeth Eric Browning.
+ The humble semicolon is why spacing and line ends do not matter in C and C-like languages. It means that we, as programmers, can focus all of our white space and line ends on communicating our intent to humans.
+ This "freedom" is not an excuse to write obtuse code or dense code. For example, see the Obfuscated Pearl Contest. But instead, freedom to describe what we mean or use spacing to help us understand or maintain our code.
+ We can take a quick look at how a few other C-like languages that came after C treat the semicolon. Java is just like C in that the semicolon terminates statements. Python treats the semicolon as a separator, like ALGOL, allowing more than one statement on a single line.
+ But since Python treats the end of a line as a statement separator, you generally never use semicolon in Python. But for people like me, who automatically add a semicolon when typing code too fast, at least Python ignores the few semicolons I mistakenly add to my code out of habit.
+ JavaScript treats the semicolon as a separator, but since JavaScript ignores the end of the line, it's treated as white space, semicolons are required when a block of code consists of more than one statement.
+ When I write JavaScript, I meticulously include semicolons at the end of all statements because any good programmer can write C in any language.
+ Back to the text. 3.2. If/else. The if/else statement is used to make decisions. Formally, the syntax is if parentheses expression parentheses statement one else statement two, where the else part is optional.
+ The expression in parentheses is evaluated. If it evaluates to true, that is, the expression has a non-zero value, statement one is done. If it is false, the expression is zero. And there's an else part, statement two is executed instead.
+ Since an if simply tests the numeric value of the expression, certain coding shortcuts are possible. The most obvious is writing if, open parentheses expression, instead of if, open parentheses expression, not equal zero, close parentheses.
+ Sometimes this is natural and clear, other times it's cryptic.
+ Because the else part of an if/else is optional, there is an ambiguity when an else is omitted from a nested if sequence.
+ This is resolved the usual way. The else is associated with the closest previous else-less if. For example, if, open parentheses, n greater than zero, close parentheses, if, open parentheses, a greater than b, close parentheses, z equals a semicolon, else, z equals b.
+ The else with the z equals b goes with the inner if, as we have shown by the indentation in the above example.
+ If that's not what you want, braces must be used to force the proper association. If, n greater than zero, open curly brace, if, a greater than b, z equals a semicolon, close curly brace, else, z equals b.
+ This ambiguity is especially pernicious in situations like, if, open parentheses, n greater than zero, for, open parentheses, i equals zero, semicolon, i less than n, semicolon, i plus plus, close parentheses.
+ If, open parentheses, s sub i greater than zero, close parentheses, open curly brace, printf, string, dot dot dot, close parentheses, semicolon, return, open parentheses, i, close parentheses, semicolon, close curly brace, else, and this is where it's wrong, printf, open parentheses, error, n is zero, close parentheses, semicolon.
+ The indentation in the above example shows unequivocally what you want, but the compiler does not get the message and associates the else with the inner if.
+ This bug can be very hard to find. By the way, notice that there is a semicolon after z equals a in, if, open parentheses, a greater than b, close parentheses, z equals a semicolon, else, z equals b semicolon.
+ That is because grammatically a statement follows the if and an expression like z equals a is always terminated by a semicolon.
+ Section 3.3, else if. The construction if, open parentheses, expression, close parentheses statement, else blank, if, open parentheses, expression, close parentheses statement, else if, open parentheses, expression, close parentheses statement, else statement occurs so often that it's worth a brief separate discussion.
+ The sequence of ifs is the most general way of writing a multi-way decision. The expressions are evaluated in order. If any expression is true, the statement associated with it is executed and this terminates the whole chain.
+ The code for each statement is either a single statement or a group of statements in braces. The last else handles the none of the above or default case where none of the other conditions was satisfied. Sometimes there is no explicit action for the default. In that case, the trailing else statement can be omitted or it may be used for error checking to catch an impossible condition.
+ To illustrate three-way decision, here is a binary search function that decides if a particular value x occurs in the sorted array v.
+ The elements of v must be in increasing order. The function returns the position, a number between 0 and n minus 1, if x occurs in v, n minus 1, if not.
+ This sample code is on page 54. It is the first example on page 54 in the book.
+ Binary, open parenthesis x comma v comma n close parenthesis, int x comma v, open square bracket close square bracket comma n semicolon, open curly brace, int low comma high comma mid semicolon, low equals 0 semicolon, high equals n minus 1 semicolon.
+ While, open parenthesis low less than or equal to high close parenthesis, open curly brace, mid equals open parenthesis low plus high close parenthesis, slash 2 semicolon.
+ If, open parenthesis x less than v sub mid close parenthesis, high equals mid minus 1 semicolon. Else, if, open parenthesis x greater than v sub mid close parenthesis, low equals mid plus 1.
+ Else, return open parenthesis mid close parenthesis semicolon close curly brace closing the while and then return open parenthesis minus 1 close parenthesis semicolon close curly brace to end the function.
+ The fundamental decision in this code is whether x is less than, greater than, or equal to the middle element v sub mid at each step. This is a natural for else if.
+ I would note that in the above examples, the else and the if in C are two language constructs that are just being used idiomatically to construct a multi-way branch or else if pattern with indentation that captures the idiom.
+ If we were pedantic about the indentation of the above sequence, we would be separating the else and if and indenting each succeeding block further as follows with brackets added for clarity.
+ Open parenthesis expression close parenthesis open curly brace statement close curly brace. Else, open curly brace if, open parenthesis expression close parenthesis open curly brace statement close curly brace. Else, open curly brace.
+ And now we're quite indented at this point if, open parenthesis expression close parenthesis open curly brace statement close curly brace. Else, open curly brace statement close curly brace. Close curly brace, close curly brace.
+ Java and JavaScript keep the else and if as separate language elements and document their idiomatic usage and indentation just like C.
+ But in Python, if is a single keyword in a new language construct that achieves the same idiom as shown below.
+ If, open parenthesis expression close parenthesis colon block. Lf, open parenthesis expression close parenthesis colon block. Lf, if, Lf, parenthesis expression parenthesis colon block. Else, colon block.
+ The C, Java, JavaScript, and Python idioms thankfully look the same when the idiomatic indentation is used. Even Fortran 77 supports the else if construct to implement multi-way logic.
+ Section 3.4, switch. The switch statement is a special multi-way decision maker that tests whether an expression matches one of a number of constant values and branches accordingly.
+ In chapter one, we wrote a program to count the occurrences of each digit, white space, and all other characters using a sequence of if, else, if, else.
+ Here is the same program with a switch. This is the first example program on page 55.
+ Pound include less than stdio.h. Main, open parenthesis, close parenthesis, open curly brace. Int, C comma i comma n white comma n other comma n digit, open square bracket, 10, close square bracket, a 10 element array.
+ N white equals n other equals 0. For i equals 0, i less than 10, i plus plus, n digits of i equals 0.
+ While, parenthesis, parenthesis, C equals getchar, open parenthesis, close parenthesis, close parenthesis, not equal EOF, close parenthesis, switch, open parenthesis, C, close parenthesis, open curly brace.
+ Case, quote zero, quote colon, case, quote one, quote colon,
+ case, quote two, quote colon, case, quote three, quote colon,
+ case, quote four, quote colon, case, quote five, quote colon,
+ case, quote six, quote colon, case, quote seven, quote colon,
+ case, quote eight, quote colon, case, quote nine, quote colon.
+ End digit sub c minus quote zero, quote, close bracket, plus, plus, break.
+ Now that bit of code right there was to take all of zero through nine and
+ guide it to the line of code that incremented the particular element of
+ the end digit array by one.
+ Continuing after the break semicolon, case, quote space,
+ quote colon, case, quote backslash n, quote colon, case, quote backslash t,
+ quote colon, n white, plus, plus, semicolon, break.
+ Default colon, n other, plus, plus, colon, break, semicolon, close curly brace.
+ Print f, open parenthesis, double quote, digits equals double quote,
+ close parenthesis, semicolon, four, open print i equals zero, i less than ten,
+ i, semicolon, i plus plus, close parenthesis.
+ Print f, open parenthesis, percent space, percent d,
+ close double quote, comma, end digit sub i, close parenthesis, semicolon.
+ Print f, quote backslash n, white space equals percent d comma,
+ other equals percent d, backslash n, double quote, comma, n white,
+ comma, n other, close parenthesis, semicolon, close curly brace.
+ The switch statement evaluates the integer expression in parentheses,
+ in this case, the character c, and compares its value
+ simultaneously to all the cases.
+ Each case must be labeled by an integer or
+ character constant or constant expression.
+ If a case matches the expression value, execution starts at that case.
+ The case labeled default is executed if none of the other cases is satisfied.
+ Default is optional.
+ If it isn't there and none of the cases matches, no action at all takes place.
+ Cases and default can occur in any order.
+ Cases must all be different.
+ The break statement causes an immediate exit from the switch.
+ Because the cases serve as labels, after the code for one case is done,
+ execution falls through to the next, unless you take explicit action to escape.
+ Break and return are the most common ways to leave a switch.
+ A break statement can be used to force an immediate exit from a while, for,
+ and do loops as well, as will be discussed later in this chapter.
+ Falling through the cases is a mixed blessing.
+ On the positive side, it allows multiple cases for
+ a single action, as with blank tab or new line in this example.
+ But it also implies that normally,
+ each case must end with a break to prevent falling through to the next.
+ Falling through from one case to another is not robust,
+ being prone to disintegration when the program is modified.
+ With the exception of multiple labels for
+ a single computation, fall throughs should be used sparingly.
+ As a matter of good form, put a break after the last case, in this case default,
+ although it's logically unnecessary.
+ Someday, when another case gets added at the end,
+ this bit of defensive programming will save you.
+ The switch statement, what is there to say?
+ I think that the switch statement was added to compete with the earlier Fortran
+ computed go to statement, or just to keep low level assembly language programmers
+ from switching into assembly language to implement the concept of a branch table.
+ The authors spend most of the previous section apologizing for
+ the switch statement, so you should perhaps take this as a hint and never use it.
+ There are very few situations where a branch table outperforms a series of this,
+ if then else checks, and those are likely deep in a library or
+ operating system code.
+ Programmers should only use switch if they understand what a branch table is,
+ and why a branch table is more efficient for
+ the particular bit of a program they're writing.
+ Otherwise, just use else if and do the readers of your code a favor.
+ 3.5 loops, while and for.
+ We have already countered the while and for loops.
+ In while statement, the expression is evaluated.
+ If it is non-zero, the statement is executed and the expression is re-evaluated.
+ This cycle continues until the expression becomes a zero,
+ at which point execution resumes after the statement.
+ The for statement, for, expression one semicolon, expression two semicolon,
+ expression three, close parenthesis, statement is equivalent to expression one
+ semicolon, while, open parenthesis, expression two, closed parenthesis,
+ open curly brace, statement, expression three semicolon, closed curly brace.
+ Grammatically, the three components of the four are expressions.
+ Most commonly, expression one and expression three are assignments or
+ function calls, and expression two is a relational expression.
+ Any of the three parts can be omitted, although the semicolons must remain.
+ If expression one or expression three is left out,
+ it is simply dropped from the expansion.
+ If the test expression two is not present, it is taken as permanently true.
+ So the code for open parenthesis, semicolon, semicolon, closed parenthesis,
+ open curly brace, dot, dot, dot, closed curly brace is an infinite loop.
+ Presumably to be broken by some other means such as a break or a return.
+ Whether to use while or for is largely a matter of taste.
+ For example, in the code, while, open parenthesis, open parenthesis, c equals
+ get char, open parenthesis, closed parenthesis, equal, equal, quote, space, quote.
+ Or c equal equal, quote, backslash, end quote.
+ Or c equal equal, quote, backslash, t quote, close parenthesis, semicolon.
+ Skipping white characters, there is no initialization or
+ reinitialization, so while seems more natural.
+ The for is clearly superior when there is simple initialization and
+ reinitialization, since it keeps the loop control statements close together and
+ visible at the top of the loop.
+ This is the most obvious in for open parenthesis i equals 0 semicolon i less
+ than n semicolon i plus plus closed parenthesis, which is the c idiom for
+ processing the first n elements of an array.
+ The analog of a Fortran or PL1 do loop.
+ The analogy is not perfect, however, since the limits of a for loop can be
+ altered within the loop and the controlling variable i retains its value
+ when the loop terminates for any reason.
+ Because the components of the for are arbitrary expressions,
+ for loops are not restricted to arithmetic progressions.
+ Nonetheless, it is bad style to force unrelated computations into a for.
+ It is best reserved for loop control operations.
+ As a larger example, here is another version of the a to i function for
+ converting a string to its numeric equivalent.
+ This one is more general.
+ It copes with optional leading white space and an optional plus or minus sign.
+ Chapter 4 shows a to f, which does the same conversion for floating point numbers.
+ The basic structure of the program reflects the form of the input.
+ Skip white space if any, get the sign if any, get the integer part and convert it.
+ Each step does its part and leaves a clean state for the next.
+ The whole process terminates on the first character that would not be part of a number.
+ This is the first example on page 58 of the textbook.
+ A to i open paren s close paren, which is going to convert s to an integer.
+ Char s open square bracket close square bracket semicolon.
+ Open curly brace int i comma n comma sine semicolon.
+ Four, i equals zero, s sub i equal equal quote space quote or
+ s sub i equals equals quote backslash end quote or
+ s sub i equals equals backslash quote backslash t quote semicolon i plus plus semicolon.
+ Skip white space.
+ This is a for loop with an empty loop body.
+ Sine equals one semicolon.
+ If s sub i equal equal plus or s sub i equal equal quote minus quote close parenthesis.
+ Sine equals, and here we use a ternary operator.
+ Open parenthesis of i plus plus equal equal quote plus quote close parenthesis.
+ Question mark, one colon minus one semicolon.
+ Four, open parenthesis, n equals zero semicolon, s sub i greater than or
+ equal to quote zero quote and s sub i less than or equal to quote nine quote i plus plus close parenthesis.
+ N equals ten times n plus s sub i minus quote zero quote semicolon.
+ Return, open parenthesis, sine times n, close parenthesis, semicolon.
+ Close curly brace to end the function.
+ The advantages of keeping loop control centralized are even more obvious when
+ there are several nested loops.
+ The following function is a shell sort for sorting an array of integers.
+ The basic idea of the shell sort is that in early stages,
+ far apart elements are compared rather than adjacent ones, as in simple interchange sorts.
+ This tends to eliminate large amounts of disorder quickly, so
+ later stages have less work to do.
+ The interval between the compared elements is gradually decreased to one,
+ at which point the sort becomes an effectively adjacent interchange method.
+ This sample code is the second example in page 58 of the textbook.
+ Shell, open parenthesis, v comma n, close parenthesis.
+ Int, v, open square bracket, close square bracket, comma n, semicolon.
+ Open curly brace, int, gap, comma i, comma j, comma temp.
+ For, open parenthesis, gap equals n divided by two, semicolon,
+ gap greater than zero, semicolon, gap slash equals two, close parenthesis.
+ For, open parenthesis, i equals gap, semicolon, i less than n,
+ i plus close parenthesis, for, and now we're three deep nested in the for loops.
+ For, open parenthesis, j equals i minus gap, semicolon, j greater than equal to zero.
+ And v sub j, greater than v sub j plus gap,
+ semicolon, j minus equals gap, close parenthesis, open curly brace.
+ Temp equals v sub j, v sub j equals v sub j plus gap,
+ semicolon, v sub j plus gap equals temp, semicolon.
+ Just a swap of v and v sub j plus gap, v sub j and v sub j plus gap.
+ Close curly brace, and that closed the innermost for loop, and
+ then the next close curly brace closes the function.
+ There are three nested loops.
+ The outermost loop controls the gap between the compared elements,
+ shrinking it from n over two by a factor of two each pass until it becomes zero.
+ The middle loop compares each pair of elements that is separated by gap.
+ The innermost loop reverses any elements that are out of order.
+ Since gap is eventually reduced to one, all elements are eventually ordered
+ correctly.
+ Note that the generality of the form makes the outer loop fit the same form as
+ the others, even though it is not an arithmetic progression.
+ One final C operator is the comma, which most often finds use in the for statement.
+ A pair of expressions separated by a comma is evaluated left to right, and
+ the type and value of the result are the type and value of the right operand.
+ Thus, in a for statement,
+ it is possible to place multiple expressions in the various parts.
+ For example, to process two parallel indices.
+ This is illustrated in the function reverse,
+ which reverses the function string in place.
+ This code is from page 59 of the textbook, and
+ it is the first example on page 59.
+ Pound include less than string.h greater than.
+ Reverse open paren s close paren.
+ Char s, open square bracket, close square bracket, semicolon.
+ Open curly brace, int c comma i comma j.
+ For, open parentheses, i equals zero, comma, j equals sterlen sub s minus one.
+ Semicolon, i less than j, semicolon, i plus plus comma j minus minus,
+ close parentheses, open curly brace.
+ C equals s sub i, s sub i equals s sub j, semicolon.
+ S sub j equals c, semicolon.
+ Close curly brace, close curly brace to end the function.
+ The commas that separate the function arguments, variables, declarations, etc.
+ Are not comma operators and do not guarantee left to right evaluation.
+ Section 3.6, loops, do while.
+ The while and for loops share the desirable attribute of testing the termination condition
+ at the top rather than at the bottom, as we discussed in chapter one.
+ The third loop in C, the do while,
+ tests at the bottom after making each pass through the loop body.
+ The body is always executed at least once.
+ The syntax is as follows.
+ Do, statement, while, open parenthesis, expression, close parenthesis, semicolon.
+ The statement is executed, then the expression is evaluated.
+ If it is true, statement is evaluated again, and so on.
+ If the expression becomes false, the loop terminates.
+ As might be expected, do while is much less used than while and for,
+ accounting perhaps 5% of all loops.
+ Nonetheless, it is from time to time valuable as in the following function i to a,
+ which converts a number to a character string, the inverse of a to i.
+ The job is slightly more complicated than it might be thought at first.
+ Because the easy methods of generating the digits generate them in the wrong order.
+ You've chosen to generate the string backwards and then reverse it.
+ This is the first sample code on page 60 of the textbook.
+ I to a, open parenthesis, n comma s, close parenthesis.
+ Char, s, open square bracket, close square bracket, semicolon.
+ Int, n, semicolon.
+ Open curly brace, int, i comma sine, semicolon.
+ If, open parenthesis, open parenthesis, sine equals n,
+ close parenthesis, less than zero, close parenthesis, n equals minus n, semicolon.
+ That's a bit of a complex if I would say there, it has an assignment statement that
+ both copies n into sine and then evaluates as to whether or
+ not it's less than, the n or sine is less than zero,
+ because it's a side effect assignment statement with a residual value.
+ But the net result is sine contains n, and then it's negated, then n is made positive.
+ So continuing, i equals zero, semicolon.
+ Do, open curly brace, s sub i plus plus
+ equals n modulo ten plus, quote, zero, quote, semicolon.
+ Close curly brace.
+ While, parenthesis, parenthesis, n slash equals ten,
+ close parenthesis, greater than zero, close parenthesis, semicolon.
+ If, open parenthesis, sine less than zero, close parenthesis,
+ s sub i plus plus equals, quote, dash, quote, or minus sine, semicolon.
+ S sub i equals, quote, slash zero, quote, semicolon, in a sense,
+ to terminate the string, and then we call the function reverse,
+ reverse, open parenthesis, close parenthesis, semicolon, close curly brace.
+ The do while is necessary, or at least convenient, since at least one character
+ must be installed in the array s, regardless of the value of n.
+ We have also used braces around the single statement that makes up the body of
+ the do while, even though they are unnecessary.
+ So the hasty reader will not mistake the while part for the beginning of a while loop.
+ I would note that it's important for
+ any language to provide top tested loops and bottom tested loops.
+ But don't feel bad if you write code for years and
+ never feel like a bottom tested loop is the right way to solve a problem you're
+ facing.
+ It is usually rare to write a loop that you insist will run once,
+ regardless of its input data.
+ Section 3.7, break.
+ It is sometimes convenient to be able to control loop exits,
+ other than by testing at the top or the bottom.
+ The break statement provides an early exit from a for, while, or
+ do, just as it does from the switch statement.
+ A break statement causes the innermost enclosing loop or
+ switch to be exited immediately.
+ The following program removes trailing blanks and
+ tabs from the end of each line of input, using a break to exit from a loop.
+ When the rightmost character is non-blank, non-tab is found.
+ This example code is on page 61 of the textbook, and
+ it is the first example on that page.
+ Pound include less than stdio.h, pound define maxline 1000.
+ Main, open parenthesis, closed parenthesis, open curly brace.
+ Int, n, semicolon.
+ Char, line, open bracket, maxline, close bracket,
+ semicolon.
+ While, open paren, open paren, n equals getline, open paren, line,
+ maxline, close paren, close paren, greater than 0, close paren, open curly brace.
+ While, open paren, open parenthesis, minus,
+ minus n, greater than or equal to 0, close parenthesis.
+ If, open parenthesis, lines of n not equal, quote, space, quote, and
+ lines of n not equal, quote, backslash t, quote, and
+ lines of n not equal, quote, backslash n, quote, close parenthesis, break.
+ Line, sub, n plus 1 equals, quote, backslash 0, quote, semicolon.
+ Printf, double quote, percent s, backslash n, double quote,
+ comma, line, close parenthesis, semicolon.
+ Close curly brace to end the while, and then close curly brace to end the main.
+ Getline returns the length of the line.
+ The inner while loop starts at the last character of line.
+ Recall that minus, minus n decrements n before using the value.
+ And scans backward, looking for the first character.
+ That is not a blank tab or new line.
+ The loop is broken when 1 is found, or when n becomes negative.
+ That is when the entire line has been scanned.
+ You should verify that this is the correct behavior,
+ even when the line contains only whitespace characters.
+ An alternative to break is to put the testing in the loop itself.
+ While, open parenthesis, open parenthesis, n equals getline, open parenthesis, line,
+ comma, max line, close parenthesis, close parenthesis, greater than 0,
+ close parenthesis, open curly brace.
+ While, open parenthesis, minus, minus n, greater than or equal to 0, and open parenthesis,
+ line, sub, n, equal, equal, quotes, base, quote, or
+ lines of n equals, quote, backslash, t, quote, or lines of n equals,
+ quote, backslash, n, quote, close parenthesis, close parenthesis, semicolon, dot, dot, dot.
+ Close curly brace.
+ This is inferior to the previous version because the test is harder to understand.
+ Test which require a mixture of and, or not,
+ and parenthesis should generally be avoided.
+ 3.8 continue.
+ The continue statement is related to break, but less often used.
+ It causes the next iteration of the enclosing loop, for, while, or do, to begin.
+ In the while and do, this means that the test part is executed immediately.
+ In the for, control passes to the reinitialization step.
+ Control, by the way, continue applies only to loops, not to switch.
+ A continue inside a switch statement inside of a loop causes the next loop iteration.
+ As an example, this fragment processes only positive elements in the array a.
+ Negative values are skipped.
+ For, open paren, i equals zero, semicolon, i less than n, semicolon,
+ i plus plus, close paren, open curly brace.
+ If, open paren, a sub i less than zero, close paren, continue.
+ This line skips the negative elements, and then the rest of the body of the loop,
+ dot dot dot, is, will run only for the positive elements of the loop.
+ And the loop finishes with a close curly brace.
+ The continue statement is often used when part of the loop that follows is complicated,
+ so that reversing a test and indenting another level would nest the program too deeply.
+ It's time for a bit of an aside.
+ Now that we have seen the break and continue language structures in C,
+ that also have made it into C-like languages, and learned about middle tested loops,
+ it is time to revisit the structured programming debate.
+ And the need for priming operations when a program must process all data until
+ it finishes and still handle the there is no data at all situation.
+ In the previous chapter, the author somewhat skirted the issue by using a top
+ tested while loop and a side effect statement with residual value that was
+ compared to EOF to decide when to exit the loop.
+ Int C colon, while, open parenthesis, open parenthesis, C equals get char,
+ open parenthesis, close parenthesis, close parenthesis, not equal EOF,
+ close parenthesis, open curly brace, process your data, close curly brace.
+ And just for fun, now that we do know about the for loop,
+ let's rewrite this loop as a for loop to make sure we really understand how for
+ loops work.
+ Int C semicolon, for, open parenthesis, C equals get char, open parenthesis, close
+ parenthesis, semicolon, C not equal EOF, semicolon, C equals get char, open parenthesis,
+ close parenthesis, close parenthesis, curly brace, process your data,
+ close curly brace for the for loop.
+ Now you will almost never see a read all characters until EOF written this way
+ because it is not the way KNR told us to reuse a while loop for this.
+ But the for loop formulation is probably clearer than the while formulation,
+ especially to a reader who's not familiar with the assignment side effect idiom,
+ commonly used in C.
+ In particular, the for formulation does not require that the assignment statement
+ has a residual value of the value that was assigned.
+ The first part of the for is a priming read.
+ The second part of the for is a top text tested exit criteria that works both for
+ no data and after all data has been read and processed.
+ And the third part of the for is done at the bottom of the loop to advance to
+ the next character or encounter EOF before going back to the top and
+ doing the loop test.
+ The call to get char is done twice in the for formulation of the read all available
+ data loop.
+ And while we don't like to repeat ourselves in code, if it is a small and
+ obvious bit of code, perhaps this code is more clear with a bit of repetition.
+ So, with all this as background, you can take this page of the document and
+ sit down with a friend at a coffee shop and debate as long as you like about
+ which is the better formulation for the read all available data.
+ But if at that coffee shop you ask Dr. Chuck's opinion, neither of these is ideal
+ because in the real world we build data oriented loops that usually do a lot more
+ than get one character from standard input.
+ My formulation of a data loop will upset the structured programming purists and
+ probably upset Kernigan and Ritchie as well.
+ But I write code in the real world, so here is my version.
+ Int, C semicolon.
+ While open paren one close paren open curly brace, C equals get char.
+ If open paren C double equals EOF, close paren break, process your data.
+ And then close curly brace to end the loop.
+ And if I wanted to skip blanks and new lines, I could use both break and
+ continue, further angering the structured programming purists.
+ Int, C semicolon.
+ While open parenthesis one, close parenthesis, open curly brace,
+ C equals get char, open parenthesis, close parenthesis, semicolon.
+ If, open parenthesis, C equal equal EOF, close parenthesis, break.
+ If, open parenthesis, C equal equal quote space quote or
+ C equal equal quote backslash end quote, close parenthesis, continue.
+ Then process your data, close parenthesis.
+ I use this middle tested approach because usually the data I am processing is coming
+ from a more complex source than the keyboard.
+ And I don't want a function with two to three parameters stuck inside of a side
+ effect statement in a wild test.
+ And also sometimes you want to exit loop not just based on the return value from
+ the function, but instead based on the complex structure that came back from
+ the function itself.
+ As these data processing loops get more complex,
+ the middle tested loop is a tried and true pattern.
+ Even Kernigan and Ritchie point out its benefits above.
+ And with that, I have now triggered endless coffee shop conversations
+ about the best way to write a data handling loop.
+ Section 3.9, go to's and labels.
+ C provides the infinitely abusable go to statement and labels to branch to.
+ Formally, the go to is never necessary.
+ And in practice, it is almost always easy to write code without it.
+ We have not used go to in this book.
+ Nevertheless, we will suggest a few situations where go to's might find a place.
+ The most common use is to abandon processing in some deeply nested structure,
+ such as breaking out of two loops at once.
+ The break statement cannot be used directly since it leaves the only,
+ the most innermost loop thus.
+ For, open parenthesis, dot, dot, dot, close parenthesis.
+ For, open parenthesis, dot, dot, dot, close parenthesis, open curly brace,
+ do some stuff.
+ If, open parenthesis, disaster, close parenthesis, go to, error, semi-colon,
+ close curly brace, dot, dot, dot, dot, dot, and then error, colon, and
+ then clean up the mess.
+ This organization is handy if the error handling code is non-trivial and
+ if errors can occur in several places.
+ A label has the same form as a variable name and is followed by a colon.
+ It can be attached to any statement in the same function as the go to.
+ Another example, consider the possibility of finding the first negative element in
+ a two-dimensional array.
+ Multi-dimensional arrays are discussed in chapter five.
+ One possibility is, for, open parenthesis, i equals zero,
+ semi-colon, i less than n, semi-colon, i plus plus, close parenthesis.
+ For, open parenthesis, j equals zero, semi-colon, j less than m,
+ semi-colon, j plus plus, close parenthesis.
+ If, open parenthesis, v sub i sub j less than zero, close parenthesis,
+ go to, found, otherwise, and then you handle and you keep going.
+ And then found, colon, include, is where it comes to, jumps to.
+ Code involving a go to can always be written without one, but though perhaps
+ at the price of somewhat repeated tests or an extra variable.
+ For example, the array search becomes, found equals zero.
+ For, open parenthesis, i equals zero, semi-colon, i less than n,
+ ampersand ampersand, exclamation, found, semi-colon, i plus plus.
+ For, open parenthesis, j equals zero, semi-colon, j less than m,
+ ampersand ampersand, exclamation, found, semi-colon, j plus plus.
+ Found equals v sub i sub j less than zero.
+ If found, continue, else not found.
+ Although we are not dogmatic about the matter,
+ it does seem that go to statements should be used sparingly, if at all.
+ I would add, before we leave control flow, I need to say that I agree with
+ structure programming experts, as well as Kernigan and
+ Ritchie, in that the go to is universally a bad idea.
+ There are a lot of little details that make them a real problem.
+ Things like how the stack works in function calls, and how code blocks
+ happen, and patching the stack up correctly when a go to happens
+ in the middle of a deeply nested mess.
+ You might be tempted to use a go to when you want to exit multiple
+ nested loops in a single statement.
+ Break and continue only exit the innermost loop.
+ The authors use this example above, but
+ are quite lukewarm when describing it as a use of go to.
+ Usually, if your problem is that complex, putting things in a function and
+ using return, or adding a few if statements is a better choice.
+ The Dr. Chuck middle-tested loop, data processing,
+ solves this because the loop is always the innermost loop.
+ Also, as new languages were built, the concept of exceptions became part of
+ language design, and was a by far more elegant solution,
+ to a path of some deeply nested code that just needs to get out.
+ So most of the time, you think the go to might be a good idea,
+ you should lean towards a throw-catch pattern to make your intention clear.
+ It is one of the reasons why we prefer languages like Java or
+ Python over C when writing general purpose code.
+ This work is based on the 1978 C Programming book written by Brian W.
+ Kernighan and Dennis M.
+ Ritchie.
+ Their book is copyright all rights reserved by AT&T, but is used in this
+ work under fair use because of the book's historical and scholarly significance.
+ It's lack of availability and the lack of an accessible version of the book.
+ The book is augmented in places to help understand its right place in
+ a historical context amidst the major changes of the 1970s and
+ 1980s as computer science evolved from a hardware-first vendor-centered approach
+ to a software-centered approach where portable operating systems and
+ applications written in C could run on any hardware.
+ This is not the ideal book to learn C Programming because the 1978 edition
+ does not reflect the modern C language.
+ Using an obsolete book gives us an opportunity to take students back in time
+ and understand how the C language was evolving as it laid the groundwork for
+ a future with portable applications.
+ [MUSIC]

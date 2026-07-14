@@ -1,0 +1,202 @@
+ Welcome to C Programming for Everybody. My name is Charles Severance. This is my reading of the 1978 C Programming book written by Brian Kernigan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
+ Chapter 8. The Unix System Interface. The material in this chapter is concerned with the interface between C programs and the Unix operating system.
+ Since most C programs are on Unix systems, this should be helpful to a majority of the readers. Even if you see on a different machine, however, you should be able to glean more insight into C programming from studying these examples.
+ This chapter is divided into three major areas - input/output, file system, and a storage allocator. The first two parts assume a modest familiarity with the external characteristics of Unix.
+ Chapter 7 was concerned with a system interface that is uniform across a variety of operating systems. On any particular system, the routines of the standard library have to be written in terms of the I/O facilities that are actually available on the host system.
+ In the next few sections, we'll describe the basic system entry points for I/O on the Unix operating system and illustrate how parts of the standard library can be implemented with them.
+ As an aside, the dual nature of C and Unix has been on display throughout the book, and while this chapter is called the Unix System Interface, in a sense, it's less about Unix itself and very much about why C is such a great programming language.
+ Let me explain. Before Unix and C became the norm, operating systems and operating system utilities - those commands we used interactively and in batch jobs - were quite often written in the assembly language of the computer which it was supporting.
+ Often, there were not well documented API calls between utilities in assembly language and the assembly language which implemented the operating system. Smart vendor programmers would just look at the operating system code and write their utility code to work with it.
+ This section shows that a language that has features like structures, arrays, pointers, preprocessor, and unions was sufficiently rich so that we could document all the intricate interfaces with an operating system using a relatively high level language, and then we could write our utility code, like CAD, in a high level language as well.
+ In this chapter, the authors are almost shouting, "Quit using assembly language to build your operating system and utility code!"
+ Further, they are showing us examples designed to answer the question that might come from programmers used to the old ways like, "Can we do X, Y, Z, and C?" The authors' emphatic answer in the increasingly intricate code samples is, "C is not a toy language that's only something used by a few AT&T computer scientists in a research lab."
+ If you're doing serious system stuff that needs maximum performance and readability and reliability, use C.
+ This chapter shows C in all its glory and shows why it was such an important language to enable the world of technology we have 40 years later.
+ At the end of the chapter, we'll talk a little bit about how C enabled the creation of easier-to-use programming languages and why it was so important to invent C-inspired languages like Python, PHP, and Java once C became the established systems programming language.
+ Section 8.1. File Descriptors. In the Unix operating system, all input and output is done by reading or writing files, because all peripheral devices, even the user's terminal, are files in the file system.
+ This means that a single homogeneous interface handles all communications between a program and peripheral devices.
+ In the most general case, before reading or writing a file, it is necessary to inform the system of your intent to do so, a process called opening the file.
+ If you're going to write on a file, it may also be necessary to create it. The system checks for your right to do so.
+ Does the file exist? Do you have permission to access it? And if all is well, returns to the program a small positive integer called the file descriptor.
+ Whenever IO is to be done on the file, the file descriptor is used instead of the name to identify the file.
+ This is roughly analogous to the use of read(5, ...) and write(6, ...) in Fortran.
+ All information about an open file is maintained by the system. The user refers to the file only by the file descriptor.
+ Since input and output involving the user's terminal is so common, special arrangements exist to make this convenient.
+ When the command interpreter, the shell, runs a program, it opens three files with files descriptors 0, 1, and 2, called the standard input, standard output, and standard error output.
+ All of these are normally connected with a terminal, so if a program reads file descriptor 0 and writes to file descriptors 1 and 2, it can do terminal IO without worrying about opening the files.
+ The user of the program can redirect input/output to and from files with less than and greater than. For example, prog less than in file greater than out file. In this case, the shell changes the default assignments for file descriptors 0 and 1 from the terminal to the named files.
+ Normally, file descriptor 2 remains attached to the terminal, so error messages can go there.
+ Similar observations hold if the input or output is associated with a pipe. In all cases, it must be noted that the file assignments are changed by the shell, not the program.
+ The program does not know where its input comes from, nor where its output goes, so long as it uses file 0 for input and 1 and 2 for out.
+ Section 8.2, Low Level IO, Read and Write. This lowest level of IO in Unix provides no buffering or any other services. It is, in fact, a direct entry into the operating system.
+ All input and output is done by two functions called read and write. For both, the first argument is a file descriptor.
+ The second argument is a buffer in your program where the data is to come from or go to. The third argument is the number of bytes to be transferred.
+ The calls are nread = read(fd, buff, n, semicolon) nwritten = write(fd, buff, n, semicolon) Each call returns a byte count, which is the number of bytes actually transferred.
+ On reading, the number of bytes returned may be less than the number asked for. A return value of 0 bytes implies n to file, and -1 indicates an error of some sort.
+ For writing, the return value is the actual number of bytes written. It is generally an error if this isn't equal to the supposed number that was asked to be written.
+ The number of bytes to be read or written is quite arbitrary. The two most common values are 1, which means one character at a time, or unbuffered, and 512, which corresponds to the physical block size on many early peripheral devices.
+ This latter size will be most efficient, but even a character at a time IO is not inordinately expensive.
+ Putting these facts together, we can write a simple program to copy its input to its output, the equivalent of a file copying program written for Chapter 1.
+ In Unix, this program will copy anything to anything, since input and output can be redirected to any file or device.
+ This example is on page 161 of the textbook, which you can view at www.cc4e.com/code.
+ Pound include STDIO.h. Pound to find buff size 512. This is the best size for PDP-11 Unix. Modern computers should probably be larger.
+ Main, open paren, close paren, open curly brace. Char, buff, open square bracket, buff size, close square bracket, semicolon. Int, n, semicolon.
+ While, open paren, open paren, n equals read, open paren, 0, buff, buff size, close paren, close paren, greater than 0, close paren.
+ Write, open paren, 1, buff, n, close paren, semicolon, close curly brace.
+ If the file size is not an exact multiple of buff size, some read will return a smaller number of bytes to be written by write.
+ The next call after that read will return 0.
+ It is instructive to see how read and write can be used to construct higher level routines like getchar and putchar.
+ For example, here is a version of getchar which does unbuffered input.
+ This is the second example on page 162 of the textbook.
+ #include stdio.h #define cmask0377 and this is a mask, an octal mask, to make sure characters are greater than 0.
+ Getchar, open paren, close paren, open curly brace, char, c, semicolon, return, open paren, open paren, read, open paren, 0, ampersand, c, comma, 1, close paren, greater than 0, close paren, question mark, c, ampersand, cmask, colon, eof, semicolon, close curly brace.
+ C must be declared char because read accepts a character pointer.
+ The character being returned must be masked with 0377 to ensure that it is positive.
+ Otherwise, sign extension might make it negative.
+ The constant 0377 is appropriate for ASCII and the PDP-11, but not necessarily for every other machine.
+ The second version of Getchar does its input in big chunks and hands out the characters one at a time.
+ This is the first example on page 162 of the textbook, which you can see at www.cc4e.com/code.
+ #include stdio.h #define cmask0377 #define buffsize 512.
+ Now we do the buffered version of Getchar.
+ Getchar, open paren, close paren, open curly brace.
+ Static char buff, open square bracket, buff size, close square bracket.
+ Static char star buff, p = buff, semicolon, static int n = 0, semicolon.
+ Those variables are static so that they are long-lived and exist from call to call.
+ The meaning of the code.
+ If, open paren, n = 0, close paren, open curly brace, n = read, open paren, 0, buff, buff size, close paren, semicolon, buff p = buff, semicolon, close curly brace.
+ Return, open paren, open paren, minus, minus n, greater than, equal to 0, close paren, question mark, star buff, p++, ampersand, cmask, colon, eof, close paren, semicolon, close curly brace.
+ Section 8.3, open, create, close, unlink.
+ Create is not create, it's create without the e, so I'll just call it create for now.
+ Other than the default standard input and output and error files, you must explicitly open files in order to read or write them.
+ There are two system entry points for this, open and create.
+ Open is rather like the fopen, discussed in chapter 7, except that instead of returning a file pointer, it returns a file descriptor, which is just an int.
+ int fd, semicolon, fd = open, open paren, name, comma, rwmode, close paren, semicolon.
+ As with fopen, the name argument is a character string corresponding to the external file name.
+ The access mode argument is different, however. rwmode is 0 for read, 1 for write, and 2 for read/write access.
+ Open returns -1 if any error occurs, otherwise it returns a valid file descriptor.
+ It is an error to open a file that does not exist.
+ The entry point, create, is provided to create new files or to rewrite old ones.
+ fd = create, open paren, name, comma, pmode, close paren, semicolon.
+ Returns a file descriptor if it was able to create the file name, and -1 if not.
+ If the file already exists, create will truncate it to 0 length.
+ It is not an error to create a file that already exists.
+ If the file is brand new, create creates it with the protection mode specified in the pmode argument.
+ In the Unix file system, there are 9 bits of protection information associated with each file,
+ controlling read, write, and execute permission for the owner of the file, for the owner's group, and for all others.
+ Thus, a 3-digit octal number is the most convenient format for specifying permissions.
+ For example, 0755 specifies read, write, and execute permission for the owner,
+ and read and execute permission for group and for everyone else.
+ To illustrate here, a simplified version of the Unix utility cp, a program that copies one file to another.
+ The main simplification is that our version only copies one file and does not permit the second argument to be a directory.
+ And this example code is on page 163 of the textbook, which you can see at www.cc4e.com/code.
+ #include stdio.h, #include stdlib.h, #define buffsize 512, #define pmode 0644,
+ rw, read and write for owner, read for group, and others, int, open paren argc, argv, close paren.
+ The format will be, we're going to have two files, copy file1, file2, int, argc semicolon, char, star, argv,
+ open square bracket, close square bracket, semicolon, open curly brace, int, f1, f2, n, semicolon, char, buff,
+ buffsize, semicolon. If open paren argc not equal to 3, close paren, error, open paren double quote usage colon cp from 2,
+ double quote comma null, close paren semicolon. If open paren open paren f1 equals open, open paren argv sub 1 comma 0,
+ close paren close paren equal equal minus 1, close paren error, open paren double quote cp colon can't open percent s,
+ double quote comma argv sub 1, close paren semicolon. If open paren open paren f2 equals creat, open paren argv sub 2,
+ comma p mode, close paren close paren equal equal minus 1, close paren error, open paren quote cp colon can't create percent s,
+ double quote comma argv sub 2, close paren semicolon. While open paren open paren n equals read, open paren f1 comma buff,
+ buffsize, close paren close paren greater than 0, close paren. If open paren write, open paren f2 comma buff,
+ comma n, close paren not equal n, close paren error, open paren double quote cp colon write error, double quote comma null,
+ close paren semicolon, exit, open paren 0, close paren semicolon, close curly brace. That's the end of the main program.
+ The error routine is going to print the error message. Error, open paren s1 comma s2, close paren char star s1 comma star s2,
+ semicolon, open paren, print f, open paren s1 comma s2, close paren semicolon, print f, double quote backslash n, double quote, close paren semicolon, exit, open paren 1, close paren semicolon, close curly brace.
+ There is a limit on the number of files which the program may have open simultaneously. According, any program which intends to process many files
+ must be prepared to reuse file descriptors. The routine close breaks the connection between a file descriptor and an open file,
+ and frees the file descriptor for use with some other file. Termination of a program by exit or return from the main program closes all open files.
+ The function, unlink open paren file name, close paren, removes the file name from the file system.
+ Section 8.4, random access, seek and lseek. File I/O is normally sequential. Each read or write takes place at a position in the file right after the previous one.
+ When necessary, however, a file can be read or written in any arbitrary order. The system called lseek provides a way to move around in a file without actually reading or writing.
+ lseek, open paren fd, offset, origin, close paren semicolon, forces the current position in the file, whose descriptor is fd, to move to the position offset,
+ which is taken relative to the location specified by origin. Subsequent reading or writing will begin at that position.
+ Offset is a long, fd and origin are ints. Origin can be 0, 1, or 2 to specify that the offset is to be measured from the beginning, from current position, or from the end of file, respectively.
+ For example, to append to a file, seek to the end before writing. lseek, open paren, ft, comma, 0l, comma, 2, close paren semicolon, to get back to the beginning, i.e. rewind to the beginning.
+ lseek, open paren, fd, comma, 0l, comma, 0, parenthesis, semicolon. Note that the 0l argument could also be written as open paren long, close paren, 0.
+ With lseek, it's possible to treat files more or less like large arrays at the price of slower access.
+ For example, the following simple function reads any number of bytes from any arbitrary place in a file.
+ get, open paren, fd, comma, pause, comma, buff, comma, n, close paren; int, fd, comma, n, long, pause, semicolon; char, star, buff, semicolon; open curly brace; lseek, open parenthesis, fd, comma, pause, comma, 0, close paren, semicolon;
+ return, open paren, read, open paren, fd, comma, buff, comma, n, close paren, close paren, semicolon; close curly brace.
+ In pre-version 7 Unix, the basic entry point to the I/O system is called seek. Seek is identical to lseek, except that its offset argument is an int rather than a long. Accordingly, since PDP-11 integers only have 16 bits, the offset specified for seek is limited to 65,535.
+ For this reason, origin values of 3, 4, and 5 cause seek to multiply the given offset by 512, which is the number of bytes in one physical block on a PDP-11, and then interpret origin as if it were 0, 1, or 2, respectively.
+ Thus, to get to an arbitrary place in a large file requires two seeks. The first one selects the block, then one which has origin equal to 1, and then moves to the desired byte within the block.
+ Once again, we see C in Unix straddling a major improvement in computer hardware in 1978. The natural name for a function to randomly move around a file would be seek.
+ But in early versions of Unix, seek took an integer as the offset, but on small word computers like PDP-11 have an integer that can't represent a large number, so seek used a complex set of rules to handle larger files.
+ The only logical thing was to have the offset be a long, and then for upwards compatibility make a new function called elseek that we use to this day.
+ Section 8.5, an example implementation of fopen and getc.
+ Let us illustrate how some of these pieces fit together by showing an implementation of the standard library routines fopen and getc on the PDP-11.
+ Recall that files in the standard library are described by file pointers rather than file descriptors.
+ A file pointer is a pointer to a structure that contains several pieces of information about the file.
+ A pointer to a buffer, so the file can read in large chunks, a count of the number of characters left in the buffer, a pointer to the next character position in the buffer, and some flags describing read/write mode and the file descriptor.
+ The data structure that describes a file is contained in the file stdio.h, which must be included by #include in any source file that uses routines from the standard library.
+ It is also included by functions in that library.
+ In the following excerpt from the PDP-11 stdio.h, names which were intended for use only by functions of the library begin with underscore, so they are less likely to collide with the names of the user program.
+ As a side note, I won't read the underscores because they confuse your understanding, so the underscores are there in the code.
+ You can look at it online, but I'm not going to read the underscores.
+ So this is basically some definitions for stdio.h.
+ Expand file IOB, open square bracket, end file, close square bracket, semicolon.
+ #define stdin, open paren, ampersand IOB sub 0, close paren.
+ #define stdout, open paren, ampersand IOB sub 1, close paren.
+ #define stdair, open paren, ampersand IOB sub 2, close paren.
+ #define read, 01, #define write, 02, #define unbuff, 04, #define bigbuff, 010, #define eof, 020, #define air, 040, #define null, 0, #define eof, open paren, -1, close paren.
+ #define getc, open paren, p, close paren, open paren, -, -, open paren, p, close paren, right arrow, cnt, greater than or equal to 0, question mark.
+ *, open paren, p, close paren, right arrow, ptr++, ampersand, 0377, colon, fillbuff, open paren, p, close paren, close paren.
+ #define getchar, open paren, close paren, getc, open paren, stdin, close paren.
+ #define putc, open paren, x, p, close paren, open paren, -, -, open paren, p, close paren, right arrow, cnt, greater than or equal to 0, question mark.
+ *, open paren, p, close paren, right arrow, ptr++, equals, open paren, x, close paren, colon, flushbuff, open paren, open paren, x, close paren, p, close paren, close paren.
+ #define putchar, open paren, x, close paren, putc, open paren, x, std, out, close paren.
+ The getc in macro normally just decrements the counts, advances the pointer, and returns the character.
+ We do this in a very long define continued by a backslash.
+ If the count goes negative, however, getc calls the function fillbuff to replenish the buffer, real initialize the structure contents, and return a character.
+ A function may present a portable interface, yet itself contain non-portable constructs.
+ getc masks the character with 0, 3, 7, 7, which defeats the sign extension done by the pdp11 and ensures that all characters will be positive.
+ Although we will not discuss any details, we've included the definition of putc to show that it operates in much the same way as getc, calling a function flushbuff when its output buffer is full.
+ The function fopen and fillbuff can now be written.
+ Most of fopen is concerned with getting a file opened and positioned at the right place, and setting the flag bits to indicate the proper state.
+ fopen does not allocate any buffer space. This is done by fillbuff when the file is first read.
+ You can look at this sample code from page 167 at www.cc4e.com/code.
+ I won't read it here because it's pretty long and intricate, so you'll have to go watch it online or view it online.
+ Back to the text. The function fillbuff is rather more complicated. The main complexity lies in the fact that fillbuff attempts to permit access to the file even though there may not be enough memory to buffer the I/O.
+ If the space for a new buffer cannot be obtained from calloc, all is well. If not, fillbuff does unbuffered I/O using a single character stored in a private array.
+ The first call to getC for a particular file finds a count of zero, which forces a call of fillbuff.
+ If fillbuff finds that the file is not open for reading, it returns EOF immediately.
+ Otherwise, it tries to allocate a large buffer and, failing that, a single character buffer, setting the buffering information in flag appropriately.
+ Once the buffer is established, fillbuff simply calls read to fill it and sets the count and pointers, and returns the character at the beginning of the buffer.
+ Subsequent calls to fillbuff will find a buffer already allocated. The only remaining loose end is how everything gets started.
+ The array I/O/B must be defined and initialized for stdin, stdout, and stderr. File I/O/B and close square bracket equals open curly brace.
+ Open curly brace, null, comma, zero, comma, null, comma, underscore, read, comma, zero, comma, close curly brace, comma, and that's the stdin. The next one is open curly brace, null, comma, zero, comma, null, comma, underscore, write, comma, one, comma, close curly brace, comma, and that's the stdout definition, the sub one position.
+ And then the next one is open curly brace, null, comma, zero, comma, null, comma, underscore, write, vertical bar, underscore, unbuff, comma, two, close print, and that is the standard error entry, close curly brace, semicolon.
+ The initialization of the flag part of the structure shows that stdin is to be read, stdout is to be written, and stderr is to be written unbuffered.
+ Section 8.6, example, listing directories.
+ I would note that the sample code in section 8.6 shows how we can write applications like LS to interact with directories in a Unix file system. However, the code in this section is not portable to modern Unix systems, so we'll leave the code as it is in this section.
+ It's a good idea to read the code and get an outline of how to work with directories on Unix. If you want to write code to handle directories, you'll need to consult more modern documentation.
+ Given the complexity of the code in this section, we are not going to include it in the copy of this book in this particular media. Similarly, section 8.7, example, a storage allocator consists of a lot of really complex code, and so we will leave that for you to see online at www.cc4e.com/book/chap08.md.
+ Dynamic memory is hard. Modern languages like Python, Ruby, and Java give us high-level objects like strings, lists, and dictionaries. These structures automatically expand and contract and can be copied into a temporary variable, used, and then discarded.
+ Modern languages depend on efficient memory allocation. A problem when dynamic memory is heavily used is the fragmentation of the free space. You can get to the point where you have plenty of memory, but each of the free memory areas is so small that you can't allocate a new memory block.
+ When this happens, the runtime implementations of these systems run a step called garbage collection, where everything pauses and free areas are moved around to make sure that the free memory is in a few large contiguous areas rather than many small non-contiguous areas.
+ Language developers have been improving garbage collection algorithms for the past 40 years, and there is still much work to do.
+ Now that the authors have established all the reasons that make C the ideal portable systems programming language, which I hardly agree with, it's time to talk about where C comes up short as a general purpose language for those of us not working on the source code to Linux.
+ The most challenging aspect of C is the lack of dynamic structures that we can use without the need to carefully allocate, use without regard to the length of dynamically allocated memory, and not worry about calling C-free every single time we call C-alloc.
+ If a programmer without strong programming skills, a good understanding of a testing regimen, and a proper defensive programming attitude is let loose in C, they will invariably write poor code.
+ Their C code will make poor use of resources, run the system out of memory, or produce code that is riddled with security holes and bugs that seem to randomly appear.
+ A decade after C emerged and became popular, Guido van Rossum designed a language called Python.
+ It was one of a number of languages that was built using C, and added an object-oriented layer that greatly simplified writing programs that use dynamic memory, and added guardrails so programmers did not unintentionally write dangerous or insecure code.
+ The key value-add features that make Python more appropriate for general purpose programming are the String object, List object, and Dict object that handle all aspects of creating and using variables and collections of variables.
+ The book has one footnote, "Unix is a trademark of Bell Laboratories."
+ But, of course, there's more.
+ Actually, the trademark for Unix is no longer owned by AT&T, it is owned by the Open Group. But that is a story for another day.
+ The Unix story arc includes AT&T Unix, Berkeley Software Distribution, which we call BSD, Sun Microsystems, Minix, Linux, the Open Software Foundation, Unix International, and others.
+ The short version of that story is that AT&T Unix was poised to take over the world as an open source product long before the words "open source" were ever spoken.
+ AT&T should have and could have defined open source and changed everything by the early 1980s, except for a few AT&T intellectual property lawyers. It took over a decade for computer science to pivot away from a nearly exclusive focus on C and AT&T Unix.
+ The Linux operating system was open source from its inception and became the standard bearer for Unix-like operating systems and continues to be the way most of us encounter "Unix."
+ It is almost certain that the computer that served this media to you runs Linux. But that is a story for another time.
+ In 1978, Unix and C were in their glory days and showed the entire computer science field and technology industry the right way forward.
+ From that point forward, hardware could evolve independently from software. With the systems programming language and operating systems patterns sorted, the previous 40 years have seen an amazing innovation in hardware capability and performance.
+ This 1978 C programming book by Brian W. Kernigan and Dennis M. Ritchie was the big bang moment for modern computing and computer science. We owe them a debt of gratitude for making whatever we do today possible.
+ If you have made it to the end of this chapter in this book as your narrator, I would like to congratulate and thank you. It has been an honor to record and narrate a book of such historical significance for you. Cheers.
+ This work is based on the 1978 C programming book written by Brian W. Kernigan and Dennis M. Ritchie. Their book is copyright all rights reserved by AT&T, but is used in this work under fair use because of the book's historical and scholarly significance, its lack of availability, and the lack of an accessible version of the book.
+ The book is augmented in places to help understand its right place in historical context amidst the major changes of the 1970s and 1980s as computer science evolved from a hardware-first vendor-centered approach to a software-centered approach where portable operating systems and applications written in C could run on any hardware.
+ This is not the ideal book to learn C programming because the 1978 edition does not reflect the modern C language. Using an obsolete book gives us an opportunity to take students back in time and understand how the C language was evolving as it laid the groundwork for a future with portable applications.
+ [ Music ]

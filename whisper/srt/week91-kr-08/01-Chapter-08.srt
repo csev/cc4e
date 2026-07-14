@@ -1,0 +1,808 @@
+1
+00:00:00,000 --> 00:00:16,000
+ Welcome to C Programming for Everybody. My name is Charles Severance. This is my reading of the 1978 C Programming book written by Brian Kernigan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
+
+2
+00:00:16,000 --> 00:00:26,000
+ Chapter 8. The Unix System Interface. The material in this chapter is concerned with the interface between C programs and the Unix operating system.
+
+3
+00:00:26,000 --> 00:00:39,000
+ Since most C programs are on Unix systems, this should be helpful to a majority of the readers. Even if you see on a different machine, however, you should be able to glean more insight into C programming from studying these examples.
+
+4
+00:00:39,000 --> 00:00:53,000
+ This chapter is divided into three major areas - input/output, file system, and a storage allocator. The first two parts assume a modest familiarity with the external characteristics of Unix.
+
+5
+00:00:53,000 --> 00:01:07,000
+ Chapter 7 was concerned with a system interface that is uniform across a variety of operating systems. On any particular system, the routines of the standard library have to be written in terms of the I/O facilities that are actually available on the host system.
+
+6
+00:01:07,000 --> 00:01:20,000
+ In the next few sections, we'll describe the basic system entry points for I/O on the Unix operating system and illustrate how parts of the standard library can be implemented with them.
+
+7
+00:01:20,000 --> 00:01:37,000
+ As an aside, the dual nature of C and Unix has been on display throughout the book, and while this chapter is called the Unix System Interface, in a sense, it's less about Unix itself and very much about why C is such a great programming language.
+
+8
+00:01:37,000 --> 00:01:52,000
+ Let me explain. Before Unix and C became the norm, operating systems and operating system utilities - those commands we used interactively and in batch jobs - were quite often written in the assembly language of the computer which it was supporting.
+
+9
+00:01:52,000 --> 00:02:07,000
+ Often, there were not well documented API calls between utilities in assembly language and the assembly language which implemented the operating system. Smart vendor programmers would just look at the operating system code and write their utility code to work with it.
+
+10
+00:02:07,000 --> 00:02:33,000
+ This section shows that a language that has features like structures, arrays, pointers, preprocessor, and unions was sufficiently rich so that we could document all the intricate interfaces with an operating system using a relatively high level language, and then we could write our utility code, like CAD, in a high level language as well.
+
+11
+00:02:33,000 --> 00:02:41,000
+ In this chapter, the authors are almost shouting, "Quit using assembly language to build your operating system and utility code!"
+
+12
+00:02:41,000 --> 00:03:04,000
+ Further, they are showing us examples designed to answer the question that might come from programmers used to the old ways like, "Can we do X, Y, Z, and C?" The authors' emphatic answer in the increasingly intricate code samples is, "C is not a toy language that's only something used by a few AT&T computer scientists in a research lab."
+
+13
+00:03:04,000 --> 00:03:12,000
+ If you're doing serious system stuff that needs maximum performance and readability and reliability, use C.
+
+14
+00:03:12,000 --> 00:03:23,000
+ This chapter shows C in all its glory and shows why it was such an important language to enable the world of technology we have 40 years later.
+
+15
+00:03:23,000 --> 00:03:43,000
+ At the end of the chapter, we'll talk a little bit about how C enabled the creation of easier-to-use programming languages and why it was so important to invent C-inspired languages like Python, PHP, and Java once C became the established systems programming language.
+
+16
+00:03:43,000 --> 00:03:58,000
+ Section 8.1. File Descriptors. In the Unix operating system, all input and output is done by reading or writing files, because all peripheral devices, even the user's terminal, are files in the file system.
+
+17
+00:03:58,000 --> 00:04:06,000
+ This means that a single homogeneous interface handles all communications between a program and peripheral devices.
+
+18
+00:04:06,000 --> 00:04:16,000
+ In the most general case, before reading or writing a file, it is necessary to inform the system of your intent to do so, a process called opening the file.
+
+19
+00:04:16,000 --> 00:04:23,000
+ If you're going to write on a file, it may also be necessary to create it. The system checks for your right to do so.
+
+20
+00:04:23,000 --> 00:04:32,000
+ Does the file exist? Do you have permission to access it? And if all is well, returns to the program a small positive integer called the file descriptor.
+
+21
+00:04:32,000 --> 00:04:39,000
+ Whenever IO is to be done on the file, the file descriptor is used instead of the name to identify the file.
+
+22
+00:04:39,000 --> 00:04:49,000
+ This is roughly analogous to the use of read(5, ...) and write(6, ...) in Fortran.
+
+23
+00:04:49,000 --> 00:04:57,000
+ All information about an open file is maintained by the system. The user refers to the file only by the file descriptor.
+
+24
+00:04:57,000 --> 00:05:05,000
+ Since input and output involving the user's terminal is so common, special arrangements exist to make this convenient.
+
+25
+00:05:05,000 --> 00:05:19,000
+ When the command interpreter, the shell, runs a program, it opens three files with files descriptors 0, 1, and 2, called the standard input, standard output, and standard error output.
+
+26
+00:05:19,000 --> 00:05:30,000
+ All of these are normally connected with a terminal, so if a program reads file descriptor 0 and writes to file descriptors 1 and 2, it can do terminal IO without worrying about opening the files.
+
+27
+00:05:30,000 --> 00:05:51,000
+ The user of the program can redirect input/output to and from files with less than and greater than. For example, prog less than in file greater than out file. In this case, the shell changes the default assignments for file descriptors 0 and 1 from the terminal to the named files.
+
+28
+00:05:51,000 --> 00:05:57,000
+ Normally, file descriptor 2 remains attached to the terminal, so error messages can go there.
+
+29
+00:05:57,000 --> 00:06:09,000
+ Similar observations hold if the input or output is associated with a pipe. In all cases, it must be noted that the file assignments are changed by the shell, not the program.
+
+30
+00:06:09,000 --> 00:06:18,000
+ The program does not know where its input comes from, nor where its output goes, so long as it uses file 0 for input and 1 and 2 for out.
+
+31
+00:06:18,000 --> 00:06:32,000
+ Section 8.2, Low Level IO, Read and Write. This lowest level of IO in Unix provides no buffering or any other services. It is, in fact, a direct entry into the operating system.
+
+32
+00:06:32,000 --> 00:06:40,000
+ All input and output is done by two functions called read and write. For both, the first argument is a file descriptor.
+
+33
+00:06:40,000 --> 00:06:49,000
+ The second argument is a buffer in your program where the data is to come from or go to. The third argument is the number of bytes to be transferred.
+
+34
+00:06:49,000 --> 00:07:11,000
+ The calls are nread = read(fd, buff, n, semicolon) nwritten = write(fd, buff, n, semicolon) Each call returns a byte count, which is the number of bytes actually transferred.
+
+35
+00:07:11,000 --> 00:07:23,000
+ On reading, the number of bytes returned may be less than the number asked for. A return value of 0 bytes implies n to file, and -1 indicates an error of some sort.
+
+36
+00:07:23,000 --> 00:07:34,000
+ For writing, the return value is the actual number of bytes written. It is generally an error if this isn't equal to the supposed number that was asked to be written.
+
+37
+00:07:34,000 --> 00:07:51,000
+ The number of bytes to be read or written is quite arbitrary. The two most common values are 1, which means one character at a time, or unbuffered, and 512, which corresponds to the physical block size on many early peripheral devices.
+
+38
+00:07:51,000 --> 00:07:59,000
+ This latter size will be most efficient, but even a character at a time IO is not inordinately expensive.
+
+39
+00:07:59,000 --> 00:08:10,000
+ Putting these facts together, we can write a simple program to copy its input to its output, the equivalent of a file copying program written for Chapter 1.
+
+40
+00:08:10,000 --> 00:08:19,000
+ In Unix, this program will copy anything to anything, since input and output can be redirected to any file or device.
+
+41
+00:08:19,000 --> 00:08:28,000
+ This example is on page 161 of the textbook, which you can view at www.cc4e.com/code.
+
+42
+00:08:28,000 --> 00:08:41,000
+ Pound include STDIO.h. Pound to find buff size 512. This is the best size for PDP-11 Unix. Modern computers should probably be larger.
+
+43
+00:08:41,000 --> 00:08:52,000
+ Main, open paren, close paren, open curly brace. Char, buff, open square bracket, buff size, close square bracket, semicolon. Int, n, semicolon.
+
+44
+00:08:52,000 --> 00:09:03,000
+ While, open paren, open paren, n equals read, open paren, 0, buff, buff size, close paren, close paren, greater than 0, close paren.
+
+45
+00:09:03,000 --> 00:09:11,000
+ Write, open paren, 1, buff, n, close paren, semicolon, close curly brace.
+
+46
+00:09:11,000 --> 00:09:19,000
+ If the file size is not an exact multiple of buff size, some read will return a smaller number of bytes to be written by write.
+
+47
+00:09:19,000 --> 00:09:23,000
+ The next call after that read will return 0.
+
+48
+00:09:23,000 --> 00:09:29,000
+ It is instructive to see how read and write can be used to construct higher level routines like getchar and putchar.
+
+49
+00:09:29,000 --> 00:09:34,000
+ For example, here is a version of getchar which does unbuffered input.
+
+50
+00:09:34,000 --> 00:09:40,000
+ This is the second example on page 162 of the textbook.
+
+51
+00:09:40,000 --> 00:09:53,000
+ #include stdio.h #define cmask0377 and this is a mask, an octal mask, to make sure characters are greater than 0.
+
+52
+00:09:53,000 --> 00:10:20,000
+ Getchar, open paren, close paren, open curly brace, char, c, semicolon, return, open paren, open paren, read, open paren, 0, ampersand, c, comma, 1, close paren, greater than 0, close paren, question mark, c, ampersand, cmask, colon, eof, semicolon, close curly brace.
+
+53
+00:10:20,000 --> 00:10:24,000
+ C must be declared char because read accepts a character pointer.
+
+54
+00:10:24,000 --> 00:10:30,000
+ The character being returned must be masked with 0377 to ensure that it is positive.
+
+55
+00:10:30,000 --> 00:10:33,000
+ Otherwise, sign extension might make it negative.
+
+56
+00:10:33,000 --> 00:10:43,000
+ The constant 0377 is appropriate for ASCII and the PDP-11, but not necessarily for every other machine.
+
+57
+00:10:43,000 --> 00:10:51,000
+ The second version of Getchar does its input in big chunks and hands out the characters one at a time.
+
+58
+00:10:51,000 --> 00:11:01,000
+ This is the first example on page 162 of the textbook, which you can see at www.cc4e.com/code.
+
+59
+00:11:01,000 --> 00:11:11,000
+ #include stdio.h #define cmask0377 #define buffsize 512.
+
+60
+00:11:11,000 --> 00:11:14,000
+ Now we do the buffered version of Getchar.
+
+61
+00:11:14,000 --> 00:11:18,000
+ Getchar, open paren, close paren, open curly brace.
+
+62
+00:11:18,000 --> 00:11:23,000
+ Static char buff, open square bracket, buff size, close square bracket.
+
+63
+00:11:23,000 --> 00:11:32,000
+ Static char star buff, p = buff, semicolon, static int n = 0, semicolon.
+
+64
+00:11:32,000 --> 00:11:39,000
+ Those variables are static so that they are long-lived and exist from call to call.
+
+65
+00:11:39,000 --> 00:11:41,000
+ The meaning of the code.
+
+66
+00:11:41,000 --> 00:11:56,000
+ If, open paren, n = 0, close paren, open curly brace, n = read, open paren, 0, buff, buff size, close paren, semicolon, buff p = buff, semicolon, close curly brace.
+
+67
+00:11:56,000 --> 00:12:12,000
+ Return, open paren, open paren, minus, minus n, greater than, equal to 0, close paren, question mark, star buff, p++, ampersand, cmask, colon, eof, close paren, semicolon, close curly brace.
+
+68
+00:12:12,000 --> 00:12:18,000
+ Section 8.3, open, create, close, unlink.
+
+69
+00:12:18,000 --> 00:12:23,000
+ Create is not create, it's create without the e, so I'll just call it create for now.
+
+70
+00:12:23,000 --> 00:12:32,000
+ Other than the default standard input and output and error files, you must explicitly open files in order to read or write them.
+
+71
+00:12:32,000 --> 00:12:36,000
+ There are two system entry points for this, open and create.
+
+72
+00:12:36,000 --> 00:12:46,000
+ Open is rather like the fopen, discussed in chapter 7, except that instead of returning a file pointer, it returns a file descriptor, which is just an int.
+
+73
+00:12:46,000 --> 00:12:56,000
+ int fd, semicolon, fd = open, open paren, name, comma, rwmode, close paren, semicolon.
+
+74
+00:12:56,000 --> 00:13:01,000
+ As with fopen, the name argument is a character string corresponding to the external file name.
+
+75
+00:13:01,000 --> 00:13:09,000
+ The access mode argument is different, however. rwmode is 0 for read, 1 for write, and 2 for read/write access.
+
+76
+00:13:09,000 --> 00:13:15,000
+ Open returns -1 if any error occurs, otherwise it returns a valid file descriptor.
+
+77
+00:13:15,000 --> 00:13:18,000
+ It is an error to open a file that does not exist.
+
+78
+00:13:18,000 --> 00:13:23,000
+ The entry point, create, is provided to create new files or to rewrite old ones.
+
+79
+00:13:23,000 --> 00:13:29,000
+ fd = create, open paren, name, comma, pmode, close paren, semicolon.
+
+80
+00:13:29,000 --> 00:13:35,000
+ Returns a file descriptor if it was able to create the file name, and -1 if not.
+
+81
+00:13:35,000 --> 00:13:39,000
+ If the file already exists, create will truncate it to 0 length.
+
+82
+00:13:39,000 --> 00:13:43,000
+ It is not an error to create a file that already exists.
+
+83
+00:13:43,000 --> 00:13:49,000
+ If the file is brand new, create creates it with the protection mode specified in the pmode argument.
+
+84
+00:13:49,000 --> 00:13:56,000
+ In the Unix file system, there are 9 bits of protection information associated with each file,
+
+85
+00:13:56,000 --> 00:14:03,000
+ controlling read, write, and execute permission for the owner of the file, for the owner's group, and for all others.
+
+86
+00:14:03,000 --> 00:14:10,000
+ Thus, a 3-digit octal number is the most convenient format for specifying permissions.
+
+87
+00:14:10,000 --> 00:14:17,000
+ For example, 0755 specifies read, write, and execute permission for the owner,
+
+88
+00:14:17,000 --> 00:14:22,000
+ and read and execute permission for group and for everyone else.
+
+89
+00:14:22,000 --> 00:14:30,000
+ To illustrate here, a simplified version of the Unix utility cp, a program that copies one file to another.
+
+90
+00:14:30,000 --> 00:14:38,000
+ The main simplification is that our version only copies one file and does not permit the second argument to be a directory.
+
+91
+00:14:38,000 --> 00:14:49,000
+ And this example code is on page 163 of the textbook, which you can see at www.cc4e.com/code.
+
+92
+00:14:49,000 --> 00:15:00,000
+ #include stdio.h, #include stdlib.h, #define buffsize 512, #define pmode 0644,
+
+93
+00:15:00,000 --> 00:15:09,000
+ rw, read and write for owner, read for group, and others, int, open paren argc, argv, close paren.
+
+94
+00:15:09,000 --> 00:15:18,000
+ The format will be, we're going to have two files, copy file1, file2, int, argc semicolon, char, star, argv,
+
+95
+00:15:18,000 --> 00:15:27,000
+ open square bracket, close square bracket, semicolon, open curly brace, int, f1, f2, n, semicolon, char, buff,
+
+96
+00:15:27,000 --> 00:15:41,000
+ buffsize, semicolon. If open paren argc not equal to 3, close paren, error, open paren double quote usage colon cp from 2,
+
+97
+00:15:41,000 --> 00:15:53,000
+ double quote comma null, close paren semicolon. If open paren open paren f1 equals open, open paren argv sub 1 comma 0,
+
+98
+00:15:53,000 --> 00:16:03,000
+ close paren close paren equal equal minus 1, close paren error, open paren double quote cp colon can't open percent s,
+
+99
+00:16:03,000 --> 00:16:14,000
+ double quote comma argv sub 1, close paren semicolon. If open paren open paren f2 equals creat, open paren argv sub 2,
+
+100
+00:16:14,000 --> 00:16:25,000
+ comma p mode, close paren close paren equal equal minus 1, close paren error, open paren quote cp colon can't create percent s,
+
+101
+00:16:25,000 --> 00:16:37,000
+ double quote comma argv sub 2, close paren semicolon. While open paren open paren n equals read, open paren f1 comma buff,
+
+102
+00:16:37,000 --> 00:16:45,000
+ buffsize, close paren close paren greater than 0, close paren. If open paren write, open paren f2 comma buff,
+
+103
+00:16:45,000 --> 00:16:55,000
+ comma n, close paren not equal n, close paren error, open paren double quote cp colon write error, double quote comma null,
+
+104
+00:16:55,000 --> 00:17:05,000
+ close paren semicolon, exit, open paren 0, close paren semicolon, close curly brace. That's the end of the main program.
+
+105
+00:17:05,000 --> 00:17:18,000
+ The error routine is going to print the error message. Error, open paren s1 comma s2, close paren char star s1 comma star s2,
+
+106
+00:17:18,000 --> 00:17:36,000
+ semicolon, open paren, print f, open paren s1 comma s2, close paren semicolon, print f, double quote backslash n, double quote, close paren semicolon, exit, open paren 1, close paren semicolon, close curly brace.
+
+107
+00:17:36,000 --> 00:17:44,000
+ There is a limit on the number of files which the program may have open simultaneously. According, any program which intends to process many files
+
+108
+00:17:44,000 --> 00:17:52,000
+ must be prepared to reuse file descriptors. The routine close breaks the connection between a file descriptor and an open file,
+
+109
+00:17:52,000 --> 00:18:04,000
+ and frees the file descriptor for use with some other file. Termination of a program by exit or return from the main program closes all open files.
+
+110
+00:18:04,000 --> 00:18:11,000
+ The function, unlink open paren file name, close paren, removes the file name from the file system.
+
+111
+00:18:11,000 --> 00:18:24,000
+ Section 8.4, random access, seek and lseek. File I/O is normally sequential. Each read or write takes place at a position in the file right after the previous one.
+
+112
+00:18:24,000 --> 00:18:35,000
+ When necessary, however, a file can be read or written in any arbitrary order. The system called lseek provides a way to move around in a file without actually reading or writing.
+
+113
+00:18:35,000 --> 00:18:47,000
+ lseek, open paren fd, offset, origin, close paren semicolon, forces the current position in the file, whose descriptor is fd, to move to the position offset,
+
+114
+00:18:47,000 --> 00:18:55,000
+ which is taken relative to the location specified by origin. Subsequent reading or writing will begin at that position.
+
+115
+00:18:55,000 --> 00:19:09,000
+ Offset is a long, fd and origin are ints. Origin can be 0, 1, or 2 to specify that the offset is to be measured from the beginning, from current position, or from the end of file, respectively.
+
+116
+00:19:09,000 --> 00:19:26,000
+ For example, to append to a file, seek to the end before writing. lseek, open paren, ft, comma, 0l, comma, 2, close paren semicolon, to get back to the beginning, i.e. rewind to the beginning.
+
+117
+00:19:26,000 --> 00:19:42,000
+ lseek, open paren, fd, comma, 0l, comma, 0, parenthesis, semicolon. Note that the 0l argument could also be written as open paren long, close paren, 0.
+
+118
+00:19:42,000 --> 00:19:49,000
+ With lseek, it's possible to treat files more or less like large arrays at the price of slower access.
+
+119
+00:19:49,000 --> 00:19:56,000
+ For example, the following simple function reads any number of bytes from any arbitrary place in a file.
+
+120
+00:19:56,000 --> 00:20:19,000
+ get, open paren, fd, comma, pause, comma, buff, comma, n, close paren; int, fd, comma, n, long, pause, semicolon; char, star, buff, semicolon; open curly brace; lseek, open parenthesis, fd, comma, pause, comma, 0, close paren, semicolon;
+
+121
+00:20:19,000 --> 00:20:29,000
+ return, open paren, read, open paren, fd, comma, buff, comma, n, close paren, close paren, semicolon; close curly brace.
+
+122
+00:20:29,000 --> 00:20:50,000
+ In pre-version 7 Unix, the basic entry point to the I/O system is called seek. Seek is identical to lseek, except that its offset argument is an int rather than a long. Accordingly, since PDP-11 integers only have 16 bits, the offset specified for seek is limited to 65,535.
+
+123
+00:20:50,000 --> 00:21:04,000
+ For this reason, origin values of 3, 4, and 5 cause seek to multiply the given offset by 512, which is the number of bytes in one physical block on a PDP-11, and then interpret origin as if it were 0, 1, or 2, respectively.
+
+124
+00:21:04,000 --> 00:21:19,000
+ Thus, to get to an arbitrary place in a large file requires two seeks. The first one selects the block, then one which has origin equal to 1, and then moves to the desired byte within the block.
+
+125
+00:21:19,000 --> 00:21:29,000
+ Once again, we see C in Unix straddling a major improvement in computer hardware in 1978. The natural name for a function to randomly move around a file would be seek.
+
+126
+00:21:29,000 --> 00:21:41,000
+ But in early versions of Unix, seek took an integer as the offset, but on small word computers like PDP-11 have an integer that can't represent a large number, so seek used a complex set of rules to handle larger files.
+
+127
+00:21:41,000 --> 00:21:50,000
+ The only logical thing was to have the offset be a long, and then for upwards compatibility make a new function called elseek that we use to this day.
+
+128
+00:21:50,000 --> 00:21:57,000
+ Section 8.5, an example implementation of fopen and getc.
+
+129
+00:21:57,000 --> 00:22:06,000
+ Let us illustrate how some of these pieces fit together by showing an implementation of the standard library routines fopen and getc on the PDP-11.
+
+130
+00:22:06,000 --> 00:22:12,000
+ Recall that files in the standard library are described by file pointers rather than file descriptors.
+
+131
+00:22:12,000 --> 00:22:17,000
+ A file pointer is a pointer to a structure that contains several pieces of information about the file.
+
+132
+00:22:17,000 --> 00:22:30,000
+ A pointer to a buffer, so the file can read in large chunks, a count of the number of characters left in the buffer, a pointer to the next character position in the buffer, and some flags describing read/write mode and the file descriptor.
+
+133
+00:22:30,000 --> 00:22:41,000
+ The data structure that describes a file is contained in the file stdio.h, which must be included by #include in any source file that uses routines from the standard library.
+
+134
+00:22:41,000 --> 00:22:44,000
+ It is also included by functions in that library.
+
+135
+00:22:44,000 --> 00:22:59,000
+ In the following excerpt from the PDP-11 stdio.h, names which were intended for use only by functions of the library begin with underscore, so they are less likely to collide with the names of the user program.
+
+136
+00:22:59,000 --> 00:23:06,000
+ As a side note, I won't read the underscores because they confuse your understanding, so the underscores are there in the code.
+
+137
+00:23:06,000 --> 00:23:11,000
+ You can look at it online, but I'm not going to read the underscores.
+
+138
+00:23:11,000 --> 00:23:36,000
+ So this is basically some definitions for stdio.h.
+
+139
+00:23:41,000 --> 00:23:49,000
+ Expand file IOB, open square bracket, end file, close square bracket, semicolon.
+
+140
+00:23:49,000 --> 00:23:55,000
+ #define stdin, open paren, ampersand IOB sub 0, close paren.
+
+141
+00:23:55,000 --> 00:24:01,000
+ #define stdout, open paren, ampersand IOB sub 1, close paren.
+
+142
+00:24:01,000 --> 00:24:07,000
+ #define stdair, open paren, ampersand IOB sub 2, close paren.
+
+143
+00:24:07,000 --> 00:24:32,000
+ #define read, 01, #define write, 02, #define unbuff, 04, #define bigbuff, 010, #define eof, 020, #define air, 040, #define null, 0, #define eof, open paren, -1, close paren.
+
+144
+00:24:32,000 --> 00:24:44,000
+ #define getc, open paren, p, close paren, open paren, -, -, open paren, p, close paren, right arrow, cnt, greater than or equal to 0, question mark.
+
+145
+00:24:44,000 --> 00:24:58,000
+ *, open paren, p, close paren, right arrow, ptr++, ampersand, 0377, colon, fillbuff, open paren, p, close paren, close paren.
+
+146
+00:24:58,000 --> 00:25:06,000
+ #define getchar, open paren, close paren, getc, open paren, stdin, close paren.
+
+147
+00:25:06,000 --> 00:25:19,000
+ #define putc, open paren, x, p, close paren, open paren, -, -, open paren, p, close paren, right arrow, cnt, greater than or equal to 0, question mark.
+
+148
+00:25:19,000 --> 00:25:34,000
+ *, open paren, p, close paren, right arrow, ptr++, equals, open paren, x, close paren, colon, flushbuff, open paren, open paren, x, close paren, p, close paren, close paren.
+
+149
+00:25:34,000 --> 00:25:43,000
+ #define putchar, open paren, x, close paren, putc, open paren, x, std, out, close paren.
+
+150
+00:25:43,000 --> 00:25:48,000
+ The getc in macro normally just decrements the counts, advances the pointer, and returns the character.
+
+151
+00:25:48,000 --> 00:25:53,000
+ We do this in a very long define continued by a backslash.
+
+152
+00:25:53,000 --> 00:26:02,000
+ If the count goes negative, however, getc calls the function fillbuff to replenish the buffer, real initialize the structure contents, and return a character.
+
+153
+00:26:02,000 --> 00:26:07,000
+ A function may present a portable interface, yet itself contain non-portable constructs.
+
+154
+00:26:07,000 --> 00:26:17,000
+ getc masks the character with 0, 3, 7, 7, which defeats the sign extension done by the pdp11 and ensures that all characters will be positive.
+
+155
+00:26:17,000 --> 00:26:29,000
+ Although we will not discuss any details, we've included the definition of putc to show that it operates in much the same way as getc, calling a function flushbuff when its output buffer is full.
+
+156
+00:26:29,000 --> 00:26:33,000
+ The function fopen and fillbuff can now be written.
+
+157
+00:26:33,000 --> 00:26:41,000
+ Most of fopen is concerned with getting a file opened and positioned at the right place, and setting the flag bits to indicate the proper state.
+
+158
+00:26:41,000 --> 00:26:48,000
+ fopen does not allocate any buffer space. This is done by fillbuff when the file is first read.
+
+159
+00:26:48,000 --> 00:26:56,000
+ You can look at this sample code from page 167 at www.cc4e.com/code.
+
+160
+00:26:56,000 --> 00:27:04,000
+ I won't read it here because it's pretty long and intricate, so you'll have to go watch it online or view it online.
+
+161
+00:27:04,000 --> 00:27:18,000
+ Back to the text. The function fillbuff is rather more complicated. The main complexity lies in the fact that fillbuff attempts to permit access to the file even though there may not be enough memory to buffer the I/O.
+
+162
+00:27:18,000 --> 00:27:30,000
+ If the space for a new buffer cannot be obtained from calloc, all is well. If not, fillbuff does unbuffered I/O using a single character stored in a private array.
+
+163
+00:27:30,000 --> 00:27:36,000
+ The first call to getC for a particular file finds a count of zero, which forces a call of fillbuff.
+
+164
+00:27:36,000 --> 00:27:41,000
+ If fillbuff finds that the file is not open for reading, it returns EOF immediately.
+
+165
+00:27:41,000 --> 00:27:51,000
+ Otherwise, it tries to allocate a large buffer and, failing that, a single character buffer, setting the buffering information in flag appropriately.
+
+166
+00:27:51,000 --> 00:28:01,000
+ Once the buffer is established, fillbuff simply calls read to fill it and sets the count and pointers, and returns the character at the beginning of the buffer.
+
+167
+00:28:01,000 --> 00:28:08,000
+ Subsequent calls to fillbuff will find a buffer already allocated. The only remaining loose end is how everything gets started.
+
+168
+00:28:08,000 --> 00:28:24,000
+ The array I/O/B must be defined and initialized for stdin, stdout, and stderr. File I/O/B and close square bracket equals open curly brace.
+
+169
+00:28:24,000 --> 00:28:49,000
+ Open curly brace, null, comma, zero, comma, null, comma, underscore, read, comma, zero, comma, close curly brace, comma, and that's the stdin. The next one is open curly brace, null, comma, zero, comma, null, comma, underscore, write, comma, one, comma, close curly brace, comma, and that's the stdout definition, the sub one position.
+
+170
+00:28:49,000 --> 00:29:05,000
+ And then the next one is open curly brace, null, comma, zero, comma, null, comma, underscore, write, vertical bar, underscore, unbuff, comma, two, close print, and that is the standard error entry, close curly brace, semicolon.
+
+171
+00:29:05,000 --> 00:29:16,000
+ The initialization of the flag part of the structure shows that stdin is to be read, stdout is to be written, and stderr is to be written unbuffered.
+
+172
+00:29:16,000 --> 00:29:21,000
+ Section 8.6, example, listing directories.
+
+173
+00:29:21,000 --> 00:29:36,000
+ I would note that the sample code in section 8.6 shows how we can write applications like LS to interact with directories in a Unix file system. However, the code in this section is not portable to modern Unix systems, so we'll leave the code as it is in this section.
+
+174
+00:29:36,000 --> 00:29:47,000
+ It's a good idea to read the code and get an outline of how to work with directories on Unix. If you want to write code to handle directories, you'll need to consult more modern documentation.
+
+175
+00:29:47,000 --> 00:30:16,000
+ Given the complexity of the code in this section, we are not going to include it in the copy of this book in this particular media. Similarly, section 8.7, example, a storage allocator consists of a lot of really complex code, and so we will leave that for you to see online at www.cc4e.com/book/chap08.md.
+
+176
+00:30:16,000 --> 00:30:33,000
+ Dynamic memory is hard. Modern languages like Python, Ruby, and Java give us high-level objects like strings, lists, and dictionaries. These structures automatically expand and contract and can be copied into a temporary variable, used, and then discarded.
+
+177
+00:30:33,000 --> 00:30:50,000
+ Modern languages depend on efficient memory allocation. A problem when dynamic memory is heavily used is the fragmentation of the free space. You can get to the point where you have plenty of memory, but each of the free memory areas is so small that you can't allocate a new memory block.
+
+178
+00:30:50,000 --> 00:31:06,000
+ When this happens, the runtime implementations of these systems run a step called garbage collection, where everything pauses and free areas are moved around to make sure that the free memory is in a few large contiguous areas rather than many small non-contiguous areas.
+
+179
+00:31:06,000 --> 00:31:15,000
+ Language developers have been improving garbage collection algorithms for the past 40 years, and there is still much work to do.
+
+180
+00:31:15,000 --> 00:31:30,000
+ Now that the authors have established all the reasons that make C the ideal portable systems programming language, which I hardly agree with, it's time to talk about where C comes up short as a general purpose language for those of us not working on the source code to Linux.
+
+181
+00:31:30,000 --> 00:31:45,000
+ The most challenging aspect of C is the lack of dynamic structures that we can use without the need to carefully allocate, use without regard to the length of dynamically allocated memory, and not worry about calling C-free every single time we call C-alloc.
+
+182
+00:31:45,000 --> 00:31:57,000
+ If a programmer without strong programming skills, a good understanding of a testing regimen, and a proper defensive programming attitude is let loose in C, they will invariably write poor code.
+
+183
+00:31:57,000 --> 00:32:07,000
+ Their C code will make poor use of resources, run the system out of memory, or produce code that is riddled with security holes and bugs that seem to randomly appear.
+
+184
+00:32:07,000 --> 00:32:13,000
+ A decade after C emerged and became popular, Guido van Rossum designed a language called Python.
+
+185
+00:32:13,000 --> 00:32:28,000
+ It was one of a number of languages that was built using C, and added an object-oriented layer that greatly simplified writing programs that use dynamic memory, and added guardrails so programmers did not unintentionally write dangerous or insecure code.
+
+186
+00:32:28,000 --> 00:32:43,000
+ The key value-add features that make Python more appropriate for general purpose programming are the String object, List object, and Dict object that handle all aspects of creating and using variables and collections of variables.
+
+187
+00:32:43,000 --> 00:32:49,000
+ The book has one footnote, "Unix is a trademark of Bell Laboratories."
+
+188
+00:32:49,000 --> 00:32:51,000
+ But, of course, there's more.
+
+189
+00:32:51,000 --> 00:32:58,000
+ Actually, the trademark for Unix is no longer owned by AT&T, it is owned by the Open Group. But that is a story for another day.
+
+190
+00:32:58,000 --> 00:33:11,000
+ The Unix story arc includes AT&T Unix, Berkeley Software Distribution, which we call BSD, Sun Microsystems, Minix, Linux, the Open Software Foundation, Unix International, and others.
+
+191
+00:33:11,000 --> 00:33:22,000
+ The short version of that story is that AT&T Unix was poised to take over the world as an open source product long before the words "open source" were ever spoken.
+
+192
+00:33:22,000 --> 00:33:42,000
+ AT&T should have and could have defined open source and changed everything by the early 1980s, except for a few AT&T intellectual property lawyers. It took over a decade for computer science to pivot away from a nearly exclusive focus on C and AT&T Unix.
+
+193
+00:33:42,000 --> 00:33:53,000
+ The Linux operating system was open source from its inception and became the standard bearer for Unix-like operating systems and continues to be the way most of us encounter "Unix."
+
+194
+00:33:53,000 --> 00:34:01,000
+ It is almost certain that the computer that served this media to you runs Linux. But that is a story for another time.
+
+195
+00:34:01,000 --> 00:34:11,000
+ In 1978, Unix and C were in their glory days and showed the entire computer science field and technology industry the right way forward.
+
+196
+00:34:11,000 --> 00:34:26,000
+ From that point forward, hardware could evolve independently from software. With the systems programming language and operating systems patterns sorted, the previous 40 years have seen an amazing innovation in hardware capability and performance.
+
+197
+00:34:26,000 --> 00:34:43,000
+ This 1978 C programming book by Brian W. Kernigan and Dennis M. Ritchie was the big bang moment for modern computing and computer science. We owe them a debt of gratitude for making whatever we do today possible.
+
+198
+00:34:43,000 --> 00:34:58,000
+ If you have made it to the end of this chapter in this book as your narrator, I would like to congratulate and thank you. It has been an honor to record and narrate a book of such historical significance for you. Cheers.
+
+199
+00:34:58,000 --> 00:35:20,000
+ This work is based on the 1978 C programming book written by Brian W. Kernigan and Dennis M. Ritchie. Their book is copyright all rights reserved by AT&T, but is used in this work under fair use because of the book's historical and scholarly significance, its lack of availability, and the lack of an accessible version of the book.
+
+200
+00:35:20,000 --> 00:35:40,000
+ The book is augmented in places to help understand its right place in historical context amidst the major changes of the 1970s and 1980s as computer science evolved from a hardware-first vendor-centered approach to a software-centered approach where portable operating systems and applications written in C could run on any hardware.
+
+201
+00:35:40,000 --> 00:36:00,000
+ This is not the ideal book to learn C programming because the 1978 edition does not reflect the modern C language. Using an obsolete book gives us an opportunity to take students back in time and understand how the C language was evolving as it laid the groundwork for a future with portable applications.
+
+202
+00:36:10,000 --> 00:36:16,000
+ [ Music ]
+

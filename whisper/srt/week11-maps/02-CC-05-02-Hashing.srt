@@ -1,0 +1,636 @@
+1
+00:00:00,000 --> 00:00:04,440
+ So now we're going to talk about a hashed-based implementation of our map.
+
+2
+00:00:04,440 --> 00:00:07,340
+ And this is the answer to the world's most common
+
+3
+00:00:07,340 --> 00:00:09,280
+ programming interview question.
+
+4
+00:00:09,280 --> 00:00:11,380
+ But we're going to do hash maps and then tree maps.
+
+5
+00:00:11,380 --> 00:00:13,040
+ Tree maps are harder.
+
+6
+00:00:13,040 --> 00:00:15,380
+ So hash maps turn out to be beautifully simple.
+
+7
+00:00:15,380 --> 00:00:20,440
+ And that's kind of the reason that everyone likes these as interview questions,
+
+8
+00:00:20,440 --> 00:00:23,400
+ because the interviewer can remember the answer.
+
+9
+00:00:23,400 --> 00:00:25,380
+ A tree map, they might have trouble remembering.
+
+10
+00:00:25,380 --> 00:00:29,540
+ And so it's the perfect thing in an interview to say,
+
+11
+00:00:29,680 --> 00:00:32,780
+ "Draw me a hash map," because they still remember the answer
+
+12
+00:00:32,780 --> 00:00:34,000
+ from when they went to school.
+
+13
+00:00:34,000 --> 00:00:36,380
+ They'd have to do a little review to get the tree map right.
+
+14
+00:00:36,380 --> 00:00:38,100
+ So here we go.
+
+15
+00:00:38,100 --> 00:00:41,040
+ So let's talk a little bit about our hash map implementation.
+
+16
+00:00:41,040 --> 00:00:42,340
+ It's got a weird order.
+
+17
+00:00:42,340 --> 00:00:44,180
+ And once you see the data structure internally,
+
+18
+00:00:44,180 --> 00:00:46,440
+ it'll be clear why there's a weird order.
+
+19
+00:00:46,440 --> 00:00:50,640
+ It is like a Python 2 dictionary, and it's like a Java hash map.
+
+20
+00:00:50,640 --> 00:00:52,780
+ It's very similar to both of these things.
+
+21
+00:00:52,780 --> 00:00:55,680
+ I'm guessing the code we're going to write is very similar
+
+22
+00:00:55,680 --> 00:00:58,780
+ to when Guido made his first dictionary.
+
+23
+00:00:58,900 --> 00:01:02,080
+ It's going to have an extremely fast insert and looked up.
+
+24
+00:01:02,080 --> 00:01:04,540
+ Just like Python 2 dictionaries and Java hash maps,
+
+25
+00:01:04,540 --> 00:01:08,740
+ it's going to be iterable like Python 2's dictionaries
+
+26
+00:01:08,740 --> 00:01:12,140
+ and Java's hash maps, and it builds on linked lists.
+
+27
+00:01:12,140 --> 00:01:17,180
+ Surprisingly, it's really easy to build a hash map
+
+28
+00:01:17,180 --> 00:01:19,240
+ if you understand linked lists.
+
+29
+00:01:19,240 --> 00:01:25,500
+ And so it's covered in chapters 6.5.1 and 6.6 in Kernigan and Ritchie.
+
+30
+00:01:25,640 --> 00:01:31,100
+ 6.5.2 is literally the hardest part of the book.
+
+31
+00:01:31,100 --> 00:01:34,200
+ And that's why we kind of start with 6.6
+
+32
+00:01:34,200 --> 00:01:36,580
+ and then kind of go back to 6.5.
+
+33
+00:01:36,580 --> 00:01:40,080
+ Okay, so let's take a look at our data structures
+
+34
+00:01:40,080 --> 00:01:43,240
+ and how we're going to go from the list map to the hash map.
+
+35
+00:01:43,240 --> 00:01:46,300
+ So our list map is pretty simple.
+
+36
+00:01:46,300 --> 00:01:49,840
+ We've got the entries in the map, which are key value,
+
+37
+00:01:49,840 --> 00:01:52,380
+ which we've decided are going to stay public.
+
+38
+00:01:52,500 --> 00:01:56,040
+ We've got the pre even the next for the map entry,
+
+39
+00:01:56,040 --> 00:01:59,140
+ which is just, you know, we're going to link these things together.
+
+40
+00:01:59,140 --> 00:02:02,380
+ And then the list map itself, it's got a head and it's got a tail
+
+41
+00:02:02,380 --> 00:02:04,140
+ and maybe a count and a few other things,
+
+42
+00:02:04,140 --> 00:02:07,180
+ and then the methods, et cetera, because we've done encapsulation.
+
+43
+00:02:07,180 --> 00:02:12,740
+ So the hash map entry, if you look at it, it's pretty much identical.
+
+44
+00:02:12,740 --> 00:02:14,940
+ And that's because the entries in a hash map
+
+45
+00:02:14,940 --> 00:02:16,700
+ are just part of a linked list.
+
+46
+00:02:16,700 --> 00:02:19,900
+ The key to the hash map is there's multiple linked lists.
+
+47
+00:02:20,040 --> 00:02:23,340
+ And we see that in struct hash map,
+
+48
+00:02:23,340 --> 00:02:25,840
+ and underscore buckets is how many buckets we have.
+
+49
+00:02:25,840 --> 00:02:28,700
+ In a more sophisticated hash map implementation,
+
+50
+00:02:28,700 --> 00:02:32,180
+ we would have the number of buckets grow as size grew
+
+51
+00:02:32,180 --> 00:02:34,940
+ and the list got too long, but we're going to keep that.
+
+52
+00:02:34,940 --> 00:02:36,540
+ So that's called rehashing,
+
+53
+00:02:36,540 --> 00:02:39,800
+ and we're going to keep that out of our conversation.
+
+54
+00:02:39,800 --> 00:02:41,300
+ So what we're going to have a number of buckets,
+
+55
+00:02:41,300 --> 00:02:43,080
+ and in this case, it's going to be eight.
+
+56
+00:02:43,080 --> 00:02:45,080
+ So those are called hash buckets.
+
+57
+00:02:45,080 --> 00:02:48,440
+ And then we're going to have heads, plural,
+
+58
+00:02:48,580 --> 00:02:51,240
+ we're going to have eight of them, and tails, eight of them.
+
+59
+00:02:51,240 --> 00:02:55,540
+ But within a particular head and a tail, it really is a hash map.
+
+60
+00:02:55,540 --> 00:02:58,200
+ So as you're writing the code for the hash map,
+
+61
+00:02:58,200 --> 00:03:00,340
+ go back to the list map.
+
+62
+00:03:00,340 --> 00:03:02,840
+ I mean, literally copy the list map code,
+
+63
+00:03:02,840 --> 00:03:04,540
+ and then change the singular to plural.
+
+64
+00:03:04,540 --> 00:03:08,200
+ And you'll see some of the things I show you in the actual code.
+
+65
+00:03:08,200 --> 00:03:12,040
+ So if we look at how a list map looks, it's got a head,
+
+66
+00:03:12,040 --> 00:03:14,600
+ and it's got a bunch of entries that have preves and necks.
+
+67
+00:03:14,600 --> 00:03:16,240
+ I'm not even showing the preves and the arrows,
+
+68
+00:03:16,380 --> 00:03:19,100
+ I'm just showing the necks, but assume there's always preves there,
+
+69
+00:03:19,100 --> 00:03:21,140
+ because it's a way for us to link things in.
+
+70
+00:03:21,140 --> 00:03:25,640
+ But if you look at the hash map, so you take the actual key,
+
+71
+00:03:25,640 --> 00:03:27,680
+ you run it through a hash function,
+
+72
+00:03:27,680 --> 00:03:32,240
+ which creates some big number, no matter how, but it is just a number.
+
+73
+00:03:32,240 --> 00:03:34,600
+ No matter how long the key is,
+
+74
+00:03:34,600 --> 00:03:36,980
+ it can be one character or 2,000 characters,
+
+75
+00:03:36,980 --> 00:03:40,400
+ eventually the hash runs a calculation that gives us back a number.
+
+76
+00:03:40,400 --> 00:03:44,340
+ Sort of a pseudo random number that has, you know, equally likely,
+
+77
+00:03:44,340 --> 00:03:46,300
+ and there's a whole science of hashing.
+
+78
+00:03:46,440 --> 00:03:49,500
+ And then we take a modulo, and in this case, we have four buckets.
+
+79
+00:03:49,500 --> 00:03:53,280
+ So we take this hash calculation, modulo four,
+
+80
+00:03:53,280 --> 00:03:56,080
+ and that gives us a number from zero through three.
+
+81
+00:03:56,080 --> 00:04:00,940
+ And with that number, we pick the linked list,
+
+82
+00:04:00,940 --> 00:04:03,000
+ and then we add it to the linked list,
+
+83
+00:04:03,000 --> 00:04:07,840
+ just as if we were doing this with a linked list.
+
+84
+00:04:07,840 --> 00:04:10,940
+ So once we've done the hash and we picked a bucket,
+
+85
+00:04:10,940 --> 00:04:14,540
+ it really is exactly the same as a linked list.
+
+86
+00:04:15,200 --> 00:04:21,200
+ So a hash map with four buckets is the same as four linked lists.
+
+87
+00:04:21,200 --> 00:04:24,300
+ And you pick the linked list by the hash computation.
+
+88
+00:04:24,300 --> 00:04:27,480
+ And hash computation is deterministic and predictable.
+
+89
+00:04:27,480 --> 00:04:30,480
+ So wherever we put D, it's going to be in bucket one.
+
+90
+00:04:30,480 --> 00:04:35,000
+ We can look it up in bucket one, we can store it in bucket one, etc.
+
+91
+00:04:35,000 --> 00:04:39,300
+ And so for inserting M equals 90, that's going to hash into bucket two,
+
+92
+00:04:39,300 --> 00:04:41,780
+ and we're going to put it in that linked list.
+
+93
+00:04:41,900 --> 00:04:47,180
+ Okay, so it is beautifully simple. Now, what is a hash calculation?
+
+94
+00:04:47,180 --> 00:04:50,980
+ This is actually from my Postgres for Everybody course.
+
+95
+00:04:50,980 --> 00:04:58,400
+ Basically, the hash maps large data items to a single number,
+
+96
+00:04:58,400 --> 00:05:00,980
+ basically, and these are called hash values.
+
+97
+00:05:00,980 --> 00:05:03,040
+ So the whole concept of a hash function,
+
+98
+00:05:03,040 --> 00:05:06,900
+ when used with a modulo, in this case, I've got 16,
+
+99
+00:05:07,040 --> 00:05:13,400
+ modulo 16, in this picture, it maps a big string into some fixed number
+
+100
+00:05:13,400 --> 00:05:15,600
+ of buckets and often the buckets are power of two,
+
+101
+00:05:15,600 --> 00:05:18,900
+ but they don't have to be, it's really a modulo operation.
+
+102
+00:05:18,900 --> 00:05:24,840
+ And so there's a whole science of hashing and hash functions.
+
+103
+00:05:24,840 --> 00:05:27,240
+ And it turns out the hashing and hash functions
+
+104
+00:05:27,240 --> 00:05:31,600
+ are a big part of security and digital signatures and all that stuff.
+
+105
+00:05:31,600 --> 00:05:36,640
+ And so there are people who spend their whole lives
+
+106
+00:05:36,780 --> 00:05:39,980
+ researching how to build good hash functions.
+
+107
+00:05:39,980 --> 00:05:43,740
+ And so there's this SHA-256 compression function,
+
+108
+00:05:43,740 --> 00:05:46,980
+ you can go look it up, you can see what's going on here
+
+109
+00:05:46,980 --> 00:05:49,440
+ is like the arrows are shifting,
+
+110
+00:05:49,440 --> 00:05:52,440
+ and the plus with a circle is exclusive ORs.
+
+111
+00:05:52,440 --> 00:05:56,740
+ And they sort of both show you the shifting and the exclusive OR
+
+112
+00:05:56,740 --> 00:05:58,580
+ and they give you a diagram of all these things
+
+113
+00:05:58,580 --> 00:06:00,780
+ and they shift and exclusive OR, yada yada,
+
+114
+00:06:00,780 --> 00:06:04,800
+ and they're taking the pieces of a value,
+
+115
+00:06:04,940 --> 00:06:08,100
+ it's computed in a loop and updated and what they're showing you
+
+116
+00:06:08,100 --> 00:06:12,940
+ is what happens each iteration through the loop.
+
+117
+00:06:12,940 --> 00:06:18,240
+ And so the idea is, is we are going to take a string, string array,
+
+118
+00:06:18,240 --> 00:06:20,480
+ and we're going to take a number of buckets.
+
+119
+00:06:20,480 --> 00:06:26,500
+ And the idea of a hash is it is just some integer number.
+
+120
+00:06:26,500 --> 00:06:29,800
+ And we're going to go through each of the items,
+
+121
+00:06:29,800 --> 00:06:31,640
+ each of the characters in the string,
+
+122
+00:06:31,780 --> 00:06:35,280
+ that's the 4 * * * *++,
+
+123
+00:06:35,280 --> 00:06:37,840
+ and we're going to take the current value of hash,
+
+124
+00:06:37,840 --> 00:06:41,580
+ in this case, we're going to shift it 3 to the left,
+
+125
+00:06:41,580 --> 00:06:43,340
+ and then we're going to exclusive OR it
+
+126
+00:06:43,340 --> 00:06:44,980
+ with the character we're looking at.
+
+127
+00:06:44,980 --> 00:06:49,480
+ So you can say, shift 3, exclusive OR, shift 3, exclusive OR.
+
+128
+00:06:49,480 --> 00:06:51,800
+ So you can think of it as like an accumulation,
+
+129
+00:06:51,800 --> 00:06:55,240
+ but the exclusive OR is a nice form of accumulation
+
+130
+00:06:55,240 --> 00:06:59,700
+ in that it increases the randomness,
+
+131
+00:07:00,340 --> 00:07:02,100
+ the pseudo-randomness of this thing.
+
+132
+00:07:02,100 --> 00:07:07,540
+ And so exclusive OR just turns out to be a super valuable calculation.
+
+133
+00:07:07,540 --> 00:07:10,280
+ And so this loop is going to run so many times.
+
+134
+00:07:10,280 --> 00:07:12,680
+ And so we're going to print it out, you're going to see the hex,
+
+135
+00:07:12,680 --> 00:07:15,440
+ if we're just taking the letters HI,
+
+136
+00:07:15,440 --> 00:07:19,740
+ you can see kind of the internal hash value growing and changing,
+
+137
+00:07:19,740 --> 00:07:24,240
+ and you can kind of see it going from right to left as it sort of grows.
+
+138
+00:07:24,240 --> 00:07:27,600
+ And there's new data being put in bitwise,
+
+139
+00:07:27,600 --> 00:07:30,080
+ it's a bit, you know, bit exclusive OR.
+
+140
+00:07:30,200 --> 00:07:34,000
+ But at the very end, it says return hash percent buckets,
+
+141
+00:07:34,000 --> 00:07:37,100
+ which takes the modulo operator of the number of buckets.
+
+142
+00:07:37,100 --> 00:07:39,540
+ And in this case, I'm going to be using eight buckets
+
+143
+00:07:39,540 --> 00:07:41,400
+ just to run the hash function, right?
+
+144
+00:07:41,400 --> 00:07:43,740
+ Give me the bucket for this string,
+
+145
+00:07:43,740 --> 00:07:47,580
+ so you can see me running different things on the right-hand side
+
+146
+00:07:47,580 --> 00:07:49,940
+ and getting back the ultimate final bucket.
+
+147
+00:07:49,940 --> 00:07:53,540
+ So HI goes in bucket one, Hello goes in bucket seven,
+
+148
+00:07:53,540 --> 00:07:55,680
+ and world goes into bucket four.
+
+149
+00:07:55,800 --> 00:08:01,800
+ This is really inspired by, you know, the shifting and the masking,
+
+150
+00:08:01,800 --> 00:08:05,000
+ but I've simplified it so you can kind of see what's going on.
+
+151
+00:08:05,000 --> 00:08:09,480
+ And in our particular hash, it's good enough for our purposes.
+
+152
+00:08:09,480 --> 00:08:11,900
+ But it's probably going to have collisions
+
+153
+00:08:11,900 --> 00:08:14,340
+ when treated against a whole series of random data,
+
+154
+00:08:14,340 --> 00:08:15,780
+ it's not going to be as good.
+
+155
+00:08:15,780 --> 00:08:21,640
+ And that's where a fancy hash like SHA-256 would be helpful.
+
+156
+00:08:21,640 --> 00:08:25,540
+ So now that we understand the basic data structures,
+
+157
+00:08:25,680 --> 00:08:29,200
+ and how hashing functions work, let's, up next,
+
+158
+00:08:29,200 --> 00:08:31,800
+ we're going to take a look at actually building a hash map,
+
+159
+00:08:31,800 --> 00:08:37,040
+ or at least adapting our list map and turning it into a hash map.
+

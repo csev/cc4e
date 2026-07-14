@@ -1,0 +1,302 @@
+ Hello, and welcome to our lecture on Kernigan and Ritchie Chapter 5, putting some context around it.
+ Chapter 5 is Functions and Program Structure.
+ So, the first thing I want to call your attention to is Section 5.1.
+ I actually think that Section 5.1 is the most poignant and beautiful section in the book.
+ Everything you've learned up till now, everything I've talked about, size of data, et cetera,
+ has led to the point where you can read 5.1 and understand every word of it.
+ You should enjoy reading it.
+ I think of it as like a love letter from the creators of C to future computer scientists.
+ So 5.1's important.
+ We'll talk a little bit about pointer arithmetic.
+ 5.6, we'll look at sort of the duality between pointers and integers, then we'll hit call
+ by reference and call by value that are enabled in C by pointers, and then look at the big
+ as security hole that C has caused over the past 40 plus years, buffer overflow.
+ Now, the chapter gets a little dense in some of the sections, and so I'll just have you
+ skim some of those sections.
+ This is the essential example of pointers.
+ We have two variables, int, x, and y.
+ We have a variable px, which is of type pointer.
+ It points to an integer.
+ That's what int star means.
+ We store 42 in x, and we store the address of x into px using the ampersand operator,
+ and then we use the address of x, which is in px, and then we use a lookup operator or
+ a dereference operator, star px, that says go to the memory location, point to 2 by px,
+ and load me an integer and put that into y.
+ And so we can see when we print out x is 42 and y is 42 and px is a long hexadecimal number
+ that is some memory location inside the actual computer, and so ampersand and asterisk and
+ int star, the star is a sort of a modifier for a type, are the important things.
+ One of the things that you've probably never seen in Python is the id function.
+ We've used functions like type and der, and there are ways for us to inquire about variables
+ and constants.
+ Id is a way to ask for the id of something.
+ Now in CPython, and just to be clear, there are multiple versions of Python.
+ CPython is the classic one.
+ It's the implementation of Python that happens to be written in C. There are other implementations
+ of Python.
+ And so what I'm telling you with this id function is something that will work for the moment
+ in CPython, but not necessarily every other one.
+ If you print it out and you say what is x and what is the id of x, it's kind of like
+ the address.
+ And if you look at the documentation, it says don't think this is the address, right?
+ It says the Python id function is not intended to be dereferenceable, meaning we're not supposed
+ to look up memory from that.
+ The fact that it's based on the memory address is a CPython implementation detail that other
+ Python implementations do not follow.
+ Now if you download the source code, kr0501.py, I actually have a completely unauthorized
+ implementation of a lookup, a dereference.
+ And it has to know the type of the thing that it's dereferencing, y equals deref of px,
+ and it can then give me back that integer pointed to by the address.
+ But this is not guaranteed to work.
+ It's not supposed to be how it works.
+ It just is, there is kind, things have addresses, and in CPython, at least for this particular
+ version of Python that I'm using, you can use them.
+ Pointers gives us the ability to do call by reference.
+ And so if you've done Python, you see that we had a slide in an early version of my Python
+ class that said sorry, Python doesn't do call by reference, it only does call by value.
+ And that means that within a function, you change the parameters and nothing happens.
+ But some languages do have call by reference, which means the parameters that come into
+ a function are somehow handles that allow us to actually change the values in the main
+ program or where we've been calling from.
+ So the language Pascal and C and C++, PHP and C# have this notion, a formal notion of
+ call by reference.
+ And languages that don't have it are like Python and Java and JavaScript.
+ Now there is a notion, the fact that I said this is for simple types like integers, objects
+ are passed in, but then if you call methods and objects, you can actually change the data
+ that the object has.
+ But it's not like you're changing the object, you're changing the object's data.
+ So let's take a look at a bit of code.
+ Now the first example is actually Pascal.
+ Now Pascal is a programming language that was written by Nicholas Wirth in Switzerland
+ in 1970.
+ And it had a call by reference.
+ And it had this notion of var.
+ And so you're creating a function named func, takes two parameters.
+ One is a call by value, which is a, and then the other one is call by reference, which
+ is b.
+ And we set a and b to two new numbers.
+ And then in the main program, we set x equals 42, y equals 43.
+ And then we call the function and you'll notice there's no extra syntax in the function.
+ And then we come back and you will see that the y variable is changed and the x variable
+ is not.
+ And then the c version of this, we have x equals 42, y equals 43.
+ And then when we call func, we say we're going to pass in x and then ampersand y, which is
+ the address of y.
+ And if you go back to the very first example in section 5.1, we're passing in a number,
+ which we're actually passing in by value.
+ But the value is the address.
+ And then inside the function, we take a and then a pointer to b, pb.
+ And we say that a is just an integer and pb is an address of an integer by adding the
+ little asterisk there.
+ So the address where it's at has been passed by value.
+ But using that value, we can dereference it and get to the thing.
+ So we say a equals 1 and then we say star pb equals 2.
+ That's a store 2 as an integer into the location pointed to by pb.
+ And then when you come back, the second parameter will have been changed, y will have been changed,
+ and x will not be changed.
+ And if we take a look at a few other languages, so here we have the c code again.
+ Python 1989 doesn't have the notion of pass by reference.
+ And so one of the things that I think is an excellent compromise that is the case in Python
+ is the notion of returning a tuple, not just a single value, but a tuple return.
+ And so that way we could, if we really wanted to get back a value, more than one value,
+ we could return a tuple and then in the main program, we assign the tuple.
+ So if we really wanted x and y to change from inside the function, we could do so by just
+ explicitly saying function is going to return two values and we're going to change them
+ both.
+ So if we look at php, which is 1994, we see a very elegant, I think, whenever you look
+ at php, you got to realize the dollar sign is just part of the variable name.
+ That's just the first character of all variables in php.
+ So what we do inside a function is we say ampersand dollar b, which is the second parameter
+ is b, dollar b, and we're expecting to change it.
+ And you'll note that we don't change the syntax inside the function, dollar b equals 2, dollar
+ a equals 1, the syntax doesn't change.
+ And when we make the call, func dollar x comma dollar y, we don't change that either, and
+ yet call by reference works.
+ So if you look at all these examples, other than the weird dollar sign convention, I would
+ say that the simplest and most elegant is probably the php implementation, right?
+ Because we don't have to do anything inside the function except I'm planning on changing
+ this.
+ Now, C#, which is much later, 2000, has this notion of ref, which is somewhat a throwback
+ to Pascal, but also it's the ampersand thing.
+ But the one thing I like about it is inside the call to func, you have to kind of agree
+ the calling code by saying ref x is in a sense agreeing that it is aware that x is likely
+ to be changed by that function.
+ And so that's call by reference.
+ Now, we're in a C class, and so ampersand and asterisk are how we do it.
+ So again, it's really quite straightforward inside a C code, as long as you are very good
+ at understanding what the asterisk and ampersand do in C.
+ Another important thing that's easily understood with a very simple bit of code is pointer
+ arithmetic.
+ The key to pointer arithmetic is that a pointer to an integer is different than a pointer
+ to a character.
+ Now, both these pointers are the same size because they are an address, and addresses
+ are all the same size.
+ But if you add one to a character pointer, that actually adds one to the address.
+ And if you add one to an integer pointer, then it adds four, and that's because each
+ integer takes four characters.
+ And so when you're doing increments and subtracts, et cetera, when they're pointers, it increments
+ based on the type of the thing that's pointed to.
+ So a pointer is not just a pointer, it's a pointer to a thing with a type.
+ And when you're incrementing and decrementing, the type that's being pointed to is more important
+ than the fact that it's a pointer.
+ It goes up and goes down, but it doesn't always just go up and down by one.
+ Pointers are not integers.
+ So if you go back to chapter two, there was, from the book, a table of the sizes of things.
+ And so if you look in the PDP 11 integers, or 16 bits, in the Honeywell 6000, there are
+ 36 bits.
+ In IBM 370, there are 32 bits.
+ In Interdata 832, there's 32 bits.
+ Now, I've added a line to this that tells the number of bits and addresses in these
+ systems.
+ And you can see, if you compare the int numbers to the address numbers, that in all the cases
+ except the PDP 11, the integer is larger than the address, which means that there is extra
+ space in the address, and we can almost treat addresses as unsigned integers.
+ Now, the PDP 11 is a little weird in that that 16 to 32 is a range of delivered computers
+ over the years, and not all computers had full memory, and not all applications used
+ the entire memory of the entire computer.
+ So most of the time, you can conveniently put an address into an integer, and then get
+ that address back out, and not have truncated that address or messed it up.
+ So treating pointers as integers almost works, and the longer going history it was, the more
+ likely it did work.
+ Addresses are generally positive numbers that often start from zero.
+ Sometimes heap numbers come down, and sometimes stack numbers go up, or whatever.
+ But most computers did not come with a maximum memory installed.
+ And if you're a multi-user computer, you didn't give all the system's memory to every application,
+ and we tended to use very little memory in applications, we were very careful about it.
+ So we just never ran into the problem of our memory addresses not fitting into integers.
+ So in the early 70s, applications could get away with having a function that returned
+ an address, return it as an integer, and then copy it into a pointer without conversion.
+ And so, by like the early 80s, the notion of a void pointer gave us a way to have a
+ generic address, that is, a pointer to something we don't know what type it is.
+ Because all addresses are addresses, but what they point to is different.
+ And so, if you take a look at the alloc function, which we'll play a lot more in the next chapter,
+ the alloc says, oh, give me 42 bytes, and give it back to me as a pointer.
+ Give me a pointer to 42 new bytes that you just allocated.
+ So if you go in the early 70s, alloc returned an int, but then we would cast it to whatever
+ type we wanted.
+ So we would say alloc 42, it would give us an address, that'd be an integer, but then
+ we'd cast it to an integer star, which is a no-loss cast, and then we would store it.
+ By the time in the 1978 CNR book, we tended to call it a char star, because 42 is how
+ many characters we're gonna allocate.
+ And then you would take the pointer to a character and cast it to a pointer to an integer, and
+ so alloc of 42 would give us 14 integers, actually, I think if I got my multiplication
+ right.
+ But in modern C, we have this pointer, void pointer, which basically says, look, alloc
+ is gonna return an address, and you have to cast it to something.
+ So alloc 42 returns a void star, which is casted to an int star, which is a lossless
+ cast, and not something that's gonna confuse the compiler, and then we store it in our
+ int star variable.
+ And so void, everything you'll ever touch will be using void, but I just wanted to give
+ you a little bit of the history of it and why void's kind of not mentioned in this 1978
+ book.
+ Every time in class, I'm like, hey, it's time to learn about security, and everybody
+ kind of groans like, oh, no.
+ Back when I taught HTML injection and SQL injection and cross-site scripting in all my
+ previous classes.
+ And here's the classic XKCD, where the mom has named their child with a bit of SQL and
+ some single quotes and some comments, and that's all fun.
+ It's important that we as software developers are aware of how the things that we build
+ could be corrupted by those with evil intent, right?
+ So it has come time to talk about that for C. Probably the single worst security hole
+ in all of computing history, from 1950 to today, even before C was a thing, is what's
+ called buffer overflow.
+ And it has to do with the fact that there is no sense that a string of characters has
+ a length.
+ It has an allocated length, but it doesn't have a runtime length.
+ And so when we put more data into a string than can hold the string, it just keeps on
+ storing beyond the end of the string.
+ It doesn't like make a little more space.
+ And so this is from the Wikipedia page, where you have an eight-character string followed
+ by a two-character integer or something.
+ And we copy the string excessive, which is a nine-character, which includes nine characters
+ and the slash zero, the zero.
+ And that completely overwrites by just trying to write into the A string, it overwrites
+ the B variable as well.
+ And so that's buffer overflow.
+ It's sort of like somehow we're going to push too much into this variable so that it extends
+ where it's been allocated and that never is detected, and then it keeps going on.
+ And it means that you can do all kinds of things with buffer overflow.
+ You can change variables.
+ You can turn on super user permission.
+ Who knows?
+ You got to look at the source code.
+ You got to carefully construct a sort of nasty attack.
+ But the attack vector is the fact that string arrays bounds are not checked when we're copying
+ stuff in.
+ And if you write bad code or if the system writes bad code, it's just going to go wiping
+ out memory.
+ So it turns out that probably the worst offender of this is the get_s function.
+ And this was part of standard C for a long time.
+ And so here what I'm doing is I'm creating a 15-character string array, a character array,
+ which is 15 elements, and I'm calling get_s.
+ And the problem with get_s is like somebody's going to give us that data and it's not us.
+ And then I print it out.
+ So the first thing you see is when I compile a bit of code that has get_s, the compiler
+ is upset.
+ I have greatly simplified the errors.
+ It comes up with three errors and this is a subset of one of the errors.
+ The compiler is telling you don't use get_s.
+ If you didn't hear what I said the first time, don't use get_s.
+ And so the compiler is not happy.
+ But it's like, you know, people write that so we're going to run it, okay?
+ A.out, which starts the code, as soon as that line get_s runs, the runtime of the C standard
+ sdio.h says before it prompts us for the data, it actually adds a print statement.
+ It's not our print statement.
+ It's the library saying you really, really should not be using get_s.
+ And if you think this program is trustworthy, you're probably wrong.
+ So I type hello world, which is 11 characters, hello space world.
+ Yeah, it's 11 characters.
+ Hello world's 11 characters.
+ I type 11 characters in.
+ That includes the 12th character, which is the backslash zero.
+ And that fits into s15, a 15 element character array in the variable s.
+ So the program works just fine.
+ Then I type a.out again, and it once again tells me, please don't use get_s.
+ You're going to be in so much trouble.
+ And now I type instead a bunch of, a hello and a bunch of spaces in then world.
+ And it prints out hello bunch of spaces in world, but has overwritten all kinds of unknown
+ data after the s15.
+ So that's, you know, that's like 30 or 25 or 30 characters.
+ Then the first 15 are in s, but then the next 15 are somewhere else.
+ And s is on the stack because it's an automatic variable in main, and it goes wiping out the
+ rest of the stack.
+ Now it turns out that the C runtime puts things on the stack to kind of mark or to catch this
+ overflow.
+ And so what happens is as soon as that code finishes, it says abort trap six, which is
+ basically the C runtime saying, you know what, I'm not going to let this program proceed
+ any further because there has been an array that got messed up.
+ And it's not that it caught, it's not that it caught the array messing up.
+ It didn't know how long it was.
+ It just put characters in.
+ But what it did is I put something after the array and then it checked for it later.
+ And that got wiped out.
+ And it's like, okay, you wiped out my magic little secret.
+ And so I'm going to not let you continue.
+ And so we don't want you to use get_s.
+ And this is a buffer overflow.
+ And I can give you, eventually maybe we will look at some much more complex examples of
+ this where we try to like use something like get_s to manipulate what the program does
+ rather than just blow the program up.
+ But this is a very simple example of buffer overflow.
+ So in summary, pointers are the beautiful, most beautiful part of C. They're complex,
+ but basically pointers make it so that a high level language can function like a low level
+ language.
+ If we don't have pointers, and I mean not even kind of crappy Python ones, I mean pointers
+ that we can look up and then dereference officially and formally and not have it be a sneaky way
+ that we're doing it.
+ That means that you can do the things that operating systems need to do, the kinds of
+ things that we used to write assembly language for, meaning we're going to, here's a buffer
+ of memory.
+ We're going to copy this buffer.
+ We're going to do another thing.
+ There's another buffer and there's a linked list of all the different buffers.
+ So understanding pointers leads you to the path of assembly language, machine language,
+ and then ultimately hardware.
+ So you should not rush through this material.
+ Pointers are really, really important.
+ Everything we're going to do from now on, pointer is just, I'm just going to say pointer,
+ pointer, pointer, just like I say object-oriented all the time, I'm going to say pointer all
+ the time.
+ Pointers 5.7 and 5.10 through 5.12 are a little dense, so what I really want you to do is
+ understand the stuff I just talked about and the corresponding sections.
+ And chapter six will be more fun because we'll be doing much more with the pointers rather
+ than just what is a pointer.

@@ -1,0 +1,320 @@
+ So welcome to another code walkthrough for C Programming for Everybody. This is another in our
+ epilogue code where we're comparing and contrasting the way I taught dictionaries, lists, and strings
+ in the Kernigan and Ritchie Chapter 6 with how Guido van Rossum actually implemented dictionaries,
+ lists, and strings, and we're going to look at dictionaries here. So I've got two tabs open in
+ my text editor. I've got one that's p1dict.c, which is the Python 1 implementation, which is my
+ approximation of Guido's approach, my simplification of Guido's approach, and then I have the krdict,
+ which is the version that I wrote, kind of cleaned up and adapted for this, the version that I wrote
+ as we covered it in Kernigan Ritchie Chapter 6, and if we look at the very allocation and, I mean,
+ the structures at the top, we have a D node, a dictionary node, and we have in the dictionary
+ node in my implementation is got a next pointer, and so it's got a key and a value. We're going to
+ character, we're going to string keys and integer values just to keep our mallocs down, but the
+ difference between the dictionary node in my code is that I am going to, every one is going to be
+ part of a linked list, because if you recall in my code in Kernigan and Ritchie, as it's described,
+ it is an array of linked lists, and so in this case I just have four heads and four tails that
+ point to the head of a linked list, and so that means that every D node has got to be either the
+ beginning, middle, or end of a linked list, and so it's got to have the D nodes have to have a star
+ next in them. So let's go compare and contrast that with how Guido did it. So Guido still has
+ a D node, because now we're in dictionaries, and so you need a key and a value, and so in my krdict
+ I made the value be integers just to simplify it, but I'm going to make the keys be, the values be
+ strings in my Python code to be a little closer to, you know, what Guido did. But then the change
+ happens when we start allocating the actual dictionary object itself. So if we look at what
+ I allocated, I have a number of buckets and I have a count for my struct krdict, but then I have an
+ array of four heads, an array of four tails, which is basically a way to make four linked lists that
+ I will select among the linked lists based on the hash function, but that's not what
+ Guido did. In p1 dict we got an allocation and a length, but then we also just have an array,
+ seriously, an array of pointers to D nodes that we'll call items. Now the fun thing is,
+ if you look at this, let me go ahead and show you this a little bit different. If I look at the p1
+ list and I compare and contrast, a p1 list has an allocation, a length, and a pointer to an array of
+ pointers to strings. In my p1 dictionary it's an array of pointers to key value pairs, but the
+ alloc length and then an array of pointers to something is a very similar approach, and you'll
+ see when we get to the Python 3 stuff that there's almost a duality in Guido's mind between the
+ dictionary and the list. The dictionary is like just a slightly improved list having to do with
+ indexing, and again it was a surprise to me. But the similarity, again, when we get to Python,
+ the 3 Python, Python 3.7 version of the dictionary is going to be like, oh, I see what here going on
+ there, but so just for now remember the approximate duality between dictionaries and lists in Python
+ 1.0. Okay, so again we have our linked list nodes that have a pointer to a key, pointer to a value,
+ that'll be a dynamically allocated pointer, a pointer to a dynamically allocated and saved string,
+ and then we have a dictionary which is then a one-dimensional array of those pointers to those D
+ nodes. And if we look, so the key thing here is we need to know which entries in this array of D
+ nodes are empty and available and which ones are used. So the constructor is a little more complex.
+ If we look at p1 dict_new, of course we allocate the kind of object itself. We set the length
+ because there's nothing in it, and we're going to allocate two slots just like we did in the p1 list.
+ That forces us to reallocate so that we don't have to write too big of a code to cause reallocation,
+ and we can debug our reallocation. And then we basically create an array of D nodes,
+ right? So we're like two times the size of struct D node, and the size of struct D node is
+ two 64-bit pointers. And then what we're going to do is we're going to mark them as empty. We need
+ to know that these items are empty, and so we're going to set the key, which is a pointer, in the
+ value for each of them to null. So you've created a two long array of D nodes with keys and values of
+ null. And again, we need to remember which ones are empty and are not. And so then let's look at
+ the main code. So that's the constructor. That's the data structures and the constructor.
+ So what we're going to do is... Oh, man, I thought I deleted that line.
+ Yeah, let's delete this line because we're printing it. We've added some stuff in the print.
+ That makes it a little simpler. Okay, let's hope it still runs. That would be cool.
+ Let's run it. Let's keep, like, change the code.
+ Yay, it works. Okay. Okay, it's simpler. I like simple. So we create a dictionary
+ calling P1 dict new. We print it. It's going to be empty. Then we put under the key of Z,
+ the string catchphrase, and print it. Then we put the key of... We put W in. That should be a
+ replacement. And then we put the string Sakai in. Sakai equals B, basically. Sally equals C,
+ basically. And then A equals D. And then we say, how many things do we have in there? And then
+ we do a get, like a .get in a Python dictionary. We're looking for the key Z, and we're looking
+ for the key X. Well, key X isn't going to be in there. And then we delete it. So let's go ahead
+ and run this code, which we just did. And so what this print does, I've added some stuff to it. So
+ you see the first print is just curly break, open and close, curly brace, empty. And it's also
+ printing out the length and alloc. And so basically what it's saying is there is a length of zero,
+ and we have two spaces alloc. So then what we do is we put Z in, and that Z equals catchphrase,
+ and that ends up in position zero in the array. And then we have a length of one, because we've
+ got one thing in there, an alloc of two. Then if you recall, we replace Z equals W. Now because Z
+ hashes to the same spot, and we'll talk about how that happens in a second, that hashes to position
+ zero in the array. And then it just replaces it. And so it just replaced the value in that case.
+ And so we still have only one item in there and an allocation of two. Okay. And so then what we're
+ doing is we're inserting a new, like sacai equals B. I should probably put some more print statements
+ in there. Let's do that. Let's do the underscore put, and let's put a print statement in here.
+ Printf insert percent s equals percent s backslash n comma key comma value.
+ Oops. It'll be just easier for us to debug this.
+ Okay. Okay. So we insert Z equals catchphrase. That goes in hashed slot zero. We have one item
+ and a length of two. We insert Z equals... No, I want to call that put. I want to call that put,
+ because it's not insert. So then we put Z equals W, and then it uses the hashing and the lookup
+ and all that stuff to find that that's in position zero. And so we simply replace the value. So we
+ didn't extend it at all. And now it's trying to put sacai equals B in there. And with the hashing,
+ hashing of sacai finds its way to position one in our two item array. And when we're done,
+ we've got our two item array. Happens to be insert order, but that doesn't necessarily mean,
+ because it's just my hash function is terrible. And then we have two items in and two items out,
+ two items in there and two items allocated. Now we're trying to insert sally equals C.
+ And now the hashing algorithm, which I'll show you in a bit, looks through and says,
+ wait a sec, there's no space here. Usually that hashing algorithm says, if it's above 60%
+ full, then we declare it no space. And so we're going to do what's called rehashing.
+ So we reallocate and then we re-add the things. So we're making the space so it doubles it in
+ size. So when it's all said and done, sacai ends up in position one and Z ends up in position two,
+ and sally ends up in position three. And we have three items in any four long array.
+ Now here's an interesting thing. You will see here when we go through the rehashing,
+ Z in the two long array, Z was in position zero, but in the four long array, Z is in position two,
+ because this is rehashing. Now what happens is that's because whatever the hash value for Z was,
+ modulo two is zero, but modulo four is two. And so the positions don't change. It wasn't
+ going to end up in position one, but modulo two and modulo four are multiples of each other.
+ But you'll see in this case here, sacai, Z, sally, the position of Z moved. And so again,
+ if you're writing an iterator that's going through this and you just inserted one and it reallocated
+ in that, that's why Python one dictionaries and literally any hash-based dictionary that's truly
+ using hash, we'll see how it worked in Python three in a second. But when we reallocate things,
+ stuff gets shuffled around. So the order is different. So we made space for sally and then
+ we put A equals D in. Now the thing we're triggering is if it's greater than 60% full,
+ when you have one and you got two, that's 50% full. And that's why the sacai equals B did not
+ trigger reallocation. But if we have three items in four slots, that's above 60%. And so we're
+ going to reallocate. So even though we could have snuck it in that last spot, that's not good for
+ hashing. So we're going to say, you know what, it's time to make this bigger again. So A equals D,
+ we're going to make space for A and then we're going to double the size of the array to be eight.
+ And let's see, we got sacai equals B in position one. We got Z equals W in position two. We got
+ sally equals C in position three and A equals D in position four. And we're half full at this point.
+ So we're done now. We have a length of four and we say, hey, let's look up Z and yes,
+ we get W and let's look up X. And the answer is there is no X. And so our code is working doing,
+ you know, our little unit test, our little unit test is kind of doing dictionary things. So
+ let's take a look at put, okay. Let's take a look at print because print's easier.
+ Let's take a look at print because print teaches us a little bit about the data structure. Okay,
+ so I'll come back, come back, come back. So in P one dict underscore print,
+ the whole little first equals one, that's just there so that we put the comma out. But
+ the nice thing is it's a for loop for I equals zero, I less than self alloc. Now,
+ if we look at the P one list, let's go look at P one list. The P one list,
+ it's I equals zero, I less than self length. And that's because in the list we just append
+ in the beginning of the array, sub zero, sub one, sub two, sub three. That's how lists work.
+ But because we're using hashing, our array is like sparse in that it starts out empty and we
+ start using slots, but we don't use every slot in order. So we've got to go through all the slots to
+ iterate through a dictionary array. And if it's null, remember if self items sub i.key equal equal
+ null continue, which means skip empty slots, skip empty slots. So this array could have 100 things
+ in it. And if we only put one, where the thing is inserted, which we're going to see in a second with
+ insert, is dependent on the hash function because we're not just inserting them linearly, we're
+ inserting them based on hash function using open hashing. And so we have to skip the empty items,
+ but after that it's okay. We just print them. And so we're iterating through this array of pointers,
+ skipping empty entries, and printing out the entries that exist every time we're doing an
+ underscore print. And so we're seeing them in the order that they got spread out using the hashing
+ function. And so you can see that it prints the key and it prints the value and then it prints the i,
+ the position. And so that leads to very, very pretty stuff. And then we print the length and
+ the alloc. And so this is great for debugging. Great for debugging for us. So that kind of reviews
+ that the items is a sparse array with nulls being our way of marking emptiness. Okay. So, and again,
+ if you go back to the underscore new, we allocated it and we set everything to null. Okay. So let's
+ go look at the underscore put, because that's where all the good stuff happens. It's a bit of work.
+ Can I get it all on one screen? No, I can't get it all on one screen. Okay.
+ So we'll just work through it. So the first thing we have to do is we have to figure out
+ which of the slots in this array the key belongs in. Which of the slots
+ in the array does the key belong in? So we're going to use a utility thing we write,
+ we wrote called P1 dict underscore find to say, find me the entry in the array
+ that is the right entry for this particular key. Okay. So now I've got to go look at that.
+ P1 dict find. Okay. So this is pretty straightforward. And so this is open hashing.
+ And so the way open hashing works is it starts by doing a hash computation to figure out a position
+ in this array of items. And get bucket, you've seen this in other code that I wrote, get bucket
+ is just a crappy little hash function that does a shift and an exclusive or repeatedly going through
+ the entire string with the idea of creating a pseudo random number that is deterministic based
+ on the string that I can then take the modulo of the number of buckets. So this ends up with a
+ relatively large integer that in long strings might even overflow. And again, hashing computing hash
+ functions is a research area unto itself. This is a terrible hashing function, but I've used it over
+ and over and over again because it's short and gives me some random, some pseudo randomness,
+ but it's probably a highly collision resistant. So the whole idea is if I have two buckets,
+ this gives me a deterministic number between zero and two, but not including two. Okay.
+ So let's go back to the find operation. So we get the bucket and that bucket might be,
+ let's say it's bigger, let's say we've got 16 slots and they're all empty.
+ The way it works is bucket will say, okay, you're hopefully your slot five.
+ The problem is, then there's what's called collision resolution. And if slot five is
+ already filled, you've got to find another slot. But you got to find another slot in a way that
+ later after it's in there, you can find it again, find the key again.
+ And so we do linear hashing. We do linear collision resolution,
+ which means if we find ourselves hashing to position five and position five is full,
+ we say, oh, well, let's just linearly go forward. Let's look at six, let's look at seven,
+ then eight, nine, whatever. And then when we get to the end, we go zero, one, two, three, four, five.
+ And if we get to the point where we have checked all the slots and they're all full,
+ then we kind of have to blow up. And that's where it says printf could not find slot for key.
+ That would be like throwing an exception. We'll just print it out here. But that'd be like,
+ something went wrong because you're never supposed to 100% allocate a hash. About 60 or 70% is when
+ you're supposed to quit and double it or extend it in some other way. So let's look at the code
+ that hunts for a starting at position five hunts for a free position. And so we say offset equals
+ zero offset less than self-alloc offset plus plus. So that's going to go, if we have like eight
+ entries, that's going to go from zero to seven. But we really want to start that iterator in five
+ and then wrap around when we get to eight. Okay. And so I just, I call it offset, but then I calculate
+ the position in the, in the array as offset plus the number of buckets. I mean, offset plus the
+ bucket, which is five and then modulo self-alloc. So if we got eight, offset's going to go from zero
+ through seven. And if offset and a bucket is five, that's going to go from five through seven and
+ then zero through four. Okay. So I is the circular look. So we're, we're doing a circular lookup in
+ an array starting at five. We're going to look through every, if necessary, every single position
+ in that array is going to be checked. So we're starting at like five where the hash function
+ told us to go. And if self items sub five dot key is null, it's a great spot. That means that the
+ hash function pointed us to a available entry and we're done. So we return the address ampersand
+ self arrow items sub I. Otherwise we might have found something that's full and we don't know
+ right now if we're going to replace this value or not, but if the key matches what we're looking for,
+ we actually found the right one. And so we returned self, the address of self items I, and if we
+ didn't find an empty one and, and we didn't find one that was full with a matching key,
+ then what we've got to do is go back up into the for loop and go down one. So if we were at five
+ and we, it was full, but the key didn't match, then we would go to six. And if six was full and
+ the key didn't match, we'd go to seven. If seven was empty, then we're done. So we say, oh, seven
+ is where we're going to go. And so you can see if you think about this for a little while, and you
+ can go read the, the lecture slide on open hashing. You can see that as long as there's space in this
+ array and it's not completely full, eventually we're going to find a place. Okay. We're either
+ going to find a place that matches the key or we're going to find an empty place. And that's what
+ finds job is to do. And again, as long as resize is working and we never let it get to be above 70%,
+ we can always find a slot for the key. Okay. So this, again, when we say printf could not find
+ slot for key, that's really trace back time. Cause that means that the thing above us, which we're
+ going to look at now is going to be going to blow up. Okay. So let's look at underscore put again.
+ So comma underscore put. So a lot of work it's done in underscore find where we hash the key
+ and then we do the linear, we do the linear lookup. If it, we do the linear lookup
+ for collision resolution and we either have an empty entry or we have the actual entry.
+ And so the first if statement we have afterwards is if old is not null and the key is not null,
+ that means we just found it, which means all we got to do is replace the value. We don't have to
+ add any entries. The index is great. The array is great. So we just free the old value and we
+ alloc the new value. And then we just string copy it in and away we go. So that's, that's when we did
+ the, that's when we did the Z equals W. That was the code that ran to basically say, oh, well we
+ found Z. So we just have to, we have to free the original string and the original string is catch
+ phrase and the second string is W. So we're replacing catch phrase with W and this little
+ bit of code right after the underscore find is the thing that does, here we found it. Okay.
+ But so that's, that's the second one. Let's go back to Z equals catch phrase because Z equals
+ catch phrase is not found because we're starting with an empty array. So that means that old key,
+ we're going to get an old because the hash will find a slot and that slot will be empty and it'll
+ give us back to us. But old key is going to be null, which means this one is available, which is cool.
+ Okay. Now actually this to do is not a to do anymore. Right now it's going to be an ignore.
+ So this is the bit. Okay. I'll come back to this. Okay. This is the tricky bit.
+ Now I never did this in Kernigan and Ritchie. I don't think I have to check,
+ but this is called rehashing and this is when our length is greater than or equal to 70%
+ of our allocation, which means this array is more than 70% full. That's when we're going to do this
+ reallocation. Okay. But I'm going to ignore that whole if statement for now. I'll come back. So
+ we're processing Z equals catchphrase here and Z ends up, we can even look, ends up in sub zero
+ of the array. And so if it's time to insert, this part is really easy. So it's time to insert.
+ We're going to allocate the key, the value, malloc the value and malloc the key and string copy them
+ in. The old already exists. Old is a pointer into an entry, into an array that's got a key and a
+ value. Okay. So there's an array of key value pairs. And so we don't have to allocate the old
+ itself because the old is already in the array, but we do have to allocate the strings that we've
+ been passed as parameters. And then we add one to the length. And so that's basically how it ran
+ when we're doing Z equals catchphrase. At the end, we had Z in position zero. We had a length of one
+ and an alloc of two. Okay. So now we're going to look at where we've got, and you'll notice in my
+ 0.7, let's go back to that now because we're going to look at that. This is kind of tricky.
+ Okay. So this whole self length greater than or equal to alloc 0.7, it allowed me, because it was
+ only two items, it allowed me to fill it up completely because one item is only 0.5. And so
+ when I put Sakai equals B in, I didn't trigger the reallocation. So it just put it in position one.
+ I don't know if, oh, Sakai did go into position one. So, but now we're doing C and it's like,
+ I could not find a slot for key Sally. And so that means could not find slot for key Sally.
+ So that means that it searched, let's go back to find, I guess this is not really a trace back.
+ This is just a fact. So it went and looked at hash, what's the key on that again? Sally,
+ that key is Sally. It hashed the Sally, found a starting point with bucket. That hash just found
+ a bucket. And where did Sally want to go? Sally ends up well in three, but it probably would have
+ been a one. Sally would have been bucket one before it got expanded. And then it looked through the
+ whole thing, which in this case was only two. And it couldn't find either an empty one or one that
+ matched Sally. And so we say, can't find it, return null. Okay. And so now we get back to put.
+ So we're doing Sally now and we find old is actually null. So this code doesn't run.
+ So we didn't find an entry. Old key is not even allowed. We're not even allowed to say old arrow
+ key because old is null. And now find, didn't find it, which could be bad, but we're going to fix it.
+ Come back, come back. We're going to fix it. So we're coming through here and we're saying,
+ if self length is too full, greater than 70% full, then we're going to make space. So you can see here
+ in the output, it says we are making space for Sally. We're still in the middle of the put of
+ Sally equals C, right? And so we're going to grab a copy of the old allocation number and the old
+ items. Those are just integers. And then what we're going to do is we're going to make a brand new
+ empty items. And so we are going to double the size of our array. And then we're going to
+ set the new items. That's why I had to store old items here. We're going to set the new items to be
+ four D nodes. It's an array of four D nodes. Now we've got to be really careful. This is
+ kind of like a constructor for that items. We're going to set the key and the value of the newly
+ allocated four items in that array to null because they start empty. You'll see in a sec
+ that we got to re-add them. So we're kind of creating an empty array that's twice as big.
+ And now what we got to do, and this is why we call this rehashing, is we got to go through the old
+ array and find all those items. And then we got to add them in the right spot. And this is where
+ you'll notice that z was in position zero and z ends up in the reallocated rehashed array in position
+ two. So you really have to rehash it because all the rules in the new one have to be followed. The
+ initial hash, the linear resolution of conflicts, of collisions, etc. So you really think of this
+ items as a brand new one. And we've got the old items sitting there, not much longer, but we're
+ going to go through them all and we're going to just add them again. Okay. So we're going through
+ all of the old items. If the key is null, that's one of the empty slots in old items. Continue.
+ Then we're going to call find again. And the key thing there is that's why we made self items be
+ the new thing is so we could call find. So that's the first time it's being called in this loop.
+ The new items is completely empty, but old items and i sub key is the key. And then,
+ and so let's see what we got here.
+ Yeah. So new item, if new item is null, that means it didn't find space. Now we just doubled the
+ space. So that shouldn't happen. And given that the keys in old items are already unique, because
+ this is a dictionary, we should never find in the new empty the key twice. So that basically,
+ that basically says, oh, it's already in there. And the answer is, wait, wait, wait, we started
+ with an empty one. So new item key not equals null is a bad thing, but it should never happen
+ because we're going, we have a unique, each key is unique. There are no duplicates. And so as we're
+ inserting them again into a new hash map array, that we should never get it. So that's why it says
+ very bad news. That means that we either couldn't find space because I don't know why, or it's
+ already in there, which I don't know why either. That means that this is like traceback time. This
+ is like the runtime library is not well formed and we made a bug in our runtime library. So then
+ that means that new item should be non-null and it should be empty, which means we can just like
+ copy. Now this is just a pointer copy. It's not actually the stuff because we're taking the key
+ is the pointer to the key, the string array and the value is the pointer to the string array. So
+ we say new item key equals old item sub i.key and the same thing for value. And so now what we've
+ done is we've copied all of the old items and we've positioned them correctly in the new items.
+ So at this point, we're done. And the free here is simpler because we're not freeing the strings
+ because we just copied those. We are freeing the array. Okay, so we're freeing the old array.
+ Free old underscore items frees the old array.
+ Now what we need to do is we need to search for the position because we're going back to
+ put sally equal c. And so sally is the key that we're putting in. So we just made space for sally.
+ Now again, if sally was already in there, this code would run and we'd be done. And so we have
+ to re-look in the new, the newly expanded array. We got to find the right spot. And again, if sally
+ was already in there, this code would have been run and we'd never be down here. So we have to
+ redo this and say, okay, where is sally? In this case, we really, where should sally be long? Because
+ we just made more space. And so old equals null would mean we don't have, we still don't have
+ space for sally, even though we doubled the darn thing or yeah, we doubled it. And old key not
+ equal. No, that means that sally's already in there. Oh, wait a second. If sally was in there,
+ we'd not even come down here. So again, the selling old key not equal. Again, you put out these kind
+ of trace-backy very, very bad news. That is like somebody, our code, our code, we're the library
+ writer, our code is messing up. So old is, is really supposed to find no matter what, we're adding
+ sally to the dictionary, old got to find a slot for us, or we just, or our code is broken. So this
+ is me debugging and leaving this in, you know, just to make sure like, oh man, that is impossible,
+ should never happen. But I'm going to say very bad news. So it finds a slot and then we just
+ copy the key and the value and increment the length. And so this whole realloc thing is kind
+ of new. I don't think I did this when I did the Kernigan and Ritchie, because the way Kernigan
+ and Ritchie does it, you can just keep extending those linked lists. Like if you look, so if we
+ look at the underscore put in the Kernigan and Ritchie code, you'll see I do a get bucket, right?
+ And I find the bucket. And if I, if it matches, there's always a bucket in this one, because it's
+ the buckets are pointers to link lists. So there's always a bucket. There's no resolution by linear
+ collision resolution. So old is, oh, if we find it, we just copy the value and this I had integer
+ values. And then otherwise you just append to the end of the tail of the bucket using, you know,
+ self head sub bucket equals all new. And then it's just, at that point, this is just semantic and P
+ in the KR dict. We don't have to reallocate. Now you would want to reallocate at some point because
+ then these chains get too long. And that's, and so it's not like you don't have to reallocate with
+ these chains. I didn't write it. So the reallocation would be sort of in the middle of put and it'd be
+ very complex code. And it would be actually probably be about the same complexity, maybe a
+ little bit more complex than what the Python one implementation was. And so with that, I think I
+ pretty much have covered the essential differences between the Kernigan and Ritchie dictionary code
+ that I wrote and the basic approach, you know, the basic approach using an array of D node items.
+ And if we look at find a linear collision resolution and the linear collision resolution,
+ let's do this. I'll put a comment in here. Linear and underscore find.
+ Uh, I can't, um, I gotta figure out how to spell collision.
+ Well, the version you see will have, uh, how many S's? No, how many L's?
+ Okay. I'll fix that for you. And so this linear collision resolution and that that's tricky stuff.
+ And so you want to take a look at that and understand that, uh, very carefully. So I hope
+ that you found, uh, this lecture useful. I think the next thing we're going to talk about is
+ how dictionaries changed from Python one through 3.6 all the way up through Python three seven,
+ because the dictionaries did change and got a lot better. So we'll talk about that soon. Cheers.

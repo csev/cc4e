@@ -1,0 +1,147 @@
+ So, we're going to take a look at some of these object-oriented implementations over time.
+ I've already talked about the Python inspiration.
+ I flipped Python and C++ in the early days, because at least Python we kind of know.
+ C++ is 1980, Java in '95, JavaScript in '95, PHP in 2000, and then C# in 2001.
+ So, here's the example that I showed you before, talked about it before.
+ You have a constructor, double underscore, init, double underscore, with self as the first parameter.
+ Self.x, again, the key thing is self is by convention.
+ Self is not a language construct.
+ It just so happens that the first parameter of method calls is to the instance,
+ and we almost exclusively use the word self for that.
+ That is a very early 1991 implementation of an object-oriented syntax on top of a mostly procedural language.
+ Now, if we take a look at C++, C++ was initially implemented as a pre-processing pass,
+ and it sort of did sort of one-for-one textual transformations,
+ and so class was not a keyword in the C language.
+ Public, that's not a keyword in the C language.
+ There was syntactic transformation that kind of transformed it into C and then run it through the C compiler.
+ And so we say, I mean, and this is pretty elegant,
+ and you can absolutely see how Python was inspired by C++.
+ So, class, point, open curly brace, double x and y are the attributes,
+ and the constructor by convention is the exact, it's a function that has no type.
+ The constructor is the exact same name as the class.
+ So in this case, I've got point with an uppercase P, and then the constructor parameters come in.
+ Now, the interesting thing is you have to declare as double x and y as the attribute variables,
+ and then within the function, you can think of the double x, y as almost like extern scope,
+ means they're global across all functions.
+ So you have this weird thing where you can't have a parameter like you could in Python.
+ You can't have a parameter of the same name as an instance variable or you'll be confused.
+ And so you'll notice I called the xc and yc as my parameter variables
+ so that I know that those are parameters in the constructor.
+ And so I can copy xc into x and yc into y.
+ And it also means if you look at the dump code, you see like you don't have to say self.x,
+ you don't, you just say x and y because x and y are doubles.
+ They're instance-wide, extern variables, as it were.
+ And the same is true in the origin function.
+ That's returning the square root of x squared plus y squared.
+ You don't have to have self or this or anything else.
+ So if we take a look at the main program on that first line, point pt open paren 4.0, 5.0,
+ we are both allocating a point instance and calling the constructor and setting it up.
+ Then we use the dot syntax pt dot dump open paren close paren semicolon to dump it out.
+ And then we can call pt.origin and then that will return us a double.
+ And so you'll see this sort of dot syntax that is become pretty common in every language that comes afterwards.
+ So let's take a look at Java.
+ Now, recall that Java was inspired both by C and C++ and really wanted to be like the super language.
+ And you see that it looks a lot like C++, but it does introduce the concept of this.
+ So that it scopes the external variables that are the instance variables.
+ You access an instance variable by saying this.x and this.y rather than just x and y.
+ And I think it's actually more elegant this way.
+ So we say public class point and then double x comma y, which are the instance variables.
+ And then the constructor is using the C++ convention of point with no type.
+ Double x and double y are the two parameters.
+ This.x equals x and this.y equals y. Close curly breaks.
+ Now, I like this better because using this keeps me from having to make weird function parameter variable names.
+ I can make them what I want to be and using this is the way that we contextualize that.
+ So if we look at the dump method, we see the use of this.
+ And this is not just by convention.
+ This is a language element.
+ So this is the pointer.
+ You can see from the output it actually prints out the class that it is and some kind of reference like ID like thing.
+ And so Java actually, if you start printing objects out, it tells you what its type and what instance it is.
+ It's not necessarily an address, but it probably is related to the address somehow.
+ But then we print out this.x and this.y.
+ And then if we look at the double origin method, we see it's this.x times this.x plus this.y times this.y.
+ So you see the sort of use of this throughout.
+ Then if we look at the main program, we see point pt equals new point 4.0, 5.0.
+ This is where we see the use of this new operator where you're saying, look, call the constructor.
+ And I like this.
+ I like the sense that you're calling the constructor on purpose.
+ You're not calling it implicitly.
+ And then you end up with pt as the instance of this object.
+ And so for me, this feels pretty good.
+ pt.dump is a good example of calling a method within the instance.
+ And pt.origin is similar.
+ If we take a look at JavaScript and recall that JavaScript is the weird one.
+ JavaScript did not take its inspiration from C++.
+ C++'s syntax was kind of influenced by the fact that it was initially a preprocessor to the language C.
+ And some computer scientists would think that that's a rather impure way to think about object orientation.
+ And so JavaScript, when it was created, the idea was to be more pure in object orientation.
+ And so the concept of first class functions, because it has first class functions, there is no class keyword.
+ The class keyword was really useful when it was a preprocessor.
+ The thing that JavaScript does take is the concept of this.
+ Now, the interesting thing is if you look at everything on the screen from function point to the closed curly brace,
+ this is the constructor.
+ The constructor constructs everything.
+ It constructs the attribute variables and it actually constructs all the methods as well.
+ So if we look at the line this.party equals function openPrin, closedPrin, openCurly brace,
+ we are setting, in a sense, an attribute variable to source code.
+ This is an anonymous function.
+ There's no name to the function, so most functions are named, but this function has no name.
+ That's a JavaScript thing.
+ It's a first class function thing.
+ We are basically not running that function with the two lines of this.x equals this.x plus one and console.log blah blah blah.
+ Those lines aren't running.
+ They're being compiled and then the code to execute that is being assigned into the attribute variable party.
+ So it doesn't run it.
+ It reads it and stores it in party.
+ You can literally later print out this.party and you will see the source code to that function.
+ And the same is true for this.dump.
+ It's an assignment statement and then similarly this.origin.
+ And you see within those methods, you see this.x and this.y, which is taken directly from job.
+ We also see the concept of new in pt equals new point 4.0 5.0.
+ We are explicit and I like this.
+ I like the idea of saying, please call the constructor from the point class and pass these two variables in.
+ And then we see the C++ inspired syntax of pt.dump to call a method in the pt instance
+ and pt.origin to call a method in instance.
+ If we look at PHP, now the key to PHP was PHP is a procedural language when it was created in 94
+ and then it became an object oriented language in PHP 4 and then 5.
+ It was late to the party.
+ So it could be inspired by everything, by JavaScript, by Java, by C++, by Simula, by Scheme, all of those things.
+ And so the PHP object orientation is kind of pretty as a result of that.
+ Now, one of the things that happens in PHP is it's got some weird language syntax things in that variables have to start with a dollar sign.
+ Thank you, Pearl, for that.
+ And the dot operator is used for concatenation in PHP.
+ So we couldn't use the dot operator to look up instance variable or a method inside of an instance.
+ PHP borrowed the C arrow operator, which is minus sign, greater than.
+ Now, the interesting thing is, is if you go back to pointers, the arrow operator is what you do when you have a pointer to a structure.
+ And so in some ways, that is a throwback to C in a beautiful way because I think kind of under the covers and as we shall see
+ when we are starting to implement object orientation in C ourselves, we're going to see that pretty much we get pointers to an instance is a pointer to something rather than a thing.
+ And so we see this arrow x equals dollar x in the constructor.
+ We see the constructor is a double underscore construct so that PHP kind of use the single underscore and double underscore as sort of metadata about the meaning of things
+ and double underscore are things you're not supposed to call.
+ They're supposed to be private.
+ And then we have a function dump and you see the concepts of this inside of dump and origin.
+ You see this in the main code.
+ You see dollar pt equals new point four or five.
+ Oh, well, it's following the new from Java and others.
+ And then we call pt arrow dump dump and then dollar pt arrow origin.
+ It pretty much works like most of the other ones, except that you'd never use dot because dot is concatenation in PHP.
+ And I'll be honest, I love dot for concatenation, except for the fact that PHP is different than every other language that I use.
+ Every other language uses plus for concatenation of strings.
+ Now, C# is a 2001.
+ So C# was inspired kind of by everything. And so you see that C# is clearly a very C++ oriented but with some Javaness to it.
+ So you see the double XY in class, which is the two instance variables.
+ You also see that not there's no use of this.
+ And so you see that we have to name the parameters differently because X and Y are in effect global across the entire class.
+ And then we have, you know, void dump there.
+ And then we see that it's just using X and Y. No need to use this.
+ It's it's tough for me to decide which of these two ways I like better.
+ I guess that this is this feels more explicit to me.
+ So I like Java and JavaScript in that respect.
+ Self and I like self also.
+ If we look at the origin function, we see X star X and plus Y star Y.
+ And so we don't use need to use this.
+ We again see a very Java oriented point PT equals new point open pren 4.0 comma 5.0 point dot dump.
+ We're using the dot operator to look at instance variables and methods within the within the class and then point dot origin.
+ So now that we looked at sort of a survey of the different kinds of object oriented languages that are that are today and we can sort of see how they derived ideas from one another.
+ Now we're going to actually try to build an object in a non-object oriented language.
+ So we're going to build like a Python object in C.

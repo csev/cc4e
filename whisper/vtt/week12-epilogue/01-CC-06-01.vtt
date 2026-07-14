@@ -1,0 +1,263 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.200
+ Hello and welcome to the lecture in C Programming for Everybody that I call The Epilogue.
+
+00:00:05.200 --> 00:00:12.000
+ And that's because this lecture happened after the course was completely finished. I have a saying
+
+00:00:12.000 --> 00:00:17.600
+ in my life that basically says that when you think you are finished with a journey,
+
+00:00:17.600 --> 00:00:22.720
+ often that's when you finally know where the journey actually begins. And that applies in C
+
+00:00:22.720 --> 00:00:28.480
+ Programming for Everybody because C Programming for Everybody for me was a four and a half year
+
+00:00:28.480 --> 00:00:33.760
+ project to create the book, create the auto graders, create the lectures, get it up on Coursera,
+
+00:00:33.760 --> 00:00:40.000
+ get it out on the internet, etc. And so I just was going through the class and at some point I ran
+
+00:00:40.000 --> 00:00:47.760
+ into chapter six of Carnegie and Ritchie and I'm like what will some good examples to use,
+
+00:00:47.760 --> 00:00:53.680
+ what are some good examples that I can use that will be relevant to the students who perhaps have
+
+00:00:53.680 --> 00:00:58.560
+ taken Python for Everybody. And I'm like well why don't we just implement some Python classes, we'll
+
+00:00:58.560 --> 00:01:04.320
+ see how complex they get, and if they get, if what works out well it talks about the concept of
+
+00:01:04.320 --> 00:01:10.560
+ interfaces and implementations, you know, and so I think it worked out really really well. And so as
+
+00:01:10.560 --> 00:01:15.760
+ we were going through chapter six of Carnegie and Ritchie, I built us a Python String class and you
+
+00:01:15.760 --> 00:01:21.520
+ can go back and you can watch those other ones as an extendable character array with some chunking
+
+00:01:21.520 --> 00:01:27.440
+ where it would allocate some space and then fill that space up and as that space filled up it would
+
+00:01:27.440 --> 00:01:33.600
+ extend it. And I made a list class and I used the linked list from Carnegie and Ritchie chapter six.
+
+00:01:33.600 --> 00:01:39.680
+ If you recall, I made an extra little bonus section 6.5.1 where I talked about linked list
+
+00:01:39.680 --> 00:01:43.760
+ explicitly because in the original Carnegie and Ritchie 1978 book, and I believe it's the
+
+00:01:43.760 --> 00:01:49.200
+ same in the 84, but I'm like I'm going to show you linked lists first and so I added this little
+
+00:01:49.200 --> 00:01:55.680
+ piece to the the Canon, the Carnegie and Ritchie Canon, I added that. I implemented the Python
+
+00:01:55.680 --> 00:02:02.080
+ dictionary using the technique of Carnegie and Ritchie 6.6, pretty much straight on. When I built
+
+00:02:02.080 --> 00:02:08.400
+ the Python String class, you'll notice that there's a structure that has a length and an alloc and the
+
+00:02:08.400 --> 00:02:12.560
+ alloc is how many characters we allocated and the length is how many of those we've used and we're
+
+00:02:12.560 --> 00:02:18.960
+ putting automatically a zero byte at the end of it. As you add things together, eventually you get
+
+00:02:18.960 --> 00:02:24.080
+ the length to be nine with a zero byte and the alloc is 10, which means we can't add the letter D
+
+00:02:24.080 --> 00:02:32.400
+ and so we use realloc to extend it and make it be 20 and then we have space to put both the letter D
+
+00:02:32.400 --> 00:02:38.400
+ and the end of String. We built the Python List class. It was so natural to just make it be a
+
+00:02:38.400 --> 00:02:43.440
+ linked list and linked list has two structs. One is the linked list itself that has a head pointer
+
+00:02:43.440 --> 00:02:49.440
+ and a tail pointer and a number of items that lets us give back len when we need to give len back,
+
+00:02:49.440 --> 00:02:55.920
+ but then every node we're going to just have a list of character strings or character arrays
+
+00:02:55.920 --> 00:03:02.000
+ and so we have a pointer to a character array and then we have a pointer to the next and so when we
+
+00:03:02.000 --> 00:03:07.840
+ sort of do our constructor, we allocate the object and then we set the head and the tail to null to
+
+00:03:07.840 --> 00:03:12.960
+ indicate that the list is currently empty and set the count to zero and we're done. And then as we
+
+00:03:12.960 --> 00:03:18.720
+ add things to the list, right, we have these pointers and we point the head to the beginning
+
+00:03:18.720 --> 00:03:25.680
+ of the list, the tail to the last item that we added and we store using malloc the strings so
+
+00:03:25.680 --> 00:03:31.680
+ that we get a pointer to a string that the list owns rather than the parameter which doesn't belong
+
+00:03:31.680 --> 00:03:37.520
+ to us and then we hook the next up and there's a little tricky stuff, right? If the string is empty,
+
+00:03:37.520 --> 00:03:43.520
+ which means head is null, then we just point head at the newly allocated node. If the tail is not
+
+00:03:43.520 --> 00:03:50.320
+ null, we take the last thing and point it to the one we just made and set tail to new and then we
+
+00:03:50.320 --> 00:03:59.200
+ allocate the string and then copy the text from the parameter into text and then we store that
+
+00:03:59.200 --> 00:04:05.200
+ as a pointer and then we update our count. Like if we add another one, you have to kind of graph the
+
+00:04:05.200 --> 00:04:12.240
+ new one in beyond the tail so the tail instead of being null now points to the one we just created,
+
+00:04:12.240 --> 00:04:18.480
+ the fun, and then we update tail to point to that and then the next on that one is zero because
+
+00:04:18.480 --> 00:04:23.120
+ that's our way of ending the list. And if we're going to iterate through this list, we start at
+
+00:04:23.120 --> 00:04:28.080
+ the head, look at the item, then we go to next and then we'll look at that item and then go to next
+
+00:04:28.080 --> 00:04:32.320
+ and look at that item and go to next and it's null and we're done. Again, we were able to build a
+
+00:04:32.320 --> 00:04:41.040
+ quite competent Python list object from that. And as you might expect, when we switch to building
+
+00:04:41.040 --> 00:04:49.040
+ the dictionary class, we just go into section 6.6 and go in and make a hash table with buckets and
+
+00:04:49.040 --> 00:04:55.840
+ it's literally the hash, the bucket-based hash map is probably the most common programming
+
+00:04:55.840 --> 00:05:01.680
+ interview question. Perhaps it's less common now because everyone knows that it's a programming
+
+00:05:01.680 --> 00:05:08.800
+ interview question, right? And so, you know, I just figured of course a dictionary is going to be a
+
+00:05:08.800 --> 00:05:13.840
+ set of buckets that are a set of pointers to lists. You know, recall that hashes are some function
+
+00:05:13.840 --> 00:05:20.800
+ that takes the key and creates a large pseudo-random number which means it's deterministic but it's
+
+00:05:20.800 --> 00:05:26.640
+ widely distributed with the idea of to limit collisions. So John Smith and Joe Smith hopefully
+
+00:05:26.640 --> 00:05:31.920
+ will hash differently even though they're very close, right? And so the way we did this, again,
+
+00:05:31.920 --> 00:05:37.280
+ following Kernigan and Ritchie, is we used the key computed a hash which is a large integer generally
+
+00:05:37.280 --> 00:05:43.840
+ but then we modulo it based on the number of buckets and so the buckets are in a sense four
+
+00:05:43.840 --> 00:05:50.800
+ linked lists. And if we wanted to write this code in a way, we could have kind of used the list object
+
+00:05:50.800 --> 00:05:57.520
+ and said here and be a little bit less repetitive but we just implemented the whole thing.
+
+00:05:57.520 --> 00:06:03.840
+ So if you look, we start with a struct krdict which has a number of buckets. It has four heads
+
+00:06:03.840 --> 00:06:09.200
+ and four tails and a count. And so it's just heads and tails of the way you do linked lists.
+
+00:06:09.200 --> 00:06:15.120
+ And if you look at the node, we're going to do key and value and I'm going to make it be a string key
+
+00:06:15.120 --> 00:06:22.640
+ and an integer value again to simplify, right? And the char star key is a pointer to a key that
+
+00:06:22.640 --> 00:06:29.360
+ we're going to save. And if we look at the new operation, we allocate the actual dictionary
+
+00:06:29.360 --> 00:06:35.680
+ object. We decide how many buckets we're going to have. The way I define struct krdict, it's just a
+
+00:06:35.680 --> 00:06:40.240
+ four element array. Then we set them all to null so that we know that they're empty because it's
+
+00:06:40.240 --> 00:06:46.640
+ important to know if the heads and tails and each of the linked lists are empty. Now one thing is
+
+00:06:46.640 --> 00:06:52.320
+ this doesn't have any expansion mechanism and so I just wanted to keep it really simple to show you
+
+00:06:52.320 --> 00:06:58.240
+ the data structure so I kind of like punted on rehashing an expansion. And then we set the count
+
+00:06:58.240 --> 00:07:05.600
+ to zero and then we return it. As we're inserting things in, right, we use the hash to figure it out
+
+00:07:05.600 --> 00:07:11.600
+ and then we simply have four linked lists. So if you were to compare the krlist code to the krdict
+
+00:07:11.600 --> 00:07:18.080
+ code, you would see that a lot of it looks the same except we're starting with a head that has
+
+00:07:18.080 --> 00:07:25.600
+ been chosen by a hash computation along with modulo based on the number of buckets. As I finished
+
+00:07:25.600 --> 00:07:31.440
+ all that up and I finished the class up, I wondered, I began to really wonder. I looked,
+
+00:07:31.440 --> 00:07:37.040
+ I started looking at it less from a C and KNR, Kernigan-Ritchie perspective, and more from a
+
+00:07:37.040 --> 00:07:43.840
+ Python perspective and I'm like did I just inadvertently do exactly what Guido van Rossum
+
+00:07:43.840 --> 00:07:51.360
+ did? Did Guido van Rossum read this book like most of us did in the 70s and 80s and did he just say
+
+00:07:51.360 --> 00:07:54.800
+ you know what I'm going to make a list object and it's going to be a linked list and I'm going to
+
+00:07:54.800 --> 00:08:00.960
+ make a hash object and it's going to be a set of buckets, linked lists and buckets like everybody
+
+00:08:00.960 --> 00:08:08.880
+ would do. So I decided I would ask Guido if I could come out to him and see him and talk to him
+
+00:08:08.880 --> 00:08:17.280
+ about the influence that Kernigan and Richie chapter 6 had on his design of Python and in
+
+00:08:17.280 --> 00:08:23.360
+ particular was my guess because I didn't look at the Python code to do this. I was really teaching
+
+00:08:23.360 --> 00:08:31.120
+ Kernigan and Richie chapter 6 and so up next we have the first of two interviews with Guido
+
+00:08:31.120 --> 00:08:36.960
+ asking about how he built his structures and whether or not my structures that I had just
+
+00:08:36.960 --> 00:08:44.400
+ guessed and assumed were even close and so we started the interview with me handing him a copy
+
+00:08:44.400 --> 00:08:51.440
+ of the Kernigan and Richie c-book which was signed and I left it with him and saying you know skim
+
+00:08:51.440 --> 00:09:11.680
+ through chapter 6 and tell me how chapter 6 affected how you built the original version of Python.
+

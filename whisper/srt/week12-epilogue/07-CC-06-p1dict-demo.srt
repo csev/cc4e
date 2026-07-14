@@ -1,0 +1,1280 @@
+1
+00:00:00,000 --> 00:00:06,720
+ So welcome to another code walkthrough for C Programming for Everybody. This is another in our
+
+2
+00:00:06,720 --> 00:00:14,800
+ epilogue code where we're comparing and contrasting the way I taught dictionaries, lists, and strings
+
+3
+00:00:14,800 --> 00:00:22,480
+ in the Kernigan and Ritchie Chapter 6 with how Guido van Rossum actually implemented dictionaries,
+
+4
+00:00:22,480 --> 00:00:27,840
+ lists, and strings, and we're going to look at dictionaries here. So I've got two tabs open in
+
+5
+00:00:27,840 --> 00:00:35,120
+ my text editor. I've got one that's p1dict.c, which is the Python 1 implementation, which is my
+
+6
+00:00:35,120 --> 00:00:42,720
+ approximation of Guido's approach, my simplification of Guido's approach, and then I have the krdict,
+
+7
+00:00:42,720 --> 00:00:51,360
+ which is the version that I wrote, kind of cleaned up and adapted for this, the version that I wrote
+
+8
+00:00:52,240 --> 00:01:00,640
+ as we covered it in Kernigan Ritchie Chapter 6, and if we look at the very allocation and, I mean,
+
+9
+00:01:00,640 --> 00:01:08,560
+ the structures at the top, we have a D node, a dictionary node, and we have in the dictionary
+
+10
+00:01:08,560 --> 00:01:15,840
+ node in my implementation is got a next pointer, and so it's got a key and a value. We're going to
+
+11
+00:01:15,840 --> 00:01:22,240
+ character, we're going to string keys and integer values just to keep our mallocs down, but the
+
+12
+00:01:22,240 --> 00:01:28,400
+ difference between the dictionary node in my code is that I am going to, every one is going to be
+
+13
+00:01:28,400 --> 00:01:34,160
+ part of a linked list, because if you recall in my code in Kernigan and Ritchie, as it's described,
+
+14
+00:01:34,160 --> 00:01:41,440
+ it is an array of linked lists, and so in this case I just have four heads and four tails that
+
+15
+00:01:41,440 --> 00:01:49,680
+ point to the head of a linked list, and so that means that every D node has got to be either the
+
+16
+00:01:49,680 --> 00:01:54,480
+ beginning, middle, or end of a linked list, and so it's got to have the D nodes have to have a star
+
+17
+00:01:54,480 --> 00:02:00,160
+ next in them. So let's go compare and contrast that with how Guido did it. So Guido still has
+
+18
+00:02:00,160 --> 00:02:08,400
+ a D node, because now we're in dictionaries, and so you need a key and a value, and so in my krdict
+
+19
+00:02:08,400 --> 00:02:14,000
+ I made the value be integers just to simplify it, but I'm going to make the keys be, the values be
+
+20
+00:02:14,000 --> 00:02:22,000
+ strings in my Python code to be a little closer to, you know, what Guido did. But then the change
+
+21
+00:02:22,000 --> 00:02:27,520
+ happens when we start allocating the actual dictionary object itself. So if we look at what
+
+22
+00:02:27,520 --> 00:02:33,920
+ I allocated, I have a number of buckets and I have a count for my struct krdict, but then I have an
+
+23
+00:02:33,920 --> 00:02:40,480
+ array of four heads, an array of four tails, which is basically a way to make four linked lists that
+
+24
+00:02:40,480 --> 00:02:45,120
+ I will select among the linked lists based on the hash function, but that's not what
+
+25
+00:02:45,120 --> 00:02:54,400
+ Guido did. In p1 dict we got an allocation and a length, but then we also just have an array,
+
+26
+00:02:54,400 --> 00:03:02,320
+ seriously, an array of pointers to D nodes that we'll call items. Now the fun thing is,
+
+27
+00:03:03,120 --> 00:03:07,760
+ if you look at this, let me go ahead and show you this a little bit different. If I look at the p1
+
+28
+00:03:07,760 --> 00:03:20,080
+ list and I compare and contrast, a p1 list has an allocation, a length, and a pointer to an array of
+
+29
+00:03:20,080 --> 00:03:27,200
+ pointers to strings. In my p1 dictionary it's an array of pointers to key value pairs, but the
+
+30
+00:03:27,200 --> 00:03:33,600
+ alloc length and then an array of pointers to something is a very similar approach, and you'll
+
+31
+00:03:33,600 --> 00:03:42,320
+ see when we get to the Python 3 stuff that there's almost a duality in Guido's mind between the
+
+32
+00:03:42,320 --> 00:03:48,560
+ dictionary and the list. The dictionary is like just a slightly improved list having to do with
+
+33
+00:03:48,560 --> 00:03:59,040
+ indexing, and again it was a surprise to me. But the similarity, again, when we get to Python,
+
+34
+00:03:59,040 --> 00:04:06,960
+ the 3 Python, Python 3.7 version of the dictionary is going to be like, oh, I see what here going on
+
+35
+00:04:06,960 --> 00:04:15,040
+ there, but so just for now remember the approximate duality between dictionaries and lists in Python
+
+36
+00:04:15,040 --> 00:04:23,600
+ 1.0. Okay, so again we have our linked list nodes that have a pointer to a key, pointer to a value,
+
+37
+00:04:23,600 --> 00:04:30,000
+ that'll be a dynamically allocated pointer, a pointer to a dynamically allocated and saved string,
+
+38
+00:04:30,000 --> 00:04:36,800
+ and then we have a dictionary which is then a one-dimensional array of those pointers to those D
+
+39
+00:04:36,800 --> 00:04:55,040
+ nodes. And if we look, so the key thing here is we need to know which entries in this array of D
+
+40
+00:04:55,040 --> 00:05:02,160
+ nodes are empty and available and which ones are used. So the constructor is a little more complex.
+
+41
+00:05:02,160 --> 00:05:09,600
+ If we look at p1 dict_new, of course we allocate the kind of object itself. We set the length
+
+42
+00:05:09,600 --> 00:05:16,400
+ because there's nothing in it, and we're going to allocate two slots just like we did in the p1 list.
+
+43
+00:05:16,400 --> 00:05:22,960
+ That forces us to reallocate so that we don't have to write too big of a code to cause reallocation,
+
+44
+00:05:22,960 --> 00:05:27,840
+ and we can debug our reallocation. And then we basically create an array of D nodes,
+
+45
+00:05:28,480 --> 00:05:34,160
+ right? So we're like two times the size of struct D node, and the size of struct D node is
+
+46
+00:05:34,160 --> 00:05:42,560
+ two 64-bit pointers. And then what we're going to do is we're going to mark them as empty. We need
+
+47
+00:05:42,560 --> 00:05:49,200
+ to know that these items are empty, and so we're going to set the key, which is a pointer, in the
+
+48
+00:05:49,200 --> 00:05:58,320
+ value for each of them to null. So you've created a two long array of D nodes with keys and values of
+
+49
+00:05:58,320 --> 00:06:06,400
+ null. And again, we need to remember which ones are empty and are not. And so then let's look at
+
+50
+00:06:06,400 --> 00:06:13,520
+ the main code. So that's the constructor. That's the data structures and the constructor.
+
+51
+00:06:13,520 --> 00:06:20,560
+ So what we're going to do is... Oh, man, I thought I deleted that line.
+
+52
+00:06:25,840 --> 00:06:32,320
+ Yeah, let's delete this line because we're printing it. We've added some stuff in the print.
+
+53
+00:06:32,320 --> 00:06:36,960
+ That makes it a little simpler. Okay, let's hope it still runs. That would be cool.
+
+54
+00:06:36,960 --> 00:06:39,840
+ Let's run it. Let's keep, like, change the code.
+
+55
+00:06:39,840 --> 00:06:49,600
+ Yay, it works. Okay. Okay, it's simpler. I like simple. So we create a dictionary
+
+56
+00:06:49,600 --> 00:06:58,160
+ calling P1 dict new. We print it. It's going to be empty. Then we put under the key of Z,
+
+57
+00:06:58,160 --> 00:07:04,400
+ the string catchphrase, and print it. Then we put the key of... We put W in. That should be a
+
+58
+00:07:04,400 --> 00:07:11,040
+ replacement. And then we put the string Sakai in. Sakai equals B, basically. Sally equals C,
+
+59
+00:07:11,040 --> 00:07:16,880
+ basically. And then A equals D. And then we say, how many things do we have in there? And then
+
+60
+00:07:16,880 --> 00:07:22,960
+ we do a get, like a .get in a Python dictionary. We're looking for the key Z, and we're looking
+
+61
+00:07:22,960 --> 00:07:27,360
+ for the key X. Well, key X isn't going to be in there. And then we delete it. So let's go ahead
+
+62
+00:07:27,360 --> 00:07:34,640
+ and run this code, which we just did. And so what this print does, I've added some stuff to it. So
+
+63
+00:07:34,640 --> 00:07:40,080
+ you see the first print is just curly break, open and close, curly brace, empty. And it's also
+
+64
+00:07:40,080 --> 00:07:48,640
+ printing out the length and alloc. And so basically what it's saying is there is a length of zero,
+
+65
+00:07:48,640 --> 00:07:59,840
+ and we have two spaces alloc. So then what we do is we put Z in, and that Z equals catchphrase,
+
+66
+00:07:59,840 --> 00:08:08,320
+ and that ends up in position zero in the array. And then we have a length of one, because we've
+
+67
+00:08:08,320 --> 00:08:16,160
+ got one thing in there, an alloc of two. Then if you recall, we replace Z equals W. Now because Z
+
+68
+00:08:16,160 --> 00:08:22,320
+ hashes to the same spot, and we'll talk about how that happens in a second, that hashes to position
+
+69
+00:08:22,320 --> 00:08:28,560
+ zero in the array. And then it just replaces it. And so it just replaced the value in that case.
+
+70
+00:08:28,560 --> 00:08:37,680
+ And so we still have only one item in there and an allocation of two. Okay. And so then what we're
+
+71
+00:08:37,680 --> 00:08:45,120
+ doing is we're inserting a new, like sacai equals B. I should probably put some more print statements
+
+72
+00:08:45,120 --> 00:08:55,200
+ in there. Let's do that. Let's do the underscore put, and let's put a print statement in here.
+
+73
+00:08:57,200 --> 00:09:11,840
+ Printf insert percent s equals percent s backslash n comma key comma value.
+
+74
+00:09:11,840 --> 00:09:18,880
+ Oops. It'll be just easier for us to debug this.
+
+75
+00:09:22,800 --> 00:09:31,920
+ Okay. Okay. So we insert Z equals catchphrase. That goes in hashed slot zero. We have one item
+
+76
+00:09:31,920 --> 00:09:37,360
+ and a length of two. We insert Z equals... No, I want to call that put. I want to call that put,
+
+77
+00:09:37,360 --> 00:09:48,960
+ because it's not insert. So then we put Z equals W, and then it uses the hashing and the lookup
+
+78
+00:09:48,960 --> 00:09:54,000
+ and all that stuff to find that that's in position zero. And so we simply replace the value. So we
+
+79
+00:09:54,000 --> 00:10:03,120
+ didn't extend it at all. And now it's trying to put sacai equals B in there. And with the hashing,
+
+80
+00:10:03,120 --> 00:10:08,800
+ hashing of sacai finds its way to position one in our two item array. And when we're done,
+
+81
+00:10:08,800 --> 00:10:14,080
+ we've got our two item array. Happens to be insert order, but that doesn't necessarily mean,
+
+82
+00:10:14,080 --> 00:10:21,520
+ because it's just my hash function is terrible. And then we have two items in and two items out,
+
+83
+00:10:21,520 --> 00:10:26,400
+ two items in there and two items allocated. Now we're trying to insert sally equals C.
+
+84
+00:10:26,400 --> 00:10:32,080
+ And now the hashing algorithm, which I'll show you in a bit, looks through and says,
+
+85
+00:10:32,080 --> 00:10:38,240
+ wait a sec, there's no space here. Usually that hashing algorithm says, if it's above 60%
+
+86
+00:10:39,600 --> 00:10:45,520
+ full, then we declare it no space. And so we're going to do what's called rehashing.
+
+87
+00:10:45,520 --> 00:10:50,800
+ So we reallocate and then we re-add the things. So we're making the space so it doubles it in
+
+88
+00:10:50,800 --> 00:10:58,240
+ size. So when it's all said and done, sacai ends up in position one and Z ends up in position two,
+
+89
+00:10:58,240 --> 00:11:05,360
+ and sally ends up in position three. And we have three items in any four long array.
+
+90
+00:11:06,240 --> 00:11:10,400
+ Now here's an interesting thing. You will see here when we go through the rehashing,
+
+91
+00:11:10,400 --> 00:11:19,040
+ Z in the two long array, Z was in position zero, but in the four long array, Z is in position two,
+
+92
+00:11:19,040 --> 00:11:24,960
+ because this is rehashing. Now what happens is that's because whatever the hash value for Z was,
+
+93
+00:11:25,680 --> 00:11:36,560
+ modulo two is zero, but modulo four is two. And so the positions don't change. It wasn't
+
+94
+00:11:36,560 --> 00:11:44,160
+ going to end up in position one, but modulo two and modulo four are multiples of each other.
+
+95
+00:11:44,160 --> 00:11:51,840
+ But you'll see in this case here, sacai, Z, sally, the position of Z moved. And so again,
+
+96
+00:11:51,840 --> 00:11:57,360
+ if you're writing an iterator that's going through this and you just inserted one and it reallocated
+
+97
+00:11:57,360 --> 00:12:06,320
+ in that, that's why Python one dictionaries and literally any hash-based dictionary that's truly
+
+98
+00:12:06,320 --> 00:12:13,840
+ using hash, we'll see how it worked in Python three in a second. But when we reallocate things,
+
+99
+00:12:13,840 --> 00:12:21,040
+ stuff gets shuffled around. So the order is different. So we made space for sally and then
+
+100
+00:12:21,040 --> 00:12:28,080
+ we put A equals D in. Now the thing we're triggering is if it's greater than 60% full,
+
+101
+00:12:28,080 --> 00:12:33,520
+ when you have one and you got two, that's 50% full. And that's why the sacai equals B did not
+
+102
+00:12:33,520 --> 00:12:42,800
+ trigger reallocation. But if we have three items in four slots, that's above 60%. And so we're
+
+103
+00:12:42,800 --> 00:12:48,320
+ going to reallocate. So even though we could have snuck it in that last spot, that's not good for
+
+104
+00:12:48,320 --> 00:12:55,040
+ hashing. So we're going to say, you know what, it's time to make this bigger again. So A equals D,
+
+105
+00:12:55,040 --> 00:13:00,640
+ we're going to make space for A and then we're going to double the size of the array to be eight.
+
+106
+00:13:00,640 --> 00:13:07,600
+ And let's see, we got sacai equals B in position one. We got Z equals W in position two. We got
+
+107
+00:13:07,600 --> 00:13:15,040
+ sally equals C in position three and A equals D in position four. And we're half full at this point.
+
+108
+00:13:15,040 --> 00:13:20,720
+ So we're done now. We have a length of four and we say, hey, let's look up Z and yes,
+
+109
+00:13:20,720 --> 00:13:29,120
+ we get W and let's look up X. And the answer is there is no X. And so our code is working doing,
+
+110
+00:13:29,120 --> 00:13:36,480
+ you know, our little unit test, our little unit test is kind of doing dictionary things. So
+
+111
+00:13:37,280 --> 00:13:45,280
+ let's take a look at put, okay. Let's take a look at print because print's easier.
+
+112
+00:13:45,280 --> 00:13:53,280
+ Let's take a look at print because print teaches us a little bit about the data structure. Okay,
+
+113
+00:13:53,280 --> 00:13:58,480
+ so I'll come back, come back, come back. So in P one dict underscore print,
+
+114
+00:13:58,480 --> 00:14:02,960
+ the whole little first equals one, that's just there so that we put the comma out. But
+
+115
+00:14:04,480 --> 00:14:12,560
+ the nice thing is it's a for loop for I equals zero, I less than self alloc. Now,
+
+116
+00:14:12,560 --> 00:14:21,280
+ if we look at the P one list, let's go look at P one list. The P one list,
+
+117
+00:14:21,280 --> 00:14:28,640
+ it's I equals zero, I less than self length. And that's because in the list we just append
+
+118
+00:14:28,640 --> 00:14:33,360
+ in the beginning of the array, sub zero, sub one, sub two, sub three. That's how lists work.
+
+119
+00:14:33,360 --> 00:14:41,120
+ But because we're using hashing, our array is like sparse in that it starts out empty and we
+
+120
+00:14:41,120 --> 00:14:48,400
+ start using slots, but we don't use every slot in order. So we've got to go through all the slots to
+
+121
+00:14:48,400 --> 00:14:58,160
+ iterate through a dictionary array. And if it's null, remember if self items sub i.key equal equal
+
+122
+00:14:58,160 --> 00:15:07,280
+ null continue, which means skip empty slots, skip empty slots. So this array could have 100 things
+
+123
+00:15:07,280 --> 00:15:14,000
+ in it. And if we only put one, where the thing is inserted, which we're going to see in a second with
+
+124
+00:15:14,000 --> 00:15:19,360
+ insert, is dependent on the hash function because we're not just inserting them linearly, we're
+
+125
+00:15:19,360 --> 00:15:26,480
+ inserting them based on hash function using open hashing. And so we have to skip the empty items,
+
+126
+00:15:26,480 --> 00:15:34,480
+ but after that it's okay. We just print them. And so we're iterating through this array of pointers,
+
+127
+00:15:34,480 --> 00:15:42,160
+ skipping empty entries, and printing out the entries that exist every time we're doing an
+
+128
+00:15:42,160 --> 00:15:49,600
+ underscore print. And so we're seeing them in the order that they got spread out using the hashing
+
+129
+00:15:49,600 --> 00:15:56,640
+ function. And so you can see that it prints the key and it prints the value and then it prints the i,
+
+130
+00:15:56,640 --> 00:16:04,160
+ the position. And so that leads to very, very pretty stuff. And then we print the length and
+
+131
+00:16:04,160 --> 00:16:11,760
+ the alloc. And so this is great for debugging. Great for debugging for us. So that kind of reviews
+
+132
+00:16:11,760 --> 00:16:21,760
+ that the items is a sparse array with nulls being our way of marking emptiness. Okay. So, and again,
+
+133
+00:16:21,760 --> 00:16:32,560
+ if you go back to the underscore new, we allocated it and we set everything to null. Okay. So let's
+
+134
+00:16:32,560 --> 00:16:37,760
+ go look at the underscore put, because that's where all the good stuff happens. It's a bit of work.
+
+135
+00:16:40,560 --> 00:16:46,640
+ Can I get it all on one screen? No, I can't get it all on one screen. Okay.
+
+136
+00:16:46,640 --> 00:16:57,920
+ So we'll just work through it. So the first thing we have to do is we have to figure out
+
+137
+00:16:57,920 --> 00:17:06,000
+ which of the slots in this array the key belongs in. Which of the slots
+
+138
+00:17:06,800 --> 00:17:12,560
+ in the array does the key belong in? So we're going to use a utility thing we write,
+
+139
+00:17:12,560 --> 00:17:19,440
+ we wrote called P1 dict underscore find to say, find me the entry in the array
+
+140
+00:17:19,440 --> 00:17:28,800
+ that is the right entry for this particular key. Okay. So now I've got to go look at that.
+
+141
+00:17:28,800 --> 00:17:42,240
+ P1 dict find. Okay. So this is pretty straightforward. And so this is open hashing.
+
+142
+00:17:42,240 --> 00:17:50,640
+ And so the way open hashing works is it starts by doing a hash computation to figure out a position
+
+143
+00:17:54,240 --> 00:18:04,080
+ in this array of items. And get bucket, you've seen this in other code that I wrote, get bucket
+
+144
+00:18:04,080 --> 00:18:12,080
+ is just a crappy little hash function that does a shift and an exclusive or repeatedly going through
+
+145
+00:18:12,080 --> 00:18:18,320
+ the entire string with the idea of creating a pseudo random number that is deterministic based
+
+146
+00:18:18,320 --> 00:18:24,000
+ on the string that I can then take the modulo of the number of buckets. So this ends up with a
+
+147
+00:18:24,000 --> 00:18:30,240
+ relatively large integer that in long strings might even overflow. And again, hashing computing hash
+
+148
+00:18:30,240 --> 00:18:40,720
+ functions is a research area unto itself. This is a terrible hashing function, but I've used it over
+
+149
+00:18:40,720 --> 00:18:45,760
+ and over and over again because it's short and gives me some random, some pseudo randomness,
+
+150
+00:18:45,760 --> 00:18:53,600
+ but it's probably a highly collision resistant. So the whole idea is if I have two buckets,
+
+151
+00:18:53,600 --> 00:19:00,560
+ this gives me a deterministic number between zero and two, but not including two. Okay.
+
+152
+00:19:00,560 --> 00:19:11,840
+ So let's go back to the find operation. So we get the bucket and that bucket might be,
+
+153
+00:19:11,840 --> 00:19:18,320
+ let's say it's bigger, let's say we've got 16 slots and they're all empty.
+
+154
+00:19:20,240 --> 00:19:25,840
+ The way it works is bucket will say, okay, you're hopefully your slot five.
+
+155
+00:19:25,840 --> 00:19:33,200
+ The problem is, then there's what's called collision resolution. And if slot five is
+
+156
+00:19:33,200 --> 00:19:42,960
+ already filled, you've got to find another slot. But you got to find another slot in a way that
+
+157
+00:19:42,960 --> 00:19:47,600
+ later after it's in there, you can find it again, find the key again.
+
+158
+00:19:48,800 --> 00:19:54,560
+ And so we do linear hashing. We do linear collision resolution,
+
+159
+00:19:54,560 --> 00:20:01,280
+ which means if we find ourselves hashing to position five and position five is full,
+
+160
+00:20:01,280 --> 00:20:05,920
+ we say, oh, well, let's just linearly go forward. Let's look at six, let's look at seven,
+
+161
+00:20:05,920 --> 00:20:12,480
+ then eight, nine, whatever. And then when we get to the end, we go zero, one, two, three, four, five.
+
+162
+00:20:12,480 --> 00:20:17,280
+ And if we get to the point where we have checked all the slots and they're all full,
+
+163
+00:20:18,080 --> 00:20:23,120
+ then we kind of have to blow up. And that's where it says printf could not find slot for key.
+
+164
+00:20:23,120 --> 00:20:28,400
+ That would be like throwing an exception. We'll just print it out here. But that'd be like,
+
+165
+00:20:28,400 --> 00:20:37,840
+ something went wrong because you're never supposed to 100% allocate a hash. About 60 or 70% is when
+
+166
+00:20:37,840 --> 00:20:44,960
+ you're supposed to quit and double it or extend it in some other way. So let's look at the code
+
+167
+00:20:44,960 --> 00:20:55,200
+ that hunts for a starting at position five hunts for a free position. And so we say offset equals
+
+168
+00:20:55,200 --> 00:21:00,720
+ zero offset less than self-alloc offset plus plus. So that's going to go, if we have like eight
+
+169
+00:21:00,720 --> 00:21:06,640
+ entries, that's going to go from zero to seven. But we really want to start that iterator in five
+
+170
+00:21:06,640 --> 00:21:14,240
+ and then wrap around when we get to eight. Okay. And so I just, I call it offset, but then I calculate
+
+171
+00:21:14,240 --> 00:21:23,520
+ the position in the, in the array as offset plus the number of buckets. I mean, offset plus the
+
+172
+00:21:23,520 --> 00:21:30,560
+ bucket, which is five and then modulo self-alloc. So if we got eight, offset's going to go from zero
+
+173
+00:21:30,560 --> 00:21:36,640
+ through seven. And if offset and a bucket is five, that's going to go from five through seven and
+
+174
+00:21:36,640 --> 00:21:44,880
+ then zero through four. Okay. So I is the circular look. So we're, we're doing a circular lookup in
+
+175
+00:21:44,880 --> 00:21:49,840
+ an array starting at five. We're going to look through every, if necessary, every single position
+
+176
+00:21:49,840 --> 00:21:55,680
+ in that array is going to be checked. So we're starting at like five where the hash function
+
+177
+00:21:55,680 --> 00:22:02,640
+ told us to go. And if self items sub five dot key is null, it's a great spot. That means that the
+
+178
+00:22:02,640 --> 00:22:10,160
+ hash function pointed us to a available entry and we're done. So we return the address ampersand
+
+179
+00:22:10,160 --> 00:22:19,360
+ self arrow items sub I. Otherwise we might have found something that's full and we don't know
+
+180
+00:22:19,360 --> 00:22:25,040
+ right now if we're going to replace this value or not, but if the key matches what we're looking for,
+
+181
+00:22:25,840 --> 00:22:33,040
+ we actually found the right one. And so we returned self, the address of self items I, and if we
+
+182
+00:22:33,040 --> 00:22:40,320
+ didn't find an empty one and, and we didn't find one that was full with a matching key,
+
+183
+00:22:40,320 --> 00:22:47,040
+ then what we've got to do is go back up into the for loop and go down one. So if we were at five
+
+184
+00:22:47,040 --> 00:22:53,680
+ and we, it was full, but the key didn't match, then we would go to six. And if six was full and
+
+185
+00:22:53,680 --> 00:23:00,000
+ the key didn't match, we'd go to seven. If seven was empty, then we're done. So we say, oh, seven
+
+186
+00:23:00,000 --> 00:23:04,080
+ is where we're going to go. And so you can see if you think about this for a little while, and you
+
+187
+00:23:04,080 --> 00:23:11,600
+ can go read the, the lecture slide on open hashing. You can see that as long as there's space in this
+
+188
+00:23:11,600 --> 00:23:17,920
+ array and it's not completely full, eventually we're going to find a place. Okay. We're either
+
+189
+00:23:17,920 --> 00:23:22,080
+ going to find a place that matches the key or we're going to find an empty place. And that's what
+
+190
+00:23:22,080 --> 00:23:28,480
+ finds job is to do. And again, as long as resize is working and we never let it get to be above 70%,
+
+191
+00:23:28,480 --> 00:23:35,760
+ we can always find a slot for the key. Okay. So this, again, when we say printf could not find
+
+192
+00:23:35,760 --> 00:23:41,600
+ slot for key, that's really trace back time. Cause that means that the thing above us, which we're
+
+193
+00:23:41,600 --> 00:23:48,560
+ going to look at now is going to be going to blow up. Okay. So let's look at underscore put again.
+
+194
+00:23:50,240 --> 00:24:01,280
+ So comma underscore put. So a lot of work it's done in underscore find where we hash the key
+
+195
+00:24:01,280 --> 00:24:10,080
+ and then we do the linear, we do the linear lookup. If it, we do the linear lookup
+
+196
+00:24:10,080 --> 00:24:18,160
+ for collision resolution and we either have an empty entry or we have the actual entry.
+
+197
+00:24:18,960 --> 00:24:24,480
+ And so the first if statement we have afterwards is if old is not null and the key is not null,
+
+198
+00:24:24,480 --> 00:24:30,960
+ that means we just found it, which means all we got to do is replace the value. We don't have to
+
+199
+00:24:30,960 --> 00:24:36,160
+ add any entries. The index is great. The array is great. So we just free the old value and we
+
+200
+00:24:36,160 --> 00:24:43,920
+ alloc the new value. And then we just string copy it in and away we go. So that's, that's when we did
+
+201
+00:24:43,920 --> 00:24:50,960
+ the, that's when we did the Z equals W. That was the code that ran to basically say, oh, well we
+
+202
+00:24:50,960 --> 00:24:56,320
+ found Z. So we just have to, we have to free the original string and the original string is catch
+
+203
+00:24:56,320 --> 00:25:02,480
+ phrase and the second string is W. So we're replacing catch phrase with W and this little
+
+204
+00:25:02,480 --> 00:25:08,560
+ bit of code right after the underscore find is the thing that does, here we found it. Okay.
+
+205
+00:25:09,680 --> 00:25:15,440
+ But so that's, that's the second one. Let's go back to Z equals catch phrase because Z equals
+
+206
+00:25:15,440 --> 00:25:22,960
+ catch phrase is not found because we're starting with an empty array. So that means that old key,
+
+207
+00:25:22,960 --> 00:25:29,280
+ we're going to get an old because the hash will find a slot and that slot will be empty and it'll
+
+208
+00:25:29,280 --> 00:25:35,840
+ give us back to us. But old key is going to be null, which means this one is available, which is cool.
+
+209
+00:25:37,040 --> 00:25:48,320
+ Okay. Now actually this to do is not a to do anymore. Right now it's going to be an ignore.
+
+210
+00:25:48,320 --> 00:25:55,280
+ So this is the bit. Okay. I'll come back to this. Okay. This is the tricky bit.
+
+211
+00:25:55,280 --> 00:26:02,320
+ Now I never did this in Kernigan and Ritchie. I don't think I have to check,
+
+212
+00:26:03,280 --> 00:26:10,080
+ but this is called rehashing and this is when our length is greater than or equal to 70%
+
+213
+00:26:10,080 --> 00:26:18,480
+ of our allocation, which means this array is more than 70% full. That's when we're going to do this
+
+214
+00:26:18,480 --> 00:26:27,680
+ reallocation. Okay. But I'm going to ignore that whole if statement for now. I'll come back. So
+
+215
+00:26:27,680 --> 00:26:34,880
+ we're processing Z equals catchphrase here and Z ends up, we can even look, ends up in sub zero
+
+216
+00:26:34,880 --> 00:26:44,320
+ of the array. And so if it's time to insert, this part is really easy. So it's time to insert.
+
+217
+00:26:44,320 --> 00:26:53,120
+ We're going to allocate the key, the value, malloc the value and malloc the key and string copy them
+
+218
+00:26:53,120 --> 00:27:00,400
+ in. The old already exists. Old is a pointer into an entry, into an array that's got a key and a
+
+219
+00:27:00,400 --> 00:27:09,040
+ value. Okay. So there's an array of key value pairs. And so we don't have to allocate the old
+
+220
+00:27:09,040 --> 00:27:13,760
+ itself because the old is already in the array, but we do have to allocate the strings that we've
+
+221
+00:27:13,760 --> 00:27:20,720
+ been passed as parameters. And then we add one to the length. And so that's basically how it ran
+
+222
+00:27:20,720 --> 00:27:26,640
+ when we're doing Z equals catchphrase. At the end, we had Z in position zero. We had a length of one
+
+223
+00:27:26,640 --> 00:27:38,880
+ and an alloc of two. Okay. So now we're going to look at where we've got, and you'll notice in my
+
+224
+00:27:38,880 --> 00:27:44,480
+ 0.7, let's go back to that now because we're going to look at that. This is kind of tricky.
+
+225
+00:27:47,040 --> 00:27:54,800
+ Okay. So this whole self length greater than or equal to alloc 0.7, it allowed me, because it was
+
+226
+00:27:54,800 --> 00:28:01,600
+ only two items, it allowed me to fill it up completely because one item is only 0.5. And so
+
+227
+00:28:01,600 --> 00:28:09,120
+ when I put Sakai equals B in, I didn't trigger the reallocation. So it just put it in position one.
+
+228
+00:28:09,120 --> 00:28:19,200
+ I don't know if, oh, Sakai did go into position one. So, but now we're doing C and it's like,
+
+229
+00:28:19,200 --> 00:28:32,160
+ I could not find a slot for key Sally. And so that means could not find slot for key Sally.
+
+230
+00:28:32,160 --> 00:28:37,360
+ So that means that it searched, let's go back to find, I guess this is not really a trace back.
+
+231
+00:28:37,360 --> 00:28:45,600
+ This is just a fact. So it went and looked at hash, what's the key on that again? Sally,
+
+232
+00:28:45,600 --> 00:28:53,440
+ that key is Sally. It hashed the Sally, found a starting point with bucket. That hash just found
+
+233
+00:28:53,440 --> 00:28:58,960
+ a bucket. And where did Sally want to go? Sally ends up well in three, but it probably would have
+
+234
+00:28:58,960 --> 00:29:05,280
+ been a one. Sally would have been bucket one before it got expanded. And then it looked through the
+
+235
+00:29:05,280 --> 00:29:10,640
+ whole thing, which in this case was only two. And it couldn't find either an empty one or one that
+
+236
+00:29:10,640 --> 00:29:19,120
+ matched Sally. And so we say, can't find it, return null. Okay. And so now we get back to put.
+
+237
+00:29:19,120 --> 00:29:27,520
+ So we're doing Sally now and we find old is actually null. So this code doesn't run.
+
+238
+00:29:27,520 --> 00:29:34,720
+ So we didn't find an entry. Old key is not even allowed. We're not even allowed to say old arrow
+
+239
+00:29:34,720 --> 00:29:42,400
+ key because old is null. And now find, didn't find it, which could be bad, but we're going to fix it.
+
+240
+00:29:42,400 --> 00:29:49,680
+ Come back, come back. We're going to fix it. So we're coming through here and we're saying,
+
+241
+00:29:49,680 --> 00:29:58,000
+ if self length is too full, greater than 70% full, then we're going to make space. So you can see here
+
+242
+00:29:58,000 --> 00:30:04,160
+ in the output, it says we are making space for Sally. We're still in the middle of the put of
+
+243
+00:30:04,160 --> 00:30:14,800
+ Sally equals C, right? And so we're going to grab a copy of the old allocation number and the old
+
+244
+00:30:14,800 --> 00:30:20,720
+ items. Those are just integers. And then what we're going to do is we're going to make a brand new
+
+245
+00:30:20,720 --> 00:30:28,960
+ empty items. And so we are going to double the size of our array. And then we're going to
+
+246
+00:30:29,680 --> 00:30:35,760
+ set the new items. That's why I had to store old items here. We're going to set the new items to be
+
+247
+00:30:35,760 --> 00:30:43,360
+ four D nodes. It's an array of four D nodes. Now we've got to be really careful. This is
+
+248
+00:30:43,360 --> 00:30:48,080
+ kind of like a constructor for that items. We're going to set the key and the value of the newly
+
+249
+00:30:48,080 --> 00:30:54,240
+ allocated four items in that array to null because they start empty. You'll see in a sec
+
+250
+00:30:54,240 --> 00:31:00,320
+ that we got to re-add them. So we're kind of creating an empty array that's twice as big.
+
+251
+00:31:00,320 --> 00:31:07,040
+ And now what we got to do, and this is why we call this rehashing, is we got to go through the old
+
+252
+00:31:07,040 --> 00:31:15,360
+ array and find all those items. And then we got to add them in the right spot. And this is where
+
+253
+00:31:16,000 --> 00:31:24,400
+ you'll notice that z was in position zero and z ends up in the reallocated rehashed array in position
+
+254
+00:31:24,400 --> 00:31:31,040
+ two. So you really have to rehash it because all the rules in the new one have to be followed. The
+
+255
+00:31:31,040 --> 00:31:39,360
+ initial hash, the linear resolution of conflicts, of collisions, etc. So you really think of this
+
+256
+00:31:39,360 --> 00:31:45,360
+ items as a brand new one. And we've got the old items sitting there, not much longer, but we're
+
+257
+00:31:45,360 --> 00:31:54,160
+ going to go through them all and we're going to just add them again. Okay. So we're going through
+
+258
+00:31:54,160 --> 00:32:00,720
+ all of the old items. If the key is null, that's one of the empty slots in old items. Continue.
+
+259
+00:32:00,720 --> 00:32:07,040
+ Then we're going to call find again. And the key thing there is that's why we made self items be
+
+260
+00:32:07,040 --> 00:32:11,840
+ the new thing is so we could call find. So that's the first time it's being called in this loop.
+
+261
+00:32:13,040 --> 00:32:19,600
+ The new items is completely empty, but old items and i sub key is the key. And then,
+
+262
+00:32:19,600 --> 00:32:26,080
+ and so let's see what we got here.
+
+263
+00:32:26,080 --> 00:32:38,000
+ Yeah. So new item, if new item is null, that means it didn't find space. Now we just doubled the
+
+264
+00:32:38,000 --> 00:32:45,920
+ space. So that shouldn't happen. And given that the keys in old items are already unique, because
+
+265
+00:32:45,920 --> 00:32:55,600
+ this is a dictionary, we should never find in the new empty the key twice. So that basically,
+
+266
+00:32:55,600 --> 00:32:58,880
+ that basically says, oh, it's already in there. And the answer is, wait, wait, wait, we started
+
+267
+00:32:58,880 --> 00:33:06,560
+ with an empty one. So new item key not equals null is a bad thing, but it should never happen
+
+268
+00:33:06,560 --> 00:33:12,400
+ because we're going, we have a unique, each key is unique. There are no duplicates. And so as we're
+
+269
+00:33:12,400 --> 00:33:19,680
+ inserting them again into a new hash map array, that we should never get it. So that's why it says
+
+270
+00:33:19,680 --> 00:33:26,160
+ very bad news. That means that we either couldn't find space because I don't know why, or it's
+
+271
+00:33:26,160 --> 00:33:30,800
+ already in there, which I don't know why either. That means that this is like traceback time. This
+
+272
+00:33:30,800 --> 00:33:38,160
+ is like the runtime library is not well formed and we made a bug in our runtime library. So then
+
+273
+00:33:38,160 --> 00:33:44,480
+ that means that new item should be non-null and it should be empty, which means we can just like
+
+274
+00:33:44,480 --> 00:33:49,040
+ copy. Now this is just a pointer copy. It's not actually the stuff because we're taking the key
+
+275
+00:33:49,040 --> 00:33:54,080
+ is the pointer to the key, the string array and the value is the pointer to the string array. So
+
+276
+00:33:54,080 --> 00:34:00,320
+ we say new item key equals old item sub i.key and the same thing for value. And so now what we've
+
+277
+00:34:00,320 --> 00:34:07,200
+ done is we've copied all of the old items and we've positioned them correctly in the new items.
+
+278
+00:34:07,200 --> 00:34:14,960
+ So at this point, we're done. And the free here is simpler because we're not freeing the strings
+
+279
+00:34:14,960 --> 00:34:22,480
+ because we just copied those. We are freeing the array. Okay, so we're freeing the old array.
+
+280
+00:34:22,480 --> 00:34:26,080
+ Free old underscore items frees the old array.
+
+281
+00:34:29,520 --> 00:34:35,920
+ Now what we need to do is we need to search for the position because we're going back to
+
+282
+00:34:35,920 --> 00:34:45,360
+ put sally equal c. And so sally is the key that we're putting in. So we just made space for sally.
+
+283
+00:34:45,360 --> 00:34:54,240
+ Now again, if sally was already in there, this code would run and we'd be done. And so we have
+
+284
+00:34:54,240 --> 00:35:02,480
+ to re-look in the new, the newly expanded array. We got to find the right spot. And again, if sally
+
+285
+00:35:02,480 --> 00:35:06,720
+ was already in there, this code would have been run and we'd never be down here. So we have to
+
+286
+00:35:06,720 --> 00:35:12,960
+ redo this and say, okay, where is sally? In this case, we really, where should sally be long? Because
+
+287
+00:35:12,960 --> 00:35:20,080
+ we just made more space. And so old equals null would mean we don't have, we still don't have
+
+288
+00:35:20,080 --> 00:35:25,840
+ space for sally, even though we doubled the darn thing or yeah, we doubled it. And old key not
+
+289
+00:35:25,840 --> 00:35:32,160
+ equal. No, that means that sally's already in there. Oh, wait a second. If sally was in there,
+
+290
+00:35:32,160 --> 00:35:37,920
+ we'd not even come down here. So again, the selling old key not equal. Again, you put out these kind
+
+291
+00:35:37,920 --> 00:35:45,520
+ of trace-backy very, very bad news. That is like somebody, our code, our code, we're the library
+
+292
+00:35:45,520 --> 00:35:53,600
+ writer, our code is messing up. So old is, is really supposed to find no matter what, we're adding
+
+293
+00:35:53,600 --> 00:36:01,040
+ sally to the dictionary, old got to find a slot for us, or we just, or our code is broken. So this
+
+294
+00:36:01,040 --> 00:36:07,280
+ is me debugging and leaving this in, you know, just to make sure like, oh man, that is impossible,
+
+295
+00:36:07,280 --> 00:36:13,840
+ should never happen. But I'm going to say very bad news. So it finds a slot and then we just
+
+296
+00:36:14,400 --> 00:36:21,440
+ copy the key and the value and increment the length. And so this whole realloc thing is kind
+
+297
+00:36:21,440 --> 00:36:25,760
+ of new. I don't think I did this when I did the Kernigan and Ritchie, because the way Kernigan
+
+298
+00:36:25,760 --> 00:36:30,640
+ and Ritchie does it, you can just keep extending those linked lists. Like if you look, so if we
+
+299
+00:36:30,640 --> 00:36:36,320
+ look at the underscore put in the Kernigan and Ritchie code, you'll see I do a get bucket, right?
+
+300
+00:36:38,560 --> 00:36:47,040
+ And I find the bucket. And if I, if it matches, there's always a bucket in this one, because it's
+
+301
+00:36:47,040 --> 00:36:52,080
+ the buckets are pointers to link lists. So there's always a bucket. There's no resolution by linear
+
+302
+00:36:52,080 --> 00:36:58,240
+ collision resolution. So old is, oh, if we find it, we just copy the value and this I had integer
+
+303
+00:36:58,240 --> 00:37:07,200
+ values. And then otherwise you just append to the end of the tail of the bucket using, you know,
+
+304
+00:37:07,200 --> 00:37:13,520
+ self head sub bucket equals all new. And then it's just, at that point, this is just semantic and P
+
+305
+00:37:13,520 --> 00:37:19,920
+ in the KR dict. We don't have to reallocate. Now you would want to reallocate at some point because
+
+306
+00:37:19,920 --> 00:37:25,840
+ then these chains get too long. And that's, and so it's not like you don't have to reallocate with
+
+307
+00:37:25,840 --> 00:37:33,440
+ these chains. I didn't write it. So the reallocation would be sort of in the middle of put and it'd be
+
+308
+00:37:33,440 --> 00:37:38,960
+ very complex code. And it would be actually probably be about the same complexity, maybe a
+
+309
+00:37:38,960 --> 00:37:47,920
+ little bit more complex than what the Python one implementation was. And so with that, I think I
+
+310
+00:37:47,920 --> 00:37:55,120
+ pretty much have covered the essential differences between the Kernigan and Ritchie dictionary code
+
+311
+00:37:55,120 --> 00:38:06,320
+ that I wrote and the basic approach, you know, the basic approach using an array of D node items.
+
+312
+00:38:06,320 --> 00:38:14,320
+ And if we look at find a linear collision resolution and the linear collision resolution,
+
+313
+00:38:14,320 --> 00:38:19,760
+ let's do this. I'll put a comment in here. Linear and underscore find.
+
+314
+00:38:23,680 --> 00:38:30,640
+ Uh, I can't, um, I gotta figure out how to spell collision.
+
+315
+00:38:30,640 --> 00:38:40,240
+ Well, the version you see will have, uh, how many S's? No, how many L's?
+
+316
+00:38:40,240 --> 00:38:50,720
+ Okay. I'll fix that for you. And so this linear collision resolution and that that's tricky stuff.
+
+317
+00:38:50,720 --> 00:38:57,920
+ And so you want to take a look at that and understand that, uh, very carefully. So I hope
+
+318
+00:38:57,920 --> 00:39:03,840
+ that you found, uh, this lecture useful. I think the next thing we're going to talk about is
+
+319
+00:39:03,840 --> 00:39:11,200
+ how dictionaries changed from Python one through 3.6 all the way up through Python three seven,
+
+320
+00:39:11,200 --> 00:39:27,600
+ because the dictionaries did change and got a lot better. So we'll talk about that soon. Cheers.
+

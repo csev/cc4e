@@ -1,0 +1,1331 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:04.640
+ Welcome to chapter two, Types, Operators, and Expressions.
+
+00:00:04.640 --> 00:00:06.880
+ So again, I'm not going to tell you everything.
+
+00:00:06.880 --> 00:00:08.200
+ The book, I want you to read the book.
+
+00:00:08.200 --> 00:00:09.280
+ The book does a great job.
+
+00:00:09.280 --> 00:00:10.600
+ I'm just gonna call your attention
+
+00:00:10.600 --> 00:00:13.200
+ to some things that might seem a little bit weird
+
+00:00:13.200 --> 00:00:15.600
+ if you're coming from a language like Python
+
+00:00:15.600 --> 00:00:20.280
+ or JavaScript or even PHP where things are objects
+
+00:00:20.280 --> 00:00:21.560
+ and you don't even notice it.
+
+00:00:21.560 --> 00:00:23.560
+ You've been using objects your whole career
+
+00:00:23.560 --> 00:00:25.320
+ and you didn't even realize it.
+
+00:00:25.320 --> 00:00:28.360
+ So we're gonna talk about data types and storage allocation.
+
+00:00:28.360 --> 00:00:30.240
+ One of the things that you just got,
+
+00:00:30.240 --> 00:00:33.040
+ part of what I love about teaching this historical view on C
+
+00:00:33.040 --> 00:00:36.520
+ is that we have to talk about storage allocation.
+
+00:00:36.520 --> 00:00:39.200
+ Float and double worked out pretty well,
+
+00:00:39.200 --> 00:00:41.400
+ partly because in the early days of C,
+
+00:00:41.400 --> 00:00:43.480
+ they did them all in software, so they just made them easy
+
+00:00:43.480 --> 00:00:45.240
+ and they made them work well.
+
+00:00:45.240 --> 00:00:47.520
+ They weren't expected to be fast.
+
+00:00:47.520 --> 00:00:49.920
+ The things that they wanted to be super fast
+
+00:00:49.920 --> 00:00:53.720
+ were like the integer and byte data, character data.
+
+00:00:53.720 --> 00:00:56.760
+ Type conversion, and then there's a story
+
+00:00:56.760 --> 00:00:59.080
+ that connects integer division in Python 2
+
+00:00:59.080 --> 00:01:02.360
+ and all that pain of Python 3 and how division changed
+
+00:01:02.360 --> 00:01:05.160
+ and why it was the way it was and how that worked.
+
+00:01:05.160 --> 00:01:06.880
+ And again, it has to do with performance
+
+00:01:06.880 --> 00:01:09.080
+ and simple decisions that got made, sadly.
+
+00:01:09.080 --> 00:01:12.880
+ Bitwise logical operations, we'll talk about them.
+
+00:01:12.880 --> 00:01:15.000
+ You're probably not going to use them,
+
+00:01:15.000 --> 00:01:17.520
+ but it's really important in a historical context
+
+00:01:17.520 --> 00:01:20.480
+ to understand why they were so thorough.
+
+00:01:20.480 --> 00:01:23.040
+ And it really had to do with the fact that
+
+00:01:23.040 --> 00:01:27.080
+ because of word oriented computers switching to character
+
+00:01:27.080 --> 00:01:29.240
+ oriented computers, all of us programmers
+
+00:01:29.240 --> 00:01:31.960
+ were thinking in words and if we didn't see shifting
+
+00:01:31.960 --> 00:01:34.120
+ and masking and bitwise stuff, we'd be like,
+
+00:01:34.120 --> 00:01:37.080
+ I can't program in this thing 'cause a lot of our work
+
+00:01:37.080 --> 00:01:39.880
+ in those word oriented computers was masking and shifting.
+
+00:01:39.880 --> 00:01:42.600
+ And so it's like we had to have it.
+
+00:01:42.600 --> 00:01:46.480
+ We didn't use it as much as we could have thought.
+
+00:01:46.480 --> 00:01:49.160
+ So let's start with division.
+
+00:01:51.120 --> 00:01:53.680
+ (sighs)
+
+00:01:53.680 --> 00:01:57.400
+ In the good old days, we were not worried too much
+
+00:01:57.400 --> 00:02:01.440
+ about doing division and if you were doing division
+
+00:02:01.440 --> 00:02:04.040
+ and you cared about the division,
+
+00:02:04.040 --> 00:02:05.520
+ you were probably doing it in floating point
+
+00:02:05.520 --> 00:02:07.320
+ because you were doing scientific computing
+
+00:02:07.320 --> 00:02:09.080
+ and you did that on supercomputers.
+
+00:02:09.080 --> 00:02:11.280
+ You didn't do that on general purpose computers.
+
+00:02:11.280 --> 00:02:13.640
+ Unixer's really designed for general purpose computers
+
+00:02:13.640 --> 00:02:17.760
+ and in general purpose computers, you thought to yourself,
+
+00:02:17.760 --> 00:02:19.840
+ why is division that important?
+
+00:02:19.840 --> 00:02:21.960
+ And I'm sure they made some decision somewhere.
+
+00:02:21.960 --> 00:02:23.680
+ I do not know why.
+
+00:02:23.680 --> 00:02:25.400
+ It probably had to do with one of the computers
+
+00:02:25.400 --> 00:02:29.240
+ they were working with had truncating division in hardware
+
+00:02:29.240 --> 00:02:32.080
+ and non-truncating division in software.
+
+00:02:32.080 --> 00:02:34.640
+ I don't know, or rounding division or whatever.
+
+00:02:34.640 --> 00:02:36.960
+ A lot of those computers didn't even have
+
+00:02:36.960 --> 00:02:38.880
+ fast floating point, so some of the computers
+
+00:02:38.880 --> 00:02:41.840
+ they were working on did all the floating point in software
+
+00:02:41.840 --> 00:02:44.800
+ and maybe they even did integer division in software
+
+00:02:44.800 --> 00:02:47.960
+ with loops and stuff, but we don't know.
+
+00:02:47.960 --> 00:02:52.600
+ I don't exactly know, but they made this decision
+
+00:02:52.600 --> 00:02:56.560
+ to do integer division truncating.
+
+00:02:56.560 --> 00:02:59.040
+ And this was one of the biggest things
+
+00:02:59.040 --> 00:03:00.920
+ of going from Python 2 to Python 3
+
+00:03:00.920 --> 00:03:03.240
+ that was the most painful.
+
+00:03:03.240 --> 00:03:08.040
+ So Python 2 was over 25 years old
+
+00:03:08.040 --> 00:03:11.720
+ and it wasn't that long after C that Python 2 was written.
+
+00:03:11.720 --> 00:03:14.160
+ Python 2 was written in C.
+
+00:03:14.160 --> 00:03:18.840
+ And Python 2 to Python 3 transition was a big deal.
+
+00:03:18.840 --> 00:03:22.240
+ It took a long time, it took 12 years to get there.
+
+00:03:22.240 --> 00:03:25.080
+ But Python 2 was like the greatest thing ever
+
+00:03:25.080 --> 00:03:27.680
+ except for a few things.
+
+00:03:27.680 --> 00:03:29.640
+ Because Python 2 was so related to C,
+
+00:03:29.640 --> 00:03:33.440
+ the strings in Python 2 natively were ASCII, not Unicode,
+
+00:03:33.440 --> 00:03:37.120
+ which meant it couldn't even do like Spanish characters,
+
+00:03:37.120 --> 00:03:40.040
+ let alone Asian characters.
+
+00:03:40.040 --> 00:03:41.520
+ Print was part of the language
+
+00:03:41.520 --> 00:03:44.080
+ and the programmers got a lot of help.
+
+00:03:44.080 --> 00:03:46.160
+ Like they got an automated code converter
+
+00:03:46.160 --> 00:03:49.280
+ and syntax checkers and they did all kinds of things
+
+00:03:49.280 --> 00:03:51.000
+ where they would take certain libraries
+
+00:03:51.000 --> 00:03:53.600
+ like the print function and they would put it in Python 3
+
+00:03:53.600 --> 00:03:55.480
+ and then we backported to Python 2.
+
+00:03:55.480 --> 00:03:57.800
+ So you could like switch from using the print statement
+
+00:03:57.800 --> 00:03:58.840
+ to the print function.
+
+00:03:58.840 --> 00:04:01.400
+ And there were lots of things that made this transition
+
+00:04:01.400 --> 00:04:02.960
+ as easy as possible.
+
+00:04:02.960 --> 00:04:07.120
+ The one thing that they really never could crack
+
+00:04:07.120 --> 00:04:10.040
+ and we just had to bite the bullet and get used to it
+
+00:04:10.040 --> 00:04:15.040
+ was Python 2 returns integer and the division is truncated.
+
+00:04:15.040 --> 00:04:20.520
+ So if you do three divided by four is zero in Python 2.
+
+00:04:20.520 --> 00:04:25.840
+ And in Python 3, integer three divided by integer four
+
+00:04:25.840 --> 00:04:28.360
+ becomes a floating point 0.75
+
+00:04:28.360 --> 00:04:31.640
+ because that's what calculators do.
+
+00:04:31.640 --> 00:04:33.720
+ And the Python 2 division truncated
+
+00:04:33.720 --> 00:04:37.800
+ because it didn't seem like it mattered much back in the 80s
+
+00:04:37.800 --> 00:04:40.080
+ and C integer division truncated.
+
+00:04:40.080 --> 00:04:41.240
+ (coughs)
+
+00:04:41.240 --> 00:04:43.880
+ So three quarters in C was zero
+
+00:04:43.880 --> 00:04:46.640
+ and three quarters, integer three quarters was zero in C
+
+00:04:46.640 --> 00:04:48.320
+ and so it was in Python.
+
+00:04:48.320 --> 00:04:50.480
+ And 20 plus years later,
+
+00:04:50.480 --> 00:04:53.520
+ that was the one thing we couldn't auto convert
+
+00:04:53.520 --> 00:04:56.880
+ and Python 3 does it the way Python does.
+
+00:04:56.880 --> 00:05:00.520
+ So it's less of a problem in C
+
+00:05:00.520 --> 00:05:02.760
+ because C is actually a strongly typed language
+
+00:05:02.760 --> 00:05:06.640
+ which means if I wanted to say three over four,
+
+00:05:06.640 --> 00:05:08.920
+ I knew whether it was integers or floats
+
+00:05:08.920 --> 00:05:10.200
+ and I could force that.
+
+00:05:10.200 --> 00:05:15.640
+ And so, but in Python you just, what's the variable?
+
+00:05:15.640 --> 00:05:17.640
+ And so it imputes the variable type
+
+00:05:17.640 --> 00:05:20.120
+ from the result of that expression.
+
+00:05:20.120 --> 00:05:23.000
+ Where C has got to declare X as a float
+
+00:05:23.000 --> 00:05:23.840
+ or a double or an int.
+
+00:05:23.840 --> 00:05:25.720
+ So when a C programmer writes a division,
+
+00:05:25.720 --> 00:05:27.920
+ they need to know, they know already
+
+00:05:27.920 --> 00:05:29.600
+ that they have to cast the values
+
+00:05:29.600 --> 00:05:30.760
+ or use float constants
+
+00:05:30.760 --> 00:05:33.160
+ to trigger type conversion and expressions.
+
+00:05:33.160 --> 00:05:34.720
+ So as you're looking through the chapters
+
+00:05:34.720 --> 00:05:37.480
+ seeing these type conversions and casting,
+
+00:05:37.480 --> 00:05:40.520
+ that's the kind of problem that was solved.
+
+00:05:40.520 --> 00:05:42.640
+ But then Python simplified it
+
+00:05:42.640 --> 00:05:47.120
+ and then made it really kind of yucky
+
+00:05:47.120 --> 00:05:48.160
+ and then they had to fix it.
+
+00:05:48.160 --> 00:05:49.760
+ It's better in Python 3
+
+00:05:49.760 --> 00:05:52.360
+ and most of you have just learned Python 3
+
+00:05:52.360 --> 00:05:54.240
+ so consider yourself lucky.
+
+00:05:54.240 --> 00:05:57.280
+ So another thing they talk about a lot
+
+00:05:57.280 --> 00:05:59.360
+ and it has to do with as we start thinking
+
+00:05:59.360 --> 00:06:03.880
+ about storage allocation on a bit by bit basis,
+
+00:06:03.880 --> 00:06:07.000
+ we tend to need to know how to represent
+
+00:06:07.000 --> 00:06:09.760
+ and print things out, not just in base 10.
+
+00:06:09.760 --> 00:06:11.160
+ And it really has to do with the fact
+
+00:06:11.160 --> 00:06:14.240
+ that base eight and base 16 are better
+
+00:06:14.240 --> 00:06:17.600
+ at printing out binary data, raw data.
+
+00:06:17.600 --> 00:06:20.120
+ 10 is the number like where, you know,
+
+00:06:20.120 --> 00:06:21.400
+ how many pizzas do you want?
+
+00:06:21.400 --> 00:06:23.960
+ I want 16 pizzas or 22 pizzas.
+
+00:06:23.960 --> 00:06:27.120
+ It's our natural, the way we think, the way humans think.
+
+00:06:27.120 --> 00:06:28.840
+ So talk about, to talk about bases,
+
+00:06:28.840 --> 00:06:31.280
+ let's start by just reviewing what base 10 means.
+
+00:06:31.280 --> 00:06:33.640
+ There is, you know, the ones place and the tens place
+
+00:06:33.640 --> 00:06:35.440
+ and of course later there's hundreds and thousands,
+
+00:06:35.440 --> 00:06:40.440
+ but the four in 42 represents four tens.
+
+00:06:40.440 --> 00:06:44.400
+ So you can think of it as four times 10, which is 40
+
+00:06:44.400 --> 00:06:47.080
+ and then the ones place is two more.
+
+00:06:47.080 --> 00:06:51.120
+ So 42 is 40 plus two, which is kind of redundant.
+
+00:06:51.120 --> 00:06:53.360
+ We do that instinctively.
+
+00:06:53.360 --> 00:06:55.600
+ So now let's take a look at base eight.
+
+00:06:55.600 --> 00:07:01.600
+ So 42 in base 10 is 52 in base eight.
+
+00:07:01.600 --> 00:07:03.080
+ And what base eight is really doing
+
+00:07:03.080 --> 00:07:05.920
+ is it means that the digits in the two places
+
+00:07:05.920 --> 00:07:07.560
+ means something different,
+
+00:07:07.560 --> 00:07:10.920
+ meaning the five and 52 represents an eight.
+
+00:07:10.920 --> 00:07:14.660
+ So there's five eights in this number
+
+00:07:14.660 --> 00:07:16.640
+ that we're dealing with and two ones.
+
+00:07:16.640 --> 00:07:20.920
+ And so five times eight is 40 and two times one is two.
+
+00:07:20.920 --> 00:07:25.920
+ And so converting from 52 base eight to 52 base 10,
+
+00:07:25.920 --> 00:07:27.520
+ we get to 42.
+
+00:07:27.520 --> 00:07:29.440
+ And we used base eight and again,
+
+00:07:29.440 --> 00:07:31.720
+ base eight lines up perfectly with base two
+
+00:07:31.720 --> 00:07:36.120
+ 'cause three base two digits equals one base eight digit.
+
+00:07:36.120 --> 00:07:39.200
+ And I did a lot of base eight in the early days,
+
+00:07:39.200 --> 00:07:41.920
+ but base 16 is really the way we tend to do it now
+
+00:07:41.920 --> 00:07:43.280
+ 'cause it's a little more dense.
+
+00:07:43.280 --> 00:07:45.120
+ The rightmost place is still the ones
+
+00:07:45.120 --> 00:07:46.740
+ and the next place is the 16s.
+
+00:07:46.740 --> 00:07:51.440
+ So the two in the 16s place represents two times 16 or 32.
+
+00:07:51.440 --> 00:07:53.840
+ And then what's left over is 10,
+
+00:07:53.840 --> 00:07:58.840
+ which we represent with an A and 10 plus 32 is 42.
+
+00:07:58.920 --> 00:08:02.000
+ Now the problem is, is we only have digits zero through nine.
+
+00:08:02.000 --> 00:08:07.000
+ So by convention, 10 is A, 11 is B, 12 is C,
+
+00:08:07.000 --> 00:08:10.880
+ 13 is D, 14 is E and 15 is F.
+
+00:08:10.880 --> 00:08:13.540
+ F is all the ones, it's four ones.
+
+00:08:13.540 --> 00:08:16.020
+ I know that, I just like four ones.
+
+00:08:16.020 --> 00:08:20.260
+ So I can convert hex from hex to base two,
+
+00:08:20.260 --> 00:08:21.760
+ like very, very quickly.
+
+00:08:21.760 --> 00:08:25.380
+ And if I need to look at a dump of some memory,
+
+00:08:25.380 --> 00:08:27.760
+ I can dump it in hex and then when I need to,
+
+00:08:27.760 --> 00:08:30.560
+ I can convert it to base two.
+
+00:08:30.560 --> 00:08:32.460
+ So just converting back and forth
+
+00:08:32.460 --> 00:08:36.460
+ between base 16 and base two is a bit of a trick.
+
+00:08:36.460 --> 00:08:39.080
+ And I don't really care if you do much of this,
+
+00:08:39.080 --> 00:08:41.260
+ you can grab this sample code and play with it.
+
+00:08:41.260 --> 00:08:43.880
+ This is a conversion from base 10,
+
+00:08:43.880 --> 00:08:46.060
+ a base number like one, two, three, four,
+
+00:08:46.060 --> 00:08:48.220
+ to base eight and then base 16.
+
+00:08:48.220 --> 00:08:53.560
+ And the way this one does it is it converts the number
+
+00:08:53.560 --> 00:08:58.560
+ in effect from the rightmost number up to the low digit
+
+00:08:58.560 --> 00:09:01.440
+ up to the high digit.
+
+00:09:01.440 --> 00:09:04.640
+ And so what you do is you use the modulo function.
+
+00:09:04.640 --> 00:09:06.740
+ And so you take your number one, two, three, four,
+
+00:09:06.740 --> 00:09:08.440
+ and you take it modulo eight,
+
+00:09:08.440 --> 00:09:11.560
+ and what's left over as a remainder is two.
+
+00:09:11.560 --> 00:09:14.400
+ So that's the far right number in the new one.
+
+00:09:14.400 --> 00:09:17.440
+ And then you chop it off with integer division,
+
+00:09:17.440 --> 00:09:22.620
+ you chop that off and see what's left and that's 154.
+
+00:09:22.620 --> 00:09:25.600
+ And you're accumulating the two in the converted number.
+
+00:09:25.600 --> 00:09:28.840
+ And then you take the modulo of 154, modulo eight,
+
+00:09:28.840 --> 00:09:32.520
+ and you get two, and then you chop off the next eight
+
+00:09:32.520 --> 00:09:36.120
+ with integer divide by four and you get 19.
+
+00:09:36.120 --> 00:09:38.840
+ So now your bottom two digits are two, two.
+
+00:09:38.840 --> 00:09:42.200
+ And then you do 19 modulo eight and you get three.
+
+00:09:42.200 --> 00:09:44.840
+ And that next digit from the right is a three.
+
+00:09:44.840 --> 00:09:46.000
+ Then you divide by eight,
+
+00:09:46.000 --> 00:09:48.280
+ integer divide by eight to get what's left over.
+
+00:09:48.280 --> 00:09:49.600
+ And that's below eight.
+
+00:09:49.600 --> 00:09:53.560
+ And so that the fourth digit from the right is a two.
+
+00:09:53.560 --> 00:09:57.940
+ So one, two, three, four in base eight is two, three, two, two.
+
+00:09:57.940 --> 00:10:01.080
+ And you can do the exact same thing.
+
+00:10:01.080 --> 00:10:03.120
+ The difference is you gotta look up the digits
+
+00:10:03.120 --> 00:10:07.280
+ because the base 16 needs the A, B, C, D, E, F.
+
+00:10:07.280 --> 00:10:08.720
+ And so I make a little string.
+
+00:10:08.720 --> 00:10:10.880
+ Now we're talking Python here.
+
+00:10:10.880 --> 00:10:15.360
+ And so we do repeatedly modulo 16, integer divide by 16,
+
+00:10:15.360 --> 00:10:19.420
+ modulo 16, integer divide by 16, modulo 16,
+
+00:10:19.420 --> 00:10:20.720
+ integer divide by 16.
+
+00:10:20.720 --> 00:10:22.360
+ And so we take one, two, three, four.
+
+00:10:22.360 --> 00:10:24.620
+ And when we convert it to base 16,
+
+00:10:24.620 --> 00:10:28.560
+ it kind of comes up from the bottom as two D four,
+
+00:10:28.560 --> 00:10:30.120
+ which we read four D two.
+
+00:10:30.120 --> 00:10:32.800
+ So that's just an algorithm that converts these.
+
+00:10:32.800 --> 00:10:35.240
+ You tend to use this modulo.
+
+00:10:35.240 --> 00:10:38.680
+ And that's how we can convert from one base to another.
+
+00:10:38.680 --> 00:10:40.720
+ Now it's not critical in this class.
+
+00:10:40.720 --> 00:10:43.600
+ We're not gonna spend a lot of time converting bases,
+
+00:10:43.600 --> 00:10:46.200
+ but we just need to be aware that
+
+00:10:46.200 --> 00:10:51.200
+ because there was so much awareness of how bits were stored,
+
+00:10:51.200 --> 00:10:53.620
+ we tended to print a lot of stuff out
+
+00:10:53.620 --> 00:10:55.560
+ in hexadecimal or in base eight.
+
+00:10:55.560 --> 00:10:59.340
+ And so I just want you to know what those things are.
+
+00:10:59.340 --> 00:11:00.440
+ So if you look, for example,
+
+00:11:00.440 --> 00:11:02.860
+ at the ASCII chart that we've already seen,
+
+00:11:02.860 --> 00:11:06.040
+ you see that it shows us that the letter A is 65,
+
+00:11:06.040 --> 00:11:10.120
+ and in hex it's 41, and in octal it's 101,
+
+00:11:10.120 --> 00:11:12.020
+ and in base two, or binary,
+
+00:11:12.020 --> 00:11:14.640
+ it's one and a bunch of zeros and a one.
+
+00:11:14.640 --> 00:11:17.320
+ And so this is just something that's making,
+
+00:11:17.320 --> 00:11:20.640
+ and in the old days you had to be just much more aware
+
+00:11:20.640 --> 00:11:23.480
+ of the real bits inside the computer,
+
+00:11:23.480 --> 00:11:26.560
+ and hex and base eight, hex and octal,
+
+00:11:26.560 --> 00:11:29.600
+ were better ways to sort of know what the bits were.
+
+00:11:29.600 --> 00:11:32.140
+ So there you go.
+
+00:11:32.140 --> 00:11:37.360
+ Now another thing that C really was
+
+00:11:37.360 --> 00:11:39.040
+ one of the early innovative language
+
+00:11:39.040 --> 00:11:42.000
+ was byte addressable computers, right?
+
+00:11:42.000 --> 00:11:46.000
+ And so we don't think much, everything's a string,
+
+00:11:46.000 --> 00:11:48.880
+ and we can look at the characters in the string.
+
+00:11:48.880 --> 00:11:52.080
+ But in the old days, before C
+
+00:11:52.080 --> 00:11:55.280
+ and the generation of computers that kind of triggered C,
+
+00:11:55.280 --> 00:11:58.780
+ we didn't have characters.
+
+00:11:58.780 --> 00:12:01.040
+ You couldn't, in the hardware, load a character.
+
+00:12:01.040 --> 00:12:02.460
+ You could only load a word,
+
+00:12:02.460 --> 00:12:05.060
+ and then you had to find the character within the word.
+
+00:12:05.060 --> 00:12:08.360
+ And the language that really was the immediate precursor
+
+00:12:08.360 --> 00:12:10.000
+ to C was the B language.
+
+00:12:10.000 --> 00:12:13.900
+ And the difference was is the B language was a really cool,
+
+00:12:13.900 --> 00:12:16.080
+ low-level word-oriented language,
+
+00:12:16.080 --> 00:12:17.880
+ and then the C language came from B
+
+00:12:17.880 --> 00:12:19.880
+ and became a byte-oriented language.
+
+00:12:19.880 --> 00:12:24.000
+ And so C sort of like said, we're gonna do byte addressing.
+
+00:12:24.000 --> 00:12:29.000
+ So if I take a look at the way I had to do character support
+
+00:12:29.000 --> 00:12:33.140
+ in a CD6-6500, which is the computer I was using
+
+00:12:33.140 --> 00:12:38.140
+ in like 1975, 1976, it was a scientific computer.
+
+00:12:38.960 --> 00:12:41.960
+ It barely cared about printing characters.
+
+00:12:41.960 --> 00:12:43.960
+ It didn't even have lowercase.
+
+00:12:43.960 --> 00:12:48.400
+ It had 60-bit words and packed 6-bit uppercase characters
+
+00:12:48.400 --> 00:12:52.360
+ into those words, and it used a series of zeros
+
+00:12:52.360 --> 00:12:53.200
+ to fill it up.
+
+00:12:53.200 --> 00:12:58.200
+ And so if I put the words Hello World into the CDC6500,
+
+00:12:58.200 --> 00:13:04.040
+ it took two words, and Hello W-O-R-L
+
+00:13:04.040 --> 00:13:07.460
+ was packed into the first word, and D was in the second one,
+
+00:13:07.460 --> 00:13:09.920
+ and then we did what was called zero filling.
+
+00:13:09.920 --> 00:13:12.600
+ The rest of those characters were all zeros,
+
+00:13:12.600 --> 00:13:15.600
+ the integer zero, zero, zero, zero, zero, zero, zero, zero.
+
+00:13:15.600 --> 00:13:19.000
+ And if I wanted to know what the fifth character
+
+00:13:19.000 --> 00:13:24.080
+ of this two-word string was, like the O, for example,
+
+00:13:24.080 --> 00:13:26.360
+ you would create a mask, and in that mask,
+
+00:13:26.360 --> 00:13:30.100
+ you would have zeros where you wanted to get rid of stuff
+
+00:13:30.100 --> 00:13:31.780
+ and ones where you wanted to copy stuff.
+
+00:13:31.780 --> 00:13:34.260
+ So you would take Hello World and you'd run it
+
+00:13:34.260 --> 00:13:37.120
+ through this mask with the bits in the right position,
+
+00:13:37.120 --> 00:13:40.120
+ and then you would get the O and all zeros
+
+00:13:40.120 --> 00:13:43.280
+ in the rest of the word, and then you would have to shift it
+
+00:13:43.280 --> 00:13:45.640
+ half the way down, 'cause there were 10 characters,
+
+00:13:45.640 --> 00:13:49.320
+ so you had to shift it five characters to the right,
+
+00:13:49.320 --> 00:13:52.800
+ and then you would have the letter O
+
+00:13:52.800 --> 00:13:55.240
+ in the bottom six bits of that word,
+
+00:13:55.240 --> 00:13:57.600
+ and then I could write an if statement.
+
+00:13:57.600 --> 00:14:00.080
+ That's how I would say if the fifth character
+
+00:14:00.080 --> 00:14:03.780
+ is the letter O, I had to extract the fifth character
+
+00:14:03.780 --> 00:14:04.620
+ by hand.
+
+00:14:05.520 --> 00:14:08.480
+ So you can imagine how happy I was
+
+00:14:08.480 --> 00:14:10.240
+ when I began to see programming languages
+
+00:14:10.240 --> 00:14:12.760
+ that allowed me to use more of an array syntax
+
+00:14:12.760 --> 00:14:17.200
+ and say strings of five, or even in this case,
+
+00:14:17.200 --> 00:14:19.160
+ zero, one, two, three, four, strings of four,
+
+00:14:19.160 --> 00:14:21.420
+ where I could treat characters as an array.
+
+00:14:21.420 --> 00:14:26.420
+ The notion of a character array for me in 1977 was,
+
+00:14:26.420 --> 00:14:29.760
+ what, why would you, you know, you couldn't do that, right?
+
+00:14:29.760 --> 00:14:33.280
+ And so we, you know,
+
+00:14:33.280 --> 00:14:38.000
+ a whole generation of programmers went,
+
+00:14:38.000 --> 00:14:39.760
+ go through their entire career
+
+00:14:39.760 --> 00:14:42.200
+ without having to do any masking and shifting.
+
+00:14:42.200 --> 00:14:44.440
+ So this chapter's gonna talk to you about it,
+
+00:14:44.440 --> 00:14:46.360
+ and you might say, well, if C was so good
+
+00:14:46.360 --> 00:14:50.260
+ at doing it for you, why did they show it?
+
+00:14:50.260 --> 00:14:51.680
+ And that is that people like me
+
+00:14:51.680 --> 00:14:54.400
+ would not have had respect for this language
+
+00:14:54.400 --> 00:14:55.880
+ if it weren't for the fact that they had
+
+00:14:55.880 --> 00:14:57.460
+ a good masking and shifting,
+
+00:14:57.460 --> 00:14:59.520
+ 'cause we were doing that all the time
+
+00:14:59.520 --> 00:15:01.460
+ in these word-oriented computers
+
+00:15:01.460 --> 00:15:03.400
+ and word-oriented languages.
+
+00:15:03.400 --> 00:15:07.220
+ And just as C and Unix were making
+
+00:15:07.220 --> 00:15:08.800
+ the world safe for characters,
+
+00:15:08.800 --> 00:15:11.400
+ then we had this other problem.
+
+00:15:11.400 --> 00:15:13.760
+ And I'm only gonna talk a little bit about this.
+
+00:15:13.760 --> 00:15:17.000
+ Just don't worry about it.
+
+00:15:17.000 --> 00:15:19.160
+ The concept of indianess.
+
+00:15:19.160 --> 00:15:23.660
+ So if you're loading words,
+
+00:15:23.660 --> 00:15:28.600
+ do you load them with the least significant digits first,
+
+00:15:28.600 --> 00:15:31.360
+ or the most significant digits first?
+
+00:15:31.360 --> 00:15:36.360
+ And most computers were big-endian,
+
+00:15:36.360 --> 00:15:40.920
+ and big-endian to us software developers
+
+00:15:40.920 --> 00:15:42.840
+ made the most sense, 'cause that's how we thought
+
+00:15:42.840 --> 00:15:43.840
+ it would lay out.
+
+00:15:43.840 --> 00:15:48.040
+ But it turns out that a few processors wanted to load,
+
+00:15:48.040 --> 00:15:49.040
+ if they were gonna do an add,
+
+00:15:49.040 --> 00:15:52.680
+ they wanted to load the low end of the integer first
+
+00:15:52.680 --> 00:15:53.880
+ so they could start the addition
+
+00:15:53.880 --> 00:15:55.440
+ while they're bringing in the high end,
+
+00:15:55.440 --> 00:15:59.320
+ and they could overlap the load and the add.
+
+00:15:59.320 --> 00:16:02.520
+ And then Intel, which in those days
+
+00:16:02.520 --> 00:16:03.920
+ wasn't all that popular,
+
+00:16:03.920 --> 00:16:06.000
+ but they were so interested
+
+00:16:06.000 --> 00:16:07.840
+ in the microprocessor performance
+
+00:16:07.840 --> 00:16:09.240
+ that they became little-endian
+
+00:16:09.240 --> 00:16:11.960
+ so that their loading and addition were fast.
+
+00:16:11.960 --> 00:16:13.520
+ And so we've been stuck with
+
+00:16:13.520 --> 00:16:16.420
+ a lot of little-endian microprocessors since then,
+
+00:16:16.420 --> 00:16:18.460
+ and big-endian and little-endian,
+
+00:16:18.460 --> 00:16:21.640
+ it's one of the harder things to solve, really.
+
+00:16:21.640 --> 00:16:22.520
+ It really is.
+
+00:16:22.520 --> 00:16:24.500
+ And so I'm gonna show you some code.
+
+00:16:25.720 --> 00:16:29.400
+ I really, all I want you to do
+
+00:16:29.400 --> 00:16:31.160
+ is feel sorry for those of us
+
+00:16:31.160 --> 00:16:34.080
+ who had to figure out little-endian and big-endian.
+
+00:16:34.080 --> 00:16:35.640
+ And let me just give you an outline
+
+00:16:35.640 --> 00:16:37.140
+ of what this code is doing.
+
+00:16:37.140 --> 00:16:39.160
+ I'm not gonna walk through it in detail.
+
+00:16:39.160 --> 00:16:41.840
+ It just is kinda scary.
+
+00:16:41.840 --> 00:16:44.960
+ So, and you're not even gonna understand
+
+00:16:44.960 --> 00:16:47.360
+ most of this code until chapter five.
+
+00:16:47.360 --> 00:16:50.760
+ It's just, let's just talk a little bit about the bits
+
+00:16:50.760 --> 00:16:53.400
+ and how masking and shifting would have worked
+
+00:16:53.400 --> 00:16:56.020
+ if we didn't have character arrays.
+
+00:16:56.020 --> 00:16:57.560
+ So what I'm doing in this program
+
+00:16:57.560 --> 00:16:59.920
+ is I'm creating a character array.
+
+00:16:59.920 --> 00:17:01.440
+ The length of this character array
+
+00:17:01.440 --> 00:17:04.560
+ is hello world plus one for the terminator,
+
+00:17:04.560 --> 00:17:08.040
+ H-E-L-L-O space W-O-R-L-D.
+
+00:17:08.040 --> 00:17:12.760
+ So 11 plus one should be 12 characters are allocated.
+
+00:17:12.760 --> 00:17:14.440
+ And then what I'm doing in this next line
+
+00:17:14.440 --> 00:17:17.520
+ that says int star S-I
+
+00:17:17.520 --> 00:17:20.400
+ is I'm actually saying I wanna take the same storage
+
+00:17:20.400 --> 00:17:23.120
+ and pretend it's an integer array.
+
+00:17:23.120 --> 00:17:25.440
+ And so that's what that line is.
+
+00:17:25.440 --> 00:17:29.000
+ It takes the address of the beginning of the first character
+
+00:17:29.000 --> 00:17:32.720
+ and convert it from a pointer to a character,
+
+00:17:32.720 --> 00:17:35.200
+ which is char S is a pointer to a character,
+
+00:17:35.200 --> 00:17:37.000
+ and have it be a pointer to an integer.
+
+00:17:37.000 --> 00:17:39.240
+ And again, I'm sort of like jumping ahead in chapter five.
+
+00:17:39.240 --> 00:17:41.400
+ So I'm not expecting to understand all this.
+
+00:17:41.400 --> 00:17:44.400
+ I'm just making you aware of it.
+
+00:17:44.400 --> 00:17:47.800
+ So in those first two lines,
+
+00:17:47.800 --> 00:17:52.800
+ I've got a character array and an integer array.
+
+00:17:53.360 --> 00:17:57.480
+ Okay, and this is a 32-bit integer.
+
+00:17:57.480 --> 00:18:02.240
+ And so that means that the characters are stuck
+
+00:18:02.240 --> 00:18:05.920
+ into 32-bit integers in a little endian way.
+
+00:18:05.920 --> 00:18:11.280
+ And so if you look, that means that
+
+00:18:11.280 --> 00:18:14.040
+ if you just look at memory from left to right,
+
+00:18:14.040 --> 00:18:19.040
+ that the lowest of the first four, which is 32 bits,
+
+00:18:20.000 --> 00:18:24.880
+ the first character that comes out is the L, right?
+
+00:18:24.880 --> 00:18:27.040
+ And you can see the little endian,
+
+00:18:27.040 --> 00:18:29.840
+ which in your mind thinks it should be shifted,
+
+00:18:29.840 --> 00:18:32.320
+ but that's because this is running on a little endian computer.
+
+00:18:32.320 --> 00:18:34.760
+ And different computers will give you different results.
+
+00:18:34.760 --> 00:18:37.100
+ And this is a little endian example.
+
+00:18:37.100 --> 00:18:43.200
+ And so you can see with masking and shifting
+
+00:18:43.200 --> 00:18:47.440
+ where I'm gonna try to get the E out,
+
+00:18:47.440 --> 00:18:49.280
+ which would normally be the second character,
+
+00:18:49.280 --> 00:18:51.200
+ but it's kind of the second from the bottom
+
+00:18:51.200 --> 00:18:52.880
+ of the first integer.
+
+00:18:52.880 --> 00:18:54.800
+ And so what I do is I make a mask
+
+00:18:54.800 --> 00:18:57.320
+ and I'm gonna print this out.
+
+00:18:57.320 --> 00:19:02.040
+ I take FF, which is eight bits of ones,
+
+00:19:02.040 --> 00:19:04.600
+ and then I shift it up eight characters to the left.
+
+00:19:04.600 --> 00:19:06.820
+ And you can see that in the printout.
+
+00:19:06.820 --> 00:19:11.720
+ And then I mask out that character, which is the E,
+
+00:19:11.720 --> 00:19:13.640
+ but then it's in the wrong position.
+
+00:19:13.640 --> 00:19:15.640
+ And then I have to take that masked result
+
+00:19:15.640 --> 00:19:17.960
+ and I have to shift it back down eight
+
+00:19:17.960 --> 00:19:19.920
+ so that it's in the bottom part.
+
+00:19:19.920 --> 00:19:22.840
+ So now I can check to see what that letter is.
+
+00:19:22.840 --> 00:19:25.560
+ This is how I would pull out the second character
+
+00:19:25.560 --> 00:19:29.160
+ of a string so I could check to see if it's an E,
+
+00:19:29.160 --> 00:19:30.640
+ because I can't compare directly
+
+00:19:30.640 --> 00:19:31.960
+ the second character of string, right?
+
+00:19:31.960 --> 00:19:34.360
+ And Python, you're like, why are we doing this?
+
+00:19:34.360 --> 00:19:37.520
+ And that's why you build a string class
+
+00:19:37.520 --> 00:19:39.800
+ instead of use a character array for this.
+
+00:19:39.800 --> 00:19:42.680
+ And I've made it even worse by starting
+
+00:19:42.680 --> 00:19:45.000
+ with taking a character array and viewing it
+
+00:19:45.000 --> 00:19:47.960
+ as an integer array, and then playing with the integers.
+
+00:19:47.960 --> 00:19:54.340
+ So, you don't have to understand this.
+
+00:19:54.340 --> 00:19:59.880
+ Just be thankful that you use Python.
+
+00:19:59.880 --> 00:20:02.360
+ And if you don't use Python, you use C.
+
+00:20:02.360 --> 00:20:05.000
+ And whether it's a big-endian or a little-endian machine,
+
+00:20:05.000 --> 00:20:07.160
+ you can treat an array of characters
+
+00:20:07.160 --> 00:20:10.120
+ as an array of characters, and you can get the third one
+
+00:20:10.120 --> 00:20:15.120
+ or the fifth one with a square bracket notation, okay?
+
+00:20:15.120 --> 00:20:20.280
+ Storage allocation, storage allocation, storage allocation.
+
+00:20:20.280 --> 00:20:22.720
+ So a summary of this lecture is we talked
+
+00:20:22.720 --> 00:20:24.160
+ about number-based conversion.
+
+00:20:24.160 --> 00:20:25.920
+ We talked a little bit about division,
+
+00:20:25.920 --> 00:20:28.700
+ why the Python 2 integer division happened.
+
+00:20:28.700 --> 00:20:31.320
+ I don't really have a really good answer for that.
+
+00:20:31.320 --> 00:20:33.520
+ Concept of integers and words and bytes
+
+00:20:33.520 --> 00:20:35.520
+ and masking and shifting and characters.
+
+00:20:35.520 --> 00:20:38.480
+ Just because these topics are covered in this chapter,
+
+00:20:38.480 --> 00:20:41.840
+ and they will feel very foreign to you and unnatural.
+
+00:20:41.840 --> 00:20:44.360
+ But just give 'em a shot, read through 'em,
+
+00:20:44.360 --> 00:20:47.720
+ understand them, and they'll make sense later.
+
+00:20:47.720 --> 00:20:49.880
+ Later, we're gonna learn about structures
+
+00:20:49.880 --> 00:20:54.360
+ and pointers and addresses advancing and stuff like that.
+
+00:20:54.360 --> 00:20:57.240
+ It'll all make a lot more sense coming up.
+
+00:20:57.240 --> 00:20:59.820
+ (gentle music)
+

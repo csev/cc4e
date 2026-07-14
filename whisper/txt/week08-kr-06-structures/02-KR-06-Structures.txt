@@ -1,0 +1,203 @@
+ structures. Structures is one of the most beautiful parts of C like pointers. It's a user defined type that contains sort of one or more types within it.
+ We call things like x and y, in this case, members of the structure. X is a member of the struct point and y is a member of the struct point.
+ The dot operator allows us to take a variable that is a structure variable that has all these members within it and then access the members of the structure.
+ So an example, kr0601.c, we have struct point open curly brace, double x semicolon, double y semicolon, closed curly brace semicolon.
+ And this defines a new type. It doesn't allocate any data. And then we say struct point p1, p2 semicolon. And that actually allocates two points, which is four doubles named p1 and each point is p1 and p2.
+ Then I say p1.x equals 3.0 and I say p1.y equals 4.0 and then I say p2 equals p1, which copies all the fields into the corresponding locations in p2.
+ And then I print them out and I get three and four. And so that's basic structures. Simple, clean, elegant, understand every line of this, memorize it.
+ When you do a, in a sense, call by value with a structure, the entire structure is placed on the stack.
+ And so you don't want to make structures too gigantically big. You know, if they're like 10 to 40 bytes of characters, they're not all that bad.
+ But when we make struct point pm and set x and y to three and four, and then we call funk with funk open print, pm closed print, pm is a structure that is in the scope of the main program.
+ And then we're calling funk and passing it in. And then we're accepting it as a structure inside of funk.
+ And the key thing there is at this point, it's a sort of copy of a call by value where the entire structure is allocated on the stack and then passed into funk.
+ So if we change it inside funk, pf.x equals 9.0 and pf.y equals 8.0, it changes locally and we can print it out.
+ And then when it returns, the pm that's in the main program is unchanged. And that's because the entire structure, pm, is duplicated into the stack frame for function funk.
+ Operating inside function funk, we're only messing with the copy that's in our stack frame.
+ And then when we sort of undo that, it restores pm back to the way it was.
+ So those are just plain structures, but pointers to structures are where we get a lot more powerful.
+ So here we have another same struct with a double x and a double y.
+ And now we say struct point pt, which is a regular old variable, and then star pp, which is a pointer to a structure, an address of a structure.
+ And you can take the address of a structure just like you take the address of an integer, a structure is a very fundamental type.
+ So pp equals ampersand pt copies the address of the actual structure pt into the variable pp.
+ pt.x equals 3.0 or open pp star pp close pp.y equals 4.0.
+ So if we have a pointer to a structure, we have to use the asterisk to sort of look up the actual structure.
+ And then we can do structure things with it, like set the .y value.
+ There's a shortcut, take an address, dereference it with the asterisk and then use the dot.
+ They're combined into kind of what we call the arrow operator, which is pp dash greater than y,
+ which is the same as open pp star pp close pp.x.
+ And so this we call it the arrow operator. And so it's kind of a shorthand and it's used all the time.
+ And you'll see when we look later at things like PHP, they adopted this arrow operator.
+ Most other object oriented languages tend to use the dot operator, but others use the arrow operator.
+ So if we're going to pass a structure by reference, you use the ampersand in the call and the asterisk inside the function.
+ So we create struct point pm, set x and y within that to 3 and 4 respectively.
+ Then we print it out and then we call func, but now we call it with ampersand pm, which says pass in the address of pm.
+ And then in the function, we take in pp and we declare its type as struct point star pp,
+ which means we are getting as a parameter an address, not the value.
+ And then we use the arrow operator, pp arrow x equals 9, pp arrow y equals 8.
+ We print that in the function, but because pp just points to pm, it's also changed in the copy that's in the main.
+ So pm is being changed at the moment that pp is being changed.
+ And so when it comes back, you see that the value is 9 and 8 outside of the function.
+ So this is simply passing by reference. It almost we better call it pass by address.
+ So if you take a look at the stack frame, what you see is when we're calling func open paren ampersand pm close paren,
+ we are making a copy of the address and putting that into the stack frame and then passing that stack frame into func.
+ And so now func has an address of something. It happens to not be in its domain, meaning that pm is still in main.
+ But we can work with the arrow operator and actually make changes in the underlying object.
+ And so the key there is that you could change pp, but pp arrow x, you're actually changing the single copy that is in pm at that point.
+ Storage allocation. Now, pretty soon we're going to be dynamically allocating things.
+ We've always said that, oh, you create a char array of char with open bracket 10. There's 10 things in that.
+ What if we want more? And we've said you can't reallocate this stuff. But now we have this thing we're going to start allocating.
+ So it turns out when you're allocating things, you have to know how big they are.
+ OK, and so there's this size of operator. So size of so we take struct point pt and star pp,
+ which means we have a structure with two doubles in it and then a pointer to a structure with two doubles of it.
+ And we simply say, what is the size of the structure? And it's 16 because each double is eight.
+ And then what is the size of a pointer to a structure? And that is eight because eight is how big addresses are.
+ The fact that doubles and addresses happen to both be the same thing is not relevant here.
+ Addresses are on most C systems, eight characters.
+ You can also, because it's an operator, not just give it a variable, but also give it a type.
+ So we can say size of open paren struct point close paren.
+ And that also will be 16 because the size of a struct, if we were going to allocate it, is 16 characters.
+ So size of returns the size of something in characters.
+ And so we have this function called malloc. And malloc, you have to include stdlib.h to do it.
+ And so now what we're going to do is create the structure point again and we're going to create a pointer.
+ And we're going to not actually allocate it. So that struct point star pp allocates an eight character address, not the actual double to doubles.
+ Now what we do is we say pp equals first, and we're casting this, we're casting the returned address from malloc.
+ Paren struct point star paren, close paren, that is casting it to a pointer to a struct, a pointer to a point.
+ And then we say malloc open paren size of struct point close paren, close paren.
+ And so that says malloc 16 because a struct point is 16 characters.
+ So malloc goes and finds some free memory for us and its pool of free memory and gives us back an address,
+ which we then convert to a pointer to a point. And then we store that in pp.
+ And at that point we have data, we have a working structure and we can set the x and the y value just as the normal way,
+ whether we use the arrow operator or the star and dot operators, we can access that information.
+ The next thing we're going to talk about is combining all these things, dynamic memory and structures to create lists.
+ And this is a simple Python program, lines equals list, hand equals open, open paren Romeo dot txt,
+ then loop through and then append each line after stripping the new lines and then printing them out.
+ So lines is a list object. Now underneath it, there is a data structure, which by the end of this course,
+ you're going to get to know really well. But this will print out the four lines from Romeo dot txt.
+ And this is kr 06 07 dot py. Now we're going to build this list structure and then we can store some data in it.
+ The entries of the list are going to be stored in dynamically allocated memory and each list contains some data
+ and then links to other members. And so we're going to create a thing called struct lnode open paren char star text,
+ which is a pointer to a list, an array of characters of unknown length, struct lnode star next semicolon,
+ close curly brace semicolon. And so if you construct a real live linked list, you need also to have two variables,
+ struct lnode star head and struct lnode star tail. And if we end up with a linked list of three things,
+ head points to the first item in the list and then within that, there is the text.
+ The text points to some string. In this case, it's the letter C. And then the next is an address of the second thing in the list.
+ In that second thing, text points to is and next points to the third thing in the list.
+ And then next and the third thing in the list points to a value called null, which is our indication that it's an address to nowhere.
+ Null and zero are pretty much the same thing. All addresses are non-zero.
+ So we look for an address of zero and that tells us that we've got to the end.
+ And then in order to append to this list, we have another value, which is a pointer called tail, which points to the last element in the list.
+ When we start the list, head and tail both point to null.
+ And so ultimately what we've done is we've created a dynamically allocable structure where we can put sort of any number of lines in it.
+ And so it's kind of like a Python list. So the first line of this, the while statement, reads a value into line, a string value into line.
+ The next line from the file, right? And so we have a pointer to a character that we pre-allocated above this.
+ And that points to the variable fun, three characters plus an end of string.
+ And then the next thing we're going to do is allocate a new string that is the same length plus one.
+ So we're going to allocate four characters using malloc, sterling line plus one, which is going to give us four.
+ Then we're going to get that address back and we're going to cast that to a char star.
+ And then we are going to assign that to save.
+ So that's the place we're going to save this new item.
+ The next thing we're going to do is allocate a brand new l node, a brand new node in our list.
+ And we're going to malloc size of struct l node and then we're going to cast it to a struct l node star.
+ And then we're going to assign that into a struct l node star variable named new.
+ We saved our string and we've got a pointer to that save string and a pointer to a empty at this point l node.
+ Then what we do is we connect with if tail is not equal to null, tail next equals new. So we take the about to be second to last item and we connect it to the last item.
+ And then what we do is we take the text pointer inside of our newly allocated list node and point it at the saved copy of our string in dynamic memory.
+ And then we point the next to be null and then we simply advance tail so that next time we do this tail is pointing to the new end of the string.
+ Now we've got one more thing that we've got to do and that is if head is null we have to set head to new.
+ That's only going to happen on the very first one.
+ And so at this point our list has three entries. It went from two entries to three entries. And so we can go back up and read the next line and this sequence of statements we'll figure it out.
+ So I would just say take your time on this. One thing that we learn when we're working on linked data structures inside of C is you've got to draw a picture.
+ I literally can't do this from memory. I just draw the picture and then it's really easy to do.
+ So sometimes you want to walk through a linked list. So we tend to call this we make a variable called cur, current which is a struct L node star, a pointer to an L node.
+ And so this is the same as looping through a Python list. We set current to head because that's where we're going to start going through the list.
+ And then we print out current text which prints C out and then we go to the bottom of the loop and then we advance current to current next.
+ It's kind of like adding plus one but we just went from the first item in the list to the second item in the list.
+ And then we do it again and we are printing out the third item of the list and then current equals current next gets to null.
+ And so then the list is over and we have printed all of them out.
+ So in addition to creating linked lists we're going to do many different things with linked lists.
+ We're going to delete things, we're going to sort things, we're going to find things, we're going to look things up, we're going to change things.
+ So one of the things that will save you a lot of craziness when working with linked lists is always draw pictures and arrows.
+ It's just necessary. And frankly those programming exams all they ever tell you is to draw these pictures sometimes.
+ Draw a picture of a hash map as a good example.
+ So I'm just going to show you some pictures rather than showing you a bunch of code and then I think you can produce the code later.
+ So I want to show you how you delete an item from a singly linked list.
+ So first you've got to find it. You've got to do the walking of the linked list which I just showed you. You've got to walk through and you've got to find the item that you want to delete.
+ Now if you walk through and you don't find it there's nothing to delete. So our goal is to delete the line "is".
+ But you've got to handle three cases. There's the easy one which is where the thing you found is in the middle of the list.
+ Or if the thing that you found is at the start of the list or if the thing you found is the last item in the list.
+ And again you've got to draw pictures and you may have to draw them separately because we're going to be adjusting head and tail in addition to the next values.
+ Now it turns out when you're going to do a delete you want to not only track the current item in the list you want to track the previous item in the list.
+ So as you're walking down the list you look your current moves ahead and prev moves right behind it. So prev trails current by one item.
+ You can see that current the "is" line is the one we're going to delete and it's pretty simple.
+ The only real thing that you've got to change is you take prev next and you point it at curr next.
+ So you can see on the right hand side that the little link from the "c" to the "fun" has just bypassed the "is".
+ Now you do have to deallocate the struct "l" node and the string but that's pretty much all you need to do.
+ And so the middle is really easy. You find it, you keep track of prev, you have current and then you just kind of bypass it by moving next.
+ So that's the easy one. The next thing that you got to do is what if it's the first node?
+ And in this case prev will point at null because we have not really seen more than one.
+ Prev only goes non-null when we've passed the first one. So current is pointing ahead let's say we want to delete the line that says "c".
+ And so we notice that prev is null and so what we do is we actually just move the head to curr next.
+ You can see on the right hand the head just points. Now the head has now bypassed that first line.
+ And that's all we've got to do except clean up the memory of the first entry, both the string and the struct "l" node.
+ So that's pretty easy. You detect that by noticing that prev is null because you're catching it in the first time through the loop
+ and prev trails current by one and if you have not seen the second one, prev is still null.
+ So that's a pretty easy one. But you got to check it. So this one is if prev is null, you're sitting at the front.
+ So you mess with head and that's all you've got to do other than get rid of the data and free it up.
+ The last node is perhaps a little bit trickier. And so if you look and how you know you're on the last node is curr next is null.
+ Right? Because if you're pointing at the very last node in the list, then the next is null. So if curr next is null,
+ then what you're doing is you know you're deleting the last one. And so you first set prev next to be null
+ because that's the new last one and then you have to update tail to point to prev.
+ So tail was pointing at curr at the current and then tail at the end points to prev and then you got to clean up your data of that formerly last item in the list.
+ So now we're going to talk about doubly linked lists. And the main purpose to have doubly linked lists is to be able to reverse a list.
+ Python is easy. There's a method in the list object called reverse. What we're about to see is exactly how reverse works.
+ So you just read the lines in and you say lines.reverse and then you print them out and they come out in backwards order.
+ Now somebody, probably Gita Van Rossum, who wrote this in the first place in 1991, he is writing a doubly linked list to make reverse easy.
+ So if you remember how we did the deleting where we kept track of prev, well, in a doubly linked list, we actually just have prev in the L node.
+ And so in addition to the text we're going to store, we're going to have a prev pointer and a next pointer.
+ And at the beginning of the list, the prev will be null and at the end of the list, next will be null.
+ It's called a doubly linked list because it has both reverse and forward chains of pointers and we keep them working all the time.
+ So it turns out that making a doubly linked list in terms of code is not that different.
+ We have another thing in the L node. We now have three things, struct L node star prev.
+ And as we're linking a new thing onto the end of the list, we basically take new prev, the new item we're adding, and we copy tail into that because tail points to the last one.
+ We're adding a new one to the last one and the previous one is tail.
+ And then we do that before we set tail to new. So we add a new one and then we set tail to new.
+ So it's not that hard. So this is an example of the three item list with all of the previous and next properly shown.
+ And so it just links together. Once you draw these things in a picture and you get the understanding of what they're talking about, they're not too hard.
+ And section 6.5.1 in the book, which I added actually, walks through this doubly linked list in some detail.
+ So I won't replicate that here. Now, let's just say that you have a doubly linked list and you want to now reverse it.
+ Well, it's pretty simple. You set current to tail, same as long as current stays not null, and then say current equals current prev.
+ So you're sort of popping back up one at a time. So the second time through the loop, current has followed the prev from the last item and now it's on the second to last item.
+ And then it does it again. And then it goes to the top. And then the last time it goes up to the prev of the top one and finds null.
+ And then the loop finishes because current has become null. And you printed out the three lines. Cool is C backwards.
+ So this is just an example in KR 0609.C. And I won't walk through it in this lecture. I'll let you take a look at that.
+ It's quite common to encode all this stuff in some functions rather than just in straight line code. It's not all that hard.
+ You don't want to pass in the list structure and the line. Well, list is passed in by reference.
+ And so you have to say ampersand my list on this list add function.
+ And inside the function you do you have the list be a pointer to that structure. And then you have to use the arrow syntax inside of the function.
+ The next thing I want to talk about is unions. A union is like a structure, but it it reallocates the same memory over and over.
+ Whereas a structure allocates more memory. This says I'm going to take this same piece of memory and view it different ways.
+ And so it's the same area and you can assign multiple types to it. This this is useful in like network protocols and pulling bits out of memory, et cetera.
+ And so in my current sample, I've got my union sample open curly brace and I semicolon char CA bracket for bracket semicolon float F semicolon closed curly brace semicolon.
+ What I have done here is allocated in a sense four bytes integers in this case are thirty two bits CA four is four bytes, which is four times eight is thirty two and floats are thirty two bit floating point numbers.
+ So that's the same amount of memory. So instead of being four times three or twelve bytes, this is actually four bytes that I can see it.
+ I can I can view it either as an integer or as a character array of four characters or float. And I've carefully lined them up so that they're the same way.
+ I allocate union sample you and then I set the integer version of that that four bytes to forty two and then I print it out and you can see the hex floating point.
+ That's a complete failure. Zero point zero zero zero is like it's not a very good big floating point number. And then the as a character string, it is an asterisk.
+ And then I take view dot CA, which is viewing that same area of memory as a character array.
+ I copy quote capital ABC into it and you'll see that it prints out as a string as ABC. The floating point number is still zeros. It's still kind of a bad floating point number.
+ But then I see the hex as zero zero six three six two four one.
+ This is a little Indian computer that I'm running on it. So the A is the forty one. The B is the sixty two and the C is the sixty three and the zero is the end of string indicator.
+ And so that's why I picked very carefully only copying a three character string into a four character array so I could copy that end of end of string indicator.
+ Then I take you dot F, which is taking that exact same memory and perceiving it as a floating point and I put one third into it.
+ So now when I print that out, it's zero point three three. Lovely. When I print it out as a string, it is pretty bad.
+ And so it turns out that the first three characters are the string, but there's no zero at the end of the string.
+ So that greater than is it there and it just keeps on going. It goes into memory and it's all that stuff that's greater than at sign question mark H K.
+ That's just random garbage on the stack somewhere that because the percent S is wandering randomly through memory at this point.
+ And then if I print that out as hex, if we wanted to, we could learn something about the IEEE floating point format. But 3EAAAAB is one third.
+ And that is a base two repeating one third with an exponent and floating point internal formats are not the subject for this course.
+ I've accomplished everything I wanted you to know about C.
+ So the next topic is going to be object oriented program, but not just how to use object oriented programming in Python or whatever.
+ C doesn't have it. What I want to do is look at if we were writing Python itself in C, which is what C Python is.
+ How would we have to build things like a list structure, a list object, a string object and a dictionary object?
+ How would we build them? And we'll take a look at other programming languages that object oriented features like C plus plus and Java and et cetera.
+ And so really the next bit is going to be about the implementation details for object oriented programming.

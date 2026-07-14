@@ -1,0 +1,1997 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:16.000
+ Welcome to C Programming for Everybody. My name is Charles Severance and this is my reading of the 1978 C programming book written by Brian Kernigan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
+
+00:00:16.000 --> 00:00:28.000
+ Chapter 4, Functions in Program Structure. Functions break large computing tasks into smaller ones and enable people to build on what others have done instead of starting over from scratch.
+
+00:00:28.000 --> 00:00:39.000
+ Appropriate functions can often hide details of operation from parts of the program that don't need to know about them, thus clarifying the whole and easing the pain of making changes.
+
+00:00:39.000 --> 00:01:05.000
+ C has been designed to make functions efficient and easy to use. C programs generally consist of numerous small functions rather than a few big ones. A program may reside on one or more source files in any convenient way. The source files may be compiled separately and loaded together, along with previously compiled functions from libraries. We will not go into that process here, since the details vary according to the local system.
+
+00:01:05.000 --> 00:01:21.000
+ Most programmers are familiar with library functions for input and output like getChar and putChar, and numerical computations like sine, cosine, and square root. In this chapter, we will show more about writing new functions.
+
+00:01:21.000 --> 00:01:35.000
+ 4.1 Basics. To begin, let us design and write a program to print each line of input that contains a particular pattern or string of characters. This is a special function of the Unix utility program "grap".
+
+00:01:35.000 --> 00:01:52.000
+ For example, searching for the pattern "the" in the set of lines "now is the time for all good men to come to the aid of their party" will produce the output "now is the time men to come to the aid of their party".
+
+00:01:52.000 --> 00:02:12.000
+ The basic structure of the task falls neatly into three pieces. While there is another line, if that line contains a pattern, print it. Although it is certainly possible to put the code for all of this in one main routine, a better way is to use the natural structure to advantage by making each part a separate function.
+
+00:02:12.000 --> 00:02:27.000
+ Three small pieces are easier to deal with than the one big one, because irrelevant details can be buried in the functions, and the chance of unwanted interactions minimized, and the pieces might even be useful later in their own right.
+
+00:02:27.000 --> 00:02:43.000
+ While there is another line is getline, a function we wrote in Chapter 1, and printit is printf, which someone has already provided for us. This means that we need to only write a routine which decides if the line contains an occurrence of the pattern.
+
+00:02:43.000 --> 00:03:00.000
+ We can solve that problem by stealing a design from PL1. The function index(s,t) returns the position, or index, in the string "s" where the string "t" begins, or -1 if "s" doesn't contain "t".
+
+00:03:00.000 --> 00:03:15.000
+ We use 0 rather than 1 as the starting position in "s" because C arrays always begin in position 0. When we later need more sophisticated pattern matching, we only have to replace index. The rest of the code can remain the same.
+
+00:03:15.000 --> 00:03:28.000
+ Recall that because the modern STDL.h defines a getline function, whenever the book writes this function to teach a feature of functions, we rename it to get_line.
+
+00:03:28.000 --> 00:03:36.000
+ Given this much design, filling in the details of the program is straightforward. Here's the whole thing, so you can see how the pieces fit together.
+
+00:03:36.000 --> 00:03:44.000
+ For now, the pattern to be searched for is a literal string in the argument of index, which is not the most general of mechanisms.
+
+00:03:44.000 --> 00:03:54.000
+ We will return shortly to a discussion of how to initialize character arrays, and in Chapter 5, we will show how to make the pattern a parameter that is set when the program is run.
+
+00:03:54.000 --> 00:04:02.000
+ This is also a new version of getline. You might find it instructive to compare it to the one in Chapter 1.
+
+00:04:02.000 --> 00:04:25.000
+ Pound include stdio.h. Pound define maxline 1000. Main, open parenthesis, close parenthesis, open curly brace. Char, line, open square bracket, maxline, close square bracket, semicolon. While, parenthesis, getline, open parenthesis, line, maxline, close parenthesis, greater than 0, close parenthesis.
+
+00:04:25.000 --> 00:04:51.000
+ If, open parenthesis, index, open parenthesis, line, double quote, the, double quote, close parenthesis, greater than or equal to 0, close parenthesis, printf, open parenthesis, double quote, percent s, double quote, line, close parenthesis, semicolon, and close curly brace to finish the main function.
+
+00:04:51.000 --> 00:05:16.600
+ The next function is getLine. getLine(s,lim(char(s)) int lim; int c,i; for i=0; i<lim-1; and
+
+00:05:16.600 --> 00:05:39.320
+ paren(c)=getchar(' not equal EOF'; c not equal '; ++i'; s_i=c) (that loop basically read until it found a new line or end a file)
+
+00:05:39.320 --> 00:05:55.120
+ if (c double equal quote backslash end quote, close parenthesis, open curly brace, s_i=c; ++i; close curly brace, closing the if)
+
+00:05:55.120 --> 00:06:18.080
+ s_i=(quote, backslash zero, quote, semicolon) to terminate the string properly, return, open paren(i), close paren( semicolon) to return the length of the line, and then close curly brace to finish the getLine function.
+
+00:06:18.080 --> 00:06:32.640
+ Now the new code, index(s,t), close parenthesis, char(s), open square bracket, close square bracket, comma, t, open square bracket, close square bracket, semicolon.
+
+00:06:32.640 --> 00:06:41.200
+ I would note that when we are declaring a character array and we don't give the length of the array, that means that we are inside of a function.
+
+00:06:41.200 --> 00:06:45.600
+ The length of the array exists, but it was from the calling code.
+
+00:06:45.600 --> 00:07:01.600
+ So char(s), open square bracket, close square bracket, t, open square bracket, close square bracket, semicolon, means parameters s and t are strings of some length, and we will use backslash zero to know when that length is done.
+
+00:07:01.600 --> 00:07:24.320
+ Beginning the code in index with an open curly brace, int(i,j,k, semicolon), and then we have two nested for loops, for, open paren(i=0), s_i not equal to, quote, backslash zero, quote, semicolon, i++, open curly brace.
+
+00:07:24.320 --> 00:07:46.080
+ For j=i, k=0, semicolon, t_k not equal to, backslash zero, and, double ampersand, s_j double equals t_k, semicolon, j++, k++, semicolon.
+
+00:07:46.080 --> 00:08:07.440
+ If, open paren(t_k) double equals, quote, backslash zero, quote, closed paren, return, open paren(i), closed paren, semicolon, closed curly brace, return, open paren minus one, closed paren, semicolon, curly brace.
+
+00:08:07.440 --> 00:08:21.520
+ Each function has the form, name, argument list, if any, in parentheses, argument declarations, if any, open curly brace, declarations and statements, if any, closed curly brace.
+
+00:08:21.520 --> 00:08:31.920
+ As suggested, various parts may be absent. A minimal function is dummy, open paren, closed paren, open curly brace, closed curly brace, which does nothing.
+
+00:08:31.920 --> 00:08:46.800
+ A do-nothing function is sometimes useful as a placeholder during program development. The function name may also be preceded by a type if the function returns something other than an integer value. This is the topic of the next section.
+
+00:08:46.800 --> 00:08:56.800
+ A program is just a set of individual function definitions. Communication between the functions is, in this case, by arguments and values returned by the functions.
+
+00:08:56.800 --> 00:09:07.600
+ It can also be via external variables. The functions can occur in any order in the source file, and the source program can be split into multiple files, so long as no function is split.
+
+00:09:07.600 --> 00:09:17.840
+ The return statement is the mechanism for returning a residual value from the called function to its caller. Any expression can follow return.
+
+00:09:17.840 --> 00:09:31.760
+ Return, open parentheses, expression, closed parentheses. The calling function is free to ignore the return value if it wishes. Furthermore, there is no need to have an expression after the return.
+
+00:09:31.760 --> 00:09:43.040
+ In that case, no value is returned to the caller. Control also returns to the caller with no value when execution falls off the end of the function by reaching the right closing brace.
+
+00:09:43.040 --> 00:09:51.440
+ It is not illegal, but probably a sign of trouble if a function returns a value from one place and no value from another place.
+
+00:09:51.440 --> 00:10:03.120
+ In any case, the residual value of a function which does not return one is certain to be garbage. The C verifier lint checks for such errors.
+
+00:10:03.120 --> 00:10:14.880
+ Mechanics of how to compile and load a C program which resides on multiple source files vary from one system to the next. On the Unix system, for example, the CC command mentioned in Chapter 1 does the job.
+
+00:10:14.880 --> 00:10:39.520
+ Suppose that three functions are in three files called main.c, getline.c, and index.c. Then the command cc main.c getline.c index.c compiles the three files and places the resulting relocatable object code in files main.o, getline.o, and index.o, and loads them all into an executable file named a.out.
+
+00:10:39.520 --> 00:10:52.800
+ If there is an error, say in main.c, that file can be recompiled by itself and the result loaded with the previous object files with the command cc main.c getline.o index.o.
+
+00:10:52.800 --> 00:11:01.680
+ The CC command uses the .c suffix versus the .o suffix name and convention to distinguish source files from object files.
+
+00:11:01.680 --> 00:11:18.000
+ I would note that this CC example exactly as the authors wrote, it does not quite work as described in modern C compilers. If you want to compile your source code and leave the compiled object code around after the compile, you add the -c option to the compiler call.
+
+00:11:18.000 --> 00:11:27.280
+ Modern C compilers generally do accept multiple files with either .c or .o suffixes and can combine them into a runnable application.
+
+00:11:27.280 --> 00:11:36.960
+ Section 4.2, Functions Returning Non-Integers. So far, none of our programs has contained any declaration of the type of a function.
+
+00:11:36.960 --> 00:11:51.440
+ This is because, by default, a function is implicitly declared by its appearance in an expression or statement, such as while openparen getline openparen line comma maxline closeparen greater than zero closeparen.
+
+00:11:51.440 --> 00:12:01.920
+ If a name which has not been previously declared occurs in an expression and is followed by a left parenthesis, it is declared by context to be a function name.
+
+00:12:01.920 --> 00:12:19.520
+ Furthermore, by default, the function is assumed to return an int. Since char promotes to int in expressions, there is no need to declare functions that return char. These assumptions cover the majority of classes, including all of our examples so far.
+
+00:12:19.520 --> 00:12:34.000
+ I would add, that's not quite true anymore. In modern C languages, you are required to provide a type for each function. If you leave off the type for a function declaration at a minimum, you will get a stern warning message.
+
+00:12:34.000 --> 00:12:43.200
+ But sometimes functions do not intend to return anything at all, and so the void type was invented to indicate that a function returns nothing.
+
+00:12:43.200 --> 00:12:56.800
+ The rule of requiring a type on a modern function definition in C, even if it's void, allows the compiler to check to make sure all of your return values in a function match the expected return type.
+
+00:12:56.800 --> 00:13:03.120
+ Back to the text. But what happens if a function must return some other type?
+
+00:13:03.120 --> 00:13:20.800
+ Many numerical functions like square root, sine, and cosine return double. Other specialized functions return other types. To illustrate how to deal with this, let us write and use the function a to f, which converts its argument string s to its double precision floating point equivalent.
+
+00:13:20.800 --> 00:13:34.960
+ a to f is an extension of a to i, which we wrote versions of in chapters two and three. It handles an optional sign and decimal point and the presence or absence of either the integer or fractional part.
+
+00:13:34.960 --> 00:13:43.200
+ We note that this is not a high quality input conversion routine. Doing everything takes a bit more space than we care to use here in this book.
+
+00:13:43.200 --> 00:13:54.080
+ First, a to f must declare the type of the value it returns since it's not int. Because float is converted to double in expressions, there is no point in saying that a to f returns float.
+
+00:13:54.080 --> 00:14:02.800
+ We might as well make use of the extra precision and thus declare it to return double. The type name precedes the function name like this.
+
+00:14:02.800 --> 00:14:17.920
+ Double a to f, open parenthesis, s, close parenthesis, char, s, open square bracket, close square bracket, open curly brace, double val, comma, power, int, i, comma, sine, semicolon.
+
+00:14:17.920 --> 00:14:37.760
+ For i equals zero, semicolon, s sub i, double equals, quote, space, quote, or s sub i, double equals, quote, backslash, end quote, or s sub i, double equals, quote, backslash, t, quote, semicolon, i plus plus, semicolon.
+
+00:14:37.760 --> 00:14:54.320
+ That skips the white space. Sine equals one. If s sub i, double equals, quote, plus, quote, or s sub i, double equals, quote, minus, quote, sine equals, and now we're going to use a turner operator here,
+
+00:14:54.320 --> 00:15:17.600
+ paren, s sub i plus plus, close bracket, double equals, quote, plus, quote, close paren, question mark, one, colon, minus one, semicolon, and that basically tells us it makes sine be one or negative one based on the presence or absence of a plus or minus.
+
+00:15:17.600 --> 00:15:38.000
+ For val equals zero, semicolon, s sub i greater than or equal to, quote, zero, quote, double ampersand, s sub i less than or equal to, double quote, nine, quote, i plus plus, close paren, val equals 10 times val plus s sub i minus, quote, zero, quote, semicolon.
+
+00:15:38.000 --> 00:15:51.280
+ What this is doing is multiplying the current value by 10, in effect shifting it left, and then adding in that new lower empty spot the digit that we're encountering, which is somewhere between the character zero and the character nine.
+
+00:15:51.280 --> 00:16:17.120
+ Continuing, if paren, s sub i double equals, quote, dot, quote, close paren, i plus plus, for, open paren, power equals one, semicolon, s sub i greater than or equal to, quote, zero, quote, double ampersand, s sub i less than or equal to, quote, nine, quote, semicolon, i plus plus,
+
+00:16:17.120 --> 00:16:25.760
+ open curly brace, val equals 10 times val plus s sub i minus, quote, zero, quote.
+
+00:16:25.760 --> 00:16:46.320
+ Again, shifting the number to the left as we encounter characters, power star equals 10, semicolon, close curly brace, return, open parenthesis, sine times val over power, close parenthesis, semicolon.
+
+00:16:46.320 --> 00:16:49.360
+ Close curly brace.
+
+00:16:49.360 --> 00:16:56.000
+ Second, and just as important, the calling routine must state that a to f returns a non-end value.
+
+00:16:56.000 --> 00:17:11.440
+ The declaration is shown in the following primitive desk calculator, barely adequate for checkbook balancing, which reads one number per line, optionally preceded by sine, and adds them all up, printing the sum after each input.
+
+00:17:11.440 --> 00:17:15.280
+ This example is from page 70 of the textbook.
+
+00:17:15.280 --> 00:17:37.760
+ Pound include stdio.h, pound define, max line 100, main, open parenthesis, close parenthesis, open curly brace, double, sum, comma, a to f, open parenthesis, close parenthesis, semicolon, char, line, open square bracket, max line, close square bracket, semicolon, sum equals zero,
+
+00:17:37.760 --> 00:18:05.760
+ while, open parenthesis, get line, open parenthesis, line, comma, max line, close parenthesis, greater than zero, close parenthesis, print f, quote, backslash t, percent, dot 2f, backslash n, comma, sum, plus equals a to f, open parenthesis, line, close parenthesis, semicolon, close curly brace.
+
+00:18:05.760 --> 00:18:16.720
+ That code used the plus equals side effect operator and merged the call to a to f right into the second parameter of print f.
+
+00:18:16.720 --> 00:18:28.000
+ The declaration, double, sum, a to f, open parenthesis, close parenthesis, says that sum is a double variable and that a to f is a function that returns a double value.
+
+00:18:28.000 --> 00:18:35.360
+ As a mnemonic, it suggests that sum and a to f, parenthesis, dot, dot, dot, are both double precision floating point values.
+
+00:18:35.360 --> 00:18:44.640
+ Unless a to f is explicitly declared in both places, c assumes it returns an integer and you will get nonsense answers.
+
+00:18:44.640 --> 00:18:53.560
+ If a to f itself and the call to it in main aren't typed inconsistently within the same source file, it will be detected by the compiler.
+
+00:18:53.560 --> 00:19:06.840
+ But if, as is more likely, a to f were compiled separately, the mismatch would not be detected and a to f would return a double, which main would treat as an int and meaningless answers would result.
+
+00:19:06.840 --> 00:19:09.720
+ Lindt catches this error.
+
+00:19:09.720 --> 00:19:16.640
+ Given a to f, we could in principle write a to i to convert a string to an integer in terms of it.
+
+00:19:16.640 --> 00:19:30.840
+ Int, a to i, open parenthesis, close parenthesis, char, s, open square bracket, close square bracket, semicolon, open curly brace, double, a to f, open parenthesis, close parenthesis, semicolon.
+
+00:19:30.840 --> 00:19:40.000
+ Return, open parenthesis, a to f, close parenthesis, s, close parenthesis, close parenthesis, semicolon, close curly brace.
+
+00:19:40.000 --> 00:19:42.720
+ Note the structure of the declarations in the return statement.
+
+00:19:42.720 --> 00:19:50.640
+ The value in the expression in return expression is always converted to the type of the function before the return is taken.
+
+00:19:50.640 --> 00:20:03.520
+ Therefore, the value of a to f, a double, is converted automatically to int when it appears in a return, since the function a to i returns an int.
+
+00:20:03.520 --> 00:20:10.200
+ The conversion of a floating point value to int truncates any fractional part, as we discussed in Chapter 2.
+
+00:20:10.200 --> 00:20:12.440
+ More on function arguments.
+
+00:20:12.440 --> 00:20:17.360
+ In Chapter 1, we discussed the fact that function arguments are passed by value.
+
+00:20:17.360 --> 00:20:24.120
+ That is, the called function receives a private, temporary copy of each argument, not its address.
+
+00:20:24.120 --> 00:20:29.120
+ This means that the function cannot affect the original argument in the calling function.
+
+00:20:29.120 --> 00:20:36.920
+ Within a function, each argument is in effect a local variable initialized to the value with which the function was called.
+
+00:20:36.920 --> 00:20:43.840
+ When an array name appears as an argument to a function, the location of the beginning of the array is passed.
+
+00:20:43.840 --> 00:20:45.760
+ Elements are not copied.
+
+00:20:45.760 --> 00:20:51.080
+ The function can alter elements of the array by subscripting from this location.
+
+00:20:51.080 --> 00:20:55.200
+ The effect is that arrays are always passed by reference.
+
+00:20:55.200 --> 00:21:04.040
+ In Chapter 5, we will discuss the use of pointers to permit functions to affect non-arrays in calling functions.
+
+00:21:04.040 --> 00:21:06.920
+ A bit of a digression.
+
+00:21:06.920 --> 00:21:12.320
+ Since including array as an argument passes the location or memory address of the array into the function,
+
+00:21:12.320 --> 00:21:17.040
+ the function can change the items in the array using array subscripts.
+
+00:21:17.040 --> 00:21:23.360
+ In particular, the array contents are not copied when an array is passed into a C function.
+
+00:21:23.360 --> 00:21:31.280
+ When we get to structs in a future chapter, we will find that the content of structs also are passed using the address of the entire struct.
+
+00:21:31.280 --> 00:21:34.680
+ So structs are passed by reference as well.
+
+00:21:34.680 --> 00:21:44.160
+ When thinking about pass by reference or pass by value, remember that a char variable is a single item similar to int and passed by value, i.e. it is copied.
+
+00:21:44.160 --> 00:21:50.440
+ In C, strings are arrays of characters, so they are passed by reference.
+
+00:21:50.440 --> 00:21:55.080
+ Python follows this design for the same efficiency reason as C.
+
+00:21:55.080 --> 00:22:02.640
+ Normal single variables like int or float are copied before being passed into a function and therefore passed by value.
+
+00:22:02.640 --> 00:22:10.680
+ Collections like list or dict are passed into functions by reference, so the contents can be changed within a function.
+
+00:22:10.680 --> 00:22:15.360
+ Python strings are not technically copied when being passed into a function,
+
+00:22:15.360 --> 00:22:23.680
+ but the way assignments happen in Python make it seem like strings are passed by value, since they can never be modified.
+
+00:22:23.680 --> 00:22:35.640
+ You can learn more with a bit of web research, but the easy way is to imagine in Python that strings are passed by value with a clever trick to avoid requiring a copy for every function call.
+
+00:22:35.640 --> 00:22:42.440
+ PHP follows the same pattern of passing numbers and strings by value and passing arrays as reference.
+
+00:22:42.440 --> 00:22:57.880
+ PHP passes strings by value without requiring a copy, again, using clever runtime code. Because in Java, JavaScript and PHP strings are objects, of course, which we haven't discussed much yet.
+
+00:22:57.880 --> 00:23:06.600
+ Those languages can make sure that strings act as if they were passed by value and not passed by reference the way they are always passed in C.
+
+00:23:06.600 --> 00:23:21.440
+ C made decisions on its runtime based on getting the maximum performance out of the hardware of the 1970s at the expense of making it too easy to write code that overwrites memory and leads to corrupted programs that have dangerous and undefined behavior.
+
+00:23:21.440 --> 00:23:38.880
+ Languages like PHP, Java and JavaScript add a small amount of runtime overhead to do things like store the length of an array and make sure we programmers don't overreference the array and overwrite random bits of our program's code or data.
+
+00:23:38.880 --> 00:23:45.240
+ The creators of C placed more priority on speed and efficient use of memory than safety.
+
+00:23:45.240 --> 00:24:02.840
+ It is like driving an automobile in the rain without ABS, automatic braking system. It is fast but dangerous and should be reserved by highly skilled and very careful programmers and drivers, and those drivers should probably be on a race course.
+
+00:24:02.840 --> 00:24:19.920
+ By the way, back to the text. By the way, there is no entirely satisfactory way to write a portable function that accepts a variable number of arguments because there is no portable way for the called function to determine how many arguments were actually passed in a given call.
+
+00:24:19.920 --> 00:24:31.640
+ Thus, you can't write a truly portable function that will compute the maximum of an arbitrary number of arguments, as will the max functions that are built in to Fortran and PL1.
+
+00:24:31.640 --> 00:24:41.040
+ It is generally safe to deal with a variable number of arguments if the called function doesn't use an argument that was not actually supplied, and if the types are consistent.
+
+00:24:41.040 --> 00:24:54.280
+ printf, the most common C function with a variable number of arguments, uses information from the first argument, which is the formatting string, to determine how many other arguments are present and what their types are.
+
+00:24:54.280 --> 00:25:08.080
+ It fails badly if the caller does not supply enough arguments or if types are not what the first argument says. It is also non-portable and therefore must be modified for different programming environments.
+
+00:25:08.080 --> 00:25:20.480
+ Alternatively, if arguments are of known types, it is possible to mark the end of the argument list in some agreed upon way, such as a special argument value, often zero, that stands for the end of the arguments.
+
+00:25:20.480 --> 00:25:29.640
+ Interestingly, modern languages like Python, PHP, and Java, go to great lengths to make variable length argument lists work predictably and portably.
+
+00:25:29.640 --> 00:25:39.680
+ The syntax for variable length argument lists in these languages can be a bit obtuse at times, but at least it is allowed, documented, reliable, and portable.
+
+00:25:39.680 --> 00:25:43.280
+ Section four, external variables.
+
+00:25:43.280 --> 00:25:49.320
+ A C program consists of a set of external objects, which are either variables or functions.
+
+00:25:49.320 --> 00:25:59.920
+ The adjective external is used primarily in contrast to internal, which describes arguments and automatic variables defined inside functions.
+
+00:25:59.920 --> 00:26:06.720
+ External variables are defined outside any function and are thus potentially available to many functions.
+
+00:26:06.720 --> 00:26:13.800
+ Functions themselves are always external, because C does not allow functions to be defined inside other functions.
+
+00:26:13.800 --> 00:26:25.720
+ By default, external variables are also global, so that all references to such a variable by the same name, even from functions that are compiled separately, are references to the same thing.
+
+00:26:25.720 --> 00:26:32.520
+ In this sense, external variables are analogous to Fortran common or PL1 external.
+
+00:26:32.520 --> 00:26:42.160
+ We will later see how to define external variables and functions that are not globally available, but instead only visible within a single source file.
+
+00:26:42.160 --> 00:26:51.520
+ Because external variables are globally accessible, they provide an alternative to function arguments and return values for communicating data between function.
+
+00:26:51.520 --> 00:26:59.760
+ Any function may access an external variable by referring it to by name, if the name has been declared somehow.
+
+00:26:59.760 --> 00:27:07.960
+ If a large number of variables must be shared among functions, external variables are a more convenient and efficient than long argument lists.
+
+00:27:07.960 --> 00:27:21.400
+ As pointed out in Chapter 1, however, this reasoning should be applied with some caution, for it can have a bad effect on program structure and lead to programs with many data connections between functions.
+
+00:27:21.400 --> 00:27:26.320
+ A second reason for using external variables concerns initialization.
+
+00:27:26.320 --> 00:27:32.760
+ In particular, external arrays may be initialized, but automatic, i.e. internal arrays, may not.
+
+00:27:32.760 --> 00:27:37.040
+ We will treat initialization near the end of this chapter.
+
+00:27:37.040 --> 00:27:41.480
+ A third reason for using external variables is their scope and lifetime.
+
+00:27:41.480 --> 00:27:44.480
+ Automatic variables are internal to a function.
+
+00:27:44.480 --> 00:27:49.800
+ They come into existence when the routine is entered and disappear when it's left.
+
+00:27:49.800 --> 00:27:52.480
+ External variables, on the other hand, are permanent.
+
+00:27:52.480 --> 00:27:57.640
+ They do not come and go, so they retain values from one function invocation to the next.
+
+00:27:57.640 --> 00:28:10.600
+ Thus, if two functions must share some data, yet neither calls the other, it is often most convenient if the shared data is kept in external variables rather than passed in and out via arguments.
+
+00:28:10.600 --> 00:28:13.920
+ Let's examine this issue further with a larger example.
+
+00:28:13.920 --> 00:28:19.360
+ The problem is to write another calculator program better than the previous one.
+
+00:28:19.360 --> 00:28:25.520
+ This one permits plus, minus, asterisk, and slash, and equals.
+
+00:28:25.520 --> 00:28:27.560
+ Equals will print our answer.
+
+00:28:27.560 --> 00:28:35.720
+ Because it is somewhat easier to implement, the calculator will use reverse-polish notation instead of infix notation.
+
+00:28:35.720 --> 00:28:42.560
+ Reverse-polish notation is the scheme used by, for example, Hewlett-Packard pocket calculators.
+
+00:28:42.560 --> 00:28:48.640
+ In reverse-polish notation, each operator follows its operands.
+
+00:28:48.640 --> 00:29:08.120
+ An infix expression, like open parentheses 1 minus 2, close parentheses star, open parentheses 4 plus 5, close parentheses equals, is entered as 1, 2, minus, 4, 5, plus, star, equals.
+
+00:29:08.120 --> 00:29:11.440
+ Parentheses are not needed in reverse-polish notation.
+
+00:29:11.440 --> 00:29:14.440
+ The implementation is quite simple.
+
+00:29:14.440 --> 00:29:17.600
+ Each operand is pushed onto a stack.
+
+00:29:17.600 --> 00:29:23.960
+ When an operator arrives, the proper number of operands, 2 for binary operators, are popped.
+
+00:29:23.960 --> 00:29:28.080
+ The operator applied to them, and the result is pushed back onto the stack.
+
+00:29:28.080 --> 00:29:33.800
+ In the example above, 1 and 2 are pushed, then replaced by their difference, negative 1.
+
+00:29:33.800 --> 00:29:38.280
+ Next, 4 and 5 are pushed, then replaced by their sum, 9.
+
+00:29:38.280 --> 00:29:43.720
+ And then the product of negative 1 and 9, which is negative 9, replaces them on the stack.
+
+00:29:43.720 --> 00:29:49.360
+ And then the equal sign operator prints the top element without removing it.
+
+00:29:49.360 --> 00:29:53.200
+ So intermediate steps in a calculation can be checked.
+
+00:29:53.200 --> 00:29:56.600
+ The operations of pushing and popping a stack are trivial.
+
+00:29:56.600 --> 00:30:05.840
+ But by the time error detection and recovery are added, they're long enough so it's better to put each in a separate function than to repeat the code throughout the whole program.
+
+00:30:05.840 --> 00:30:10.720
+ And there should be a separate function for fetching the next input operator or operand.
+
+00:30:10.720 --> 00:30:19.720
+ Thus, the overall structure of the program is, while next operator or operand is not in the file, if it's a number, push it.
+
+00:30:19.720 --> 00:30:25.040
+ Else, if it's an operator, pop operands, do the operation, and push the result.
+
+00:30:25.040 --> 00:30:26.920
+ Else, error.
+
+00:30:26.920 --> 00:30:31.200
+ The main design decision that has not yet been discussed is where the stack is.
+
+00:30:31.200 --> 00:30:34.600
+ That is, what routines access it directly.
+
+00:30:34.600 --> 00:30:41.560
+ One possibility is to keep it in main and pass the stack and current stack position to the routines that push and pop it.
+
+00:30:41.560 --> 00:30:44.800
+ But main doesn't need to know about the variables that control the stack.
+
+00:30:44.800 --> 00:30:47.160
+ It should only think about pushing and popping.
+
+00:30:47.160 --> 00:30:57.920
+ So we have decided to make the stack and its associated information external variables accessible to push and pop, but not to main.
+
+00:30:57.920 --> 00:31:00.920
+ Translating this outline to code is easy enough.
+
+00:31:00.920 --> 00:31:06.480
+ The main program is primarily a big switch on the type of operator or operand.
+
+00:31:06.480 --> 00:31:12.360
+ This is a more typical use of switch than the one shown in Chapter 3.
+
+00:31:12.360 --> 00:31:19.040
+ This sample code is from page 74 of the textbook.
+
+00:31:19.040 --> 00:31:27.640
+ Pound include stdio.h, pound define maxop 20, pound define number quote zero quote.
+
+00:31:27.640 --> 00:31:35.760
+ This is going to be a single, we found a number, and pound define two big quote nine quote, a signal that the string is too big.
+
+00:31:35.760 --> 00:31:49.120
+ Main, open parenthesis, close parenthesis, open curly brace, int type semicolon, char s, open square bracket, maxop, close square bracket, semicolon,
+
+00:31:49.120 --> 00:32:03.440
+ double op two, a to f, open parenthesis, close parenthesis, comma, pop, open parenthesis, close parenthesis, comma, push, open parenthesis, close parenthesis, semicolon.
+
+00:32:03.440 --> 00:32:15.360
+ While open parenthesis, open parenthesis, type equals getop, open parenthesis, s comma maxop, close parenthesis, close parenthesis, not equal eof, close parenthesis.
+
+00:32:15.360 --> 00:32:26.240
+ Switch, open parenthesis, type, close parenthesis, open curly brace, case, number, colon, note that number is a predefined constant above.
+
+00:32:26.240 --> 00:32:34.280
+ Push, open parenthesis, a to f, open parenthesis, s, close parenthesis, close parenthesis, semicolon, break.
+
+00:32:34.280 --> 00:32:47.840
+ Case, quote, plus, quote, colon, push, open parenthesis, pop, open parenthesis, close parenthesis, plus, pop, open parenthesis, close parenthesis, semicolon, break, semicolon.
+
+00:32:47.840 --> 00:33:04.040
+ Case, quote, asterisk, quote, colon, push, open parenthesis, pop, open parenthesis, close parenthesis, asterisk, pop, open parenthesis, close parenthesis, semicolon, break, semicolon, that was the multiplication.
+
+00:33:04.040 --> 00:33:21.960
+ Case, quote, minus, quote, colon, op2 equals pop, open parenthesis, close parenthesis, push, open parenthesis, pop, minus, op2, close parenthesis, semicolon, break, semicolon, that was the subtraction.
+
+00:33:21.960 --> 00:33:50.200
+ Case, open parenthesis, slash, close parenthesis, colon, op2 equals pop, open parenthesis, semicolon. If op2 not equal 0.0, push, open parenthesis, pop, open parenthesis, close parenthesis, slash, op2, close parenthesis, semicolon, else, printf, double quote, zero divisor popped, backslash n, double quote, close parenthesis, semicolon, break, break, break.
+
+00:33:50.200 --> 00:34:11.400
+ Case, quote, equal, quote, colon, printf, open parenthesis, double quote, backslash t, percent f, backslash n, double quote, comma, push, open parenthesis, pop, open parenthesis, close parenthesis, close parenthesis, semicolon.
+
+00:34:11.400 --> 00:34:18.200
+ So to print it, we pop it and push it and then print the residual value of the push function.
+
+00:34:18.200 --> 00:34:20.920
+ Next line is break, semicolon.
+
+00:34:20.920 --> 00:34:29.160
+ Case, quote, c, quote, colon, clear, open paren, close paren, semicolon, break, semicolon.
+
+00:34:29.160 --> 00:34:45.640
+ Case, too big, colon, printf, double quote, percent dot 20 s, space, dot, dot, dot, is too long, backslash n, double quote, comma, s, close paren, semicolon, break, semicolon.
+
+00:34:45.640 --> 00:35:08.280
+ Default, colon, printf, open paren, double quote, unknown command, percent c, backslash n, double quote, comma, type, open paren, close paren, semicolon, break, semicolon, close curly brace to finish the switch statement and then close curly brace to finish the main.
+
+00:35:08.280 --> 00:35:12.840
+ So now we're going to have a separate file that has some of these functions defined.
+
+00:35:12.840 --> 00:35:19.080
+ This file is on page 75 of the textbook.
+
+00:35:19.080 --> 00:35:30.200
+ This file will be compiled separately, but then later linked altogether with the main program, but we're going to define push, pop, and clear in this file.
+
+00:35:30.200 --> 00:35:42.520
+ Pound include stdio.h, pound define maxval 100, maximum value, that'd be the maximum value of our stack, the maximum size of our stack, maximum depth of our stack.
+
+00:35:42.520 --> 00:35:48.280
+ Now we're declaring variables outside of any function, these are the external variables.
+
+00:35:48.280 --> 00:35:57.720
+ Int sp equals zero, double val, open square bracket, maxval, close square bracket, semicolon.
+
+00:35:57.720 --> 00:36:06.600
+ And so those variables are external variables and they're outside of all of the functions, but we can use them in any function and there's just one copy no matter what function we're using.
+
+00:36:06.600 --> 00:36:09.240
+ So now we define our functions.
+
+00:36:09.240 --> 00:36:15.720
+ Push, open paren, f, close paren, double f, semicolon, open curly brace.
+
+00:36:15.720 --> 00:36:29.960
+ If, open paren, sp less than maxval, close paren, return, open paren, val, open square bracket, sp++, close square bracket equals f, close paren, semicolon.
+
+00:36:29.960 --> 00:36:39.720
+ Else, open curly brace, printf, double quote, error, colon, stack, full, backslash, end, double quote, close paren, semicolon.
+
+00:36:39.720 --> 00:36:55.560
+ Clear, open paren, close paren, semicolon, return, open paren, zero, close paren, semicolon, close curly brace to finish the else and then close curly brace to finish the double function, the push function.
+
+00:36:55.560 --> 00:37:02.520
+ And now we define the pop, double pop, open paren, close paren, open curly brace.
+
+00:37:02.520 --> 00:37:15.480
+ If, open paren, sp greater than zero, close paren, return, open paren, val, open square bracket, minus, minus, sp, close square bracket, close curly brace, semicolon.
+
+00:37:15.480 --> 00:37:28.920
+ Else, open curly brace, printf, open paren, double quote, error, colon, stack, empty, backslash, end, close quote, close double quote, close paren, semicolon.
+
+00:37:28.920 --> 00:37:40.520
+ Clear, open paren, close paren, semicolon, return, open paren, zero, close paren, semicolon, close curly brace to finish the else and then close curly brace to finish the double.
+
+00:37:40.520 --> 00:37:53.320
+ And the last function we're going to define is the clear function, which is quite simple. Clear, open paren, close paren, open curly brace, sp equals zero, semicolon, close paren.
+
+00:37:53.320 --> 00:38:12.360
+ I would note that just read this one carefully. They're very good at using side effect operators and side effect assignments and to keep this code very simple and succinct. And you really have to understand a lot of the other stuff that you've covered in the book up to this point.
+
+00:38:12.360 --> 00:38:23.880
+ Back to the text. The command C clears the stack with a function clear, which can also be used by push and pop in case of error. We'll return to get up in a moment.
+
+00:38:23.880 --> 00:38:46.200
+ As discussed in chapter one, a variable is external if it is defined outside the body of any function. Thus the stack and stack pointer, which must be shared by push, pop and clear, are defined outside the three functions. But if main itself does not refer to the stack or stack pointer, their representation is carefully hidden.
+
+00:38:46.200 --> 00:38:58.120
+ Thus the code for the equal operator must use push, open paren, pop, paren, close paren, close paren, semicolon to examine the top of the stack without disturbing it.
+
+00:38:58.120 --> 00:39:12.360
+ Notice also that because plus and multiplication are commutative operators, the order in which the popped operands are combined is irrelevant. But for the minus and slash operators, the left and right operands must be distinguished.
+
+00:39:12.360 --> 00:39:21.880
+ This example code above shows why it's important to remember the KNRC rearrangement license as it applies to operators that are associative and commutative.
+
+00:39:21.880 --> 00:39:38.680
+ If the code for the minus operator were written push, open paren, pop, open paren, close paren, minus pop, open paren, close paren, semicolon, there is no guarantee that the left pop will run before the right pop.
+
+00:39:38.680 --> 00:39:47.960
+ And since these functions access global variables and have side effects, it is important to force the compiler not to rearrange the order of the function calls.
+
+00:39:47.960 --> 00:40:02.680
+ To force the evaluation order, the code is broken into two statements. Op2 equals pop, open paren, close paren, semicolon. Push, open paren, pop, open paren, close paren, minus op2, close paren, semicolon.
+
+00:40:02.680 --> 00:40:11.560
+ Now you might think that the lesson here is that the KNRC arrangement license, which was done to allow optimization and performance, is a bad idea.
+
+00:40:11.560 --> 00:40:23.640
+ But the more important lesson is that writing low-level utility functions like push and pop that use global variables and have side effects is a dangerous pattern in any programming language.
+
+00:40:23.640 --> 00:40:33.400
+ Section 4.5, scope rules. The functions and external variables that make up a C program need not all be compiled at the same time.
+
+00:40:33.400 --> 00:40:40.840
+ The source text of the program may be kept in several files and previously compiled routines may be loaded from libraries.
+
+00:40:40.840 --> 00:40:57.000
+ The two questions of interest are how are declarations written so that variables are properly declared during compilation and how are declarations set up so that all the pieces will be properly linked or connected when the program is loaded.
+
+00:40:57.000 --> 00:41:02.760
+ The scope of a name is the part of the program over which the name is defined.
+
+00:41:02.760 --> 00:41:14.040
+ For an automatic variable, declared at the beginning of a function, the scope is the function in which the name is declared and variables of the same name in different functions are unrelated.
+
+00:41:14.040 --> 00:41:17.400
+ The same is true of the arguments of the function.
+
+00:41:17.400 --> 00:41:25.560
+ The scope of an external variable lasts from the point at which it is declared in a source file to the end of that file.
+
+00:41:25.560 --> 00:41:32.680
+ For example, if val, sp, push, pop, and clear are defined in one file in the order shown above,
+
+00:41:32.680 --> 00:41:39.320
+ that is int sp equals zero, double val open square bracket max val close square bracket semicolon,
+
+00:41:39.320 --> 00:41:46.280
+ double push open paren f close paren open curly brace dot dot dot close curly brace, double pop
+
+00:41:46.280 --> 00:41:52.440
+ open paren close paren open curly brace dot dot dot close curly brace, clear open paren close paren
+
+00:41:52.440 --> 00:41:59.560
+ open curly brace dot dot dot close curly brace, then the variables val and sp may be used in push,
+
+00:41:59.560 --> 00:42:04.040
+ pop, and clear simply by naming them and no further declarations are needed.
+
+00:42:04.040 --> 00:42:11.480
+ On the other hand, if an external variable is to be referenced before it is defined or it is defined
+
+00:42:11.480 --> 00:42:16.520
+ in a different source file from the one in which it's being used, then an extern declaration is
+
+00:42:16.520 --> 00:42:23.080
+ mandatory. It is very important to distinguish between the declaration of an external variable
+
+00:42:23.080 --> 00:42:29.320
+ and its definition. A declaration announces the property of the variable, its type, its size,
+
+00:42:29.320 --> 00:42:39.480
+ etc. A definition also causes storage to be allocated. If the lines int sp semicolon double
+
+00:42:39.480 --> 00:42:45.720
+ val open square bracket max val close square bracket semicolon appear outside any function,
+
+00:42:45.720 --> 00:42:52.520
+ they define the external variables sp and val and cause the storage to be allocated and also serve
+
+00:42:52.520 --> 00:43:00.040
+ as the declaration for the rest of that source file. On the other hand, the lines extern int sp
+
+00:43:00.040 --> 00:43:07.160
+ extern double val open square bracket close square bracket semicolon declare for the rest of the
+
+00:43:07.160 --> 00:43:13.880
+ source file that sp is an int and val is a double array whose size is determined and allocated
+
+00:43:13.880 --> 00:43:21.720
+ elsewhere, but they do not create variables or allocate storage for them. There must be only one
+
+00:43:21.720 --> 00:43:26.680
+ definition of an external variable among all the files that make up the source program.
+
+00:43:26.680 --> 00:43:33.480
+ Other files may contain extern declarations to access it. There may also be an extern
+
+00:43:33.480 --> 00:43:40.200
+ declaration in the file containing the definition. Any initialization of an external variable goes
+
+00:43:40.200 --> 00:43:47.000
+ only with the definition. Array sizes must be specified with the definition,
+
+00:43:47.000 --> 00:43:53.640
+ but are optional with the extern declaration. Although it is not a likely organization for
+
+00:43:53.640 --> 00:44:01.080
+ this program, val and sp could be defined and initialized in one file and the functions push,
+
+00:44:01.080 --> 00:44:08.120
+ pop, and clear defined in another. Then these definitions and declarations would be necessary
+
+00:44:08.120 --> 00:44:16.920
+ to tie them together. In file one, we would see int sp equals zero semicolon double val open square
+
+00:44:16.920 --> 00:44:24.120
+ bracket max val close square bracket semicolon and then in file two, extern int sp semicolon
+
+00:44:24.120 --> 00:44:30.280
+ extern double val open square bracket close square bracket semicolon double push open
+
+00:44:30.280 --> 00:44:38.040
+ paren aff close paren open curly brace dot dot dot close curly brace double pop open paren close paren
+
+00:44:38.040 --> 00:44:45.000
+ open curly brace dot dot dot close curly brace clear open paren close paren open curly brace dot
+
+00:44:45.000 --> 00:44:51.720
+ dot dot close curly brace. Because the extern declarations in file two lie ahead and outside
+
+00:44:51.720 --> 00:44:58.600
+ the three functions, they apply to all. One set of declarations suffices for all of file two.
+
+00:45:00.760 --> 00:45:06.600
+ For larger programs, the pound include file inclusion facility discussed later in this
+
+00:45:06.600 --> 00:45:12.760
+ chapter allows one to keep only a single copy of the extern declarations for the program
+
+00:45:12.760 --> 00:45:19.400
+ and have that inserted in each source file as it's being compiled. Let us now turn to the
+
+00:45:19.400 --> 00:45:26.680
+ implementation of getup, the function that fetches the next operator or operand. The basic task is
+
+00:45:26.680 --> 00:45:33.960
+ easy. Skip blanks, tabs and new lines. If the character is not a digit or a decimal point,
+
+00:45:33.960 --> 00:45:40.040
+ return it. Otherwise, collect a string of digits that might include a decimal point and return
+
+00:45:40.040 --> 00:45:48.680
+ number a single signal that a number has been collected. Routine is substantially complicated
+
+00:45:48.680 --> 00:45:55.000
+ by an attempt to handle the situation properly when the input number is too long. Getup reads
+
+00:45:55.000 --> 00:46:00.760
+ digits perhaps with an intervening decimal point until it doesn't see anymore but only stores the
+
+00:46:00.760 --> 00:46:06.600
+ ones that fit. If there was no overflow, it returns number in the string of digits. If the
+
+00:46:06.600 --> 00:46:12.200
+ number was too long, however, getup discards the rest of the input line so the user can simply
+
+00:46:12.200 --> 00:46:17.320
+ retype the line from the point of error. It returns too big as the overflow signal.
+
+00:46:21.720 --> 00:46:35.640
+ This example code is from page 78 of the textbook and you can view it at www.cc4e.com/code, page 78.
+
+00:46:35.640 --> 00:46:44.120
+ Getup, operand s comma limb close operand char s open square bracket close square bracket semicolon
+
+00:46:44.760 --> 00:46:54.680
+ int limb semicolon open curly brace int i comma c semicolon while open paren open paren c equals
+
+00:46:54.680 --> 00:47:01.880
+ get ch open paren close paren close paren double equals quote space quote or c double equals
+
+00:47:01.880 --> 00:47:08.920
+ quote backslash t quote or c double equals quote backslash n quote close paren semicolon.
+
+00:47:09.720 --> 00:47:20.760
+ Skip all the blanks. If c is not equal quote dot quote and open paren c less than quote zero
+
+00:47:20.760 --> 00:47:27.000
+ quote vertical bar vertical bar c greater than quote nine quote close paren close paren return
+
+00:47:27.000 --> 00:47:35.400
+ return open paren c close paren s sub zero equals c four paren i equals one semicolon
+
+00:47:35.400 --> 00:47:41.320
+ open paren c equals get chart open paren close paren close paren greater than or equal to quote
+
+00:47:41.320 --> 00:47:49.800
+ zero quote and c less than or equal to quote nine quote semicolon i plus plus inside the for loop.
+
+00:47:49.800 --> 00:47:59.640
+ If i less than limb s sub i equals c if open paren c double equals quote dot quote
+
+00:48:00.440 --> 00:48:07.880
+ close paren open curly brace we begin to collect the fraction. If open paren i less than limb
+
+00:48:07.880 --> 00:48:19.160
+ close paren s sub i equals c for open paren i plus plus c equals get char open paren close paren
+
+00:48:19.160 --> 00:48:25.320
+ close paren greater than or equal to quote zero quote ampersand ampersand c less than or equal to
+
+00:48:25.320 --> 00:48:33.240
+ quote nine quote semicolon i plus plus close paren if open paren i less than limb close paren
+
+00:48:33.240 --> 00:48:39.560
+ s sub i equals c close curly brace to close the if statement where we're collecting the fraction.
+
+00:48:39.560 --> 00:48:47.960
+ If open paren i less than limb close paren open curly brace this means the number is
+
+00:48:47.960 --> 00:48:57.560
+ good. Ungetch is ch open paren c close paren semicolon s sub i equals quote backslash zero quote
+
+00:48:57.560 --> 00:49:04.040
+ semicolon return open paren number close paren and recall that number is a predefined constant.
+
+00:49:04.040 --> 00:49:11.240
+ Close curly brace else open curly brace if it's too big we're going to skip to the end of the line.
+
+00:49:12.040 --> 00:49:22.120
+ While open paren c not equal quote backslash end quote and c not equal eof open paren c equals get
+
+00:49:22.120 --> 00:49:28.760
+ char open paren close paren semicolon s sub limb minus one equals quote backslash zero quote
+
+00:49:28.760 --> 00:49:36.520
+ semicolon return too big semicolon close curly brace to finish the if and then close curly brace
+
+00:49:36.520 --> 00:49:42.760
+ to finish the function. Recall that too big is a constant that indicates that we've read too much.
+
+00:49:42.760 --> 00:49:50.760
+ Back to the text. What are getch and ungetch? Well it is often the case that a programming reading
+
+00:49:50.760 --> 00:49:56.600
+ input cannot determine that is read enough until it is read too much. One instance is collecting
+
+00:49:56.600 --> 00:50:02.840
+ characters that make up a number until the first non-judge is seen the number is not complete
+
+00:50:02.840 --> 00:50:08.280
+ but then the program has read one character too far and that is a character it is not prepared for.
+
+00:50:08.280 --> 00:50:13.400
+ The problem would be solved if it were possible to unread the unwanted character then every time
+
+00:50:13.400 --> 00:50:18.360
+ the program reads one character too many it could push it back on the input so that the rest of the
+
+00:50:18.360 --> 00:50:24.600
+ code would behave as if it never been read. Fortunately it is easy to simulate ungetting
+
+00:50:24.600 --> 00:50:30.280
+ a character by writing a pair of cooperating functions. Getch delivers the next input character
+
+00:50:30.280 --> 00:50:36.280
+ to be considered ungetch puts the character back on the input so the next call to getch will return
+
+00:50:36.280 --> 00:50:43.960
+ it again. How they work together is simple ungetch puts the pushed back characters into a shared
+
+00:50:43.960 --> 00:50:49.160
+ buffer a character array getch reads from the buffer as there's anything there and then it calls
+
+00:50:49.160 --> 00:50:54.280
+ getchar if the buffer is empty. There must be an index variable which records the position of the
+
+00:50:54.280 --> 00:51:00.840
+ current character in the buffer since the buffer and index are shared by getch and ungetch and must
+
+00:51:00.840 --> 00:51:07.080
+ retain their values between calls they must be external to both routines thus we can write getch
+
+00:51:07.080 --> 00:51:14.840
+ and ungetch and their shared variables as follows this is on page 79 of the textbook we can see the
+
+00:51:14.840 --> 00:51:26.360
+ code at www.cc4e.com/code and go to page 79 pound include stdi.h pound defined buff size 100
+
+00:51:26.360 --> 00:51:34.360
+ char buff open square bracket buff size closed square bracket semicolon int buff p equals zero
+
+00:51:34.360 --> 00:51:40.760
+ semicolon those were the external variables outside any function here's the first function
+
+00:51:40.760 --> 00:51:48.280
+ getch open paren closed paren open curly brace return open parentheses open parentheses buff p
+
+00:51:48.280 --> 00:51:55.880
+ greater than zero closed parentheses question mark buff open square bracket minus minus buff p
+
+00:51:55.880 --> 00:52:01.720
+ closed square bracket colon getchar open paren closed paren closed paren semicolon
+
+00:52:01.720 --> 00:52:08.600
+ close curly brace to finish the getch function the ungetch function pushes a character back on
+
+00:52:08.600 --> 00:52:18.520
+ input ungetch open paren c closed paren int c semicolon open curly brace if open paren buff p
+
+00:52:18.520 --> 00:52:26.440
+ greater than buff size printf open paren double quote ungetch colon too many characters backslash
+
+00:52:26.440 --> 00:52:35.320
+ n double quote close paren semicolon else buff open square bracket buff p plus plus closed square
+
+00:52:35.320 --> 00:52:42.680
+ bracket equals c semicolon and then close curly brace to finish the ungetch ch function we have
+
+00:52:42.680 --> 00:52:47.800
+ used an array for pushback rather than a single character since the generality may come in handy
+
+00:52:47.800 --> 00:52:57.720
+ later section 4.6 static variables static variables are a third class of storage in addition to the
+
+00:52:57.720 --> 00:53:05.320
+ extern and automatic that we've already met static variables may either be internal or external
+
+00:53:05.320 --> 00:53:11.560
+ internal static variables are local to a particular function just like automatic variables are but
+
+00:53:11.560 --> 00:53:17.000
+ unlike automatics they remain in existence rather than coming and going each time the function's
+
+00:53:17.000 --> 00:53:23.480
+ activated this means that internal static variables provide private permanent storage in a function
+
+00:53:24.360 --> 00:53:29.880
+ character strings that appear within a function such as the arguments of printf are internal static
+
+00:53:29.880 --> 00:53:37.000
+ an external static variable is known within the remainder of the source file in which it's declared
+
+00:53:37.000 --> 00:53:44.520
+ but not in any other file external static thus provides a way to hide names like buff and buff
+
+00:53:44.520 --> 00:53:51.320
+ p in the getch ungetch combination which must be external so they can be shared yet which should
+
+00:53:51.320 --> 00:53:57.400
+ not be visible to users of getch and ungetch so there's no possibility of conflict if the two
+
+00:53:57.400 --> 00:54:05.000
+ routines are compiled in one file as in static char buff open square bracket buff size close
+
+00:54:05.000 --> 00:54:13.240
+ square bracket semicolon static int buff p equals zero semicolon getch open paren close paren open
+
+00:54:13.240 --> 00:54:19.800
+ curly brace dot dot dot close curly brace ungetch open paren c close paren open curly brace dot dot
+
+00:54:19.800 --> 00:54:27.640
+ close curly brace then no other routine will be able to access buff and buff p in fact they will
+
+00:54:27.640 --> 00:54:34.680
+ not conflict with the same names in other files of the same program static storage whether internal
+
+00:54:34.680 --> 00:54:41.800
+ or external is specified by prefixing the normal declaration with the word static the variable is
+
+00:54:41.800 --> 00:54:48.840
+ external if it's defined outside of any function and internal if defined inside a function normally
+
+00:54:48.840 --> 00:54:54.600
+ functions are external objects their names are known globally it is possible for a function
+
+00:54:54.600 --> 00:55:01.560
+ however to be declared static this makes its name unknown outside the file in which it's declared
+
+00:55:01.560 --> 00:55:12.520
+ in c static connotates not only permanence but also a degree of what might be called privacy
+
+00:55:13.560 --> 00:55:20.120
+ internal static objects are known only inside one function external static objects variables
+
+00:55:20.120 --> 00:55:26.280
+ or function are are known only within the source file in which they appear their names do not
+
+00:55:26.280 --> 00:55:35.080
+ interfere with variables or functions of the same name in other files external static variables and
+
+00:55:35.080 --> 00:55:42.200
+ functions provide a way to conceal data objects and any internal routines that manipulate them so that
+
+00:55:42.200 --> 00:55:49.240
+ other routines and data cannot conflict even inadvertently for example getch and ungetch form
+
+00:55:49.240 --> 00:55:55.960
+ a module for character input and pushback buff and buff p should be static so they are inaccessible
+
+00:55:55.960 --> 00:56:04.040
+ from the outside in the same way push pop and clear form a module for stack manipulations val
+
+00:56:04.040 --> 00:56:14.040
+ and sp should also be external static 4.7 register variables the fourth and final storage class is
+
+00:56:14.040 --> 00:56:19.960
+ called register our register declaration advises the compiler that the variable in question will
+
+00:56:19.960 --> 00:56:27.160
+ be heavily used when possible register variables are placed in machine registers which may result
+
+00:56:27.160 --> 00:56:35.080
+ in smaller and faster programs the register declaration looks like register int x semicolon
+
+00:56:35.080 --> 00:56:42.760
+ register char c semicolon and so on the end part may be omitted register can only be applied to
+
+00:56:42.760 --> 00:56:48.040
+ automatic variables and the formal parameters of a function in this latter case the function
+
+00:56:48.040 --> 00:56:57.560
+ declaration looks like f open paren c comma n close paren register int c comma n semicolon open curly brace
+
+00:56:57.560 --> 00:57:05.320
+ register int i semicolon and then dot dot dot close curly brace in practice there are some
+
+00:57:05.320 --> 00:57:11.320
+ restrictions on register variables reflecting the realities of the underlying hardware only a few
+
+00:57:11.320 --> 00:57:15.560
+ variables in each function may be kept in registers and only certain types are allowed
+
+00:57:16.200 --> 00:57:21.640
+ the word register is ignored for excess or disallowed declarations and it is not
+
+00:57:21.640 --> 00:57:26.920
+ possible to take the address of a register variable a topic that will be covered in chapter five the
+
+00:57:26.920 --> 00:57:34.680
+ specific restrictions vary from machine to machine as an example on the pdp 11 only the first three
+
+00:57:34.680 --> 00:57:41.480
+ register declarations in a function are effective and the types must be int char or pointer
+
+00:57:43.400 --> 00:57:48.280
+ as a quick aside the description of the details of the implementation of the register modder
+
+00:57:48.280 --> 00:57:55.720
+ modifier on the pdp 11 is a delightful peek into how the c compiler generated runtime code on that
+
+00:57:55.720 --> 00:58:02.440
+ particular system in the 1970s as compilers have become more sophisticated the compiler could decide
+
+00:58:02.440 --> 00:58:09.320
+ which variables to keep in registers far better than the programmer could and since how variables
+
+00:58:09.320 --> 00:58:13.720
+ would be allocated to registers might be different on different hardware architectures the register
+
+00:58:13.720 --> 00:58:18.600
+ indication is generally ignored by modern c compilers so you should probably never use it
+
+00:58:18.600 --> 00:58:24.440
+ in your code as a matter of fact i wrote the following sample c program and compiled it with
+
+00:58:24.440 --> 00:58:29.800
+ the minus capital s option so i could see the generated assembly language with and without the
+
+00:58:29.800 --> 00:58:36.200
+ register declaration with optimization there was no difference between the code generated with or
+
+00:58:36.200 --> 00:58:41.880
+ without the register declaration the reason the generated assembly code was identical once you
+
+00:58:41.880 --> 00:58:47.480
+ take a look at it was regardless of the use the register keyboard was that the c optimizer on my
+
+00:58:47.480 --> 00:58:53.400
+ arm based computer in 2022 realized the best way to implement the code was to keep both of the
+
+00:58:53.400 --> 00:58:58.760
+ variables in registers because the loop code was so simple and the cpu in my computer has plenty
+
+00:58:58.760 --> 00:59:04.280
+ registers and optimized any loading and storing of the data for these variables right out of the
+
+00:59:04.280 --> 00:59:13.160
+ program in 1978 the authors likely included the register function as a feature to convince the
+
+00:59:13.160 --> 00:59:19.560
+ experienced assembly language programmers that they should write all but the lowest lowest level
+
+00:59:19.560 --> 00:59:26.440
+ code in c so write a little tiny bit in c and then i mean write a little tiny bit in assembly
+
+00:59:26.440 --> 00:59:32.520
+ language and write everything else in c so here's an example that's not in the textbook it's on page
+
+00:59:32.520 --> 00:59:43.560
+ 81 if it were in the textbook you can see this code at www.cc4e.com/code page 81 and this is
+
+00:59:43.560 --> 00:59:49.800
+ code that i wrote to play with the register keyword to mostly convince myself it was pointless to use
+
+00:59:49.800 --> 00:59:58.840
+ it but here we go pound include stdio.h int main open print close print open curly brace
+
+00:59:59.960 --> 01:00:08.680
+ int compute semicolon register int iter semicolon scan f open print double quote percent d
+
+01:00:08.680 --> 01:00:16.280
+ close quote comma ampersand compute close parentheses semicolon print f open parentheses
+
+01:00:16.280 --> 01:00:22.920
+ double quote compute space percent d backslash n double quote comma compute close parentheses semicolon
+
+01:00:23.640 --> 01:00:31.640
+ four open print iter equals zero semicolon iter less than one thousand semicolon iter plus plus
+
+01:00:31.640 --> 01:00:37.960
+ close parentheses open curly brace compute equals open parentheses compute times 22 close parentheses
+
+01:00:37.960 --> 01:00:45.640
+ times seven if compute greater than one thousand compute equals compute modulo one thousand
+
+01:00:46.360 --> 01:00:54.920
+ close curly brace print f open print double quote compute space percent d backslash n close quote
+
+01:00:54.920 --> 01:01:02.200
+ comma compute semicolon close curly brace now some of these i wrote this code in a way that
+
+01:01:02.200 --> 01:01:08.200
+ tries to convince the the optimizer that i'm actually going to use these values that's why i
+
+01:01:08.200 --> 01:01:14.440
+ read the value from input as compared to a constant it would actually optimize the optimizer so so so
+
+01:01:14.440 --> 01:01:20.120
+ smart that it would just eliminate all the constant calculations so but that's my sample
+
+01:01:20.120 --> 01:01:29.960
+ playing with register section 4.8 block structure c is not a block structured language in the sense
+
+01:01:29.960 --> 01:01:37.000
+ of pl1 or algal in that functions may not be defined within other functions on the other hand
+
+01:01:37.000 --> 01:01:42.280
+ variables can be defined in a block structured fashion declarations of variables including
+
+01:01:42.280 --> 01:01:48.120
+ initializations may follow the left brace that introduces any compound statement not just the
+
+01:01:48.120 --> 01:01:54.520
+ one that begins a function variables declared this this way supersede any identically named
+
+01:01:54.520 --> 01:02:03.160
+ variables in outer blocks and remain in existence until the matching right brace for example if open
+
+01:02:03.160 --> 01:02:12.040
+ parenthesis n greater than 0 close parenthesis open curly brace int i semicolon declare a new i for open
+
+01:02:12.040 --> 01:02:19.800
+ parenthesis i equals 0 semicolon i less than n semicolon i plus plus close parenthesis and dot dot
+
+01:02:19.800 --> 01:02:24.680
+ dot the rest of the for loop and then a close curly brace for the if the scope of the variable
+
+01:02:24.680 --> 01:02:32.280
+ i is in the true branch of the if this i is unrelated to any other i in the program
+
+01:02:33.000 --> 01:02:39.880
+ block structure also applies to external variables given the declarations int x semicolon
+
+01:02:39.880 --> 01:02:47.560
+ f open parenthesis close parenthesis open curly brace double x semicolon dot dot dot close parenthesis
+
+01:02:47.560 --> 01:02:55.800
+ then within the function f occurrences of x refer to the internal double variable outside of f
+
+01:02:55.800 --> 01:03:02.120
+ they refer to the external integer this is same is true of the names of formal parameters
+
+01:03:03.960 --> 01:03:11.480
+ for example in z semicolon outside of any function f open parenthesis close parenthesis
+
+01:03:11.480 --> 01:03:20.200
+ double z semicolon open curly brace dot dot dot close curly brace within function f z refers to
+
+01:03:20.200 --> 01:03:28.120
+ the formal parameter not the external variable section 4.9 initialization initialization has
+
+01:03:28.120 --> 01:03:33.800
+ been mentioned in passing many times so far but always peripherally to some other topic
+
+01:03:33.800 --> 01:03:38.600
+ this section summarized some of the rules now that we have discussed the various storage classes
+
+01:03:38.600 --> 01:03:44.680
+ in absence of explicit initialization external and static variables are guaranteed to be
+
+01:03:44.680 --> 01:03:51.240
+ initialized to zero automatic and register variables have undefined or garbage values
+
+01:03:51.240 --> 01:03:57.160
+ simple variables not arrays or structures may be initialized when they are declared
+
+01:03:57.160 --> 01:04:05.080
+ by following the name with an equal sign and a constant expression int x equals one semicolon
+
+01:04:05.080 --> 01:04:12.360
+ char s quote equals single quote backslash single quote single quote semicolon a constant of a
+
+01:04:12.360 --> 01:04:20.760
+ single character what that is a single quote itself long day equals 60 times 24 semicolon
+
+01:04:20.760 --> 01:04:26.760
+ which is the minutes in a day for external and static variables the initialization is done once
+
+01:04:26.760 --> 01:04:31.720
+ conceptually at compile time for automatic and register variables it is done each time
+
+01:04:31.720 --> 01:04:37.000
+ the function or block is entered for automatic and register variables the initializer is not
+
+01:04:37.000 --> 01:04:44.120
+ restricted to being a constant it may in fact be any valid expression involving previously defined
+
+01:04:44.120 --> 01:04:50.760
+ values even function calls for example the initializations of the binary search program
+
+01:04:50.760 --> 01:04:58.840
+ that we wrote in chapter 3 could be written as binary open parentheses x comma v comma n close
+
+01:04:58.840 --> 01:05:07.960
+ parentheses int x comma v open square bracket close square bracket comma n semicolon open curly brace
+
+01:05:07.960 --> 01:05:15.720
+ int low equals zero semicolon int high equals n minus one semicolon and int mid followed by
+
+01:05:15.720 --> 01:05:24.360
+ the rest of the function and then close curly brace instead of initializing these as the first
+
+01:05:24.360 --> 01:05:31.800
+ executable statements and we would do this with binary open paren x comma v comma n close paren
+
+01:05:31.800 --> 01:05:39.160
+ int x comma v open square bracket close square bracket comma n semicolon open curly brace
+
+01:05:39.880 --> 01:05:49.080
+ int low comma mid comma high semicolon low equals zero semicolon high equals n minus one semicolon
+
+01:05:49.080 --> 01:05:55.080
+ and so forth in effect initializations of automatic variables are just shorthand for
+
+01:05:55.080 --> 01:06:00.680
+ assignment statements which form to prefer is largely a matter of taste we have generally
+
+01:06:00.680 --> 01:06:07.480
+ used explicit assignments because initializers and declarations are harder to see automatic arrays
+
+01:06:07.480 --> 01:06:13.480
+ may not be initialized external and static arrays may be initialized by following the declaration
+
+01:06:13.480 --> 01:06:21.160
+ with a list of initializers enclosed in braces and separated by commas for example the character
+
+01:06:21.160 --> 01:06:27.800
+ counting program of chapter 1 which originally was main open parentheses close parentheses open
+
+01:06:27.800 --> 01:06:36.680
+ curly brace int c comma i comma n white comma n other int n digit open square bracket 10 close
+
+01:06:36.680 --> 01:06:46.120
+ square bracket semicolon n white equals n other equals zero for open parentheses i equals zero
+
+01:06:46.120 --> 01:06:53.720
+ semicolon i less than 10 semicolon i plus plus close parentheses n digits of i equals zero and
+
+01:06:53.720 --> 01:07:00.520
+ then the rest of the code followed by a close curly brace finishing main this could be written
+
+01:07:00.520 --> 01:07:07.480
+ instead using initializers as follows int and white equals zero semicolon int and other equals
+
+01:07:07.480 --> 01:07:14.200
+ zero semicolon int n digit open square bracket 10 close square bracket equals open curly brace
+
+01:07:14.200 --> 01:07:21.720
+ zero comma zero comma zero comma zero comma zero comma zero comma zero comma zero
+
+01:07:21.720 --> 01:07:29.000
+ close curly brace 10 zeros in a row and separated by commas and in braces
+
+01:07:30.680 --> 01:07:36.760
+ and then the main code is simply main open paren close paren open curly brace int comma c comma
+
+01:07:36.760 --> 01:07:41.720
+ i and then the rest of the main code close curly brace the idea is is that with the initializers
+
+01:07:41.720 --> 01:07:46.760
+ as with the external variables outside of the main function you do not need to initialize them
+
+01:07:46.760 --> 01:07:53.720
+ even with a for loop in the beginning of the main program these initializations are actually all
+
+01:07:53.720 --> 01:07:58.840
+ unnecessary since they're all zero anyways but it's a good form to make them explicit anyway
+
+01:07:59.400 --> 01:08:03.800
+ if there are fewer initializers than the specialized size the others will be zero
+
+01:08:03.800 --> 01:08:10.520
+ it is an error to have too many initializers regrettably there is no way to specify specify
+
+01:08:10.520 --> 01:08:15.320
+ the repetition of an initializer nor to initialize an element in the middle of the array without
+
+01:08:15.320 --> 01:08:22.120
+ supplying all the intervening intervening values as well character arrays are a special case
+
+01:08:22.120 --> 01:08:27.960
+ of initialization a string may be used instead of the braces and commas notation
+
+01:08:28.760 --> 01:08:36.440
+ as in char pattern open square bracket close square bracket equals double quote t h e double
+
+01:08:36.440 --> 01:08:43.720
+ quote semicolon this is a shorthand for the longer but equivalent char pattern open square
+
+01:08:43.720 --> 01:08:50.360
+ bracket close square bracket equals open curly brace single quote t single quote comma single
+
+01:08:50.360 --> 01:08:59.320
+ quote h single quote comma single quote e single quote comma single quote backslash zero single
+
+01:08:59.320 --> 01:09:07.320
+ quote close curly brace semicolon when the size of an array of any type is omitted the compiler
+
+01:09:07.320 --> 01:09:13.800
+ will compute the length of the array by counting the initials initializers in this specific case
+
+01:09:13.800 --> 01:09:22.280
+ one is four three actual characters plus the terminating backslash zero i would note that the
+
+01:09:22.280 --> 01:09:29.080
+ primary difference between c and c influence like languages like java php and javascript
+
+01:09:29.080 --> 01:09:35.880
+ the key is that c strings are character arrays while in the other languages strings are objects
+
+01:09:35.880 --> 01:09:42.920
+ these string objects do have inside themselves an array of bytes or characters but they also keep
+
+01:09:42.920 --> 01:09:48.440
+ things like the length of the string and provide functionality like extract a substring in the
+
+01:09:48.440 --> 01:09:54.760
+ methods in these objects in c there is a set of library functions that perform string operations
+
+01:09:54.760 --> 01:10:00.200
+ like compare two strings while string comparison is built into the string objects in each of the
+
+01:10:00.200 --> 01:10:07.640
+ other languages strings as character arrays allow programmers to build very fast low-level code in
+
+01:10:07.640 --> 01:10:12.520
+ libraries and operating systems but to write the code well you need to understand what is really
+
+01:10:12.520 --> 01:10:22.360
+ going on at the low level section 4.10 recursion c functions may be used recursively that is a
+
+01:10:22.360 --> 01:10:28.440
+ function may call itself either directly or indirectly one traditional example involves
+
+01:10:28.440 --> 01:10:33.800
+ printing of a number as a character string as we mentioned before the digits are generated in the
+
+01:10:33.800 --> 01:10:40.680
+ wrong order low order digits are available before for high order digits but they have to be printed
+
+01:10:40.680 --> 01:10:47.080
+ in the other way around there are two solutions to this problem one is to store the digits in an array
+
+01:10:47.080 --> 01:10:51.560
+ as they are generated and then print them in reverse order as we did in chapter 3 with i2a
+
+01:10:51.560 --> 01:10:59.960
+ the first version of print d follows this pattern this is sample code on page 85 of the textbook
+
+01:10:59.960 --> 01:11:13.560
+ you can view the sample code at www.cc4e.com/code page 85 example one pound include stdl.h print d
+
+01:11:13.560 --> 01:11:22.680
+ open paren and close paren int n open curly brace char s open square bracket 10 close square
+
+01:11:22.680 --> 01:11:31.640
+ bracket semicolon and i semicolon if parenthesis n less than zero parenthesis open curly brace put
+
+01:11:31.640 --> 01:11:40.600
+ char open paren single quote dash single quote close paren semicolon n equals minus n semicolon
+
+01:11:40.600 --> 01:11:53.160
+ close curly brace i equals zero semicolon do open curly brace s sub i plus plus equals n modulo 10
+
+01:11:53.160 --> 01:12:00.200
+ plus quote zero quote which gets the next character while parentheses parentheses n
+
+01:12:01.160 --> 01:12:10.600
+ slash equal 10 close parentheses greater than zero close parentheses semicolon and we reverse the string while
+
+01:12:10.600 --> 01:12:17.560
+ open paren minus minus i greater than equal to zero close paren put char open paren s sub i
+
+01:12:17.560 --> 01:12:22.680
+ close paren semicolon close curly brace to end the print d function
+
+01:12:22.680 --> 01:12:30.920
+ the alternative is a recursive solution in which each call of print d first it calls itself to
+
+01:12:30.920 --> 01:12:37.800
+ cope with any leading digits then prints the trailing digit after that call returns this is
+
+01:12:37.800 --> 01:12:47.880
+ an example on page 85 of the textbook and it's example two pound include stdio.h print d open
+
+01:12:47.880 --> 01:12:57.960
+ paren and close paren int n semicolon open curly brace int i semicolon if open paren n less than
+
+01:12:57.960 --> 01:13:05.960
+ zero close paren open curly brace put char open paren single quote dash single quote close paren
+
+01:13:05.960 --> 01:13:16.360
+ semicolon n equals minus n semicolon close curly brace to finish the if if open paren open paren
+
+01:13:16.360 --> 01:13:27.160
+ i equals n over 10 close paren not equal zero close paren print d open paren i close paren semicolon
+
+01:13:27.160 --> 01:13:34.040
+ that's the recursive call and after the recursive call comes back we do put char open paren n modulo
+
+01:13:34.040 --> 01:13:40.360
+ 10 plus single quote zero single quote close paren semicolon close curly brace to end the
+
+01:13:40.360 --> 01:13:47.160
+ print d function when a function calls itself recursively each invocation gets a fresh set of
+
+01:13:47.160 --> 01:13:55.560
+ all the automatic variables quite independent of the previous set thus in print d 123 the first
+
+01:13:55.560 --> 01:14:03.000
+ print d has n equals 123 it passes 12 to a second print d then prints three when that one returns
+
+01:14:03.000 --> 01:14:08.360
+ in the same way the second print d passes one to a third which prints it and then prints two
+
+01:14:08.360 --> 01:14:14.760
+ recursion generally provides no saving in storage since somewhere a stack of values is being
+
+01:14:14.760 --> 01:14:21.560
+ processed or has to be maintained nor will it be faster but recursive code is more compact and often
+
+01:14:21.560 --> 01:14:27.800
+ much easier to write and understand recursion is especially convenient for recursively defined data
+
+01:14:27.800 --> 01:14:37.480
+ structures like trees we will see a nice example in chapter six as an aside ah recursion recursion
+
+01:14:37.480 --> 01:14:44.760
+ recursion recursion is a beloved concept in computer science it is often taught early in
+
+01:14:44.760 --> 01:14:52.200
+ most programming courses because it is just so cool most examples are sadly like computing factorial
+
+01:14:52.200 --> 01:14:57.720
+ or the example above converting an integer to a string and they're not good uses of recursion
+
+01:14:57.720 --> 01:15:03.560
+ actually but when you do finally find yourself in need of traversing a tree-based structure like an
+
+01:15:03.560 --> 01:15:10.840
+ xml document or parsing a mathematical expression with parentheses recursion is the ideal solution
+
+01:15:10.840 --> 01:15:16.280
+ so the problem in a sense is not recursion but when it is taught and what examples are used
+
+01:15:16.280 --> 01:15:24.280
+ interestingly kerning and richie include the correct warning about using recursion when it
+
+01:15:24.280 --> 01:15:31.240
+ is not the best solution in the above text and it bears another read back to the book
+
+01:15:31.240 --> 01:15:39.320
+ recursion generally provides no saving in storage since somewhere a stack of values is being
+
+01:15:39.320 --> 01:15:45.400
+ processed or has to be maintained nor will it be faster but recursive code is more compact and
+
+01:15:45.400 --> 01:15:51.880
+ often much easier to write and understand recursion is especially convenient for recursively defined
+
+01:15:51.880 --> 01:16:00.280
+ data structures like trees we will see a nice example in chapter six i couldn't have said it better
+
+01:16:04.360 --> 01:16:13.640
+ section 4.11 the c preprocessor c provides certain language extensions by means of a simple
+
+01:16:13.640 --> 01:16:19.320
+ macro preprocessor the pound define capability which we have used is the most common of these
+
+01:16:19.320 --> 01:16:25.000
+ extensions another is the ability to include the entire contents of other files during compilation
+
+01:16:25.000 --> 01:16:32.680
+ file inclusion to facilitate handling of pound defines and declarations among other things c
+
+01:16:32.680 --> 01:16:39.320
+ provides a file inclusion feature any line that looks like pound include space double quote file
+
+01:16:39.320 --> 01:16:44.840
+ name double quote is replaced by the contents of the file name the quotes are indeed mandatory
+
+01:16:44.840 --> 01:16:50.040
+ often a line or two of this form appears at the very beginning of each source file to include
+
+01:16:50.040 --> 01:16:55.240
+ common pound defined statements and external declarations for global variables pound includes
+
+01:16:55.240 --> 01:17:01.000
+ may be nested pound include is the preferred way to tie declarations together for a large problem
+
+01:17:01.000 --> 01:17:06.440
+ and in a large program it guarantees that all the source files will be supplied with the same
+
+01:17:06.440 --> 01:17:11.720
+ definitions and variable declarations thus eliminating a particularly nasty kind of bug
+
+01:17:11.720 --> 01:17:17.400
+ of course when an include file is changed all the files that depend on it must be recompiled
+
+01:17:17.400 --> 01:17:28.360
+ macro substitution a definition of the form pound define yes one calls for a macro substitution of
+
+01:17:28.360 --> 01:17:37.000
+ the simplest kind replace replacing a logical name by a string of characters names in the pound define
+
+01:17:37.000 --> 01:17:42.760
+ have the same forms of as the c identifiers the replacement text is arbitrarily normally the
+
+01:17:42.760 --> 01:17:49.080
+ replacement text is the rest of the line a long definition may be continued by placing a backslash
+
+01:17:49.080 --> 01:17:54.360
+ at the end of the line to be continued the scope of the name defined with pound define is from
+
+01:17:54.360 --> 01:18:00.200
+ from its point of definition to the end of the source file names may be redefined and a definition
+
+01:18:00.200 --> 01:18:07.480
+ may use previous definitions substitutions do not place take place within quoted strings so
+
+01:18:07.480 --> 01:18:14.280
+ for example if yes is a defined name there would be no substitution in printf open print double
+
+01:18:14.280 --> 01:18:21.000
+ quote yes double quote close print since implementation of pound define is a macro
+
+01:18:21.000 --> 01:18:26.440
+ pre-pass not part of the compiler proper there are very few grammatical restrictions on what
+
+01:18:26.440 --> 01:18:35.720
+ can be defined for example alcohol fans can say pound define then and then nothing pound define
+
+01:18:35.720 --> 01:18:45.240
+ begin open curly brace pound define end semicolon close curly brace and then write approximate alcohol
+
+01:18:45.800 --> 01:18:56.520
+ if paren i greater than zero close paren then begin a equals one semicolon b equals two end
+
+01:18:56.520 --> 01:19:03.640
+ it is also possible to define macros with arguments so the replacement text depends
+
+01:19:03.640 --> 01:19:11.240
+ on the way the macro is called as an example define a macro called max like this pound define
+
+01:19:11.240 --> 01:19:20.760
+ max open paren a comma b open paren open paren a close paren greater than open paren b close paren
+
+01:19:20.760 --> 01:19:29.640
+ question mark open paren a close paren colon open paren b close paren close paren now the line x
+
+01:19:29.640 --> 01:19:37.800
+ equals max open paren p plus q comma r plus s close paren semicolon will be replaced in the
+
+01:19:37.800 --> 01:19:45.480
+ preprocessor by the line x equals open paren open paren p plus q close paren greater than open paren
+
+01:19:45.480 --> 01:19:53.240
+ r plus s close paren question mark open paren p plus q close paren colon open paren r plus s
+
+01:19:53.240 --> 01:20:00.520
+ close paren close paren semicolon this provides a maximum function that expands into inline code
+
+01:20:00.520 --> 01:20:06.360
+ rather than a function call so long as the arguments are treated consistently this macro
+
+01:20:06.360 --> 01:20:11.400
+ will serve for any data type there is no need for different kinds of max for different data types as
+
+01:20:11.400 --> 01:20:17.800
+ there would be with functions of course if you examine the expansion of max above you will notice
+
+01:20:17.800 --> 01:20:24.360
+ some pitfalls the expressions are evaluated twice it is bad if they involve side effects like function
+
+01:20:24.360 --> 01:20:30.680
+ calls increment operators or perhaps push and pop like we've used before some care has to be taken
+
+01:20:30.680 --> 01:20:36.840
+ with parentheses to make sure the order order of evaluation is preserved consider the macro
+
+01:20:36.840 --> 01:20:48.040
+ pound define square open paren x close paren equals x times x when it is invoked as square
+
+01:20:48.040 --> 01:20:55.880
+ open paren z plus one close paren there are even some purely lexical problems there can be no space
+
+01:20:55.880 --> 01:21:00.440
+ between the macro name and the left parentheses that introduces the argument list nevertheless
+
+01:21:00.440 --> 01:21:06.200
+ macros are quite valuable one practical example is the standard io library to be described in
+
+01:21:06.200 --> 01:21:12.920
+ chapter seven in which get char and put char are defined as macros obviously put char needs an
+
+01:21:12.920 --> 01:21:19.800
+ argument thus avoiding the overhead of a function call per care to profit process other capabilities
+
+01:21:19.800 --> 01:21:29.720
+ of the macro processor are described in appendix a as a bit of a long aside in this section we are
+
+01:21:29.720 --> 01:21:34.920
+ talking about the pre processor it's probably a good time to talk a bit about why we use this
+
+01:21:34.920 --> 01:21:40.520
+ terminology for those of you with a computer science degree from back in the day many of you
+
+01:21:40.520 --> 01:21:46.200
+ wrote a compiler as a senior project just like i did building a compiler was a great project
+
+01:21:46.200 --> 01:21:50.600
+ because part of the goal of computer science is to understand the technologies that make programming
+
+01:21:50.600 --> 01:21:57.320
+ possible from the language syntax down to the hardware the compiler that translates our source
+
+01:21:57.320 --> 01:22:04.120
+ code into machine code is an essential part of the technology stack that we use early compilers for
+
+01:22:04.120 --> 01:22:08.680
+ languages like the early fortran variants tended to be translators they just translated code one
+
+01:22:08.680 --> 01:22:13.320
+ line at a time from a high level language to assembly language you could think of early
+
+01:22:13.320 --> 01:22:19.560
+ fortran programs in the 1950s and the 1960s as just more convenient ways to write assembly language
+
+01:22:19.560 --> 01:22:25.000
+ for programmers that knew assembly language you always needed to be aware of assembly language
+
+01:22:25.000 --> 01:22:32.600
+ and the translation that it was going to write fast fortran programs were small and optimization
+
+01:22:32.600 --> 01:22:39.880
+ was done at the fortran level often leading to some hard to understand code by the mid 1970s
+
+01:22:39.880 --> 01:22:44.360
+ programming languages were based on parsing theory and we used what is called a grammar to
+
+01:22:44.360 --> 01:22:49.720
+ define the language kerning and richie kept io statements out of the c language to keep its
+
+01:22:49.720 --> 01:22:55.640
+ formal definition i.e its grammar as simple as possible as these new languages emerged
+
+01:22:55.640 --> 01:23:00.360
+ they allowed for more theoretical and powerful approach to converting source code to machine
+
+01:23:00.360 --> 01:23:06.760
+ language the theoretical advances in compiler and language design meant that parts of the compiler
+
+01:23:06.760 --> 01:23:13.080
+ might be reusable across multiple programming languages each language could have its own syntax
+
+01:23:13.080 --> 01:23:17.800
+ and grammar rules and they could be plugged into the compiler and poof you would have a new
+
+01:23:17.800 --> 01:23:24.120
+ programming language it got to the point where unix system unix systems had a tool called yak
+
+01:23:24.120 --> 01:23:29.720
+ which stood for yet another compiler compiler you would give it a grammar for your new language
+
+01:23:29.720 --> 01:23:35.160
+ and it would make a compiler for you as a matter of fact the javascript language that was created
+
+01:23:35.160 --> 01:23:41.080
+ in 10 days back in 1995 was possible because brendan ike had a lot of experience with compiler
+
+01:23:41.080 --> 01:23:47.480
+ generators he defined a grammar for javascript and generated his first compiler part of what
+
+01:23:47.480 --> 01:23:53.640
+ made a compiler generate generator possible is the idea of a multi-step compiler or the tasks of a
+
+01:23:53.640 --> 01:23:59.960
+ compiler were broken down into a series of simpler and more well-defined steps here are the steps of
+
+01:23:59.960 --> 01:24:06.600
+ a typical c compiler in the 1970s first a preprocessor step that takes c code with syntax
+
+01:24:06.600 --> 01:24:13.000
+ like pound define and pow include as its input and produces raw c code output with those instructions
+
+01:24:13.000 --> 01:24:21.640
+ processed and or expanded the preprocessor processor was a c2c transformation next a parser step that
+
+01:24:21.640 --> 01:24:26.440
+ took the raw c code applied the grammar to the language and created what is called a parse tree
+
+01:24:26.440 --> 01:24:32.120
+ think of the tree as a hierarchy of statements grouped into blocks grouped into functions etc
+
+01:24:32.120 --> 01:24:38.360
+ of things like a loop or just one node in a parse tree after that a code generation would turn the
+
+01:24:38.360 --> 01:24:43.720
+ parse tree into some kind of simplistic portable internal code that expanded things like loops and
+
+01:24:43.720 --> 01:24:50.680
+ if-then-else statements into code after that a code optimization that looked at the internal code
+
+01:24:50.680 --> 01:24:57.240
+ and moved things around eliminating any redundant computations say don't compute the same things
+
+01:24:57.240 --> 01:25:02.600
+ twice this step is why the authors make such a big fuss about how there are times where c might do
+
+01:25:02.600 --> 01:25:08.680
+ things in a slightly different order in an expression even in the presence of parentheses remember
+
+01:25:08.680 --> 01:25:14.920
+ the k and r c arrangement license back in chapter 2 that rule removes constraints on the compiler's
+
+01:25:14.920 --> 01:25:21.480
+ optimization step so it can generate the most efficient code i would note that all the steps
+
+01:25:21.480 --> 01:25:26.360
+ up to this point did not depend in any way on the actual machine language of the system that they
+
+01:25:26.360 --> 01:25:33.240
+ were running on this meant a preprocessor parser code generator and code optimizer could literally
+
+01:25:33.240 --> 01:25:41.240
+ be written in c and used on any architecture the final step is a code generator that takes the
+
+01:25:41.240 --> 01:25:46.040
+ optimized intermediate code and generates the actual assembly and machine language for the
+
+01:25:46.040 --> 01:25:51.720
+ processor for fun you can add the minus capital s parameter to your c compiler and see the resulting
+
+01:25:51.720 --> 01:25:57.000
+ assembly language output for your system if you look at the machine language generated on an intel
+
+01:25:57.000 --> 01:26:02.600
+ or amd processor and compare it to the machine language on an arm processor it will look very
+
+01:26:02.600 --> 01:26:08.280
+ different because all but the final compiler steps did not depend on the computer where the
+
+01:26:08.280 --> 01:26:12.920
+ program is being run you could actually create a c compiler on a new computer architecture
+
+01:26:12.920 --> 01:26:17.720
+ by writing a code generator on the new computer then running all but the last step of the compiler
+
+01:26:17.720 --> 01:26:22.840
+ on one computer then copying the internal code generated by the compiler to the new compiler
+
+01:26:22.840 --> 01:26:28.600
+ and running the code generation step on the new computer then you actually have a working c
+
+01:26:28.600 --> 01:26:34.520
+ compiler on the new computer and the first step is usually to recompile the c compiler itself from
+
+01:26:34.520 --> 01:26:39.880
+ source code to produce a fully native c compiler on the new computer that can compile all the rest
+
+01:26:39.880 --> 01:26:45.320
+ of the c code you have including possibly the mostly portable elements of the unix operating
+
+01:26:45.320 --> 01:26:51.800
+ system on the new compiler yes describing how to cross compile and bootstrap a c compiler onto
+
+01:26:51.800 --> 01:26:55.800
+ a new computer hardware architecture can give you a headache if you think about it too much
+
+01:26:55.800 --> 01:27:02.280
+ but this notion of bootstrapping a c compiler onto a new architecture was an important technique to
+
+01:27:02.280 --> 01:27:08.280
+ move c and then unix to a wide range of very different computer architectures we see this
+
+01:27:08.280 --> 01:27:13.880
+ in action as the unix like mac os operating system over the past 20 years was delivered initially
+
+01:27:13.880 --> 01:27:21.720
+ on a motorola 68000 family processors then on power pc processors and then on intel processors
+
+01:27:21.720 --> 01:27:27.880
+ and most recently on arm-based processors built by apple using the software portability patterns
+
+01:27:27.880 --> 01:27:34.120
+ that come from c and unix and described by kerning and richey in this book apple now makes their own
+
+01:27:34.120 --> 01:27:40.360
+ hardware that can be tuned and evolved over time as their operating system and their applications
+
+01:27:40.360 --> 01:27:46.920
+ requirements dictate the use of a grammar by the way is to define a programming language is one of
+
+01:27:46.920 --> 01:27:52.840
+ the reasons that syntax errors are so obtuse the compiler is not looking at your code like a human
+
+01:27:52.840 --> 01:27:59.640
+ it is following a very set of simple rules to parser code and it's stuck with something illogical
+
+01:27:59.640 --> 01:28:07.160
+ and gives you a message like unexpected unexpected statement block or constant on line 17 and the
+
+01:28:07.160 --> 01:28:14.280
+ error is nowhere near line 17 modern compilers are more sophisticated of course than the steps
+
+01:28:14.280 --> 01:28:19.160
+ above but these steps give you a sense that the compiler does many things to make it so your code
+
+01:28:19.160 --> 01:28:25.000
+ can actually run very efficiently and given that kerning and richey were building a programming
+
+01:28:25.000 --> 01:28:31.160
+ language c a more mostly portable operating system written in c unix and a mostly portable c compiler
+
+01:28:31.160 --> 01:28:38.360
+ written in c some of their innovative work and research into compiler design finds its way into
+
+01:28:38.360 --> 01:28:45.160
+ this book so we have a section in this chapter called the c preprocessor so here we are at the
+
+01:28:45.160 --> 01:28:51.800
+ end of chapter four and it's a good time to talk about the word address up to this point in the
+
+01:28:51.800 --> 01:28:56.920
+ book if you count them the word address has been used 10 times without a precise definition beyond
+
+01:28:56.920 --> 01:29:02.200
+ the notion that data is stored in memory and the address of the data is where the data is stored
+
+01:29:02.200 --> 01:29:10.440
+ in memory in the next chapter this notion of the address where the data is stored becomes very real
+
+01:29:10.440 --> 01:29:17.960
+ and tangible as we explore pointers as well as the ampersand and asterisk operators up to now
+
+01:29:17.960 --> 01:29:25.480
+ an experienced javascript php or java programmer can view c as just another set of similar syntax
+
+01:29:25.480 --> 01:29:32.440
+ rules with a few quirky runtime bits but in the next chapter we will deeply explore the concept
+
+01:29:32.440 --> 01:29:40.040
+ of data allocation and location it turns out that every programming language pays a lot of attention
+
+01:29:40.040 --> 01:29:46.760
+ to data allocation and location but the runtime environments of modern languages work very hard
+
+01:29:46.760 --> 01:29:52.840
+ not to expose you to those details just because modern languages hide the difficult bits from us
+
+01:29:52.840 --> 01:29:59.720
+ it does not mean that those languages solve the problem using magic eventually the problem needs
+
+01:29:59.720 --> 01:30:06.280
+ to be solved and that is why the compiler and low level runtime elements of language like php
+
+01:30:06.280 --> 01:30:12.680
+ javascript and java are usually written in c so the builders of those languages can
+
+01:30:12.680 --> 01:30:22.200
+ solve the difficult data storage and allocation problems for you this work is based on the 1978
+
+01:30:22.200 --> 01:30:28.200
+ c programming book written by brian w kerningan and denis m richie their book is copyright all
+
+01:30:28.200 --> 01:30:34.520
+ rights reserved by at&t but is used in this work under fair use because of the book's historical
+
+01:30:34.520 --> 01:30:40.200
+ and scholarly significance its lack of availability and the lack of an accessible version of the book
+
+01:30:40.200 --> 01:30:46.280
+ the book is augmented in places to help understand its right place in a historical context amidst the
+
+01:30:46.280 --> 01:30:53.240
+ major changes of the 1970s and 1980s as computer science evolved from a hardware first vendor
+
+01:30:53.240 --> 01:30:58.040
+ centered approach to a software centered approach where portable operating systems and applications
+
+01:30:58.040 --> 01:31:04.600
+ written in c could run on any hardware this is not the ideal book to learn c programming because
+
+01:31:04.600 --> 01:31:10.840
+ the 1978 edition does not reflect the modern c language using an obsolete book gives us an
+
+01:31:10.840 --> 01:31:16.600
+ opportunity to take students back in time and understand how the c language was evolving
+
+01:31:16.600 --> 01:31:26.120
+ as it laid the groundwork for a future with portable applications
+

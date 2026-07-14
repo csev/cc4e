@@ -1,0 +1,1018 @@
+ Welcome to C Programming for Everybody. My name is Charles Severance and this is
+ my reading of the 1978 C Programming book written by Brian Kernigan and Dennis
+ Ritchie. At times I add my own interpretation of the material from a
+ historical perspective. Chapter 1, a tutorial introduction. Let us begin with
+ a quick introduction to C. Our aim is to show the essential elements of the
+ language in real programs but without getting bogged down in details, formal
+ rules, and exceptions. At this point we are not trying to be complete or even
+ precise. We want you to get as quickly as possible to the point where you can
+ write useful programs and to do that we have to concentrate on the basics,
+ variables and constants, arithmetic, control flow, functions, and the
+ rudiments of input and output. We are quite intentionally leaving out of this
+ chapter the features of C which are of vital importance for writing bigger
+ programs. These include pointers, structures, and most of C's rich set of
+ operators, several control flow statements, and a myriad of details. This approach
+ has its drawbacks of course. Most notable is that the complete story on any
+ particular language feature is not found in a single place. The tutorial by being
+ brief may also mislead and because they cannot use the full power of C the
+ examples are not as concise and elegant as they might be. We have tried to
+ minimize these effects but be warned. Another drawback is that later chapters
+ will necessarily repeat some of this chapter. In any case experienced
+ programmers should be able to extrapolate from the material in this
+ chapter to their own programming needs. Beginners should supplement it by
+ writing small similar programs of their own. Both groups can use it as a
+ framework on which to hang the more detailed descriptions that begin in
+ chapter 2. 1.1 getting started. The only way to learn a new programming language
+ is by writing programs in it. The first program to write is the same for all
+ languages. Print the words "hello world". This is the basic hurdle. To leap over it
+ you have to be able to create the program text somewhere, compile it
+ successfully, load it, run it, and find out where your output went. With these
+ mechanical details mastered everything else is comparatively easy. In
+ traditional C the program to print "hello world" is main open parenthesis
+ closed parenthesis, open curly brace, print F parenthesis double quote hello
+ comma space world backslash n double quote, closed parenthesis semicolon, closed
+ curly brace. The modern minimal version of this program needs a bit more syntax.
+ We add a single line at the beginning hashtag include space left angle
+ brackets stdio.h right angle bracket. Pound include stdio.h. We have to add
+ that line for the modern program. Back to the book. Just how to run this program
+ depends on the system that you're using. As a specific example on the Unix
+ operating system you must create the source program in a file whose name ends
+ in .c such as hello.c and then you compile it with the command cc space
+ hello.c. If you haven't botched anything such as omitting a character or
+ misspelling something the compilation will proceed silently and make an
+ executable file called a.out. Running that by the command a.out will
+ produce hello comma world as its output. On other systems the rules will be
+ different. Check with a local expert. On modern systems we use the gcc compiler
+ with the -ancy option to accept the legacy syntax of c. So we use gcc space
+ -ancy space hello.c and to run the resulting a.out file you usually you
+ need to prepend the local directory because most shell configurations do not
+ include the current path in the paths to search for applications so you need to
+ write ./a.out. Now for some explanations about the program itself. A c
+ program whatever its size consists of one or more functions which specify the
+ actual computing operations that are to be done. C functions are similar to
+ functions and subroutines of a Fortran program or the procedures of PL1, Pascal
+ etc. In our example main is such a function. Normally you're at liberty give
+ functions whatever names you like but main is a special name. Your program
+ begins executing at the beginning of main. This means every program must have
+ a main somewhere. Main will usually invoke other functions to perform its
+ job some coming from the same program and others from libraries of previously
+ written functions. One method of communicating data between functions is
+ by arguments. The parentheses following the function name surround the argument
+ list. Here main is a function of no arguments indicated by open parentheses
+ closed parentheses. The curly braces enclose the statements that make up the
+ function. They're analogous to the do end of PL1 or the begin end of algal or
+ Pascal and so on. A function is invoked by naming it followed by a parenthesized
+ list of arguments. There is no call statement as there is in Fortran or PL1.
+ The parentheses must be present even if there are no arguments. In the above
+ text the authors were making connections to the popular general purpose
+ programming languages of the time. When the book was written it was not all
+ assured that C and C like languages would ever evolve past writing high
+ performance applications like operating system kernels and device drivers. By
+ comparing C to these more general purpose languages the authors are trying
+ to plant the seed that C could have value as a general purpose language. Back
+ to the text. The line that says print F parenthesis double quote hello comma
+ space world backslash and double quote closed parentheses semicolon is a
+ function call which calls a function named print F with the argument hello
+ world. Print F is a library function which prints the output to the terminal
+ unless some other destination is specified. In this case it prints the
+ string of characters that make up its argument. Any sequence of any number of
+ characters enclosed in double quotes is called a character string or string
+ constant. For the moment our only use of the character strings will be as
+ arguments to print F and other functions. The sequence backslash n in the string
+ is C notation for the new line character which when printed advances the terminal
+ to the left margin on the next line. If you leave out the backslash n, a
+ worthwhile experiment by the way, you'll find that your output is not terminated
+ by a line feed. The only way to get a new line character into the print F's
+ argument is with backslash n. If you try to break it into two lines like print
+ F quote hello world and then just hit the return double quote close parenthesis
+ semicolon on a new line the C compiler will print out unfriendly diagnostics
+ about missing quotes. Print F never supplies a new line automatically so
+ multiple calls can be used to build up an output line in stages. Our first
+ program could have just as well been written as main open parenthesis close
+ parenthesis open curly brace print F quote hello quote semicolon print F
+ quote world quote semicolon print F backslash n semicolon and then on a sixth
+ line close curly brace and it would have produced the identical output. Note that
+ backslash n represents only a single character an escape sequence like
+ backslash n provides a general and extensible mechanism for representing
+ hard-to-get or invisible characters. Among the others that C provides are
+ backslash T for tab backslash B for backspace backslash double quote for
+ double quote and backslash backslash for the backslash itself. 1.2 page 8
+ variables and arithmetic. The next program prints the following table of
+ Fahrenheit temperatures in their centigrade or Celsius equivalence. Using
+ the formula C equals parenthesis 5 divided by 9 close parenthesis parenthesis F - 32.
+ The table contains Fahrenheit of 0 Celsius of negative 17.8 Fahrenheit of
+ 20 Celsius of negative 6.7 Fahrenheit of 40 Celsius of 4.4 and so forth. Here is
+ the program itself. For reference this program is on page 29 of the textbook.
+ So it starts with #include stdio.h to include the standard
+ library then it has a comment that says print the Fahrenheit Celsius table for F
+ equals 0 comma 20 comma dot dot dot comma 300 close common main open
+ parenthesis close parenthesis open curly brace int lower comma upper comma step
+ semicolon float far comma Celsius lower equals zero semicolon followed by a
+ comment upper equals 300 semicolon followed by a comment step equals 20
+ semicolon followed by a comment far equals lower and then while open
+ parenthesis far less than or equal to upper close parenthesis open curly brace Celsius
+ equals parenthesis 5.0 slash 9.0 close parenthesis asterisk open parenthesis far
+ minus 32.0 close parenthesis semicolon. Then a printf statement printf open
+ parenthesis double quote percent 4.0 f space percent 6.1 f backslash n close
+ quote comma far comma Celsius close parenthesis semicolon. Far equals far
+ plus step and then a closing curly brace to finish the while statement and then a
+ closing curly brace to finish the main statement. The first two lines slash
+ star print Fahrenheit to Celsius table for F equals 0 comma 20 dot dot dot 300
+ star slash are a comment which in this case explains briefly what the program
+ does. Any characters between slash star and star slash are ignored by the
+ compiler. They may be used to freely make the program easier to understand.
+ Comments may appear anywhere a blank or new line can. In C all variables must be
+ declared before use usually at the beginning of a function before any
+ executable statements. If you forget a declaration you will get a diagnostic
+ from the compiler. A declaration consider consists of a type and a list
+ of variables that have that type as in int lower comma upper comma step
+ semicolon float far comma Celsius semicolon. The type int implies that the
+ variables listed are integers. Float stands for floating point i.e. numbers
+ which may have a fractional part. Precision of both int and float depends
+ on the particular machine that you are using. On the PDP 11 for instance an
+ int is a 16-bit signed number. That is one that lies between negative 32,768
+ and positive 32,767. A float number is a 32-bit quantity which
+ amounts to about seven significant digits with a magnitude of about 10 to
+ minus 38 and 10 plus 38. Chapter 2 lists the sizes for other machines. I would
+ note that the 1970s was a time of transition in the amount of memory
+ installed in computers. The C language int type was 16 bits in the older but
+ more generally available computers like the PDP 11. C could be used to write
+ programs like the UNIX operating system that made efficient use of available
+ memory. In particular the 1978 version of C did not require that computers support
+ 32-bit integers. But 32,768 is a pretty small number. The size of an
+ integer affected the maximum size of arrays and strings. A lot of early C
+ programs used the long type to get at least a 32-bit integer capable of
+ representing numbers up to about 2 billion. In modern computers and
+ databases we tend to choose between 32-bit and 64-bit integers. Back to the
+ text. C provides several other basic data types besides int and float. Char is
+ a character, a single byte. Short is a short integer. Long is a long integer and
+ double is a double precision floating point. The size of these objects are also
+ machine dependent and details are in chapter 2. There are also arrays,
+ structures, and unions of these basic types and pointers to them and functions
+ that return them, all of which we will meet in due course. The actual
+ computation in our temperature conversion program begins with the
+ assignments lower equals zero, upper equals 300, step equals 20, far equals
+ lower, all ending with semicolon. These set the variables to their starting
+ values. Individual statements are terminated by semicolons. Each line of
+ the table is computed in the same way so we use a loop which repeats once per
+ line. This is the purpose of the while statement. While parentheses far less
+ than or equal upper closed parentheses open curly brace, then the body of the
+ loop, and then closed curly brace. The condition in the parentheses is tested.
+ If it is true, i.e. far is less than or equal to upper, the body of the loop, all
+ of the statements included between the open curly brace and the closed curly
+ brace are executed. Then the condition is retested. If true, the body is executed
+ again. When the test becomes false, i.e. far exceeds upper, the loop ends and
+ execution continues at the statement that follows the loop. There are no
+ further statements in the program so it terminates. The body of a while loop can
+ be one or more statements enclosed in braces as the temperature converter or a
+ single statement without braces as in while open parentheses i less than j
+ closed parentheses, i equals 2 times i semicolon. In either case, the statements
+ controlled by the while are indented by one tab stop so you can see at a glance
+ what statements are inside the loop. The indentation emphasizes the logical
+ structure of the program. Although C is quite permissive about statement
+ positioning, proper indentation and the use of whitespace are critical in making
+ programs easy for people to read. We recommend writing only one statement per
+ line and usually leaving blanks around operators. The position of the braces is
+ less important. We have chosen one of the several popular styles. Pick a style
+ that suits you and then use it consistently. I would add that with these
+ words the authors triggered a great debate about how to best indent code
+ and use curly braces that continues to this day. The indentation style used in
+ this book is often referred to as the KNR style. It tends to put open braces at
+ the end of statements like if and while to keep code more compact in terms of
+ the number of lines of code. The best advice is not to debate at all. When you
+ modify someone else's code just imitate the style that they used when they wrote
+ their code. Back to the text. Most of the work it's done in the body of the loop.
+ The Celsius temperature is computed and assigned to the Celsius variable by the
+ statement Celsius equals open parentheses 5.0 slash 9.0 close parentheses, asterisk
+ open parentheses, far minus 32.0 close parentheses, semicolon. The reason for
+ using 5.0 slash 9.0 instead of the simpler looking 5 slash 9 is that in C
+ as in many other languages integer division truncates so that any fractional
+ part is discarded. Thus 5 slash 9 is 0 and of course so would then all the
+ temperatures be 0. A decimal point in a constant indicates that it is floating
+ point so that 5.0 over 9.0 is 0.555 repeating which is what we want. We also
+ wrote 32.0 instead of 32 even though since far is afloat 32 would
+ automatically be converted to float before the subtraction. But as a matter
+ of style it's wise to write floating-point constants with explicit
+ decimal points even when they have integral values. It emphasizes their
+ floating-point nature for human readers and ensures the compiler will see things
+ the way you do as well. I would note that for those of you familiar with Python
+ before Python 3 integer division truncated and returned an integer just
+ like C. In Python 3 one of the major improvements was that the division of
+ two integers performed the division operation in floating-point and returns
+ a floating-point result. C and Python 2 made the choice because of efficiency.
+ Integer division with truncation especially for 16-bit numbers was quite
+ fast in the 1970s computers compared to floating-point division that kept the
+ fractional part intact. Early PDP 11 computers did integer division in
+ hardware while all floating-point was done with loops and functions so it was
+ far slower. If you wanted to write fast code in 1970s you avoided floating-point
+ numbers except for special situations. Modern computers usually do 64-bit
+ floating-point operations almost at the same speed as integer division so we
+ don't need to allow programmers to avoid using floating-point computations in
+ their code. The detailed rules for when integers are converted to floating-point
+ are in chapter 2. For now notice that the assignment far equals lower semicolon
+ and the test while far less than or equals upper both work as expected. The
+ int is converted to a float before the operation is done. This example also
+ shows a bit more of how printf works. printf is actually a general purpose
+ format conversion function which we will describe completely in chapter 7. Its
+ first argument is a string of characters to be printed with each percent sign
+ indicating where one of the other second third etc arguments is to be
+ substituted and what form it is to be printed in. For instance in the statement
+ printf parentheses double quote percent 4.0 F space percent 6.1 F
+ backslash and double quote comma far comma Celsius the conversion specification
+ percent 4.0 F says that a floating-point number is to be printed in a space at
+ least four characters wide with no digits after the decimal point. Percent 6.1 F
+ describes another number to occupy at least six spaces with one digit after
+ the decimal point, analogous to the F 6.1 of Fortran or the F parentheses six
+ comma one of PL 1. Parts of a specification may be omitted. Percent 6 F
+ says that the number is to be at least six characters wide. Percent dot 2 F
+ requests two places after the decimal point but the width is not constrained
+ and merely percent F says to print the number itself as floating-point. Printf
+ also recognizes percent D for decimal integers percent O for octal percent X
+ for hexadecimal and percent C for characters and percent S for a character
+ string and percent percent for the percent itself. Each percent
+ construction in the first argument of printf is paired with its
+ corresponding second, third, etc. argument. They must line up properly by
+ number and type or else you'll get meaningless answers. By the way, printf
+ is not part of the C language. There is no input or output defined in C itself.
+ There is nothing magic about printf. It's just a useful function which is part of
+ the standard library of routines that are normally accessible to C programs. In
+ order to concentrate on C itself, we won't talk much about I/O
+ until chapter 7. In particular, we'll defer formatted input until then. If you
+ have to input numbers, read the discussion of the function scanf in
+ chapter 7 section 7.4. Scanf is much like printf except that it reads input
+ instead of writing output. The balance between building a feature into the
+ language itself and providing it as a function in a library is something that
+ computer language designers struggle with many years later. For example, in
+ Python 2, print was a language element. In Python 3, one of the non-upwards
+ compatible and somewhat unpopular changes was changing print to be a
+ function. Many programmers feel that a print statement is a more elegant way to
+ express printing, but from a compiler and language design perspective, a function
+ call with a variable number of parameters is seen as technically more
+ elegant and flexible. With Kernigan and Ritchie focused on keeping everything
+ small and portable, they opted to keep all input/output functionality in
+ libraries. The syntax is a little more complex, but given how computing has
+ changed in the past 30 years, it is the right choice. Section 1.3, the "for"
+ statement. As you might expect, there are plenty of different ways to write a
+ program. Let's try a variation on the temperature converter. This is sample
+ code is on page 11 of the textbook. Pound sign include less than stdio.h
+ greater than. Main, open parenthesis, closed parenthesis, open curly brace. Int,
+ far, that is F-A-H-R, semicolon. For, open parenthesis, far equals zero, semicolon. Far
+ less than or equal to 300, semicolon. Far equals far plus 20, closed parenthesis.
+ Printf, open parenthesis, double quote, percent 4d, space, percent 6.1f,
+ backslash n, close quote. Comma, far, comma, open parenthesis, 5.0/9.0,
+ closed parenthesis, asterisk, open parenthesis, far minus 32, closed parenthesis,
+ closed parenthesis, semicolon. This code produces the same answers as the one
+ before, but it certainly looks different. One major change is the elimination of
+ most of the variables. Only far, F-A-H-R, remains as an int to show the percent D
+ conversion in printf. The lower and upper limits of the step size appear only as
+ constants in the for statement itself. For is a new construction and the
+ expression that computes the Celsius temperature now appears as the third
+ argument of printf, instead of in a separate assignment statement. This last
+ change is an instance of a quite general rule in C. In any context where it is
+ permissible to use the value of a variable of some type, you can use an
+ expression of that type. Since the third argument of printf has to be a floating
+ point value to match the percent 6.1f, any floating point expression can occur
+ there. The for itself is a loop, a generalization of while. If you compare
+ it to the earlier while, its operation should be clear. It contains three parts
+ separated by semicolons. The first part, far equals zero, is done once before the
+ loop proper is entered. The second part is the test or condition that controls
+ the loop, far less than or equal to 300. This condition is evaluated. If it is
+ true, the body of a loop, in this case a single printf is executed, then the
+ reinitialization step far equals far plus 20 is done and the condition is
+ reevaluated. The loop terminates when the condition becomes false. As with the
+ while, the body of the loop can be a single statement or a group of
+ statements enclosed in braces. The initialization and reinitialization parts
+ can be any single expression. The choice between while and for is arbitrary and
+ should be based on what seems clearer. The for is usually appropriate for loops
+ in which the initialization and reinitialization are single statements
+ and logically related, since it is more compact than while and keeps the loop
+ control statements together in one place. I would note that the syntax of the for
+ and while loop is a feature of C and derived C-like languages. In modern
+ languages we tend to have two kinds of loop structures, determinant and
+ indeterminate. The for and the while loop structures in C are both
+ indeterminate because you must read them closely to make sure they are properly
+ constructed and, for example, are not unintentionally infinite loops. An
+ example of a determinant loop is the for each loop in PHP or the for loop in
+ Python. The semantics of both of these loops is to iterate all the elements in
+ a collection. But since collections are never infinite, you can be assured that
+ these determinant loops will not run forever. Section 1.4, symbolic constants.
+ A final observation before we leave temperature conversion. It's a bad
+ practice to bury magic numbers or magic constants like 320, 320 in a
+ program. They convey little information to someone who might read the program
+ later and they're hard to change in a systematic way. Fortunately, C provides a
+ way to avoid such magic numbers. With a pound sign defined construction at the
+ beginning of a program, we can define a symbolic name or symbolic constant to be
+ a particular string of characters. Thereafter, the compiler will replace all
+ unquoted occurrences of the name by the corresponding string. Replacement for the
+ name can actually be any text at all. It's not related to numbers. So this is
+ a sample code on page 13 of the text. Pound sign include less than stdio.h
+ greater than. Next line. Pound define lower zero. Next line. Pound
+ define upper 300. Pound define step 20. For these pound sign
+ statements, I would note that they have to start in the first column. The rest of
+ this sample code is the code itself. Main open parentheses, closed parentheses, open
+ curly brace, int, far, F-A-H-R. For, open parentheses, far equals uppercase lower,
+ semicolon, far less than or equal to, uppercase upper, semicolon, far equals far
+ plus uppercase step. And then the same print statement. Printf, open parentheses,
+ double quote, percent 4D space, percent 6.1F backslash n, quote, comma, far, comma,
+ percent 5.0/9.0, close parentheses, asterisk, open parentheses, far minus 32,
+ close parentheses, close parentheses, semicolon, and then to end the program,
+ close curly brace. The quantities, uppercase lower, uppercase upper, and
+ uppercase step are constants, so they do not appear in declarations. Symbolic
+ names are commonly written in uppercase, so they can be readily distinguished
+ from lowercase variable names. Notice that there is no semicolon at the end of
+ a pound define statement. Since the whole line after the defined name is
+ substituted, there would be too many semicolons in the form. Section 1.5, a
+ collection of useful programs. We are now going to consider a family of related
+ programs for doing simple operations on character data. You will find that many
+ programs are just expanded versions of the prototypes we discuss here. Character
+ input and output. The standard library provides functions for reading and
+ writing a character at a time. GetChar fetches the next input character each
+ time it is called and returns the character as its value. That is, after C
+ equals GetChar, open parentheses, close parentheses, the variable C contains the
+ next character input. These characters normally come from the terminal or
+ keyboard, but that need not concern us until chapter 7. The function putChar,
+ open parentheses, C, close parentheses, is the complement of GetChar. PutChar, open
+ parentheses, C, close parentheses, prints the content of the variable C on some
+ output medium, again usually the terminal or screen. Calls to putChar and printf
+ may be interleaved. The output may be, will appear in the order in which the
+ calls are made. As with printf, there is nothing special about GetChar and
+ putChar. They are not part of the C language, but they are universally
+ available. Once again, I would note that the authors are making the case that the
+ syntax of the language should not include syntax for input/output operations, but
+ instead call library functions. Keeping the compiler small and easy to port new
+ systems was important to the creators of C. And even if something like putChar
+ was part of the language syntax, it would be translated at runtime to call a
+ function. Programming languages from the 1960s tended to have a small set of use
+ cases, read some input, run some calculation, and then write some output.
+ So it seemed like a few language elements would be sufficient to describe all
+ programs. But as programs started to make network connections, draw buttons on a
+ screen, or respond to API calls over the network, it would have been difficult to
+ keep expanding the core language syntax for each new use case. But it was
+ extremely natural to add new libraries to languages like C with functions to
+ call to accomplish these new use cases. File copying. Given GetChar and putChar,
+ you can write a surprising amount of useful code without knowing anything
+ more about input/output. The simplest example is a program which copies its
+ input to its output one character at a time. In outline, here's what we do. Get a
+ character. While the character is not the end-of-file signal, output the character
+ we just read and then get a new character. Converting this into C gives
+ us the sample code on page 14 of the textbook. Pound includes stdio.h, main
+ open parenthesis close parenthesis open curly brace, int C semicolon, C equals
+ GetChar open parenthesis, close parenthesis semicolon. While C not equal EOF,
+ uppercase EOF, close parenthesis, open curly brace, putChar C, C equals GetChar
+ semicolon, close parenthesis, close curly brace. The relational operator
+ exclamation equals means not equal to. The main problem is detecting the end of the
+ input. By convention, GetChar returns the value, which is not a valid character
+ when it encounters the end of input. In this way, programs can detect when
+ they did not get a character and they've actually simply run out of input. The
+ only complication, which is a serious nuisance, is that there are two
+ conventions in common use about what that end-of-file value really is. We have
+ deferred this issue by using the same symbolic name EOF, capital EOF, for the
+ value, whatever it might be. In practice, EOF will be either negative 1 or 0, so
+ the program must be preceded by the appropriate pound-define EOF minus 1 or
+ pound-define EOF 0 to work properly. By using the symbolic constant EOF to
+ represent the value that GetChar returns when the end-of-file occurs, we are
+ assured that only one thing in the program depends on the
+ specific numeric value of EOF. I would know. Most of that is incorrect.
+ Modern C compilers actually define EOF in the stdio.h include file, so you never
+ define EOF in your code. In modern C, the value of EOF is minus 1. You should just
+ include stdio.h and use predefined EOF constant to check for end-of-file. The
+ nuisance of different values for EOF was resolved shortly after 1978.
+ Continuing with the text, we also declare C to be an int, not a chair, char, so that
+ it can hold the value which GetChar returns. As we'll see in chapter 2, the
+ value is actually an int because it must be capable of representing end-of-file
+ in addition to all possible characters. So the program for copying could actually
+ be written more concisely by experienced C programmers. In C, any assignment such
+ as C equals GetChar open parenthesis, closed parenthesis can be used in an
+ expression. Its value is simply the residual value being assigned to the
+ left-hand side. If the assignment of a character to the variable C is put
+ inside the test part of a while statement, the file copy program can be
+ written as shown in the example code on page 15 of the textbook. Pound include
+ stdio.h main open parenthesis, closed parenthesis, open curly brace, int space C
+ semicolon, while open parenthesis, open parenthesis, C equals GetChar open
+ parenthesis, closed parenthesis, closed parenthesis, not equal EOF, closed
+ parenthesis, put char C, parenthesis C, closed parenthesis semicolon, closed
+ curly brace. The program gets a character, assigns it to C, and then tests whether
+ the character was the end-of-file signal. If it was not, the body of the while is
+ executed printing the character. The while then repeats. When the input is, end
+ of input is finally reached, the while terminates and so does main. This
+ version centralizes the input. There's now only one call to GetChar and
+ shrinks the program. Nesting an assignment is a test of one of the
+ places where C permits a valuable conciseness. It is possible to get
+ carried away and create impenetrable code, though a tendency that we will try,
+ though that is a tendency we will try to curb. It's important to recognize that
+ the parentheses around the assignment within the conditional are really
+ necessary. The precedence of exclamation equal, not equals, is higher than that of
+ equals, the assignment operator, which means that in absence of parentheses, the
+ relational test, exclamation equals, would be done before the assignment equals. So
+ the statement C equals GetChar parentheses, open parentheses, closed parentheses, not
+ equal EOF, is equivalent to C equals GetChar open, no, sorry, is equivalent to C
+ equals open parentheses, GetChar open parentheses, closed parentheses, not
+ equal EOF, closed parentheses. This has the undesired effect of setting. It is
+ important to recognize that the parentheses around the assignment within
+ the conditional are really necessary. The precedence of exclamation equals is
+ higher than that of equals, which means that in the absence of parentheses, the
+ relational test not equals would be done before the assignment. So the statement C
+ equals GetChar not equal EOF is equivalent to C equals, open parentheses,
+ GetChar not equal EOF, closed parentheses. This has the undesired effect of setting C
+ to 0 or 1, depending on whether or not the call of GetChar encountered the end
+ of file. More on this in chapter 2. The next program counts characters. It is a
+ small elaboration of the copy program. This sample code is on page 16 of the
+ textbook. #include stdio.h, main, open parentheses, closed parentheses, open
+ curly brace, long, NC semicolon, NC equals 0 semicolon, while, open
+ parentheses, GetChar, open parentheses, closed parentheses, exclamation equal EOF,
+ plus plus NC semicolon, printf, double quote, percent, LD, backslash, N, double
+ quote, comma, NC, parenthesis, semicolon, closed curly brace. The statement plus plus
+ NC semicolon shows a new operator, plus plus, which means increment by 1. You
+ could write NC equals NC plus 1, but plus plus NC is more concise and often more
+ efficient. There is a corresponding operator, minus minus, to decrement by 1.
+ The operators plus plus and minus minus can either be prefix operators, plus plus
+ NC or postfix, NC plus plus. These two forms have different values and
+ expressions, as will be shown in chapter 2, but plus plus NC and NC plus plus both
+ increment NC. For the moment, we'll stick to the prefix form. The character
+ counting program accumulates its count in a long variable instead of an int. On a
+ PDP-11, the maximum value of an int is 32,767, and it would take relatively
+ little input to overflow that counter if it were declared as an int. In Honeywell
+ and IBM C, long and int are synonymous and much larger. The conversion
+ specification percent LD signals to printf that the corresponding argument is
+ a long integer. We again, as a note, we again see another reference to the fact
+ that the number of bits of the int type is in transition in 1978. The older PDP-11
+ used a 16-bit integer to save limited memory on a small, almost obsolete
+ computer, while later computers from IBM and Honeywell have already switched to
+ their int type to be 32 bits. This allowed code originally written for the
+ PDP-11, like Unix or even the C compiler, to be recompiled on the IBM or
+ Honeywell with very few changes. To cope with bigger numbers, you can use a double,
+ which is a double length float. We will also use a for statement instead of a
+ while to illustrate an alternate way to write a while loop. This code is the
+ second sample code on page 16 of the textbook. Pound include STDI.H, main
+ open parenthesis, closed parenthesis, open curly brace, double NC semicolon, for
+ open parenthesis, NC equals zero, semicolon, getchar open parenthesis, closed parenthesis, not
+ equal EOF, semicolon, plus plus NC, closed parenthesis, and then a semicolon. A
+ semicolon in this case is an empty statement, because there's nothing in the
+ body of the of the for loop, and at the end we say printf double quote percent
+ dot zero F backslash N double quote comma NC closed parenthesis, semicolon,
+ closed curly bracket. Printf uses percent F for both float and double. Percent dot
+ zero F suppresses printing of the non-existent fraction part. The body of
+ the for loop here is empty, because all the work is done in the test and
+ reinitialization parts of the for loop. But the grammatical rules of C require
+ that a for statement have a body. The isolated semicolon, technically a
+ null statement, is there to satisfy that syntax requirement. We put it on a
+ separate line to make it more visible. Before we leave the character counting
+ program, observe that if the input contains no characters, the while or for
+ test fails on the very first call to getchar, so that the loop program produces
+ zero, the right answer. This is an important observation. One of the nice
+ things about while and for is they are tested at the top of the loop
+ before proceeding with the body. If there is nothing to do, nothing is done,
+ even if that means never going through the loop body. Programs should act
+ intelligently when handed input like no characters. The while and the for
+ statements help ensure that they do reasonable things with boundary
+ conditions. Line counting. The next program counts lines in its input. Input
+ lines are assumed to be terminated by the new line character, backslash n, that has
+ been carefully appended to every line written out. This is sample code on line
+ 17 of the textbook. Count includes the stdio.h, main, open parenthesis, closed
+ parenthesis, open curly brace, int, c, comma, nl, semicolon. nl equals zero,
+ semicolon, while, open parenthesis, open parenthesis, c equals getchar, open
+ parenthesis, closed parenthesis, closed parenthesis, not equal eof, closed
+ parenthesis, if, open parenthesis, c, double equals, single quote, backslash n,
+ single quote, closed parenthesis, plus plus, nl, semicolon. Printf, double
+ quote, percent d, backslash n, double quote, comma, nl, closed parenthesis,
+ semicolon, closed curly brace. The body of the while loop now consists of an if,
+ which in turn controls the increment plus plus nl. The if statement tests its
+ parenthesized condition, and if true, does the statement or group of statements
+ inside braces that follow. We have again indented to show what is controlled by
+ what. The double equal sign in is the c notation for is equal to, like
+ Fortran's dot eq dot. This symbol is used to distinguish the equality test, a
+ question being asked, from the single equal sign used for assignment. Since
+ assignment is about twice as frequently used as equality testing in typical C
+ programs, it's appropriate that the operator be half as long. A single
+ character can be written between single quotes to produce a value equal to the
+ numerical value of the character in the machine's character set. This is called a
+ character constant. So for example, single quote a single quote is a
+ character constant. In the ASCII character set, its value is 65, the
+ internal representation of the character a. Of course, double single quote a
+ single quote is to be preferred over 65. Its meaning is obvious, and it is
+ independent of a particular character set. These escape sequences that are
+ used in character strings are also legal in character constants. So in tests and
+ arithmetic and expressions, single quote backslash n single quote stands for the
+ value of a new line character. You should note carefully that single quote
+ backslash n is a single character, and in expressions is equivalent to a
+ single integer. On the other hand, double quote backslash n double quote is a
+ character string which happens to contain only one character. The topics of
+ strings versus characters is discussed further in chapter two. The numeric bios
+ that are shown for characters are using the ASCII character set. The character
+ sets in the 1970s were quite intricate. Most were eight bits long to conserve
+ computer memory and only support a hundred or so Latin-like characters. This
+ is why early programming languages use special characters like asterisk and
+ curly brace in their syntax very carefully. They needed to choose
+ characters that were commonly available on computer keyboards from different
+ manufacturers. Modern programming languages like Python 3 and Ruby store
+ internal string values using the Unicode character set, so they are all able to
+ represent all the characters in all languages around the world. Modern
+ languages tend to represent eight-bit values in the range from 0 to 256 using
+ a byte or similar type. Python 2 strings were stored as 8-bit bytes and Python
+ 3 strings are stored as 32-bit Unicode characters. Moving to Unicode was a
+ major effort in the Python 2 to Python 3 transition. Word counting. The fourth in
+ our series of useful programs counts lines, words, and characters. With a loose
+ definition that a word is any sequence of characters that does not contain a
+ blank, a tab, or a new line. This is a very very bare-bones version of the Unix
+ utility WC. This example is on page 18 in the textbook. Pound include stdio.h
+ pound to find yes, one, pound to find no, zero. Main, open parentheses, close parentheses,
+ open curly brace. Int, c comma nl comma nw comma nc comma n word. n word equals no,
+ nl equals nw equals nc equals zero. While, open parentheses, open parentheses, c
+ equals getchar, not equal to eof. Open curly brace, plus plus nc. If, parentheses,
+ c double equals quote backslash n quote, parentheses, plus plus nl. If, open
+ parentheses, c double equals single quote space single quote, double vertical bar,
+ c double equals single quote backslash n single quote, double vertical bar, c
+ equals equals single quote backslash t single quote, close parentheses, n word
+ equals no. Else, if, open parentheses, n word equal equal no, close parentheses, open
+ curly brace, n word equals yes, semicolon, plus plus nw, semicolon, close curly
+ brace, close curly brace. Printf, open parentheses, double quote percent d
+ space percent d space percent d backslash n double quote comma nl comma nw comma
+ nc, close curly brace. Every time the program encounters the first character
+ of a word, it counts it. The variable n word records whether the program is
+ currently in a word or not. Initially, it is not in a word, which is assigned the
+ value no. We prefer the symbolic constants yes and no to the literal values
+ 1 and 0, because they make the program more readable. Of course, in a program as tiny
+ as this, it makes little difference, but in larger programs, the increase of
+ clarity is well worth the modest x effort to write it this way to make it
+ more readable. You will also find that it's easier to make changes to programs
+ where numbers appear only as symbolic constants. The line nl equals nw equals
+ nc equals zero sets all three variables to zero. This is not a special case, but a
+ consequence of the fact that an assignment has a value and assignments
+ associate right to left. It's really as if we had written nc equals open
+ parentheses nl equals open parentheses nw equals zero, close parentheses, close
+ parentheses semicolon. The operator double vertical bar, vertical bar,
+ vertical bar, means or. So the line if open parentheses c double equals single
+ quote space single quote, vertical bar, vertical bar, c double equals single
+ quote backslash n single quote, double vertical bar, c double equals quote
+ backslash t quote parentheses says if c is a blank or c is a new line or c is a
+ tab. The escape sequence backslash t is a visible representation of the tab
+ character. There is a corresponding operator which is double ampersand for
+ and. Expressions connected by double ampersand or double vertical bar are
+ evaluated left to right and it is guaranteed that the evaluation will stop
+ as true as true soon as the truth or falsehood for the overall expression is
+ no. Thus, if c contains a blank there is no need to test whether contends contains
+ a new line or tab. So these tests are not made. This isn't particularly important
+ here but is very significant in more complicated situations as we will soon
+ see. I would note that the double vertical bar and double ampersand are
+ the norm for boolean operators in c-like languages. When a new language was being
+ designed it was really easy to just adopt the c convention for logical
+ operators because while they may seem cryptic, millions of software developers
+ were already familiar with the operators. In this way the relationship between c
+ and c-like languages is like the relationship between Latin and romance
+ languages including English. Back to the text. The example also shows the c else
+ statement which specifies an alternative action to be done if the condition part
+ of an if statement is false. The general form is if open parentheses expression
+ closed parentheses statement one else statement two. One and only one of the
+ two statements associated with an if then else is done. If the expression is
+ true statement one is executed. If not statement two is executed. Each
+ statement can actually be in fact quite complicated. In the word count problem
+ the one after the else is an if that controls two statements in braces.
+ Section 1.6 arrays. Understanding the capabilities and limitations of c
+ arrays is one of the most important topics in our historical look at the c
+ programming language. Most importantly the number of elements in an array
+ declaration must be a constant at compile time and the size of an array
+ cannot be adjusted using an array declaration while the program's running.
+ This inability to automatically resize c arrays as data is added leads to a
+ class of security laws that are generally referred to as buffer overflow.
+ Where a program reads more data in that can fit into an array and is tricked to
+ overriding other data or code and compromising an application. Later in
+ this book we will create dynamic array like structures in C using pointers and
+ the standard library C alloc function. Python has support for non-dynamic arrays
+ buffers. Python buffers are generally not used except for programmers writing
+ library code that talks to low-level code written in a language other than
+ Python or talking to operating system things like Linux. More commonly used
+ Python list and dictionary structures and change their sizes automatically as
+ elements are added and deleted at runtime. Java has support for non-dynamic
+ arrays like C which are given a length at the moment they are created and the
+ array length cannot be increased nor decreased without making a new array and
+ copying all the elements from the first to the second array. Java does provide
+ list and map structures that automatically adjust their length as data
+ is added or removed. Java has a class called ArrayList which can be dynamically
+ extended but provides array like linear access. It is a list internally but it
+ can be used like an array externally. The underlying technique that is used to
+ implement language structures like Python's list is dynamic memory
+ allocation and a linked list structure. Linked lists are one of the most
+ important data structures in all of computer science. We will cover dynamic
+ allocation and implementing data structures in C in chapter 6. For now we
+ will merely examine the syntax of C arrays but keep in mind that allocating
+ an array in C is very different than creating a list in Python. Back to the
+ text. Let us write a program to count the number of occurrences of each digit of
+ white space characters like tab and new line and all other characters. This is an
+ artificial problem to solve but it permits us to illustrate several aspects
+ of C in one program. There are 12 categories of input so it is convenient
+ to use an array to hold the number of occurrences of each digit rather than 10
+ individual variables. Actually 12 individual variables. Here is one version
+ of the program on page 21 in the textbook. I would note that as these
+ programs get larger and larger it is harder and harder for you to just
+ listen to me read them and you have to go look at them in the textbook. So I
+ recommend that you go check out the textbook in page 20 and find this actual
+ code. Pound include stdio.h main open parentheses closed parentheses open
+ curly brace int C comma I comma n white comma n other semicolon int n digit open
+ square bracket 10 closed square bracket semicolon and white equals n other
+ equals 0 semicolon for open parentheses I equals 0 semicolon I less than 10
+ semicolon plus plus I open I mean closed parentheses n digit open square bracket
+ I closed square bracket equals 0 semicolon. Now we're going to have a loop
+ to read all of our input while double open parentheses C equals get char open
+ parentheses closed parentheses and another closed parentheses not equal EOF
+ closed parentheses. If open parentheses C greater than or equal to single quote
+ zero single quote double ampersand C less than or equal single quote nine
+ single quote closed parentheses plus plus n digit open square bracket C minus
+ single quote zero single quote closed square bracket semicolon else if open
+ parentheses C double equals space quote space quote or double vertical bar C
+ double equals single quote backslash and single quote double vertical bar C
+ double equals single quote backslash T single quote closed parentheses plus plus
+ n white semicolon else plus plus n other but if statement was a sort of a three
+ branch yet if checking to see if we were doing a digit of white space character
+ or some other character at the end of the while loop we're not the end of the
+ lot while loop and so we say print F parentheses double quote digits equals
+ double quote closed parentheses semicolon. Now we'll note in this that there is no
+ new line so we can have these print F's kind of concatenate outward without
+ going to a separate line. For parentheses I equals zero semicolon I less than 10
+ semicolon plus plus I closed parentheses print F double quote space percent D
+ double quote comma n digit open square bracket I closed square bracket closed
+ parentheses semicolon. Print F open parentheses double quote backslash n
+ white space equals percent D comma other equals percent D backslash and double
+ quote comma n white comma n other closed parentheses semicolon closed curly
+ brace. Let's go through the code. The declaration int n digit open square
+ bracket 10 closed square bracket semicolon declares n digit to be an
+ array of ten integers. Array of subscripts always start and zero in C
+ rather than one as in Fortran or PL1 so the elements are n digit sub zero n
+ digit sub 1 dot dot dot n digit sub 9. Square brackets are the sub. This is
+ reflected in the for loops which initialize and print the array. A
+ subscript can be any integer expression which of course includes
+ integer variables like I and integer constants. This particular program relies
+ heavily on the properties of character representation of the digits. For example
+ if C greater than or equal to single quote 0 single quote double ampersand C
+ less than or equal to single quote 9 single quote closed parentheses determines
+ whether it's a digit. That is if the numeric value of the digit and the
+ numeric value of the digit is C minus double quote 0 double quote. This only
+ works if double quote 0 double quote 1 etc are positive and increasing order
+ and there's nothing but digits between 0 and 9. Fortunately this is true for all
+ conventional character sets. By definition arithmetic involving chars and
+ ints converts everything to int before proceeding. So char variables and
+ constants are essentially identical to ints in arithmetic
+ contexts. This is quite natural and convenient for example C minus single
+ quote 0 single quote is an integer expression that gives us a value between
+ 0 and 9 an integer value between 0 and 9 corresponding to the character quote 0
+ quote 2 quote 9 quote stored in C and is thus a valid subscript for the 10
+ element array and digit. The decision as to whether the character is a digit a
+ white space or something else is made by the sequence if open parentheses C
+ greater than or equal to quote 0 quote double ampersand C less than or equal
+ quote 0 quote a quote 9 quote closed parentheses plus plus and digit open
+ square bracket C minus quote 0 quote closed bracket semicolon. Else if C double
+ equals single quote or C double equals single quote backslash n or C double
+ equals single quote backslash t plus plus n white. Else plus plus n other. The
+ pattern if in parentheses condition statement else if parentheses condition
+ statement else statement occurs frequently in programs as a way to
+ express a multi-way decision. The code is simply read from the top of the bot
+ to until the bottom until some condition is satisfied. At that point the
+ corresponding statement part is executed and the entire construction is finished.
+ Of course statement can be several statements enclosed in braces. If none
+ of the conditions are satisfied the statement after the final else is
+ executed if present. If the final else and statement are omitted as in the word
+ count program no action takes place. There can be an arbitrary number of else
+ if condition statements groups between the initial if and the final else. As a
+ matter of style is advisable to format this construction as we have shown with
+ proper indentation so that long decisions do not march off the right
+ side of the page. The switch statement to be discussed in chapter 3 provides
+ another way to write multi-way branching that is particularly suitable when the
+ condition being tested is simply whether some integer or character
+ expression matches one of a set of constants. For contrast we will present a
+ switch version of this program in chapter 3. Functions. In C a function is
+ equivalent to a subroutine or function in FORTRAN or a procedure in PL 1
+ Pascal etc. A function provides a convenient way to encapsulate some
+ computation in a black box which can then be used without worrying about its
+ innards. Functions are really the only way to cope with the potential
+ complexity of large programs. With properly designed functions it is
+ possible to ignore how a job gets done knowing what is done is sufficient. C is
+ designed to make the use of functions easy convenient and efficient. You will
+ often see a function only a few lines long called only once just because it
+ clarifies some piece of code. So far we have used functions like printf getchar
+ and putchar that have been provided for us. Now it's time to write a few of our
+ own. Since C has no exponentiation operator like the double asterisk of
+ FORTRAN or PL 1 let us illustrate the mechanics of function definition by
+ writing a function power open parenthesis m comma n close parenthesis to raise an
+ integer into a positive power n. That is the value of power parenthesis 2 comma 5
+ is 32. This function certainly doesn't do the whole job of exponentiation since it
+ only handles positive powers of small integers but it is best to confuse only
+ one issue at a time. Here is the function power and a main program to exercise it
+ so you can see the whole structure at once. This sample code is on page 23 of
+ the textbook. Pound include stdio.h main open curly brace int i semicolon for
+ parentheses i equals 0 semicolon i less than 10 semicolon plus plus i close
+ parenthesis. printf double quote percent d space percent d space percent d backslash n double quote comma i comma power open
+ parenthesis 2 comma i close parenthesis comma power open parenthesis negative 3
+ comma i close parenthesis close parenthesis semicolon close curly brace
+ the end of the main. Now we begin the function. Power open parenthesis x comma n
+ close parenthesis int x comma n semicolon open curly brace int i comma p p
+ equals 1 for open parenthesis i equals 1 semicolon i less than or equal to n
+ semicolon plus plus i. p equals p times x semicolon return open parenthesis p
+ close parenthesis semicolon close curly brace. Each function has the same form.
+ Function name open parenthesis argument list if any followed by argument
+ declarations if any followed by the body of the function which includes
+ declarations and statements. Functions can appear in either order and in one
+ source file or two. If of course the source file appears in two files you will
+ have to say more to compile and load it than if all appears in one but that's an
+ operating system matter not a language attribute. For the moment we'll just
+ assume that both functions are in the same file so whatever you learned
+ about C programs running them will not change. The function power is called twice
+ in the line printf open parenthesis double quote percent d space percent d
+ space percent d backslash n double quote comma i comma power open parenthesis 2
+ comma i close parenthesis comma power open parenthesis negative 3 comma i
+ close parenthesis close parenthesis. Each call passes two arguments to the power
+ function which each time returns an integer to be formatted and printed. In
+ the expression power open parenthesis 2 comma i is just an integer as 2 and i are. Not
+ all functions produce an integer value and we'll take this up in more detail in
+ chapter 4. In power the arguments have to declared appropriately so their types
+ are known before the beginning of the body of the function. This is done by the
+ line int x comma n semicolon that follows the function name. The argument
+ declarations go between the argument list and the opening left brace. Each
+ declaration is terminated by a semicolon. The names used for power and for its
+ arguments are purely local to power and not accessible to any other functions.
+ Other routines can use the same names for their variables without conflict. This
+ is all so true of the variables i and p within the function. The i and power is
+ unrelated to the i in main. The value that power compute computes is returned
+ to main by the return statement which is just as in PL 1. Any expression must
+ occur within the parentheses. A function need not return a value. A return
+ statement with no expression causes control but no useful value to be
+ returned to the call caller as does falling off the end of a function by
+ reaching the terminating right curly brace. Section 1.8 arguments call by
+ value. One aspect of C function which may be unfamiliar to programmers who are used
+ to other languages particularly Fortran and PL 1. In C all function arguments
+ are passed by value. This means that the called function is given the values of
+ its arguments in temporary variables actually on a stack rather than their
+ addresses. This leads to some different properties than are seen with call by
+ reference languages like Fortran and PL 1 in which the called routine is handled
+ the address of the argument not its value. It may seem strange that the
+ authors are calling so much attention to the fact that function arguments are
+ passed call by value in the very first chapter. Most modern programming
+ languages like Python PHP or Java pass single value arguments by value by
+ default and to pass in an argument by reference you need to do something
+ special like adding the ampersand in the function declaration in PHP. Passing by
+ reference was the norm before C and passing by value was the norm after C.
+ Since modern languages were deeply influenced by and often written in C
+ passing by value is the norm for modern languages. It's nice because it isolates
+ the data in the calling code from the called code so the called code can't
+ easily mess with its arguments either intentionally or by mistake and create
+ an unexpected side effect and possibly a bug or security flaw in the calling code.
+ It was a bit of work to make pass by value work in C. C implements a call stack
+ where a bit of memory is automatically allocated at each function call and C
+ makes a copy of the values in the calling code to pass them into the called
+ code in a way that the calling code can see the values and change their local
+ copies without affecting the values in the calling code. The same call stack
+ that made it possible for C function arguments to be passed by value also
+ made it possible for a function to call itself recursively. Fortran functions
+ could not be called recursively until the 1990 version of Fortran. If you know
+ your Python you know that simple variables like integers and strings are
+ passed by value while structured data like dictionaries and lists are passed
+ by reference i.e. the called function can modify its arguments. We will later see
+ this in C as well. Talking about call stacks recursive functions and the fact
+ that arrays and structured are called by reference is jumping ahead somewhat. So
+ for now let's just remember the author's point that normal values
+ like integers and floats are passed by value in C. Back to the text. The main
+ distinction is that in C the called function cannot alter a variable in the
+ calling function. It can only alter its private temporary copy. Call by value is
+ an asset however not a liability. It usually leads to more compact programs
+ with fewer extraneous variables because arguments can be treated as conveniently
+ initialized local variables in the called routine. For example here is a
+ version of power which makes use of this fact. This code is on page 24 of the text.
+ Power open parenthesis x comma n close parenthesis int x comma n semicolon open
+ curly brace int i comma p semicolon for open parenthesis p equals 1 semicolon n
+ greater than 0 semicolon minus minus n close parenthesis p equals p times x
+ semicolon return open parenthesis p close parenthesis semicolon close curly
+ brace. The argument n is used as a temporary variable and is counted down
+ until it becomes 0. There is no longer a need for the variable i as in the
+ previous example. Whatever is done to n inside the power function has no effect
+ on the argument that power was originally called with. When necessary it
+ is possible to arrange for a function to modify the variable in the calling
+ routine. The caller must provide the address of their variable to be set
+ technically a pointer to the variable and the called function must declare the
+ argument to be a pointer and reference the actual variable indirectly through
+ it. We will cover this in detail in chapter 5. When the name of an array is
+ used as an argument the value passed to the function is actually the location
+ or address of the beginning of the array. There is no copying of the elements in
+ the array. By subscripting this value the function can access and alter any element
+ of the array in the calling code. This is the topic of the next section. Now I
+ would recommend that you're careful looking at the code samples in the rest
+ of this chapter. Recall that in C array sizes do not grow and shrink
+ dynamically at all after they're allocated. The author statically allocate
+ character arrays capable of handling up to 1,000 characters long. Their code
+ works but it is somewhat brittle. So look at the next two sections as examples of
+ C syntax with many important concepts about character strings stored as arrays
+ and calling patterns when passing arrays to functions as parameters. But not
+ exactly the best practice when handling dynamically sized data. Back to the text.
+ Probably the most common type of array in C is an array of characters. To
+ illustrate the use of character arrays and functions to manipulate them let's
+ write a program that reads a set of lines and prints the longest. The basic
+ outline is simple enough. While there's another line, if it's longer than the
+ previous longest, save it and its length and at the very end print the longest
+ line. The outline makes it clear that the program divides naturally into pieces.
+ One piece gets a new line, another checks it, another saves it, and then the rest
+ controls the process. Since things divide so nicely, it would be well
+ to write them that way too. Accordingly, let's write first a separate function
+ called get line to fetch the next line of input. This is a generalization of get
+ char. To make the function useful in other contexts, we'll try to make it as
+ flexible as possible. At the minimum, get line has to return a signal about
+ possible end of file. A more generally useful design would be to return the
+ length of the line or zero if the end of file is encountered. Zero is never a
+ valid line length since every line has at least one character. Even a line
+ containing only a new line has length one. I would note that here in chapter
+ one, we have changed the book's original use of the function name get line to get
+ underscore line in the code examples because it conflicts with the
+ stdio.h that defines get line as a library function. In this chapter, the
+ authors are providing examples around function naming and linking. In later
+ chapters, code samples will simply use the built-in get line without an
+ underscore to read an input. When we find a line that is longer than the
+ previous longest, it must be saved somewhere. This suggests a second
+ function, copy, to copy the new line to a safe place. Finally, we need a main
+ program to control get line and copy. Here is the result. The sample code for
+ this is on page 26 and it's a bit long so you might want to show take a look at
+ the sample code in a browser. Pound include stdio.h. Pound define max line
+ 1000. Main open paren closed paren. Open curly brace. Int len semicolon which is
+ the current line length. Int max semicolon which is the maximum length
+ we've seen so far. Char line open square bracket max line closed square bracket
+ semicolon. A character array that's the current input line and then char save
+ open square bracket max line closed square bracket semicolon which is a
+ character array that has the longest line where we're going to save it. On to
+ the code. Max equals 0 while open paren open paren len equals get line open
+ paren line comma max line closed paren closed paren greater than 0. If len is
+ greater than max open curly brace max equals len to save it and then copy line
+ comma save. Close curly brace. If open paren max greater than 0 i.e. there was a
+ line. Print f open paren double quote percent s double quote comma save. Close
+ curly brace to end the main program. Now we're in the first function. Get line
+ open parentheses s comma lim closed parentheses. Char s open bracket closed
+ bracket semicolon. Since it's being passed in as an argument we don't need
+ to know the length of it and the next argument is int lim semicolon. So get
+ line takes the character array of unknown length and a limit that tells us
+ the length of the character array. Open curly brace int c comma i semicolon. For
+ open parentheses i equals 0 semicolon i less than lim minus 1 double ampersand
+ parentheses c equals get char open parentheses closed parentheses closed
+ parentheses not equal eof and double ampersand c not equal single quote
+ backslash n back single quote semicolon plus plus i. And in the body of the loop
+ it's s open square bracket i closed square bracket equals c. From now on I'll
+ read that s sub i equals c. At the end of the loop we say if open parentheses c
+ double equals single quote backslash n single quote closed parentheses open
+ curly brace s sub i equals c plus plus i closed curly brace. S sub i equals quote
+ backslash 0 quote semicolon return open parentheses i closed parentheses semicolon
+ closed curly brace. And that's the end of the get line function. And now we on to
+ the copy function. Copy open parentheses s1 s2 closed parentheses. The purpose of this
+ function is copy s1 to s2 assume that s2 is big enough. The declaration is char
+ s1 open square bracket closed square bracket comma s2 open square bracket
+ closed square bracket. As a note these arrays have a size we just don't know
+ what they are and we hope that they're large enough. The body of the copy
+ function starts with open curly brace int i semicolon i equals 0 while open
+ parentheses open parentheses s2 sub i equals s1 sub i closed parentheses not
+ equal single quote backslash 0 single quote plus plus i closed curly brace to
+ end the copy function. Main and get line communicate both through a pair of
+ arguments and a returned value. In get line the arguments are declared by the
+ lines char s open square bracket closed square bracket semicolon int lim
+ semicolon. Specify that the first argument is an array of unknown length and the
+ second is an integer. The length of the array s is not specified in get line
+ since it's determined in main. Get line uses return to send a value back to the
+ caller just as the function power did. Some functions return a useful value
+ others like copy are only used for their effect and return no value. Get line
+ puts the character backslash 0 the null character whose integer value is 0 at
+ the end of the array it's creating to mark the end of the string of characters.
+ This convention is also used by the C compiler. When a string
+ constant like double quote H E L L O backslash N double quote is written in a
+ C program a compiler creates an array of characters containing the characters of
+ the string and adds a backslash 0 at the end to terminate it so that functions
+ such as printf can detect the end. So that would lead to an array that has H E
+ L L O backslash N backslash 0. So it's a 5 character array with a new line which
+ is a sixth character and then backslash 0 which is an actual character. Again we
+ don't know the arrays don't know their length and so you use the backslash 0
+ as the indicator of the end of a string. The percent s format specification in
+ printf expects a string represented in exactly this form. If you examine copy
+ you will discover that it too relies on the fact that its input argument s1 is
+ terminated by backslash 0 and it copies this character backslash 0 into the
+ argument output argument s2. All of this implies that backslash 0 is not part of
+ normal text it's merely a marker. It is worth mentioning in passing that even a
+ program as small as this one presents some sticky design problems. For example
+ what should main do if it encounters a line which is bigger than its limit?
+ Get line works properly and that it stops collecting when the array is full
+ even if no new line has been seen. By testing the length and the last
+ character returned main can determine whether the line was too long and cope
+ with it as it wishes. In interests of brevity we have ignored this issue.
+ There's also no way for a user of get line function to know in advance how
+ long an input line might be so get line checks for overflow. On the other hand a
+ user of the copy function already knows or should be able to find out how big
+ the strings are so we have chosen not to add error checking to it.
+ Section 1.10 scope external variables. The variables in main line
+ save etc are private or local to main because they are declared within main no
+ other function can have direct access to them. The same is true of the variables
+ in the other functions for example the variable i in get line is unrelated to
+ the i in copy. Each local variable in a routine comes into existence only when a
+ function is called and disappears when the function is exited. It is for this
+ reason that such variables are usually known as automatic variables following
+ terminology in other languages. We'll use the term automatic henceforth to refer
+ to these dynamic local variables. Chapter 4 discusses the static storage class in
+ which local variables do retain their values between function invocations.
+ Because automatic variables come and go with function invocation they do not
+ retain their values from one call to the next and must be explicitly set upon
+ each entry. If they are not set they will contain garbage. As an alternative to
+ automatic variables it is possible to define variables which are external to
+ all functions that is global variables which can be accessed by name by any
+ function that cares to. This function is rather like Fortran common or PL one
+ external. Because external variables are globally accessible they can be used
+ instead of arguments to communicate data between functions. Furthermore because
+ external variables remain in existence permanently rather than appearing and
+ disappearing as functions are called and exited they retain their values even
+ after the functions that set them are done. An external variable has to be
+ defined outside of any function. This allocates actual storage for it. The
+ function also must be declared and each function that wants to access it. This
+ may be done either by an explicit extern declaration or implicitly by
+ context. To make the discussion concrete let's rewrite the longest line program
+ with line, save, and max as external variables. This requires changing the
+ calls, declarations, and bodies of all three functions. This sample code is on
+ page 29 of the textbook and it's pretty long but I'll read it for you.
+ Pound include stdio.h. Pound define max line 1000. We're still outside of main.
+ Char line open bracket max line close bracket semicolon. Char save open bracket
+ max line semicolon. Int max semicolon. Those are our three global variables.
+ Starting the main. Main open paren close paren open curly brace. Int len. Extern
+ int max. So we're saying that this is an integer but it's also not to be
+ allocated inside of main. Extern char save open square bracket close square
+ bracket. The line length the length of the save array is defined above so we
+ don't need to define it here. Max equals zero semicolon. While double parentheses
+ len double left parentheses len equals get line parentheses greater than zero
+ parentheses. If parentheses len greater than max open curly brace max equals len
+ copy open parentheses no parentheses semicolon no parameters to copy because
+ it's going to simply talk to the global variables. Close curly brace. After the
+ loop finishes we say if open parentheses max greater than zero then printf open
+ parentheses double quote percent s double quote comma save close parentheses
+ semicolon close close curly brace and that is the end of the main. So now we
+ have the get line function which is specialized to deal with external
+ variables okay. So we start get line open parentheses close parentheses no
+ parameters open curly brace int comma c comma int c comma i semicolon. These are
+ local variables. Extern char line open curly brace close curly brace semicolon.
+ This is the our reference inside of get line to the global variable line. For
+ open parentheses i equals zero semicolon i less than max line minus one max line
+ minus one max line is a predefined constant at compile time. For i less
+ than max line minus one double ampersand parentheses c equals get char open
+ parentheses close parentheses close parentheses not equal eof double
+ ampersand i.e. and c not equal single quote backslash n single quote semicolon
+ plus plus i. Line sub i equals c. That's the for loop that in effect reads
+ characters one at a time and puts them in line. After the for loop we say if
+ open parentheses c double equals single quote backslash n single quote close
+ parentheses open curly brace line sub i equals c plus plus i close curly brace.
+ This ensures that we append the new line to the function. Line sub i equals
+ single quote backslash zero backslash that's semicolon the that's the string
+ termination character. Return i return open parentheses i close parentheses. This
+ is the length that get line is returning and then close curly brace to end the
+ get line function. And then we have the copy function and again it takes no
+ parameters. Copy open parentheses close parentheses curly brace int i extern
+ char line open bracket close bracket comma save open bracket close bracket
+ semicolon. i equals zero while parentheses open parentheses open parentheses save
+ sub i equals line sub i close parentheses is not equal quote backslash zero quote
+ plus plus i. Close curly brace for copy. So the external variables in main get
+ line and copy are defined by the very first lines in the example above outside
+ of main which state their type and cause storage to be allocated for them.
+ Syntactically external definitions are just like the declarations we use
+ previously but because they occur outside of any function including outside the
+ main function the variables are external. Before a function can use or access an
+ external variable the name of the variable must be made known to the
+ function. One way to do this is to write an extern declaration in the function.
+ The declaration is the same as before except for the added keyword extern. In
+ certain circumstances the extern declaration can be omitted. If the
+ external definition of the variable occurs in the same source file before
+ it's used in a particular function then there's no need for an extern
+ declaration in the function. The extern declarations in main and get line and
+ copy are thus redundant. In fact common practice is to place all definition of
+ all external variables at the beginning of the source file and then omit all
+ extern declarations. If the program is in several source files and a variable is
+ defined in say file 1 and used in file 2 then an extern declaration is needed in
+ file 2 to connect the two occurrences of the variables. This topic is discussed at
+ length in chapter 4. You should note that we are using the words declaration and
+ definition very carefully when we refer to external variables in this section.
+ Definition refers to the place where the variable is actually created or assigned
+ storage. Declaration refers to places where the nature of the variable is
+ stated but no storage is allocated. By the way there is a tendency to make
+ everything in sight an extern variable because it appears to simplify things.
+ Argument lists are short and variables are always there when you want them but
+ external variables are always there also when you don't want them. The style of
+ coding is fraught with peril since it leads to programs whose data connections
+ are not at all obvious. Variables can be changed in unexpected and even
+ inadvertent ways and the program is hard to modify when it becomes necessary. The
+ second version of the longest line program is inferior to the first partly
+ because of these reasons and partly because it destroys the generality
+ of two quite useful functions by hardwiring them into the names of the
+ variables they will manipulate. Section 1.11 summary. At this point we have
+ covered what might be called the conventional core of C. With this
+ handful of building blocks it's possible to write useful programs of considerable
+ size and it probably a good idea if you paused long enough to do so. The
+ exercises that follow are intended to give you suggestions for programs of
+ somewhat greater complexity than the ones presented in this chapter. After you
+ have this much C under control it will be well worth your effort to read on
+ for the features covered in the next few chapters are where the power and
+ expressiveness of the language begin to become apparent. This work is based on
+ the 1978 C programming book written by Brian W. Kernigan and Dennis M. Ritchie.
+ Their book is copyright all rights reserved by AT&T but is used in this
+ work under fair use because of the book's historical and scholarly
+ significance, its lack of availability, and the lack of an accessible version of
+ the book. The book is augmented in places to help understand its right place in a
+ historical context amidst the major changes of the 1970s and 1980s as
+ computer science evolved from a hardware-first vendor-centered approach
+ to a software-centered approach where portable operating systems and
+ applications written in C could run on any hardware. This is not the ideal book
+ to learn C programming because the 1978 edition does not reflect the modern C
+ language. Using an obsolete book gives us an opportunity to take students back in
+ time and understand how the C language was evolving as it laid the groundwork
+ for a future with portable applications.

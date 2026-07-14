@@ -1,0 +1,2024 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:03.560
+ - Hello, and welcome to C Programming for Everybody.
+
+00:00:03.560 --> 00:00:08.120
+ This lecture is putting C in a bit of a historical context.
+
+00:00:08.120 --> 00:00:09.980
+ Now, if you're watching this lecture,
+
+00:00:09.980 --> 00:00:12.520
+ you're probably familiar with some of my other classes.
+
+00:00:12.520 --> 00:00:13.840
+ I just wanna kinda let you know
+
+00:00:13.840 --> 00:00:15.900
+ that I've been building a lot of classes.
+
+00:00:15.900 --> 00:00:17.920
+ Most of you probably took Python for Everybody,
+
+00:00:17.920 --> 00:00:21.500
+ available on Coursera, edX, and many other platforms.
+
+00:00:21.500 --> 00:00:24.400
+ But I have a whole series of classes that are designed,
+
+00:00:24.400 --> 00:00:26.480
+ what I call the path of the master programmer,
+
+00:00:26.480 --> 00:00:30.200
+ where I try to start people that,
+
+00:00:30.200 --> 00:00:31.260
+ no matter where you start,
+
+00:00:31.260 --> 00:00:33.760
+ I want you to be able to learn to be a really good programmer
+
+00:00:33.760 --> 00:00:35.960
+ and you follow along as far as you want.
+
+00:00:35.960 --> 00:00:37.040
+ These are all my materials.
+
+00:00:37.040 --> 00:00:40.400
+ They're all 100% free, open, and online.
+
+00:00:40.400 --> 00:00:42.980
+ And they're really aimed at teaching everybody
+
+00:00:42.980 --> 00:00:43.820
+ how to program.
+
+00:00:43.820 --> 00:00:49.020
+ I mean, I started doing this back in 2012 with Coursera.
+
+00:00:49.020 --> 00:00:53.680
+ And I have dedicated myself to making all my materials free
+
+00:00:53.680 --> 00:00:56.560
+ and to create a path that anyone can take anywhere
+
+00:00:56.560 --> 00:01:00.120
+ in the world, regardless of economic challenges
+
+00:01:00.120 --> 00:01:01.600
+ or other things in your life.
+
+00:01:01.600 --> 00:01:04.200
+ I want everybody to have an opportunity
+
+00:01:04.200 --> 00:01:05.760
+ to be a professional developer.
+
+00:01:05.760 --> 00:01:07.120
+ So I encourage you.
+
+00:01:07.120 --> 00:01:09.740
+ And frankly, if you haven't taken Python yet,
+
+00:01:09.740 --> 00:01:11.200
+ like my Python for Everybody class,
+
+00:01:11.200 --> 00:01:14.760
+ this course is going to be a little bit difficult.
+
+00:01:14.760 --> 00:01:17.420
+ So let's start with a history of C.
+
+00:01:17.420 --> 00:01:19.980
+ The book we're looking at, The Kernigan and Ritchie,
+
+00:01:21.720 --> 00:01:25.900
+ a C programming language by Brian W. Kernigan
+
+00:01:25.900 --> 00:01:30.060
+ and Dennis M. Ritchie, was published in 1978.
+
+00:01:30.060 --> 00:01:34.680
+ And the key thing is that it is a moment in history
+
+00:01:34.680 --> 00:01:37.460
+ where everything changed.
+
+00:01:37.460 --> 00:01:40.400
+ And so we're looking at this textbook
+
+00:01:40.400 --> 00:01:42.800
+ and the text in this textbook and the language itself
+
+00:01:42.800 --> 00:01:45.920
+ in the context of how it has impacted history.
+
+00:01:45.920 --> 00:01:48.960
+ The C programming language itself has a long history.
+
+00:01:48.960 --> 00:01:50.360
+ There was a language called B,
+
+00:01:50.360 --> 00:01:52.440
+ and they were using it at AT&T Abel Labs
+
+00:01:52.440 --> 00:01:56.160
+ to build utilities and operating system stuff.
+
+00:01:56.160 --> 00:01:59.120
+ But it was a little too word-oriented.
+
+00:01:59.120 --> 00:02:02.120
+ And so the language C was,
+
+00:02:02.120 --> 00:02:05.460
+ as new computer hardware came out,
+
+00:02:05.460 --> 00:02:07.680
+ that supported byte addressing
+
+00:02:07.680 --> 00:02:10.080
+ and the ability to load a string of bytes
+
+00:02:10.080 --> 00:02:12.680
+ and store a string of bytes rather than a set of words,
+
+00:02:12.680 --> 00:02:15.220
+ words being larger than a byte
+
+00:02:15.220 --> 00:02:17.400
+ and more than one character were packed into words,
+
+00:02:17.400 --> 00:02:19.680
+ and kind of like the '60s and early '70s.
+
+00:02:21.120 --> 00:02:24.120
+ C wanted to make a character,
+
+00:02:24.120 --> 00:02:29.120
+ a sort of core low-level VAP kind of data
+
+00:02:29.120 --> 00:02:31.160
+ that the language would happen.
+
+00:02:31.160 --> 00:02:34.120
+ And from like the early and mid '70s,
+
+00:02:34.120 --> 00:02:36.320
+ the C and Unix kind of co-evolved.
+
+00:02:36.320 --> 00:02:38.680
+ They wanted to build something
+
+00:02:38.680 --> 00:02:43.260
+ that would make Unix work well on a PDP 1120,
+
+00:02:43.260 --> 00:02:45.640
+ and at the same time,
+
+00:02:45.640 --> 00:02:48.120
+ make it so they could port Unix to other systems.
+
+00:02:48.120 --> 00:02:52.200
+ But really, it was about the PDP 1120's
+
+00:02:52.200 --> 00:02:53.360
+ cool memory architecture
+
+00:02:53.360 --> 00:02:55.440
+ having to do with byte addressability.
+
+00:02:55.440 --> 00:02:58.360
+ And what happened was is they were
+
+00:02:58.360 --> 00:03:00.800
+ carefully rewriting Unix in C,
+
+00:03:00.800 --> 00:03:03.440
+ but then fixing C, laying the groundwork
+
+00:03:03.440 --> 00:03:06.000
+ for Unix portability.
+
+00:03:06.000 --> 00:03:11.000
+ And so by 1978, this KNRC book was published.
+
+00:03:11.000 --> 00:03:14.880
+ And at that point, you could think of it as a summary
+
+00:03:14.880 --> 00:03:18.340
+ of over a decade of research in how to build
+
+00:03:18.340 --> 00:03:20.000
+ a portable programming language,
+
+00:03:20.000 --> 00:03:22.760
+ and then use that portable programming language
+
+00:03:22.760 --> 00:03:25.600
+ to build a portable operating system,
+
+00:03:25.600 --> 00:03:26.840
+ C and Unix, of course.
+
+00:03:26.840 --> 00:03:32.440
+ By 1989, C had become popular,
+
+00:03:32.440 --> 00:03:33.740
+ and there was a need to standardize it.
+
+00:03:33.740 --> 00:03:36.240
+ So there's a variant of C called C89.
+
+00:03:36.240 --> 00:03:38.120
+ That is the ANSI.
+
+00:03:38.120 --> 00:03:41.040
+ And then that same version was called C90,
+
+00:03:41.040 --> 00:03:45.320
+ is ISO, the International Organization of Standards,
+
+00:03:45.320 --> 00:03:46.480
+ also standardized that.
+
+00:03:46.480 --> 00:03:49.880
+ And so that was our first version of the C
+
+00:03:49.880 --> 00:03:52.280
+ that we could all agree on.
+
+00:03:52.280 --> 00:03:55.360
+ The ANSI did not intend to go too far away
+
+00:03:55.360 --> 00:03:57.960
+ from what we call KNRC,
+
+00:03:57.960 --> 00:04:01.580
+ but instead it just sort of nailed down a few things
+
+00:04:01.580 --> 00:04:04.120
+ that by then were important to nail down.
+
+00:04:04.120 --> 00:04:06.520
+ And C has continued to evolve
+
+00:04:06.520 --> 00:04:09.800
+ from sort of 1990 to the present,
+
+00:04:09.800 --> 00:04:12.000
+ and there's a number of major revisions.
+
+00:04:12.000 --> 00:04:15.160
+ But the key thing that these revisions don't do
+
+00:04:15.160 --> 00:04:16.420
+ in the modern version of C
+
+00:04:16.420 --> 00:04:18.460
+ is they do not attempt to make C
+
+00:04:18.460 --> 00:04:22.760
+ easy to use language, say like Python or JavaScript.
+
+00:04:22.760 --> 00:04:27.760
+ And then C knows its place in the panoply of languages
+
+00:04:27.760 --> 00:04:30.740
+ and does a good job of that.
+
+00:04:30.740 --> 00:04:35.360
+ So if we look at sort of what's the future,
+
+00:04:35.360 --> 00:04:38.720
+ C is a difficult language to use
+
+00:04:38.720 --> 00:04:39.960
+ as a general purpose language.
+
+00:04:39.960 --> 00:04:42.240
+ Python is a great general purpose language,
+
+00:04:42.240 --> 00:04:45.360
+ but it's not a great systems programming language.
+
+00:04:45.360 --> 00:04:47.880
+ And the two things that are missing from C
+
+00:04:47.880 --> 00:04:51.540
+ are the lack of really solid dynamic memory support
+
+00:04:51.540 --> 00:04:53.480
+ in the core types and libraries.
+
+00:04:53.480 --> 00:04:55.440
+ And then there is no safe string type.
+
+00:04:55.440 --> 00:04:57.800
+ Strings are not, there's no string in C,
+
+00:04:57.800 --> 00:05:00.280
+ it's character arrays, and arrays have sizes.
+
+00:05:00.280 --> 00:05:02.360
+ And if you start putting stuff
+
+00:05:02.360 --> 00:05:05.500
+ beyond the boundary of that array, things just blow up.
+
+00:05:06.480 --> 00:05:11.480
+ And C++ is, to me, not the sort of future version of C.
+
+00:05:11.480 --> 00:05:14.980
+ It's really a more powerful, intricate,
+
+00:05:14.980 --> 00:05:18.000
+ and flexible version of C for programmers
+
+00:05:18.000 --> 00:05:20.160
+ who are doing really professional,
+
+00:05:20.160 --> 00:05:22.780
+ intricate systems applications.
+
+00:05:22.780 --> 00:05:25.240
+ Writing good C++ in some ways
+
+00:05:25.240 --> 00:05:27.520
+ is more difficult than writing good C.
+
+00:05:27.520 --> 00:05:33.600
+ The languages that sort of take on C's mantle
+
+00:05:33.600 --> 00:05:35.680
+ in the general purpose are things like Java,
+
+00:05:35.680 --> 00:05:38.080
+ JavaScript, C#, or Python.
+
+00:05:38.080 --> 00:05:40.160
+ The key thing with these languages
+
+00:05:40.160 --> 00:05:43.880
+ is they don't give you sort of strings
+
+00:05:43.880 --> 00:05:46.080
+ as just raw byte arrays.
+
+00:05:46.080 --> 00:05:49.620
+ And they give us a simple object-oriented layer
+
+00:05:49.620 --> 00:05:51.520
+ that keeps us away from the metal.
+
+00:05:51.520 --> 00:05:53.560
+ The goal of C is to get close to the hardware,
+
+00:05:53.560 --> 00:05:54.960
+ close to the metal.
+
+00:05:54.960 --> 00:05:57.360
+ And so Java, JavaScript, C#, Python
+
+00:05:57.360 --> 00:05:58.760
+ are all great languages,
+
+00:05:58.760 --> 00:06:01.200
+ and they're great for what we use them for.
+
+00:06:01.200 --> 00:06:02.640
+ They're just not well suited
+
+00:06:02.640 --> 00:06:05.160
+ for writing an operating system kernel.
+
+00:06:06.240 --> 00:06:11.240
+ The most likely language that is like C,
+
+00:06:11.240 --> 00:06:14.200
+ like the next C, is probably Rust.
+
+00:06:14.200 --> 00:06:17.460
+ The idea of Rust is that it stays close to the metal,
+
+00:06:17.460 --> 00:06:22.320
+ but then gives us some simple and safe core data types.
+
+00:06:22.320 --> 00:06:27.320
+ And recently, Linux is starting to accept some Rust in Linux.
+
+00:06:27.320 --> 00:06:30.840
+ And so that means that Rust has to be mature.
+
+00:06:30.840 --> 00:06:34.460
+ It means that Rust can't be evolving rapidly.
+
+00:06:35.720 --> 00:06:38.560
+ I've seen situations where operating systems
+
+00:06:38.560 --> 00:06:41.360
+ like macOS decide to depend on Python.
+
+00:06:41.360 --> 00:06:44.440
+ So there's parts of macOS that depend on Python 2,
+
+00:06:44.440 --> 00:06:46.440
+ but then they can't really upgrade to Python 2
+
+00:06:46.440 --> 00:06:48.840
+ because of their operating system, blah, blah, blah.
+
+00:06:48.840 --> 00:06:51.800
+ So for an operating system to depend
+
+00:06:51.800 --> 00:06:53.680
+ on a programming language like Rust,
+
+00:06:53.680 --> 00:06:56.800
+ it really has to be mature and,
+
+00:06:56.800 --> 00:06:58.120
+ even more importantly, stable.
+
+00:06:58.120 --> 00:07:01.220
+ You can't have clever innovations
+
+00:07:01.220 --> 00:07:04.000
+ in the programming language causing regressions
+
+00:07:04.000 --> 00:07:06.320
+ in an operating system, say like Linux.
+
+00:07:06.320 --> 00:07:08.280
+ So look for Rust.
+
+00:07:08.280 --> 00:07:13.760
+ Now, C has been around a long time.
+
+00:07:13.760 --> 00:07:17.200
+ Before C, we'll call C starting in '72,
+
+00:07:17.200 --> 00:07:19.140
+ the book is published in '78.
+
+00:07:19.140 --> 00:07:24.140
+ Before C, most of us would write a semilanguage or Fortran.
+
+00:07:24.140 --> 00:07:28.000
+ Some people wrote PL/1 that's not on here.
+
+00:07:28.000 --> 00:07:31.520
+ Fortran is not really a general purpose programming language.
+
+00:07:31.520 --> 00:07:36.520
+ You wouldn't write a command like cat in Fortran.
+
+00:07:36.520 --> 00:07:39.480
+ Fortran was really for scientific computations.
+
+00:07:39.480 --> 00:07:42.760
+ And the earliest of computers in the '50s, '60s
+
+00:07:42.760 --> 00:07:47.000
+ were either sort of really specialized
+
+00:07:47.000 --> 00:07:49.680
+ toward like payroll and HR systems,
+
+00:07:49.680 --> 00:07:52.600
+ or they were really specialized to doing computations.
+
+00:07:52.600 --> 00:07:56.120
+ And the ones that specialized were the science ones
+
+00:07:56.120 --> 00:07:59.440
+ were used Fortran 'cause it was just the right language
+
+00:07:59.440 --> 00:08:01.520
+ for those computers that were aimed
+
+00:08:01.520 --> 00:08:03.960
+ at doing scientific calculations.
+
+00:08:03.960 --> 00:08:07.600
+ C as a language was kind of none of the above
+
+00:08:07.600 --> 00:08:12.600
+ in that it was aimed at writing system code, a kernel,
+
+00:08:12.600 --> 00:08:15.600
+ an operating system, and the utilities around it,
+
+00:08:15.600 --> 00:08:17.960
+ including like other languages.
+
+00:08:17.960 --> 00:08:20.920
+ And so C is kind of the mother tongue
+
+00:08:20.920 --> 00:08:24.420
+ of all kinds of other derivative languages.
+
+00:08:24.420 --> 00:08:29.180
+ And things like the Bash shell, Perl, Python, PHP,
+
+00:08:29.180 --> 00:08:32.360
+ C++, JavaScript, Java, and C# and Objective-C
+
+00:08:32.360 --> 00:08:36.200
+ just kind of were derivatives of this beginning of C.
+
+00:08:36.200 --> 00:08:39.200
+ And that's why you see a lot of patterns
+
+00:08:39.200 --> 00:08:41.400
+ in these other languages that are similar.
+
+00:08:41.400 --> 00:08:44.320
+ And that's because JavaScript and Java
+
+00:08:44.320 --> 00:08:47.800
+ both inherited their for loop syntax from C.
+
+00:08:47.800 --> 00:08:51.120
+ So I've got a couple of videos in this section.
+
+00:08:51.120 --> 00:08:54.240
+ This is Brian Kernigan talking about
+
+00:08:54.240 --> 00:08:56.840
+ the C programming language and it's a short video.
+
+00:08:56.840 --> 00:08:59.720
+ I didn't produce this video, but it's a great little video.
+
+00:08:59.720 --> 00:09:04.480
+ Another video is from the creator of C++, Bjorn Stroestrup.
+
+00:09:04.480 --> 00:09:05.980
+ This was an interview that I did
+
+00:09:05.980 --> 00:09:08.080
+ with IEEE Computer Magazine.
+
+00:09:08.080 --> 00:09:10.200
+ On top of this history of the C language,
+
+00:09:10.200 --> 00:09:12.320
+ we can look at a brief history of computers.
+
+00:09:12.320 --> 00:09:16.440
+ And I have a whole course
+
+00:09:16.440 --> 00:09:18.760
+ called Internet History, Technology, and Security
+
+00:09:18.760 --> 00:09:20.580
+ that really starts in the 1940s
+
+00:09:20.580 --> 00:09:24.100
+ with a focus more on communication rather than computation,
+
+00:09:24.100 --> 00:09:27.040
+ even though communication and computation
+
+00:09:27.040 --> 00:09:29.760
+ were very much connected throughout the 40s
+
+00:09:29.760 --> 00:09:31.180
+ through even today.
+
+00:09:31.180 --> 00:09:34.600
+ In the early 1950s, computers were,
+
+00:09:34.600 --> 00:09:35.940
+ you best think of them as like
+
+00:09:35.940 --> 00:09:38.980
+ a multimillion dollar strategic asset.
+
+00:09:38.980 --> 00:09:40.360
+ Every single computer.
+
+00:09:40.360 --> 00:09:42.280
+ And a lot of them were custom built.
+
+00:09:42.280 --> 00:09:45.280
+ The first computer at Michigan State University
+
+00:09:45.280 --> 00:09:47.320
+ where I went to undergrad was built
+
+00:09:47.320 --> 00:09:50.680
+ by the electrical engineering students of that university
+
+00:09:50.680 --> 00:09:52.680
+ based on some designs that they borrowed, I think,
+
+00:09:52.680 --> 00:09:54.360
+ from Iowa.
+
+00:09:54.360 --> 00:09:57.160
+ And so things like the programming language,
+
+00:09:57.160 --> 00:09:58.860
+ the operating system,
+
+00:09:58.860 --> 00:10:02.200
+ you didn't have a lot of generalization.
+
+00:10:02.200 --> 00:10:04.560
+ You didn't have a lot of sharing.
+
+00:10:04.560 --> 00:10:07.680
+ You tended to write code and put it on a paper tape,
+
+00:10:07.680 --> 00:10:10.120
+ or later a magnetic tape, and load it and run it.
+
+00:10:10.120 --> 00:10:14.200
+ And so you were just pretty happy if the code worked.
+
+00:10:14.200 --> 00:10:15.640
+ You didn't need an operating system.
+
+00:10:15.640 --> 00:10:17.640
+ These weren't multiprocessing computers.
+
+00:10:17.640 --> 00:10:21.920
+ And so the software environment was very minimalist.
+
+00:10:21.920 --> 00:10:24.440
+ But in the late '50s and early '60s,
+
+00:10:24.440 --> 00:10:26.180
+ you saw companies like IBM
+
+00:10:26.180 --> 00:10:28.000
+ and Digital Equipment Corporation
+
+00:10:28.000 --> 00:10:30.320
+ began selling general purpose computers.
+
+00:10:30.320 --> 00:10:31.820
+ They just couldn't make them.
+
+00:10:31.820 --> 00:10:34.080
+ And they started selling them.
+
+00:10:34.080 --> 00:10:35.440
+ And they still were expensive,
+
+00:10:35.440 --> 00:10:37.360
+ and they were only in like,
+
+00:10:37.360 --> 00:10:39.100
+ a business would have a couple of computers
+
+00:10:39.100 --> 00:10:41.840
+ to help them do payroll, perhaps, or something like that.
+
+00:10:41.840 --> 00:10:44.160
+ Something that was really, really important
+
+00:10:44.160 --> 00:10:46.040
+ 'cause the computers were expensive.
+
+00:10:46.040 --> 00:10:48.400
+ But in the '60s,
+
+00:10:48.400 --> 00:10:50.400
+ there, we really got to the point
+
+00:10:50.400 --> 00:10:53.720
+ where the computer componentry, the chips, et cetera,
+
+00:10:53.720 --> 00:10:56.000
+ were becoming commodities.
+
+00:10:56.000 --> 00:10:58.000
+ You could just go to a place and buy chips.
+
+00:10:58.000 --> 00:10:59.400
+ And then you could make a computer
+
+00:10:59.400 --> 00:11:00.560
+ by buying a bunch of chips
+
+00:11:00.560 --> 00:11:02.320
+ and putting those things together.
+
+00:11:02.320 --> 00:11:05.780
+ And because you weren't building everything from scratch,
+
+00:11:05.780 --> 00:11:07.720
+ the cost got a lot lower.
+
+00:11:07.720 --> 00:11:11.000
+ The other thing that these less expensive computers were
+
+00:11:11.000 --> 00:11:12.580
+ is they were a little slower.
+
+00:11:12.580 --> 00:11:15.720
+ But by the end of the 1960s, there was a lot of computers.
+
+00:11:15.720 --> 00:11:20.720
+ There were some super expensive, weird, one-off,
+
+00:11:20.720 --> 00:11:23.520
+ small production computers.
+
+00:11:23.520 --> 00:11:25.320
+ There were computers that had,
+
+00:11:25.320 --> 00:11:28.000
+ there was like the previous generation of mini-computer
+
+00:11:28.000 --> 00:11:28.960
+ where there were lots of them
+
+00:11:28.960 --> 00:11:30.880
+ laying around old computer science departments
+
+00:11:30.880 --> 00:11:32.900
+ or businesses that they weren't sure
+
+00:11:32.900 --> 00:11:34.560
+ what they did to do with them.
+
+00:11:34.560 --> 00:11:36.580
+ They wanted to buy a new one.
+
+00:11:36.580 --> 00:11:38.640
+ And then there were just innovative,
+
+00:11:38.640 --> 00:11:41.140
+ new, low-cost computers coming out.
+
+00:11:41.140 --> 00:11:46.140
+ And in the '70s, in this milieu of just lots
+
+00:11:46.140 --> 00:11:49.680
+ of new and old computer hardware,
+
+00:11:49.680 --> 00:11:53.460
+ the question was is there a way we can do things
+
+00:11:53.460 --> 00:11:55.520
+ with all of this old hardware?
+
+00:11:55.520 --> 00:11:57.940
+ And is there sort of one solution?
+
+00:11:57.940 --> 00:12:01.180
+ And that's where Unix NC came.
+
+00:12:01.180 --> 00:12:04.760
+ And certainly after the '70s, we look at the '80s,
+
+00:12:04.760 --> 00:12:07.200
+ and that's where microprocessors and personal computers.
+
+00:12:07.200 --> 00:12:08.620
+ And so we went from computers
+
+00:12:08.620 --> 00:12:12.680
+ that were sizes of refrigerators or desks
+
+00:12:12.680 --> 00:12:15.920
+ to the size of a computer could be on a single chip.
+
+00:12:15.920 --> 00:12:18.940
+ And in the beginning, those personal computers
+
+00:12:18.940 --> 00:12:22.480
+ like the IBM PC or Commodore PET,
+
+00:12:22.480 --> 00:12:24.480
+ they had really bad performance, but that performance,
+
+00:12:24.480 --> 00:12:27.280
+ once you could get everything on a single chip,
+
+00:12:27.280 --> 00:12:29.960
+ that performance could get faster very quickly.
+
+00:12:29.960 --> 00:12:33.840
+ And because personal computers became a mass market item,
+
+00:12:33.840 --> 00:12:37.480
+ a lot of money could be invested in personal computers.
+
+00:12:37.480 --> 00:12:41.920
+ By the 1990s, personal computers continued to grow, right?
+
+00:12:41.920 --> 00:12:45.820
+ And, but the need to communicate and talk
+
+00:12:45.820 --> 00:12:48.240
+ and exchange information became important.
+
+00:12:48.240 --> 00:12:51.440
+ And so in the 1990s, we saw really an increasing focus
+
+00:12:51.440 --> 00:12:54.040
+ on connecting computers with the internet
+
+00:12:54.040 --> 00:12:55.440
+ and other kinds of networks.
+
+00:12:55.440 --> 00:12:57.160
+ And the performance of these computers
+
+00:12:57.160 --> 00:13:00.640
+ and the price kept going down, the performance kept going up.
+
+00:13:00.640 --> 00:13:03.120
+ And then by the time we get to the 2000s,
+
+00:13:03.120 --> 00:13:06.520
+ Amazon's AWS was founded in 2002,
+
+00:13:06.520 --> 00:13:09.400
+ and it used personal computer microprocessors
+
+00:13:09.400 --> 00:13:13.640
+ like from Intel and produced computing as a commodity, right?
+
+00:13:13.640 --> 00:13:16.120
+ And so, and you don't even buy computers anymore.
+
+00:13:16.120 --> 00:13:17.320
+ You just go to Amazon and say,
+
+00:13:17.320 --> 00:13:20.440
+ I'll rent a computer for $7 a month.
+
+00:13:20.440 --> 00:13:25.440
+ And so we see in 1978, we see this moment
+
+00:13:25.440 --> 00:13:30.860
+ where the computers were becoming more common,
+
+00:13:30.860 --> 00:13:32.400
+ they're going down in price,
+
+00:13:32.400 --> 00:13:33.840
+ and there's getting to be more and more of them.
+
+00:13:33.840 --> 00:13:36.080
+ And there was a diversity of computers.
+
+00:13:36.080 --> 00:13:38.480
+ These days, there's actually less diversity.
+
+00:13:38.480 --> 00:13:41.680
+ If we go back in history,
+
+00:13:41.680 --> 00:13:43.680
+ and you take a look at my internet history class,
+
+00:13:43.680 --> 00:13:45.680
+ you can see the, I go to Bletchley Park
+
+00:13:45.680 --> 00:13:48.440
+ and show you some of the earliest computations
+
+00:13:48.440 --> 00:13:50.940
+ from the 1940s and World War II.
+
+00:13:50.940 --> 00:13:55.380
+ We go to Computer History Museum in California
+
+00:13:55.380 --> 00:13:59.340
+ and visit with Gordon Bell and talk about the PDP-1.
+
+00:13:59.340 --> 00:14:02.960
+ And he talks a lot about buying the components
+
+00:14:02.960 --> 00:14:04.260
+ and putting the components together
+
+00:14:04.260 --> 00:14:07.220
+ and how sort of the mass availability
+
+00:14:07.220 --> 00:14:10.800
+ of relatively low-cost components really allowed
+
+00:14:10.800 --> 00:14:13.420
+ for a rapid innovation in computer architecture.
+
+00:14:13.420 --> 00:14:17.720
+ A computer that I used in my computer science degree
+
+00:14:17.720 --> 00:14:20.320
+ was the Control Data CDC 6500.
+
+00:14:20.320 --> 00:14:22.380
+ And I have a video where we visit
+
+00:14:22.380 --> 00:14:25.160
+ the Living Computer Museum in Seattle, Washington,
+
+00:14:25.160 --> 00:14:29.040
+ and hear card readers work and card punches.
+
+00:14:29.040 --> 00:14:31.160
+ And if we ever get to the point
+
+00:14:31.160 --> 00:14:32.440
+ where everything opens back up again,
+
+00:14:32.440 --> 00:14:36.680
+ it's a tremendous visit to go see all the technology
+
+00:14:36.680 --> 00:14:38.240
+ that really through the years,
+
+00:14:38.240 --> 00:14:40.720
+ except that in the Living Computer Museum,
+
+00:14:40.720 --> 00:14:42.640
+ they like to have everything running.
+
+00:14:42.640 --> 00:14:44.840
+ And then you can take a look at a more modern,
+
+00:14:44.840 --> 00:14:46.280
+ smaller Raspberry Pi,
+
+00:14:46.280 --> 00:14:49.540
+ which the Raspberry Pi is actually not an Intel-based system.
+
+00:14:49.540 --> 00:14:53.160
+ The Raspberry Pi is based on ARM,
+
+00:14:53.160 --> 00:14:55.800
+ the processor that really became popular
+
+00:14:55.800 --> 00:14:58.000
+ as a result of the cell phone revolution.
+
+00:14:58.000 --> 00:15:00.800
+ And so the Raspberry Pi is to take
+
+00:15:00.800 --> 00:15:03.680
+ what the technology was advanced,
+
+00:15:03.680 --> 00:15:07.900
+ both low-power and high-performance technology
+
+00:15:07.900 --> 00:15:11.200
+ that was advanced because of mobile phone innovations.
+
+00:15:11.200 --> 00:15:12.720
+ The Raspberry Pi came out
+
+00:15:12.720 --> 00:15:14.680
+ and was a good single-board computer.
+
+00:15:14.680 --> 00:15:16.160
+ So let's take a look at the operating system.
+
+00:15:16.160 --> 00:15:20.200
+ Unix is the operating system that is connected with C.
+
+00:15:20.200 --> 00:15:23.120
+ In the 1960s, there was a multi-user operating system
+
+00:15:23.120 --> 00:15:24.240
+ called Multics.
+
+00:15:24.240 --> 00:15:27.720
+ And then in the 1970s,
+
+00:15:27.720 --> 00:15:30.520
+ they wanted to come up with yet another operating system,
+
+00:15:30.520 --> 00:15:32.560
+ and they eventually called it Unix,
+
+00:15:32.560 --> 00:15:34.560
+ and the DEC PDP1120,
+
+00:15:34.560 --> 00:15:39.560
+ which was one of these new commodity part-based computers
+
+00:15:39.560 --> 00:15:44.000
+ that was coming into the marketplace.
+
+00:15:44.000 --> 00:15:47.580
+ And so in 1973, Unix was rewritten in C,
+
+00:15:47.580 --> 00:15:50.120
+ but it only was there on the PDP11,
+
+00:15:50.120 --> 00:15:54.720
+ although they had laid the groundwork for portability
+
+00:15:54.720 --> 00:15:55.920
+ from the beginning.
+
+00:15:55.920 --> 00:16:00.200
+ They knew they wanted to have everything be portable.
+
+00:16:00.200 --> 00:16:02.360
+ They just couldn't make it all portable.
+
+00:16:02.360 --> 00:16:03.680
+ The first version,
+
+00:16:03.680 --> 00:16:05.560
+ they just had to make it run on the PDP11.
+
+00:16:05.560 --> 00:16:07.920
+ And then by 1978, the Unix,
+
+00:16:07.920 --> 00:16:10.420
+ the second computer that Unix had run on
+
+00:16:10.420 --> 00:16:12.040
+ was an Interdata 832,
+
+00:16:12.040 --> 00:16:14.000
+ and that was quite a different computer.
+
+00:16:14.000 --> 00:16:14.840
+ And so it was good.
+
+00:16:14.840 --> 00:16:17.400
+ And so they really learned a lot about making Unix
+
+00:16:17.400 --> 00:16:19.160
+ a portable bit of software.
+
+00:16:19.160 --> 00:16:24.080
+ In the early 1970s, C was evolving in a way
+
+00:16:24.080 --> 00:16:26.480
+ so that the Unix could be ported, right?
+
+00:16:26.480 --> 00:16:28.000
+ So it's like, let's,
+
+00:16:28.000 --> 00:16:30.340
+ we got this problem between, let's just say,
+
+00:16:30.340 --> 00:16:32.760
+ the PDP11 and the Interdata.
+
+00:16:32.760 --> 00:16:34.780
+ And how can we fix this?
+
+00:16:34.780 --> 00:16:37.540
+ And we can both change how the operating system works.
+
+00:16:37.540 --> 00:16:39.480
+ We can change the operating system code,
+
+00:16:39.480 --> 00:16:41.320
+ and we can change the C compiler,
+
+00:16:41.320 --> 00:16:44.160
+ and then we can rewrite the operating system code
+
+00:16:44.160 --> 00:16:46.660
+ to get less and less assembly language
+
+00:16:46.660 --> 00:16:48.000
+ and more and more C language.
+
+00:16:48.000 --> 00:16:50.000
+ And so the idea was to get to the point
+
+00:16:50.000 --> 00:16:53.040
+ where there was a very, very small amount
+
+00:16:53.040 --> 00:16:55.380
+ of assembly language in Unix.
+
+00:16:55.380 --> 00:16:57.840
+ And over the years, that's gotten lower and lower.
+
+00:16:57.840 --> 00:17:00.720
+ Unix was rewritten.
+
+00:17:00.720 --> 00:17:02.960
+ A number of versions came out in the '70s,
+
+00:17:02.960 --> 00:17:05.120
+ having to do with their portability.
+
+00:17:05.120 --> 00:17:08.640
+ So by 1978, the Unix version 7 could also run
+
+00:17:08.640 --> 00:17:12.000
+ on a whole new architecture from DEC called the VAX systems.
+
+00:17:12.000 --> 00:17:15.120
+ University of California, Berkeley
+
+00:17:15.120 --> 00:17:19.320
+ had their own distribution of Unix called BSD,
+
+00:17:19.320 --> 00:17:21.200
+ the Berkeley Software Distribution.
+
+00:17:21.200 --> 00:17:22.640
+ And that was really cool
+
+00:17:22.640 --> 00:17:26.600
+ because universities often pushed things like networking,
+
+00:17:26.600 --> 00:17:28.480
+ TCP/IP, ARPANET.
+
+00:17:28.480 --> 00:17:33.500
+ BSD Unix was the first place some of us saw TCP/IP.
+
+00:17:33.500 --> 00:17:37.800
+ 1982, a company based solely on Unix
+
+00:17:37.800 --> 00:17:40.280
+ called Sun Microsystems was found.
+
+00:17:40.280 --> 00:17:43.320
+ Sun was some work at Stanford, some work at Berkeley,
+
+00:17:43.320 --> 00:17:45.360
+ all based on Unix, and they created
+
+00:17:45.360 --> 00:17:48.060
+ what in effect was the Unix Workstation Marketplace.
+
+00:17:48.060 --> 00:17:51.640
+ At this point, you could imagine that the world was about
+
+00:17:51.640 --> 00:17:54.360
+ to just adopt Unix.
+
+00:17:54.360 --> 00:17:56.340
+ Unix was the greatest thing ever.
+
+00:17:56.340 --> 00:18:00.840
+ Computer science departments were teaching Unix
+
+00:18:00.840 --> 00:18:05.140
+ in their operating systems classes in the mid '80s.
+
+00:18:05.140 --> 00:18:08.720
+ The problem became AT&T had never come up really
+
+00:18:08.720 --> 00:18:12.360
+ with a business plan for what the purpose of Unix was,
+
+00:18:12.360 --> 00:18:15.600
+ and so there was some fits and starts
+
+00:18:15.600 --> 00:18:20.440
+ as to how they could monetize this extremely popular thing.
+
+00:18:20.440 --> 00:18:25.020
+ And they didn't do a great job,
+
+00:18:25.020 --> 00:18:27.440
+ and it took them a long time to figure out
+
+00:18:27.440 --> 00:18:29.840
+ what was going to be successful.
+
+00:18:29.840 --> 00:18:34.980
+ And by the time AT&T sort of figured things out,
+
+00:18:34.980 --> 00:18:40.160
+ the market had moved on.
+
+00:18:40.160 --> 00:18:43.680
+ And so Minix is an operating system
+
+00:18:43.680 --> 00:18:46.680
+ that was developed in the Netherlands by Andrew Tannenbaum,
+
+00:18:46.680 --> 00:18:48.920
+ and he built a completely free
+
+00:18:48.920 --> 00:18:50.840
+ and open source operating system
+
+00:18:50.840 --> 00:18:52.720
+ that was used for education.
+
+00:18:52.720 --> 00:18:56.480
+ He built a textbook around it, and it was very popular.
+
+00:18:56.480 --> 00:19:00.280
+ But he didn't want commercialization,
+
+00:19:00.280 --> 00:19:01.720
+ at least not at that point in time,
+
+00:19:01.720 --> 00:19:05.200
+ so he sort of held onto it too tightly.
+
+00:19:05.200 --> 00:19:08.200
+ Again, kind of an intellectual property mistake.
+
+00:19:08.200 --> 00:19:12.960
+ And in 1991, a program called Linus Torvalds decided
+
+00:19:12.960 --> 00:19:15.960
+ he was going to build a fresh ground-up implementation
+
+00:19:15.960 --> 00:19:19.040
+ of the Unix kernel that was 100% free.
+
+00:19:19.040 --> 00:19:20.560
+ So he wasn't going to use Unix.
+
+00:19:20.560 --> 00:19:21.800
+ He wasn't going to use Minix.
+
+00:19:21.800 --> 00:19:23.600
+ He wanted to create another thing.
+
+00:19:23.600 --> 00:19:25.480
+ And originally, it was just like a hobby.
+
+00:19:25.480 --> 00:19:27.600
+ I'm going to try to see how far I can go.
+
+00:19:27.600 --> 00:19:30.160
+ By 1992, Linux started to work,
+
+00:19:30.160 --> 00:19:32.840
+ and it adopted this license called the GPL,
+
+00:19:32.840 --> 00:19:35.280
+ which is called the GNU Public Library License,
+
+00:19:35.280 --> 00:19:38.440
+ which is a strongly open source license
+
+00:19:38.440 --> 00:19:40.040
+ in the way that it's difficult
+
+00:19:40.040 --> 00:19:43.280
+ to take Linux out of open source,
+
+00:19:43.280 --> 00:19:47.160
+ which meant that people could then invest in Linux.
+
+00:19:47.160 --> 00:19:51.320
+ And so Linux has become Unix, right?
+
+00:19:51.320 --> 00:19:55.040
+ Linux in the modern world is the Unix-like system.
+
+00:19:55.040 --> 00:19:57.400
+ And Unix tried to hold on for a while,
+
+00:19:57.400 --> 00:19:59.080
+ but they really, really couldn't.
+
+00:19:59.080 --> 00:20:02.800
+ And so the remaining Unix distributions
+
+00:20:02.800 --> 00:20:07.040
+ are a tiny, tiny fraction of the marketplace,
+
+00:20:07.040 --> 00:20:10.120
+ and Linux is the marketplace.
+
+00:20:10.120 --> 00:20:12.040
+ So we can see some of this in some of the videos
+
+00:20:12.040 --> 00:20:14.040
+ that I've got, like Andrew Tannenbaum
+
+00:20:14.040 --> 00:20:16.640
+ will tell us the story of how Minix was created
+
+00:20:16.640 --> 00:20:19.440
+ and how Minix kind of begat Linux,
+
+00:20:19.440 --> 00:20:22.200
+ and so that there's some interesting stuff here, okay?
+
+00:20:22.200 --> 00:20:25.200
+ So I'll lay on top of all this.
+
+00:20:25.200 --> 00:20:27.800
+ Remember that 1978 is this moment in history
+
+00:20:27.800 --> 00:20:29.680
+ where I claim like everything changed.
+
+00:20:29.680 --> 00:20:32.840
+ Now I've been a computer scientist for a very long time.
+
+00:20:32.840 --> 00:20:35.680
+ I started in 1975.
+
+00:20:35.680 --> 00:20:40.600
+ And in 1975, I learned things like Fortran on a computer,
+
+00:20:40.600 --> 00:20:42.800
+ that CDC 6500 computer.
+
+00:20:42.800 --> 00:20:45.840
+ It ran a special operating system called Scope Hustler.
+
+00:20:45.840 --> 00:20:48.680
+ I knew how to do assembly, I knew Fortran,
+
+00:20:48.680 --> 00:20:50.080
+ and even Pascal.
+
+00:20:50.080 --> 00:20:55.160
+ So Pascal in the '70s was one of these languages that,
+
+00:20:55.160 --> 00:20:57.400
+ and I've got a video for Pascal as well,
+
+00:20:57.400 --> 00:20:59.200
+ one of these languages that was sort of like saying,
+
+00:20:59.200 --> 00:21:01.640
+ "Look, here's the future."
+
+00:21:01.640 --> 00:21:03.760
+ Now Pascal was really aimed at teaching,
+
+00:21:03.760 --> 00:21:06.520
+ and so I used Pascal in educational context.
+
+00:21:07.520 --> 00:21:10.680
+ And as I became a professional programmer in the 1980s,
+
+00:21:10.680 --> 00:21:12.560
+ I was using a bunch of stuff.
+
+00:21:12.560 --> 00:21:16.360
+ Assembly language, COBOL, a little bit of Unix and C here.
+
+00:21:16.360 --> 00:21:19.840
+ It wasn't like by the early '80s, Unix was everywhere,
+
+00:21:19.840 --> 00:21:21.440
+ at least not in the professional world,
+
+00:21:21.440 --> 00:21:23.680
+ because the PC revolution was happening.
+
+00:21:23.680 --> 00:21:26.320
+ So we had DOS, we had early Windows versions.
+
+00:21:26.320 --> 00:21:29.560
+ I used things like DBase and Turbo Pascal.
+
+00:21:29.560 --> 00:21:32.880
+ I taught classes of the IBM 360,
+
+00:21:32.880 --> 00:21:34.680
+ and I taught assembly language.
+
+00:21:34.680 --> 00:21:37.760
+ I used the DECVAX, and I used the VMS, not Unix operating
+
+00:21:37.760 --> 00:21:39.280
+ system and Fortran.
+
+00:21:39.280 --> 00:21:43.480
+ And I also then taught in the mid '80s on an AT&T Western,
+
+00:21:43.480 --> 00:21:47.120
+ I think it's called, a GE AT&T 3B2.
+
+00:21:47.120 --> 00:21:49.520
+ I taught Unix, I taught C, and I taught Fortran.
+
+00:21:49.520 --> 00:21:54.200
+ And so even though we can trace back to like 1978
+
+00:21:54.200 --> 00:21:56.160
+ is the moment that everything changed,
+
+00:21:56.160 --> 00:21:58.920
+ it's not like the market changed.
+
+00:21:58.920 --> 00:22:02.520
+ The thing that happened in the 1990s though,
+
+00:22:02.520 --> 00:22:06.320
+ is that all these older computers and the older computers,
+
+00:22:06.320 --> 00:22:11.320
+ vendors like Burrows and Unisys and IBM and Cray
+
+00:22:11.320 --> 00:22:17.480
+ and Control Data, as microprocessor speeds increased,
+
+00:22:17.480 --> 00:22:21.160
+ all these little companies would create Unix workstations
+
+00:22:21.160 --> 00:22:24.040
+ that were faster and faster and faster.
+
+00:22:24.040 --> 00:22:27.480
+ And because they could build new hardware that was fast
+
+00:22:27.480 --> 00:22:29.920
+ and then grab the Unix operating system
+
+00:22:31.760 --> 00:22:35.120
+ and make their operating system work on their new hardware,
+
+00:22:35.120 --> 00:22:37.680
+ it allowed for some amazing innovation.
+
+00:22:37.680 --> 00:22:41.520
+ So I was using Sun, Ardent, Stellar, these are all gone now.
+
+00:22:41.520 --> 00:22:46.240
+ IBM RS6000, Convex C2400, I had a Next on my desk,
+
+00:22:46.240 --> 00:22:51.240
+ I use C, but TCP/IP, Windows, HTTP, the web, you know,
+
+00:22:51.240 --> 00:22:56.320
+ and Windows and Mac OS were all kind of in the mix.
+
+00:22:56.320 --> 00:22:59.280
+ But the innovation was really happening most rapidly
+
+00:22:59.280 --> 00:23:00.840
+ in the Unix space.
+
+00:23:02.000 --> 00:23:05.600
+ But by the 2000s, everything that I touched
+
+00:23:05.600 --> 00:23:08.320
+ really had some aspect, I'm not a Windows person,
+
+00:23:08.320 --> 00:23:11.640
+ so everything I touched had some aspect of Unix in it.
+
+00:23:11.640 --> 00:23:15.440
+ Mac OS still has Unix in it, Linux and my languages
+
+00:23:15.440 --> 00:23:20.440
+ are sort of narrowing back down to Java, PHP and JavaScript.
+
+00:23:20.440 --> 00:23:24.200
+ And then in 2010s, right?
+
+00:23:24.200 --> 00:23:27.560
+ Linux, Mac OS, Python, PHP, JavaScript.
+
+00:23:27.560 --> 00:23:31.640
+ So things really have settled into a world
+
+00:23:31.640 --> 00:23:33.680
+ that my own software development,
+
+00:23:33.680 --> 00:23:38.040
+ where I'm pretty much using Unix-like systems all the time
+
+00:23:38.040 --> 00:23:41.720
+ and C-based or C-derived languages,
+
+00:23:41.720 --> 00:23:45.680
+ 'cause Python, Java, PHP and JavaScript are all based on C.
+
+00:23:45.680 --> 00:23:49.080
+ And that's why it's so important to understand C.
+
+00:23:49.080 --> 00:23:52.880
+ I'm not writing C as a professional in any way,
+
+00:23:52.880 --> 00:23:56.160
+ but I am using all my C knowledge every single day.
+
+00:23:56.160 --> 00:24:00.520
+ And so that's sort of a picture of me in my office,
+
+00:24:00.520 --> 00:24:03.840
+ that's an IBM PS/2 in my office.
+
+00:24:03.840 --> 00:24:06.760
+ I was registering in 1989,
+
+00:24:06.760 --> 00:24:09.000
+ I was registering with punch cards.
+
+00:24:09.000 --> 00:24:11.200
+ When I first started, I was using a line printer
+
+00:24:11.200 --> 00:24:14.480
+ and punch cards and so there's my history.
+
+00:24:14.480 --> 00:24:18.040
+ Now, I think it's important to acknowledge
+
+00:24:18.040 --> 00:24:21.560
+ that as I've shown you all these history documents
+
+00:24:21.560 --> 00:24:24.000
+ and the videos and the oral histories that I've done,
+
+00:24:24.000 --> 00:24:29.000
+ is there is a preponderance of old white males in here.
+
+00:24:30.160 --> 00:24:35.080
+ And I think that it is important to talk a bit about that
+
+00:24:35.080 --> 00:24:37.280
+ and why that is perhaps.
+
+00:24:37.280 --> 00:24:42.280
+ And so I would encourage you to take a look at an article,
+
+00:24:42.280 --> 00:24:46.280
+ so NPR article, it's actually, you can listen to it,
+
+00:24:46.280 --> 00:24:48.080
+ about what happened to computer science.
+
+00:24:48.080 --> 00:24:50.560
+ The title of the article is "When Women Stop Coding."
+
+00:24:50.560 --> 00:24:51.760
+ All the way up to 1980,
+
+00:24:51.760 --> 00:24:54.560
+ computer science was just another field.
+
+00:24:54.560 --> 00:24:58.280
+ And then it kept going up to sort of 1985,
+
+00:24:58.280 --> 00:25:02.200
+ but then it went down and so all these other fields
+
+00:25:02.200 --> 00:25:04.440
+ have a pretty good gender mix
+
+00:25:04.440 --> 00:25:07.640
+ and the computer science does not have a gender mix.
+
+00:25:07.640 --> 00:25:11.600
+ And so I would encourage you to listen to this article.
+
+00:25:11.600 --> 00:25:16.520
+ Another area that you can learn something about,
+
+00:25:16.520 --> 00:25:19.600
+ the diversity in computer science is this book
+
+00:25:19.600 --> 00:25:23.080
+ by Jane Margolis called "Unlocking the Clubhouse."
+
+00:25:23.080 --> 00:25:24.960
+ The essence of the book is really talking
+
+00:25:24.960 --> 00:25:29.800
+ about how social pressure, advertising pressure
+
+00:25:29.800 --> 00:25:32.600
+ in the early '80s made it seem
+
+00:25:32.600 --> 00:25:35.920
+ as though computing was a guy thing.
+
+00:25:35.920 --> 00:25:40.440
+ And in particular, it made it so that young men,
+
+00:25:40.440 --> 00:25:41.320
+ even in high school,
+
+00:25:41.320 --> 00:25:43.840
+ would go fiddle around with computers as a hobby.
+
+00:25:43.840 --> 00:25:46.400
+ And by the time they got to college, they were pretty skilled.
+
+00:25:46.400 --> 00:25:51.320
+ And if you weren't skilled, the college classes were designed
+
+00:25:51.320 --> 00:25:53.440
+ for people who already knew what programming was.
+
+00:25:53.440 --> 00:25:56.800
+ And if you were a woman and you hadn't played with computers
+
+00:25:56.800 --> 00:26:00.720
+ in 1980, when you were like 14 years old,
+
+00:26:00.720 --> 00:26:02.920
+ you came to college at a distinct disadvantage.
+
+00:26:02.920 --> 00:26:05.880
+ And this is what led to this fall off
+
+00:26:05.880 --> 00:26:09.000
+ where colleges tended to teach to programmers
+
+00:26:09.000 --> 00:26:10.720
+ who already knew how to program.
+
+00:26:10.720 --> 00:26:14.480
+ And that really meant that the hobbyists,
+
+00:26:14.480 --> 00:26:17.240
+ people who were in their youth before they went to college
+
+00:26:17.240 --> 00:26:19.640
+ and played with programming as a hobby
+
+00:26:19.640 --> 00:26:21.160
+ had a tremendous advantage.
+
+00:26:22.160 --> 00:26:27.160
+ Now, Jane did her work in the '80s, late '80s and '90s.
+
+00:26:27.160 --> 00:26:30.320
+ I myself am older than that.
+
+00:26:30.320 --> 00:26:33.040
+ And I think that to some degree,
+
+00:26:33.040 --> 00:26:35.440
+ this notion of the social pressure
+
+00:26:35.440 --> 00:26:41.120
+ that said that computing was really for young men
+
+00:26:41.120 --> 00:26:45.640
+ and not young woman, it's actually as much a symptom
+
+00:26:45.640 --> 00:26:46.880
+ as it is the cause.
+
+00:26:46.880 --> 00:26:50.080
+ Because I grew up in a time in the mid '70s
+
+00:26:50.080 --> 00:26:52.680
+ where there were women everywhere.
+
+00:26:52.680 --> 00:26:57.360
+ And this is a person who had a really large impact
+
+00:26:57.360 --> 00:26:59.560
+ in my life, her name is Helen Spence.
+
+00:26:59.560 --> 00:27:01.760
+ She was a professor at Michigan State University
+
+00:27:01.760 --> 00:27:04.640
+ and I show you a URL to look at her oral history.
+
+00:27:04.640 --> 00:27:08.520
+ She taught me operating systems.
+
+00:27:08.520 --> 00:27:12.480
+ So in 1977 or 1978, I don't remember when,
+
+00:27:12.480 --> 00:27:15.120
+ Helen was my operating systems teacher.
+
+00:27:15.120 --> 00:27:17.080
+ The interesting thing about how Helen taught
+
+00:27:17.080 --> 00:27:20.960
+ operating systems was she made it fun.
+
+00:27:20.960 --> 00:27:23.440
+ It was really fun.
+
+00:27:23.440 --> 00:27:26.680
+ I encountered my first auto grader in Helen's class.
+
+00:27:26.680 --> 00:27:29.040
+ She had made a piece of software
+
+00:27:29.040 --> 00:27:31.680
+ that she called the HMS 5050,
+
+00:27:31.680 --> 00:27:35.000
+ which itself is both Helen Spence
+
+00:27:35.000 --> 00:27:38.240
+ and I think it's Her Majesty's ship at the same time.
+
+00:27:38.240 --> 00:27:41.480
+ And what she did was she built a operating system simulator
+
+00:27:41.480 --> 00:27:45.360
+ in Fortran and our job as taking the class
+
+00:27:45.360 --> 00:27:49.600
+ was to build functions and subroutines
+
+00:27:49.600 --> 00:27:52.160
+ that would implement the tasks and the algorithms
+
+00:27:52.160 --> 00:27:53.920
+ that operating systems need to do.
+
+00:27:53.920 --> 00:27:57.280
+ So you'd run your program over and over and over again
+
+00:27:57.280 --> 00:27:59.960
+ until you had written a successful operating system
+
+00:27:59.960 --> 00:28:03.360
+ and she wrote a auto grader that would do things
+
+00:28:03.360 --> 00:28:06.400
+ to your program and then measure whether or not
+
+00:28:06.400 --> 00:28:08.960
+ you knew how to build an operating system.
+
+00:28:08.960 --> 00:28:12.480
+ It was just a natural thing to have females
+
+00:28:12.480 --> 00:28:16.800
+ as faculty members and there was a lot more fun
+
+00:28:16.800 --> 00:28:20.880
+ in the field and I have my own theories
+
+00:28:20.880 --> 00:28:24.360
+ that I think compliment Jane's theories as well
+
+00:28:24.360 --> 00:28:27.840
+ but I'll leave it here that that's a TED talk
+
+00:28:27.840 --> 00:28:31.320
+ for another day as to gender and computing.
+
+00:28:31.320 --> 00:28:33.240
+ Right now I'm just acknowledging it
+
+00:28:33.240 --> 00:28:37.080
+ and giving you some resources to read
+
+00:28:37.080 --> 00:28:39.160
+ and reach your own conclusions.
+
+00:28:39.160 --> 00:28:42.400
+ If you look at everything I've done since 2012
+
+00:28:42.400 --> 00:28:45.680
+ in the free online education in MOOC space,
+
+00:28:45.680 --> 00:28:48.000
+ you'll notice that every course I've ever created
+
+00:28:48.000 --> 00:28:49.880
+ has the words for everybody
+
+00:28:49.880 --> 00:28:52.080
+ and that's not just a marketing thing,
+
+00:28:52.080 --> 00:28:53.960
+ that's because it's my philosophy.
+
+00:28:53.960 --> 00:28:55.800
+ If you've taken some of my classes like Python
+
+00:28:55.800 --> 00:28:57.280
+ for everybody or Django for everybody,
+
+00:28:57.280 --> 00:28:59.600
+ web applications for everybody, Postgres for everybody
+
+00:28:59.600 --> 00:29:01.720
+ and now C programming for everybody,
+
+00:29:01.720 --> 00:29:05.640
+ I try to build a course where I spend time
+
+00:29:05.640 --> 00:29:09.240
+ thinking about how not to create the clubhouse
+
+00:29:09.240 --> 00:29:14.000
+ that Jane talks about and that is I want you in the club,
+
+00:29:14.000 --> 00:29:15.720
+ I want everybody in the club,
+
+00:29:15.720 --> 00:29:19.480
+ I don't want it just to be a club for the super geniuses
+
+00:29:19.480 --> 00:29:23.320
+ and so part of why I'm building an entire curriculum
+
+00:29:23.320 --> 00:29:27.720
+ is to perhaps just make a new club
+
+00:29:27.720 --> 00:29:30.280
+ and that is programming for everybody club
+
+00:29:30.280 --> 00:29:33.240
+ and I think once you become a great programmer,
+
+00:29:33.240 --> 00:29:35.760
+ I think that's a good time to study computer science
+
+00:29:35.760 --> 00:29:38.880
+ and so perhaps after we teach everybody programming,
+
+00:29:38.880 --> 00:29:40.760
+ then we can teach everybody computer science
+
+00:29:40.760 --> 00:29:44.080
+ but again, that's a TED talk for another day.
+
+00:29:44.080 --> 00:29:48.080
+ So on to the course, C programming for everybody.
+
+00:29:48.080 --> 00:29:50.360
+ I'll just say that C is the most important
+
+00:29:50.360 --> 00:29:53.440
+ programming language you're going to ever learn.
+
+00:29:53.440 --> 00:29:55.400
+ It should never be the first programming language
+
+00:29:55.400 --> 00:29:56.720
+ taught to any students.
+
+00:29:56.720 --> 00:30:01.040
+ You will likely never write a line of C
+
+00:30:01.040 --> 00:30:04.320
+ in a professional context in your career.
+
+00:30:04.320 --> 00:30:06.920
+ I'm not teaching you C so that you can go
+
+00:30:06.920 --> 00:30:09.080
+ be a professional C programmer.
+
+00:30:09.080 --> 00:30:10.240
+ I'm teaching you C so you can be
+
+00:30:10.240 --> 00:30:12.120
+ a professional Java programmer really
+
+00:30:12.120 --> 00:30:14.880
+ but if you learn C at the right time
+
+00:30:14.880 --> 00:30:16.920
+ in your learning journey,
+
+00:30:16.920 --> 00:30:18.960
+ it's a necessary step on the path
+
+00:30:18.960 --> 00:30:20.760
+ to becoming a master programmer
+
+00:30:20.760 --> 00:30:22.560
+ but it's an important step
+
+00:30:22.560 --> 00:30:24.760
+ 'cause I can't teach you Java
+
+00:30:24.760 --> 00:30:26.720
+ if I hadn't already taught you C.
+
+00:30:26.720 --> 00:30:31.320
+ I have to explain how Java works
+
+00:30:31.320 --> 00:30:35.040
+ in terms of what you're going to learn in this class.
+
+00:30:35.040 --> 00:30:38.040
+ So this class is not just like get a C certificate
+
+00:30:38.040 --> 00:30:39.840
+ and go make lots of money
+
+00:30:39.840 --> 00:30:42.080
+ 'cause I don't think that this certificate's
+
+00:30:42.080 --> 00:30:43.960
+ going to make you a lot of money
+
+00:30:43.960 --> 00:30:46.280
+ but I do think this certificate is going to unlock
+
+00:30:46.280 --> 00:30:48.360
+ the future of you as a programmer.
+
+00:30:48.360 --> 00:30:54.240
+ So please be patient with this material.
+
+00:30:54.240 --> 00:30:56.160
+ Do not rush.
+
+00:30:56.160 --> 00:30:57.920
+ It's an online class.
+
+00:30:57.920 --> 00:30:59.960
+ I guarantee that you can search for solutions
+
+00:30:59.960 --> 00:31:02.560
+ to every programming exercise that I create.
+
+00:31:02.560 --> 00:31:04.360
+ I don't change them that much
+
+00:31:04.360 --> 00:31:06.120
+ so the solutions are out there
+
+00:31:06.120 --> 00:31:08.000
+ and if your goal is to game it
+
+00:31:08.000 --> 00:31:09.920
+ and just search for solutions to programming,
+
+00:31:09.920 --> 00:31:11.400
+ go ahead, finish the class.
+
+00:31:11.400 --> 00:31:13.080
+ Congratulations.
+
+00:31:13.080 --> 00:31:16.680
+ But you have just taken the opportunity
+
+00:31:16.680 --> 00:31:19.160
+ to learn from yourself, right?
+
+00:31:19.160 --> 00:31:20.680
+ You didn't trick me.
+
+00:31:20.680 --> 00:31:24.800
+ I didn't lose anything by you searching for
+
+00:31:24.800 --> 00:31:27.600
+ and just pasting in solutions to programs.
+
+00:31:27.600 --> 00:31:31.240
+ Each exercise from beginning to end
+
+00:31:31.240 --> 00:31:34.760
+ is trying to take you a little tiny step further
+
+00:31:34.760 --> 00:31:36.960
+ down your understanding.
+
+00:31:36.960 --> 00:31:38.760
+ And the easy exercises in the beginning,
+
+00:31:38.760 --> 00:31:40.240
+ even if I have a bunch of them,
+
+00:31:40.240 --> 00:31:42.880
+ they're there to prepare and strengthen you
+
+00:31:42.880 --> 00:31:45.240
+ for something much more challenging in the course.
+
+00:31:45.240 --> 00:31:47.720
+ If you start pasting in solutions
+
+00:31:47.720 --> 00:31:49.320
+ in the beginning of the course,
+
+00:31:49.320 --> 00:31:52.800
+ you have no chance in the end of the course
+
+00:31:52.800 --> 00:31:54.920
+ and you're just gonna be pasting in solutions
+
+00:31:54.920 --> 00:31:58.880
+ and when you do that, you'll have only wasted your time.
+
+00:32:00.040 --> 00:32:05.040
+ So, I look forward to you taking the rest of this course.
+
+00:32:05.040 --> 00:32:08.720
+ Of course, I look forward to you telling me
+
+00:32:08.720 --> 00:32:11.120
+ if I'm right in my instinct
+
+00:32:11.120 --> 00:32:13.520
+ about how important this is for you,
+
+00:32:13.520 --> 00:32:15.880
+ especially after you take a few more classes
+
+00:32:15.880 --> 00:32:20.240
+ and then find your way to being a professional.
+
+00:32:20.240 --> 00:32:22.820
+ (gentle music)
+
+00:32:30.040 --> 00:32:32.620
+ (gentle music)
+

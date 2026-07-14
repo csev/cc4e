@@ -1,0 +1,187 @@
+ So I want to talk about the C++ programming language for just a bit because C++ plays a really,
+ really important role in the development of object-oriented programming. C of course came
+ out like '72 through '78 and then C++ came out in '80 and then both C++ and C co-evolved through
+ the early 1980s and then you see things like C# and Java and Python and PHP all informed heavily
+ by C++. If we look at how object-oriented was happening kind of before C++, it was like C++
+ wasn't really appreciated by the typical mainstream procedural programmer of the day
+ and so things like ALGOL and Simula, it was kind of like there were tribes that liked procedural
+ and tribes that liked object-oriented. But then C++ came along and sort of pretty much unified it,
+ which meant that you probably learned Python as your first programming language and you were using
+ object-oriented programming from the time that you started and C++ is what sort of unified that
+ and it was the C++ as the quickly number one procedural programming language and then C++
+ as the number one object-oriented programming language that kind of brought order to the notion
+ of procedural, object-oriented, hybrid, etc. and sort of everything that kind of came after 1980
+ was really strongly influenced and informed by C and C++. So let's take a look at how this
+ sort of changed over time by looking at some syntactical influence. So C++, which was the
+ earliest, which is a preprocessor plus a compiler, it turned into a compiler on its own eventually,
+ but it has this concept of a map that has a separately selectable type of the key, type of
+ the value, and it uses the square brackets, map open square bracket, z closed square bracket equals
+ eight, and that is in effect a put. That's like a insert into the map or update of the key and it's
+ a pretty succinct syntax and so Python came up with a way. Python really didn't want to make a
+ more complex syntax than C++, so Python worked on its language to make it so that you could just say
+ d equals d i c t and it was a typeless language and so we don't care the fact that it's going
+ to be strings mapping to integers because you can map lots of things to lots of things in Python,
+ but it did follow the d sub z equals eight and again you you use this from the beginning when
+ you first started programming in Python and you thought that was just natural, but what's really
+ going on is more like what Java did in 1995. We're not going to use the square bracket to do
+ put stuff into a map. We're going to be more pure here and we're going to create methods. Now if you
+ look under the covers in Python you see that that is really a method that does that insert of the
+ key of z and the value of eight, but if you look at Java it says map string integer so we again
+ have this notion of a generic class capital map map string integer map which is our object variable
+ equals new tree map string integer which of course is choosing the underlying implementation
+ and then they have the syntax of a setter style map dot put and then they're giving the key and
+ the value as two different parameters. There's choices that each of these languages are making
+ and I'll try to highlight them as we go through it. I want to talk a little bit about how C++
+ and its object-oriented approach and design made it so that a class like the map works almost the
+ same as like a sort of a low level class like a float or an int and it has access in particular
+ to kind of the special characters or operators like square brackets or plus or minus how that
+ happens and it is that you can create a specially named method inside of a C++ class that the
+ compiler will consult and call when it encounters certain what you think of as language syntax
+ meaning that as it's parsing the language syntax like square brackets it's like oh I've got some
+ code to do some work here this concept is called operator overloading meaning that the operator
+ the behavior of the operator is controlled by the writer of the class you are writing a class so in
+ this bit of code here I've created for no particular reason a a class that I call 10 integers in a row
+ and I have a array of 10 integer values but that's private so that's something that the
+ outer class can't talk to right so you can't say 10 and 10 like in the main you 10 dot values is
+ like no you're not allowed to touch that because it's private but then what I do is I create a
+ public method which is the square brackets operator method the method to be called when
+ the compiler encounters square brackets my class name my object name followed by square brackets
+ call me now the first thing we see is the return type of this operator square bracket operator code
+ is an integer reference an integer that can either be read or written which means it can be on the
+ left or right hand side of an assignment statement and the parameter that it's being given is an
+ integer index which is the thing inside of the square brackets now it is a reference because of
+ the ampersand but it is a constant reference meaning we are not allowed to change it inside
+ of this function okay so const means we're leaving it alone which means we are not allowed to say
+ index equals 42 inside the operator the square bracket operator method and so what we're returning
+ is that private variable values sub index but we are returning a reference to it so wherever it
+ appears in the original c++ code in the main what happens is that reference can be like I said on
+ the left or right side of an assignment state so let's take a look at how this works in the main
+ code I am going to create a variable called 10 of type 10 int and I say 10 sub 1 equals 40 which
+ means I'm storing 40 in position 1 but when it sees that 10 sub 1 it says oh oh this little class
+ has an operator square bracket operator so I better call that little method pass the 1 in then
+ that returns a reference to values sub 1 and then into that reference the 40 is assigned now python
+ doesn't have return a reference and it doesn't have a call a reference c kind of does but it's
+ very they're pointers and so references and pointers are different references you'll notice
+ there's no special syntax to dereference a reference whereas you when you get a pointer
+ you got to have special syntax to dereference a pointer so this notion of call by reference
+ and return by reference is like impressive in c++ and allows it to do a lot of things
+ and allows us to have this seemingly native line of code 10 sub 1 equals 40 which is really just
+ a bunch of method calls amazing and then we immediately say print 10 sub 1 contains and then
+ 10 sub 1 and again when this is kind of a right hand side of an assignment statement it's looking
+ it up it calls the method the operator the square bracket operator method passes 1 into it and then
+ we return values sub 1 and then that's what gets printed out and so then we say 10 sub 5 equals 10
+ sub 1 plus 2 and now we see 10 sub 1 on the right hand side of an assignment statement which calls
+ that same code in the operator brackets method within the class passes in the 1 returning the
+ reference to value sub 1 but then that reference is just 40 and then we add 2 to it and then we
+ assign it into 10 sub 5 which is again calling the in operator method to get a reference to values
+ sub 5 and that assignment happens all i really did was kind of faked it but i i used it to show you
+ this like lovely ability to do operator overloading when i first found my way into java
+ my greatest disappointment and because i taught a c++ class and then i learned java i wasn't a
+ wiz at c++ but i really thought it was pretty elegant so for me my brain was so i didn't learn
+ python first i learned c++ first and i'm like hey that's what object oriented ought to be
+ and then i'm like i'm going java and java didn't do that java basically does not want and did not
+ want as a choice to take values by reference in method calls and even more it did not want to
+ return references in the return values of method calls that those two things the ampersand in the
+ return type and the ampersand in the call parameter call those are essential for c++ to accomplish
+ this and java did not want to return references in particular because it has to do with garbage
+ collection variables going out of scope etc etc if you return a reference you don't know when it's
+ out of scope etc um these are powerful complex and potentially quite dangerous things right
+ but the c++ design was hey you are a samurai warrior and you are going to
+ you are going to use these very wisely and we don't want to take power away from you we want
+ to give you all the power that you might want and just trust that you're not going to make mistakes
+ right and so choices that java make and python make are like no no no we don't want you to make
+ mistakes so we're not even going to give you this kind of thing but there are other ways to do
+ everything uh things like tuple returns in c is a good example of um kind of an homage to this
+ notion of returning things is not always just a single thing so um but c++ is kind of unique now
+ again um python emulated the c syntax that was quite beautiful that was a result of c's support
+ for operator overload and here's the here's the thing where like it all comes together so python
+ saw the beautiful syntax that c++ when you did the right things the compiler would give you this
+ let you use this beautiful syntax and still call your methods inside the object but they didn't
+ want to do the call by reference and return by re return reference that c++ did and so what they
+ did is they did basically a syntax transformation if you look python is in a sense very java like
+ in that everything has to happen through methods but then there's these hidden methods okay let's
+ take a look at the code so i'll create a dictionary named x and then we say x sub 1 equals 40 and again
+ we know what this means that means somewhere in the key the key under the key one there's 40
+ now i can print this out by saying x dot double underscore get item double underscore open paren
+ one close print that's taking the index inside of the square brackets and passing it to a predefined
+ python understood rule for what get item that the square brackets turn into double underscore get
+ item double underscore where the x is the object and the parameter is the syntax so if we think
+ about it on the right hand side of an assignment statement where we're just reading it it's just
+ doing the get right it's kind of doing a getter like thing give me item one and then out comes
+ the 40 and that's how the print of x sub 1 is a 40 that's really what happens under the covers is
+ there is a class which has underscore underscore get item underscore underscore defined in it as
+ a method and that's how it loads x sub 1 so if we go down another line and we say x sub 5 equals
+ x sub 1 plus 2 seems simple enough and and literally for years python software developers
+ don't even need to know that this is miraculously and beautifully complex but what this translates
+ into at runtime by compiler syntax transformation is the x sub 1 on the right hand side turns into
+ a x dot get item paren one which pulls up the 40 and then plus 2 gets added to it but then that
+ expression is passed into x dot set item in position five so the the left hand side of
+ the assignment statement is the x sub 5 equals part and that's calling set item so if it's doing
+ a square bracket look up on the right hand side it's calling get item and if it's doing a square
+ bracket on the left hand side of an assignment statement it's doing a set item so this means
+ that there was no need to return references no need to process references none of the hoops
+ that c++ went through and so you see that python did not did not choose to implement
+ the way c++ did but they supported the very elegant syntax now and then you'll see that java
+ in 1995 takes it or 94 takes it one step further in that they're not even going to give you that
+ cool syntax they're like no we're going to say just do x dot put and x dot get and call it good
+ if you if you know that x is an object and you need to do a get in the put do the get in the put
+ we're not going to do this little syntax transformation that makes it pretty and we're
+ also not going to give you uh operator overloading because again operator overloading requires
+ references because it allows the class to return a thing that can be used on either the left or
+ right hand side and again java did that because they did not want to make their memory management
+ more complex so it's hard to argue but what this kind of shows you is like the amazing
+ interplay between these languages yarn stro strip went to school in denmark and started working on
+ c++ in denmark but then was hired to go to bell labs in new jersey where he met and worked with
+ for a number of years uh yarn stro strip and dennis richie and all the folks at bell labs
+ that gave us unix and c over the decades and so c++ kind of came to the world from bell labs from
+ murray hill and and guido van rossum who was in netherlands at the time really was just looking
+ at all this stuff and using all this stuff and an expert in c and c++ and back in those days we
+ tended to look a lot at like the code that c++ generated and guido's like i'm just gonna i'm
+ gonna borrow these are really good patterns and so that's how we see so much influence of not just
+ the syntax but the actual runtime conventions and and like if you if you look at some of the generated
+ c++ code the concept of private is often done with underscores they use underscores a lot
+ python's like yeah i'll just borrow that i'll just use double underscore as my
+ signal is as private and away you go so to show the influence that c++ and c had over python both
+ in the syntax and in the runtime you can take a quick look at some internal details of how python
+ works and python turns out to almost identically implemented operator overloading in as as c++ but
+ we don't see it it's all internal you have to kind of look so on on the left hand side that's
+ the code that i just got done going through that's the c++ code that has the private values and then
+ the public operator overload and now if we look on the right hand side we see a class tenant and
+ i'm creating a double underscore values which is values private as a dictionary and then i'm going
+ to define the set item so this is like a private method called set item and then private method
+ called get item python basically has the left side and right side assignment of a bracket lookup
+ operators different and the set item is the left hand side and the get item is the right hand side
+ you'll see that in the set item i'm just taking self values sub index equals value and i'm in the
+ in the getter i'm returning self underscore values sub index so that's the right hand side so if we
+ look at the code i see let's make a tenant on the variable 10 10 sub 1 equals 40 now python transforms
+ that 10 sub 1 syntax into a set item of 10 comma the number 1 comma 40 and then call set item and
+ you can see of course it worked right it the three values are self index and value well self is 10
+ which is the object instance the index is the thing inside the square brackets and the value
+ is the result of the expression on the right hand side it's not just 40 but it's the expression on
+ the right hand side and so that goes in right we see the print 10 sub 1 well that is a right hand
+ side reference to 10 sub 1 so that's going to call get item self is 10 and then index is the 1 and
+ we're going to just return it and that's going to print out a nice little happy little integer
+ which is exactly the variable 40 so it says 10 sub 1 contains 40 and at this point it should be
+ obvious what's going on when i say 10 sub 5 equals 10 sub 1 plus 2 well the 10 sub 1 on the right hand
+ side turns into a get item that gives us back the 40 value then the 40 and the two are added
+ together to finish the right hand side of the expression then we're going to sign that into 10
+ sub 5 which then turns into a set item of 10 comma 5 comma 42 and then that stores 42 in position 5
+ in our private variable values private values variable and then i printed out which is left hand
+ side lookup of 10 sub 5 which calls get item again with self is 10 and index is 5 and so we get the
+ 42 and so you see how they're so similar inside i mean again like if you look at generated c++
+ code from early c++ code compilers you'll see these double underscores used in various places
+ which means that python in its internal implementation use the same patterns as c++ did
+ in its internal implementation python chose not to do call by reference and return by reference
+ java chose not to be not to do call by reference and return by reference and java chose not to do
+ the fancy syntax transformation but you know who knows maybe maybe one of these days java could do
+ that syntax transformation and be like whoa java has everything and then to some degree python has
+ shown the way about how you do this without doing um without doing call call by reference and again
+ that ampersand operator and ampersand index on the left hand side that's the like scary part where
+ language designers are like oh sure i want to go do that because c++ is not a garbage collected
+ language but python and java are garbage collected languages and that's not the only reason
+ that's that python and java didn't want to do call by reference but it is one of the reasons that you
+ kind of just simplifies to know that there when a function is done it's done and there's not like
+ sneaky little pointers inside that function that need to stay alive so it allows you to throw stuff
+ away when functions are finished okay enough of that just again i'm just trying to show you in the
+ simplest possible examples the kinds of design decisions that all these languages and library
+ designers were doing as they built the languages that we know love and use today

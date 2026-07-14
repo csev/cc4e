@@ -1,0 +1,125 @@
+ So this is an entire lecture on the put method of our TreeMaP and the essence of this is we're
+ going to be simultaneously updating two data structures at the same time. I guess that's the
+ definition of simultaneously. So just before we start, this is not easy. I think it's pretty
+ much impossible to do exactly what I'm asking you to do, just use a bunch of Google searches or
+ asking your AI bot, maybe, maybe you can. You need to really understand what you're doing and this is
+ where a picture is so valuable. Once you understand it, the code should look very clean and very simple
+ to you. My put code as I was writing it was like broken and like I tried to fix it and then it was
+ broken again and I threw it away and I wrote it again and I drew a new picture and I wrote it and
+ it was broken and I threw it away again and then like poof it was perfect. So as you're writing data
+ structure code, the notion of like it's broken, just accept that it's broken. It's going to be broken.
+ You're going to throw it away. That's the point because you know that this algorithm is eventually
+ going to work. The algorithm is not the problem, it's your implementation that's the problem.
+ Okay, so we take a quick look at the performance of foot and I've mentioned this. The binary search
+ is log n while a sorted list search is order n, meaning that if you have a search list of 500,000
+ or a million, it takes on average 500,000 lookups to find it, whereas a million entry tree search,
+ you take the log two of a million and you get about 20. So the key thing is we're going to
+ use the tree anytime we're searching and we're going to only use the list when we're iterating,
+ but we're going to while we're doing put, we've got to maintain both the tree and the list. Okay,
+ so we are going to have to be real careful to keep in our mind and this is where I drew
+ all those pictures. We've got to be able to insert into an empty list, which is easy because root is
+ null and you just put the thing in. Then you got to find a right gap, a gap to the to the right is
+ something and then find a left gap and then insert at the beginning after you go down a bunch of
+ lefts and go down a bunch of rights and then replacing is the easy part. As we've seen in put,
+ you just say if it's equal, change the value. Okay, so let's just take a look at our data
+ structures and then we talked about these before. We have simultaneously in the entry, we have a left
+ and a right and we have a next because we are simultaneously maintaining a sorted linked list
+ and a sorted tree. The tree map has a head and it has a root and that's pretty much it.
+ So in our in our constructor, we set the head to null, we set the root to null. We're empty,
+ we don't have anything in the tree, we don't have anything in the linked list. So the empty list
+ is easy, right? And so we have to scan to see if it's in the list, right? And you know if
+ you know first we can just say hey if self head is null and be the same as saying if self root is
+ null, well we just point head and root to the new item. Okay, because we're inserting h equals 22.
+ I'm going to insert these in order so the list so I don't run out of space on my PowerPoint slides.
+ And so when we're done with this, root is going to point to h equals 22, the left is going to point
+ to null, the right is going to point to null, the next is going to point to null, and head is going
+ to point to the item. So we have a valid linked list and we have a valid tree at the same time.
+ Okay, so again this is not the whole put code, this is just the first part where we there's
+ some dot dot dots in there where you're putting all the data and putting the key in and setting
+ next to null and left to null etc. So that's that's in there. But the first one is pretty
+ easy from the head and the root. Okay, so we we keep doing that for a while we let's just take our
+ we put some things in there and we've got our our linked list going correctly you can just verify
+ that you run through they're all in order you can take your your left and your rights and all the
+ things that are less than h or to the left of h and all the things that are at the right of h are
+ greater than h away we go. So we're going to write some code and what we're really going to look for
+ and this is the tricky part is to find the item or the gap where the item belongs. Now the problem
+ is is we're going to have to link these things back up when we are just doing a tree it was easier
+ because you would either find the item or find the place to link it. Okay, so trees are easier
+ to easy to maintain. The linked list is harder to maintain because you've got to keep track of the
+ item that is the largest item less and the smallest item greater and that's what I call the gap.
+ So this left and this right are to as we're walking down the list we're going to keep track
+ of the greatest the smallest greater item and the the largest less item. Okay, and that's what this
+ left so we got curr we got left and we've got right and you can think of left and right as like
+ breadcrumbs like we're going to throw breadcrumbs when we turn we're going to turn to the left we're
+ going to remember the right when we turn to the right we're going to remember the left and you'll
+ see it in action. So here we go here we go so we got this tree g equals 29 we're going to insert it
+ so then what we do is we compare it to h equals 42 and then we say oh that's a turn to the left
+ so now we know at least at this point the greatest value the smallest greatest value is h and so we
+ point right at h as we are moving down the tree and you see that you do the stir comp you see what
+ it says if comp is less than zero we're going to turn left and then right is going to point at
+ curr where we were and now the next time when we're going to turn right which is what we're
+ going to do next it's going to remember where left so we're now comparing g to d and g is greater than
+ d so now we're going to turn right but now we're going to update left so d at this point in our
+ search d is the largest number less than or the largest key less than g and h is the smallest key
+ greater than g so you see how left and right are like breadcrumbs as we're sort of pachinkoing our
+ way down this tree so then we compare g to f and g is greater than f and so we're going to take a
+ right turn and whenever we take a right turn we update left so now we have actually found the
+ place that g belongs and if you look left and right are perfect for the linked list because now we know
+ that that left next is going to point to g and g next is going to point to h so so left next won't
+ point at h anymore it's going to point at g and g new next is going to point at h okay so when we
+ do this because we've got left and we've got right we just link them in and then we insert it into the
+ tree and away we go and so now you look what we have done is we have now left and right were just
+ temporary variables that we had during this tree map put code but if you look at this and look at
+ carefully we have a correctly formed linked list that's sorted in order and we have a correctly
+ formed tree and we use the tree to get to f fast and we use left and right so that once we got to
+ the right place which was to the right of f we could just hook it into that linked list with
+ no additional cost okay see how pretty it is so now let's take a look at some other of these things
+ so let's take a look at inserting j well j is going to go right when it sees h because it's greater
+ than it's going to go left when it sees k because it's less than i mean i i'm inserting i not j
+ it's going to go left when it sees k and it's going to go left when it sees j and when it's
+ done you got left is h and right the right value and the the i shouldn't even name these left i
+ should call them the smallest wait a second the largest value less than and the smallest value
+ greater than that would probably be a more mnemonic name is largest value less than and smallest value
+ greater than instead of left and right i'm thinking of it as the thing it's like a bracket you got a
+ gap and what's your immediate left and what's your immediate right and so now we know exactly
+ where this belongs and we know how to update both the link list and the tree so update the link list
+ using left and right and then update the tree um using curr right and so away we go and we've got
+ ourselves in that gap and so we can insert to the left we can insert to the right now remember
+ remember remember that if we were if if our key was j we'd have found it and then all we had done
+ is updated the value so remember i and my brain does this a lot when i'm looking at this code
+ i'm like but will i find it and will i find the right one what if it's already there well already
+ there's the easy part okay so there we go so let's take a look at inserting a equals 17 and how this
+ works remember the use cases got to do the beginning the end left gap right gap empty list
+ and then pretty much we'll have it so a equals 17 that's going to end up all the way down so we
+ are going to compare it and we're going to we're going to turn left to the left to the left i think
+ there's a song and a dance about that um and so we remain remember right which is the smallest
+ number greater than and it's not going to be right is not going to stay h equals 42 because we're going
+ to compare a and d and then we're going to go left again and now right is going to follow us
+ and then we're going to compare a and b and we're going to go left again and right is going to follow
+ us now the interesting thing is left is now null we have found the place we're going to insert to
+ the left of b but we're also going to insert through the head because we know that left is
+ null which means that we just found the lowest thing in the current something lower than anything
+ in the linked list so then we just hook the hook a in before b right after head and then we hook it
+ in to the the left of the b going with a larger than anything else that's in there we're going to
+ end up with this at the end of the linked list we're going to compare x to h and going to go right
+ and remember left the largest value less than for now we're going to look at k we're going to go left
+ again and left is going to be updated to be k the largest value less than then we're going to compare
+ x to m and x is still greater than m so we're going to go right again and left is going to be
+ m equals 67 and you'll note that the thing we detect here is right equals zero which means
+ we have no value greater than x in this list so we just say x next the x current the current thing
+ is next is null and the current next is you know points to the x entry and then we hook it in on
+ the right side of the m equals 67 and then we are done so if we're going to do a replacement
+ remember i told you this was the easy one so and again in my mind when i was writing this code i'm
+ like but what if it's already there calm down that's the easy one okay so we're comparing f to h
+ well it's to the left we're going to keep track of right but we're not going to use them because
+ we're going to find it and then we have a match and then we just see it you go like oh fine f is
+ 16 we're done life is simple if they're equal we found it you know we don't have to keep looking
+ we found it we just change it and again think of how fast now how fast this works when it's the
+ keys already there it's like nothing to allocate no links to make you just change the value
+ and you're done so it's important to test all of these cases and i just went through every
+ single one of the cases and showed you what they're supposed to look like i will tell you
+ that you will make mistakes i will tell you that asking google for help as long as you read what
+ they say will inform you but i doubt that google is going to just give you the whole code of something
+ that is as intricate as this i would say a simultaneous sorted linked list and a tree at
+ the same time maybe it can do that because that's what you're really doing so up next
+ we are going to go back to the beginning and go back to python for everybody to wrap things up

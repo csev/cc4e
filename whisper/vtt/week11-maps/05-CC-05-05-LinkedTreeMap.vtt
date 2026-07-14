@@ -1,0 +1,377 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.720
+ So this is an entire lecture on the put method of our TreeMaP and the essence of this is we're
+
+00:00:06.720 --> 00:00:12.000
+ going to be simultaneously updating two data structures at the same time. I guess that's the
+
+00:00:12.000 --> 00:00:20.080
+ definition of simultaneously. So just before we start, this is not easy. I think it's pretty
+
+00:00:20.080 --> 00:00:25.280
+ much impossible to do exactly what I'm asking you to do, just use a bunch of Google searches or
+
+00:00:25.280 --> 00:00:32.000
+ asking your AI bot, maybe, maybe you can. You need to really understand what you're doing and this is
+
+00:00:32.000 --> 00:00:38.800
+ where a picture is so valuable. Once you understand it, the code should look very clean and very simple
+
+00:00:38.800 --> 00:00:50.320
+ to you. My put code as I was writing it was like broken and like I tried to fix it and then it was
+
+00:00:50.320 --> 00:00:58.880
+ broken again and I threw it away and I wrote it again and I drew a new picture and I wrote it and
+
+00:00:58.880 --> 00:01:07.520
+ it was broken and I threw it away again and then like poof it was perfect. So as you're writing data
+
+00:01:07.520 --> 00:01:14.640
+ structure code, the notion of like it's broken, just accept that it's broken. It's going to be broken.
+
+00:01:15.600 --> 00:01:22.000
+ You're going to throw it away. That's the point because you know that this algorithm is eventually
+
+00:01:22.000 --> 00:01:26.160
+ going to work. The algorithm is not the problem, it's your implementation that's the problem.
+
+00:01:26.160 --> 00:01:32.800
+ Okay, so we take a quick look at the performance of foot and I've mentioned this. The binary search
+
+00:01:32.800 --> 00:01:40.320
+ is log n while a sorted list search is order n, meaning that if you have a search list of 500,000
+
+00:01:40.320 --> 00:01:47.360
+ or a million, it takes on average 500,000 lookups to find it, whereas a million entry tree search,
+
+00:01:47.360 --> 00:01:51.680
+ you take the log two of a million and you get about 20. So the key thing is we're going to
+
+00:01:51.680 --> 00:01:57.680
+ use the tree anytime we're searching and we're going to only use the list when we're iterating,
+
+00:01:57.680 --> 00:02:04.160
+ but we're going to while we're doing put, we've got to maintain both the tree and the list. Okay,
+
+00:02:06.240 --> 00:02:12.320
+ so we are going to have to be real careful to keep in our mind and this is where I drew
+
+00:02:12.320 --> 00:02:18.240
+ all those pictures. We've got to be able to insert into an empty list, which is easy because root is
+
+00:02:18.240 --> 00:02:23.440
+ null and you just put the thing in. Then you got to find a right gap, a gap to the to the right is
+
+00:02:23.440 --> 00:02:29.120
+ something and then find a left gap and then insert at the beginning after you go down a bunch of
+
+00:02:29.120 --> 00:02:34.080
+ lefts and go down a bunch of rights and then replacing is the easy part. As we've seen in put,
+
+00:02:34.080 --> 00:02:42.000
+ you just say if it's equal, change the value. Okay, so let's just take a look at our data
+
+00:02:42.000 --> 00:02:48.080
+ structures and then we talked about these before. We have simultaneously in the entry, we have a left
+
+00:02:48.080 --> 00:02:53.360
+ and a right and we have a next because we are simultaneously maintaining a sorted linked list
+
+00:02:53.360 --> 00:03:01.520
+ and a sorted tree. The tree map has a head and it has a root and that's pretty much it.
+
+00:03:02.080 --> 00:03:07.600
+ So in our in our constructor, we set the head to null, we set the root to null. We're empty,
+
+00:03:07.600 --> 00:03:13.760
+ we don't have anything in the tree, we don't have anything in the linked list. So the empty list
+
+00:03:13.760 --> 00:03:22.160
+ is easy, right? And so we have to scan to see if it's in the list, right? And you know if
+
+00:03:22.160 --> 00:03:29.360
+ you know first we can just say hey if self head is null and be the same as saying if self root is
+
+00:03:29.360 --> 00:03:38.000
+ null, well we just point head and root to the new item. Okay, because we're inserting h equals 22.
+
+00:03:38.000 --> 00:03:43.200
+ I'm going to insert these in order so the list so I don't run out of space on my PowerPoint slides.
+
+00:03:43.200 --> 00:03:50.320
+ And so when we're done with this, root is going to point to h equals 22, the left is going to point
+
+00:03:50.320 --> 00:03:57.120
+ to null, the right is going to point to null, the next is going to point to null, and head is going
+
+00:03:57.120 --> 00:04:05.440
+ to point to the item. So we have a valid linked list and we have a valid tree at the same time.
+
+00:04:05.440 --> 00:04:13.280
+ Okay, so again this is not the whole put code, this is just the first part where we there's
+
+00:04:13.280 --> 00:04:16.800
+ some dot dot dots in there where you're putting all the data and putting the key in and setting
+
+00:04:16.800 --> 00:04:22.080
+ next to null and left to null etc. So that's that's in there. But the first one is pretty
+
+00:04:22.080 --> 00:04:29.280
+ easy from the head and the root. Okay, so we we keep doing that for a while we let's just take our
+
+00:04:29.280 --> 00:04:35.200
+ we put some things in there and we've got our our linked list going correctly you can just verify
+
+00:04:35.200 --> 00:04:40.400
+ that you run through they're all in order you can take your your left and your rights and all the
+
+00:04:40.400 --> 00:04:44.640
+ things that are less than h or to the left of h and all the things that are at the right of h are
+
+00:04:45.360 --> 00:04:52.720
+ greater than h away we go. So we're going to write some code and what we're really going to look for
+
+00:04:52.720 --> 00:05:00.160
+ and this is the tricky part is to find the item or the gap where the item belongs. Now the problem
+
+00:05:00.160 --> 00:05:07.040
+ is is we're going to have to link these things back up when we are just doing a tree it was easier
+
+00:05:07.040 --> 00:05:13.440
+ because you would either find the item or find the place to link it. Okay, so trees are easier
+
+00:05:14.640 --> 00:05:21.680
+ to easy to maintain. The linked list is harder to maintain because you've got to keep track of the
+
+00:05:21.680 --> 00:05:30.960
+ item that is the largest item less and the smallest item greater and that's what I call the gap.
+
+00:05:30.960 --> 00:05:36.400
+ So this left and this right are to as we're walking down the list we're going to keep track
+
+00:05:36.400 --> 00:05:43.600
+ of the greatest the smallest greater item and the the largest less item. Okay, and that's what this
+
+00:05:43.600 --> 00:05:52.640
+ left so we got curr we got left and we've got right and you can think of left and right as like
+
+00:05:52.640 --> 00:05:59.280
+ breadcrumbs like we're going to throw breadcrumbs when we turn we're going to turn to the left we're
+
+00:05:59.280 --> 00:06:02.480
+ going to remember the right when we turn to the right we're going to remember the left and you'll
+
+00:06:02.480 --> 00:06:11.200
+ see it in action. So here we go here we go so we got this tree g equals 29 we're going to insert it
+
+00:06:12.000 --> 00:06:20.400
+ so then what we do is we compare it to h equals 42 and then we say oh that's a turn to the left
+
+00:06:20.400 --> 00:06:28.800
+ so now we know at least at this point the greatest value the smallest greatest value is h and so we
+
+00:06:28.800 --> 00:06:35.600
+ point right at h as we are moving down the tree and you see that you do the stir comp you see what
+
+00:06:35.600 --> 00:06:40.000
+ it says if comp is less than zero we're going to turn left and then right is going to point at
+
+00:06:40.000 --> 00:06:45.920
+ curr where we were and now the next time when we're going to turn right which is what we're
+
+00:06:45.920 --> 00:06:53.120
+ going to do next it's going to remember where left so we're now comparing g to d and g is greater than
+
+00:06:53.120 --> 00:07:00.560
+ d so now we're going to turn right but now we're going to update left so d at this point in our
+
+00:07:00.560 --> 00:07:09.040
+ search d is the largest number less than or the largest key less than g and h is the smallest key
+
+00:07:09.040 --> 00:07:14.720
+ greater than g so you see how left and right are like breadcrumbs as we're sort of pachinkoing our
+
+00:07:14.720 --> 00:07:23.600
+ way down this tree so then we compare g to f and g is greater than f and so we're going to take a
+
+00:07:23.600 --> 00:07:30.640
+ right turn and whenever we take a right turn we update left so now we have actually found the
+
+00:07:30.640 --> 00:07:38.560
+ place that g belongs and if you look left and right are perfect for the linked list because now we know
+
+00:07:39.200 --> 00:07:48.960
+ that that left next is going to point to g and g next is going to point to h so so left next won't
+
+00:07:48.960 --> 00:07:58.000
+ point at h anymore it's going to point at g and g new next is going to point at h okay so when we
+
+00:07:58.000 --> 00:08:03.840
+ do this because we've got left and we've got right we just link them in and then we insert it into the
+
+00:08:03.840 --> 00:08:10.000
+ tree and away we go and so now you look what we have done is we have now left and right were just
+
+00:08:10.000 --> 00:08:17.440
+ temporary variables that we had during this tree map put code but if you look at this and look at
+
+00:08:17.440 --> 00:08:23.520
+ carefully we have a correctly formed linked list that's sorted in order and we have a correctly
+
+00:08:23.520 --> 00:08:30.800
+ formed tree and we use the tree to get to f fast and we use left and right so that once we got to
+
+00:08:30.800 --> 00:08:35.600
+ the right place which was to the right of f we could just hook it into that linked list with
+
+00:08:35.600 --> 00:08:41.840
+ no additional cost okay see how pretty it is so now let's take a look at some other of these things
+
+00:08:41.840 --> 00:08:50.320
+ so let's take a look at inserting j well j is going to go right when it sees h because it's greater
+
+00:08:50.320 --> 00:08:56.320
+ than it's going to go left when it sees k because it's less than i mean i i'm inserting i not j
+
+00:08:57.040 --> 00:09:02.080
+ it's going to go left when it sees k and it's going to go left when it sees j and when it's
+
+00:09:02.080 --> 00:09:08.240
+ done you got left is h and right the right value and the the i shouldn't even name these left i
+
+00:09:08.240 --> 00:09:16.160
+ should call them the smallest wait a second the largest value less than and the smallest value
+
+00:09:16.160 --> 00:09:21.440
+ greater than that would probably be a more mnemonic name is largest value less than and smallest value
+
+00:09:21.440 --> 00:09:25.760
+ greater than instead of left and right i'm thinking of it as the thing it's like a bracket you got a
+
+00:09:25.760 --> 00:09:32.160
+ gap and what's your immediate left and what's your immediate right and so now we know exactly
+
+00:09:32.160 --> 00:09:39.040
+ where this belongs and we know how to update both the link list and the tree so update the link list
+
+00:09:39.040 --> 00:09:46.400
+ using left and right and then update the tree um using curr right and so away we go and we've got
+
+00:09:46.400 --> 00:09:51.760
+ ourselves in that gap and so we can insert to the left we can insert to the right now remember
+
+00:09:51.760 --> 00:09:58.240
+ remember remember that if we were if if our key was j we'd have found it and then all we had done
+
+00:09:58.240 --> 00:10:03.520
+ is updated the value so remember i and my brain does this a lot when i'm looking at this code
+
+00:10:03.520 --> 00:10:09.520
+ i'm like but will i find it and will i find the right one what if it's already there well already
+
+00:10:09.520 --> 00:10:16.800
+ there's the easy part okay so there we go so let's take a look at inserting a equals 17 and how this
+
+00:10:16.800 --> 00:10:22.480
+ works remember the use cases got to do the beginning the end left gap right gap empty list
+
+00:10:22.480 --> 00:10:28.960
+ and then pretty much we'll have it so a equals 17 that's going to end up all the way down so we
+
+00:10:28.960 --> 00:10:35.200
+ are going to compare it and we're going to we're going to turn left to the left to the left i think
+
+00:10:35.200 --> 00:10:42.400
+ there's a song and a dance about that um and so we remain remember right which is the smallest
+
+00:10:42.400 --> 00:10:46.640
+ number greater than and it's not going to be right is not going to stay h equals 42 because we're going
+
+00:10:46.640 --> 00:10:53.840
+ to compare a and d and then we're going to go left again and now right is going to follow us
+
+00:10:53.840 --> 00:10:59.440
+ and then we're going to compare a and b and we're going to go left again and right is going to follow
+
+00:10:59.440 --> 00:11:05.920
+ us now the interesting thing is left is now null we have found the place we're going to insert to
+
+00:11:05.920 --> 00:11:13.360
+ the left of b but we're also going to insert through the head because we know that left is
+
+00:11:13.360 --> 00:11:18.240
+ null which means that we just found the lowest thing in the current something lower than anything
+
+00:11:18.240 --> 00:11:27.840
+ in the linked list so then we just hook the hook a in before b right after head and then we hook it
+
+00:11:27.840 --> 00:11:34.320
+ in to the the left of the b going with a larger than anything else that's in there we're going to
+
+00:11:34.320 --> 00:11:39.840
+ end up with this at the end of the linked list we're going to compare x to h and going to go right
+
+00:11:39.840 --> 00:11:48.400
+ and remember left the largest value less than for now we're going to look at k we're going to go left
+
+00:11:48.400 --> 00:11:52.800
+ again and left is going to be updated to be k the largest value less than then we're going to compare
+
+00:11:52.800 --> 00:12:00.160
+ x to m and x is still greater than m so we're going to go right again and left is going to be
+
+00:12:00.160 --> 00:12:07.120
+ m equals 67 and you'll note that the thing we detect here is right equals zero which means
+
+00:12:07.120 --> 00:12:17.440
+ we have no value greater than x in this list so we just say x next the x current the current thing
+
+00:12:17.440 --> 00:12:25.360
+ is next is null and the current next is you know points to the x entry and then we hook it in on
+
+00:12:25.360 --> 00:12:32.240
+ the right side of the m equals 67 and then we are done so if we're going to do a replacement
+
+00:12:32.240 --> 00:12:37.920
+ remember i told you this was the easy one so and again in my mind when i was writing this code i'm
+
+00:12:37.920 --> 00:12:45.120
+ like but what if it's already there calm down that's the easy one okay so we're comparing f to h
+
+00:12:45.120 --> 00:12:49.920
+ well it's to the left we're going to keep track of right but we're not going to use them because
+
+00:12:49.920 --> 00:12:55.920
+ we're going to find it and then we have a match and then we just see it you go like oh fine f is
+
+00:12:55.920 --> 00:13:01.200
+ 16 we're done life is simple if they're equal we found it you know we don't have to keep looking
+
+00:13:01.200 --> 00:13:07.360
+ we found it we just change it and again think of how fast now how fast this works when it's the
+
+00:13:07.360 --> 00:13:12.960
+ keys already there it's like nothing to allocate no links to make you just change the value
+
+00:13:14.800 --> 00:13:24.400
+ and you're done so it's important to test all of these cases and i just went through every
+
+00:13:24.400 --> 00:13:32.320
+ single one of the cases and showed you what they're supposed to look like i will tell you
+
+00:13:32.320 --> 00:13:38.240
+ that you will make mistakes i will tell you that asking google for help as long as you read what
+
+00:13:38.240 --> 00:13:44.640
+ they say will inform you but i doubt that google is going to just give you the whole code of something
+
+00:13:44.640 --> 00:13:51.840
+ that is as intricate as this i would say a simultaneous sorted linked list and a tree at
+
+00:13:51.840 --> 00:13:57.680
+ the same time maybe it can do that because that's what you're really doing so up next
+
+00:13:58.480 --> 00:14:12.240
+ we are going to go back to the beginning and go back to python for everybody to wrap things up
+

@@ -1,0 +1,232 @@
+ [MUSIC PLAYING]
+ Can you walk us up to the inspirations and the history
+ of how perhaps ABC got so good at OO?
+ So ABC was actually not object oriented.
+ ABC had a fixed set of data types.
+ The data types were composable, like you
+ could have, say, a list of integers or a list of strings.
+ And those would share the operations on lists.
+ But there was no concept of class.
+ There was no concept of users defining classes.
+ There was no concept of subclassing,
+ either in the implementation or for the built-in types.
+ So ABC had a bunch of really convenient to use primitives.
+ They did a lot of work for you, but they weren't really OO.
+ That's correct.
+ And they insisted that there was only a single numeric type,
+ in part so that they could sort of not deal
+ with the complicated hierarchy of integers and floats
+ and rationals and sort of--
+ So then, but when you started Python,
+ you had like object orientation very front of mind,
+ not just a convenient set of primitives,
+ but a convenient set of object-based primitives.
+ Where-- did you read that in it?
+ Yeah.
+ Or did you read that somewhere else?
+ I was familiar with C++.
+ Yeah.
+ And I think that might have been the only object-oriented
+ language that I knew at the time.
+ At least, I can't think of any--
+ well, I own a big book about Simula,
+ which is sort of the granddaddy of all object-oriented
+ languages, I don't think I ever managed
+ to get my hands on a Simula compiler.
+ And I have to admit, I also only skimmed the book
+ because it was actually sort of--
+ Had you written C++ before?
+ Yes.
+ Like what kind of-- how much have you written C++?
+ Enough to invent automatic--
+ I forget what they're called.
+ The pointers that are like automatically ref counted.
+ So yeah, I forget, C++--
+ They're a standard--
+ --counting on top of C++ so that you would not
+ lose your sanity while working in C++?
+ No, because I was very familiar with ref counts.
+ Because ABC's implementation is written in C,
+ and everything uses reference counting.
+ And it works out better in ABC because there
+ are no cycles possible in the data types.
+ Because there are no mutable data types.
+ You can't have an object that contains itself or references
+ itself directly or indirectly in ABC.
+ I don't think that I sort of realized
+ all the details of why that is important.
+ And I didn't care, because pragmatically, those things
+ aren't always as important as they seem to be theoretically.
+ But anyway, I was very familiar with reference counting
+ in C and how it was used for ABC.
+ I think that that's where I learned about it.
+ And I didn't hear much about it elsewhere.
+ Then at some point when I was teaching myself C++--
+ this must have been in the mid '80s--
+ one of the things I tried was--
+ I mean, my experience with ABC and reference counts
+ in the implementation was that it was very error prone.
+ We regularly had to sort of deal with bugs in the implementation
+ where we either leaked memory or sort of crashed
+ because we had freed things early.
+ And it was always like, oh, there's
+ a missing ink ref or dec ref.
+ And of course, the missing dec ref
+ is much harder to debug because you leak a byte here
+ and you leak a byte there and nobody notices.
+ Because people didn't write large applications in ABC.
+ So anyway, someone probably put me on the idea of in C++,
+ you can override primitive operations to the extent
+ that you can build automatic reference counting.
+ And I built that for some toy application
+ and played with it and realized that it didn't work right.
+ The problem was that it was like--
+ and I probably didn't know enough C++ at the time,
+ or possibly C++ hadn't developed certain subtle mechanisms
+ like move operations.
+ It was very crude, like overloading assignment.
+ That was basically what I did.
+ And so I found that where if I had handwritten reference count
+ operations, I would sort of know, OK, this object
+ is owned here, so we pass it to some function.
+ That function doesn't have to increment the reference count
+ just because it's using that object because it's not
+ going anywhere as long as the color of that function
+ has a reference to it.
+ On the other hand, the automatic reference counting,
+ as I had implemented it using C++,
+ would say, oh, we're passing this thing as an argument
+ to a function, so increment the reference count.
+ Oh, that function returns, decrement the reference count.
+ So there was much, much, much more reference counting
+ activity and sort of that part I didn't like.
+ And so Python still does it manually
+ and is written in C, not in C++.
+ But somehow, I picked up the idea of vtables,
+ or at least arrays of pointers to functions,
+ as a handy way to implement objects.
+ And actually, initially for the first probably six months,
+ Python was not object oriented.
+ And so very few people saw that, like a handful of my coworkers
+ saw that.
+ And the implementation had this notion
+ of you can implement an object type
+ by putting a bunch of function pointers
+ and a bit of other information in a standard structure that
+ describes the type.
+ I called it a type, not an object.
+ So in a way that you were emulating C++ as a way
+ of creating perception of object oriented programming
+ without truly being an object.
+ Yeah.
+ Oh, and wait a second.
+ There is another step that I just missed.
+ So in around '88, I spent a summer as an intern at DexCirc.
+ And I talked to the designers and inventors
+ of a language named Modula 3.
+ And they were putting the last proof reading efforts
+ for the Modula 3 report.
+ But they had built a Modula 2 and 1/2 compiler.
+ They called it Modula 2 Plus.
+ And in their documentation, either the draft
+ of the Modula 3 manual or the internal Modula 2 Plus manual,
+ I learned this concept of how Modula 2 Plus and 3
+ do kind of not quite object orientation.
+ And I think they meant it as sort of a reaction
+ to how it was done in C++.
+ They said Modula 3 is not actually
+ an object oriented language.
+ But the sort of the key part of object oriented use
+ where you define a class through a bunch of functions
+ and the notation where you say object dot method
+ and then the arguments instead of function and then the object
+ and then the rest of the arguments.
+ They said if you use that notation object dot or thing
+ dot dot method paren and then arguments,
+ thing had to be something that had a type.
+ I think it was a structure type that had a bunch of function
+ pointers in it.
+ And so the method names were simply
+ fields or members of that structure in Modula 3.
+ And so to create the equivalent of a class,
+ you defined a structure that had a bunch of function pointers.
+ They were all typed.
+ So you could say this is a function
+ that takes one argument of this type and it returns blah, blah.
+ And then a bunch of those with names.
+ And the trick was if the compiler sort of noticed
+ that you were using that and then you were calling it,
+ it would say, oh, we're going to insert
+ the thing whose method you just used as the very first parameter
+ to the function.
+ This is where Python's explicit self comes from.
+ And so that is all Modula 3's design that I copied.
+ And so originally in Python, I didn't have a user level
+ notation to even do that.
+ The type system was only extensible
+ by writing a C extension.
+ Oh.
+ And so the author of--
+ The class keyword, what we think of as a class keyword,
+ was not there for a month and a half.
+ In the first probably five or six months, it wasn't there.
+ And I think we had an intern who knew C++ better
+ or who somehow had the right--
+ who knows?
+ He was younger than me.
+ And he said, hey, if you want to give users the ability
+ to define their own classes, here
+ is a hack how you could do it.
+ You add this little bit of syntax,
+ and then you map it to this structure
+ at the implementation time, and it all works.
+ And that's 5.1c.
+ And yeah.
+ And so everything else was working.
+ We had a working interpreter with a REPL, and integers,
+ and floats, and strings, and tuples, and lists,
+ and dictionaries, and functions, and types
+ that were sort of internal things.
+ I think even then you could ask for the type of an object.
+ Did you, at the time, in these first six months of Python,
+ did you feel like you were doing core research
+ on what object orientation was going to mean in the future?
+ No.
+ Or were you just--
+ I was just hacking together an implementation of a language
+ that I didn't know where it was going.
+ I obviously spent enough time on it
+ that I was hoping it would go somewhere.
+ But--
+ You didn't think of yourself as like a--
+ that you were going to someday write
+ a paper about how object orientation should be done.
+ You weren't thinking like a researcher would think.
+ Definitely not that.
+ You were just solving problems.
+ I was not a researcher.
+ I was a programmer.
+ I do not have a PhD.
+ I was employed by CWI as a programmer.
+ Do you now even think maybe that you
+ made a profound contribution?
+ You're the first person to tell me that.
+ And I'm not sure that I totally believe it.
+ I would say that the Modula 3 inventors sort of
+ made that contribution because they were much more sort
+ of researchy types, theory types.
+ They thought long and deep about all the sort
+ of theoretical and eventual repercussions
+ of designs like that.
+ And I was happy to implement something even if there were
+ edge cases where it would just not do the right thing at all,
+ like until we finally, after about a decade or so,
+ added a cyclic garbage collector to the language.
+ Python would leak memory irretrievably
+ in many situations where you had created a cycle
+ and then lost the last pointer into the cycle from outside it.
+ And it took a very long time before our users convinced us
+ that there were some edge cases where that was actually
+ a real problem and there was no good existing solution.
+ [MUSIC PLAYING]
+ (dramatic music)

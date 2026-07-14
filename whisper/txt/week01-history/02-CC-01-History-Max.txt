@@ -1,0 +1,674 @@
+ - Hello, and welcome to C Programming for Everybody.
+ This lecture is putting C in a bit of a historical context.
+ Now, if you're watching this lecture,
+ you're probably familiar with some of my other classes.
+ I just wanna kinda let you know
+ that I've been building a lot of classes.
+ Most of you probably took Python for Everybody,
+ available on Coursera, edX, and many other platforms.
+ But I have a whole series of classes that are designed,
+ what I call the path of the master programmer,
+ where I try to start people that,
+ no matter where you start,
+ I want you to be able to learn to be a really good programmer
+ and you follow along as far as you want.
+ These are all my materials.
+ They're all 100% free, open, and online.
+ And they're really aimed at teaching everybody
+ how to program.
+ I mean, I started doing this back in 2012 with Coursera.
+ And I have dedicated myself to making all my materials free
+ and to create a path that anyone can take anywhere
+ in the world, regardless of economic challenges
+ or other things in your life.
+ I want everybody to have an opportunity
+ to be a professional developer.
+ So I encourage you.
+ And frankly, if you haven't taken Python yet,
+ like my Python for Everybody class,
+ this course is going to be a little bit difficult.
+ So let's start with a history of C.
+ The book we're looking at, The Kernigan and Ritchie,
+ a C programming language by Brian W. Kernigan
+ and Dennis M. Ritchie, was published in 1978.
+ And the key thing is that it is a moment in history
+ where everything changed.
+ And so we're looking at this textbook
+ and the text in this textbook and the language itself
+ in the context of how it has impacted history.
+ The C programming language itself has a long history.
+ There was a language called B,
+ and they were using it at AT&T Abel Labs
+ to build utilities and operating system stuff.
+ But it was a little too word-oriented.
+ And so the language C was,
+ as new computer hardware came out,
+ that supported byte addressing
+ and the ability to load a string of bytes
+ and store a string of bytes rather than a set of words,
+ words being larger than a byte
+ and more than one character were packed into words,
+ and kind of like the '60s and early '70s.
+ C wanted to make a character,
+ a sort of core low-level VAP kind of data
+ that the language would happen.
+ And from like the early and mid '70s,
+ the C and Unix kind of co-evolved.
+ They wanted to build something
+ that would make Unix work well on a PDP 1120,
+ and at the same time,
+ make it so they could port Unix to other systems.
+ But really, it was about the PDP 1120's
+ cool memory architecture
+ having to do with byte addressability.
+ And what happened was is they were
+ carefully rewriting Unix in C,
+ but then fixing C, laying the groundwork
+ for Unix portability.
+ And so by 1978, this KNRC book was published.
+ And at that point, you could think of it as a summary
+ of over a decade of research in how to build
+ a portable programming language,
+ and then use that portable programming language
+ to build a portable operating system,
+ C and Unix, of course.
+ By 1989, C had become popular,
+ and there was a need to standardize it.
+ So there's a variant of C called C89.
+ That is the ANSI.
+ And then that same version was called C90,
+ is ISO, the International Organization of Standards,
+ also standardized that.
+ And so that was our first version of the C
+ that we could all agree on.
+ The ANSI did not intend to go too far away
+ from what we call KNRC,
+ but instead it just sort of nailed down a few things
+ that by then were important to nail down.
+ And C has continued to evolve
+ from sort of 1990 to the present,
+ and there's a number of major revisions.
+ But the key thing that these revisions don't do
+ in the modern version of C
+ is they do not attempt to make C
+ easy to use language, say like Python or JavaScript.
+ And then C knows its place in the panoply of languages
+ and does a good job of that.
+ So if we look at sort of what's the future,
+ C is a difficult language to use
+ as a general purpose language.
+ Python is a great general purpose language,
+ but it's not a great systems programming language.
+ And the two things that are missing from C
+ are the lack of really solid dynamic memory support
+ in the core types and libraries.
+ And then there is no safe string type.
+ Strings are not, there's no string in C,
+ it's character arrays, and arrays have sizes.
+ And if you start putting stuff
+ beyond the boundary of that array, things just blow up.
+ And C++ is, to me, not the sort of future version of C.
+ It's really a more powerful, intricate,
+ and flexible version of C for programmers
+ who are doing really professional,
+ intricate systems applications.
+ Writing good C++ in some ways
+ is more difficult than writing good C.
+ The languages that sort of take on C's mantle
+ in the general purpose are things like Java,
+ JavaScript, C#, or Python.
+ The key thing with these languages
+ is they don't give you sort of strings
+ as just raw byte arrays.
+ And they give us a simple object-oriented layer
+ that keeps us away from the metal.
+ The goal of C is to get close to the hardware,
+ close to the metal.
+ And so Java, JavaScript, C#, Python
+ are all great languages,
+ and they're great for what we use them for.
+ They're just not well suited
+ for writing an operating system kernel.
+ The most likely language that is like C,
+ like the next C, is probably Rust.
+ The idea of Rust is that it stays close to the metal,
+ but then gives us some simple and safe core data types.
+ And recently, Linux is starting to accept some Rust in Linux.
+ And so that means that Rust has to be mature.
+ It means that Rust can't be evolving rapidly.
+ I've seen situations where operating systems
+ like macOS decide to depend on Python.
+ So there's parts of macOS that depend on Python 2,
+ but then they can't really upgrade to Python 2
+ because of their operating system, blah, blah, blah.
+ So for an operating system to depend
+ on a programming language like Rust,
+ it really has to be mature and,
+ even more importantly, stable.
+ You can't have clever innovations
+ in the programming language causing regressions
+ in an operating system, say like Linux.
+ So look for Rust.
+ Now, C has been around a long time.
+ Before C, we'll call C starting in '72,
+ the book is published in '78.
+ Before C, most of us would write a semilanguage or Fortran.
+ Some people wrote PL/1 that's not on here.
+ Fortran is not really a general purpose programming language.
+ You wouldn't write a command like cat in Fortran.
+ Fortran was really for scientific computations.
+ And the earliest of computers in the '50s, '60s
+ were either sort of really specialized
+ toward like payroll and HR systems,
+ or they were really specialized to doing computations.
+ And the ones that specialized were the science ones
+ were used Fortran 'cause it was just the right language
+ for those computers that were aimed
+ at doing scientific calculations.
+ C as a language was kind of none of the above
+ in that it was aimed at writing system code, a kernel,
+ an operating system, and the utilities around it,
+ including like other languages.
+ And so C is kind of the mother tongue
+ of all kinds of other derivative languages.
+ And things like the Bash shell, Perl, Python, PHP,
+ C++, JavaScript, Java, and C# and Objective-C
+ just kind of were derivatives of this beginning of C.
+ And that's why you see a lot of patterns
+ in these other languages that are similar.
+ And that's because JavaScript and Java
+ both inherited their for loop syntax from C.
+ So I've got a couple of videos in this section.
+ This is Brian Kernigan talking about
+ the C programming language and it's a short video.
+ I didn't produce this video, but it's a great little video.
+ Another video is from the creator of C++, Bjorn Stroestrup.
+ This was an interview that I did
+ with IEEE Computer Magazine.
+ On top of this history of the C language,
+ we can look at a brief history of computers.
+ And I have a whole course
+ called Internet History, Technology, and Security
+ that really starts in the 1940s
+ with a focus more on communication rather than computation,
+ even though communication and computation
+ were very much connected throughout the 40s
+ through even today.
+ In the early 1950s, computers were,
+ you best think of them as like
+ a multimillion dollar strategic asset.
+ Every single computer.
+ And a lot of them were custom built.
+ The first computer at Michigan State University
+ where I went to undergrad was built
+ by the electrical engineering students of that university
+ based on some designs that they borrowed, I think,
+ from Iowa.
+ And so things like the programming language,
+ the operating system,
+ you didn't have a lot of generalization.
+ You didn't have a lot of sharing.
+ You tended to write code and put it on a paper tape,
+ or later a magnetic tape, and load it and run it.
+ And so you were just pretty happy if the code worked.
+ You didn't need an operating system.
+ These weren't multiprocessing computers.
+ And so the software environment was very minimalist.
+ But in the late '50s and early '60s,
+ you saw companies like IBM
+ and Digital Equipment Corporation
+ began selling general purpose computers.
+ They just couldn't make them.
+ And they started selling them.
+ And they still were expensive,
+ and they were only in like,
+ a business would have a couple of computers
+ to help them do payroll, perhaps, or something like that.
+ Something that was really, really important
+ 'cause the computers were expensive.
+ But in the '60s,
+ there, we really got to the point
+ where the computer componentry, the chips, et cetera,
+ were becoming commodities.
+ You could just go to a place and buy chips.
+ And then you could make a computer
+ by buying a bunch of chips
+ and putting those things together.
+ And because you weren't building everything from scratch,
+ the cost got a lot lower.
+ The other thing that these less expensive computers were
+ is they were a little slower.
+ But by the end of the 1960s, there was a lot of computers.
+ There were some super expensive, weird, one-off,
+ small production computers.
+ There were computers that had,
+ there was like the previous generation of mini-computer
+ where there were lots of them
+ laying around old computer science departments
+ or businesses that they weren't sure
+ what they did to do with them.
+ They wanted to buy a new one.
+ And then there were just innovative,
+ new, low-cost computers coming out.
+ And in the '70s, in this milieu of just lots
+ of new and old computer hardware,
+ the question was is there a way we can do things
+ with all of this old hardware?
+ And is there sort of one solution?
+ And that's where Unix NC came.
+ And certainly after the '70s, we look at the '80s,
+ and that's where microprocessors and personal computers.
+ And so we went from computers
+ that were sizes of refrigerators or desks
+ to the size of a computer could be on a single chip.
+ And in the beginning, those personal computers
+ like the IBM PC or Commodore PET,
+ they had really bad performance, but that performance,
+ once you could get everything on a single chip,
+ that performance could get faster very quickly.
+ And because personal computers became a mass market item,
+ a lot of money could be invested in personal computers.
+ By the 1990s, personal computers continued to grow, right?
+ And, but the need to communicate and talk
+ and exchange information became important.
+ And so in the 1990s, we saw really an increasing focus
+ on connecting computers with the internet
+ and other kinds of networks.
+ And the performance of these computers
+ and the price kept going down, the performance kept going up.
+ And then by the time we get to the 2000s,
+ Amazon's AWS was founded in 2002,
+ and it used personal computer microprocessors
+ like from Intel and produced computing as a commodity, right?
+ And so, and you don't even buy computers anymore.
+ You just go to Amazon and say,
+ I'll rent a computer for $7 a month.
+ And so we see in 1978, we see this moment
+ where the computers were becoming more common,
+ they're going down in price,
+ and there's getting to be more and more of them.
+ And there was a diversity of computers.
+ These days, there's actually less diversity.
+ If we go back in history,
+ and you take a look at my internet history class,
+ you can see the, I go to Bletchley Park
+ and show you some of the earliest computations
+ from the 1940s and World War II.
+ We go to Computer History Museum in California
+ and visit with Gordon Bell and talk about the PDP-1.
+ And he talks a lot about buying the components
+ and putting the components together
+ and how sort of the mass availability
+ of relatively low-cost components really allowed
+ for a rapid innovation in computer architecture.
+ A computer that I used in my computer science degree
+ was the Control Data CDC 6500.
+ And I have a video where we visit
+ the Living Computer Museum in Seattle, Washington,
+ and hear card readers work and card punches.
+ And if we ever get to the point
+ where everything opens back up again,
+ it's a tremendous visit to go see all the technology
+ that really through the years,
+ except that in the Living Computer Museum,
+ they like to have everything running.
+ And then you can take a look at a more modern,
+ smaller Raspberry Pi,
+ which the Raspberry Pi is actually not an Intel-based system.
+ The Raspberry Pi is based on ARM,
+ the processor that really became popular
+ as a result of the cell phone revolution.
+ And so the Raspberry Pi is to take
+ what the technology was advanced,
+ both low-power and high-performance technology
+ that was advanced because of mobile phone innovations.
+ The Raspberry Pi came out
+ and was a good single-board computer.
+ So let's take a look at the operating system.
+ Unix is the operating system that is connected with C.
+ In the 1960s, there was a multi-user operating system
+ called Multics.
+ And then in the 1970s,
+ they wanted to come up with yet another operating system,
+ and they eventually called it Unix,
+ and the DEC PDP1120,
+ which was one of these new commodity part-based computers
+ that was coming into the marketplace.
+ And so in 1973, Unix was rewritten in C,
+ but it only was there on the PDP11,
+ although they had laid the groundwork for portability
+ from the beginning.
+ They knew they wanted to have everything be portable.
+ They just couldn't make it all portable.
+ The first version,
+ they just had to make it run on the PDP11.
+ And then by 1978, the Unix,
+ the second computer that Unix had run on
+ was an Interdata 832,
+ and that was quite a different computer.
+ And so it was good.
+ And so they really learned a lot about making Unix
+ a portable bit of software.
+ In the early 1970s, C was evolving in a way
+ so that the Unix could be ported, right?
+ So it's like, let's,
+ we got this problem between, let's just say,
+ the PDP11 and the Interdata.
+ And how can we fix this?
+ And we can both change how the operating system works.
+ We can change the operating system code,
+ and we can change the C compiler,
+ and then we can rewrite the operating system code
+ to get less and less assembly language
+ and more and more C language.
+ And so the idea was to get to the point
+ where there was a very, very small amount
+ of assembly language in Unix.
+ And over the years, that's gotten lower and lower.
+ Unix was rewritten.
+ A number of versions came out in the '70s,
+ having to do with their portability.
+ So by 1978, the Unix version 7 could also run
+ on a whole new architecture from DEC called the VAX systems.
+ University of California, Berkeley
+ had their own distribution of Unix called BSD,
+ the Berkeley Software Distribution.
+ And that was really cool
+ because universities often pushed things like networking,
+ TCP/IP, ARPANET.
+ BSD Unix was the first place some of us saw TCP/IP.
+ 1982, a company based solely on Unix
+ called Sun Microsystems was found.
+ Sun was some work at Stanford, some work at Berkeley,
+ all based on Unix, and they created
+ what in effect was the Unix Workstation Marketplace.
+ At this point, you could imagine that the world was about
+ to just adopt Unix.
+ Unix was the greatest thing ever.
+ Computer science departments were teaching Unix
+ in their operating systems classes in the mid '80s.
+ The problem became AT&T had never come up really
+ with a business plan for what the purpose of Unix was,
+ and so there was some fits and starts
+ as to how they could monetize this extremely popular thing.
+ And they didn't do a great job,
+ and it took them a long time to figure out
+ what was going to be successful.
+ And by the time AT&T sort of figured things out,
+ the market had moved on.
+ And so Minix is an operating system
+ that was developed in the Netherlands by Andrew Tannenbaum,
+ and he built a completely free
+ and open source operating system
+ that was used for education.
+ He built a textbook around it, and it was very popular.
+ But he didn't want commercialization,
+ at least not at that point in time,
+ so he sort of held onto it too tightly.
+ Again, kind of an intellectual property mistake.
+ And in 1991, a program called Linus Torvalds decided
+ he was going to build a fresh ground-up implementation
+ of the Unix kernel that was 100% free.
+ So he wasn't going to use Unix.
+ He wasn't going to use Minix.
+ He wanted to create another thing.
+ And originally, it was just like a hobby.
+ I'm going to try to see how far I can go.
+ By 1992, Linux started to work,
+ and it adopted this license called the GPL,
+ which is called the GNU Public Library License,
+ which is a strongly open source license
+ in the way that it's difficult
+ to take Linux out of open source,
+ which meant that people could then invest in Linux.
+ And so Linux has become Unix, right?
+ Linux in the modern world is the Unix-like system.
+ And Unix tried to hold on for a while,
+ but they really, really couldn't.
+ And so the remaining Unix distributions
+ are a tiny, tiny fraction of the marketplace,
+ and Linux is the marketplace.
+ So we can see some of this in some of the videos
+ that I've got, like Andrew Tannenbaum
+ will tell us the story of how Minix was created
+ and how Minix kind of begat Linux,
+ and so that there's some interesting stuff here, okay?
+ So I'll lay on top of all this.
+ Remember that 1978 is this moment in history
+ where I claim like everything changed.
+ Now I've been a computer scientist for a very long time.
+ I started in 1975.
+ And in 1975, I learned things like Fortran on a computer,
+ that CDC 6500 computer.
+ It ran a special operating system called Scope Hustler.
+ I knew how to do assembly, I knew Fortran,
+ and even Pascal.
+ So Pascal in the '70s was one of these languages that,
+ and I've got a video for Pascal as well,
+ one of these languages that was sort of like saying,
+ "Look, here's the future."
+ Now Pascal was really aimed at teaching,
+ and so I used Pascal in educational context.
+ And as I became a professional programmer in the 1980s,
+ I was using a bunch of stuff.
+ Assembly language, COBOL, a little bit of Unix and C here.
+ It wasn't like by the early '80s, Unix was everywhere,
+ at least not in the professional world,
+ because the PC revolution was happening.
+ So we had DOS, we had early Windows versions.
+ I used things like DBase and Turbo Pascal.
+ I taught classes of the IBM 360,
+ and I taught assembly language.
+ I used the DECVAX, and I used the VMS, not Unix operating
+ system and Fortran.
+ And I also then taught in the mid '80s on an AT&T Western,
+ I think it's called, a GE AT&T 3B2.
+ I taught Unix, I taught C, and I taught Fortran.
+ And so even though we can trace back to like 1978
+ is the moment that everything changed,
+ it's not like the market changed.
+ The thing that happened in the 1990s though,
+ is that all these older computers and the older computers,
+ vendors like Burrows and Unisys and IBM and Cray
+ and Control Data, as microprocessor speeds increased,
+ all these little companies would create Unix workstations
+ that were faster and faster and faster.
+ And because they could build new hardware that was fast
+ and then grab the Unix operating system
+ and make their operating system work on their new hardware,
+ it allowed for some amazing innovation.
+ So I was using Sun, Ardent, Stellar, these are all gone now.
+ IBM RS6000, Convex C2400, I had a Next on my desk,
+ I use C, but TCP/IP, Windows, HTTP, the web, you know,
+ and Windows and Mac OS were all kind of in the mix.
+ But the innovation was really happening most rapidly
+ in the Unix space.
+ But by the 2000s, everything that I touched
+ really had some aspect, I'm not a Windows person,
+ so everything I touched had some aspect of Unix in it.
+ Mac OS still has Unix in it, Linux and my languages
+ are sort of narrowing back down to Java, PHP and JavaScript.
+ And then in 2010s, right?
+ Linux, Mac OS, Python, PHP, JavaScript.
+ So things really have settled into a world
+ that my own software development,
+ where I'm pretty much using Unix-like systems all the time
+ and C-based or C-derived languages,
+ 'cause Python, Java, PHP and JavaScript are all based on C.
+ And that's why it's so important to understand C.
+ I'm not writing C as a professional in any way,
+ but I am using all my C knowledge every single day.
+ And so that's sort of a picture of me in my office,
+ that's an IBM PS/2 in my office.
+ I was registering in 1989,
+ I was registering with punch cards.
+ When I first started, I was using a line printer
+ and punch cards and so there's my history.
+ Now, I think it's important to acknowledge
+ that as I've shown you all these history documents
+ and the videos and the oral histories that I've done,
+ is there is a preponderance of old white males in here.
+ And I think that it is important to talk a bit about that
+ and why that is perhaps.
+ And so I would encourage you to take a look at an article,
+ so NPR article, it's actually, you can listen to it,
+ about what happened to computer science.
+ The title of the article is "When Women Stop Coding."
+ All the way up to 1980,
+ computer science was just another field.
+ And then it kept going up to sort of 1985,
+ but then it went down and so all these other fields
+ have a pretty good gender mix
+ and the computer science does not have a gender mix.
+ And so I would encourage you to listen to this article.
+ Another area that you can learn something about,
+ the diversity in computer science is this book
+ by Jane Margolis called "Unlocking the Clubhouse."
+ The essence of the book is really talking
+ about how social pressure, advertising pressure
+ in the early '80s made it seem
+ as though computing was a guy thing.
+ And in particular, it made it so that young men,
+ even in high school,
+ would go fiddle around with computers as a hobby.
+ And by the time they got to college, they were pretty skilled.
+ And if you weren't skilled, the college classes were designed
+ for people who already knew what programming was.
+ And if you were a woman and you hadn't played with computers
+ in 1980, when you were like 14 years old,
+ you came to college at a distinct disadvantage.
+ And this is what led to this fall off
+ where colleges tended to teach to programmers
+ who already knew how to program.
+ And that really meant that the hobbyists,
+ people who were in their youth before they went to college
+ and played with programming as a hobby
+ had a tremendous advantage.
+ Now, Jane did her work in the '80s, late '80s and '90s.
+ I myself am older than that.
+ And I think that to some degree,
+ this notion of the social pressure
+ that said that computing was really for young men
+ and not young woman, it's actually as much a symptom
+ as it is the cause.
+ Because I grew up in a time in the mid '70s
+ where there were women everywhere.
+ And this is a person who had a really large impact
+ in my life, her name is Helen Spence.
+ She was a professor at Michigan State University
+ and I show you a URL to look at her oral history.
+ She taught me operating systems.
+ So in 1977 or 1978, I don't remember when,
+ Helen was my operating systems teacher.
+ The interesting thing about how Helen taught
+ operating systems was she made it fun.
+ It was really fun.
+ I encountered my first auto grader in Helen's class.
+ She had made a piece of software
+ that she called the HMS 5050,
+ which itself is both Helen Spence
+ and I think it's Her Majesty's ship at the same time.
+ And what she did was she built a operating system simulator
+ in Fortran and our job as taking the class
+ was to build functions and subroutines
+ that would implement the tasks and the algorithms
+ that operating systems need to do.
+ So you'd run your program over and over and over again
+ until you had written a successful operating system
+ and she wrote a auto grader that would do things
+ to your program and then measure whether or not
+ you knew how to build an operating system.
+ It was just a natural thing to have females
+ as faculty members and there was a lot more fun
+ in the field and I have my own theories
+ that I think compliment Jane's theories as well
+ but I'll leave it here that that's a TED talk
+ for another day as to gender and computing.
+ Right now I'm just acknowledging it
+ and giving you some resources to read
+ and reach your own conclusions.
+ If you look at everything I've done since 2012
+ in the free online education in MOOC space,
+ you'll notice that every course I've ever created
+ has the words for everybody
+ and that's not just a marketing thing,
+ that's because it's my philosophy.
+ If you've taken some of my classes like Python
+ for everybody or Django for everybody,
+ web applications for everybody, Postgres for everybody
+ and now C programming for everybody,
+ I try to build a course where I spend time
+ thinking about how not to create the clubhouse
+ that Jane talks about and that is I want you in the club,
+ I want everybody in the club,
+ I don't want it just to be a club for the super geniuses
+ and so part of why I'm building an entire curriculum
+ is to perhaps just make a new club
+ and that is programming for everybody club
+ and I think once you become a great programmer,
+ I think that's a good time to study computer science
+ and so perhaps after we teach everybody programming,
+ then we can teach everybody computer science
+ but again, that's a TED talk for another day.
+ So on to the course, C programming for everybody.
+ I'll just say that C is the most important
+ programming language you're going to ever learn.
+ It should never be the first programming language
+ taught to any students.
+ You will likely never write a line of C
+ in a professional context in your career.
+ I'm not teaching you C so that you can go
+ be a professional C programmer.
+ I'm teaching you C so you can be
+ a professional Java programmer really
+ but if you learn C at the right time
+ in your learning journey,
+ it's a necessary step on the path
+ to becoming a master programmer
+ but it's an important step
+ 'cause I can't teach you Java
+ if I hadn't already taught you C.
+ I have to explain how Java works
+ in terms of what you're going to learn in this class.
+ So this class is not just like get a C certificate
+ and go make lots of money
+ 'cause I don't think that this certificate's
+ going to make you a lot of money
+ but I do think this certificate is going to unlock
+ the future of you as a programmer.
+ So please be patient with this material.
+ Do not rush.
+ It's an online class.
+ I guarantee that you can search for solutions
+ to every programming exercise that I create.
+ I don't change them that much
+ so the solutions are out there
+ and if your goal is to game it
+ and just search for solutions to programming,
+ go ahead, finish the class.
+ Congratulations.
+ But you have just taken the opportunity
+ to learn from yourself, right?
+ You didn't trick me.
+ I didn't lose anything by you searching for
+ and just pasting in solutions to programs.
+ Each exercise from beginning to end
+ is trying to take you a little tiny step further
+ down your understanding.
+ And the easy exercises in the beginning,
+ even if I have a bunch of them,
+ they're there to prepare and strengthen you
+ for something much more challenging in the course.
+ If you start pasting in solutions
+ in the beginning of the course,
+ you have no chance in the end of the course
+ and you're just gonna be pasting in solutions
+ and when you do that, you'll have only wasted your time.
+ So, I look forward to you taking the rest of this course.
+ Of course, I look forward to you telling me
+ if I'm right in my instinct
+ about how important this is for you,
+ especially after you take a few more classes
+ and then find your way to being a professional.
+ (gentle music)
+ (gentle music)

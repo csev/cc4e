@@ -1,0 +1,302 @@
+ - Hello, and welcome to chapter one of Kernigan and Ritchie.
+ My name's Charles Severance, and of course,
+ I'm your professor for this course that's about history.
+ So, welcome to this course.
+ It's really part of a learning path.
+ I don't think that C should be your first programming language,
+ and I don't think it should be your last programming language.
+ I have a whole series of courses
+ that are all free and available online,
+ both just on the web, on places like Free Code Camp,
+ in Coursera, and edX, and the place that you're at
+ in my learning path that you're at right now is C programming,
+ and we're not learning C programming to learn C programming,
+ we're learning C programming to take a historical look
+ at how computers work and lead into computer architecture.
+ I'm not trying to teach you coding in C,
+ but I am going to explain how computers work
+ and things like how Java works using C
+ as kind of like the,
+ it just gives me a way to explain Java to you.
+ So, the outline of the textbook
+ is a pretty typical computer science textbook
+ where it starts off easy and then,
+ whoa, everything goes pretty crazy.
+ So chapters one through four,
+ and we're on chapter one right now,
+ is mostly syntax, and it's just another programming language,
+ and especially if you know a little bit of Java
+ or a little bit of PHP or a little bit of JavaScript,
+ some of that syntax is gonna be like,
+ whoa, of course this is familiar,
+ and the answer is, well, that's because
+ all those languages came from C.
+ So it kind of feels like just another programming language
+ except that arrays are not lists,
+ and character arrays are not strings,
+ and character arrays kind of look like strings,
+ but they don't work like strings,
+ and you can get in all kinds of trouble.
+ But other than that, once you sort of stop worrying
+ about how long things are, pretend it's okay,
+ which is dangerous, of course, when you write code.
+ Chapters one through four feel a lot like
+ you're just any other programming language,
+ but then chapters five and six
+ are the valuable chapters of this book,
+ but they also become a lot more difficult.
+ So don't give chapters one through four a short shrift
+ because five and six are gonna just go, woo.
+ And then seven and eight is just sort of filling in detail,
+ and seven and eight are not so critical.
+ It just kind of fills in all the gaps.
+ So that's the outline of the book.
+ Just expect that one through four is gonna be smooth,
+ and then five and six are gonna be like,
+ now we're really getting somewhere, okay?
+ So looking at chapter one, again,
+ chapters, sections one through one, five,
+ looks not that different than any other programming language
+ that you've learned.
+ It's chapter one, section 1.6 is arrays.
+ Eostatic allocation, arrays, you have to know
+ how big they are when you declare them,
+ and you can't resize them until chapter five,
+ at which point we'll start talking about
+ dynamic memory and pointers and resizing.
+ Chapter 1.7 and 1.8, functions and parameters,
+ and it's all call by value in this early phase.
+ Call by reference is in chapter five,
+ 'cause we need to know about pointers
+ before we talk about chapter five,
+ even though they use a little pointer syntax
+ here and there in chapter one.
+ And section 1.9 is character arrays,
+ read this one closely,
+ because there is no string object in C.
+ There's no objects at all in C.
+ And in section 1.10, they talk about variable scoping
+ between functions, and that feels kind of similar
+ to other languages, and part of it is because
+ other languages took their inspiration from C.
+ So if we just take a quick look at C character arrays,
+ we must understand that the size of the character array
+ is at allocation time, and there is nothing auto-extended.
+ And if you write a for loop that goes off the end
+ of the loop, like I've got, where I have a character array
+ that's 10 long, and I write a loop that goes up to 1,000,
+ storing data in it, eventually the program will blow up,
+ and you can see, in Python, you just add characters,
+ whereas in C, if you add characters
+ beyond what was allocated, the system blows up.
+ And you probably heard me say more than once
+ that the C language is probably responsible
+ for 90% of the significant security holes
+ in all of computing, and this kind of code,
+ where you allocate an array and then you wildly go beyond it,
+ ends up making it so that people can inject things
+ into operating systems and routers and all kinds of things.
+ So this is why we don't use C to write programs.
+ I mean, here we are in the first page.
+ The example one of chapter one is why we don't write C
+ very often, or if we do, we have to be really careful
+ at reviewing it and making sure that it's right.
+ It's really fast, but it's also dangerous.
+ String constants and character constants.
+ Strings and characters in most languages,
+ Java's a little different, but PHP, Python, and JavaScript
+ treat single and double quotes roughly the same,
+ and they create string constants,
+ and that's a multi-character thing that has a length.
+ C doesn't have a multi-character thing, has a length.
+ It has an array of characters.
+ It has a zero character at the end of it.
+ In C, single quotes are a single character,
+ and double quotes are a character array.
+ So a single, a double quote with one character in it
+ is actually two bytes, 'cause it's the character
+ and the string ending.
+ Whereas in Python, a string has a length.
+ It doesn't really have an ending character.
+ There's a special character that we use for an ending.
+ In C, a character is a byte, which is a short integer,
+ usually eight bits in most computers,
+ and so we, you gotta be real careful.
+ You got double quote things and single quote things,
+ and single quote things in C are far more like integers
+ and far less like strings, and so in Python,
+ you just use them interchangeably,
+ single quotes and double quotes.
+ Character sets.
+ The char in C is like a number.
+ It's a tiny number.
+ It's eight bits long, so you can go from zero to 255,
+ and the character representations depend
+ on the character set, but quite often, they're ASCII,
+ and so you can just go look up an ASCII chart
+ and figure out what the numeric representation
+ of the letter A is, and in Python,
+ we can actually see the ordinal position of A
+ by using the ord function, but that's the ord function
+ of a single character string, which pulls the ord
+ of the very first character, and we find that it's 65,
+ and if you look up in the ASCII chart, it's 65,
+ but in Python, Python 3, Python 3 are multi-byte characters
+ that represent Unicode, and Unicode is much larger
+ than eight bits.
+ I think Unicode is 32 bits.
+ UTF-8 is a way to represent Unicode,
+ and Unicode is a 32-bit character set,
+ and so if you say what is the integer equivalent
+ of the character smiley face, you see that it's 128,522,
+ and that's in a space of 32-bit, it's a 32-bit integer,
+ and that's the character point within that 32-bit integer
+ that represents smiley face.
+ In C, there is no smiley face.
+ You can't represent, well, unless you put a bunch
+ of libraries into it, but the norm out of the box C
+ can't represent a smiley face.
+ It can represent an uppercase A, and you can say
+ what is the A, and you'll notice we're printing it out
+ with a percent C and a percent D, and it's the same thing.
+ If you print a character out as a character, it's an A,
+ and if you print it out as an integer, it's an A.
+ We don't even need an ord function,
+ because character constants are really integer constants
+ in the ASCII character set, okay?
+ Just understand that.
+ Every time you see single quote A, single quote,
+ think of it as an integer, as a number that happens
+ to be conveniently looked up for you by the C compiler.
+ And you can take a look at the ASCII character set,
+ and you can go look at uppercase A, and you see
+ that its decimal equivalent is 65.
+ You also see in this table that its hexadecimal is 41,
+ and its octal is 101, and its binary, its actual bits
+ are one bunch of zeros and a one.
+ Now the reason we like octal and hex, as programmers,
+ is it's easier to convert directly one without having,
+ converting from decimal requires like divisions
+ and modulo and stuff like that, but converting from octal
+ or hex to binary is direct on a digit by digit basis.
+ So I can convert an octal digit to a binary,
+ set of binary digits just by looking at each digit
+ in succession, so when we're printing out
+ and we want to be able to understand
+ what the raw bit pattern is of some data,
+ we tend to print it out in hex or in octal
+ so that we can quickly figure out
+ what bits are set inside that value.
+ Strings in C are not strings, they're arrays of characters,
+ and there is no length, so you can ask Python
+ what the length of a string is,
+ and the string knows its length.
+ But in C, you can ask what the length of a string is,
+ but it turns into a for loop that scans
+ until it finds the end of the string,
+ and the end of the string is a special character,
+ which is, quote, backslash zero, quote, which is zero.
+ I mean, it's literally the integer zero,
+ so you have characters that are non-zero,
+ and then you have a zero character,
+ and the length is how many characters are in this array
+ up to the end.
+ Now, that is different than the allocation,
+ so you can have, in this case, I have an example
+ of a six character array, and I put six things in it.
+ It's all full.
+ I could have terminated it,
+ like you notice I say x sub three equals zero.
+ It's no, it's still got six characters in the array,
+ but now the end of the string in that array,
+ or the end of the character sequence in that array,
+ has a zero at position sub three,
+ and of course, arrays start at zero,
+ so you see the first three characters,
+ and the third one is an end,
+ and that stops it to print out,
+ and so you gotta A, allocate
+ for the end of the character string,
+ and you B, you've gotta have it there.
+ Just because it goes up to six,
+ if you don't have the end of the string,
+ it's gonna go off and randomly go through memory
+ until it blows up, probably, right?
+ And so strings must be terminated.
+ If you append something to a string,
+ first you have to have enough space in that string.
+ If you append something to a character array,
+ you have to have enough space,
+ and then if you overwrite the end of the string,
+ you gotta add another little mark to say,
+ now the end of the string has been moved.
+ So terminating a string is a thing
+ that you always gotta think about,
+ both when you're scanning through a string,
+ and when you're creating a new string.
+ Like I said, the C string length is only computable
+ by a loop that scans for a zero character.
+ So there's a strlen function in string.h
+ that computes the string,
+ but it's very, very different
+ than the len function in Python.
+ Len function in Python, x is an object,
+ and length is an attribute of that object.
+ Whereas in C, there is an array,
+ and it has a length, and it has a zero position,
+ but to ask how long is it,
+ you've gotta actually loop through all the characters
+ looking for the zero marker.
+ So you kinda can find a length of a character,
+ a length of a string,
+ the length of a quote unquote string in C,
+ but you gotta write a for loop to do it.
+ You don't have to write a for loop,
+ 'cause Python just knows the length.
+ Later we'll bring all these things together, much later.
+ So one of your assignments, exercise 117,
+ is reversing a string in C
+ without requiring any information, an extra string.
+ You can't, you have a string,
+ it's got a certain amount of space,
+ and you've gotta just flip.
+ You gotta swap the characters.
+ You're gonna probably have to draw a picture to do that.
+ It is exercise 117, and I'm gonna tell you, do not cheat.
+ There are probably a million solutions
+ out there on the internet.
+ ChetGPT will tell you how to do it.
+ Don't be tempted.
+ As you do this, you will get there.
+ I show you a blurred out version of it.
+ It's not all that much code.
+ So don't shortcut this.
+ Don't just, the solution,
+ getting the solution to this assignment
+ without actually doing it
+ is the meanest thing you'll ever do to yourself.
+ You have to do the reversal in place.
+ It's a classic interview question.
+ At the interview, you don't get to go to ChetGPT.
+ You gotta think about even length strings,
+ odd length strings, empty strings,
+ and single character strings.
+ You're gonna have to draw some pictures.
+ Take your time.
+ Enjoy this assignment.
+ Seriously.
+ It's not that big.
+ And when you get it done,
+ you can be very, very proud of yourself
+ that you really thought through the low-level storage
+ of what an array of characters
+ with an ending marker is working with.
+ And so that's why it's such a good interview question.
+ So there we go.
+ That's kinda my call-outs from chapter one.
+ Give you an overall sense of the book,
+ see character arrays,
+ and encouraging you to actually do your homework
+ even though there's a million ways to get it done for you.
+ Cheers.
+ (gentle music)

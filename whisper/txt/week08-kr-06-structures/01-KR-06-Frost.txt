@@ -1,0 +1,89 @@
+ - So hello, welcome to chapter six.
+ In this chapter we talk about structures, but so much more.
+ There is a mid-chapter surprise in this book,
+ and I am sure that it's so surprising that it's caused
+ a few too many people to drop out of computer science,
+ first computer science course.
+ And that's because in sections 6.1 through 6.4,
+ we're learning the C language.
+ And we're learning just what a structure is.
+ It's a simple, beautiful, elegant concept.
+ It's sort of a wrapper for a whole bunch of types.
+ It groups them together so that you can create a new type.
+ And it really at this point is the last foundational
+ component of the core C languages, core C language.
+ And then in section 6.5, the authors pivot
+ to talking about data structures.
+ And that is the applications of C structures.
+ And it's the foundational notion in computer science.
+ It's the kind of thing where how do you build
+ a Python dictionary in C.
+ And so this is a pattern we call the knee of the curve,
+ where things are going along just fine up to 6.4.
+ Like, oh, here's a for loop, and here's a string,
+ and here's an array.
+ And here's even a pointer that's not that hard.
+ And structures are not that hard.
+ But then when we start talking about applications
+ of structures, what we call data structures.
+ Structures was named because data structures was a concept.
+ But how we use structures is a next level thing.
+ We're kind of leveling up.
+ So I want you, starting from here,
+ chapter six is the last real chapter that I'm gonna cover.
+ But it is expanding, 'cause chapter six is the beginning
+ of a whole additional course, a course on data structures.
+ So I want you, if you're rushing, I want you to slow down.
+ I want you to take your time and understand.
+ Because if you understand this, you can literally,
+ you have a doorway into a lot of computer science.
+ We'll talk about recursion even by the end.
+ And so just don't rush.
+ Work on mastery.
+ These are complex concepts.
+ They are not natural to understand.
+ And so before we start, I wanna do something different.
+ I wanna read you a poem.
+ One of my favorite poems from Robert Frost.
+ I was lucky enough, fortunate enough to be a good friend
+ of Bob Frost, who was a grandson of Robert Frost.
+ Bob Frost had a connection to the University of Michigan.
+ Robert Frost has a Michigan
+ and University of Michigan connection.
+ And I loved this poem that I'm about to read you
+ long before I met Bob Frost, the grandson of Robert Frost.
+ So the poem that I talk a lot about,
+ and really it's one line, miles to go before I sleep.
+ This is the poem called Stopping by the Woods
+ on a Snowy Evening.
+ And to me, it speaks of the notion
+ that journeys are not short nor easy, and it's okay.
+ Except that.
+ So here we go.
+ Dr. Chuck in poetry.
+ Whose woods these are, I think I know.
+ His house is in the village though.
+ He will not see me stopping here to watch his woods
+ fill up with snow.
+ My little horse must think it queer
+ to stop without a farmhouse near,
+ between the woods and frozen lake,
+ the darkest evening of the year.
+ He gives his harness bells a shake
+ to ask if there is some mistake.
+ The only other sounds the sweep
+ of easy wind and downy flake.
+ The woods are lovely, dark, and deep,
+ but I have promises to keep,
+ and miles to go before I sleep,
+ and miles to go before I sleep.
+ So the essence of this is that you have come a long way
+ to get to 6.4 in this book,
+ and it may feel like you've gone long enough,
+ and you should just pat yourself on the back,
+ but after 6.4, there are miles to go before I sleep.
+ But the good news is, when you're done, you can relax.
+ So what I want you to do is take your time,
+ things get much more complex really fast going forward,
+ and I don't want to lose you.
+ (gentle piano music)

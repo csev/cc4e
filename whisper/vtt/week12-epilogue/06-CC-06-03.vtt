@@ -1,0 +1,386 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.400
+ So now I want to talk to you about the Python 1.0 dictionary as built by Guido back in 1989-1991.
+
+00:00:06.400 --> 00:00:14.000
+ And this sample code is available under /code and it's the epilogue code and it's p1dict.c.
+
+00:00:14.000 --> 00:00:23.440
+ So the key thing is is that instead of reading the C programming book and KNR in chapter 6,
+
+00:00:24.400 --> 00:00:33.120
+ Guido van Rossum was reading page 518 of a much earlier document which is more about pure data
+
+00:00:33.120 --> 00:00:39.040
+ structures and algorithms. And so this was kind of like our bible on how to write good fast code
+
+00:00:39.040 --> 00:00:44.240
+ and this was our bible on how to write sophisticated algorithms. So Guido found this
+
+00:00:44.240 --> 00:00:48.560
+ and he decided he didn't want to make linked lists and that's partly because of his experience in
+
+00:00:48.560 --> 00:00:56.640
+ ABC. And so this is open hashing using an array. So this is an array based hash concept and in the
+
+00:00:56.640 --> 00:01:03.200
+ bucket styles there's an array of hash link lists and so this is an array that actually
+
+00:01:03.200 --> 00:01:07.760
+ everything is stored in the array rather than a pointer to things that are outside the array.
+
+00:01:07.760 --> 00:01:15.120
+ The key in open addressing is how you probe and find open slots when your initial hash
+
+00:01:15.120 --> 00:01:21.760
+ leads to a collision in hashes. We try to make hashes not collide but they can't collide.
+
+00:01:21.760 --> 00:01:27.120
+ And so this is basically it uses a circular iteration and it actually if you look at there
+
+00:01:27.120 --> 00:01:35.200
+ at L3 it's subtracting one and if it's less than zero set i to i plus m go back to step L2.
+
+00:01:35.200 --> 00:01:40.560
+ It's probably just easier to show you a picture of what's going on. So let's imagine that we've got
+
+00:01:40.560 --> 00:01:46.480
+ an array of eight key value pairs and this is literally an array. In our case these will become
+
+00:01:46.480 --> 00:01:53.040
+ pointers. Key will be a pointer, value will be a pointer but Knuth is not thinking about that.
+
+00:01:53.040 --> 00:01:57.120
+ As far as Knuth is concerned everything is just a variable. So it's an array of key value pairs
+
+00:01:57.120 --> 00:02:03.840
+ and the key thing to the hash it's the same hash computation and the same modulo operation
+
+00:02:03.840 --> 00:02:12.720
+ that looks at the number of buckets. But when it picks a slot in that the array that slot is just
+
+00:02:12.720 --> 00:02:18.480
+ where we hope to store it but if that's already occupied we got to find another place. And we
+
+00:02:18.480 --> 00:02:23.680
+ presuppose that there's always space and we'll talk about how that ends up getting solved later
+
+00:02:23.680 --> 00:02:29.520
+ with rehashing. But the key is is we got to figure out where we want to put it assuming that there's
+
+00:02:29.520 --> 00:02:35.440
+ space and linear probing algorithm is you start going backwards. So you go from three to two and
+
+00:02:35.440 --> 00:02:40.800
+ is that available? Great, use it. If two is not available go to one, go to zero. And if you get
+
+00:02:40.800 --> 00:02:44.640
+ to zero you've got to go all the way to the end. This is kind of a circular list. Eventually it's
+
+00:02:44.640 --> 00:02:50.640
+ going to visit all eight entries but it's going to start at whatever entry the hash indicated it's
+
+00:02:50.640 --> 00:02:55.120
+ supposed to start. And the whole purpose of the hash is to get to the entry that has the key and
+
+00:02:55.120 --> 00:03:01.040
+ value in question more rapidly or to know that it's not there. And the way you know that it's
+
+00:03:01.040 --> 00:03:06.160
+ not there is you run this loop and when you find a key and a value of zero which means it's empty
+
+00:03:06.160 --> 00:03:10.160
+ then you know that it's not there and you also know where you're supposed to put it. So if we
+
+00:03:10.160 --> 00:03:15.360
+ look at the data structures that I wrote to implement this Python 1 dictionary we have a
+
+00:03:15.360 --> 00:03:19.040
+ denode which is just a pointer to a key and a pointer to a value because we're going to do
+
+00:03:19.040 --> 00:03:26.320
+ strings key value pairs to simplify this. The dictionary itself has the size of the array,
+
+00:03:26.320 --> 00:03:31.840
+ the alloc which we've been using all along, count or length, I switch back and forth in some of this
+
+00:03:31.840 --> 00:03:36.320
+ code, and then an array of denodes. Now remember that that's a struct. So if we look at the
+
+00:03:36.320 --> 00:03:42.560
+ constructor we allocate the dictionary, we set its length which is the number of things in it
+
+00:03:42.560 --> 00:03:48.320
+ to zero, and we set the alloc which is the size of the space we can store things to two. And then
+
+00:03:48.320 --> 00:03:55.280
+ we allocate our two item array of struct denodes and then we have to mark them. We can't just assume
+
+00:03:55.280 --> 00:04:01.280
+ they're zeros when we get it back from malloc. Some mallocs give us zeros, some mallocs don't,
+
+00:04:01.280 --> 00:04:07.440
+ but in this case we need to no matter what ensure that we have them marked as null because our null
+
+00:04:07.440 --> 00:04:14.240
+ is an indication of emptiness so that later when we're looking around we can find which areas are
+
+00:04:14.240 --> 00:04:19.680
+ empty. And so if we take a look at the put, the hash tells us where to look and we put this all
+
+00:04:19.680 --> 00:04:25.120
+ in p1 dict find which does the hash computation and does the modulo of the number of buckets
+
+00:04:25.120 --> 00:04:32.640
+ and gives us back a pointer to the denode in question. Now this pointer is either where that
+
+00:04:32.640 --> 00:04:38.560
+ key belongs and already exists or it's where that key belongs and it's empty. Now if we found an
+
+00:04:38.560 --> 00:04:44.800
+ empty slot we don't have to allocate the denode because it's already the array. We just have to
+
+00:04:44.800 --> 00:04:50.960
+ set up the key with a malloc and a copy, set up the value with a malloc and a copy, and then record
+
+00:04:50.960 --> 00:04:57.920
+ the fact that we now have one key value pair in our array. We're going to use this not only to
+
+00:04:57.920 --> 00:05:04.080
+ return like len but also to know when we filled it up because when len gets to be the size of
+
+00:05:04.080 --> 00:05:09.840
+ alloc it's full and we'll talk more about that in a second. So that's what it looks like after
+
+00:05:09.840 --> 00:05:15.920
+ we've inserted one key value pair. Now let's say we're getting a put request for a key that's
+
+00:05:15.920 --> 00:05:22.560
+ already in there so we're going to say z equals w instead of catchphrase. So we run p dict underscore
+
+00:05:22.560 --> 00:05:27.440
+ find and it comes back and it says here's your thing but the difference is you look and the key
+
+00:05:28.160 --> 00:05:34.480
+ the one it's pointing to the one it gave us back the one it found already has a key. Now you might
+
+00:05:34.480 --> 00:05:41.120
+ think that's bad news. No it's great news. It means z already has a slot and then all we have to do
+
+00:05:41.120 --> 00:05:46.400
+ is update the value because dictionaries function like assignment statements. If you have z that has
+
+00:05:46.400 --> 00:05:52.720
+ catchphrase and then we get z equals w you just you're supposed to store w and then throw catchphrase
+
+00:05:52.720 --> 00:05:59.440
+ away and so that's you see it do that right it it frees old value which was catchphrase and then
+
+00:05:59.440 --> 00:06:04.160
+ mallocs the new one and then stir copies into it and now at the end of this one we still have a
+
+00:06:04.160 --> 00:06:11.440
+ length of one and z maps to w in our hash mat. So now let's add let's do another put let's say y
+
+00:06:11.440 --> 00:06:16.640
+ equals b we're going to do p dict underscore find and it's going to hash the value y it's going to
+
+00:06:16.640 --> 00:06:22.640
+ give us back position one now that could be because it hashed to position zero and linear probing found
+
+00:06:22.640 --> 00:06:28.000
+ its way to position one or maybe it hashed to position one it just doesn't matter p dict find
+
+00:06:28.000 --> 00:06:33.600
+ says look this is the best possible place to store y in this particular array.
+
+00:06:33.600 --> 00:06:41.840
+ So now at the end of that we will have z and y and we have an alloc of two and a length of two
+
+00:06:42.640 --> 00:06:50.240
+ but now let's say we want to insert c so the problem is is that we're full which means that
+
+00:06:50.240 --> 00:06:56.320
+ p dict underscore find is not going to find one it whatever it hashes to it's going to look through
+
+00:06:56.320 --> 00:07:03.440
+ all the rest of them but there's no space there's no space in the array so what we have to do is if
+
+00:07:03.440 --> 00:07:14.160
+ it's not there and we're out of space we have to expand items that is the code what we call rehashing
+
+00:07:14.160 --> 00:07:18.960
+ so let's take a look at the rehashing code we'll look at this in some detail at the high level we
+
+00:07:18.960 --> 00:07:28.000
+ store the size and the array of items in old alloc and old items respectively then we double
+
+00:07:28.000 --> 00:07:36.080
+ the size that's just how we do it and then we allocate a brand new array of d nodes in this
+
+00:07:36.080 --> 00:07:41.680
+ case four d nodes get allocated and that's in items and then we do some code that pretty much
+
+00:07:41.680 --> 00:07:46.080
+ looks like it came from the constructor we're going to take those four nodes four d nodes and
+
+00:07:46.080 --> 00:07:50.560
+ we're going to set their key and value to null because at this point we're kind of like halfway
+
+00:07:50.560 --> 00:07:57.200
+ through reorganizing this thing our old items are available to us but new items are empty that means
+
+00:07:57.200 --> 00:08:02.000
+ that we can use find and do inserting into the new one and so that's what we're going to do
+
+00:08:02.000 --> 00:08:07.440
+ before we throw old alloc away we're just going to write a simple for loop to go through them now
+
+00:08:07.440 --> 00:08:13.360
+ we've got to check to see if old item sub i is null because when we're done with this we're not
+
+00:08:13.360 --> 00:08:19.440
+ just going to wait till it's 100 full we're going to actually reallocate when it's 70 full if old
+
+00:08:19.440 --> 00:08:24.160
+ item sub i is null dot key is null that means it's empty we don't have to reinsert it that's all we're
+
+00:08:24.160 --> 00:08:30.480
+ saying is we don't have to reinsert it but if we find one then we go and ask the p1 dict underscore
+
+00:08:30.480 --> 00:08:38.720
+ find where to put it and in this case we're only going to always get a new slot because
+
+00:08:38.720 --> 00:08:45.520
+ keys are unique which means we can go through all the old item keys and never hit the same one twice
+
+00:08:45.520 --> 00:08:51.440
+ and there will always be space because we just alloc a thing that's twice as big as the thing
+
+00:08:51.440 --> 00:08:57.520
+ it's coming from so there was two and we've allocated it for it we will always find a place
+
+00:08:57.520 --> 00:09:05.360
+ to put it because the keys are unique think about it for just a minute and then we just say key equal
+
+00:09:05.360 --> 00:09:09.200
+ and value equals copy and we don't have to reallocate them or anything they're just pointers
+
+00:09:09.200 --> 00:09:15.760
+ to the saved strings that are key and value and then the only thing we throw away is old items
+
+00:09:15.760 --> 00:09:22.800
+ and so you know it's it's it's it's kind of pretty now the last thing where we say old equals p1
+
+00:09:22.800 --> 00:09:30.800
+ dict find self key we used old before to figure out that oh wait a sec we need to make some more
+
+00:09:30.800 --> 00:09:38.160
+ space so we have to then find where the incoming key because we're in the middle of an insert
+
+00:09:38.160 --> 00:09:43.840
+ right now so we have to know in the new items where that belongs and so that's why we say that
+
+00:09:43.840 --> 00:09:52.800
+ so if we take a look at the moment where we're inserting the c key we've got we're full up we've
+
+00:09:52.800 --> 00:09:59.680
+ got two allocated right and we're looking we're saying where should we put c and the answer is
+
+00:09:59.680 --> 00:10:07.040
+ you can't so now we drop in to the reallocation code so the first thing the reallocation code does
+
+00:10:07.040 --> 00:10:14.000
+ is make a copy of old items and old alec so there's the two items z and y are there and then what we
+
+00:10:14.000 --> 00:10:22.240
+ do is we double the size and make an empty array of four d nodes and set their key and value to null
+
+00:10:22.240 --> 00:10:30.160
+ and so we kind of have the old array and the new array sitting around right now so then what we do
+
+00:10:30.160 --> 00:10:36.400
+ is we start looping through the old array and we see oh z equals w so we just run a simple hash
+
+00:10:36.400 --> 00:10:41.200
+ calculation and say where does z belong in the new items and then we put it in there now we don't
+
+00:10:41.200 --> 00:10:47.360
+ have to deallocate or reallocate the actual z or the actual w we just have to change the pointers
+
+00:10:47.360 --> 00:10:52.800
+ now you'll notice at this moment we've got a pointer in the top one and the bottom one that's
+
+00:10:52.800 --> 00:10:58.800
+ pointing to the same allocated memory that's a reference count problem but we're going to throw
+
+00:10:58.800 --> 00:11:05.440
+ old items away in just a bit so we loop through that right so we find the z and we put the z in
+
+00:11:05.440 --> 00:11:11.280
+ the right spot remember we're still in the middle of trying to insert c we've kind of temporarily
+
+00:11:11.280 --> 00:11:17.040
+ paused and clean or cleaning up our hash map to give us space to insert so then we go through
+
+00:11:17.040 --> 00:11:26.080
+ the loop again and now we find that the y belongs in position three y equals b goes into position
+
+00:11:26.080 --> 00:11:31.040
+ three and now we're at the point where what we have done we're still again trying to insert c
+
+00:11:31.040 --> 00:11:36.720
+ but we have to first make space now we're kind of done with old items we've got pointers in the new
+
+00:11:36.720 --> 00:11:42.400
+ items that point to the key value pairs and we can actually just throw that away not only when
+
+00:11:42.400 --> 00:11:47.520
+ we throw that away it not only throws away the array itself but it really kind of resolves our
+
+00:11:47.520 --> 00:11:53.120
+ problem that we had two pointers pointing to the same thing which leads us to like memory leaks
+
+00:11:53.120 --> 00:11:58.720
+ potentially but now we've cleaned our mess up we've freed the old items we're still in the middle of
+
+00:11:58.720 --> 00:12:06.000
+ inserting c and this is one of the like downsides to hashing is this cleanup phase can take a little
+
+00:12:06.000 --> 00:12:10.800
+ while i just moved everything around so it looks like what we had before and now that we've got
+
+00:12:10.800 --> 00:12:18.960
+ this thing rehashed and we've got our z equals w and y equals b in an array that is for long rather
+
+00:12:18.960 --> 00:12:27.360
+ than too long we are ready to continue with the insertion of c so we say okay where does c belong
+
+00:12:27.360 --> 00:12:34.320
+ we run the hash again with the pdict underscore find of the c key and it says that belongs in two
+
+00:12:34.320 --> 00:12:39.760
+ and again it might be in two because it's empty it might be in two because something was not empty
+
+00:12:39.760 --> 00:12:44.720
+ and we did collision resolution but it doesn't matter when it comes back from find remember
+
+00:12:44.720 --> 00:12:48.880
+ it's bigger so there's always going to be space so we don't have to worry too much about there not
+
+00:12:48.880 --> 00:12:57.280
+ being space but now we got an empty slot and we can put that value in and put the key in and and
+
+00:12:57.280 --> 00:13:04.400
+ update it so that there are three items the length becomes three so that's how they did it how geeto
+
+00:13:04.400 --> 00:13:11.680
+ did it in python 1.0 but up next we're going to talk with geet we already talked with geeto
+
+00:13:11.680 --> 00:13:20.160
+ about how things changed between python 3.6 and python 3.7 the same implementation was like python
+
+00:13:20.160 --> 00:13:30.000
+ 0.1 through python 3.6 roughly the same shape i just covered but things changed in python 3.7
+

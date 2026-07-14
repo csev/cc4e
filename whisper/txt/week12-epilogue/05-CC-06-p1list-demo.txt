@@ -1,0 +1,159 @@
+ Welcome to another code walkthrough for C programming for everybody.
+ In this code walkthrough, we are going to compare how Guido implemented list in the earliest versions of Python
+ versus how I implemented list while teaching Chapter 6 of Carnegie and Ritchie.
+ And so this was, if you watched the video of my interview with Guido Van Rossum,
+ this was like my greatest, like, revelation. Like, what?
+ And so the big revelation is, is that Python's list object in, you know, Python 0.01 was an array of pointers.
+ And if we look at the Carnegie and Ritchie list item, this was a linked list. I did a linked list.
+ And so the actual KR list struct has a pointer to the head and the tail of its linked list and account.
+ And again, this is classic linked list. And to some degree, while I was teaching this in Carnegie and Ritchie Chapter 6,
+ I was really teaching you linked lists and using the Python list abstraction to teach it.
+ And so we have two data structures. We have this node, which just has a pointer to a text saved and a pointer to the next one.
+ So this is like classic linked list. I'm not going to I'm not going to go through that again.
+ So you just go back and watch the Chapter 6 stuff. And I talk about linked lists all the time.
+ But that's not how Python does it, did it or does it.
+ And it's not clear to me exactly why, but he I think he was just trying to build the simplest possible data structure.
+ And we'll look at some code and you'll see that there is a certain simplicity, like already in just the struct definition.
+ We see the struct P1 list. There's only one of them. If it's a linked list, you have sort of a struct for the node and a struct for the list itself.
+ The constructor P1 list new. Well, we're just going to malloc the object and then we're going to say, OK, let's allocate.
+ Let's allocate to an array of pointers to characters.
+ And so so if we look at the struct P1 list and we see char star star items, that is syntax for a array of pointers.
+ OK, and so you think of each pointer as either 32 bits in the old days or 64 bits in the modern days.
+ So that's an array. And so so what I'm doing in this P items equals malloc open print P alloc times size of char star.
+ That means I'm allocating two elements that are pointers, which means, again, two times 64 bits in the modern world.
+ And noting that I have two in there and length, which is the Python view of the number of items is zero.
+ So we've got we've got space for two and we have zero.
+ And that's an array that we know Alec tells us how long the array is and length tells us how much of the array we've used.
+ And just to go back, I'll try not to compare and contrast too much.
+ But just think about the complexity of linked lists the way I did them in Kernigan and Richey, my Kernigan and Richey chapter six.
+ You have this thing called head. You have this thing called tail, which is null and count is zero.
+ And again, for those of us who know linked list, this is obvious.
+ It's what you do. But an array is simpler than a linked list.
+ And so, you know, there we go.
+ OK, OK, OK, OK. So that's what we're what we've got when we're done with our constructor.
+ We've got an array of two pointers, two characters. Allocated to and length one.
+ So let's go take a look at let's take a look at the main code right now.
+ And so the key to this main code is that in a sense, here's the Kernigan Richey main code,
+ because this is like an interface and an abstraction, the main code should be pretty much the same.
+ And the main code pretty much is the same, meaning that we create a linked list, we append some stuff to it,
+ we print the list, we check the length, we look something up and then we delete it.
+ And we do both things because below the abstraction, below the interface, both of these implementations,
+ both the KR list and the P1 list are supposed to provide to us, the caller, the same abstraction.
+ We can append, we can print, we can check the length, we can check the index and we can delete it.
+ And it does not matter what the implementation is.
+ And that's so that's more the builders of the Python runtime get to decide how to do this because we've got a contract with them.
+ Again, an interface. So let's just take a look at the code.
+ We're going to add hello world to our list and print it.
+ Then we're going to add catchphrase and print it.
+ Then we're going to add Brian and print it.
+ And then we're going to say, how big is it?
+ And then we're going to ask, where is Brian in there and where is Bob in there?
+ And then we're going to delete it.
+ And if you look at the run, you see, you know, the list starts out as hello world and the list is hello world catchphrase.
+ And we'll see what this extending because we started with two slots in our array.
+ And for the first two, you didn't have to get bigger.
+ But then we're like, oh, wow, we're running out of space.
+ So we got to like extend this array.
+ We'll show that code in a bit.
+ But then we end up with three things in the list.
+ Again, that's not our job as the caller, three things in the list.
+ And Brian is in position two, which zero, one, two, hello world is zero, catchphrase is one and Brian is two.
+ And Bob is not there. So we get back a negative one.
+ Pretty stuff. OK, so let's take a look at the append code,
+ because this is where the fun happens.
+ So here's the append code.
+ So let's take a look at the let's go back.
+ How I taught you append, you know, a month or so ago.
+ And so so again, you got this.
+ The lecture has pictures of all this. Right.
+ So if you're appending, if it's empty, your self head is new.
+ If the self tail is not equal, no, then self tail next equals new and then self tail new equals new.
+ So that's just like you got to draw the picture and add the little arrows and away you go.
+ And then you can save the string itself.
+ But now we look at the P1 list and we we have to extend it if necessary.
+ Right. So if self length, i.e. is greater than self Alex.
+ So we allocated two in the first in the in the constructor.
+ And then if the length is two, we don't have enough space because our next one would be sub two.
+ And that you can have sub zero and sub one in a two long array.
+ And so all we're going to do then is we're going to have chunking and Guido mentioned chunking in the video.
+ We're going to chunk it to add 10. And so we're going to basically extend from two to 10.
+ So we're going to add 10. We're going to increase the Alex size and then we're going to call realic.
+ And realic is going to take the array of items and say how big that was, free it, move it, whatever.
+ Extend it depending on what realic is, how realic is working.
+ And we're going to say, OK, we want to have 12 of these things now, 12 and that becomes our new items.
+ Now, realic will also so there's two things in it and we extended 12.
+ Realic will copy the two things.
+ So we don't have to do any copying because realic copies the first two things because it knows that items is too long.
+ And so it copies the first two things and then gives us 10 more.
+ So there's no copy code here.
+ And so I think Guido really liked the realic and a lot of C programmers don't like realic and he did.
+ He's like, look, realic says it's going to do this and I want to do this.
+ So react realic, do your job.
+ And so I think back to my own time as a software developer, I just felt because again, we were taught linked list, linked list, linked list.
+ I just didn't think about realic as a useful thing and Guido clearly felt like realic is the answer.
+ And it lets him have this simple array mentality.
+ So you just realic it and say, look, here's an array of this two, I want it to be 12.
+ Help me and we're done.
+ And so that's really simple code.
+ I think very easy to understand.
+ And then we make a save string.
+ And then we just add at the end of the array self length, which in this case is sub 2, is that string.
+ And then we add one to the length.
+ So this code is really simple.
+ And if you were doing debug print, you don't really need any addresses because if you recall when I'm printing in all my linked list stuff,
+ so that you can debug it and redraw your lines and figure everything out, I'm printing addresses out all the time.
+ But no, this is just a position.
+ So this is the 0, the 1, and now the 2 in this case.
+ And so that's where you see when it says extending from 2 to 12.
+ That's as a side effect of adding the third item to a list that was pre-allocated with two slots.
+ OK.
+ And that's it.
+ But let's take a look at the print code, right?
+ Let's look at the print code for both of them.
+ This is KRList print.
+ Let's take a look at the print code in Guido van Rossum's version.
+ OK.
+ So the key to this is the for loop in P1_List_Print.
+ The for loop is for i equals 0, semicolon, i less than self length, let's take that blank out, i less than self length, i plus plus.
+ That is like really basic chapter 4, chapter 5 stuff in Kernigan and Ritchie.
+ So it's just an array.
+ So you write a simple incremented for loop.
+ It's fast, cash efficient.
+ It's beautifully simple, right?
+ So in this print, this is obvious.
+ Now, when I showed you the same thing in Kernigan and Ritchie chapter 6, I had this for in KRList_Print.
+ It says for ker equals self arrow head, ker not equal null, ker equals ker next.
+ And I apologize for this line.
+ I'm like, you will eventually write this because it's an idiom.
+ You will write this quite naturally and it'll make a lot of sense to you, right?
+ But in Python 1, we didn't do that.
+ It was an array.
+ And the only place that we have to worry about its dynamic nature, the only place we have to worry about its dynamic nature is in the append, right?
+ Where we reallocate it.
+ So everything we're doing here is a simple for loop.
+ So like even the del command here, the del basically says, let's free all those little items.
+ Let's free those character strings with a for loop for i equals zero, i less than self length, i plus plus.
+ Again, a beginning C programmer can understand this code.
+ And if we look at the C code in KRList_del, we just see a while loop.
+ And remember, you had to do these in a certain order.
+ And so the whole free and I talked about all this stuff.
+ The fact that you got to do it in a certain order.
+ Well, this is pretty simple, right?
+ So it frees each of the items.
+ It's for i equals zero in P1List_del, you free each of the characters strings that we point to.
+ Then we free the array that's got those pointers, which are now valid because we got rid of them.
+ And then you free the object itself.
+ And so to some degree, one can appreciate the simplicity of what Guido did in this by going with arrays.
+ And again, the key thing that misled me or that Guido just took a different approach, it really came down to Realloc.
+ And so he believed in, I was trained to not think about Realloc as plan A.
+ And so I thought linked lists were plan A because then you don't have to do so many Reallocs.
+ And he was like, I want an array and Realloc says it's going to do this for me.
+ And away we go.
+ So I encourage you to take a look at P1List and KRList and put them in two windows next to each other and sort of compare and contrast.
+ And what I really want you to do as you're comparing and contrasting is I want you to think about the complexity of writing,
+ debugging, and then later the complexity of understanding and how much knowledge a programmer has to understand to be able to make sense of these two bits of code.
+ And again, for those of us computer scientists for whom linked lists are very natural, we just write this stuff.
+ I can write it pretty fast, but that doesn't mean that it's the easiest to learn.
+ So away we go.
+ And so I hope you found this comparison interesting.
+ Cheers.

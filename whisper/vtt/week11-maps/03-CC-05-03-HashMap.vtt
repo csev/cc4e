@@ -1,0 +1,452 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:04.560
+ So now that we understand what a hash function is, we're going to actually build our hash map implementation.
+
+00:00:04.560 --> 00:00:12.240
+ But what we're really going to do is make a copy of our list map code and change as few things as possible.
+
+00:00:12.240 --> 00:00:17.680
+ You'll be impressed with how easy this really is if you have a bit of working list map code.
+
+00:00:17.680 --> 00:00:21.200
+ This is the new constructor, and I can call your attention to the changes, right?
+
+00:00:21.200 --> 00:00:26.880
+ Remember, we have a number of buckets. We have however many buckets we have.
+
+00:00:26.880 --> 00:00:32.000
+ We have eight heads and eight tails. So we're going to look at the constructor, so we're going to allocate a hash map.
+
+00:00:32.000 --> 00:00:38.000
+ It's not that big, right? It's still got the functions for our encapsulation to put, get, size, dump, and iter.
+
+00:00:38.000 --> 00:00:43.760
+ That's not changed at all, except it's called hash map instead of list map. The buckets are set to eight.
+
+00:00:43.760 --> 00:00:48.080
+ We're going to initialize all eight buckets to have a head of null and a tail of null.
+
+00:00:48.080 --> 00:00:52.640
+ Because remember, this is just eight linked lists, and the count is set to zero.
+
+00:00:53.520 --> 00:00:59.840
+ Pretty straightforward, especially if you understand the hash list, and if you don't, go back and watch that lecture.
+
+00:00:59.840 --> 00:01:07.760
+ Don't just like go, "Oh, I didn't understand what a hash list was. I'll just keep on not understanding and use chat GPT."
+
+00:01:07.760 --> 00:01:12.720
+ It's like, "Well, I don't know what to do if that's how you're going to go through this assignment."
+
+00:01:12.720 --> 00:01:18.720
+ But if you have and understand a working hash list, this is easy, easy, easy.
+
+00:01:18.720 --> 00:01:25.840
+ We've been using list map find before, and all it does is it finds a hash map entry if it's already there.
+
+00:01:25.840 --> 00:01:32.960
+ And so we send in the whole hash map self, which is very, you know, Python object-oriented pattern where the first parameter is always self.
+
+00:01:32.960 --> 00:01:37.760
+ We have a key we're looking up, and then we're telling it to start in a particular bucket.
+
+00:01:37.760 --> 00:01:42.960
+ And that's the real change. If you have hash list find, it doesn't have a bucket. Hash map find has a bucket.
+
+00:01:42.960 --> 00:01:52.720
+ And so this code is exactly the same as hash list find, except instead of starting at head, we have an array of heads and we use bucket to figure out the thing.
+
+00:01:52.720 --> 00:01:58.880
+ And then we loop through it. We're in the right bucket. Something above us figured out what bucket to go through.
+
+00:01:58.880 --> 00:02:11.600
+ And so if we look at hash map get, which is taking a key and having it fall and having a self, we say, hey, compute the bucket from the key and however many buckets we have, which in this case might be eight.
+
+00:02:11.600 --> 00:02:22.080
+ And then we do a struct hash map star retval, go find it, passing in the bucket. If the return is null from find, we return the default, otherwise return the value.
+
+00:02:22.080 --> 00:02:29.520
+ So, again, there's one line changed between the code from list map get to hash map get.
+
+00:02:29.520 --> 00:02:36.640
+ So let's do a quick review of what we do in map put. Now, this is not the hash map put. This is map put. This is our list map put.
+
+00:02:36.640 --> 00:02:44.080
+ So we call find. If we find it, then we're just going to update the value and we're done. If we don't find it, we allocate the new entry.
+
+00:02:44.080 --> 00:02:49.120
+ We set it's next to null and we link it into the list. And this is the place where you should be drawing a picture.
+
+00:02:49.120 --> 00:02:58.160
+ If the head is null, that means we have an empty list, then self head is this new thing. If the self tail is not equal to null, we've linked it at the end, then we're going to update the tail, et cetera.
+
+00:02:58.160 --> 00:03:04.960
+ So draw these pictures. And these are the parts where you'll mess it up. You will get these wrong. And it's OK to get these wrong.
+
+00:03:04.960 --> 00:03:15.440
+ Put like a print statement in every line here if you're having trouble. Right. And you got all the cases in this nice little four lines of code captures the cases. OK.
+
+00:03:15.440 --> 00:03:23.760
+ So remember, we're inserting at the end. So what do we do for hash map put? We have a bucket. We're going to run a hash computation to figure out which bucket it is.
+
+00:03:23.760 --> 00:03:31.760
+ Then we're going to call hash map find and we just tell it to find it in the bucket. So in the linked list, sub three or sub four or whatever.
+
+00:03:31.760 --> 00:03:38.560
+ And if we found it, we update the value in return. Otherwise, it's time to insert. So we allocate a new one. We said it's next to null.
+
+00:03:38.560 --> 00:03:46.480
+ And then we know which bucket it is. So in this, we looked at the previous code. It was for one linked list. And for this current code, there's eight linked lists.
+
+00:03:46.480 --> 00:03:53.440
+ But we already know which linked lists we're dealing with. And so literally, you can take the word head and change it to head sub bucket.
+
+00:03:53.440 --> 00:04:02.880
+ Everywhere you see head here, you can change it to head sub bucket, tail sub bucket. And literally when I wrote this code, that is exactly what I did.
+
+00:04:02.880 --> 00:04:07.440
+ I did it slowly not to mess up. And of course, the compiler helped me if I forgot something.
+
+00:04:07.440 --> 00:04:16.960
+ But that's as simple as it is to transform the put from a list map to a hash map. Of course, the dump we have to do a little bit differently.
+
+00:04:16.960 --> 00:04:25.760
+ We want to show all the buckets. And so we are showing what bucket it is, the key value pair. But other than that, it's it's really pretty straightforward stuff to do the hash map dump.
+
+00:04:25.760 --> 00:04:36.400
+ Remember, I told you that writing a debug tool is essential. So you can change your main code to dump, dump, dump, dump, dump, because you'll mess it up, right?
+
+00:04:36.400 --> 00:04:43.320
+ You will not write this code perfectly and you need to be able to debug it. So now let's take a bit of a review of the list map iterator.
+
+00:04:43.320 --> 00:04:50.880
+ So recall that the iterator is its own object. We've got the entry, we've got the iterator, and we got the map itself.
+
+00:04:50.880 --> 00:05:00.000
+ And the map iterator is allowed to do all the internal stuff because whoever's writing these things, writing them in a group so we can think of as like a protected value.
+
+00:05:00.000 --> 00:05:10.400
+ And so really, the essence of the map iteration iterator is a current. So we're going to call the public part of it is next and del.
+
+00:05:10.400 --> 00:05:18.160
+ And the private part is what the current thing is, because we're going to we don't get to see the current, but we can use next to get the current back.
+
+00:05:18.160 --> 00:05:22.760
+ And so the idea is, is we can call next, next, next, next, next, rather than looking at current.
+
+00:05:22.760 --> 00:05:32.240
+ Recall that the way the iterator works is you ask for the iterator and then you hit the iterator with the next and you go until you're done.
+
+00:05:32.240 --> 00:05:38.040
+ And when you find something, you print it out. We can do the same thing in C and as well as Python.
+
+00:05:38.040 --> 00:05:42.360
+ If we think about how to do the iterator for a hash map, it's a little different.
+
+00:05:42.360 --> 00:05:49.960
+ We must move, we must start at generally we start the first bucket and we must move through all the buckets.
+
+00:05:49.960 --> 00:05:56.880
+ Eventually, we've got to get to because we got, you know, eight or four linked lists, we got to go through all of them and we got to go down each of them.
+
+00:05:56.880 --> 00:06:04.480
+ But if we're looking for the next item and we got to skip empty buckets, so we kind of got a bit of a complex while operation.
+
+00:06:04.480 --> 00:06:12.120
+ And so one of the things we're going to do is when we create the map iterator, we are going to store a reference to the hash map.
+
+00:06:12.120 --> 00:06:18.240
+ So when we construct the map hash map iterator, we're going to know which bucket is an internal value.
+
+00:06:18.240 --> 00:06:25.240
+ Current is an internal value and map is an internal value, which we're going to use to remember that map that we're an iterator for.
+
+00:06:25.240 --> 00:06:31.160
+ And then we're going to have a next and a del. This is the constructor and we're saying make an iterator given a hash map.
+
+00:06:31.160 --> 00:06:37.640
+ We make the iterator structure. We remember a pointer to the map in case we're going to need it later.
+
+00:06:37.640 --> 00:06:46.000
+ The current bucket we're going to look at is zero and the current map entry is the head of the zero bucket.
+
+00:06:46.000 --> 00:06:50.240
+ And then next and del are just capsulated methods, basically, and then we return it.
+
+00:06:50.240 --> 00:06:53.720
+ Now, that first bucket may or may not be an empty list, right?
+
+00:06:53.720 --> 00:07:02.280
+ So that first, you know, there might be just one bucket, the third bucket might have a list in it and zero, one and two won't have anything in it.
+
+00:07:02.280 --> 00:07:12.720
+ So remember, so we're starting at the top bucket and our current is pointing to the head of the first bucket, which may be null.
+
+00:07:12.720 --> 00:07:21.680
+ The tricky bit is the iter next. And we remember we've given the map iterator, we don't get map, but we've stashed map in underscore map.
+
+00:07:21.680 --> 00:07:29.200
+ If self current equals null in the old days in a list map, we knew we were done and we could just return null.
+
+00:07:29.200 --> 00:07:35.920
+ But now we have to go down a bucket. So self, this is the iterator's bucket goes from like zero to one.
+
+00:07:35.920 --> 00:07:47.040
+ So we increment it. And if the self, the current bucket we're looking at in the iterator is greater than or equal to the maximum number of buckets,
+
+00:07:47.040 --> 00:07:52.400
+ we have now got to the last bucket and we return null.
+
+00:07:52.400 --> 00:07:56.880
+ And then what we do is we say, OK, that must mean we have more buckets.
+
+00:07:56.880 --> 00:08:03.120
+ So we say self current is equal self map. That's our little stashed version of the map.
+
+00:08:03.120 --> 00:08:09.640
+ And we're going to go, we've already incremented self bucket, and so we're going to grab the next head and then we're going to loop up to the top.
+
+00:08:09.640 --> 00:08:13.760
+ Now, at this point, if that bucket is empty, we're going to do it again.
+
+00:08:13.760 --> 00:08:24.520
+ And we're either going to go through this while loop enough times until we either have exhausted the buckets or we have found a bucket that has an entry in it.
+
+00:08:24.520 --> 00:08:26.400
+ Then we got to do a little trick, grab the current.
+
+00:08:26.400 --> 00:08:33.160
+ So the only way we're coming out of this loop is if self current is not null, because if self current was null,
+
+00:08:33.160 --> 00:08:38.320
+ we would have wild our way through and then return null eventually after we exhausted the buckets in the while loop above.
+
+00:08:38.320 --> 00:08:43.440
+ So the retval is self current. If self current is not equal to null, we're going to go to the next.
+
+00:08:43.440 --> 00:08:49.080
+ And then return retval. I've given you the code. Go through it carefully.
+
+00:08:49.080 --> 00:08:55.400
+ It's tricky to write. What I would do is I would like print this code out and draw the picture.
+
+00:08:55.400 --> 00:09:00.200
+ OK, draw the picture. So let's take a look at a hash map iterator in action.
+
+00:09:00.200 --> 00:09:07.840
+ So this is what it looks like when we just got constructed and we're in the first call to next.
+
+00:09:07.840 --> 00:09:14.600
+ Current is pointing at the first item in the first link list, the link head sub zero will fall through.
+
+00:09:14.600 --> 00:09:20.200
+ We look at this self current value and it's not equal to null, which is great, which means we have something to return.
+
+00:09:20.200 --> 00:09:24.320
+ So that so we don't have to go through the sort of scanning across null entries.
+
+00:09:24.320 --> 00:09:28.640
+ So we skip the while loop and we simply set retval to self current.
+
+00:09:28.640 --> 00:09:33.120
+ And if it's not equal to null, we advance that and then we return retval.
+
+00:09:33.120 --> 00:09:39.120
+ And so at the end, it looks like this. The current has been advanced to the to the next thing.
+
+00:09:39.120 --> 00:09:43.680
+ We're going to return on the second call. So the first call returns F equals 19.
+
+00:09:43.680 --> 00:09:47.640
+ That's the retval. And the next thing is going to be H equals 17.
+
+00:09:47.640 --> 00:09:52.520
+ But now we give it back to the calling code and away we go.
+
+00:09:52.520 --> 00:09:59.320
+ So now we come in. In the second call, it's going to do kind of the same thing.
+
+00:09:59.320 --> 00:10:04.640
+ Current is going to have pointed to H equals 17. It's not going to it's not null.
+
+00:10:04.640 --> 00:10:11.880
+ And so we simply take retval and be self current. And then we advance it as long as self current is not equal to null.
+
+00:10:11.880 --> 00:10:15.360
+ And because it was pointing to H equals 17, it is we're going to advance.
+
+00:10:15.360 --> 00:10:20.880
+ But now as we exit the second call, current is going to be null.
+
+00:10:20.880 --> 00:10:24.280
+ But we're going to take care of that on the third call. So don't worry about that.
+
+00:10:24.280 --> 00:10:31.200
+ Retval is H equals 17 and current equals null. So now we're done with the second call.
+
+00:10:31.200 --> 00:10:40.240
+ So now we come into the third call. And in this situation, we are pointing at the zero bucket and current is null.
+
+00:10:40.240 --> 00:10:46.920
+ So the while loop is going to take over. So while self current equals null, which is true right now,
+
+00:10:46.920 --> 00:10:53.280
+ we are going to run the code, say self bucket plus plus, which is the bucket number in the iterator.
+
+00:10:53.280 --> 00:10:59.200
+ And we're going to ask, is the bucket number in the iterator greater than or equal to the number of buckets in the map?
+
+00:10:59.200 --> 00:11:04.240
+ If we are, we're done. We're at the last one, but we're not. So we're not going to return null.
+
+00:11:04.240 --> 00:11:09.520
+ We're going to say self current equals self map head self sub bucket.
+
+00:11:09.520 --> 00:11:17.520
+ So we're going to go down to bucket sub one now and we are going to make current point at bucket, whatever the head of bucket one is.
+
+00:11:17.520 --> 00:11:22.440
+ And that's OK. We found an empty bucket because remember, I said you got to skip empty buckets.
+
+00:11:22.440 --> 00:11:28.480
+ But we're still in the while loop. So while goes up, says self current is still null.
+
+00:11:28.480 --> 00:11:32.240
+ I mean, I just moved to the next bucket, but self current is still null.
+
+00:11:32.240 --> 00:11:37.280
+ So I add one to the bucket. The bucket becomes two. We check to see if we're done.
+
+00:11:37.280 --> 00:11:45.960
+ If it's greater than or equal map buckets, return null, which it's not because we are we're at bucket one and self current is equal to self map.
+
+00:11:45.960 --> 00:11:51.440
+ Remember, map is our remembered version of the whole map so we can see all the heads because we've got to work through the heads.
+
+00:11:51.440 --> 00:11:54.560
+ So now self current points to B equals 14.
+
+00:11:54.560 --> 00:12:00.600
+ And now the while loop goes back up and now self current is not null because it's pointing to the B equals 14 item.
+
+00:12:00.600 --> 00:12:09.520
+ So it pops out of that while loop and drops down and says retval equals self current, which was B equals 14.
+
+00:12:09.520 --> 00:12:14.280
+ And then it advances self current and self current becomes null again.
+
+00:12:14.280 --> 00:12:20.000
+ But that's OK because we're going to return B equals 14 on the third call.
+
+00:12:20.000 --> 00:12:24.120
+ So just to review, we return F equals 19 on the first call.
+
+00:12:24.120 --> 00:12:29.480
+ We return H equals 17 on the second call and return B equals 14 on the third call.
+
+00:12:29.480 --> 00:12:34.480
+ And now it's going to loop back up and we're going to see the fourth call.
+
+00:12:34.480 --> 00:12:41.520
+ And so the fourth call is going to come in and current was D equals 21.
+
+00:12:41.520 --> 00:12:46.480
+ And so it's pretty simple. We're not going to run the while loop at this point.
+
+00:12:46.480 --> 00:12:51.200
+ We're going to return D equals 21. We're advanced current. So current is now pointing to null.
+
+00:12:51.200 --> 00:12:54.960
+ And now in the fifth call, current is null.
+
+00:12:54.960 --> 00:12:58.240
+ But now that's going to trigger us working in the while loop.
+
+00:12:58.240 --> 00:13:03.840
+ We're going to add one to the bucket. The bucket is going to become four.
+
+00:13:03.840 --> 00:13:10.640
+ And we say if this bucket inside this iterator is greater than the total buckets in the map, return null.
+
+00:13:10.640 --> 00:13:18.040
+ And we're now done. The fifth call returns null that tells the calling code that we are at the end of the list.
+
+00:13:18.040 --> 00:13:22.800
+ So if you keep yourself straight and you draw pictures like this and you think it through,
+
+00:13:22.800 --> 00:13:30.320
+ this is a surprisingly small amount of code to build a complete iterator for a hash map.
+
+00:13:30.320 --> 00:13:35.240
+ I kind of mentioned this in passing, but we still have more work to do.
+
+00:13:35.240 --> 00:13:41.120
+ A thing called rehashing. It's not that hard. And feel free to feel free to try it.
+
+00:13:41.120 --> 00:13:45.520
+ At some point, if these linked lists get too long, our performance starts to suffer.
+
+00:13:45.520 --> 00:13:51.400
+ And so one of the things that hashes do is in the middle of an insert, they'll have something we call a load factor.
+
+00:13:51.400 --> 00:13:57.440
+ It's like, whoa, this these buckets, we have each bucket would have a length and we might check all the bucket lengths.
+
+00:13:57.440 --> 00:14:04.040
+ And if it got to be like over 10 or 15 or something, we would go from we would have to rehash these things.
+
+00:14:04.040 --> 00:14:07.920
+ You don't have to reallocate. You just have to make go from four buckets to eight buckets.
+
+00:14:07.920 --> 00:14:13.560
+ And then you recalculate the hash modulo eight and figure out which bucket it belongs in and reconstruct all these things.
+
+00:14:13.560 --> 00:14:20.640
+ And so it's not impossible to do a rehash doubling the bucket and reducing the average chain length.
+
+00:14:20.640 --> 00:14:26.280
+ But we are not going to do that in this particular thing because we're going to keep it simple.
+
+00:14:26.280 --> 00:14:31.480
+ So the hash map iterator, while complex, is surprisingly simple.
+
+00:14:31.480 --> 00:14:35.160
+ It's really very similar to the list iterator.
+
+00:14:35.160 --> 00:14:42.400
+ The key thing is that we've got to have that while loop that sort of skips at the end of one list.
+
+00:14:42.400 --> 00:14:47.240
+ It's got to get to the beginning of the next list and it's got to skip empty buckets.
+
+00:14:47.240 --> 00:14:52.520
+ Now, this is why you can see because the things in the list are in somewhat random order.
+
+00:14:52.520 --> 00:14:57.480
+ The buckets, the mapping of any key to any bucket is in random order.
+
+00:14:57.480 --> 00:15:03.640
+ And this is why when you think of Python 2, we can look in Python 2 and we say,
+
+00:15:03.640 --> 00:15:11.240
+ oh, if you iterate through a map, they come out in the same order, but there is no predictable order.
+
+00:15:11.240 --> 00:15:14.040
+ But if you do it twice, you're going to get the same order.
+
+00:15:14.040 --> 00:15:19.920
+ And the fact that the order might change if you do inserts or deletes, that has to do with the rehashing.
+
+00:15:19.920 --> 00:15:25.440
+ So we're kind of at the point where we have built the two foundational types of Python 2.0.
+
+00:15:25.440 --> 00:15:31.360
+ We've built a list and we built a dictionary, Python 2.0.
+
+00:15:31.360 --> 00:15:38.040
+ Next, we're going to move like to Python 3.0 and start creating a linked list that maintains sorted order
+
+00:15:38.040 --> 00:15:43.840
+ and can be iterated in key order. And so that's going to be our treatment.
+

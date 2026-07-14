@@ -1,0 +1,1144 @@
+1
+00:00:00,000 --> 00:00:05,480
+ Welcome to C Programming for Everybody. My name is Charles Severance and this is
+
+2
+00:00:05,480 --> 00:00:10,100
+ my reading of the 1978 C Programming book written by Brian Kernigan and Dennis
+
+3
+00:00:10,100 --> 00:00:14,480
+ Ritchie. At times I add my own interpretation of the material from a
+
+4
+00:00:14,480 --> 00:00:21,360
+ historical perspective. Chapter 2, Types, Operators, and Expressions. Variables and
+
+5
+00:00:21,360 --> 00:00:26,200
+ constants are the basic data objects manipulated in a program. Declarations
+
+6
+00:00:26,200 --> 00:00:29,920
+ list the variables to be used and state what type they have and perhaps what
+
+7
+00:00:29,920 --> 00:00:34,040
+ their initial values are. Operators specify what is to be done to them.
+
+8
+00:00:34,040 --> 00:00:38,600
+ Expressions combine variables and constants to produce new values. These
+
+9
+00:00:38,600 --> 00:00:45,240
+ are the topics of this chapter. Section 2.1, Variable Names. Although we didn't
+
+10
+00:00:45,240 --> 00:00:49,320
+ come out and say so, there are some restrictions on variable and symbolic
+
+11
+00:00:49,320 --> 00:00:53,920
+ constant names. Names are made up of letters and digits. The first character
+
+12
+00:00:53,920 --> 00:00:58,760
+ must be a letter. The underscore counts as a letter. It is useful for improving
+
+13
+00:00:58,760 --> 00:01:03,280
+ the readability of long variable names. Upper and lower case are different.
+
+14
+00:01:03,280 --> 00:01:07,480
+ Traditional C practice is to use lower case for variable names and all upper
+
+15
+00:01:07,480 --> 00:01:12,760
+ case for symbolic constants. Only the first eight characters of an internal
+
+16
+00:01:12,760 --> 00:01:16,800
+ name are significant, although more may be used. For external names such as
+
+17
+00:01:16,800 --> 00:01:21,000
+ function names and external variables, the number must be less than 8 because
+
+18
+00:01:21,000 --> 00:01:25,800
+ external names are used by various assemblers and loaders. Appendix A lists
+
+19
+00:01:25,800 --> 00:01:32,560
+ the details. Furthermore, keywords like if, else, int, float, etc. are reserved. You
+
+20
+00:01:32,560 --> 00:01:37,920
+ can't use them as variable names and they must be in lower case. I would note that
+
+21
+00:01:37,920 --> 00:01:41,640
+ in modern C languages, the limitation of the first eight characters of a variable
+
+22
+00:01:41,640 --> 00:01:46,800
+ name being unique has been extended. In most C variants, at least 30 characters
+
+23
+00:01:46,800 --> 00:01:50,840
+ of a variable are treated as unique. The eight-character limitation was to reflect
+
+24
+00:01:50,840 --> 00:01:54,640
+ the typical limitation of identifier length in assembly language programming
+
+25
+00:01:54,640 --> 00:01:59,720
+ and runtime linkers of the time. Naturally, it's wise to choose variable
+
+26
+00:01:59,720 --> 00:02:03,120
+ names that mean something that are related to the purpose of the variable and
+
+27
+00:02:03,120 --> 00:02:08,840
+ are unlikely to get mixed up typographically. Section 2.2, data types
+
+28
+00:02:08,840 --> 00:02:14,960
+ and sizes. There are only a few basic data types in C. Char, which is a single
+
+29
+00:02:14,960 --> 00:02:20,400
+ byte capable of holding one character in the local character set, int, an integer,
+
+30
+00:02:20,400 --> 00:02:25,460
+ typically reflecting the natural size of integers on the host machine, float, a
+
+31
+00:02:25,460 --> 00:02:29,800
+ single precision floating point, and double is a double precision floating
+
+32
+00:02:29,800 --> 00:02:34,360
+ point. In addition, there are a number of qualifiers which can be applied to int,
+
+33
+00:02:34,360 --> 00:02:41,040
+ short, long, and unsigned. Short and long refer to different sizes of integers.
+
+34
+00:02:41,040 --> 00:02:47,280
+ Unsigned numbers obey the arithmetic of modulo 2 to the n, where n is the number
+
+35
+00:02:47,280 --> 00:02:52,440
+ of bits in an int. Unsigned numbers are always positive. The declarations for
+
+36
+00:02:52,440 --> 00:03:01,680
+ qualifiers look like short int x semicolon, long int y semicolon, unsigned
+
+37
+00:03:01,680 --> 00:03:09,240
+ int z semicolon. The word int can be omitted in such situations and typically
+
+38
+00:03:09,240 --> 00:03:14,280
+ is. The precision of these objects depends on the machine at hand. Table
+
+39
+00:03:14,280 --> 00:03:28,280
+ shows some representative values. On a deck PDP 11, a char is 8 bits. On int is 16, a short is 16, a char is 32, a float is 32, a double is 64.
+
+40
+00:03:28,280 --> 00:03:42,280
+ On a Honeywell 6000, which uses ASCII character set, a char is 9 bits, an int is 36 bits, a short is 36 bits, a char is 36 bits, and a float is 36 bits and a double is 32 bits.
+
+41
+00:03:42,280 --> 00:03:58,280
+ On the IBM 370, which is EBSDIC in its character set, a char is 8 bits, an int is 32 bits, a short is 16 bits, a char is 32 bits, a float is 32 bits, and a double is 64 bits, and so on.
+
+42
+00:03:58,280 --> 00:04:09,280
+ The intent is that short and long should provide different lengths of integers where practical. Int will normally reflect the most natural size of a particular machine.
+
+43
+00:04:09,280 --> 00:04:21,280
+ As you can see, each compiler is free to interpret short and long as appropriate for their own hardware. About all you should count on is that short is no longer than long.
+
+44
+00:04:21,280 --> 00:04:42,280
+ In this table, we see that in the mid-1970s, C was designed to support a range of computer generations. The PDP 11 was a common previous generation computer that had less memory so variable sizes were kept small. The more modern computers in the chart had a bit more memory and could afford to have slightly larger sizes.
+
+45
+00:04:42,280 --> 00:04:51,280
+ The idea of a natural size is the size that could be loaded, computed, and stored in usually a single machine language instruction.
+
+46
+00:04:51,280 --> 00:05:03,280
+ You knew as a programmer that when you used int, the machine code you would generate would not need to include extra instructions for a simple line of code like x = x + 1 semicolon.
+
+47
+00:05:03,280 --> 00:05:19,280
+ Modern int values in C are 32 bits long and long values are 64 bits long. Even though modern computers can do 64-bit computations in a single instruction, using the shorter int type when appropriate can save on memory storage and memory bandwidth using int values.
+
+48
+00:05:19,280 --> 00:05:39,280
+ Interestingly, the length of a 32-bit int leads to a Unix and C problem with dates that is called the Year 2038 problem. A common way to represent time in Unix C programs was as a 32-bit integer of the number of seconds since January 1, 1970.
+
+49
+00:05:39,280 --> 00:05:56,280
+ It was quick and easy to compare or add or subtract these second counter dates in code and even in databases. But the number of seconds since January 1, 1970 will overflow a 30-bit number on the 19th of January in 2038.
+
+50
+00:05:56,280 --> 00:06:14,280
+ By now, in order to avoid problems, most systems have converted to storing these number of second values in long, or 64-bit values, which gives us almost 300 billion years until we need to worry about overflowing second timer counters again.
+
+51
+00:06:14,280 --> 00:06:30,280
+ Back when C was developed, we had two different character sets and two different character variable lengths. The world generally standardized on the ASCII character set for the core Western characters and the Unicode/UTF8 to represent all characters in all languages worldwide.
+
+52
+00:06:30,280 --> 00:06:51,280
+ But that is a story for another time. For now, just think of the char type as also a byte type. It is 8 bits in length and can store ASCII. Modern languages like Python or Java have excellent support for wide character sets. In our historical look at C, we will not cover wide or multi-byte characters.
+
+53
+00:06:51,280 --> 00:07:16,280
+ Also, if you look at the float and double types, you will see different bit sizes. Even worse, each of these computers in the 1970s did floating point computation using slightly different hardware implementations, and the same code run on different computers would give slightly different results and have unpredictable behavior on overflow, underflow, and other extraordinary floating point operations.
+
+54
+00:07:16,280 --> 00:07:37,280
+ This was solved by the introduction of the IEEE 754 standard in 1985, which standardized floating point format. This standardized both the length of the float and the double, but also ensured that the same set of floating point calculations would produce the exact same result on different processors.
+
+55
+00:07:37,280 --> 00:07:57,280
+ 2.3 Constants. Int and float constants have already been disposed of, except to note that the usual 123.456e-7 or 0.12e3 scientific notation for floats is also legal.
+
+56
+00:07:57,280 --> 00:08:16,280
+ Every floating point constant is taken to be double, so the e notation serves for both float and double. Long constants are written in the style 123L. An ordinary integer constant that is too long to fit into an int is also assumed to be long.
+
+57
+00:08:16,280 --> 00:08:31,280
+ There is a notation for octal and hexadecimal constants. A leading zero on an int constant implies octal, and a leading 0x or 0x uppercase indicates hexadecimal.
+
+58
+00:08:31,280 --> 00:08:50,280
+ For example, the decimal 31 can be written as 037 in octal and 0x1f or 0x1f where f is capitalized in hex. Hexadecimal and octal constants may also be followed by the letter L to make them long.
+
+59
+00:08:50,280 --> 00:09:02,280
+ A character constant is a single character written in single quotes, as in "x." The value of the character constant is the numeric value of the character in the machine's character set.
+
+60
+00:09:02,280 --> 00:09:23,280
+ For example, the ASCII character set 0 or "0" is 48, and in ebsedec "0" is 240, both quite different from the numeric value 0. Writing "0" instead of a numeric value like 48 or 240 makes the program independent of the particular value.
+
+61
+00:09:23,280 --> 00:09:37,280
+ Character constants participate in numeric operations just like any other numbers, although they are most often used in comparisons with other characters. A later section treats conversion rules.
+
+62
+00:09:37,280 --> 00:09:59,280
+ Certain non-graphic characters can be represented in character constants by escape sequence, like "\n" for newline, "\t" for tab, "\0" for null, "\\" for backslash itself, and "\" for single quote, etc. These look like two characters, but they're actually only one.
+
+63
+00:09:59,280 --> 00:10:24,280
+ In addition, an arbitrary byte-based bit pattern can be generated by writing "\" and then three digits, where the three digits is one to three octal digits, as in "#define formfeed" "\014" which is ASCII for a formfeed.
+
+64
+00:10:24,280 --> 00:10:39,280
+ We mention formfeed here because in the 1970s we sent much of our output to printers, physical printers. A formfeed was the character we would send to the printer to advance to the top of a new page.
+
+65
+00:10:39,280 --> 00:10:56,280
+ The character constant "\0" represents the character with the value zero. "\0" is often written instead of zero to emphasize the character nature of some expression.
+
+66
+00:10:56,280 --> 00:11:24,280
+ A constant expression is an expression that only involves constants. Such expressions are evaluated at compile time rather than runtime, and accordingly may be used in any place a constant may be, as in "\define maxline 1000" "char" "line" "maxline +1" ";"
+
+67
+00:11:24,280 --> 00:11:31,280
+ or "seconds = 60*60*hours"
+
+68
+00:11:31,280 --> 00:11:50,280
+ A string constant is a sequence of zero or more characters surrounded by double quotes, as in "I am a string" or "\" which is a way to show an empty string.
+
+69
+00:11:50,280 --> 00:12:02,280
+ The quotes are not part of the string, but only serve to delimit it. The same escape sequences used for character constants apply in strings. "\" represents the double quote character.
+
+70
+00:12:02,280 --> 00:12:26,280
+ Technically, a string is an array whose elements are single characters. The compiler automatically places the null character "\0" at the end of each such string, so programs can conveniently find the end. This representation means that there is no real limit on how long a string can be, but programs have to scan one to completely determine its length.
+
+71
+00:12:26,280 --> 00:12:43,280
+ The physical storage required is one more location than the number of characters written between the quotes. The following function, "stirlen", taking the parameter "s", returns the length of the character string "s", excluding the terminal "\0".
+
+72
+00:12:43,280 --> 00:13:10,280
+ "Stirlen", open parenthesis "s", close parenthesis, "char", "s", open bracket, close bracket, semicolon, open curly brace, "int" space "i" semicolon, "i" equals "0" semicolon, while parenthesis "s" sub "i" exclamation equals "\0" close parenthesis,
+
+73
+00:13:10,280 --> 00:13:19,280
+ "++i" semicolon, return parenthesis "i" parenthesis, semicolon, close curly brace.
+
+74
+00:13:19,280 --> 00:13:43,280
+ Be careful to distinguish between the character constant and the string that contains a single character. "x" is not the same as "x". The former is a single character used to produce the numerical value of the letter "x" in the machine's character set. The latter is a character string that contains one character, the letter "x", and a "\0".
+
+75
+00:13:43,280 --> 00:13:52,280
+ Section 2.4, all variables must be declared before use, although certain declarations can be made implicitly by context.
+
+76
+00:13:52,280 --> 00:14:11,280
+ A declaration specifies a type and is followed by a list of one or more variables of that type, as in "int lower comma upper comma step semicolon, char c comma line open bracket 1000 close bracket semicolon".
+
+77
+00:14:11,280 --> 00:14:31,280
+ Variables can be distributed among declarations in any fashion. The list above could be equally well written as "int lower semicolon, int upper semicolon, int step semicolon, char c semicolon, char line open bracket 1000 close bracket semicolon".
+
+78
+00:14:31,280 --> 00:14:45,280
+ The latter form takes more room, but it is convenient for adding a comment to each declaration or for subsequent modifications. Variables may also be initialized in their declaration, although there are some restrictions.
+
+79
+00:14:45,280 --> 00:15:08,280
+ The name is followed by an equal sign in a constant that serves as an initializer, as in "char\=\\; int i=0; float eps=1.0e-5;".
+
+80
+00:15:08,280 --> 00:15:16,280
+ If the variable in question is external or static, the initialization is done once only, conceptually, before the program starts executing.
+
+81
+00:15:16,280 --> 00:15:30,280
+ Explicitly initialized automatic variables are initialized each time the function they are in is called. Automatic variables for which there is no explicit initializer have undefined, that is, garbage values.
+
+82
+00:15:30,280 --> 00:15:44,280
+ External and static variables are initialized zero by default, but it is a good style to state the initialization anyway. We will discuss initialization further as new data types are introduced.
+
+83
+00:15:44,280 --> 00:16:02,280
+ Section 2.5 Arithmetic Operators. The binary operators are plus, minus, asterisk, and slash, and the modulus operator percent. There is a unary minus, but no unary plus.
+
+84
+00:16:02,280 --> 00:16:18,280
+ Integer division truncates any fractional part. The expression, x percent y, produces the remainder when x is divided by y, and is thus zero when y divides x exactly.
+
+85
+00:16:18,280 --> 00:16:47,280
+ For example, a year is a leap year if it is divisible by four, but not by one hundred, except that years divisible by four are leap years. Therefore, if parentheses year percent four equal equal zero, and year percent one hundred not equal zero, or year percent four hundred equal equal zero, it is a leap year, else it is not.
+
+86
+00:16:47,280 --> 00:16:52,280
+ The percent operator cannot be applied to float or double.
+
+87
+00:16:52,280 --> 00:17:09,280
+ The plus and minus operators have the same precedence, which is lower than the identical precedence of asterisk, slash, and percent, which are in turn lower than unary minus. Arithmetic operators group from left to right.
+
+88
+00:17:09,280 --> 00:17:15,280
+ A table at the end of this chapter summarizes precedence and associativity for all operators.
+
+89
+00:17:15,280 --> 00:17:28,280
+ The order of evaluation is not specified for associative and commutative operators like asterisk and plus. The compiler may rearrange a parenthesized computation involving these.
+
+90
+00:17:28,280 --> 00:17:47,280
+ Thus, a plus open parenthesis b plus c closed parenthesis can be evaluated as open parenthesis a plus b closed parenthesis plus c. This rarely makes any difference, but if a particular order is required, explicit temporary variables might be used.
+
+91
+00:17:47,280 --> 00:17:53,280
+ The action on overflow or underflow depends on the machine at hand.
+
+92
+00:17:53,280 --> 00:18:13,280
+ I would note that the above paragraph allowing the compiler to reorder computations, even in the presence of parenthesis, is known as the KNRC arrangement license.
+
+93
+00:18:13,280 --> 00:18:25,280
+ As the authors state, it almost never makes a difference unless an expression contains a value computed in a function call, or is there a pointered lookup to find a value for the computation that might fail.
+
+94
+00:18:25,280 --> 00:18:38,280
+ The rule was subtly adjusted in the ISO version of C, but ISO C still does not strictly force the order of otherwise commutative operations, even in the presence of parenthesis.
+
+95
+00:18:38,280 --> 00:18:49,280
+ The good news is that as long as you keep your expression simple, you don't have to worry about this rule. Sometimes the real value of parenthesis is to communicate your intentions to the human readers of your code.
+
+96
+00:18:49,280 --> 00:19:02,280
+ If you are writing code that depends on the order of overflow, function calls, and pointer dereferences in a single mathematical expression, perhaps you should break your expression into multiple statements.
+
+97
+00:19:02,280 --> 00:19:12,280
+ Section 2.6. Relational and logical operators. Relational operators are greater than, greater than or equal, less than, less than or equal.
+
+98
+00:19:12,280 --> 00:19:23,280
+ They all have the same precedence. Just below them in precedence are the equality operators. Double equals and exclamation equals, which have the same precedence.
+
+99
+00:19:23,280 --> 00:19:37,280
+ Relationals have lower precedence than arithmetic operators, so expressions like i less than lim minus 1 are taken as i less than open parenthesis lim minus 1, close parenthesis, as would be expected.
+
+100
+00:19:37,280 --> 00:19:45,280
+ More interesting are the logical connectives double ampersand and double vertical bar, and and or.
+
+101
+00:19:45,280 --> 00:19:56,280
+ Expressions connected by double ampersand or double vertical bar are evaluated left to right, and the evaluation stops as soon as the truth or falsehood of the result is known.
+
+102
+00:19:56,280 --> 00:20:01,280
+ These properties are critical in writing programs that work.
+
+103
+00:20:01,280 --> 00:20:25,280
+ For example, here is a loop from the input function getline, which we wrote in chapter 1. For parentheses, i equals 0 semicolon, i less than lim minus 1 double ampersand, parentheses, c equals getchar, open parentheses, close parentheses, close parentheses, not equal, single quote backslash n, single quote, double ampersand,
+
+104
+00:20:25,280 --> 00:20:36,280
+ c exclamation equal eof semicolon, plus plus i, close parentheses, s sub i equals c.
+
+105
+00:20:36,280 --> 00:20:46,280
+ Clearly, before reading a new character, it is necessary to check that there's room to store the array, so the test i less than lim minus 1 must be made first.
+
+106
+00:20:46,280 --> 00:20:52,280
+ Not only, but if this test fails, we must not go on and read another character.
+
+107
+00:20:52,280 --> 00:20:58,280
+ Similarly, it would be unfortunate if c were tested against eof before getchar was called.
+
+108
+00:20:58,280 --> 00:21:03,280
+ The call must occur before the character c is checked against eof.
+
+109
+00:21:03,280 --> 00:21:14,280
+ The precedence of double ampersand and is greater than that of double vertical bar or, and both are lower than the relational inequality operators.
+
+110
+00:21:14,280 --> 00:21:32,280
+ So expressions like i less than lim minus 1 double ampersand, parentheses, c equals getchar, open parentheses, close parentheses, not equal, single quote backslash n, single quote, double ampersand, c not equal eof, needs no extra parentheses.
+
+111
+00:21:32,280 --> 00:21:49,280
+ But since the parentheses of not equals is higher than assignment, parentheses do need to be added in open parentheses, c equals getchar, open parentheses, close parentheses, not equal, backslash n, to achieve the desired result.
+
+112
+00:21:49,280 --> 00:21:52,280
+ Let's take a brief digression.
+
+113
+00:21:52,280 --> 00:22:03,280
+ One of the great debates of the 1970s was how to use structured programming to avoid any use of go to statements that lead to completely unreadable spaghetti code.
+
+114
+00:22:03,280 --> 00:22:18,280
+ Structured code was easier to read, debug, and validate. Structured code advocated for if then else, else if, while do loops, and do while loops, where the loop exit test was at the top or the bottom of the loops respectively.
+
+115
+00:22:18,280 --> 00:22:31,280
+ There was a move from flowcharts with lines, boxes, and arrows to structured programming techniques like Naschi-Sneiderman diagrams that you did used nested boxes to emphasize the structured nature of the code.
+
+116
+00:22:31,280 --> 00:22:36,280
+ The proponents of each approach tended to approach the problem based on the language they used.
+
+117
+00:22:36,280 --> 00:22:56,280
+ Algol and Pascal programmers were strong advocates of structured programming, and those languages had syntax that encouraged the approach. Fortran programs had decades of flowchart style thinking and tended to avoid full adoption of structured programming.
+
+118
+00:22:56,280 --> 00:23:06,280
+ Regan and Ritchie chose a middle path and made it so that C could support both approaches to avoid angering either side of the structured programming debate.
+
+119
+00:23:06,280 --> 00:23:16,280
+ One area where the structured code movement kept hitting a snag was implementing a loop that reads a file and processes data until it reaches the end of file.
+
+120
+00:23:16,280 --> 00:23:22,280
+ The loop must be able to handle an empty file or no data at all.
+
+121
+00:23:22,280 --> 00:23:29,280
+ There are three ways to construct a read and process until EOF loop, and none of the approaches are ideal.
+
+122
+00:23:29,280 --> 00:23:42,280
+ The loop constructions that you can do are a top-tested loop with a priming read before the loop, a bottom-tested loop with a read as the first statement in the loop and an if-then-else as the rest of the body of the loop,
+
+123
+00:23:42,280 --> 00:23:56,280
+ a top-tested infinite loop with a priming read and a middle-tested exit, and a top-tested loop with a side-effect read in the test of the loop, which is the way that Kernigan and Ritchie chose to document in this chapter.
+
+124
+00:23:56,280 --> 00:24:12,280
+ This serves to explain the syntax while open parentheses, open parentheses, C equals getchar, open parentheses, closed parentheses, not equal EOF, closed parentheses, open curly brace, body of the loop, closed curly brace.
+
+125
+00:24:12,280 --> 00:24:23,280
+ This construct is a top-tested loop, which most programmers prefer, and it folds the priming read and puts its value inside the variable C.
+
+126
+00:24:23,280 --> 00:24:33,280
+ But since getchar might also return EOF, we need to check if we actually receive no data at all and need to avoid executing the body of the loop or exit the loop.
+
+127
+00:24:33,280 --> 00:24:48,280
+ If EOF were defined as 0 instead of -1, the loop could have been written while open parentheses, C equals getchar, open parentheses, closed parentheses, closed parentheses, open curly brace, body of the loop, closed curly brace.
+
+128
+00:24:48,280 --> 00:25:01,280
+ Now, the getchar function returns a character or 0, and the test itself is looking at the side-effect or residual value of the assignment statement to decide to start and/or continue the loop body.
+
+129
+00:25:01,280 --> 00:25:17,280
+ The problem with using 0 is end-of-file. If you are reading a binary file, like JPEG data, a 0 character might make perfect sense, and we would not want to incorrectly end the loop because of a 0 character in input data that does not end a file.
+
+130
+00:25:17,280 --> 00:25:26,280
+ So we get the double parentheses syntax. The side-effect call to getchar and test the return value within the while test.
+
+131
+00:25:26,280 --> 00:25:39,280
+ I'm quite confident that this is far more detail that you wanted here in Chapter 2, but it is as good a time as any to understand how much thought goes into a programming language, how it is designed and documented.
+
+132
+00:25:39,280 --> 00:25:55,280
+ By the time we finish Chapter 3 and look at the break and continue statements, which are in languages like Python and Java, you will see that this 50-year-old structured programming debate is still unresolved in the minds of many software developers.
+
+133
+00:25:55,280 --> 00:26:09,280
+ Back to the book. The unary negation operator, logical negation operator, converts a non-zero or true operand into 0 and a zero or false operand into 1.
+
+134
+00:26:09,280 --> 00:26:23,280
+ A common use of exclamation, which we often call bang, is in constructions like if open parenthesis exclamation point inward close parenthesis rather than if open parenthesis inward equal equal 0.
+
+135
+00:26:23,280 --> 00:26:37,280
+ It is hard to generalize about which of these two forms is better. Construction like exclamation inward read quite nicely as if not in word, but more complicated ones can be hard to understand.
+
+136
+00:26:37,280 --> 00:26:58,280
+ Section 2.7, type conversions. When operands of different types appear in expressions, they are converted to a common type according to a small number of rules. In general, the only conversions that happen automatically are those that make sense, such as converting an integer to a floating point in an expression like f plus i.
+
+137
+00:26:58,280 --> 00:27:10,280
+ Expressions that don't make sense, like using a float in a subscript, are disallowed. First, chars and ints may be freely intermixed in arithmetic expressions.
+
+138
+00:27:10,280 --> 00:27:19,280
+ Every char in an expression is automatically converted to an int. This permits considerable flexibility in certain kinds of character transformations.
+
+139
+00:27:19,280 --> 00:27:29,280
+ One is exemplified by the function a to i, which converts a string of digits into its numeric equivalent.
+
+140
+00:27:29,280 --> 00:27:58,280
+ Chars, s, open bracket, close bracket, semicolon, open curly brace, int, i comma n, semicolon, n equals 0, for, parenthesis, i equals 0, semicolon, s sub i greater than or equal to, quote, 0, quote, double ampersand, s sub i less than or equal to, quote, 9, quote, semicolon, plus plus i, close parenthesis.
+
+141
+00:27:58,280 --> 00:28:08,280
+ n equals 10 asterisk n plus s sub i minus, single quote, 0, single quote, semicolon.
+
+142
+00:28:08,280 --> 00:28:15,280
+ Return, open parenthesis, n, close parenthesis, semicolon, close curly brace to end the function.
+
+143
+00:28:15,280 --> 00:28:31,280
+ As we discussed in Chapter 1, the expression s sub i minus, quote, 0, quote, gives the numeric value of the character stored in s sub i because the values 0, 1, etc. form a continuously increasing positive sequence.
+
+144
+00:28:31,280 --> 00:28:47,280
+ Another example of the char int conversion is the function lower, which meant a single character to lowercase for the ASCII character set only. If the character is not an uppercase letter, lower is returned unchanged.
+
+145
+00:28:47,280 --> 00:29:09,280
+ Here's a function. Lower, open parenthesis, c, close parenthesis, int c, semicolon, open curly brace. If, open parenthesis, c greater than or equal to, quote, capital A, quote, double ampersand, c less than or equal to, quote, z, quote, uppercase Z.
+
+146
+00:29:09,280 --> 00:29:24,280
+ Parenthesis, return, open parenthesis, c plus, quote, lowercase a, quote, minus, quote, uppercase A, quote, close parenthesis, semicolon, else return c.
+
+147
+00:29:24,280 --> 00:29:34,280
+ This works for ASCII because the corresponding upper and lowercase letters are a fixed distance apart as numeric values and each alphabet is contiguous.
+
+148
+00:29:34,280 --> 00:29:48,280
+ There is nothing but letters between A and Z. This latter observation is not true of the Ebsedic character set on IBM 360-370 architectures, so this code fails on such systems. It converts more than letters.
+
+149
+00:29:48,280 --> 00:30:00,280
+ There is one subtle point about the conversion of characters to integer. The language does not specify whether the variables of type char are signed or unsigned quantities.
+
+150
+00:30:00,280 --> 00:30:11,280
+ When char is converted to an int, can it ever produce a negative number? Unfortunately, this varies from machine to machine, reflecting differences in architecture.
+
+151
+00:30:11,280 --> 00:30:30,280
+ On some machines, PDP-11, for instance, a char whose leftmost bit is 1 will be converted to negative integer using sign extension. On others, a char is promoted to an int by adding zeros at the left end and is thus always positive.
+
+152
+00:30:30,280 --> 00:30:50,280
+ The definition of c guarantees that any character in the machine standard character set will never appear to be negative, so these characters may be used freely in expressions as positive quantities, but arbitrary bit patterns stored in character variables may appear to be negative on some machines, yet positive on others.
+
+153
+00:30:50,280 --> 00:31:10,280
+ The most common occurrence of this situation is when the value -1 is used for EOF. Consider the code, char c; c = getchar openparen closeparen; if openparen c= EOF closeparen...
+
+154
+00:31:10,280 --> 00:31:30,280
+ On a machine which does not do sign extension, c is always positive because it returns a char, yet EOF is negative. As a result, this test always fails. To avoid this, we have been careful to use int instead of char for any variable which holds a value returned by the function getchar.
+
+155
+00:31:30,280 --> 00:31:54,280
+ The real reason for using int instead of char is not related to any questions of possible sign extensions. It is simply that getchar must return all possible characters so that it can be used to read arbitrary input, and in addition, a distinct EOF value. Thus, its value cannot be represented as a char, but must instead be stored as an int.
+
+156
+00:31:54,280 --> 00:32:17,280
+ As an aside, since the book was written before the getchar function was standardized, the text is somewhat vague in this section. Shortly after the book was published, getchar was put into the stdio.h library and declared to return an integer so as to accommodate all possible characters and the integer -1 value to indicate the end of file.
+
+157
+00:32:17,280 --> 00:32:33,280
+ The above code would be better written with c declared as an integer. int c; c = getchar('closeparen;') if c= EOF('closeparen...).
+
+158
+00:32:33,280 --> 00:32:48,280
+ While the conversion from char to int may or may not have sign extension, and yes it still depends on the implementation 50 years later, the conversion from int to char is predictable, with the top bits being simply discarded.
+
+159
+00:32:48,280 --> 00:33:08,280
+ If you are using the library function getS to read a file line by line, we don't need to worry about this conversion. Since getS returns a pointer to a character array, i.e. a string, it indicates it has reached end of file by returning the null pointer, i.e. there is no more data to give.
+
+160
+00:33:08,280 --> 00:33:26,280
+ Back to the textbook. Another useful form of automatic type conversions is that relational expressions like i > j and logical expressions constructed by double ampersand and double vertical bar and/or respectively are defined to have the value 1 if true and 0 if false.
+
+161
+00:33:26,280 --> 00:33:42,280
+ Thus, the assignment is_digit = c > or = "0" double ampersand, c < or = "9" sets the variable is_digit to 1 if c is a digit and 0 if it's not.
+
+162
+00:33:42,280 --> 00:33:51,280
+ In the if test part of an if, while, or for, true just means non-zero.
+
+163
+00:33:51,280 --> 00:34:12,280
+ Implicit arithmetic conversions work much as expected. In general, if an operator like c or * for multiplication, which takes two operators, i.e. a binary operator, if it has operands of different types, the lower type is promoted to the higher type before the operation proceeds and the result is the higher type.
+
+164
+00:34:12,280 --> 00:34:24,280
+ More precisely, for each arithmetic operator, the following sequence of conversion rules is applied. Char and short are converted to int and float is converted to double.
+
+165
+00:34:24,280 --> 00:34:33,280
+ Then, if either operand is double, the other is converted to double and the result is double. Otherwise, if either operand is long and the other is converted to long, the result is long.
+
+166
+00:34:33,280 --> 00:34:45,280
+ Otherwise, if either operand is unsigned, the other is converted to unsigned and the result is unsigned. Otherwise, the operands must be int and the result is int.
+
+167
+00:34:45,280 --> 00:34:54,280
+ Note that all float values in an expression are converted to double. All floating point arithmetic in c is done in double precision.
+
+168
+00:34:54,280 --> 00:35:07,280
+ Conversions take place across assignments. The value of the right side is converted to the type of the left, which is the type of the result. A character is converted to an integer, either by sign extension or not, as described above.
+
+169
+00:35:07,280 --> 00:35:27,280
+ The reverse operation, int to char, is well behaved. Excess high order bits are simply discarded. Thus in int i semicolon, char c semicolon, i equals c, c equals i, the value of c is unchanged and this is true whether or not sign extension is involved.
+
+170
+00:35:27,280 --> 00:35:43,280
+ If x is float and i is int, then x equals i and i equals x both cause conversions. Float to int causes truncation of any fractional part. Double is converted to float by rounding.
+
+171
+00:35:43,280 --> 00:35:58,280
+ Longer ints are converted to shorter ones, or to chars, by dropping excess high order bits. Since a function argument is an expression, type conversions also take place when arguments are passed to functions.
+
+172
+00:35:58,280 --> 00:36:10,280
+ In particular, char and short become int and float becomes double, and that is why we have declared function arguments to be int and double even when the function is called with char and float.
+
+173
+00:36:10,280 --> 00:36:20,280
+ Finally, explicit type conversions can be forced, also we call it coerced, in any expression with a construct called the cast.
+
+174
+00:36:20,280 --> 00:36:40,280
+ In the construction, open parenthesis type name, close parenthesis expression, the expression is converted to the named type by the conversion rules above. The precise meaning of cast is in fact as if the expression were assigned to a variable of the specified type which is then used in place of the whole construction.
+
+175
+00:36:40,280 --> 00:37:03,280
+ For example, the library square root sqrt expects a double argument and will produce nonsense if inadvertently handed something else. So if n is an integer, sqrt, open parenthesis, open parenthesis, double, close parenthesis, n, close parenthesis, converts n to double before passing it to sqrt.
+
+176
+00:37:03,280 --> 00:37:20,280
+ Note that the cast produces the value of n in the proper type. The actual content of n is not altered. The cast operator has the same precedence as other unary operations as is summarized in the table at the end of this chapter.
+
+177
+00:37:20,280 --> 00:37:37,280
+ Section 2.8, increment and decrement operators. C provides two unusual operators for incrementing and decrementing variables. The increment operator plus plus adds one to its operand. The decrement operator minus minus subtracts one.
+
+178
+00:37:37,280 --> 00:37:51,280
+ We have frequently used plus plus to increment variables as in if open parenthesis c equals equals single quote backslash n single quote close parenthesis plus plus nl semicolon.
+
+179
+00:37:51,280 --> 00:38:20,280
+ The unusual aspect is that plus plus and minus minus may be used either as prefix operators, i.e. before the variable as in plus plus n or postfix after the variable n plus plus. In both cases, the effect is to increment n, but the expression, the residual value of the expression plus plus n increments n before using its value while n plus plus increments n after its value has been used.
+
+180
+00:38:20,280 --> 00:38:44,280
+ This means that in a context where the value is used, not just the effect, plus plus n and n plus plus are different. If n is 5, then x equals n plus plus semicolon sets x to 5, the old value, but x equals plus plus n semicolon sets x to 6, the new value.
+
+181
+00:38:44,280 --> 00:39:01,280
+ In both cases, n becomes 6. The increment and decrement operators can only be applied to variables. An expression like x equals open parenthesis i plus j close parenthesis plus plus is illegal.
+
+182
+00:39:01,280 --> 00:39:16,280
+ In a context where no value is wanted, just incrementing effect as in if open parenthesis c double equals single quote backslash n single quote close parenthesis nl plus plus semicolon, choose prefix or postfix according to taste.
+
+183
+00:39:16,280 --> 00:39:31,280
+ But there are situations where one or the other is specifically called for. For example, consider the function squeeze s comma c, which removes all occurrences of the character c from the string s.
+
+184
+00:39:31,280 --> 00:39:46,280
+ Squeeze open parenthesis s comma c close parenthesis char s open bracket close bracket semicolon int c semicolon. Open curly brace int i comma j semicolon.
+
+185
+00:39:46,280 --> 00:40:02,280
+ For parenthesis i equals j equals 0 semicolon s sub i not equal to single quote backslash 0 single quote semicolon i plus plus close parenthesis.
+
+186
+00:40:02,280 --> 00:40:16,280
+ If open parenthesis s sub i not equal to c close parenthesis s sub j plus plus close parenthesis equals s sub i.
+
+187
+00:40:16,280 --> 00:40:32,280
+ Outside the for loop totally s sub j equals backslash quote s sub j equals quote backslash 0 quote semicolon close curly brace.
+
+188
+00:40:32,280 --> 00:40:46,280
+ Each time a non c a character other than what's in the variable c occurs is copied into the current j position and only then is j incremented to be ready for the next character.
+
+189
+00:40:46,280 --> 00:41:02,280
+ Equivalent to if open parenthesis s sub i not equal to c close parenthesis open curly brace s sub j equals s sub i semicolon j plus plus semicolon close curly brace.
+
+190
+00:41:02,280 --> 00:41:20,280
+ Another example of a similar construction comes from the get line function we wrote in chapter one where we can replace if open parenthesis c double equals quote backslash end quote close parenthesis open curly brace s sub i equals c semicolon plus plus i semicolon close parenthesis.
+
+191
+00:41:20,280 --> 00:41:32,280
+ By the far more compact if parenthesis c double equals quote backslash end quote close parenthesis s sub i plus plus equals c semicolon.
+
+192
+00:41:32,280 --> 00:42:01,280
+ In a third example the function strcat concatenates the string t to the end of the string s strcat does assume that there's enough space in s to hold the combination here's the code strcat open parenthesis comma t close parenthesis char s open bracket close bracket comma t open bracket close bracket semicolon open curly brace int i comma j semicolon.
+
+193
+00:42:01,280 --> 00:42:19,280
+ I equals j equals zero semicolon while open print s sub i not equal single quote backslash zero single quote close print i plus plus in this we'd find the end of s.
+
+194
+00:42:19,280 --> 00:42:33,280
+ While open parenthesis open parenthesis s sub i plus plus equals t sub j plus plus close parenthesis not equal backslash zero close parenthesis semicolon.
+
+195
+00:42:33,280 --> 00:42:50,280
+ That code copies the rest of t into s close curly brace as each characters copied from t to s the post fix plus plus is applied to both i and j to make sure they are in position for the next pass through the loop.
+
+196
+00:42:50,280 --> 00:43:07,280
+ Section 2.9 bitwise logical operators c provides a number of operators for bit manipulation these may not be applied to float or double ampersand is bitwise and vertical bar is bitwise inclusive or.
+
+197
+00:43:07,280 --> 00:43:25,280
+ Carrot is bitwise exclusive or less than less than is left shift and greater than greater than is right shift and tilled is one compliments and it's a unary operator the bitwise and operator ampersand is often used to mask off some set of bits for example.
+
+198
+00:43:25,280 --> 00:43:47,280
+ c equals n ampersand zero one seven seven sets to zero all but the lower seven bits of n the bitwise or operator is used to turn bits on x equals x vertical bar mask sets to one the x bits that are set to one in mask.
+
+199
+00:43:47,280 --> 00:43:59,280
+ You should carefully distinguish the bitwise operator ampersand and vertical bar from the logical connectives double ampersand and double vertical bar which imply left to right evaluation of a truth value.
+
+200
+00:43:59,280 --> 00:44:13,280
+ For example if x is one and y is two then x single ampersand y is zero while x double ampersand y is one think about that for a moment.
+
+201
+00:44:13,280 --> 00:44:24,280
+ The shift operators less than less than and greater than greater than perform left and right shifts respectively of their left operand by the number of bit positions given by the right operand.
+
+202
+00:44:24,280 --> 00:44:53,280
+ Thus, x less than less than two shifts x left by two positions filling the vacated bits with zero. This is the equivalent to multiplication by four. Right shifting an unsigned quantity fills the vacated bits with zero. Right shifting a signed quantity will fill the sign bits or arithmetic shift on some machines such as PDP 11 and with zero bits logical shift on other.
+
+203
+00:44:53,280 --> 00:45:03,280
+ The unary operator tilde yields the once complement of an integer that is it converts each one bit into a zero bit and vice versa.
+
+204
+00:45:03,280 --> 00:45:17,280
+ This operator typically finds use in expressions like x ampersand tilde zero seven seven which masks the last six bits of x to zero.
+
+205
+00:45:17,280 --> 00:45:35,280
+ Note that x ampersand tilde zero seven seven is independent of word length and is thus preferable to for example x ampersand zero one seven seven seven zero zero which assumes that x is a 16 bit quantity.
+
+206
+00:45:35,280 --> 00:45:45,280
+ The portable form involves no extra cause since tilde zero seven seven is a constant expression and thus evaluated at compile time.
+
+207
+00:45:45,280 --> 00:45:59,280
+ To illustrate the use of some of the bit operators consider the function getBits(x,p,n) which returns the right adjusted n bit field of x that begins at position p.
+
+208
+00:45:59,280 --> 00:46:06,280
+ We assume that bit position zero is at the right end and that n and p are sensible positive values.
+
+209
+00:46:06,280 --> 00:46:19,280
+ For example getBits(x,4,3) returns the three bits in bit positions four three and two right adjusted.
+
+210
+00:46:19,280 --> 00:46:46,280
+ Here we go with the code getBits(x,p,n) unsigned x,p,n semicolon open curly brace return open parentheses open parentheses x greater than greater than open parentheses p plus one minus n close parentheses close parentheses and ampersand tilde open parentheses tilde zero
+
+211
+00:46:46,280 --> 00:47:00,280
+ less than less than n close parentheses close parentheses semicolon close curly brace x greater than greater than parentheses p plus one minus n close parentheses moves the desired field to the right end of the word.
+
+212
+00:47:00,280 --> 00:47:13,280
+ Declaring the argument to be x declaring the argument x to be unsigned ensures that when it is right shifted vacated bits will be filled with zeros not sign bits regardless of the machine the program is run on.
+
+213
+00:47:13,280 --> 00:47:35,280
+ Tilde zero is all one bits shifting it left n bit positions with tilde zero less than less than n creates a mask with zeros in the rightmost n bits and ones everywhere else complementing that with tilde makes a mask with ones in the rightmost bits.
+
+214
+00:47:35,280 --> 00:47:47,280
+ Bitwise operators may seem unnecessary for modern computers, but if you look at the internal structure of TCP IP packets the values are packed very tightly into the headers in order to save space.
+
+215
+00:47:47,280 --> 00:47:54,280
+ See made it possible to write portable TCP implementations on a wide range of hardware architectures.
+
+216
+00:47:54,280 --> 00:48:10,280
+ Bitwise operators also play an important role in encryption, decryption and checksum calculations. Modern languages like Java and Python support bitwise operators, following the same patterns that we established in C, so that things like TCP IP and encryption
+
+217
+00:48:10,280 --> 00:48:25,280
+ operations can also be implemented in these languages. By defining these operators it kept software developers from needing to write non portable assembly language to implement these low level features in operating systems and libraries.
+
+218
+00:48:25,280 --> 00:48:43,280
+ Section 2.10 assignment operators and expressions. Expressions such as I equals I plus two in which the left hand side is repeated on the right can be written in the compressed form I plus equals two using an assignment operator like plus equals.
+
+219
+00:48:43,280 --> 00:49:01,280
+ Of course binary operators operators like plus that have a left and right operand have a corresponding assignment operator op equals where op is one of plus minus asterisk for multiplication slash for division percent for modulo.
+
+220
+00:49:01,280 --> 00:49:26,280
+ Plus then left shift greater than greater than right shift ampersand bitwise and caret exclusive or vertical bar bitwise or if E1 and E2 are expressions then E1 operand equals E2 is equivalent to E1 equals E1 operand E2 except that E1 is only computed once.
+
+221
+00:49:26,280 --> 00:49:31,280
+ Note the parentheses around E2.
+
+222
+00:49:31,280 --> 00:49:49,280
+ X star equals Y plus one is actually X equals X times parentheses Y plus one close parentheses rather than X times Y plus one as an example function bit count counts the number of one bits in its integer argument.
+
+223
+00:49:49,280 --> 00:49:57,280
+ Here's the code. Bit count open parentheses and close parentheses unsigned and semicolon.
+
+224
+00:49:57,280 --> 00:50:16,280
+ Open curly brace int B for open parentheses B equals zero semicolon and exclamation equals zero semicolon and greater than greater than equal one close parentheses.
+
+225
+00:50:16,280 --> 00:50:31,280
+ If open parentheses and ampersand zero one close parentheses B plus plus semicolon return open parentheses B close parentheses semicolon curly brace.
+
+226
+00:50:31,280 --> 00:50:46,280
+ Quite apart from its conciseness assignment operators have the advantage in that they correspond better to the way people think. We say add two to I or increment I by two not take I add two and put the result back in I.
+
+227
+00:50:46,280 --> 00:51:09,280
+ Thus I plus equal two in addition for a complicated expression like Y Y val open bracket Y Y PV open bracket P3 plus P4 close bracket plus Y Y PV open bracket P1 plus P2 close bracket close bracket plus equals two.
+
+228
+00:51:09,280 --> 00:51:20,280
+ The assignment operator makes it code easier to understand since the reader doesn't have to check painstakingly that two long expressions are indeed the same or wonder why they're not.
+
+229
+00:51:20,280 --> 00:51:25,280
+ An assignment operator may even help the compiler to produce more efficient code.
+
+230
+00:51:25,280 --> 00:51:45,280
+ We have already used the fact that the assignment statement has a side effect value and can occur in expressions. The most common example is while open parentheses open parentheses C equals get char open parentheses close parentheses close parentheses exclamation equal EOF close parentheses and then the rest of the loop.
+
+231
+00:51:45,280 --> 00:51:53,280
+ Assignments using other assignment operators plus equal minus equal can also occur in expressions, although it's a less frequent occurrence.
+
+232
+00:51:53,280 --> 00:52:01,280
+ The type of an assignment expression is the type of its left operand section two point one one conditional expressions.
+
+233
+00:52:01,280 --> 00:52:24,280
+ The statements if parentheses A greater than B close parentheses C equals A semicolon else Z equals B semicolon of course compute Z in the maximum A and B. The conditional expression written with a ternary operator which is question mark and colon provides an alternate way to write this and similar constructions.
+
+234
+00:52:24,280 --> 00:52:39,280
+ In the expression E one question mark E two colon E three the expression E one is evaluated first if it is non zero true then the expression E two is evaluated and that is the value of the conditional expression.
+
+235
+00:52:39,280 --> 00:53:03,280
+ Otherwise E three is evaluated and that is the value only one of E two and E three are evaluated thus to set the Z to set Z to the maximum of A and B we say Z equals parentheses A greater than B close parentheses question mark A colon B and this implements Z equals max of A and B.
+
+236
+00:53:03,280 --> 00:53:10,280
+ It should be noted that the conditional expression is indeed an expression and can be used just as any other expression.
+
+237
+00:53:10,280 --> 00:53:34,280
+ If E one and E if E two and E three are different types their type of the result is determined by the conversion rules described earlier in this chapter. For example if F is a float and N is an int then the expression parentheses N greater than zero close parentheses question mark F colon N is of type double regardless of whether N is positive or not.
+
+238
+00:53:34,280 --> 00:53:44,280
+ Parentheses are not necessary around the first expression of a conditional expression since the precedence of question mark colon is very low just above assignment.
+
+239
+00:53:44,280 --> 00:54:06,280
+ They are advisable anyway however since they make the condition part of the expression easier to see. The conditional expression often leads to succinct code. For example this loop prints N elements of an array 10 per line with each column separated by one blank and with each line including the last terminated by exactly one new line.
+
+240
+00:54:06,280 --> 00:54:27,280
+ Here's the code for parentheses I equals zero semicolon I less than N semicolon I plus plus close parentheses print F open parentheses double quote percent six D percent C double quote comma A sub I comma.
+
+241
+00:54:27,280 --> 00:54:48,280
+ Open parentheses I percent 10 double equal nine or double vertical bar I double equal N minus one close parentheses question mark single quote backslash N single quote colon single quote space single quote close parentheses semicolon.
+
+242
+00:54:48,280 --> 00:55:00,280
+ A new line is printed after every 10th element and after the Nth and all elements are followed by one blank although this might look tricky it's instructive to try to write it without the conditional expression.
+
+243
+00:55:00,280 --> 00:55:12,280
+ Section 2.12 precedence and order of evaluation. The table below summarizes the rules for precedence and associativity of all operators including those which we have not yet discussed.
+
+244
+00:55:12,280 --> 00:55:27,280
+ Operators on the same line have the same precedence rows are in order of decreasing precedence. So for example asterisk slash and percent all have the same precedence which is higher than that of plus and minus.
+
+245
+00:55:27,280 --> 00:55:50,280
+ Parentheses square brackets the arrow operator and the dot operator are first with the right left to right associativity. Next precedence is exclamation tilde plus plus minus minus single minus.
+
+246
+00:55:50,280 --> 00:56:11,280
+ The cast multiplication bitwise and size of left with right to left associativity and multiplication division and modulo with left right associativity then plus and minus with left to right associativity.
+
+247
+00:56:11,280 --> 00:56:20,280
+ Then left shift which is less than less than and right shift which is right greater than greater than with left to right associativity.
+
+248
+00:56:20,280 --> 00:56:27,280
+ Then logical operators less than less than or equal to greater than or greater than or equal to with left to right associativity.
+
+249
+00:56:27,280 --> 00:56:45,280
+ Then comparison double equals not equal exclamation equal left to right. Then we have some bitwise operators the bitwise and with left to right associativity then the bitwise exclusive or with left right associativity which is a carrot.
+
+250
+00:56:45,280 --> 00:56:57,280
+ Then the single vertical bar which is bitwise or with left to right associativity. Then we have ampersand ampersand which is and the logical and left to right associativity.
+
+251
+00:56:57,280 --> 00:57:08,280
+ Then double vertical bar which is the logical or with left to right associativity. Then the ternary operator which is question mark and colon with right to left associativity.
+
+252
+00:57:08,280 --> 00:57:20,280
+ Then the assignments equals plus equals minus equals etc. with right to left associativity and then the comma which we'll cover in the next chapter with left to right associativity.
+
+253
+00:57:20,280 --> 00:57:37,280
+ The operators dash greater than and dot are used to access members of structures. They'll be covered in chapter six along with size of and then in chapter five we'll discuss asterisk indirection and ampersand address of.
+
+254
+00:57:37,280 --> 00:57:46,280
+ Note that the precedence of the bitwise logical operators ampersand carrot and vertical bar falls below double equals and exclamation equals.
+
+255
+00:57:46,280 --> 00:58:02,280
+ This implies that this bit testing expressions like if parenthesis parenthesis x ampersand mass close parenthesis equal equals zero close parenthesis must be fully parenthesis to get proper results.
+
+256
+00:58:02,280 --> 00:58:17,280
+ As mentioned before expressions evolving one or more of the associative and commutative operators like multiply plus bitwise and bitwise or bitwise and bitwise exclusive or can be rearranged even when parenthesized.
+
+257
+00:58:17,280 --> 00:58:27,280
+ In most cases this makes no difference whatsoever in situations where it might explicit temporary variables can use to force a particular order of evaluation.
+
+258
+00:58:27,280 --> 00:58:33,280
+ See like most languages does not specify in what order operands of an operator are evaluated.
+
+259
+00:58:33,280 --> 00:58:47,280
+ For example in a statement like x equals f open parenthesis close parenthesis plus g open parenthesis close parenthesis semicolon f may be evaluated before vg or vice versa.
+
+260
+00:58:47,280 --> 00:58:56,280
+ Thus if f or g alters an external variable that the other depends on x can depend on the order of evaluation.
+
+261
+00:58:56,280 --> 00:59:03,280
+ Again intermediate results can be stored in temporary variables to ensure a particular sequence.
+
+262
+00:59:03,280 --> 00:59:26,280
+ Similarly the order which function arguments are evaluated is not specified so the statement print f open parenthesis double quote percent d space percent d backslash n double quote comma plus plus n comma power open parenthesis two comma n close parenthesis close parenthesis is wrong.
+
+263
+00:59:26,280 --> 00:59:33,280
+ It can and often does produce different results on different machines depending on whether or not n is incremented before power is called.
+
+264
+00:59:33,280 --> 00:59:51,280
+ The solution of course is to write plus plus n semicolon print f open parenthesis double quote percent d space percent d backslash n double quote comma n comma power open parenthesis two comma n close parenthesis close parenthesis.
+
+265
+00:59:51,280 --> 00:59:57,280
+ Function calls nested assignment statements and increment and decrement operators cause side effects.
+
+266
+00:59:57,280 --> 01:00:02,280
+ Some variable is changed as a byproduct of the evaluation of an expression.
+
+267
+01:00:02,280 --> 01:00:12,280
+ In any expression involving side effects there can be subtle dependencies on the order in which variables taking part in the expression are stored.
+
+268
+01:00:12,280 --> 01:00:19,280
+ One unhappy situation is typified by the statement a sub i equals i plus plus.
+
+269
+01:00:19,280 --> 01:00:25,280
+ The question is whether or not the subscript is the old value of i or the new value.
+
+270
+01:00:25,280 --> 01:00:32,280
+ The compiler can do this in different ways and generate different answers depending on its interpretation.
+
+271
+01:00:32,280 --> 01:00:42,280
+ When side effects i.e. assignment to actual variables takes place is left to the discretion of the compiler since the best order strongly depends on machine architecture.
+
+272
+01:00:42,280 --> 01:00:51,280
+ The moral of this discussion is writing code which depends on the order of evaluation is a bad programming practice in any language.
+
+273
+01:00:51,280 --> 01:01:00,280
+ Naturally it is necessary to know what things to avoid but if you don't know how they are done on various machines that innocence may help to protect you.
+
+274
+01:01:00,280 --> 01:01:07,280
+ The C verifier lint will detect most dependencies on order of evaluation.
+
+275
+01:01:07,280 --> 01:01:13,280
+ I would add that the real moral of the story is to use side effect operators very carefully.
+
+276
+01:01:13,280 --> 01:01:19,280
+ They are generally only used in idiomatic situations and then written using simple code.
+
+277
+01:01:19,280 --> 01:01:25,280
+ The authors are happy to tell you everything that you can do and see in great detail.
+
+278
+01:01:25,280 --> 01:01:31,280
+ And they are also suggesting that just because you can do something does not mean that you should do something.
+
+279
+01:01:31,280 --> 01:01:40,280
+ Remember that a key aspect of writing programs is to communicate with future human readers of your code including you reading your own code in the future.
+
+280
+01:01:40,280 --> 01:01:48,280
+ With modern day compilers and optimizers you gain little performance by writing dense or obtuse code.
+
+281
+01:01:48,280 --> 01:01:53,280
+ Write the code, describe what you want done and let the compiler find the best way to do it.
+
+282
+01:01:53,280 --> 01:02:08,280
+ One of the reasons that a common senior project in many computer science degrees was to write a compiler is to make sure that all computer scientists understand that they can trust the compiler to generate great code.
+
+283
+01:02:08,280 --> 01:02:30,280
+ This work is based on the 1978 C programming book written by Brian W. Kernigan and Dennis M. Ritchie. Their book is copyright all rights reserved by AT&T but is used in this work under fair use because of the book's historical and scholarly significance, its lack of availability and the lack of an accessible version of the book.
+
+284
+01:02:30,280 --> 01:02:51,280
+ The book is augmented in places to help understand its right place in historical context amidst the major changes of the 1970s and 1980s as computer science evolved from a hardware first vendor centered approach to a software centered approach where portable operating systems and applications written in C could run on any hardware.
+
+285
+01:02:51,280 --> 01:03:11,280
+ This is not the ideal book to learn C programming because the 1978 edition does not reflect the modern C language. Using an obsolete book gives us an opportunity to take students back in time and understand how the C language was evolving as it laid the groundwork for a future with portable applications.
+
+286
+01:03:21,280 --> 01:03:23,860
+ (gentle music)
+

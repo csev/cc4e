@@ -1,0 +1,369 @@
+ So up to now, we've done all the easy stuff.
+ So it's time to do the linked TreeMaP.
+ Which really is kind of a modern, flexible key value store.
+ This is a nice key value store that you
+ would want to use if you were a software developer.
+ Our linked TreeMaP is ordered, like Python order dictionaries.
+ It stays sorted, meaning that not only does it stay in order,
+ it stays in sorted order.
+ We insert things, and they go in an order, like a Java TreeMaP.
+ You can be iterated, like a C++ map or an ordered dictionary,
+ but not a Java TreeMaP.
+ This just boggles my mind why you can't--
+ well, we'll talk about actually why they didn't do it.
+ But it's not that hard.
+ And we're going to have fast lookups.
+ So the problem with a list map is it's
+ got a lot of nice features.
+ And we can make a sorted list map,
+ and we're going to in this section.
+ But the problem with a list map is lookup is slow.
+ And so we're going to actually pretty much use the tree part
+ to do fast lookup.
+ And you can see this in 6.5.2 of the textbook.
+ So we are going to do something that's
+ pretty common in data structures.
+ And that is we're going to maintain two--
+ whatever the entries, and they're
+ going to maintain simultaneously a sorted linked
+ list through the entries and a binary tree.
+ And so we're going to look at them separately,
+ and then we're ultimately going to find them together.
+ We're going to put them together.
+ So let's talk about what a tree is.
+ A tree is a structure that the TreeMaP entry you see
+ has a left and a right.
+ So the things to the left are things
+ where the key is lower than the current, right?
+ So H equals 42.
+ The question is, where would A go?
+ Well, A goes to the left.
+ Where would T go?
+ Well, T goes to the right.
+ So the idea of the tree is that whatever entry you're in,
+ there's a key in the entry.
+ And then you can either go left or right
+ based on the comparison of the key.
+ And instead of having a head and a tail, there is just a root.
+ So the root is the top entry of this tree.
+ And then there's a series of left and right choices
+ that you make.
+ And each entry has a left and a right.
+ And the TreeMaP entry has a key value pair.
+ And we're going to keep key and value as public,
+ because it's just an entry.
+ But now there is no next, right?
+ This is why we are using abstraction,
+ because we're not even going to give them a next.
+ We're going to have a left and a right, OK?
+ And we're not going to show that.
+ We're not going to let people see that.
+ We're just going to give them a set of methods
+ to mess with our TreeMaP.
+ And we're going to deal with all this stuff.
+ And we need a left and a right to do it.
+ So just taking a look at how it works
+ is let's just say we're going to--
+ in this current tree that I've sort of built,
+ they're not always balanced.
+ I happen to balance it just because it looks better
+ on PowerPoint slides.
+ But let's just say we're going to insert in this tree
+ g equals 25, so it's got a key of g and a value of 25.
+ So what you do is you start at the root, and you compare it.
+ And you say, oh, g is less than h.
+ So we're going to go down the left-hand side.
+ So you can think of it as you're walking down
+ the left-hand side.
+ Then you are encountering d equals 8.
+ And then you're like, OK, g is greater than d.
+ So we've got to take the-- it's like driving a car.
+ Turn right at intersection d.
+ And so we do.
+ And we're working our way down.
+ And now we have-- we're looking at intersection f.
+ And we've really got to go left or right.
+ And so f, g.
+ g is greater than f.
+ And so we're going to go to the right, not the left.
+ So we do.
+ And so that basically is the path that we took.
+ And so to insert g into the tree,
+ we find the greatest value less than, which is f.
+ And you're kind of inserting it, if you think about it,
+ between f and h.
+ So the next higher one in the tree is h.
+ And the next lower one in the tree is f.
+ And that was the trip we did.
+ I like to think of this sort of trickling down the tree
+ and making these decisions as almost like a pachinko machine,
+ where you hit the balls.
+ They go ding, ding, ding, ding, ding, ding.
+ It's not random, of course.
+ It's very precise.
+ But it is kind of like you stop at the top
+ and you make a bunch of binary left, right decisions.
+ And eventually you find yourself somewhere at the bottom.
+ And so if we kind of look at the tree map put,
+ and we are going to start at the root,
+ and then we're going to do a comparison,
+ and if we find it, the comparison is going to be 0.
+ We update the value.
+ And if we don't find it and it's less than, we're going to go left.
+ And if it's greater than, we're going to go right.
+ And so this is basically the idea.
+ This while loop will trickle down the tree going left
+ and going right.
+ And it will either find the value if there's a match.
+ Like if we're looking for f, we'd have found it,
+ and we'd have stopped, and we would have returned.
+ If we're looking for g, we won't find it,
+ but we will find where we're supposed to insert it.
+ So the last thing that we talk to,
+ which g will find its way down to the right of f,
+ we will find where to put it.
+ So as long as the tree is correctly maintained,
+ you will either find a match or you will find the right place
+ to insert it.
+ And the tree will-- it's not guaranteed to be balanced.
+ There's further algorithms that can make the tree balanced.
+ But the key thing is that the order will be right.
+ So by inserting, following these rules,
+ following this algorithm, the order will be right,
+ and you will always find the right place to put it.
+ Or you will find a matching place.
+ And think about how dictionaries work, right?
+ You say x sub hello equals something.
+ Well, there's either going to be a hello key in there or not.
+ If there's not, we're going to put it in.
+ If there is, we're going to update it.
+ And that's what this code does.
+ We're going to create a new tree map.
+ We're going to put h equals 22, and then we're
+ going to do h equals 42, which replaces h, right?
+ Then we're going to do d equals 8.
+ Then we do b equals 1, 2, 3.
+ And then we're going to do f equals 6.
+ And it turns out I'm kind of doing this in order
+ so it doesn't get too long on the page.
+ And then I'm going to do a dump.
+ And remember how important a debug is.
+ When I first wrote this code, you can darn well bet you
+ that I had map dump.
+ It was map put, map dump, map put, map dump,
+ map put, map dump, so I could see what it does.
+ And so the dump, if you look at the dump,
+ then we put in k and m and j, and then we dump it again.
+ And so what I've done is, if you look at the map output,
+ you see that the map output has these h equals 42.
+ And then it's kind of trying to give you
+ some sense of the tree-ness of it,
+ meaning that the b equals 123, f equals 6, and d equals 8.
+ The number of vertical bars tell you
+ how deep in the tree you are.
+ And so you can see that the immediate child nodes of h
+ in the second dump are d and k.
+ And the child nodes of k are j and m.
+ So you can draw this all up.
+ And so the idea of my dump code is
+ I'm trying to sort of draw you a tree.
+ So here is the dump code.
+ Now this is very, very different.
+ And literally, this is the first time-- well,
+ I talked about recursions and functions.
+ I talked about stack frames and stuff like that.
+ But if you go all the way back to Python for everybody,
+ I delay talking about recursion until there's
+ a real value for it.
+ And it turns out, this is a beautiful use of recursion.
+ And if you didn't write this recursively,
+ you'd probably have to write your own stack.
+ And that would be like a bummer, because we're
+ going to recursively go down the tree,
+ and we're going to keep track of the depth.
+ And the idea of the depth is it tells me
+ how many vertical bars to print.
+ So we come in, and we're pointed at a particular place
+ in the tree, maybe the root, maybe the top one.
+ And depth is going to be 0.
+ And so if cur is null, we're done.
+ A key thing to recursion is you've
+ got to have a way to get out.
+ So if we get to the end of some tree, subtree,
+ and we get to a null, we go left or right,
+ and that it's a null, don't print anything out.
+ Just you're done.
+ You've gone one beyond the leaf of the tree.
+ And cur is null, so just return.
+ Then what we do is we have a for loop,
+ depending on depth, that prints vertical bar space.
+ That spaces it over.
+ And we're going to go down the left tree,
+ and then we're going to come back,
+ and we're going down the right tree.
+ And this is what's called a depth-first search
+ for those computer science nerds.
+ And so we're going to go down the left.
+ And you'll notice that when we go down the left,
+ if the left is not equal to null,
+ we are going to dump the tree on the left
+ with depth equals depth plus 1.
+ And so if we start with a depth of 0,
+ that's going to become 1.
+ And then if we recursively go down further,
+ then it's going to be 2.
+ And then when that recursion comes back,
+ if cur right is not equal to null,
+ we're going to dump the tree on the right.
+ So what you see is dump the tree on the left recursively,
+ which means go all the way down the left,
+ then come back up, then dump the right node,
+ then come back up, go up again, and dump the right node.
+ And so you see this like how the order-- this
+ is a depth-first search of H. We're going down past D.
+ Then we're going even further past B.
+ And then we're coming up from B, and we're going back down
+ from D to F. We're coming up from F. Then we come up from D.
+ Then we go across H. And then we go down to K.
+ Then we go to the left of K, which is J. We go back up.
+ And then we go to the right of K, which is M.
+ And then we go back up, go back up, and we're done.
+ So the calling sequence to this is tree map, dump tree,
+ self-root with a depth of 0.
+ I will say this.
+ When I wrote this code the first time,
+ I had printfs all over the place.
+ Now I pretty much know how to do a depth-first search of a tree.
+ But still, in a debugging, sometimes you
+ make your tree incorrectly.
+ And your debugging is like, huh?
+ That doesn't look like what I thought it was going to be.
+ And so don't be ashamed if you have
+ to put print statements in all over the place.
+ First, get your dump working.
+ Just make sure your dump works, because then you
+ can debug everything else with the dump.
+ And the get's pretty simple.
+ And we've got the default. We've got the key.
+ And we've got the tree.
+ So we're going to start a while loop, where
+ we're going to go down left, right, left, right, left, right.
+ So we're going to start at the root.
+ We're going to compare the key to the key we're searching
+ for, the current key.
+ If they're the same, then return the value.
+ We could do this recursively, but you
+ don't do recursion if you don't need to.
+ If the key we're looking for is less than the key we found,
+ we're going to go down the left.
+ And if the current key-- otherwise, we're
+ going to go down the right.
+ And so you can see this thing is just going to pachinko its way
+ down, ding, ding, ding, ding, ding, to the right spot.
+ And if it gets to null, then we return the default.
+ Remember, this is like a dictionary.
+ If the key's not there on a get, we return the default.
+ You can see why Guido van Rossum, in Christmas 1987,
+ created a function called get, which looked for a key
+ and took a default value.
+ Because this code is what you write,
+ what I'm going to return null and then I have an if statement.
+ Heck no.
+ Just pass in a default. If you get to the bottom of the tree
+ and you haven't found it, return the default.
+ If I want it to be null, I can make the default null, right?
+ Away we go.
+ So this is beautiful.
+ This is beautiful.
+ So from that beauty, both the dump are beautiful
+ and the get is beautiful.
+ Iterator is a pain.
+ You just can't easily build an iterator for a pure tree.
+ If you have nothing more than that tree.
+ So a list map can support an ordered iterator.
+ We saw before a hash map can support an unordered iterator.
+ But a tree map cannot support an iterator
+ without building some kind of a stack.
+ And the problem is that the concept of current
+ is just so complex.
+ When we're doing recursion, the concept of current
+ is just so implicit.
+ It's actually in the call stack, the notion of current.
+ Because there's really, when you're doing the dump,
+ you have a call stack of currents.
+ And then when you go back up the call stack,
+ you're getting a different current.
+ So you're switching back.
+ And so you either have to make your own stack of currents.
+ You could build an iterator for a tree,
+ but you have to build a stack.
+ So a lot of folks sort of don't want to do that.
+ We could build a stack, but we're not going to.
+ So what we're going to do is we're
+ going to do a technique for our iterator
+ that is a common technique.
+ When you have a data structure that almost does what you want,
+ and then you have another data structure that
+ does what you want, you combine them.
+ So if you look at this tree, there's
+ a lot of nice things for searching, for replacing,
+ for inserting.
+ And it does all that very fast, because it's actually
+ log n, because the height of the tree
+ is log base 2 of the width of the tree,
+ the number of items in the tree.
+ So it's log base 2-ish.
+ So it's super fast.
+ All my trees are small.
+ But if these trees get big, they're super fast.
+ It goes down, the pachinko sits way down
+ to the bottom really fast.
+ But I can't easily build an iterator.
+ So what I'm going to do is I'm going
+ to add to this a linked list.
+ But I'm going to have the linked list simultaneously
+ working with the tree.
+ So each of these items is going to have
+ a next and a pre and a left and a right.
+ And we're going to almost write the code mentally independently
+ for the tree code and the linked list code.
+ So we're ultimately going to combine these things together.
+ There's not a separate linked list and a separate tree.
+ It looks like this in a linked tree map.
+ So think of each one of these things having a next
+ and a pre and a left and a right.
+ And we maintain them in such a way when we're doing inserts
+ that everything works perfectly.
+ So we're going to simultaneously maintain
+ with the same entries a tree and a list.
+ But we're only going to use the list to build the iterator.
+ And we're going to make this a sorted list,
+ because these things are in order.
+ The tree is helping us quickly find the place to put it.
+ But also, we're to put it in order.
+ So let's take advantage of that.
+ So this is a sorted, ordered dictionary in Python lingo.
+ So just remember that these entries, these list tree map
+ entries, are simultaneously participating in a tree
+ and at the same time in another layer,
+ as it were, participating in a linked list.
+ The tree map, which is the tree map structure,
+ has a head and a root.
+ Because at the same time, tree map
+ is both a tree and a linked list.
+ And the map entry is going to have a next and a left
+ and a right.
+ And again, you just almost keep these things
+ separate in your mind.
+ When we're doing tree things, we're
+ going to use left and right and root.
+ And when we're doing list things,
+ we're going to use head and next.
+ And these are things now by now that should
+ be sort of familiar to you.
+ So this is the structure that we're
+ going to build and maintain.
+ And up next, we're going to build the put code,
+ or this combined two-layer data structure that
+ has a tree and a sorted linked list all at the same time.
+ [MUSIC PLAYING]

@@ -1,0 +1,896 @@
+1
+00:00:00,000 --> 00:00:02,900
+ Hello, and welcome to our continuing series of lectures
+
+2
+00:00:02,900 --> 00:00:07,800
+ on improving our implementation of a Python object.
+
+3
+00:00:07,800 --> 00:00:11,100
+ So what we've been doing is we have been building a series
+
+4
+00:00:11,100 --> 00:00:15,440
+ of implementations, of approximate implementations,
+
+5
+00:00:15,440 --> 00:00:17,960
+ some of the things that we find in Python,
+
+6
+00:00:17,960 --> 00:00:19,700
+ like the Python dictionary.
+
+7
+00:00:19,700 --> 00:00:24,000
+ And so the last thing we worked on was this Python dictionary class,
+
+8
+00:00:24,000 --> 00:00:27,240
+ and the previous implementation was just a linked list with a key.
+
+9
+00:00:28,240 --> 00:00:30,640
+ Now, we're going to eventually have to build all kinds of different
+
+10
+00:00:30,640 --> 00:00:32,800
+ implementations, and so the part of what we're doing
+
+11
+00:00:32,800 --> 00:00:37,700
+ is we're working toward abstraction, where we're separating what the object
+
+12
+00:00:37,700 --> 00:00:40,640
+ is that we're interacting with from how we build it underneath.
+
+13
+00:00:40,640 --> 00:00:45,340
+ And so we're going to do things like move our methods into the structure
+
+14
+00:00:45,340 --> 00:00:48,360
+ instead of just using prefix-style naming conventions,
+
+15
+00:00:48,360 --> 00:00:54,860
+ and just reduce the need to look inside the class
+
+16
+00:00:55,000 --> 00:00:58,840
+ or inside the structure that is holding our class
+
+17
+00:00:58,840 --> 00:01:00,640
+ for code that's in our calling code.
+
+18
+00:01:00,640 --> 00:01:07,960
+ So we don't want to have to look at the class values inside the class.
+
+19
+00:01:07,960 --> 00:01:12,260
+ So this is just continuing along understanding object-oriented principles.
+
+20
+00:01:12,260 --> 00:01:16,500
+ The three principles of object orientations are encapsulation,
+
+21
+00:01:16,500 --> 00:01:19,260
+ abstraction, inheritance, and polymorphism.
+
+22
+00:01:19,260 --> 00:01:23,300
+ And so for now, we're bundling more things together.
+
+23
+00:01:23,440 --> 00:01:26,540
+ That's encapsulation, and we're working on abstraction,
+
+24
+00:01:26,540 --> 00:01:33,200
+ and that is thinking about separately how we are going to use this object
+
+25
+00:01:33,200 --> 00:01:35,260
+ from how we're going to build the object.
+
+26
+00:01:35,260 --> 00:01:40,960
+ We're going to reveal less and less of our implementation details to the caller.
+
+27
+00:01:40,960 --> 00:01:46,960
+ And so for a while, we just said,
+
+28
+00:01:46,960 --> 00:01:52,000
+ "Well, we'll just take the class and add an underscore and name it,"
+
+29
+00:01:52,140 --> 00:01:55,200
+ et cetera, et cetera, and it seems absolutely simple enough.
+
+30
+00:01:55,200 --> 00:01:58,900
+ And in some ways, you see that C++ does exactly that
+
+31
+00:01:58,900 --> 00:02:02,460
+ when it's compiling C++ to C code.
+
+32
+00:02:02,460 --> 00:02:06,360
+ But it seems like it's simple enough,
+
+33
+00:02:06,360 --> 00:02:07,740
+ and it seems like you would keep it straight,
+
+34
+00:02:07,740 --> 00:02:10,000
+ but it turns out to be a bad idea in practice.
+
+35
+00:02:10,000 --> 00:02:13,860
+ So Python strings, which I can write Python code
+
+36
+00:02:13,860 --> 00:02:15,840
+ and not have to look up documentation,
+
+37
+00:02:15,840 --> 00:02:19,540
+ are real objects that follow the principle of encapsulation.
+
+38
+00:02:19,660 --> 00:02:23,200
+ Everything that you touch is inside of the object,
+
+39
+00:02:23,200 --> 00:02:26,500
+ like uppercase, because searching for something.
+
+40
+00:02:26,500 --> 00:02:31,600
+ PHP strings are kind of more archaic,
+
+41
+00:02:31,600 --> 00:02:35,540
+ and that PHP is more of a C-like way of thinking about things,
+
+42
+00:02:35,540 --> 00:02:38,140
+ and there are type, and then there's a bunch of libraries
+
+43
+00:02:38,140 --> 00:02:39,860
+ that know how to use this type.
+
+44
+00:02:39,860 --> 00:02:44,000
+ And so I'm going to show you some ickiness in PHP,
+
+45
+00:02:44,000 --> 00:02:48,540
+ but I do love PHP, so I'm not just criticizing PHP.
+
+46
+00:02:48,660 --> 00:02:50,040
+ PHP has a lot going for it.
+
+47
+00:02:50,040 --> 00:02:54,340
+ But in the language and the library, there are some annoyances.
+
+48
+00:02:54,340 --> 00:02:56,600
+ So let's take a look at a little bit of Python
+
+49
+00:02:56,600 --> 00:02:58,160
+ and some equivalent PHP.
+
+50
+00:02:58,160 --> 00:02:59,940
+ And so you sort of see this notion
+
+51
+00:02:59,940 --> 00:03:03,240
+ that naming convention seems tempting,
+
+52
+00:03:03,240 --> 00:03:05,060
+ but it's not necessarily a great idea.
+
+53
+00:03:05,060 --> 00:03:09,360
+ So in Python, we say x equals a string, we call x.find,
+
+54
+00:03:09,360 --> 00:03:12,740
+ and it has the first parameter, the thing we're looking for.
+
+55
+00:03:12,740 --> 00:03:16,660
+ And then we have y equals x.replace old new.
+
+56
+00:03:16,800 --> 00:03:19,660
+ And so the first parameter is the old string,
+
+57
+00:03:19,660 --> 00:03:21,700
+ and the second parameter is the new string.
+
+58
+00:03:21,700 --> 00:03:23,500
+ And then we say how long this thing is.
+
+59
+00:03:23,500 --> 00:03:25,240
+ And so everything's very consistent.
+
+60
+00:03:25,240 --> 00:03:28,560
+ But if we look at PHP, it's almost identical,
+
+61
+00:03:28,560 --> 00:03:31,340
+ except it's calling libraries, right?
+
+62
+00:03:31,340 --> 00:03:33,640
+ So $x equals a string with old in it,
+
+63
+00:03:33,640 --> 00:03:36,360
+ and then we're going to use stir pose.
+
+64
+00:03:36,360 --> 00:03:38,440
+ That is the position in a string,
+
+65
+00:03:38,440 --> 00:03:41,040
+ and the first parameter is what they call the haystack,
+
+66
+00:03:41,040 --> 00:03:44,300
+ and then the second parameter is width, which we call the needle.
+
+67
+00:03:44,440 --> 00:03:48,040
+ But then we look at the replacement, which is equivalent of x.replace
+
+68
+00:03:48,040 --> 00:03:52,840
+ in Python, and it's not stir replace, it's stir_replace.
+
+69
+00:03:52,840 --> 00:03:56,700
+ So do we use underscores or do we not use underscores?
+
+70
+00:03:56,700 --> 00:04:00,200
+ And then the thing that just drives me crazy is what is the,
+
+71
+00:04:00,200 --> 00:04:02,640
+ what would you expect the first, second,
+
+72
+00:04:02,640 --> 00:04:05,440
+ and third parameter of PHP stir replace?
+
+73
+00:04:05,440 --> 00:04:11,240
+ Well, if I was writing it, it would be the source string,
+
+74
+00:04:11,360 --> 00:04:15,240
+ the old search string, and the new thing to replace it with.
+
+75
+00:04:15,240 --> 00:04:19,060
+ But that's not what it is.
+
+76
+00:04:19,060 --> 00:04:22,160
+ The stir_replace says old string, new string,
+
+77
+00:04:22,160 --> 00:04:25,160
+ and then the string we're doing the searching in.
+
+78
+00:04:25,160 --> 00:04:30,440
+ You can go look this up, but PHP talks about how there were generations
+
+79
+00:04:30,440 --> 00:04:33,860
+ of things, like stir pose, I think, is one of the earlier ones.
+
+80
+00:04:33,860 --> 00:04:38,400
+ Stirlen, basically, that's one of the older ones,
+
+81
+00:04:38,400 --> 00:04:40,060
+ and so it's consistent with stir pose,
+
+82
+00:04:40,200 --> 00:04:42,260
+ but not consistent with stir replace.
+
+83
+00:04:42,260 --> 00:04:45,400
+ And so the naming conventions is just less than ideal,
+
+84
+00:04:45,400 --> 00:04:49,000
+ and you can just see from a programmer understanding,
+
+85
+00:04:49,000 --> 00:04:51,740
+ it's just really simple that if we look at the Python,
+
+86
+00:04:51,740 --> 00:04:54,000
+ it says y equals x.replace old new,
+
+87
+00:04:54,000 --> 00:04:56,640
+ I can remember that calling sequence,
+
+88
+00:04:56,640 --> 00:05:00,960
+ and I can never remember the stir_replace in PHP.
+
+89
+00:05:00,960 --> 00:05:04,160
+ So the thing we're going to do here
+
+90
+00:05:04,160 --> 00:05:06,660
+ is we're going to put the methods in the structure,
+
+91
+00:05:06,660 --> 00:05:09,760
+ and so we see some of our C code before and after,
+
+92
+00:05:10,600 --> 00:05:12,900
+ and so we create a PyDict,
+
+93
+00:05:12,900 --> 00:05:17,140
+ and then you'll notice that just like what PHP did,
+
+94
+00:05:17,140 --> 00:05:23,200
+ I called those PyDict_put, PyDict_len, and PyDict_get.
+
+95
+00:05:23,200 --> 00:05:25,840
+ I was consistent because I always used underscores,
+
+96
+00:05:25,840 --> 00:05:30,100
+ and PyDict is the name of the structure, PyDict_del,
+
+97
+00:05:30,100 --> 00:05:32,300
+ and so I was pretty consistent with that.
+
+98
+00:05:32,300 --> 00:05:35,040
+ But now what we're going to do in the name of encapsulation
+
+99
+00:05:35,040 --> 00:05:38,560
+ is we are going to take all those methods,
+
+100
+00:05:38,700 --> 00:05:40,540
+ make them be part of the structure.
+
+101
+00:05:40,540 --> 00:05:42,700
+ We're going to find that they're just pointers to the methods,
+
+102
+00:05:42,700 --> 00:05:44,760
+ but we are going to have global methods.
+
+103
+00:05:44,760 --> 00:05:48,100
+ We're just not going to access them through their global names.
+
+104
+00:05:48,100 --> 00:05:50,300
+ So we're going to create a new PyDict,
+
+105
+00:05:50,300 --> 00:05:55,560
+ saying PyDict_new, but then we're going to call to put something in,
+
+106
+00:05:55,560 --> 00:05:57,840
+ we're going to call DCT arrow put,
+
+107
+00:05:57,840 --> 00:06:00,760
+ and remember, we have to make this first parameter
+
+108
+00:06:00,760 --> 00:06:02,500
+ like the self parameter DCT,
+
+109
+00:06:02,500 --> 00:06:04,860
+ that's just always going to be that first parameter
+
+110
+00:06:04,860 --> 00:06:07,200
+ because we're sort of doing it Python style,
+
+111
+00:06:07,340 --> 00:06:11,500
+ and then you kind of know that Z is the key and catchphrase is the value.
+
+112
+00:06:11,500 --> 00:06:14,500
+ And so that's the calling sequence.
+
+113
+00:06:14,500 --> 00:06:19,500
+ And again, that DCT comma is just because we're not an object-oriented language,
+
+114
+00:06:19,500 --> 00:06:21,040
+ and so we put self in there.
+
+115
+00:06:21,040 --> 00:06:25,240
+ Again, homage back to exactly the way that Python did it
+
+116
+00:06:25,240 --> 00:06:26,800
+ and why they did it the way they did it,
+
+117
+00:06:26,800 --> 00:06:29,600
+ because they were creating an object-oriented framework
+
+118
+00:06:29,600 --> 00:06:33,600
+ on top of a non-object-oriented environment, just like we are.
+
+119
+00:06:33,600 --> 00:06:35,760
+ And then you look at DCT arrow len,
+
+120
+00:06:36,440 --> 00:06:39,560
+ and of course, putting DCT in as the first parameter is redundant,
+
+121
+00:06:39,560 --> 00:06:42,740
+ but necessary, and we can do a DCT get,
+
+122
+00:06:42,740 --> 00:06:47,060
+ and in effect, other than the first parameter, which is DCT,
+
+123
+00:06:47,060 --> 00:06:49,500
+ we are putting the key in, and away it goes,
+
+124
+00:06:49,500 --> 00:06:51,540
+ and then we could call the Dell method.
+
+125
+00:06:51,540 --> 00:06:55,360
+ But now you'll notice that every single method
+
+126
+00:06:55,360 --> 00:06:59,140
+ that is associated with a PyDict is in the PyDict structure.
+
+127
+00:06:59,140 --> 00:07:02,800
+ So let's talk about how we're going to do that and why.
+
+128
+00:07:03,400 --> 00:07:07,640
+ And so this all kind of falls under leaky abstractions,
+
+129
+00:07:07,640 --> 00:07:11,040
+ meaning that when we're in the main calling code
+
+130
+00:07:11,040 --> 00:07:14,560
+ and we sneak in and peek at the data attributes inside the class,
+
+131
+00:07:14,560 --> 00:07:15,960
+ we call this leaking.
+
+132
+00:07:15,960 --> 00:07:18,960
+ And later we'll talk about iterators and why we...
+
+133
+00:07:18,960 --> 00:07:21,660
+ Iterators seem inconvenient and clunky,
+
+134
+00:07:21,660 --> 00:07:23,860
+ but what their whole job really is,
+
+135
+00:07:23,860 --> 00:07:27,760
+ is to hide implementation details to make it cleaner abstraction.
+
+136
+00:07:27,760 --> 00:07:31,660
+ When the calling code depends on the internal implementation names
+
+137
+00:07:31,800 --> 00:07:35,040
+ and approaches, that's what it is to be leaky.
+
+138
+00:07:35,040 --> 00:07:37,500
+ So we need to define a contract between the class
+
+139
+00:07:37,500 --> 00:07:41,000
+ and its calling code from above that we won't change.
+
+140
+00:07:41,000 --> 00:07:43,360
+ We're going to call this contract on interface.
+
+141
+00:07:43,360 --> 00:07:46,040
+ Another kind of word for that is abstraction.
+
+142
+00:07:46,040 --> 00:07:52,060
+ And so if we look at all the code in our earlier implementation,
+
+143
+00:07:52,060 --> 00:07:54,300
+ the whole thing is leaky, right?
+
+144
+00:07:54,300 --> 00:07:58,200
+ Especially if you look at that for loop where it says for struct
+
+145
+00:07:58,340 --> 00:08:02,200
+ denode cur equals DCT arrow head, cur not equal null,
+
+146
+00:08:02,200 --> 00:08:06,400
+ cur equals cur next, print cur key, and cur value.
+
+147
+00:08:06,400 --> 00:08:09,840
+ And so what happens is, that should trigger a little like...
+
+148
+00:08:09,840 --> 00:08:13,860
+ Eh, eh, eh, that says don't look inside these things.
+
+149
+00:08:13,860 --> 00:08:16,800
+ And this is what we later we'll talk about iterators,
+
+150
+00:08:16,800 --> 00:08:19,000
+ how far we go and how we actually...
+
+151
+00:08:19,000 --> 00:08:21,500
+ What we look at, this code that we're looking at right here,
+
+152
+00:08:21,500 --> 00:08:23,260
+ I think it's pretty,
+
+153
+00:08:23,260 --> 00:08:25,600
+ but it kind of violates the abstraction boundary
+
+154
+00:08:25,740 --> 00:08:28,660
+ because we're looking too deeply into the fact
+
+155
+00:08:28,660 --> 00:08:30,340
+ that this is even a linked list.
+
+156
+00:08:30,340 --> 00:08:32,860
+ We don't know there's a linked list. It may not be a linked list.
+
+157
+00:08:32,860 --> 00:08:35,260
+ It may be some other kind of a structure.
+
+158
+00:08:35,260 --> 00:08:36,900
+ It may be a tree or whatever.
+
+159
+00:08:36,900 --> 00:08:38,900
+ And we will later get to the point
+
+160
+00:08:38,900 --> 00:08:42,400
+ where we will make these things different implementations,
+
+161
+00:08:42,400 --> 00:08:44,140
+ not just a linked list.
+
+162
+00:08:44,140 --> 00:08:48,260
+ And so that's this idea that you should be like,
+
+163
+00:08:48,260 --> 00:08:52,560
+ "Oh no, there's this little wall, but now I'm looking inside."
+
+164
+00:08:52,560 --> 00:08:53,700
+ And then when you're looking inside,
+
+165
+00:08:53,840 --> 00:08:56,160
+ that's when you kind of are violating the abstraction boundary,
+
+166
+00:08:56,160 --> 00:08:58,400
+ or we call it a leaky abstraction.
+
+167
+00:08:58,400 --> 00:09:02,960
+ What this leads to is the notion of not all object attributes are the same.
+
+168
+00:09:02,960 --> 00:09:06,200
+ And so when we're going to build an object,
+
+169
+00:09:06,200 --> 00:09:09,560
+ we are going to decide what parts of these things are the contract
+
+170
+00:09:09,560 --> 00:09:13,240
+ and what parts are leave us alone, we're going to hide this stuff.
+
+171
+00:09:13,240 --> 00:09:16,740
+ And so the concepts in object-oriented programming
+
+172
+00:09:16,740 --> 00:09:19,700
+ are that things that the calling code is allowed to see,
+
+173
+00:09:19,700 --> 00:09:22,760
+ whether they be data or methods are called public.
+
+174
+00:09:23,560 --> 00:09:27,560
+ Things that are like reserved for class use only are private.
+
+175
+00:09:27,560 --> 00:09:29,840
+ And then when we start talking about inheritance,
+
+176
+00:09:29,840 --> 00:09:31,600
+ which we won't talk about too much,
+
+177
+00:09:31,600 --> 00:09:34,100
+ there is this middle class called protected.
+
+178
+00:09:34,100 --> 00:09:37,760
+ And that is stuff that classes and derived classes can look at,
+
+179
+00:09:37,760 --> 00:09:40,460
+ but not the calling code.
+
+180
+00:09:40,460 --> 00:09:43,860
+ So protected is sort of more like private
+
+181
+00:09:43,860 --> 00:09:46,260
+ from the point of view of calling code.
+
+182
+00:09:46,260 --> 00:09:48,860
+ So if you look at the abstraction boundary that we have here,
+
+183
+00:09:48,860 --> 00:09:51,460
+ we see that the place where the abstraction boundary
+
+184
+00:09:51,600 --> 00:09:55,960
+ is sort of failing is that head and tail.
+
+185
+00:09:55,960 --> 00:10:01,040
+ We want to make an abstraction boundary and say that look,
+
+186
+00:10:01,040 --> 00:10:05,000
+ that the notion of head and the tail, that's going to be all ours
+
+187
+00:10:05,000 --> 00:10:07,040
+ and that's going to be all inside.
+
+188
+00:10:07,040 --> 00:10:09,760
+ And that's inside the abstraction boundary
+
+189
+00:10:09,760 --> 00:10:12,360
+ and you're not supposed to mess with it.
+
+190
+00:10:12,360 --> 00:10:17,100
+ So we look at how we do this in Java, there is a keyword called private.
+
+191
+00:10:17,100 --> 00:10:19,400
+ And so Java, we're making a point class
+
+192
+00:10:19,540 --> 00:10:22,960
+ and we're making two double values that we're saying x and y are private,
+
+193
+00:10:22,960 --> 00:10:27,140
+ which means you can't access it outside of this class.
+
+194
+00:10:27,140 --> 00:10:29,840
+ The constructor is public and the dump is public.
+
+195
+00:10:29,840 --> 00:10:34,360
+ And so you see that that just means that you can't access x and y
+
+196
+00:10:34,360 --> 00:10:38,360
+ outside of the class, but you can access dump and the constructor.
+
+197
+00:10:38,360 --> 00:10:41,040
+ In C++, you see a private and a public.
+
+198
+00:10:41,040 --> 00:10:43,160
+ And so private says this double x and y
+
+199
+00:10:43,160 --> 00:10:45,040
+ are things that can only be used inside the class
+
+200
+00:10:45,040 --> 00:10:48,800
+ and public is the constructor can be used outside the class
+
+201
+00:10:48,940 --> 00:10:51,200
+ and the dump can be used outside the class.
+
+202
+00:10:51,200 --> 00:10:54,040
+ And this is just syntax that they put in.
+
+203
+00:10:54,040 --> 00:10:58,360
+ Now, interestingly, access control in Python is a little sort of wonkier
+
+204
+00:10:58,360 --> 00:11:02,860
+ because Python doesn't really put things like public and private.
+
+205
+00:11:02,860 --> 00:11:05,440
+ So what Python is doing, and you've seen these
+
+206
+00:11:05,440 --> 00:11:06,900
+ across all the Python you've done,
+
+207
+00:11:06,900 --> 00:11:10,660
+ where you see these double underscores and dundas, as it were,
+
+208
+00:11:10,660 --> 00:11:12,600
+ like the constructor, you're not supposed to call
+
+209
+00:11:12,600 --> 00:11:16,060
+ the underscore underscore init underscore underscore.
+
+210
+00:11:16,200 --> 00:11:18,900
+ That's just when you create an object, that's what happens.
+
+211
+00:11:18,900 --> 00:11:24,340
+ And so the init is an internal method, it's a private method.
+
+212
+00:11:24,340 --> 00:11:26,840
+ Underscore underscore x and underscore underscore y
+
+213
+00:11:26,840 --> 00:11:28,200
+ are totally valid variable names,
+
+214
+00:11:28,200 --> 00:11:30,340
+ except we're marking to the outside world,
+
+215
+00:11:30,340 --> 00:11:32,600
+ hey, you're not supposed to access these.
+
+216
+00:11:32,600 --> 00:11:35,800
+ And then def dump, the fact that we didn't put double underscore
+
+217
+00:11:35,800 --> 00:11:37,840
+ in front of it means that it's public.
+
+218
+00:11:37,840 --> 00:11:43,260
+ And so double underscore is the signal inside of Python to do access control.
+
+219
+00:11:43,260 --> 00:11:46,140
+ And we look at some of the stuff that C++ really does,
+
+220
+00:11:46,260 --> 00:11:50,640
+ this was borrowed in many ways from how C++ does things internally.
+
+221
+00:11:50,640 --> 00:11:55,140
+ So up next, we're going to talk about this map and the abstraction
+
+222
+00:11:55,140 --> 00:11:58,040
+ and the kinds of things that we do under the covers
+
+223
+00:11:58,040 --> 00:12:00,240
+ of the implementation details of the abstraction.
+
+224
+00:12:16,200 --> 00:12:21,200
+ [MUSIC]
+

@@ -1,0 +1,1160 @@
+1
+00:00:00,000 --> 00:00:16,000
+ Welcome to C Programming for Everybody. My name is Charles Severance and this is my reading of the 1978 C programming book written by Brian Kernigan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
+
+2
+00:00:16,000 --> 00:00:28,000
+ Chapter 7, Input and Output. Input and output facilities are not part of the C language so we've de-emphasized them in our presentation thus far.
+
+3
+00:00:28,000 --> 00:00:36,000
+ Nonetheless, real programs do interact with their environment in much more complicated ways than those we've shown before.
+
+4
+00:00:36,000 --> 00:00:44,000
+ In this chapter, we will describe the standard IO library, a set of functions designed to provide a standard IO system for C programs.
+
+5
+00:00:44,000 --> 00:00:54,000
+ The functions are intended to present a convenient programming interface, yet reflect only operations that can be provided on most modern operating systems.
+
+6
+00:00:54,000 --> 00:01:03,000
+ The routines are efficient enough that users should seldom feel the need to circumvent them for efficiency regardless of how critical the application.
+
+7
+00:01:03,000 --> 00:01:22,000
+ Finally, the routines are meant to be portable in the sense that they will exist in compatible form on any system where C exists and that programs which confine themselves to facilities provided by the standard library can be moved from one system to another essentially without change.
+
+8
+00:01:22,000 --> 00:01:31,000
+ We will not try to describe the entire IO library here. We are more interested in showing the essentials of writing C programs that interact with our operating system environment.
+
+9
+00:01:31,000 --> 00:01:44,000
+ Section 7.1, Access to the Standard Library. Each source file that refers to the standard library function must contain the line #includestdio.h near the beginning.
+
+10
+00:01:44,000 --> 00:02:02,000
+ The file stdio.h defines certain macros and variables used by the IO library. The use of angle brackets, less than and greater than, instead of the usual double quotes, directs the compiler to search for the file in a directory containing the standard header information.
+
+11
+00:02:02,000 --> 00:02:07,000
+ In Unix, this is often somewhere like /user/include.
+
+12
+00:02:07,000 --> 00:02:30,000
+ Furthermore, it may be necessary when loading the program to specify the library explicitly. For example, on the PDP11 Unix system, the command to compile a program would be "cc sourcefilesetc -ls -ls" indicates loading from the standard library.
+
+13
+00:02:30,000 --> 00:02:36,000
+ Section 7.2, Standard Input and Output.
+
+14
+00:02:36,000 --> 00:02:38,000
+ GetChar InputChar.
+
+15
+00:02:38,000 --> 00:02:51,000
+ The simplest input mechanism is to read a character at a time from the standard input, generally the user's terminal or keyboard, with GetChar. GetChar returns the next input character each time it's called.
+
+16
+00:02:51,000 --> 00:03:09,000
+ In most environments that support C, a file may be substituted for the terminal by using the "less than" convention. If a program "prog" uses GetChar, then the command line "prog less than in" file causes "prog" to read "in" file instead of the terminal or keyboard.
+
+17
+00:03:09,000 --> 00:03:20,000
+ The switching of input is done in such a way that "prog" is oblivious to the change. In particular, the string "less than in" file is not included in the command line arguments in argv.
+
+18
+00:03:20,000 --> 00:03:26,000
+ The input switching is also invisible if the input comes from another program, a pipe mechanism.
+
+19
+00:03:26,000 --> 00:03:39,000
+ The command line "otherprog |prog" runs two programs, "otherprog" and "prog", and arranges for the standard input for "prog" to come from the standard output of "otherprog".
+
+20
+00:03:39,000 --> 00:03:53,000
+ GetChar returns the value "eof" when it encounters end of file on whatever input is being read. The standard library defines the symbolic "eof" constant to be -1, with a pound defined in the file "stdio.h".
+
+21
+00:03:53,000 --> 00:04:01,000
+ But text should be written in terms of "eof", not -1, so as to be independent of the specific value.
+
+22
+00:04:01,000 --> 00:04:12,000
+ For output, putChar("C") puts the character "C" on the standard output, which is also by default the terminal, or screen.
+
+23
+00:04:12,000 --> 00:04:23,000
+ The output can be directed to a file by using "greater than". If "prog" uses putChar, "prog > outfile" will write the standard output onto "outfile" instead of the terminal.
+
+24
+00:04:23,000 --> 00:04:33,000
+ On the Unix system, a pipe can also be used. "prog |anotherprog" puts the standard output of "prog" into the standard input of "otherprog".
+
+25
+00:04:33,000 --> 00:04:38,000
+ Again, "prog" is not aware of the redirection.
+
+26
+00:04:38,000 --> 00:04:46,000
+ Output produced by printf also finds its way to the standard output, and calls to putChar and printf may be interleaved.
+
+27
+00:04:46,000 --> 00:04:52,000
+ A surprising number of programs read only one input stream and write only one output stream.
+
+28
+00:04:52,000 --> 00:05:00,000
+ For such programs, I/O with getChar, putChar, and printf may be entirely adequate, and is certainly enough to get started.
+
+29
+00:05:00,000 --> 00:05:07,000
+ This is particularly true given file redirection in a pipe file for connecting the output of one program to the input of the next.
+
+30
+00:05:07,000 --> 00:05:13,000
+ For example, consider the program "lower", which maps its input to lowercase.
+
+31
+00:05:13,000 --> 00:05:23,000
+ This is an example on page 145 of the textbook that you can see at www.cc4e.com/code.
+
+32
+00:05:23,000 --> 00:05:52,000
+ #include stdio.h, #include ctype.h, main open-paren, closed-paren, open-curly-brace, int c, while open-paren, open-paren, c=getChar, open-paren, closed-paren, closed-paren, not equal to eof, closed-paren, putChar is upper-open-paren, c, closed-paren, question mark, too-lower, open-paren, c, closed-paren, colon, c, closed-paren, semicolon.
+
+33
+00:05:52,000 --> 00:06:01,000
+ The functions "isUpper" and "tooLower" are actually macros defined in ctype.h.
+
+34
+00:06:01,000 --> 00:06:07,000
+ The macro "isUpper" tests whether its argument is an uppercase letter, returning non-zero if it is and zero if it's not.
+
+35
+00:06:07,000 --> 00:06:11,000
+ The macro "tooLower" converts an uppercase to lowercase letter.
+
+36
+00:06:11,000 --> 00:06:16,000
+ Regardless of how these functions are implemented on a particular machine, their external behavior is the same.
+
+37
+00:06:16,000 --> 00:06:21,000
+ So, programs that use them are shielded from the knowledge of their character set.
+
+38
+00:06:21,000 --> 00:06:28,000
+ To convert multiple files, you can use a program like the Unix Cat to collect files.
+
+39
+00:06:28,000 --> 00:06:34,000
+ Cat file1, file2, dot-dot-dot, vertical bar, lower, greater than, output.
+
+40
+00:06:34,000 --> 00:06:37,000
+ And thus avoid learning how to access files from a program.
+
+41
+00:06:37,000 --> 00:06:42,000
+ The Cat example is presented later as example code in this chapter.
+
+42
+00:06:42,000 --> 00:06:49,000
+ As an aside, the standard I/O library functions getChar and putChar can actually be macros.
+
+43
+00:06:49,000 --> 00:06:54,000
+ And thus, avoid the overhead of a function call per character.
+
+44
+00:06:54,000 --> 00:06:58,000
+ We'll show how this is done in Chapter 8.
+
+45
+00:06:58,000 --> 00:07:02,000
+ Section 7.3, formatted output, printf.
+
+46
+00:07:02,000 --> 00:07:12,000
+ The two routines printf for output and scanf for input, which we describe in the next section, permit translation to and from character representations of numerical quantities.
+
+47
+00:07:12,000 --> 00:07:16,000
+ They also allow generation or interpretation of formatted lines.
+
+48
+00:07:16,000 --> 00:07:20,000
+ We've used printf informally throughout the previous chapters.
+
+49
+00:07:20,000 --> 00:07:23,000
+ Here is a more complete and precise description.
+
+50
+00:07:23,000 --> 00:07:30,000
+ printf, open paren, control, arg1, arg2, etc., close paren.
+
+51
+00:07:30,000 --> 00:07:38,000
+ printf converts formats and prints its arguments on the standard output under the control of the string control.
+
+52
+00:07:38,000 --> 00:07:53,000
+ The control string contains two types of objects, ordinary characters, which are simply copied to the output string, and conversion specifications, each of which causes conversion and printing of the next successive argument to printf.
+
+53
+00:07:53,000 --> 00:08:00,000
+ Each conversion specification is introduced by the character percent sign and ended by a conversion character.
+
+54
+00:08:00,000 --> 00:08:10,000
+ Between the percent and the conversion character, there may be a minus sign, which specifies left adjustment of the converted argument in its field.
+
+55
+00:08:10,000 --> 00:08:14,000
+ A digit string, specified a minimum field width.
+
+56
+00:08:14,000 --> 00:08:19,000
+ The converted number will be printed in a field at least this wide and wider if necessary.
+
+57
+00:08:19,000 --> 00:08:29,000
+ If the converted argument has fewer characters than the field, it will be padded on the left or right if the left adjustment indicator has been given to make up the field width.
+
+58
+00:08:29,000 --> 00:08:36,000
+ The padding character is normally blank and zero if the field width is specified with a leading zero.
+
+59
+00:08:36,000 --> 00:08:39,000
+ This zero does not imply an octal field width.
+
+60
+00:08:39,000 --> 00:08:43,000
+ A period, which separates the field width from the next digit string.
+
+61
+00:08:43,000 --> 00:08:56,000
+ A digit string, that specifies the precision, which specifies the maximum number of characters to be printed from a string or the number of digits to be printed to the right of the decimal point of a float or a double.
+
+62
+00:08:56,000 --> 00:09:06,000
+ A length modifier, the letter L, which indicates that the corresponding data item is a long rather than an int.
+
+63
+00:09:06,000 --> 00:09:14,000
+ The conversion characters and their meanings are D, the argument is converted to decimal notation.
+
+64
+00:09:14,000 --> 00:09:19,000
+ O, the argument is converted to unsigned octal notation without a leading zero.
+
+65
+00:09:19,000 --> 00:09:25,000
+ X, the argument is converted to unsigned hexadecimal notation without a leading zero x.
+
+66
+00:09:25,000 --> 00:09:29,000
+ U, the argument is converted to unsigned decimal notation.
+
+67
+00:09:29,000 --> 00:09:33,000
+ C, the argument is taken to be a single character.
+
+68
+00:09:33,000 --> 00:09:36,000
+ S, the argument is a string.
+
+69
+00:09:36,000 --> 00:09:45,000
+ Characters from the string are printed until a null character is reached or the number of characters indicated by the precision specification is exhausted.
+
+70
+00:09:45,000 --> 00:10:02,000
+ E, the argument is taken to be a float or a double and converted to decimal notation of the form, optional minus sign, m dot nnn capital E plus or minus xx, where the length of the string of the ends is specified by the precision.
+
+71
+00:10:02,000 --> 00:10:04,000
+ The default precision is 6.
+
+72
+00:10:04,000 --> 00:10:18,000
+ F, the argument is taken to be a float or double and converted to decimal notation of the form, optional minus sign, mm dot nnnn where the length of the string of ends specified by precision.
+
+73
+00:10:18,000 --> 00:10:20,000
+ The default precision is 6.
+
+74
+00:10:20,000 --> 00:10:27,000
+ Note that the precision does not determine the number of significant digits printed in the F format.
+
+75
+00:10:27,000 --> 00:10:36,000
+ G says use percent E or percent F, whichever is shorter, and non-significant zeros are not printed.
+
+76
+00:10:36,000 --> 00:10:41,000
+ If the character after the percent is not a conversion character, the character is simply printed.
+
+77
+00:10:41,000 --> 00:10:46,000
+ Thus, percent may be printed as percent percent.
+
+78
+00:10:46,000 --> 00:10:51,000
+ Most of the format conversions are obvious and have been illustrated in the earlier chapter.
+
+79
+00:10:51,000 --> 00:10:55,000
+ One exception is the precision field as it relates to strings.
+
+80
+00:10:55,000 --> 00:11:03,000
+ The following table shows the effect of a variety of specifications in printing hello, world, which is 12 characters.
+
+81
+00:11:03,000 --> 00:11:08,000
+ We put colons around each field so you can see its actual width.
+
+82
+00:11:08,000 --> 00:11:15,000
+ Colon percent 10 S colon, colon hello world colon.
+
+83
+00:11:15,000 --> 00:11:22,000
+ It's 12 characters long, and so we get 12 characters printed because we haven't really told it to strictly limit that.
+
+84
+00:11:22,000 --> 00:11:28,000
+ Colon percent minus 10 S colon, colon hello, comma, world, colon.
+
+85
+00:11:28,000 --> 00:11:30,000
+ No extra spaces.
+
+86
+00:11:30,000 --> 00:11:35,000
+ Again, 12 characters are used, even though we said 10, it expands it to 12.
+
+87
+00:11:35,000 --> 00:11:42,000
+ And the fact that it's left justified seems our printing more than the width of the field doesn't make any difference.
+
+88
+00:11:42,000 --> 00:11:50,000
+ Colon percent 20 S colon, colon eight spaces, then hello, comma, world, colon.
+
+89
+00:11:50,000 --> 00:11:56,000
+ Eight spaces are put in on the left because it by default is right justified.
+
+90
+00:11:56,000 --> 00:12:06,000
+ Colon percent minus 20 S colon prints colon, hello, comma, world, and then eight spaces and then colon.
+
+91
+00:12:06,000 --> 00:12:13,000
+ We've told it to left justify, so the eight spaces are added to fill it out to 20 spaces after hello, world.
+
+92
+00:12:13,000 --> 00:12:24,000
+ Colon percent 20 dot 10 S colon gives us colon and then 10 blanks and then hello, comma, world, colon.
+
+93
+00:12:24,000 --> 00:12:33,000
+ Now in this case, we've told it we really only want 10 characters from the string, and so the LD is truncated.
+
+94
+00:12:33,000 --> 00:12:43,000
+ Percent minus 20 dot 10 S colon, colon, hello, comma, world, and then 10 spaces.
+
+95
+00:12:43,000 --> 00:12:48,000
+ And it's left justified, so the 10 spaces are at the end right before the colon.
+
+96
+00:12:48,000 --> 00:12:55,000
+ Colon percent dot 10 S colon, colon, hello, comma, world, colon.
+
+97
+00:12:55,000 --> 00:13:03,000
+ So now the overall field that's printed is exactly 10 characters, and it is the leftmost 10 characters.
+
+98
+00:13:03,000 --> 00:13:10,000
+ Warning, printf uses its first argument to decide how many arguments follow and what their types are.
+
+99
+00:13:10,000 --> 00:13:19,000
+ It will get confused, and you will get nonsense answers if there are not enough arguments or they are of the wrong type.
+
+100
+00:13:19,000 --> 00:13:28,000
+ As an aside, formatted output is difficult. The design of C printf was inspired by the earlier format statement in Fortran and Alcol.
+
+101
+00:13:28,000 --> 00:13:34,000
+ In order to compete with those languages, C needed to ship with solid support for formatted output.
+
+102
+00:13:34,000 --> 00:13:38,000
+ The approach chosen by C percolated into C-like languages.
+
+103
+00:13:38,000 --> 00:13:44,000
+ PHP and Java simply have a function called printf that mimics most of the C formats.
+
+104
+00:13:44,000 --> 00:13:48,000
+ Python has evolved its approach to formatted output over the years.
+
+105
+00:13:48,000 --> 00:13:53,000
+ An early initial solution had a syntax that used percent to provide C-like formatting.
+
+106
+00:13:53,000 --> 00:13:58,000
+ There was also a format method on the string object.
+
+107
+00:13:58,000 --> 00:14:05,000
+ For example, x equals 421.34.
+
+108
+00:14:05,000 --> 00:14:16,000
+ Print open paren double quote x is percent 7.2f double quote percent open paren x comma close paren close paren.
+
+109
+00:14:16,000 --> 00:14:23,000
+ That uses a percent operator and sends a tuple, but the syntax of percent 7.2f is the same.
+
+110
+00:14:23,000 --> 00:14:40,000
+ Another option is print open paren double quote x is open curly brace y colon 7.2f close curly brace double quote dot format open paren y equals x close paren close paren.
+
+111
+00:14:40,000 --> 00:14:47,000
+ This sends a set of key value pairs and it's a little clunky.
+
+112
+00:14:47,000 --> 00:14:53,000
+ The latest and least clunky way to do it in modern Python is what we call f-strings.
+
+113
+00:14:53,000 --> 00:15:11,000
+ And the code is print f double quote print open paren f double quote x is open curly brace x colon 7.2f close curly brace double quote close paren.
+
+114
+00:15:11,000 --> 00:15:24,000
+ But even after all this evolution, much of this output formatting still traces its design inspiration from the C printf capabilities back in 1978.
+
+115
+00:15:24,000 --> 00:15:27,000
+ Formatted input scanf.
+
+116
+00:15:27,000 --> 00:15:35,000
+ The function scanf is the input analog of printf, providing many of the same conversion facilities, but in the opposite direction.
+
+117
+00:15:35,000 --> 00:15:49,000
+ Scanf open paren control, arg1, arg2, etc. close paren. Scanf reads characters from standard input, interprets them according to the format specified in control, and stores the results in the remaining arguments.
+
+118
+00:15:49,000 --> 00:15:51,000
+ The control argument is described below.
+
+119
+00:15:51,000 --> 00:16:01,000
+ The other arguments, each of which must be a pointer, indicate where the corresponding converted input should be stored.
+
+120
+00:16:01,000 --> 00:16:08,000
+ The control string usually contains conversion specifications, which are used to direct interpretation of input sequences.
+
+121
+00:16:08,000 --> 00:16:14,000
+ The control string may contain blanks, tabs, or new lines. We call these white space characters, which are ignored.
+
+122
+00:16:14,000 --> 00:16:23,000
+ Ordinary characters, not percent, which are expected to match the next non-white space character of the input stream.
+
+123
+00:16:23,000 --> 00:16:35,000
+ Conversion specifications, consisting of the character percent, an optional assignment suppression character asterisk, and an optional number specifying the maximum field width, and a conversion character.
+
+124
+00:16:35,000 --> 00:16:40,000
+ A conversion specification directs the conversion of the next input field.
+
+125
+00:16:40,000 --> 00:16:54,000
+ Normally, the result is placed in the variable pointed to by the corresponding argument. If assignment suppression is indicated by the asterisk character, however, the input field is parsed, but then simply skipped, no assignment is being made.
+
+126
+00:16:54,000 --> 00:17:04,000
+ An input field is defined as a string of non-white space characters. It extends to either the next white space character, or until the field width, if specified, is exhausted.
+
+127
+00:17:04,000 --> 00:17:12,000
+ This implies that scanf will read across line boundaries to find its input, since new lines are white space.
+
+128
+00:17:12,000 --> 00:17:21,000
+ The conversion character indicates the interpretation of the input field. The corresponding argument must be a pointer, as required by the call-by-value semantics of C.
+
+129
+00:17:21,000 --> 00:17:24,000
+ The following conversion characters are legal.
+
+130
+00:17:24,000 --> 00:17:31,000
+ D. A decimal integer is expected on input. The corresponding argument should be an integer pointer.
+
+131
+00:17:31,000 --> 00:17:39,000
+ O. An octal integer, with or without a leading zero, is expected on input. The corresponding argument should be an integer pointer.
+
+132
+00:17:39,000 --> 00:17:49,000
+ X. A hexadecimal integer, with or without the leading zero x, is expected in the input. The corresponding argument should be an integer pointer.
+
+133
+00:17:49,000 --> 00:17:57,000
+ H. A short integer is expected in the input. The corresponding argument should be a pointer to a short integer.
+
+134
+00:17:57,000 --> 00:18:06,000
+ C. A single character is expected. The corresponding argument should be a character pointer. The next input character is placed at the indicated spot.
+
+135
+00:18:06,000 --> 00:18:15,000
+ The normal skip over white space characters is suppressed in this case. To read the next non-white space character, use %1S.
+
+136
+00:18:15,000 --> 00:18:28,000
+ S. A character string is expected. The corresponding argument should be a character pointer, pointing to an array of characters large enough to accept the string, and a terminating backslash zero, which will be added.
+
+137
+00:18:28,000 --> 00:18:35,000
+ F. A floating point number is expected. The corresponding argument should be a pointer to a float.
+
+138
+00:18:35,000 --> 00:18:51,000
+ The conversion character E is a synonym for F. The input formats for floats is an optional sign, a string of numbers possibly containing a decimal point, and an optional exponent field containing an upper or lowercase e, followed by possibly a signed integer.
+
+139
+00:18:51,000 --> 00:19:13,000
+ The conversion characters D, O, and X may be preceded by L to indicate that it is a pointer to a long rather than an int appears in the argument list. Similarly, the conversion characters E or F may be preceded by L to indicate that it is a pointer to a double rather than a float in the argument list.
+
+140
+00:19:13,000 --> 00:19:27,000
+ For example, the call int i float x char name 50 close square bracket close semicolon.
+
+141
+00:19:27,000 --> 00:19:49,000
+ Scan F, %D, %F, %S, &i, &x, name, close parenthesis semicolon, with the input line 25, 54.32e-1 Thompson.
+
+142
+00:19:49,000 --> 00:20:07,000
+ We'll assign the value 25 to i, the value 5.432 to x, and the string Thompson, properly terminated with a z backslash zero, to name. The three input fields may be separated by as many blanks, tabs, and new lines as desired.
+
+143
+00:20:07,000 --> 00:20:34,000
+ The call int i float x char name 50 close square bracket semicolon. Scan F, %2D, %F, %*D, %2S, &i, &x, name, close parenthesis.
+
+144
+00:20:34,000 --> 00:20:56,000
+ With input 56789 0123 45A72 will assign 56 to i, 789.0 to x. Skip over 0123 and place the string 45 in name.
+
+145
+00:20:56,000 --> 00:21:01,000
+ The next call to any input routine will begin searching at the letter A.
+
+146
+00:21:01,000 --> 00:21:09,000
+ In these two examples, name is a pointer and thus must not be preceded by an ampersand.
+
+147
+00:21:09,000 --> 00:21:36,000
+ As another example, the rudimentary calculator of Chapter 4 can now be written with Scan F to do the input/put conversion. This is example code on page 150, the textbook, which you can see at www.cc4e.com/code.
+
+148
+00:21:36,000 --> 00:22:03,000
+ While open paren, scan F open paren, %LF, &V, not equal EOF, print F, %T, %.2F, sum+=V, semicolon, close curly brace.
+
+149
+00:22:03,000 --> 00:22:11,000
+ Scan F stops when it exhausts its control string or when some input fails to match the control specification.
+
+150
+00:22:11,000 --> 00:22:21,000
+ It returns, as its function residual value, the number of successfully matched and assigned input items. This can be used to decide how many input items were found.
+
+151
+00:22:21,000 --> 00:22:30,000
+ On end of file, EOF is returned. Note that this is different from 0, which means that the next input character does not match the first specification in the control string.
+
+152
+00:22:30,000 --> 00:22:37,000
+ The next call to scan F resumes searching immediately after the last character already returned.
+
+153
+00:22:37,000 --> 00:23:03,000
+ A final warning, the arguments to scan F must be pointers. By far, the most common error is writing scan F open paren, %D, %, N, semicolon, instead of scan F open paren, %D, &N, semicolon.
+
+154
+00:23:03,000 --> 00:23:07,000
+ Section 7.5, in-memory format conversion.
+
+155
+00:23:07,000 --> 00:23:18,000
+ The functions scanF and printF have siblings called sscanF and sprintf, which perform the corresponding conversion but operate on a string instead of a file.
+
+156
+00:23:18,000 --> 00:23:36,000
+ The general format is sprintf, string, control, arg1, arg2, sscanF, string, control, arg1, arg2, etc.
+
+157
+00:23:36,000 --> 00:23:46,000
+ sprintf formats the arguments in arg1, arg2, etc. according to control as before, but it places the result in a string instead of on the standard output.
+
+158
+00:23:46,000 --> 00:23:49,000
+ Of course, string had better be big enough to receive the result.
+
+159
+00:23:49,000 --> 00:24:10,000
+ As an example, if the name is a character array and N is an integer, then sprintf, name, %D, ,N, semicolon, creates a string of the form, .NNN, where NNN is the value for N.
+
+160
+00:24:10,000 --> 00:24:18,000
+ sscanF does the reverse conversion. It scans the string according to the format in control and places the results in arg1, arg2, etc.
+
+161
+00:24:18,000 --> 00:24:21,000
+ These arguments must be pointer.
+
+162
+00:24:21,000 --> 00:24:40,000
+ The sscanF, name, %D, ,N, semicolon, sets N to the value of the digits following TEMP in name.
+
+163
+00:24:40,000 --> 00:24:52,000
+ Section 7.6, file access. As an aside, the next two sections do a nice job of covering file input and the notion of the standard error with simple sample code.
+
+164
+00:24:52,000 --> 00:25:00,000
+ But the authors are also making a subtle point about Unix and how the design of C makes it easy to build Unix utilities.
+
+165
+00:25:00,000 --> 00:25:11,000
+ By the end of section 7.6, we see a 29-line program that is pretty much a complete implementation of the core functionality of the Unix cat command.
+
+166
+00:25:11,000 --> 00:25:22,000
+ Part of the philosophy of Unix was to build commands that are each simple building blocks that can be composed using standard input, standard output, redirection, as well as pipes.
+
+167
+00:25:22,000 --> 00:25:28,000
+ These next two sections are a gentle celebration of the design principles that underlie the Unix operating system.
+
+168
+00:25:28,000 --> 00:25:38,000
+ Also, while we're talking about the linkage between C and Unix, there is a Unix-related Easter egg earlier in the chapter. See if you can find it.
+
+169
+00:25:38,000 --> 00:25:44,000
+ Bonus points if you already noticed it.
+
+170
+00:25:44,000 --> 00:25:54,000
+ The programs written so far have all read the standard input and written the standard output, which we have assumed are magically predefined for a program by the local operating system.
+
+171
+00:25:54,000 --> 00:26:00,000
+ The next step in I/O is to write a program that accesses a file which is not already connected to the program.
+
+172
+00:26:00,000 --> 00:26:08,000
+ One program that clearly illustrates the need for such operations is Cat, which concatenates a set of name files onto standard output.
+
+173
+00:26:08,000 --> 00:26:17,000
+ Cat is used for printing files on a terminal and is a general-purpose input collector for programs which do not have the capability of accessing files by name.
+
+174
+00:26:17,000 --> 00:26:26,000
+ For example, the command cat x.c y.c prints the contents of the files x.c and y.c on the standard output.
+
+175
+00:26:26,000 --> 00:26:36,000
+ The question is how to arrange for the named files to be read, that is, how to connect the external names that the user thinks of to the statements which actually read the data.
+
+176
+00:26:36,000 --> 00:26:43,000
+ The rules are simple. Before it can be read or written, a file has to be opened by the standard library function fopen.
+
+177
+00:26:43,000 --> 00:26:53,000
+ fopen takes an external name, like x.c or y.c, does some housekeeping and negotiating with the operating system, some details of which do not need to concern us,
+
+178
+00:26:53,000 --> 00:26:59,000
+ and returns an internal name which then must be used for subsequent reads or writes of the file.
+
+179
+00:26:59,000 --> 00:27:07,000
+ The internal name is actually a pointer, called the file pointer, to a structure which contains information about the file, such as the location of a buffer,
+
+180
+00:27:07,000 --> 00:27:13,000
+ the current character position in the buffer, whether the file is being read or written, and the similar.
+
+181
+00:27:13,000 --> 00:27:23,000
+ Users don't need to know the details, because part of the standard I/O definitions are obtained from stdio.h, and it's a structured definition called file.
+
+182
+00:27:23,000 --> 00:27:34,000
+ The only declaration needed for a file pointer is exemplified by file *fopen, open paren, close paren, comma, *fp, semicol.
+
+183
+00:27:34,000 --> 00:27:41,000
+ That says that fp is a pointer to a file, and fopen returns a pointer to a file.
+
+184
+00:27:41,000 --> 00:27:47,000
+ Note that file is a type name, like int, not a structure tag. It's implemented as a typedef.
+
+185
+00:27:47,000 --> 00:27:53,000
+ Details on how all this works on the Unix system are given in Chapter 8.
+
+186
+00:27:53,000 --> 00:28:04,000
+ The actual call to fopen in a program is fp = fopen, open paren, name, comma, mode, close paren, semicolon.
+
+187
+00:28:04,000 --> 00:28:08,000
+ The first argument of fopen is the name of the file as a character string.
+
+188
+00:28:08,000 --> 00:28:15,000
+ The second argument is the mode, also a character string, which indicates how one intends to use the files.
+
+189
+00:28:15,000 --> 00:28:21,000
+ Allowable modes are read, r, write, w, or append, a.
+
+190
+00:28:21,000 --> 00:28:27,000
+ If you open a file, which does not exist for writing or appending, it is created if possible.
+
+191
+00:28:27,000 --> 00:28:32,000
+ Opening an existing file for writing causes the old constants to be discarded.
+
+192
+00:28:32,000 --> 00:28:35,000
+ Trying to read a file that does not exist is an error.
+
+193
+00:28:35,000 --> 00:28:41,000
+ And there may be other causes of error as well, like trying to read a file when you don't have permission.
+
+194
+00:28:41,000 --> 00:28:50,000
+ If there is any error, fopen will return the null pointer with a value of null, which, for convenience, is also defined in stdio.h.
+
+195
+00:28:50,000 --> 00:28:55,000
+ The next thing needed is a way to read or write the file once it is open.
+
+196
+00:28:55,000 --> 00:29:00,000
+ There are several possibilities, of which getc and putc are the simplest.
+
+197
+00:29:00,000 --> 00:29:03,000
+ getc returns the next character from a file.
+
+198
+00:29:03,000 --> 00:29:06,000
+ It needs the file pointer to tell what file.
+
+199
+00:29:06,000 --> 00:29:18,000
+ Thus, c = getc, open paren, fp, close paren, places in c the next character from the file referenced by fp, and eof when it reaches end of file.
+
+200
+00:29:18,000 --> 00:29:21,000
+ putc is the inverse of getc.
+
+201
+00:29:21,000 --> 00:29:29,000
+ putc, open paren, c, fp, close paren, puts the character c on the file fp and returns c.
+
+202
+00:29:29,000 --> 00:29:34,000
+ Like getchar and putchar, getc and putc may be macros instead of functions.
+
+203
+00:29:34,000 --> 00:29:41,000
+ When a program is started, three files are automatically opened, and file pointers are provided for them.
+
+204
+00:29:41,000 --> 00:29:54,000
+ These files are the standard input, the standard output, and the standard error output. The corresponding file pointers are called stdin, stdout, and stderr.
+
+205
+00:29:54,000 --> 00:30:03,000
+ Normally, these are all connected to the terminal, but stdin and stdout may be redirected to files or pipes, as described in section 7.2.
+
+206
+00:30:03,000 --> 00:30:11,000
+ getchar and putchar can be defined in terms of getc, putc, stdin, and stdout as follows.
+
+207
+00:30:11,000 --> 00:30:27,000
+ #define getchar, open paren, close paren; getc, open paren, stdin, close paren; #define putchar, open paren, c, close paren; putc, open paren, c, stdout, close paren.
+
+208
+00:30:27,000 --> 00:30:36,000
+ For formatted input or output files, the function fscanf and fprintf may be used. These are identical to scanf and printf.
+
+209
+00:30:36,000 --> 00:30:47,000
+ Save that the first argument is a file pointer that specifies the file to be read or written. The second argument is the control string.
+
+210
+00:30:47,000 --> 00:30:55,000
+ With these preliminaries out of the way, we are now in a position to write the program cat to concatenate files.
+
+211
+00:30:55,000 --> 00:31:02,000
+ The basic design is one that has been found convenient for many programs. If there are command-like arguments, they are processed in order.
+
+212
+00:31:02,000 --> 00:31:11,000
+ If there are no arguments, the standard input is processed. This way the program can be used standalone or part of a larger process.
+
+213
+00:31:11,000 --> 00:31:22,000
+ This example is on page 153 of the textbook, and you can see it at www.cc4e.com/code.
+
+214
+00:31:22,000 --> 00:31:37,000
+ #include stdio.h, main, open paren, argc, argv, close paren; int argc; char, star, argv; open square bracket, close square bracket; semicolon.
+
+215
+00:31:37,000 --> 00:31:47,000
+ Open curly brace. File, star fp, comma, star fopen, open paren, close paren; semicolon.
+
+216
+00:31:47,000 --> 00:32:01,000
+ If, open paren, argc, double equals one, close paren, file copy, open paren, stdin, close paren, semicolon.
+
+217
+00:32:01,000 --> 00:32:23,000
+ Else, while, open paren, minus, minus, argc, greater than zero, close paren. If, open paren, open paren, fp, equals fopen, open paren, star, plus, plus, argv, comma, quote, r, quote, close paren, close paren, double equals null, close paren, open curly brace.
+
+218
+00:32:23,000 --> 00:32:39,000
+ Print, f, open paren, double quote, cat, colon, can't open, space, percent, s, backslash, n, double quote, star, comma, star, argv, close paren, semicolon, break, semicolon.
+
+219
+00:32:39,000 --> 00:32:56,000
+ Close curly brace. Else, open curly brace, file copy, open paren, fp, close paren, semicolon. F, close, open paren, fp, close paren, semicolon. Close curly brace for the if, then else, and then close curly brace for the main.
+
+220
+00:32:56,000 --> 00:33:04,000
+ And now we have the file copy function. We're going to read all the contents of a file pointer and send it to standard output.
+
+221
+00:33:04,000 --> 00:33:14,000
+ File copy, open paren, fp, close paren, file, star, fp, semicolon, open curly brace, int, c, semicolon.
+
+222
+00:33:14,000 --> 00:33:32,000
+ While, open paren, open paren, c equals, get c, open paren, fp, close paren, close paren, not equal eof, close paren, put c, open paren, c, comma, std, out, close paren, semicolon, close curly brace.
+
+223
+00:33:32,000 --> 00:33:40,000
+ The file pointers std in and std out are predefined in the IO library as the standard input and the standard output.
+
+224
+00:33:40,000 --> 00:33:49,000
+ They may be used anywhere an object of type file star can be. They are constants, however, not variables, so don't try to assign to them.
+
+225
+00:33:49,000 --> 00:33:59,000
+ The function fclose is the inverse of fopen. It breaks the connection between the file pointer and the external name that was established by fopen, freeing the file pointer for another file.
+
+226
+00:33:59,000 --> 00:34:10,000
+ Since most operating systems have some limit on the number of simultaneously open files a program may have, it's a good idea to free things when they're no longer needed, as we did above in cat.
+
+227
+00:34:10,000 --> 00:34:17,000
+ There's also another reason for fclose on an output file. It flushes the buffer in which put c is collecting output.
+
+228
+00:34:17,000 --> 00:34:24,000
+ fclose is called automatically for each open file when a program terminates normally.
+
+229
+00:34:24,000 --> 00:34:30,000
+ Section 7.7, error handling, stderr and exit.
+
+230
+00:34:30,000 --> 00:34:35,000
+ The treatment of errors in the previous implementation of cat is not ideal.
+
+231
+00:34:35,000 --> 00:34:43,000
+ The trouble is that if one of the files can't be accessed for some reason, the diagnostic is printed at the end of the concatenated output.
+
+232
+00:34:43,000 --> 00:34:51,000
+ That is acceptable if the output is going to a terminal, but it's really bad if it's going to a file or some other program via pipeline.
+
+233
+00:34:51,000 --> 00:35:02,000
+ To handle this situation better, a second output file called stderr is assigned to the program in the same way that stdin and stdout are.
+
+234
+00:35:02,000 --> 00:35:12,000
+ If at all possible, output written on stderr appears on the user's terminal, even if the standard output is redirected.
+
+235
+00:35:12,000 --> 00:35:20,000
+ Let's revise cat to write its error messages onto the standard output file.
+
+236
+00:35:20,000 --> 00:35:26,000
+ This is really only a couple of lines of code different between the example on page 153.
+
+237
+00:35:26,000 --> 00:35:37,000
+ This is the example on page 154 of the textbook, which of course you can see at www.cc4e.com/code.
+
+238
+00:35:37,000 --> 00:35:55,000
+ #include stdio.h #include stdlib.h main open-paren argc, argv close-paren int argc semicolon char star argv open-square-bracket close-square-bracket semicolon open-curly-brace
+
+239
+00:35:55,000 --> 00:36:08,000
+ file star fp, star fopen open-paren close-paren semicolon if open-paren argc double equal one close-paren (here we have no arguments)
+
+240
+00:36:08,000 --> 00:36:19,000
+ file copy open-paren stdin close-paren semicolon else while open-paren minus minus argc greater than zero close-paren
+
+241
+00:36:19,000 --> 00:36:31,000
+ if open-paren open-paren fp equals fopen open-paren star plus plus argv comma double quote r double quote close-paren close-paren double equal null
+
+242
+00:36:31,000 --> 00:36:47,000
+ close-paren open-curly-brace fprintf open-paren stderr comma double quote cat colon can't open percent s backslash n double quote comma star argv
+
+243
+00:36:47,000 --> 00:36:57,000
+ close-paren semicolon exit open-paren one close-paren semicolon close-curly-brace else open-curly-brace
+
+244
+00:36:57,000 --> 00:37:07,000
+ file copy open-paren fp close-paren semicolon file close open-paren fp close-paren semicolon close-curly-brace to finish the if
+
+245
+00:37:07,000 --> 00:37:20,000
+ and then exit open-paren zero close-paren semicolon close-curly-brace to finish the main and file copy is the same from the previous
+
+246
+00:37:20,000 --> 00:37:30,000
+ so this program signals errors two ways the diagnostic output produced by fprintf goes to stderr so it finds its way to the user's terminal
+
+247
+00:37:30,000 --> 00:37:38,000
+ instead of disappearing down a pipeline pipeline or into an output file the program also uses the standard library function exit
+
+248
+00:37:38,000 --> 00:37:45,000
+ which terminates execution when it's called the argument of exit is available to whatever process called this one so the success or
+
+249
+00:37:45,000 --> 00:37:54,000
+ failure of the program can be tested by another program that uses this one as a sub process by convention return value of zero signals all
+
+250
+00:37:54,000 --> 00:38:04,000
+ as well and various non-zero values signal abnormal situations exit calls f close for each open output file to flush any buffered
+
+251
+00:38:04,000 --> 00:38:11,000
+ output then calls a routine named underscore exit the function underscore exit causes immediate termination without any buffer
+
+252
+00:38:11,000 --> 00:38:21,000
+ flushing of course it may be called directly if desired section 7.8 line input and output the standard library provides a routine
+
+253
+00:38:21,000 --> 00:38:29,000
+ fget s which is quite similar to the get line function we've used throughout the book the call fget s open-paren line comma maxline
+
+254
+00:38:29,000 --> 00:38:39,000
+ comma fp close-paren reads the next input line including the new line from the file fp into the character array line at most maxline
+
+255
+00:38:39,000 --> 00:38:48,000
+ minus one characters will be read the resulting line is terminated with backslash zero normally fget s returns line on end of file
+
+256
+00:38:48,000 --> 00:38:57,000
+ it returns null our get line returns line length and zero for end of file for output the function fputs writes a string which need not
+
+257
+00:38:57,000 --> 00:39:07,000
+ contain a new line to a file fputs open-paren line comma fp close-paren to show there's nothing magic about the functions like fget s
+
+258
+00:39:07,000 --> 00:39:20,000
+ and fputs here they are copied directly from the Unix standard IO library this code example is on page 155 of the textbook which you can
+
+259
+00:39:20,000 --> 00:39:37,000
+ view at www.cc4e.com/code char star fget s open-paren s comma n comma iop close-paren char star s semicolon int n semicolon register
+
+260
+00:39:37,000 --> 00:39:52,000
+ file star iop semicolon open curly brace register int c semicolon register char star cs semicolon cs equals s semicolon while open-paren
+
+261
+00:39:52,000 --> 00:40:07,000
+ minus minus n greater than zero double ampersand open-paren c equals get c open-paren iop close-paren close-paren not equal eof close-paren if
+
+262
+00:40:07,000 --> 00:40:22,000
+ s plus plus equals c close-paren equal equal quote backslash and quote close-paren break semicolon star cs equals quote backslash zero
+
+263
+00:40:22,000 --> 00:40:38,000
+ semicolon return open-paren open-paren c double equals eof and cs double equals s close-paren question mark null colon s close-paren
+
+264
+00:40:38,000 --> 00:40:53,000
+ semicolon close curly brace the function fputs is as follows fputs open-paren s comma iop close-paren register char star s register file star iop
+
+265
+00:40:53,000 --> 00:41:08,000
+ semicolon open curly brace register int c semicolon while open-paren c equals star s plus plus close-paren put c open-paren c comma iop
+
+266
+00:41:08,000 --> 00:41:23,000
+ semicolon close curly brace section 7.9 some miscellaneous functions the standard library provides a variety of functions a few which stand out is especially useful
+
+267
+00:41:23,000 --> 00:41:38,000
+ for abstract string functions strlen strcpy strcat and strcomp here are some others character class testing and conversion several macros perform character tests and conversions
+
+268
+00:41:38,000 --> 00:41:53,000
+ the function is alpha open-paren c close-paren returns non-zero if c is alphabetic 0 if not the function is upper open-paren c close-paren returns non-zero if c is uppercase 0 if not
+
+269
+00:41:53,000 --> 00:42:04,000
+ is lower open-paren c close-paren is non-zero if c is lowercase 0 if not is digit open-paren c close-paren is non-zero if c is a digit 0 if not
+
+270
+00:42:04,000 --> 00:42:21,000
+ is space open-paren c close-paren is non-zero if c is blank tab or new line 0 if not 2 upper open-paren c close-paren converts c to uppercase 2 lower open-paren c close-paren converts c to lowercase
+
+271
+00:42:21,000 --> 00:42:35,000
+ those all worked on single characters ungetc the standard library provides a rather restricted version of the function ungetch which we wrote in chapter 4 it's called ungetc
+
+272
+00:42:35,000 --> 00:42:46,000
+ ungetc open-paren c comma fp close-paren pushes the character c back onto the file fp only one character of pushback is allowed per file
+
+273
+00:42:46,000 --> 00:42:53,000
+ ungetc may be used with any of the input functions in macros like scanf getc or getchar
+
+274
+00:42:53,000 --> 00:43:05,000
+ system call the function system open-paren s close-paren executes the command in the character string s then resumes the execution of the current program
+
+275
+00:43:05,000 --> 00:43:16,000
+ the contents of s depend strongly on the local operating system as a trivial example on unix the line system open-paren double-quote date
+
+276
+00:43:16,000 --> 00:43:26,000
+ double-quote close-paren semicolon causes the date program to be run it prints the time and date of the day on unix
+
+277
+00:43:26,000 --> 00:43:37,000
+ storage management the function c alloc is rather like the alloc we have used in previous chapters c alloc open-paren n comma size of
+
+278
+00:43:37,000 --> 00:43:47,000
+ open-paren object close-paren close-paren returns a pointer to enough space for n objects of the specified size or null if the request cannot be satisfied
+
+279
+00:43:47,000 --> 00:43:56,000
+ the storage is initialized to zero the pointer has the proper alignment for the object in question but it should be cast to the appropriate type as in
+
+280
+00:43:56,000 --> 00:44:10,000
+ char star c alloc open-paren close-paren semicolon int star ip semicolon ip equals open-paren int star close-paren c alloc open-paren n comma size of
+
+281
+00:44:10,000 --> 00:44:24,000
+ open-paren int close-paren close-paren semicolon c free open-paren p close-paren free space pointed to by p where p is originally obtained by a call to c alloc
+
+282
+00:44:24,000 --> 00:44:34,000
+ there are no restrictions on the order in which space is freed but it is a ghastly error to free something not obtained by calling c alloc
+
+283
+00:44:34,000 --> 00:44:43,000
+ chapter 8 shows the implementation of a storage allocator like c alloc in which the allocated blocks may be freed in any order
+
+284
+00:44:43,000 --> 00:44:51,000
+ this work is based on the 1978 c programming book written by brian w kerningan and dennis m richey
+
+285
+00:44:51,000 --> 00:45:01,000
+ their book is copyright all rights reserved by at&t but is used in this work under fair use because of the book's historical and scholarly significance
+
+286
+00:45:01,000 --> 00:45:10,000
+ its lack of availability and the lack of an accessible version of the book the book is augmented in places to help understand its right place in historical context
+
+287
+00:45:10,000 --> 00:45:20,000
+ amidst the major changes of the 1970s and 1980s as computer science evolved from a hardware-first vendor-centered approach to a software-centered approach
+
+288
+00:45:20,000 --> 00:45:29,000
+ where portable operating systems and applications written in c could run on any hardware this is not the ideal book to learn c programming
+
+289
+00:45:29,000 --> 00:45:38,000
+ because the 1978 edition does not reflect the modern c language using an obsolete book gives us an opportunity to take students back in time
+
+290
+00:45:38,000 --> 00:46:00,000
+ and understand how the c language was evolving as it laid the groundwork for a future with portable applications
+

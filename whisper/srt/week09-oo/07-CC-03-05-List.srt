@@ -1,0 +1,404 @@
+1
+00:00:00,000 --> 00:00:05,440
+ So the next class that we're going to build in C is an emulation of what you would do if
+
+2
+00:00:05,440 --> 00:00:10,880
+ you were building the Python list class in C. So let's just start by taking a look at sort of a
+
+3
+00:00:10,880 --> 00:00:19,200
+ Python and C version of this thing. In Python, we create a new list, then we append a whole string,
+
+4
+00:00:19,200 --> 00:00:25,200
+ then we print it, then we have another string, then we print it, we have another string,
+
+5
+00:00:25,200 --> 00:00:30,480
+ we print that, we ask how long is the list, we do an index, which is a positional lookup saying
+
+6
+00:00:30,480 --> 00:00:37,440
+ where is the string Brian, then we say if Bob's in the list, where's it, or we say we can't find Bob.
+
+7
+00:00:37,440 --> 00:00:41,840
+ So we have to do an if-then-else and use in because otherwise we'd have to use a try-catch
+
+8
+00:00:41,840 --> 00:00:47,840
+ because if you do an index with a string that's not there in Python, it's going to blow up. So we
+
+9
+00:00:47,840 --> 00:00:51,920
+ can either do an if-then-else or we can do a try-catch. It's sort of six in one, half a dozen in
+
+10
+00:00:51,920 --> 00:00:58,400
+ the other. But in C, we're going to effectively call pylist new to create a new list. We're going
+
+11
+00:00:58,400 --> 00:01:02,800
+ to call pylist append and again remember all the time we're calling these things that are like
+
+12
+00:01:02,800 --> 00:01:07,760
+ methods, we're always putting the instance as the first parameter. In this case, LST is the instance.
+
+13
+00:01:07,760 --> 00:01:11,920
+ So we're going to append hello world, we're going to print it, we're going to append append catch
+
+14
+00:01:11,920 --> 00:01:15,920
+ phrase, we're going to print it, we're going to append Brian, we're going to print it, then we're
+
+15
+00:01:15,920 --> 00:01:19,520
+ going to look at the list, length of the list, then we're going to look up Brian, and we're going to
+
+16
+00:01:19,520 --> 00:01:25,120
+ look up Bob. And in this case, I made it so that the index just gives us back negative one to say
+
+17
+00:01:25,120 --> 00:01:29,520
+ I didn't find Bob so that I didn't have to try catch because it's like a little bit more C-like.
+
+18
+00:01:29,520 --> 00:01:36,320
+ And then we do a pylist underscore del to clear up the memory. We are about to switch from being the
+
+19
+00:01:36,320 --> 00:01:42,560
+ consumer of the list object to the builder of the list object. And our job as the builder of list
+
+20
+00:01:42,560 --> 00:01:48,880
+ object is to dynamically allocate all the data that we need to make this thing work. And so we
+
+21
+00:01:48,880 --> 00:01:53,120
+ don't get to see the details of that. All we know is there's these functions that we can call and
+
+22
+00:01:53,120 --> 00:01:58,560
+ this structure that we can use. And if we call the functions right, somebody else is going to deal
+
+23
+00:01:58,560 --> 00:02:04,080
+ with all of the dynamic memory that makes this work. And you've done linked lists in previous
+
+24
+00:02:04,080 --> 00:02:09,040
+ assignments. So linked lists should not be completely foreign to you. But now we're taking
+
+25
+00:02:09,040 --> 00:02:14,720
+ an object oriented approach to implementing a linked list and hiding the implementation detail
+
+26
+00:02:14,720 --> 00:02:19,280
+ within the object, which is an important part of the object oriented programming. So here's like
+
+27
+00:02:19,280 --> 00:02:24,640
+ some basic stuff. And some of this should start looking pretty familiar. We got an L node, which
+
+28
+00:02:24,640 --> 00:02:31,120
+ is short for list node. We got a pointer to a character string. And then we have a pointer to
+
+29
+00:02:31,120 --> 00:02:36,240
+ the next one. So we call that one next by convention. Next is not a keyword. Next is just a
+
+30
+00:02:36,240 --> 00:02:42,080
+ really common convention when we're making linked lists. And then we, and that's just the node. So
+
+31
+00:02:42,080 --> 00:02:45,680
+ linked list is a list of nodes, but then there's kind of the list itself, and that's what the
+
+32
+00:02:45,680 --> 00:02:51,200
+ structure PyList is. And it's got a pointer to the head and a pointer to the tail and just a counter.
+
+33
+00:02:51,200 --> 00:03:00,880
+ And so if we create the new list, PyList new, we are going to allocate the PyList object,
+
+34
+00:03:00,880 --> 00:03:06,880
+ which is a pointer which is 8, 2 pointer 16, and 4 should be 20 bytes. And then we're going to,
+
+35
+00:03:06,880 --> 00:03:11,360
+ that's what star P is going to be. Then we're going to set the head to null and the tail to
+
+36
+00:03:11,360 --> 00:03:15,440
+ null to indicate that we have an empty list. We're just, we're not creating a list with things in it
+
+37
+00:03:15,440 --> 00:03:20,080
+ and set the count to zero and we're done. So it's pretty straightforward. In some ways it is,
+
+38
+00:03:20,080 --> 00:03:27,760
+ this list is easier in some ways than the Python string was. Now the destructor is a little trickier
+
+39
+00:03:27,760 --> 00:03:33,520
+ because we actually have to go through the list and we have to free up all of the text areas,
+
+40
+00:03:33,520 --> 00:03:41,200
+ not just the struct L nodes, but we've also got the char star text that we've got to get rid of.
+
+41
+00:03:41,200 --> 00:03:45,680
+ So what we'll see here is we're going to, in the PyList del, we're going to carefully start at the
+
+42
+00:03:45,680 --> 00:03:54,240
+ head and then loop through and remember that free cur has got to be the last thing we do with cur.
+
+43
+00:03:54,240 --> 00:04:01,280
+ Once we say free cur for the, that's the L nodes, we got to do the free cur. We're not supposed to
+
+44
+00:04:01,280 --> 00:04:07,200
+ touch cur ever again. So you'll see I say free cur text, which is the string that's pointed to
+
+45
+00:04:07,920 --> 00:04:14,320
+ in the current node. Then I look up next and I'm looking up next before I call free cur because
+
+46
+00:04:14,320 --> 00:04:19,600
+ I'm not supposed to use cur afterwards. So I say next equals cur next. Give me the next pointer
+
+47
+00:04:19,600 --> 00:04:25,920
+ before I wipe out cur. I wipe out cur and then I say cur equals next. And so I just, I created
+
+48
+00:04:25,920 --> 00:04:31,520
+ that next variable inside that function just to kind of get past the free cur. So I didn't have
+
+49
+00:04:31,520 --> 00:04:36,880
+ to say cur equals cur next after I called free cur. And then loop goes through and it slowly
+
+50
+00:04:36,880 --> 00:04:42,000
+ but surely cleans up all of the L nodes. It might be zero, there might be no L nodes and head will
+
+51
+00:04:42,000 --> 00:04:48,080
+ be null at that point and while won't even run. But you got to free the text and you got to know
+
+52
+00:04:48,080 --> 00:04:52,960
+ where the next pointer is. Then you free the current one and then you advance to the next pointer and
+
+53
+00:04:52,960 --> 00:04:58,160
+ jump up to the while loop and then do the rest. And then and only then afterwards do you free the
+
+54
+00:04:58,160 --> 00:05:03,360
+ self, which is the actual PyList object. These structures tend to point to structures that tend
+
+55
+00:05:03,360 --> 00:05:07,280
+ to point to structures and you got to when you're deling them, when you're freeing them, you got to
+
+56
+00:05:07,280 --> 00:05:12,640
+ free them from the outside. Think of it as a tree. You've got the leaves and the branches and then
+
+57
+00:05:12,640 --> 00:05:19,040
+ the trunk and then the roots. You got to free them from the leaves inwards. And so just be
+
+58
+00:05:19,040 --> 00:05:24,160
+ real careful about this. That's part of the reason that I give you so much sample code where I do the
+
+59
+00:05:24,160 --> 00:05:30,000
+ del for you because I just don't want it to mess up. If we take a look at the step of freeing the
+
+60
+00:05:30,000 --> 00:05:35,280
+ dynamic memory, you're going to see that it's going to if we have a head and we have a tail here.
+
+61
+00:05:35,280 --> 00:05:42,160
+ The first thing it's going to do is it's going to to the L node that is the head. And then it's
+
+62
+00:05:42,160 --> 00:05:47,040
+ going to the first thing that's actually going to be freed is the text. And then it's going to free
+
+63
+00:05:47,040 --> 00:05:52,720
+ the L node. Then it's going to advance to the next L node, which has is. It's going to free the is.
+
+64
+00:05:52,720 --> 00:05:58,400
+ Then it's going to free the fourth thing, which is the second L node. And then it's going to advance
+
+65
+00:05:58,400 --> 00:06:03,680
+ to the third L node. And then it's going to free the fun, which is the fifth thing freed. And then
+
+66
+00:06:03,680 --> 00:06:09,040
+ it's going to free the last L node and it'll notice that next is is is null. And so we're done when
+
+67
+00:06:09,040 --> 00:06:16,960
+ there's a three node list. And then the last thing we do is we free the the list itself. So that the
+
+68
+00:06:16,960 --> 00:06:22,080
+ order in which we free these things is really, really important. And you think of it as the leaves
+
+69
+00:06:22,800 --> 00:06:29,440
+ outwards, right? The C is fun. Those are three strings that have been allocated. Those have to
+
+70
+00:06:29,440 --> 00:06:35,760
+ be freed first before we free the L node that happens to point to them. So every little bit
+
+71
+00:06:35,760 --> 00:06:40,640
+ of order matters. The one thing I want you to do in this one is I want you to make the list output
+
+72
+00:06:40,640 --> 00:06:45,760
+ instead of it being dumped. You'll notice I called this one print not dump. And I want it to look
+
+73
+00:06:45,760 --> 00:06:51,280
+ exactly like Python's list output, which means it's got an open square brace. It's got the strings
+
+74
+00:06:51,280 --> 00:06:58,720
+ and double quotes, single quotes, comma space in between them, etc. And don't try to use string
+
+75
+00:06:58,720 --> 00:07:02,960
+ concatenation to do this because you're in C. You're not in Python. You don't even know how
+
+76
+00:07:02,960 --> 00:07:07,760
+ long these strings are going to be. What you need to do is you need to cleverly write a loop that
+
+77
+00:07:07,760 --> 00:07:15,680
+ uses printf. So think of this as you can only use printf. Don't use a string because you don't have
+
+78
+00:07:15,680 --> 00:07:25,120
+ strings. Just use printf. And remember that printf doesn't add a new line unless you actually put the
+
+79
+00:07:25,120 --> 00:07:30,960
+ new line in. So it's pretty easy to do printf open bracket, then printf single quote, printf the
+
+80
+00:07:30,960 --> 00:07:38,480
+ string, printf single quote, printf comma, etc, etc. So you've got to... It's about 10 lines of code.
+
+81
+00:07:38,480 --> 00:07:43,440
+ And, you know, enjoy yourself. I think you'll do a pretty good job of this. And you'll be impressed
+
+82
+00:07:43,440 --> 00:07:48,960
+ when you're all done. And then you think, "Oh, I'm walking down the path of Guido van Rossum."
+
+83
+00:07:48,960 --> 00:07:55,200
+ Because Guido van Rossum had to write exactly these lines of code. Now, he actually was probably
+
+84
+00:07:55,200 --> 00:08:01,040
+ using a string class, which I just told you not to use, because he didn't want to... He didn't want
+
+85
+00:08:01,040 --> 00:08:06,160
+ to call printf directly. So he wanted to make it so you can convert to a string. But whatever.
+
+86
+00:08:07,440 --> 00:08:13,920
+ You're walking the path that Guido van Rossum walked while he was building the list object.
+
+87
+00:08:13,920 --> 00:08:17,440
+ That's what I want you to do. Here's some more methods. Some are easier. Some are hard.
+
+88
+00:08:17,440 --> 00:08:23,760
+ len is really easy. index is not too bad. It's a for loop. Once you loop through, you look for a
+
+89
+00:08:23,760 --> 00:08:27,920
+ value, and then you just return negative one if you don't find it. You just return the position.
+
+90
+00:08:27,920 --> 00:08:32,480
+ You got to kind of add to go zero, one, two, three, four, five, six, seven, and return the seven if you
+
+91
+00:08:32,480 --> 00:08:38,880
+ find it. append is a bit tricky, but hey, that was chapter six. You should know how to do that.
+
+92
+00:08:38,880 --> 00:08:43,600
+ You've actually, by this point in chapter six, you would have written one of these things. So
+
+93
+00:08:43,600 --> 00:08:49,200
+ go consult your own code at that point. And so here is the ultimate test case of our list class.
+
+94
+00:08:49,200 --> 00:08:54,880
+ You were just going to mimic that Python code. We're going to append a hello world string,
+
+95
+00:08:54,880 --> 00:08:58,880
+ append a catchphrase string, append a Brian string, print them all the time. We're going
+
+96
+00:08:58,880 --> 00:09:02,720
+ to print the length, and we're going to do an index lookup for Brian and Bob, and then we're
+
+97
+00:09:02,720 --> 00:09:06,960
+ going to delete it. We always delete it because we're not in Python. So we're carefully deleting
+
+98
+00:09:06,960 --> 00:09:13,520
+ it. And other than the negative one for Bob being 404 in the Python, because that was kind of a joke,
+
+99
+00:09:13,520 --> 00:09:22,560
+ it is identical, right? We're really starting to build what looks like a Python list.
+
+100
+00:09:22,560 --> 00:09:28,960
+ So up next, it's pretty much you guessed it. We did a string, we did a list.
+
+101
+00:09:28,960 --> 00:09:36,080
+ Yep, it's a dictionary. We're going to actually build a dictionary in our next bit.
+

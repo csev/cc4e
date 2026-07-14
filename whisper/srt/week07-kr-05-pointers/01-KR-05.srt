@@ -1,0 +1,1208 @@
+1
+00:00:00,000 --> 00:00:05,800
+ Hello, and welcome to our lecture on Kernigan and Ritchie Chapter 5, putting some context around it.
+
+2
+00:00:05,800 --> 00:00:10,380
+ Chapter 5 is Functions and Program Structure.
+
+3
+00:00:10,380 --> 00:00:15,520
+ So, the first thing I want to call your attention to is Section 5.1.
+
+4
+00:00:15,520 --> 00:00:23,760
+ I actually think that Section 5.1 is the most poignant and beautiful section in the book.
+
+5
+00:00:23,760 --> 00:00:28,960
+ Everything you've learned up till now, everything I've talked about, size of data, et cetera,
+
+6
+00:00:28,960 --> 00:00:34,740
+ has led to the point where you can read 5.1 and understand every word of it.
+
+7
+00:00:34,740 --> 00:00:36,480
+ You should enjoy reading it.
+
+8
+00:00:36,480 --> 00:00:42,040
+ I think of it as like a love letter from the creators of C to future computer scientists.
+
+9
+00:00:42,040 --> 00:00:43,840
+ So 5.1's important.
+
+10
+00:00:43,840 --> 00:00:46,520
+ We'll talk a little bit about pointer arithmetic.
+
+11
+00:00:46,520 --> 00:00:53,720
+ 5.6, we'll look at sort of the duality between pointers and integers, then we'll hit call
+
+12
+00:00:53,720 --> 00:00:58,940
+ by reference and call by value that are enabled in C by pointers, and then look at the big
+
+13
+00:00:58,940 --> 00:01:06,080
+ as security hole that C has caused over the past 40 plus years, buffer overflow.
+
+14
+00:01:06,080 --> 00:01:12,400
+ Now, the chapter gets a little dense in some of the sections, and so I'll just have you
+
+15
+00:01:12,400 --> 00:01:14,440
+ skim some of those sections.
+
+16
+00:01:14,440 --> 00:01:20,880
+ This is the essential example of pointers.
+
+17
+00:01:20,880 --> 00:01:23,520
+ We have two variables, int, x, and y.
+
+18
+00:01:23,520 --> 00:01:27,640
+ We have a variable px, which is of type pointer.
+
+19
+00:01:27,640 --> 00:01:29,140
+ It points to an integer.
+
+20
+00:01:29,140 --> 00:01:30,520
+ That's what int star means.
+
+21
+00:01:30,520 --> 00:01:38,560
+ We store 42 in x, and we store the address of x into px using the ampersand operator,
+
+22
+00:01:38,560 --> 00:01:44,000
+ and then we use the address of x, which is in px, and then we use a lookup operator or
+
+23
+00:01:44,000 --> 00:01:49,560
+ a dereference operator, star px, that says go to the memory location, point to 2 by px,
+
+24
+00:01:49,560 --> 00:01:52,360
+ and load me an integer and put that into y.
+
+25
+00:01:52,360 --> 00:01:58,080
+ And so we can see when we print out x is 42 and y is 42 and px is a long hexadecimal number
+
+26
+00:01:58,080 --> 00:02:04,660
+ that is some memory location inside the actual computer, and so ampersand and asterisk and
+
+27
+00:02:04,660 --> 00:02:11,960
+ int star, the star is a sort of a modifier for a type, are the important things.
+
+28
+00:02:11,960 --> 00:02:16,240
+ One of the things that you've probably never seen in Python is the id function.
+
+29
+00:02:16,240 --> 00:02:22,200
+ We've used functions like type and der, and there are ways for us to inquire about variables
+
+30
+00:02:22,200 --> 00:02:23,680
+ and constants.
+
+31
+00:02:23,680 --> 00:02:27,420
+ Id is a way to ask for the id of something.
+
+32
+00:02:27,420 --> 00:02:32,440
+ Now in CPython, and just to be clear, there are multiple versions of Python.
+
+33
+00:02:32,440 --> 00:02:34,040
+ CPython is the classic one.
+
+34
+00:02:34,040 --> 00:02:39,720
+ It's the implementation of Python that happens to be written in C. There are other implementations
+
+35
+00:02:39,720 --> 00:02:42,640
+ of Python.
+
+36
+00:02:42,640 --> 00:02:48,700
+ And so what I'm telling you with this id function is something that will work for the moment
+
+37
+00:02:48,700 --> 00:02:51,720
+ in CPython, but not necessarily every other one.
+
+38
+00:02:51,720 --> 00:02:56,280
+ If you print it out and you say what is x and what is the id of x, it's kind of like
+
+39
+00:02:56,280 --> 00:02:57,820
+ the address.
+
+40
+00:02:57,820 --> 00:03:03,400
+ And if you look at the documentation, it says don't think this is the address, right?
+
+41
+00:03:03,400 --> 00:03:08,000
+ It says the Python id function is not intended to be dereferenceable, meaning we're not supposed
+
+42
+00:03:08,000 --> 00:03:10,660
+ to look up memory from that.
+
+43
+00:03:10,660 --> 00:03:15,720
+ The fact that it's based on the memory address is a CPython implementation detail that other
+
+44
+00:03:15,720 --> 00:03:18,680
+ Python implementations do not follow.
+
+45
+00:03:18,680 --> 00:03:27,480
+ Now if you download the source code, kr0501.py, I actually have a completely unauthorized
+
+46
+00:03:27,480 --> 00:03:31,440
+ implementation of a lookup, a dereference.
+
+47
+00:03:31,440 --> 00:03:37,680
+ And it has to know the type of the thing that it's dereferencing, y equals deref of px,
+
+48
+00:03:37,680 --> 00:03:42,360
+ and it can then give me back that integer pointed to by the address.
+
+49
+00:03:42,360 --> 00:03:44,000
+ But this is not guaranteed to work.
+
+50
+00:03:44,000 --> 00:03:46,680
+ It's not supposed to be how it works.
+
+51
+00:03:46,680 --> 00:03:53,360
+ It just is, there is kind, things have addresses, and in CPython, at least for this particular
+
+52
+00:03:53,360 --> 00:03:58,560
+ version of Python that I'm using, you can use them.
+
+53
+00:03:58,560 --> 00:04:01,720
+ Pointers gives us the ability to do call by reference.
+
+54
+00:04:01,720 --> 00:04:07,280
+ And so if you've done Python, you see that we had a slide in an early version of my Python
+
+55
+00:04:07,280 --> 00:04:13,160
+ class that said sorry, Python doesn't do call by reference, it only does call by value.
+
+56
+00:04:13,160 --> 00:04:17,760
+ And that means that within a function, you change the parameters and nothing happens.
+
+57
+00:04:17,760 --> 00:04:22,400
+ But some languages do have call by reference, which means the parameters that come into
+
+58
+00:04:22,400 --> 00:04:28,360
+ a function are somehow handles that allow us to actually change the values in the main
+
+59
+00:04:28,360 --> 00:04:31,280
+ program or where we've been calling from.
+
+60
+00:04:31,280 --> 00:04:37,680
+ So the language Pascal and C and C++, PHP and C# have this notion, a formal notion of
+
+61
+00:04:37,680 --> 00:04:38,960
+ call by reference.
+
+62
+00:04:38,960 --> 00:04:44,280
+ And languages that don't have it are like Python and Java and JavaScript.
+
+63
+00:04:44,280 --> 00:04:52,260
+ Now there is a notion, the fact that I said this is for simple types like integers, objects
+
+64
+00:04:52,260 --> 00:04:56,040
+ are passed in, but then if you call methods and objects, you can actually change the data
+
+65
+00:04:56,040 --> 00:04:57,680
+ that the object has.
+
+66
+00:04:57,680 --> 00:05:01,320
+ But it's not like you're changing the object, you're changing the object's data.
+
+67
+00:05:01,320 --> 00:05:03,080
+ So let's take a look at a bit of code.
+
+68
+00:05:03,080 --> 00:05:06,040
+ Now the first example is actually Pascal.
+
+69
+00:05:06,040 --> 00:05:12,200
+ Now Pascal is a programming language that was written by Nicholas Wirth in Switzerland
+
+70
+00:05:12,200 --> 00:05:13,200
+ in 1970.
+
+71
+00:05:13,200 --> 00:05:16,680
+ And it had a call by reference.
+
+72
+00:05:16,680 --> 00:05:18,240
+ And it had this notion of var.
+
+73
+00:05:18,240 --> 00:05:22,400
+ And so you're creating a function named func, takes two parameters.
+
+74
+00:05:22,400 --> 00:05:27,240
+ One is a call by value, which is a, and then the other one is call by reference, which
+
+75
+00:05:27,240 --> 00:05:28,240
+ is b.
+
+76
+00:05:28,240 --> 00:05:31,280
+ And we set a and b to two new numbers.
+
+77
+00:05:31,280 --> 00:05:35,320
+ And then in the main program, we set x equals 42, y equals 43.
+
+78
+00:05:35,320 --> 00:05:40,360
+ And then we call the function and you'll notice there's no extra syntax in the function.
+
+79
+00:05:40,360 --> 00:05:46,080
+ And then we come back and you will see that the y variable is changed and the x variable
+
+80
+00:05:46,080 --> 00:05:47,080
+ is not.
+
+81
+00:05:47,080 --> 00:05:52,400
+ And then the c version of this, we have x equals 42, y equals 43.
+
+82
+00:05:52,400 --> 00:05:57,400
+ And then when we call func, we say we're going to pass in x and then ampersand y, which is
+
+83
+00:05:57,400 --> 00:05:58,760
+ the address of y.
+
+84
+00:05:58,760 --> 00:06:04,200
+ And if you go back to the very first example in section 5.1, we're passing in a number,
+
+85
+00:06:04,200 --> 00:06:06,080
+ which we're actually passing in by value.
+
+86
+00:06:06,080 --> 00:06:07,920
+ But the value is the address.
+
+87
+00:06:07,920 --> 00:06:12,440
+ And then inside the function, we take a and then a pointer to b, pb.
+
+88
+00:06:12,440 --> 00:06:17,360
+ And we say that a is just an integer and pb is an address of an integer by adding the
+
+89
+00:06:17,360 --> 00:06:19,200
+ little asterisk there.
+
+90
+00:06:19,200 --> 00:06:24,440
+ So the address where it's at has been passed by value.
+
+91
+00:06:24,440 --> 00:06:28,360
+ But using that value, we can dereference it and get to the thing.
+
+92
+00:06:28,360 --> 00:06:32,600
+ So we say a equals 1 and then we say star pb equals 2.
+
+93
+00:06:32,600 --> 00:06:38,200
+ That's a store 2 as an integer into the location pointed to by pb.
+
+94
+00:06:38,200 --> 00:06:42,000
+ And then when you come back, the second parameter will have been changed, y will have been changed,
+
+95
+00:06:42,000 --> 00:06:43,000
+ and x will not be changed.
+
+96
+00:06:43,000 --> 00:06:48,600
+ And if we take a look at a few other languages, so here we have the c code again.
+
+97
+00:06:48,600 --> 00:06:53,920
+ Python 1989 doesn't have the notion of pass by reference.
+
+98
+00:06:53,920 --> 00:07:01,400
+ And so one of the things that I think is an excellent compromise that is the case in Python
+
+99
+00:07:01,400 --> 00:07:06,800
+ is the notion of returning a tuple, not just a single value, but a tuple return.
+
+100
+00:07:06,800 --> 00:07:14,080
+ And so that way we could, if we really wanted to get back a value, more than one value,
+
+101
+00:07:14,080 --> 00:07:19,160
+ we could return a tuple and then in the main program, we assign the tuple.
+
+102
+00:07:19,160 --> 00:07:25,800
+ So if we really wanted x and y to change from inside the function, we could do so by just
+
+103
+00:07:25,800 --> 00:07:30,200
+ explicitly saying function is going to return two values and we're going to change them
+
+104
+00:07:30,200 --> 00:07:31,200
+ both.
+
+105
+00:07:31,200 --> 00:07:38,080
+ So if we look at php, which is 1994, we see a very elegant, I think, whenever you look
+
+106
+00:07:38,080 --> 00:07:41,040
+ at php, you got to realize the dollar sign is just part of the variable name.
+
+107
+00:07:41,040 --> 00:07:44,400
+ That's just the first character of all variables in php.
+
+108
+00:07:44,400 --> 00:07:49,580
+ So what we do inside a function is we say ampersand dollar b, which is the second parameter
+
+109
+00:07:49,580 --> 00:07:53,220
+ is b, dollar b, and we're expecting to change it.
+
+110
+00:07:53,220 --> 00:07:57,800
+ And you'll note that we don't change the syntax inside the function, dollar b equals 2, dollar
+
+111
+00:07:57,800 --> 00:08:00,800
+ a equals 1, the syntax doesn't change.
+
+112
+00:08:00,800 --> 00:08:05,560
+ And when we make the call, func dollar x comma dollar y, we don't change that either, and
+
+113
+00:08:05,560 --> 00:08:07,200
+ yet call by reference works.
+
+114
+00:08:07,200 --> 00:08:12,040
+ So if you look at all these examples, other than the weird dollar sign convention, I would
+
+115
+00:08:12,040 --> 00:08:16,840
+ say that the simplest and most elegant is probably the php implementation, right?
+
+116
+00:08:16,840 --> 00:08:21,440
+ Because we don't have to do anything inside the function except I'm planning on changing
+
+117
+00:08:21,440 --> 00:08:22,440
+ this.
+
+118
+00:08:22,440 --> 00:08:31,360
+ Now, C#, which is much later, 2000, has this notion of ref, which is somewhat a throwback
+
+119
+00:08:31,360 --> 00:08:37,600
+ to Pascal, but also it's the ampersand thing.
+
+120
+00:08:37,600 --> 00:08:44,020
+ But the one thing I like about it is inside the call to func, you have to kind of agree
+
+121
+00:08:44,020 --> 00:08:51,000
+ the calling code by saying ref x is in a sense agreeing that it is aware that x is likely
+
+122
+00:08:51,000 --> 00:08:53,640
+ to be changed by that function.
+
+123
+00:08:53,640 --> 00:08:55,440
+ And so that's call by reference.
+
+124
+00:08:55,440 --> 00:09:00,760
+ Now, we're in a C class, and so ampersand and asterisk are how we do it.
+
+125
+00:09:00,760 --> 00:09:07,240
+ So again, it's really quite straightforward inside a C code, as long as you are very good
+
+126
+00:09:07,240 --> 00:09:11,040
+ at understanding what the asterisk and ampersand do in C.
+
+127
+00:09:11,040 --> 00:09:16,460
+ Another important thing that's easily understood with a very simple bit of code is pointer
+
+128
+00:09:16,460 --> 00:09:18,360
+ arithmetic.
+
+129
+00:09:18,360 --> 00:09:23,120
+ The key to pointer arithmetic is that a pointer to an integer is different than a pointer
+
+130
+00:09:23,120 --> 00:09:24,280
+ to a character.
+
+131
+00:09:24,280 --> 00:09:28,600
+ Now, both these pointers are the same size because they are an address, and addresses
+
+132
+00:09:28,600 --> 00:09:30,460
+ are all the same size.
+
+133
+00:09:30,460 --> 00:09:35,320
+ But if you add one to a character pointer, that actually adds one to the address.
+
+134
+00:09:35,320 --> 00:09:41,520
+ And if you add one to an integer pointer, then it adds four, and that's because each
+
+135
+00:09:41,520 --> 00:09:44,600
+ integer takes four characters.
+
+136
+00:09:44,600 --> 00:09:51,980
+ And so when you're doing increments and subtracts, et cetera, when they're pointers, it increments
+
+137
+00:09:51,980 --> 00:09:54,160
+ based on the type of the thing that's pointed to.
+
+138
+00:09:54,160 --> 00:09:58,240
+ So a pointer is not just a pointer, it's a pointer to a thing with a type.
+
+139
+00:09:58,240 --> 00:10:02,920
+ And when you're incrementing and decrementing, the type that's being pointed to is more important
+
+140
+00:10:02,920 --> 00:10:04,900
+ than the fact that it's a pointer.
+
+141
+00:10:04,900 --> 00:10:09,260
+ It goes up and goes down, but it doesn't always just go up and down by one.
+
+142
+00:10:09,260 --> 00:10:11,240
+ Pointers are not integers.
+
+143
+00:10:11,240 --> 00:10:17,600
+ So if you go back to chapter two, there was, from the book, a table of the sizes of things.
+
+144
+00:10:17,600 --> 00:10:23,520
+ And so if you look in the PDP 11 integers, or 16 bits, in the Honeywell 6000, there are
+
+145
+00:10:23,520 --> 00:10:24,520
+ 36 bits.
+
+146
+00:10:24,520 --> 00:10:26,520
+ In IBM 370, there are 32 bits.
+
+147
+00:10:26,520 --> 00:10:28,800
+ In Interdata 832, there's 32 bits.
+
+148
+00:10:28,800 --> 00:10:34,320
+ Now, I've added a line to this that tells the number of bits and addresses in these
+
+149
+00:10:34,320 --> 00:10:35,320
+ systems.
+
+150
+00:10:35,320 --> 00:10:40,420
+ And you can see, if you compare the int numbers to the address numbers, that in all the cases
+
+151
+00:10:40,420 --> 00:10:48,160
+ except the PDP 11, the integer is larger than the address, which means that there is extra
+
+152
+00:10:48,160 --> 00:10:52,960
+ space in the address, and we can almost treat addresses as unsigned integers.
+
+153
+00:10:52,960 --> 00:10:59,380
+ Now, the PDP 11 is a little weird in that that 16 to 32 is a range of delivered computers
+
+154
+00:10:59,380 --> 00:11:06,580
+ over the years, and not all computers had full memory, and not all applications used
+
+155
+00:11:06,580 --> 00:11:08,700
+ the entire memory of the entire computer.
+
+156
+00:11:08,700 --> 00:11:15,660
+ So most of the time, you can conveniently put an address into an integer, and then get
+
+157
+00:11:15,660 --> 00:11:21,000
+ that address back out, and not have truncated that address or messed it up.
+
+158
+00:11:21,000 --> 00:11:28,520
+ So treating pointers as integers almost works, and the longer going history it was, the more
+
+159
+00:11:28,520 --> 00:11:30,660
+ likely it did work.
+
+160
+00:11:30,660 --> 00:11:33,780
+ Addresses are generally positive numbers that often start from zero.
+
+161
+00:11:33,780 --> 00:11:38,660
+ Sometimes heap numbers come down, and sometimes stack numbers go up, or whatever.
+
+162
+00:11:38,660 --> 00:11:41,480
+ But most computers did not come with a maximum memory installed.
+
+163
+00:11:41,480 --> 00:11:47,200
+ And if you're a multi-user computer, you didn't give all the system's memory to every application,
+
+164
+00:11:47,200 --> 00:11:52,080
+ and we tended to use very little memory in applications, we were very careful about it.
+
+165
+00:11:52,080 --> 00:11:57,840
+ So we just never ran into the problem of our memory addresses not fitting into integers.
+
+166
+00:11:57,840 --> 00:12:03,080
+ So in the early 70s, applications could get away with having a function that returned
+
+167
+00:12:03,080 --> 00:12:09,220
+ an address, return it as an integer, and then copy it into a pointer without conversion.
+
+168
+00:12:09,220 --> 00:12:16,700
+ And so, by like the early 80s, the notion of a void pointer gave us a way to have a
+
+169
+00:12:16,700 --> 00:12:21,420
+ generic address, that is, a pointer to something we don't know what type it is.
+
+170
+00:12:21,420 --> 00:12:26,960
+ Because all addresses are addresses, but what they point to is different.
+
+171
+00:12:26,960 --> 00:12:32,560
+ And so, if you take a look at the alloc function, which we'll play a lot more in the next chapter,
+
+172
+00:12:32,560 --> 00:12:37,640
+ the alloc says, oh, give me 42 bytes, and give it back to me as a pointer.
+
+173
+00:12:37,640 --> 00:12:41,420
+ Give me a pointer to 42 new bytes that you just allocated.
+
+174
+00:12:41,420 --> 00:12:47,020
+ So if you go in the early 70s, alloc returned an int, but then we would cast it to whatever
+
+175
+00:12:47,020 --> 00:12:48,060
+ type we wanted.
+
+176
+00:12:48,060 --> 00:12:51,260
+ So we would say alloc 42, it would give us an address, that'd be an integer, but then
+
+177
+00:12:51,260 --> 00:12:57,920
+ we'd cast it to an integer star, which is a no-loss cast, and then we would store it.
+
+178
+00:12:57,920 --> 00:13:03,960
+ By the time in the 1978 CNR book, we tended to call it a char star, because 42 is how
+
+179
+00:13:03,960 --> 00:13:06,100
+ many characters we're gonna allocate.
+
+180
+00:13:06,100 --> 00:13:10,500
+ And then you would take the pointer to a character and cast it to a pointer to an integer, and
+
+181
+00:13:10,500 --> 00:13:17,020
+ so alloc of 42 would give us 14 integers, actually, I think if I got my multiplication
+
+182
+00:13:17,020 --> 00:13:18,200
+ right.
+
+183
+00:13:18,200 --> 00:13:23,340
+ But in modern C, we have this pointer, void pointer, which basically says, look, alloc
+
+184
+00:13:23,340 --> 00:13:28,200
+ is gonna return an address, and you have to cast it to something.
+
+185
+00:13:28,200 --> 00:13:33,820
+ So alloc 42 returns a void star, which is casted to an int star, which is a lossless
+
+186
+00:13:33,820 --> 00:13:38,220
+ cast, and not something that's gonna confuse the compiler, and then we store it in our
+
+187
+00:13:38,220 --> 00:13:40,180
+ int star variable.
+
+188
+00:13:40,180 --> 00:13:48,300
+ And so void, everything you'll ever touch will be using void, but I just wanted to give
+
+189
+00:13:48,300 --> 00:13:53,500
+ you a little bit of the history of it and why void's kind of not mentioned in this 1978
+
+190
+00:13:53,500 --> 00:13:54,500
+ book.
+
+191
+00:13:54,500 --> 00:13:57,500
+ Every time in class, I'm like, hey, it's time to learn about security, and everybody
+
+192
+00:13:57,500 --> 00:13:59,980
+ kind of groans like, oh, no.
+
+193
+00:13:59,980 --> 00:14:04,520
+ Back when I taught HTML injection and SQL injection and cross-site scripting in all my
+
+194
+00:14:04,520 --> 00:14:05,520
+ previous classes.
+
+195
+00:14:05,520 --> 00:14:13,500
+ And here's the classic XKCD, where the mom has named their child with a bit of SQL and
+
+196
+00:14:13,500 --> 00:14:18,040
+ some single quotes and some comments, and that's all fun.
+
+197
+00:14:18,040 --> 00:14:24,500
+ It's important that we as software developers are aware of how the things that we build
+
+198
+00:14:24,500 --> 00:14:31,200
+ could be corrupted by those with evil intent, right?
+
+199
+00:14:31,200 --> 00:14:41,500
+ So it has come time to talk about that for C. Probably the single worst security hole
+
+200
+00:14:41,500 --> 00:14:49,940
+ in all of computing history, from 1950 to today, even before C was a thing, is what's
+
+201
+00:14:49,940 --> 00:14:52,300
+ called buffer overflow.
+
+202
+00:14:52,300 --> 00:15:00,660
+ And it has to do with the fact that there is no sense that a string of characters has
+
+203
+00:15:00,660 --> 00:15:02,500
+ a length.
+
+204
+00:15:02,500 --> 00:15:06,540
+ It has an allocated length, but it doesn't have a runtime length.
+
+205
+00:15:06,540 --> 00:15:12,580
+ And so when we put more data into a string than can hold the string, it just keeps on
+
+206
+00:15:12,580 --> 00:15:14,420
+ storing beyond the end of the string.
+
+207
+00:15:14,420 --> 00:15:17,960
+ It doesn't like make a little more space.
+
+208
+00:15:17,960 --> 00:15:26,100
+ And so this is from the Wikipedia page, where you have an eight-character string followed
+
+209
+00:15:26,100 --> 00:15:30,260
+ by a two-character integer or something.
+
+210
+00:15:30,260 --> 00:15:35,560
+ And we copy the string excessive, which is a nine-character, which includes nine characters
+
+211
+00:15:35,560 --> 00:15:38,500
+ and the slash zero, the zero.
+
+212
+00:15:38,500 --> 00:15:44,340
+ And that completely overwrites by just trying to write into the A string, it overwrites
+
+213
+00:15:44,340 --> 00:15:46,260
+ the B variable as well.
+
+214
+00:15:46,260 --> 00:15:48,740
+ And so that's buffer overflow.
+
+215
+00:15:48,740 --> 00:15:54,660
+ It's sort of like somehow we're going to push too much into this variable so that it extends
+
+216
+00:15:54,660 --> 00:16:00,140
+ where it's been allocated and that never is detected, and then it keeps going on.
+
+217
+00:16:00,140 --> 00:16:04,300
+ And it means that you can do all kinds of things with buffer overflow.
+
+218
+00:16:04,300 --> 00:16:05,780
+ You can change variables.
+
+219
+00:16:05,780 --> 00:16:08,540
+ You can turn on super user permission.
+
+220
+00:16:08,540 --> 00:16:09,540
+ Who knows?
+
+221
+00:16:09,540 --> 00:16:10,540
+ You got to look at the source code.
+
+222
+00:16:10,540 --> 00:16:13,980
+ You got to carefully construct a sort of nasty attack.
+
+223
+00:16:13,980 --> 00:16:21,540
+ But the attack vector is the fact that string arrays bounds are not checked when we're copying
+
+224
+00:16:21,540 --> 00:16:22,540
+ stuff in.
+
+225
+00:16:22,540 --> 00:16:26,600
+ And if you write bad code or if the system writes bad code, it's just going to go wiping
+
+226
+00:16:26,600 --> 00:16:27,700
+ out memory.
+
+227
+00:16:27,700 --> 00:16:34,380
+ So it turns out that probably the worst offender of this is the get_s function.
+
+228
+00:16:34,380 --> 00:16:38,380
+ And this was part of standard C for a long time.
+
+229
+00:16:38,380 --> 00:16:44,380
+ And so here what I'm doing is I'm creating a 15-character string array, a character array,
+
+230
+00:16:44,380 --> 00:16:47,900
+ which is 15 elements, and I'm calling get_s.
+
+231
+00:16:47,900 --> 00:16:53,060
+ And the problem with get_s is like somebody's going to give us that data and it's not us.
+
+232
+00:16:53,060 --> 00:16:54,820
+ And then I print it out.
+
+233
+00:16:54,820 --> 00:17:03,080
+ So the first thing you see is when I compile a bit of code that has get_s, the compiler
+
+234
+00:17:03,080 --> 00:17:04,180
+ is upset.
+
+235
+00:17:04,180 --> 00:17:10,260
+ I have greatly simplified the errors.
+
+236
+00:17:10,260 --> 00:17:13,960
+ It comes up with three errors and this is a subset of one of the errors.
+
+237
+00:17:13,960 --> 00:17:17,420
+ The compiler is telling you don't use get_s.
+
+238
+00:17:17,420 --> 00:17:21,060
+ If you didn't hear what I said the first time, don't use get_s.
+
+239
+00:17:21,060 --> 00:17:23,540
+ And so the compiler is not happy.
+
+240
+00:17:23,540 --> 00:17:27,980
+ But it's like, you know, people write that so we're going to run it, okay?
+
+241
+00:17:27,980 --> 00:17:37,700
+ A.out, which starts the code, as soon as that line get_s runs, the runtime of the C standard
+
+242
+00:17:37,700 --> 00:17:43,740
+ sdio.h says before it prompts us for the data, it actually adds a print statement.
+
+243
+00:17:43,740 --> 00:17:45,020
+ It's not our print statement.
+
+244
+00:17:45,020 --> 00:17:50,100
+ It's the library saying you really, really should not be using get_s.
+
+245
+00:17:50,100 --> 00:17:54,540
+ And if you think this program is trustworthy, you're probably wrong.
+
+246
+00:17:54,540 --> 00:18:00,740
+ So I type hello world, which is 11 characters, hello space world.
+
+247
+00:18:00,740 --> 00:18:02,260
+ Yeah, it's 11 characters.
+
+248
+00:18:02,260 --> 00:18:03,260
+ Hello world's 11 characters.
+
+249
+00:18:03,260 --> 00:18:05,340
+ I type 11 characters in.
+
+250
+00:18:05,340 --> 00:18:08,860
+ That includes the 12th character, which is the backslash zero.
+
+251
+00:18:08,860 --> 00:18:16,420
+ And that fits into s15, a 15 element character array in the variable s.
+
+252
+00:18:16,420 --> 00:18:17,820
+ So the program works just fine.
+
+253
+00:18:17,820 --> 00:18:21,940
+ Then I type a.out again, and it once again tells me, please don't use get_s.
+
+254
+00:18:21,940 --> 00:18:24,180
+ You're going to be in so much trouble.
+
+255
+00:18:24,180 --> 00:18:30,060
+ And now I type instead a bunch of, a hello and a bunch of spaces in then world.
+
+256
+00:18:30,060 --> 00:18:34,780
+ And it prints out hello bunch of spaces in world, but has overwritten all kinds of unknown
+
+257
+00:18:34,780 --> 00:18:38,840
+ data after the s15.
+
+258
+00:18:38,840 --> 00:18:43,020
+ So that's, you know, that's like 30 or 25 or 30 characters.
+
+259
+00:18:43,020 --> 00:18:48,140
+ Then the first 15 are in s, but then the next 15 are somewhere else.
+
+260
+00:18:48,140 --> 00:18:53,780
+ And s is on the stack because it's an automatic variable in main, and it goes wiping out the
+
+261
+00:18:53,780 --> 00:18:54,780
+ rest of the stack.
+
+262
+00:18:54,780 --> 00:19:00,980
+ Now it turns out that the C runtime puts things on the stack to kind of mark or to catch this
+
+263
+00:19:00,980 --> 00:19:01,980
+ overflow.
+
+264
+00:19:01,980 --> 00:19:06,140
+ And so what happens is as soon as that code finishes, it says abort trap six, which is
+
+265
+00:19:06,140 --> 00:19:11,580
+ basically the C runtime saying, you know what, I'm not going to let this program proceed
+
+266
+00:19:11,580 --> 00:19:15,540
+ any further because there has been an array that got messed up.
+
+267
+00:19:15,540 --> 00:19:21,460
+ And it's not that it caught, it's not that it caught the array messing up.
+
+268
+00:19:21,460 --> 00:19:23,100
+ It didn't know how long it was.
+
+269
+00:19:23,100 --> 00:19:24,500
+ It just put characters in.
+
+270
+00:19:24,500 --> 00:19:28,620
+ But what it did is I put something after the array and then it checked for it later.
+
+271
+00:19:28,620 --> 00:19:29,620
+ And that got wiped out.
+
+272
+00:19:29,620 --> 00:19:33,660
+ And it's like, okay, you wiped out my magic little secret.
+
+273
+00:19:33,660 --> 00:19:36,760
+ And so I'm going to not let you continue.
+
+274
+00:19:36,760 --> 00:19:40,780
+ And so we don't want you to use get_s.
+
+275
+00:19:40,780 --> 00:19:41,980
+ And this is a buffer overflow.
+
+276
+00:19:41,980 --> 00:19:46,500
+ And I can give you, eventually maybe we will look at some much more complex examples of
+
+277
+00:19:46,500 --> 00:19:51,540
+ this where we try to like use something like get_s to manipulate what the program does
+
+278
+00:19:51,540 --> 00:19:53,700
+ rather than just blow the program up.
+
+279
+00:19:53,700 --> 00:19:57,820
+ But this is a very simple example of buffer overflow.
+
+280
+00:19:57,820 --> 00:20:06,980
+ So in summary, pointers are the beautiful, most beautiful part of C. They're complex,
+
+281
+00:20:06,980 --> 00:20:11,860
+ but basically pointers make it so that a high level language can function like a low level
+
+282
+00:20:11,860 --> 00:20:12,860
+ language.
+
+283
+00:20:12,860 --> 00:20:17,420
+ If we don't have pointers, and I mean not even kind of crappy Python ones, I mean pointers
+
+284
+00:20:17,420 --> 00:20:23,060
+ that we can look up and then dereference officially and formally and not have it be a sneaky way
+
+285
+00:20:23,060 --> 00:20:24,660
+ that we're doing it.
+
+286
+00:20:24,660 --> 00:20:28,340
+ That means that you can do the things that operating systems need to do, the kinds of
+
+287
+00:20:28,340 --> 00:20:32,460
+ things that we used to write assembly language for, meaning we're going to, here's a buffer
+
+288
+00:20:32,460 --> 00:20:33,460
+ of memory.
+
+289
+00:20:33,460 --> 00:20:34,460
+ We're going to copy this buffer.
+
+290
+00:20:34,460 --> 00:20:35,460
+ We're going to do another thing.
+
+291
+00:20:35,460 --> 00:20:41,580
+ There's another buffer and there's a linked list of all the different buffers.
+
+292
+00:20:41,580 --> 00:20:45,500
+ So understanding pointers leads you to the path of assembly language, machine language,
+
+293
+00:20:45,500 --> 00:20:47,780
+ and then ultimately hardware.
+
+294
+00:20:47,780 --> 00:20:51,660
+ So you should not rush through this material.
+
+295
+00:20:51,660 --> 00:20:55,380
+ Pointers are really, really important.
+
+296
+00:20:55,380 --> 00:20:59,580
+ Everything we're going to do from now on, pointer is just, I'm just going to say pointer,
+
+297
+00:20:59,580 --> 00:21:03,340
+ pointer, pointer, just like I say object-oriented all the time, I'm going to say pointer all
+
+298
+00:21:03,340 --> 00:21:04,860
+ the time.
+
+299
+00:21:04,860 --> 00:21:10,940
+ Pointers 5.7 and 5.10 through 5.12 are a little dense, so what I really want you to do is
+
+300
+00:21:10,940 --> 00:21:15,740
+ understand the stuff I just talked about and the corresponding sections.
+
+301
+00:21:15,740 --> 00:21:21,140
+ And chapter six will be more fun because we'll be doing much more with the pointers rather
+
+302
+00:21:21,140 --> 00:21:22,300
+ than just what is a pointer.
+

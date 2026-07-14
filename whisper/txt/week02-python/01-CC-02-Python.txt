@@ -1,0 +1,910 @@
+ - Hello and welcome to C Programming for Everybody.
+ I'm Charles Severance and I'm your professor for this course.
+ In this lecture, we are going to do a very rapid translation
+ from Python to C.
+ So as I've shown you in our earlier lectures,
+ C is kind of like the mother tongue
+ of advanced programming languages.
+ Python itself was written and still is written in C.
+ And Python is deeply influenced by C,
+ even though the syntax looks very different, right?
+ And if you've taken all my other classes,
+ you will have seen PHP, you'll have seen JavaScript.
+ And to some degree, even CSS takes some of its inspiration
+ from the syntax of C.
+ And so I'm not intending for this
+ to be your first programming class.
+ I intend for you to be an expert at Python.
+ Well, not expert, but certainly,
+ I'm not gonna tell you what an if statement is.
+ I'm not gonna tell you what a variable is.
+ I'm gonna just tell you how to use variables in C
+ and I'm gonna tell you how to use if statements in C.
+ And so that's why a solid foundation of Python,
+ not wizard, but solid foundation of Python is essential.
+ And frankly, I would rather that you learned a bit of PHP,
+ some JavaScript, and all this other stuff before you come.
+ I think that C programming is not the first class
+ that you should take, but instead,
+ it is your gateway to the advanced work
+ that you're going to do.
+ And so I think C is very, very important.
+ I just don't think it's your first programming class.
+ So, you might think Python and C are not very different,
+ although Python is written in C.
+ Python has whitespace that is part of its syntax.
+ C whitespace is ignored.
+ I do like C better in that.
+ Python is very object oriented.
+ If you read an article I wrote on Quora,
+ you'll see I rank all my languages
+ and I put JavaScript and Python
+ as the most object oriented languages.
+ Java is a little less object oriented
+ and C is like the least un-object oriented.
+ C is not object oriented at all.
+ Python has wonderfully convenient data structures
+ in the form of lists and dictionaries.
+ PHP has arrays and JavaScript has objects,
+ the all beautiful, beautiful stuff.
+ They're very object oriented structures.
+ Python, C does not.
+ It's fast, it's efficient, it's powerful,
+ it's got structs and pointers,
+ and by golly, you will use them
+ and they're not convenient,
+ but they are scorchingly fast.
+ And by the time we're done with all this,
+ we will see how to use structs and pointers
+ to build lists and dictionaries.
+ And that really is, we will follow down the path
+ of building Python.
+ So you'll see a common theme throughout this class
+ of how Python achieves what it's trying to achieve
+ by writing C.
+ Python has automatic memory management
+ to the point where if you've been a Python programmer,
+ or a PHP programmer, or a Java programmer,
+ or a JavaScript programmer,
+ you probably don't even know what memory management is.
+ Well, you're going to by the end of this class.
+ And by the end of this class,
+ you're going to be able to see how Python
+ automates memory management for you, right?
+ Python is written in the 80s,
+ and C was written in the 70s.
+ In many ways, I see Python as a convenience layer
+ that was built on top of C.
+ Just, C programmers look at C, it's like,
+ it's great, it's great, it's great.
+ If we just had this layer of easiness on top of it,
+ then things would be better.
+ And so, that's what Python is.
+ Now, Python also introduced things like
+ quite different syntax to make it indentation
+ required, because they thought it was a good idea.
+ So we could argue one way or the other.
+ I mean, I'll tell you,
+ when I'm writing a million lines of code,
+ white space is not, to me, a good way to have syntax.
+ So, we're going to look at C through a Python lens.
+ And we're going to learn by example.
+ Now, most of the time, I tell you,
+ don't copy and paste.
+ Don't cheat.
+ Don't look for solutions.
+ This lecture is the exception to that rule.
+ I've written this lecture as a Rosetta stone.
+ It's just a little tiny bit of connection
+ to what you already know in Python,
+ to what you're going to do in C.
+ And so, I'm not intending at this point
+ for you to build your own stuff based on reading a book.
+ I actually just want you, and if I give you assignments
+ to do these particular things,
+ I really do want you to just watch this lecture,
+ grab the PowerPoint, and feel free to cut and paste
+ from my PowerPoint into my assignments.
+ Because this is, I don't know if you've ever seen it,
+ where the mama tiger is teaching a baby tiger how to hunt,
+ and the mama tiger goes out and gets something or other
+ and brings it back and puts it near the baby tiger
+ and lets the baby tiger chase it.
+ Well, that's kind of what I'm doing.
+ I'm the mama tiger, and I'm giving you some C code,
+ and I'm putting it right in front of you,
+ and then I want you to take that C code,
+ and I want you to run it and play with it and understand it.
+ So, I'm not expecting in this lecture
+ that you're going to derive it,
+ that you're going to sort of somehow read the textbook,
+ look at a problem, and solve the problem.
+ That's later.
+ That is, that's absolutely later.
+ So, this is the beginning.
+ This is trying to make connections,
+ conceptual connections, to the complex knowledge
+ you have about Python, to little places
+ where you can hook things onto in C.
+ And so, the idea is to go through it quickly.
+ So, I do assign some of these as programming exercises.
+ It's intended for me, my intent is that you'll watch
+ the lectures and just work on the code at the same time.
+ I'm not trying to test what you learned.
+ I really want you to watch and listen and type.
+ That's how we learn, right?
+ You could cut and paste it, or you could type it,
+ and you could type it one piece at a time.
+ And the mere act of you typing,
+ even though you're just looking at a slide
+ and typing it in, at this point in the course,
+ that is the learning objective of this lecture.
+ Now, that whole rule of just typing code in
+ that you're looking from someone else,
+ don't do that forever.
+ Later, I want you to do things like
+ synthesize what you learn in the book,
+ synthesize it, struggle through it,
+ and figure things out and do the assignment yourself.
+ So, don't go searching.
+ If you wanna gain maximum benefit,
+ if you're just in the biggest hurry of all,
+ just go ahead and search.
+ But please, if you want benefit from this class,
+ don't cheat yourself.
+ There's a lot of similarities that I'm not gonna cover.
+ You can go read the textbook,
+ like the plus, minus, asterisk, slash, and percent.
+ Hey, probably when you were learning Python,
+ you're like, whoa, what's this percent thing?
+ And why did they choose percent?
+ And the answer is, that's what C chose.
+ And so, modulo is just percent in all these other languages
+ because they flipped a coin in C
+ and decided percent was modulo.
+ The comparison operators,
+ the assignment operator is equal sign,
+ which means that the equality operator's
+ gotta be double equals, exclamation equals,
+ less than, greater than, less than, equal.
+ All that stuff's the same.
+ Variable naming rules, the same.
+ You start with a letter, underscore,
+ and then numbers, letters, and underscores.
+ And case matters, both languages.
+ While loops, the concept of break and continue,
+ which some people get all worried about.
+ I love break and continue.
+ If you've taken my other courses
+ and you'll see when we talk about it in C,
+ I love break and continue in C, too.
+ Maybe 'cause I learned C first,
+ and I just love break, and you,
+ okay, enough about that.
+ I love break and continue.
+ Okay, enough about that.
+ Constants, about the only thing
+ that's really different in constants
+ is like strings and characters and booleans.
+ And strings and characters are like the biggest thing
+ in the beginning.
+ Both have int and float and char and byte.
+ Now, again, byte and string and char are not the same thing.
+ C has no str class, which is the string class,
+ list or dictionary.
+ And Python has no concept of struct or double.
+ And in a sense, you could think of Python's float
+ as really C's double, right?
+ And so, by the time Python was written,
+ the notion of shorter floating point numbers
+ is less critical.
+ There are some differences.
+ A lot of this, I think, was in the design of Python,
+ trying to be a little less obtuse and a little more
+ convenient.
+ For me, it's annoying.
+ I write the C versions of the operators,
+ like and, double ampersand, not is exclamation point,
+ we call that bang, or double vertical bar.
+ And in Python, they're all convenient.
+ We use the word A and B, but okay, whatever.
+ So there, in C, we have a for loop,
+ but it's an indeterminate loop,
+ if you remember the definition from Python for everybody.
+ Indeterminate loop is one that you have to examine
+ to see if it's got an infinite loop.
+ Whereas in Python, if you say for x in some list,
+ you're gonna go through the whole list.
+ It's a determinant loop.
+ It only runs until that list is exhausted.
+ C does not have such a thing, right?
+ It just, every loop has got a condition to finish it.
+ Now we write loops like for i equals one to 100,
+ or zero to 99.
+ We write them, and you can look at them and say,
+ yeah, that's not an infinite loop.
+ It's just, technically, you have to look at the loop
+ to make sure that you haven't inadvertently
+ made an infinite loop.
+ There's no predefined true and false.
+ I find this really like, wow, couldn't they,
+ they got EOF, capital EOF for end of file in C.
+ None and null are similar concepts, but quite different.
+ None in Python is its own type.
+ Null is the number zero.
+ That's cast to be a pointer to nothing.
+ And so, none is like specially marked empty.
+ Null is a zero.
+ We'll get there, we'll get there.
+ Strings and character arrays, for a while,
+ you can kind of pretend that character arrays in C
+ are mostly like strings, like when you throw a constant
+ and you pass it to a function, they kind of look the same.
+ But like, once we start working with them,
+ you'll see they're very, very different.
+ That's kind of the first fun part,
+ the first part of this class,
+ is like strings are now your responsibility.
+ There's no help, right?
+ And C, of course, has no list or dictionary,
+ and Python has no concept of tightly packed data,
+ which is what structs are, and doubles and floats.
+ So here we go, let's get started.
+ Let's see if my pen is working here, yeah.
+ So what we're gonna see is on one side,
+ we're gonna see some Python.
+ On the other side, we're gonna see some C.
+ And so this is just talking about output.
+ This is Python 3, of course.
+ And so we have a print function,
+ and it takes any number of parameters.
+ One of the things you'll notice about the print function
+ is like, hello, space world.
+ Well, that's part of this constant.
+ But answer comma 42 puts a little space
+ in between answer and 42 in the output.
+ So if you wanna suppress
+ that kind of automatic addition of spacing,
+ you have to maybe concatenate things together,
+ or are some other trick.
+ The print statement automatically knows
+ if it's got a string, or a float, or an integer,
+ and it just does things kinda all automatically.
+ And so if you wanna see something,
+ usually you just print it, okay?
+ So let's take a look at the compare and contrast.
+ So first off, pretty much you're gonna have to start
+ every one of your C programs
+ with pound include standard io.h.
+ Comments are different.
+ Python comments are pound sign to the end of the line.
+ C comments are slash star across multiple lines
+ to star slash, so everything in between there.
+ That can be multiple lines.
+ Later versions of C also add the,
+ what's called the C++ style of comments in the JavaScript,
+ uses those as comments, which is the double slash.
+ So when you're writing, you probably can use double slash
+ in the C that you're using,
+ but I'm kinda being kinda strict,
+ and so I'm pretending I'm in 1978,
+ so I'm not using that C++ style comment.
+ Again, that came from C++, it didn't come from JavaScript.
+ Some of you have taken Python classes
+ where there's this like underscore underscore main,
+ and it calls this thing, and it makes a function,
+ and calls it, and indents everything one tab,
+ and they're really imitating C in that respect.
+ And I think, I don't like that style.
+ I think those people who do that in Python,
+ I'm sure they have a good reason,
+ but I think they're just like wishing it was C.
+ 'Cause the definition of C is the code,
+ a program starts, when it starts running,
+ it searches for a function named main,
+ and later we'll see that this function
+ can actually have arguments,
+ and it returns an integer as to the success or failure.
+ So really, main is a function.
+ And so that first line there,
+ int main open paren close paren open curly brace,
+ that is the definition of a function
+ that happens to be named main.
+ And then we have printf.
+ Now, again, I don't know if you've learned Python 2,
+ but in Python 2, there was a print statement.
+ In Python 3, there is a print function,
+ and so here we're using a Python 3 print function,
+ and C never did the statement.
+ So C decided, as we'll talk about later,
+ to not have any input/output,
+ any reading or writing in the language itself,
+ but instead put them in standard libraries.
+ And that's what this pound includes, stdio.h is saying,
+ okay, I'm gonna do some IO here, input/output here,
+ and so include the C input/output library.
+ Okay, and so printf takes as its first parameter a string.
+ The other thing you see in C
+ is you can't use single quotes for long strings.
+ Later we'll see single quotes,
+ but in C there's a major difference
+ between single quotes and double quotes.
+ Single quotes are single characters,
+ and double quotes are a character array.
+ Not a string, character array.
+ The other thing is things like the end of line.
+ So in Python, the new line is added implicitly.
+ In C, you have to add it explicitly.
+ And so that's basically saying print hello world,
+ and then go to the beginning of the next line.
+ Now, this first parameter is actually not just a string.
+ It's a string with embedded format codes
+ that start with percent.
+ Percent D says there is a corresponding integer number,
+ and I want you to convert that into a string
+ and print it out.
+ I guess I should probably just re-array some of this.
+ So it says answer, and then a number.
+ And so you can have more than one of these things,
+ and then they match.
+ So that says there's an integer as another parameter.
+ So you can have one parameter, two parameters, et cetera.
+ So for beyond one parameter, like in this one,
+ X percent dot one F,
+ that corresponds to this first floating point number,
+ and this percent D corresponds to the integer one, okay?
+ So you have these percent things.
+ Now, we will learn that these percent things
+ have a language unto themselves in chapter eight.
+ And this is basically saying,
+ please print me a floating point number
+ with only one digit of precision, right?
+ So percent dot one F says print a floating point number.
+ And then if we wanna string, it's percent S,
+ but this really, Sarah here, double quote Sarah, double quote,
+ is a character array.
+ And it's actually not five characters, but six,
+ because there is always a terminating zero character
+ at the end.
+ And so percent S says the parameter needs to be
+ a character array and properly terminated
+ by an end to string indicator, which is a zero character.
+ So that's this, right?
+ It's pretty simple,
+ but we've got a lot of stuff to cover here.
+ And this is the Rosetta Stone.
+ It's more complex in C, you have more control,
+ you're doing things more explicitly,
+ and it's not doing it for you automatically.
+ So let's take a look at a simple number input.
+ Now you'll see that some of these things come from
+ my Python for everybody class.
+ This is the famous US floor to European floor elevator,
+ converter.
+ So we're gonna print something out.
+ Now one thing about C is that you've got to declare
+ all your variables.
+ Python is sort of a typeless language.
+ It's increasingly getting more typey,
+ but it's a typeless language.
+ So we have to declare that we're gonna have two variables,
+ USF and EUF, and they're gonna be integers.
+ We print the statement, but the only difference there
+ is we have to put the backslash n in,
+ otherwise it won't automatically do that.
+ And then we have this IO routine, again,
+ coming from stdio.h, called scanf.
+ And its first parameter, much like printf,
+ is actually a formatting string.
+ And what this says is this says,
+ read four little ways, find me a number,
+ as long as it seems like a number, keep reading,
+ and turn that into an integer and give it back to me.
+ And so it actually has got some scanning built into it.
+ And it reads until it finds a non-digit,
+ and then stops and says that's the number.
+ So it turns out, in C, the way,
+ you could type a lot of different things here.
+ We won't go into that in too much detail.
+ We'll hold that until chapter eight.
+ But the idea is it doesn't work exactly the same,
+ although this input in Python reads a line.
+ Now, again, I got this little note here.
+ If you recall, if you recall, in Python 2,
+ there was an input and a raw input.
+ And raw input was what read a line,
+ which I tended to use when I was teaching Python 2.
+ Input was a weird thing that had
+ some kind of scanning thing going on,
+ and it scanned and threw stuff away,
+ and it grabbed something,
+ and it might go to multiple lines.
+ And it was totally inconsistent,
+ and it was worse than scanf.
+ So I was really glad when they just got rid of it
+ in Python 3, and then they changed the name.
+ What used to be Python 2's raw input
+ became input in Python 3.
+ So the old input from Python 2 is kind of like homage
+ to scanf in C, but it's not exactly the same.
+ And the reason it's not the same is
+ the input in Python 2 was deriving the type of the data
+ from what it encountered.
+ So it might give you back a string,
+ it might give you back a floating point,
+ it might go like, ooh, that's dangerous, right?
+ And that's because the type of USF in Python here
+ is determined, it's not pre-declared.
+ So it's known because we're gonna convert it to an integer.
+ And by the way, both the input and the scanf,
+ we can write stuff that confuses it badly
+ and causes it to blow up,
+ but we're not worrying too much about that right now.
+ We're just kinda getting the basics done.
+ So we read an integer, we subtract one,
+ we print it out, right?
+ We read an integer, oh, I forgot to say this ampersand.
+ Call by reference and call by value.
+ So in Python, this is coming back as a function return,
+ so it's really easy to assign it into USF.
+ Whereas in C, we put these parameters on scanf call,
+ and we have to say, oh, and by the way,
+ I want you to change it.
+ Because ultimately, if we don't put ampersand on,
+ it's what's called call by value, not call by reference.
+ And ampersand USF is a way to tell C
+ to actually give it the address of the USF variable
+ rather than the value in the USF variable.
+ And in that is a whole chapter that we will cover,
+ like I think four and five,
+ will be all about the ampersand and call by reference.
+ And call by, we're way ahead,
+ 'cause I don't think chapters one through four would,
+ all they ever do is mention call by reference
+ and then say, oh, that's in the future.
+ So I'm gonna just say, oh, that's in the future.
+ I will tell you that that ampersand is really important
+ and the code doesn't work without it
+ because it is the way that C does call by reference
+ for simple variables like integers and floats.
+ As you're gonna see on the next slide,
+ there's always an exception.
+ String input, okay.
+ So here we're gonna, this is a help my hello Sarah thing,
+ right, we say enter your name and then we say name input.
+ Now the beauty is here in Python
+ is input gives us a whole line, okay.
+ And then we just print hello name
+ and you'll notice that there's like this little space
+ that comes out automatically.
+ So switching over to C, we have our included library,
+ we have the int main, which is the,
+ and then we have to pre-declare a character array.
+ There is no like, make it a string.
+ If this were Python, we could say,
+ hey, let's make a string, but you can't.
+ And what's even more important
+ is you gotta tell it how long,
+ which means that we could type too much stuff in here
+ and blow our program up.
+ And that's one of the difficulties of C
+ is the fact that arrays, including character arrays,
+ have fixed length and they don't auto-extend.
+ There is no, there is no dot append in C.
+ You can't like say, oh, name dot append, you can't do it.
+ Python, it's an object, it's not an actual array.
+ Python, it's an object.
+ Name is a string object.
+ Here, name is a character array with 100 elements
+ and if you put 20 in, you'll be fine.
+ If you put 80 in, you'll be fine.
+ If you put 101 in, it's gonna blow up.
+ Ah, well, that's okay.
+ That's why C is fast.
+ We'll get to all that, we'll get to all that.
+ So we print out a prompt and we say scanf
+ and we say, in this case, %s, give me a string,
+ and you can put a limit on it.
+ So we're saying, look, only read up to 100 characters.
+ And you'll notice there is no ampersand on name
+ and that is because name is an array.
+ And so when you put name in with no square brackets,
+ no index operator, then you're passing the address
+ of the beginning of the array.
+ And so that is, in a sense, an ampersand.
+ That is the location of the beginning
+ of a 100-character array.
+ We're gonna scan up to 100 characters into it
+ and so it really is roughly equivalent to the input.
+ And then we just, again, say, hello, %s
+ and then name is the corresponding thing.
+ And so it says, hello, Sarah.
+ Now a lot of what we did in the Python for everybody
+ is read whole lines of input.
+ And we tended to use string parsing of those lines,
+ like we would trim the stuff off the end
+ and then we'd split it and do all these things.
+ And there's no good split in C.
+ So we won't be doing too much of that,
+ but it does help to understand
+ how to read a whole line of input.
+ So now we're gonna read something that doesn't have,
+ it has lots of spaces, we're gonna read the whole line
+ and we're just gonna echo the whole line, right?
+ Enter line, read the line, print the line.
+ So now we're gonna have, again,
+ we have to declare how big of a string we're willing to take,
+ char line with 1,000 characters in it.
+ The prompt by now should be pretty easy
+ and we have a really weird looking
+ % square bracket, caret, backslash,
+ and close square bracket, 1,000s.
+ Well, if you took Python for everybody
+ and you remember chapter 11, regular expressions,
+ that should look familiar to you.
+ Open bracket, caret, backslash, and close bracket
+ says match any character that's not a new line.
+ So that says scan up to the end of a line
+ or until you hit 1,000 characters.
+ Read a whole line, but stop at 1,000 characters.
+ And then, of course, a line is just a parameter
+ and then we print that thing out, okay?
+ And so a lot of C programmers probably never written
+ this particular line of code, but it gives you a sense
+ that there's a lot of sort of programmability
+ and things like regular expressions that Python had.
+ Well, those are kind of an old concept.
+ Those are seven 1970s concepts.
+ This C language had that concept in it in 1970.
+ There's another way that's a little safer to do this,
+ and these are the exact same thing
+ where this command fgit s.
+ So fgit s says put it into up to 1,000 characters,
+ looking for a new line, and reading
+ from what's called standard input.
+ So in C there are three basic files.
+ One is the standard input,
+ which usually is read up to EOF, standard output,
+ which is where printf is going,
+ and then there's a thing called standard error,
+ which is where you send error messages
+ that you don't just wanna go to the output.
+ So the input and the output,
+ like if you're gonna make a program to do uppercase,
+ you would read your input, you would uppercase it,
+ and then send it out.
+ But if, for example, you encountered a character
+ that you didn't wanna copy and you wanted to send an error,
+ says I'm not gonna copy,
+ you wouldn't just send it to standard output,
+ you actually send it to standard error.
+ When you're running just on a terminal,
+ like in your command line, standard input is your keyboard,
+ standard output is your screen,
+ and standard error is your screen.
+ So you can see both the error messages
+ and the output of the program.
+ But if you're running sort of
+ with redirecting input and output,
+ you do tend to still see the error message on your screen,
+ and it doesn't end up hidden in some standard output.
+ But in this case, we're using FGATS,
+ which is part of the standard library,
+ and we are saying read this from standard input.
+ Now, you'll see in a second when we read a file,
+ FGATS can read a file,
+ and that third parameter is the file handle,
+ but there are three predefined file handles in C programs,
+ standard in, standard out, and standard error.
+ They're all named STDIN, that's their name.
+ They're predefined constants in the C standard,
+ STDIO.H library.
+ Okay, so now we're gonna read a file.
+ We do this a lot in Python.
+ We go get a file handle, it reads it.
+ This might fail, of course, if the file doesn't exist,
+ and we got a nice determinant loop.
+ Remember, we're talking about independent loops
+ and this for in, it's so Python-y, and it's so awesome,
+ and it's like so expressive, I love it, I miss it, okay.
+ And then line.strip, which takes the new line off,
+ and so that's gonna read, you know,
+ just reads a little file, writes it out.
+ So we have to create a variable.
+ We'll call it 1,000 characters.
+ Now we are, and in Python, we could have any length
+ of characters in our file, and it would work.
+ But in C, now we're going to have to actually say
+ we can only handle up to 1,000 characters,
+ because we've declared the line that we're gonna use,
+ the line variable we're gonna read this in has 1,000.
+ There is a equivalent to the handle.
+ File is a type, it's defined in STDIO.H, star hand,
+ which means it's a pointer to a file object.
+ And hand equals fopen, romeo.text, r,
+ so that's two character arrays, romeo.txt and r.
+ And actually, the open in Python is inspired
+ by the fopen in C, and that's 'cause, again,
+ when they were writing Python, they were writing it in C,
+ why don't we take an open, and all they did
+ was made the open in Python be a little easier.
+ So we don't have any kind of a io for in,
+ so we have to write our own while loop here.
+ So we're gonna call fget s, line,
+ give me up to 1,000 characters
+ from the file handle named hand.
+ And fget s returns null, which is a constant
+ that's defined in STDIO.H, if it reaches end of file.
+ So this basically is a loop that says
+ read everything up till end of file.
+ Very similar to this for line in hand.
+ And then we're printing it.
+ Now, I don't have to strip it because fget s
+ actually takes the new line that is the end of each line.
+ So in Python, you would get double spacing
+ if you didn't strip the new line
+ at the end of each one of these little things, right?
+ Each line, whereas the fget s is nice enough
+ not to give us the new line.
+ So there we go.
+ So a counted loop.
+ Now, this honestly is not one of my favorite things
+ in Python, but this range is a generator
+ that's gonna generate the numbers zero through four.
+ For i in range, this is effectively
+ kind of a dynamically generated set.
+ And then we're gonna print it.
+ So we're gonna have zero, one, two, three, four.
+ In C, we of course have to declare
+ that i is gonna be an int.
+ And the for loop has three pieces separated by semicolons.
+ There's the initialization piece.
+ Now, PHP and JavaScript are the exact same thing.
+ So this looks familiar to you.
+ That's because you took those classes.
+ Congratulations.
+ So for i equals zero is the initialization
+ that says before the loop starts, set i to zero.
+ Then there is the middle part is the test
+ whether or not the loop should run or continue to run.
+ It's a top tested loop.
+ And so i less than five must be true
+ or the loop won't run at all.
+ But given that i is zero at the beginning,
+ it's less than five.
+ So it's gonna run at least once.
+ And then each time through the loop at the bottom,
+ after the loop is run, we're gonna add one to i
+ with a i++, a post increment operator.
+ And again, that line of code, PHP, JavaScript, Java,
+ all look the same except PHP has dollar signs
+ for variable prefixes, which bothers me,
+ but it is what it is.
+ And of course we have a block, curly brace,
+ open curly brace and close curly brace denote the block.
+ And then we simply print the variable out
+ and both bits of code produce the exact same output.
+ So if we get a little bit trickier,
+ we're going to take an example
+ from my Python for everybody class
+ and look at the max and min.
+ And because we need to prime the loop,
+ we're going to set our max val to none
+ and the min val to none.
+ And we're gonna do a middle tested infinite loop.
+ While true, we're gonna read the input line,
+ each line like five, two, nine.
+ We're gonna strip it just because.
+ We're gonna check to see if it's the string done.
+ If it is, we're gonna break out of the loop, right?
+ And then we're gonna convert it to an integer
+ and we're gonna check to see if max val is none
+ or the value we read is greater than max val.
+ We're gonna remember it.
+ And if min val is none or the value we just read
+ is less than min val, we're gonna remember it.
+ And when the loop finally reads all the way through,
+ we're gonna print out the maximum and the minimum.
+ So this is pretty much the same code
+ except we're using scanf with a %d format input format
+ and scanning into the val integer variable
+ and using ampersand to indicate that it's called by reference
+ and to replace the current val.
+ And then the rest of it's the same, right?
+ If it's the first one or we've got a larger one, we keep it.
+ If it's the first one or we got a smaller one,
+ we keep that one as well.
+ We loop through and it all goes.
+ Now, one thing that if we're using scanf,
+ as I mentioned before, scanf doesn't sort of stop
+ at the end of lines.
+ It keeps on going.
+ And so if I have five, two, and nine,
+ and again, we have to use Ctrl+D or EOF here to finish this,
+ or we have two, five, space two, five, space nine,
+ and then EOF, it does the same
+ because scanf is just looking for an integer.
+ It's really, it's algorithm.
+ We'll see this in chapter eight,
+ but the thing that it does, it's like get me an integer,
+ which means throw away stuff that's not an integer.
+ So away you go.
+ So that's a slightly more sephonic version
+ of this min-max using scanf.
+ And it doesn't suffer from the problem of using get us
+ and having to worry about the size of the arrays,
+ that's character arrays.
+ Here's a guessing game.
+ That's one of my favorite applications.
+ So we have an infinite loop,
+ the ultimate non-determinant loop,
+ a loop that you gotta examine to know
+ that it's gonna finish.
+ And in this particular one, we're just looping to EOF.
+ You're using try and accept.
+ Why?
+ Because line doesn't give you any return indication
+ that it's hit into file.
+ So we just have to like have it blow up
+ and then do an accept and then jump out.
+ Oh, well.
+ So we throw away the new line,
+ and then we convert the line to an integer,
+ and we say if guess is 42, nice work,
+ and then break, which gets out of the loop.
+ The break affects the loop, not the if.
+ And then LF, guess less than 42, too low,
+ else, print too high.
+ So this is a classic multi-way if.
+ We're gonna have an if,
+ you can have kind of as many LFs as you want,
+ dot, dot, dot, and then an else.
+ When you do the same thing in C,
+ we're gonna use the scan F pattern,
+ waiting till we see EOF.
+ If the guess is 42,
+ we print nice work, and then break.
+ Now we have to have curly braces here,
+ because that is a two-statement block,
+ and so if you're having more than one statement,
+ you've gotta do curly braces.
+ And then else, this else matches up with that if,
+ else, if, guess less than 42, print F.
+ Now, modern programmers would tend to put curly braces,
+ even though this is only one line,
+ but this print F is the statement connected to the if,
+ and it does not need curly braces,
+ 'cause what comes after an if is a statement
+ or block of statements with curly braces.
+ And the same is true of this else.
+ The print F is the single statement,
+ so you would not see curly braces here.
+ And I would write this with curly braces,
+ but because the authors of the book
+ are really very succinct,
+ they tend to not put curly braces in,
+ so I'm calling your attention to that.
+ Now, a really important thing to call your attention to
+ is the difference between else, space, if, and elif.
+ Now, the high level is what we're doing in C
+ is not really a multi-way if.
+ What we're doing in Python is truly a multi-way if.
+ This if and elif and else
+ are really part of the same block of code.
+ But this else if is two keywords,
+ and so if you look at the first if,
+ the first if has one block of code,
+ which is the print F, nice work, and the break.
+ And then the else clause of the first if
+ is this entire block of code here,
+ which is if gets less than 42, print F, yada, yada,
+ and then another else.
+ And so this is a block.
+ So this is a block if, and in the else clause,
+ there is another block if.
+ And so if you look at this, really, the indentation
+ of this stuff ought to be in this,
+ like the else if part and the else,
+ that indentation should be further in.
+ Now, by convention, we don't add that indentation,
+ even though it's technically correct,
+ because this is an else, and then there's one statement,
+ and that statement is the if, okay?
+ And so we use this idiomatically
+ all the time.
+ It looks like a multi-way if, else if, else, but it's not.
+ It's actually a further and further deeply nested else if,
+ an else with an if inside the else,
+ and then another else with an if inside the else.
+ We just don't indent it.
+ We indent it, by convention, as if it were a multi-way if.
+ You don't need to know this precisely
+ when you are writing code, but I just wanna point that out
+ in case, like in the back of your mind, you're like,
+ why is Python called lf, which is one reserved word,
+ and why does C not have an lf, but instead has an else if?
+ I think when the Guido invented Python,
+ he said, look, that's a cool convention.
+ Let's make it actually part of the language,
+ rather than an idiomatic use of the language.
+ Okay, enough of that, enough of that.
+ Okay, calling by value functions.
+ This is pretty easy, right?
+ There's no def keyword.
+ You have the return value, the name of the function,
+ and the parameters, and then, of course,
+ before the curly braces,
+ you have to have the type of the parameters.
+ Those are not the type of the variables in the function.
+ Those are the type of the parameters.
+ In Python, you don't need to tell it what type they are.
+ Python is kind of a flexible, typeless language.
+ The type of a variable goes right along with it.
+ Any, you could be inside MyMult and say,
+ what kind of a thing is A?
+ And then A could be an integer, it could be a float,
+ it could be whatever, it could be a string, right?
+ Because that's an object, and an object can have a type,
+ whereas A is just a number, and you have to tell it in C,
+ that number that's coming in, it is an integer.
+ And if someone miscalls it in C, like put 6.0 here,
+ it just blows up, doesn't work right.
+ I mean, it might do something, it's just unexpected, right?
+ So there's no cleverness.
+ Now there might be some checking,
+ you might get a compiler warning that says,
+ how come it's an integer here, and it's a floating point here?
+ That will be dangerous, but it won't fix it for you,
+ and it doesn't automatically convert it.
+ Whereas if you did this in Python,
+ it would automatically convert.
+ So you have a far greater responsibility
+ to match your types up in C.
+ Things like return statement, pretty much functions the same.
+ That was, you know, the Python return statement
+ is an imitation of the C return statement.
+ You do have to declare your variable types
+ that aren't going to be used temporary inside the function.
+ Scope-wise, right, this C is not outside,
+ and we will see later when we get to the functions chapter
+ about external values and static values, et cetera.
+ But the default scoping is that any variable
+ that you declare inside of a function
+ only lives inside the function.
+ There is no A, B, or C in the main code,
+ and that's the same as how Python works.
+ Whew, that's a lot of Rosetta stone.
+ We talked about input-output, we talked about looping,
+ we talked about reading a file,
+ we've talked about strings,
+ which are really character arrays.
+ We've talked about float.
+ And later, later, later, later, later,
+ we're gonna learn a lot.
+ Chapters five and six are the crazy chapters,
+ but we're going to play with how would we implement
+ some of the things that Python strings,
+ lists, and dictionaries handle.
+ And before this course is over,
+ we're going to come back and get inside the mind
+ of what it would take to build Python using the C language.
+ So we'll see how alloc, structures, pointers, et cetera,
+ character arrays can be used to build string object,
+ list object, and dict object.
+ And that, to me, is the learning objective of this course,
+ is not so much how to code C because it's your job,
+ but what in C is necessary to make a higher level language
+ like Python or JavaScript or Java or C# work.
+ And we'll get to that before the end of the course.
+ It is a long course, and again, this was a long lecture.
+ This takes some time to absorb.
+ And just zooming through this,
+ you achieve nothing if you just do the homework
+ without understanding it, so take your time.
+ I put the lines in this lecture,
+ the lines of code are there very much on purpose.
+ Every single one is trying to teach something.
+ So I hope you'll take the time to learn all this material.
+ Cheers.
+ (gentle music)
+ (gentle music)

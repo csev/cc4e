@@ -1,0 +1,1336 @@
+1
+00:00:00,000 --> 00:00:06,200
+ >> Hello, and welcome to another programming walkthrough for C programming for everybody.
+
+2
+00:00:06,200 --> 00:00:10,620
+ This is one of the last walkthroughs for the epilogue code.
+
+3
+00:00:10,620 --> 00:00:14,620
+ And in this walkthrough, we are going to look at how dictionary,
+
+4
+00:00:14,620 --> 00:00:17,680
+ the internal data structures in Python for
+
+5
+00:00:17,680 --> 00:00:23,440
+ dictionaries changed between the first version and the 3.7 version.
+
+6
+00:00:23,440 --> 00:00:32,440
+ And so we talked previously P1 dict.c about, in effect, Python 0.01 through Python 3.6.
+
+7
+00:00:32,440 --> 00:00:40,880
+ And then Python 3.7 and later has a new dictionary that maintains insert order.
+
+8
+00:00:40,880 --> 00:00:44,240
+ But it also saves a lot in terms of efficiency.
+
+9
+00:00:44,240 --> 00:00:46,400
+ So here is our approximation and
+
+10
+00:00:46,400 --> 00:00:50,240
+ simplification of the Python 3.7 dictionary.
+
+11
+00:00:52,640 --> 00:00:57,000
+ And so, let's talk a little bit about the problem that the Python 3.7
+
+12
+00:00:57,000 --> 00:01:02,720
+ dictionary solved by looking at the Python 0.01 dictionary.
+
+13
+00:01:02,720 --> 00:01:05,760
+ Now, if you listen to the Ida Van Rossum video that I've got,
+
+14
+00:01:05,760 --> 00:01:12,480
+ these key value pairs in the real version of the dictionary,
+
+15
+00:01:12,480 --> 00:01:16,640
+ it stores the pointer to a key, pointer to the value, and the hash value.
+
+16
+00:01:16,640 --> 00:01:18,840
+ So it doesn't have to recompute the hash.
+
+17
+00:01:18,840 --> 00:01:21,520
+ Now, I kept it simple and all my stuff was going to be small, so
+
+18
+00:01:21,520 --> 00:01:25,360
+ I didn't do this optimization to recompute the hash.
+
+19
+00:01:25,360 --> 00:01:28,920
+ I could have, but I just kind of want to keep the code as small as possible.
+
+20
+00:01:28,920 --> 00:01:32,200
+ So I just recompute the hash in the few places I need it.
+
+21
+00:01:32,200 --> 00:01:39,720
+ But this means that in a 64-bit system, this is 3 times 8 or 24 bytes.
+
+22
+00:01:39,720 --> 00:01:44,120
+ And the problem is, let me delete this line so I don't break my code,
+
+23
+00:01:44,120 --> 00:01:45,640
+ the load factor.
+
+24
+00:01:45,640 --> 00:01:51,360
+ We never let the load factor get above 0.7, which means that by definition and
+
+25
+00:01:51,360 --> 00:01:54,680
+ the larger the structure gets, the larger the wastage is.
+
+26
+00:01:54,680 --> 00:02:00,080
+ 30% of the entries have to be empty in the key value pair array.
+
+27
+00:02:00,080 --> 00:02:06,280
+ And again, that's 30% of 24 bytes wasted.
+
+28
+00:02:06,280 --> 00:02:10,720
+ 30% of the size of the array times 24 bytes, that's always wasted.
+
+29
+00:02:10,720 --> 00:02:13,080
+ You cannot not waste it.
+
+30
+00:02:13,080 --> 00:02:20,360
+ [COUGH] And so what happened is, is that in the Python 3.7 version,
+
+31
+00:02:20,360 --> 00:02:26,160
+ in effect, items was treated more like a simple linear array
+
+32
+00:02:26,160 --> 00:02:28,440
+ of pointers to key value pairs.
+
+33
+00:02:28,440 --> 00:02:31,800
+ So now you've got your key value pair, and Python has key value hash and
+
+34
+00:02:31,800 --> 00:02:33,000
+ a few other things.
+
+35
+00:02:33,000 --> 00:02:35,920
+ So this is a larger data structure.
+
+36
+00:02:35,920 --> 00:02:38,680
+ Dnode is a larger data structure.
+
+37
+00:02:38,680 --> 00:02:43,840
+ And then we have a separate simple integer array that is the index,
+
+38
+00:02:43,840 --> 00:02:49,880
+ because items is an array, and index is the offset into that array.
+
+39
+00:02:49,880 --> 00:02:52,200
+ But that's just one integer.
+
+40
+00:02:52,200 --> 00:02:56,560
+ And so we're gonna do all the hash indexing and resolution and
+
+41
+00:02:56,560 --> 00:03:00,760
+ conflict resolution and collision resolution in this index array,
+
+42
+00:03:00,760 --> 00:03:04,200
+ which itself is a much smaller item.
+
+43
+00:03:04,200 --> 00:03:07,920
+ And I'm gonna just make it, and I don't know if Python does this.
+
+44
+00:03:07,920 --> 00:03:10,960
+ I'm just gonna let index be twice as long as items.
+
+45
+00:03:10,960 --> 00:03:15,840
+ Which means from an indexing perspective, we never get a load factor above 50%.
+
+46
+00:03:15,840 --> 00:03:20,680
+ And we're only going to extend the array when we run out of space in items.
+
+47
+00:03:20,680 --> 00:03:26,800
+ And we're gonna store the key value pairs linearly, 0, 1, 2, 3, 4, 5 in items.
+
+48
+00:03:26,800 --> 00:03:28,600
+ And then we're gonna just realloc it.
+
+49
+00:03:28,600 --> 00:03:33,120
+ So in many ways, all of a sudden, the kind of reallocing.
+
+50
+00:03:33,120 --> 00:03:38,120
+ Let me open a new tab here, p1list.c.
+
+51
+00:03:38,120 --> 00:03:43,800
+ The reallocing code, if we go back to the p1list, extend if necessary,
+
+52
+00:03:43,800 --> 00:03:48,960
+ you're gonna see that in p1list append and p3list append,
+
+53
+00:03:48,960 --> 00:03:53,480
+ we're going to see that it looks a lot like the realloc pattern in
+
+54
+00:03:53,480 --> 00:03:57,880
+ the Python list, because it is an array, okay?
+
+55
+00:03:57,880 --> 00:04:02,680
+ The actual key value pairs are stored linearly in an array.
+
+56
+00:04:02,680 --> 00:04:06,840
+ And that's also how you end up with maintaining insert order.
+
+57
+00:04:06,840 --> 00:04:09,160
+ It wasn't they tried to maintain insert order.
+
+58
+00:04:09,160 --> 00:04:14,000
+ But at some point, if you're just using a linear list, 0, 1, 2, 3, 4,
+
+59
+00:04:14,000 --> 00:04:16,000
+ insert order is gonna be maintained.
+
+60
+00:04:16,000 --> 00:04:19,120
+ And if you delete one, you shift them all up and it just treats.
+
+61
+00:04:19,120 --> 00:04:25,560
+ So I would guess that ultimately inside of Python itself, after 3.7,
+
+62
+00:04:25,560 --> 00:04:29,440
+ there might be some overlap in the code between dictionary and list.
+
+63
+00:04:29,440 --> 00:04:34,760
+ Cuz they pulled out the hashing lookup in this separate data structure,
+
+64
+00:04:34,760 --> 00:04:37,760
+ which is an array of integers.
+
+65
+00:04:37,760 --> 00:04:44,360
+ Okay, so then if we look at the get bucket is the same.
+
+66
+00:04:44,360 --> 00:04:45,960
+ It allows hash function.
+
+67
+00:04:45,960 --> 00:04:49,840
+ I did it as small as I could, just so it didn't take up a lot of screen space.
+
+68
+00:04:49,840 --> 00:04:54,020
+ If we look at the constructor, p3dict_new,
+
+69
+00:04:54,020 --> 00:04:56,480
+ we see we're allocating the actual dictionary object.
+
+70
+00:04:56,480 --> 00:05:01,960
+ And then we're allocating two key value pairs, two struct D nodes.
+
+71
+00:05:01,960 --> 00:05:07,560
+ And then we're allocating four, two times the alloc size of integers.
+
+72
+00:05:07,560 --> 00:05:16,360
+ So our index is four, and our D node array is two.
+
+73
+00:05:16,360 --> 00:05:22,080
+ And we don't have to initialize the key value pair array, the items array,
+
+74
+00:05:22,080 --> 00:05:26,320
+ because we know with length which ones are valid and which ones aren't valid.
+
+75
+00:05:26,320 --> 00:05:29,960
+ But we do have to take this new index and put negative 1 in there.
+
+76
+00:05:29,960 --> 00:05:33,040
+ We did this a little differently in Python 1 dictionary.
+
+77
+00:05:33,040 --> 00:05:36,440
+ We used nulls, but right now it's an array of integers and
+
+78
+00:05:36,440 --> 00:05:39,200
+ the negative 1 is gonna be my marker.
+
+79
+00:05:39,200 --> 00:05:44,080
+ That's gonna be my marker to say this is an available index slot, okay?
+
+80
+00:05:44,080 --> 00:05:46,200
+ So that's what the data structures look like.
+
+81
+00:05:46,200 --> 00:05:48,040
+ Let's go ahead and run the code.
+
+82
+00:05:48,040 --> 00:05:53,240
+ Now you'll note that this code is in effect exactly the same as the p1dict code
+
+83
+00:05:53,240 --> 00:05:55,440
+ that we went through before.
+
+84
+00:05:55,440 --> 00:05:58,600
+ And so we'll run it and it will look stunningly familiar.
+
+85
+00:05:58,600 --> 00:06:03,560
+ Meaning that we have an empty dictionary.
+
+86
+00:06:03,560 --> 00:06:07,320
+ We're putting z equals catchphrase, I'm putting z equals w,
+
+87
+00:06:07,320 --> 00:06:12,720
+ so chi equals b, sally equals c, a equals d, and we're printing it out.
+
+88
+00:06:12,720 --> 00:06:14,080
+ So now we're printing it out.
+
+89
+00:06:14,080 --> 00:06:16,760
+ This is like an iterator, so z catchphrase.
+
+90
+00:06:16,760 --> 00:06:24,160
+ And then zero is the position in the index, not the position in the items.
+
+91
+00:06:24,160 --> 00:06:25,560
+ It's the position in the index.
+
+92
+00:06:25,560 --> 00:06:28,640
+ So this is in index position zero.
+
+93
+00:06:29,920 --> 00:06:34,200
+ And so we see z maps to w, so chi maps to b, and
+
+94
+00:06:34,200 --> 00:06:38,160
+ they're in index positions zero and one.
+
+95
+00:06:38,160 --> 00:06:43,280
+ It's kinda hard to hash, because we don't have to rehash
+
+96
+00:06:43,280 --> 00:06:48,400
+ until it's completely full, and we have two items.
+
+97
+00:06:48,400 --> 00:06:52,360
+ The alloc is two, so we can put z equals w and chi equals b.
+
+98
+00:06:52,360 --> 00:06:56,080
+ Remember that index is four when alloc is two.
+
+99
+00:06:56,080 --> 00:06:59,960
+ So index has four integers, so we still have a load factor of 50%.
+
+100
+00:06:59,960 --> 00:07:03,920
+ But now what happens, we're gonna put sally equals c in.
+
+101
+00:07:03,920 --> 00:07:10,760
+ And now we have to extend the items, and we automatically extend the index.
+
+102
+00:07:10,760 --> 00:07:14,400
+ So we have a 50% load average before the extend, and
+
+103
+00:07:14,400 --> 00:07:17,960
+ then we have a 50% load average after the extend.
+
+104
+00:07:17,960 --> 00:07:19,600
+ Well, actually less than 50% load average.
+
+105
+00:07:19,600 --> 00:07:23,080
+ But the point is, is because I just, by definition,
+
+106
+00:07:23,080 --> 00:07:29,000
+ had my hash index be double the length, I never get to a load average of 0.5.
+
+107
+00:07:29,000 --> 00:07:32,400
+ Above 0.5, and again, you can make this more complex and
+
+108
+00:07:32,400 --> 00:07:35,960
+ let the load average get to 0.7, but I'm keeping it really simple.
+
+109
+00:07:35,960 --> 00:07:38,960
+ The other thing that you'll notice is in the rehash, again,
+
+110
+00:07:38,960 --> 00:07:45,520
+ thinking back to the Python one, so you'll notice that the hash position of z,
+
+111
+00:07:45,520 --> 00:07:49,200
+ just like in the previous one, after it went from two to four,
+
+112
+00:07:49,200 --> 00:07:51,160
+ went from position zero to position two.
+
+113
+00:07:51,160 --> 00:07:55,040
+ And I talked about how it's not gonna completely move randomly, but
+
+114
+00:07:55,040 --> 00:07:59,360
+ it hopped in this case, because whatever the hash value,
+
+115
+00:07:59,360 --> 00:08:04,160
+ modulo two was zero, and modulo four was two.
+
+116
+00:08:04,160 --> 00:08:09,280
+ And that's because zero is modulo two.
+
+117
+00:08:09,280 --> 00:08:13,480
+ So these things kinda go by powers of two.
+
+118
+00:08:13,480 --> 00:08:17,920
+ But b equals one stayed in the same place, etc., etc., etc.
+
+119
+00:08:17,920 --> 00:08:21,200
+ But here's the thing, notice the order of the things printing out.
+
+120
+00:08:21,200 --> 00:08:26,080
+ These zeros and ones, etc., that's the hash position,
+
+121
+00:08:26,080 --> 00:08:28,560
+ but it's not the position in items.
+
+122
+00:08:28,560 --> 00:08:32,280
+ So z equals catchphrase in item sub zero.
+
+123
+00:08:32,280 --> 00:08:34,800
+ Z equals w is in item sub zero.
+
+124
+00:08:34,800 --> 00:08:39,560
+ Sakai is b, that's in item sub one, hash position.
+
+125
+00:08:39,560 --> 00:08:45,920
+ So z equals w in this output is in hash position two,
+
+126
+00:08:45,920 --> 00:08:48,280
+ but items position zero.
+
+127
+00:08:48,280 --> 00:08:54,480
+ And so you'll notice that insert order is maintained in this, unlike the p1.
+
+128
+00:08:54,480 --> 00:08:57,680
+ Again, this wasn't to make insert order work.
+
+129
+00:08:57,680 --> 00:09:02,840
+ It was a side effect of changing the data structures to make items be
+
+130
+00:09:02,840 --> 00:09:05,860
+ just an indexed array starting at zero.
+
+131
+00:09:05,860 --> 00:09:10,120
+ And again, pulling the hash computation, sorry.
+
+132
+00:09:12,120 --> 00:09:16,440
+ Yeah, items is an array that's linear.
+
+133
+00:09:16,440 --> 00:09:20,600
+ And index is an array that is looked up by a hash.
+
+134
+00:09:20,600 --> 00:09:22,680
+ Okay, so let's take a look.
+
+135
+00:09:22,680 --> 00:09:26,440
+ So let's take a look at put.
+
+136
+00:09:26,440 --> 00:09:37,640
+ And of course, the first thing we see is p3 find, and just underscore find.
+
+137
+00:09:37,640 --> 00:09:43,520
+ So recall from the previous one that the goal of find is to
+
+138
+00:09:43,520 --> 00:09:48,400
+ find a bucket position that's free and available, okay?
+
+139
+00:09:48,400 --> 00:09:55,280
+ And so remember that get bucket is just the hash computation for
+
+140
+00:09:55,280 --> 00:09:57,680
+ that particular key we're looking for.
+
+141
+00:09:57,680 --> 00:10:00,760
+ And we have the same kind of circular.
+
+142
+00:10:00,760 --> 00:10:06,800
+ This will give us a number between zero and eight, like zero through seven.
+
+143
+00:10:07,760 --> 00:10:09,720
+ If there's eight entries or zero through three,
+
+144
+00:10:09,720 --> 00:10:12,520
+ if there's four, zero through zero or one, if there's two.
+
+145
+00:10:12,520 --> 00:10:17,720
+ And then we have to go with the circular look, okay?
+
+146
+00:10:17,720 --> 00:10:21,280
+ But you'll notice now when I say four offset equals zero,
+
+147
+00:10:21,280 --> 00:10:23,880
+ offset less than self alloc times two.
+
+148
+00:10:23,880 --> 00:10:29,640
+ I am now looping through the index array, not the items array.
+
+149
+00:10:29,640 --> 00:10:33,800
+ And I do the same little trick to do the modulo so
+
+150
+00:10:33,800 --> 00:10:39,000
+ that it goes like five, six, seven, zero, one, two, three, four.
+
+151
+00:10:39,000 --> 00:10:43,440
+ So i goes five, six, seven, zero, one, two, three, four,
+
+152
+00:10:43,440 --> 00:10:49,320
+ which is exactly what you need to do to do collision resolution using linear probing,
+
+153
+00:10:49,320 --> 00:10:51,760
+ which is the way we do it.
+
+154
+00:10:51,760 --> 00:10:54,120
+ And it's very simple.
+
+155
+00:10:54,120 --> 00:10:57,840
+ If we find an empty spot in the index, now the data is not an index,
+
+156
+00:10:57,840 --> 00:10:59,960
+ the data is still in items, right?
+
+157
+00:10:59,960 --> 00:11:03,960
+ So if we find an empty spot in index, meaning it's a negative one,
+
+158
+00:11:03,960 --> 00:11:06,240
+ that's a free one, and that's what we're gonna return.
+
+159
+00:11:06,240 --> 00:11:09,560
+ Notice that in this one, I'm returning an integer rather than a pointer.
+
+160
+00:11:09,560 --> 00:11:10,680
+ I probably should go back and
+
+161
+00:11:10,680 --> 00:11:13,360
+ change all those others to return integers instead of pointers.
+
+162
+00:11:13,360 --> 00:11:17,480
+ Cuz it, I think, makes code easier, looks a little more complex in some places, but
+
+163
+00:11:17,480 --> 00:11:18,840
+ easier to understand in other places.
+
+164
+00:11:18,840 --> 00:11:21,520
+ If it's negative one, we're done.
+
+165
+00:11:21,520 --> 00:11:29,480
+ If we look at the key and we find in items now,
+
+166
+00:11:29,480 --> 00:11:31,560
+ this one's a little trickier.
+
+167
+00:11:31,560 --> 00:11:37,960
+ We're comparing the key to self items, which is the key value pairs, right?
+
+168
+00:11:37,960 --> 00:11:39,800
+ But it's self index sub i.
+
+169
+00:11:39,800 --> 00:11:47,280
+ Self index sub i is the position within items of a particular key value pair.
+
+170
+00:11:47,280 --> 00:11:52,320
+ So we have to look up using self index to find the right spot.
+
+171
+00:11:52,320 --> 00:11:57,660
+ Cuz self items is like a linear list, it's not really a hash map.
+
+172
+00:11:57,660 --> 00:12:00,520
+ The only thing that's hashing here is the index.
+
+173
+00:12:00,520 --> 00:12:02,760
+ And then we go grab the key out of the thing.
+
+174
+00:12:02,760 --> 00:12:05,880
+ And if we match it, we're like, oh, this is the position.
+
+175
+00:12:05,880 --> 00:12:08,960
+ Oh, by the way, I found it.
+
+176
+00:12:08,960 --> 00:12:11,880
+ So in our calling code, we'll check to see if it's empty or not.
+
+177
+00:12:11,880 --> 00:12:14,840
+ But right now, if it's empty, we turn i.
+
+178
+00:12:14,840 --> 00:12:17,880
+ And if it matches, we return i.
+
+179
+00:12:17,880 --> 00:12:20,600
+ Otherwise, we keep incrementing.
+
+180
+00:12:21,640 --> 00:12:28,800
+ Now the key thing is because the load factor is only 0.5,
+
+181
+00:12:28,800 --> 00:12:30,720
+ this is always going to succeed.
+
+182
+00:12:30,720 --> 00:12:33,080
+ That's another nice thing about this.
+
+183
+00:12:33,080 --> 00:12:35,040
+ It always is going to succeed.
+
+184
+00:12:35,040 --> 00:12:40,320
+ Because when we increase the size of items,
+
+185
+00:12:40,320 --> 00:12:44,720
+ we also increase the size of index, so that index is always two times the size
+
+186
+00:12:44,720 --> 00:12:49,040
+ of items, so we never get a load factor above 0.5.
+
+187
+00:12:49,040 --> 00:12:52,960
+ Which means this feels, to me, like a lot more reliable code.
+
+188
+00:12:52,960 --> 00:12:58,360
+ And if we don't find an empty slot, which in the other one,
+
+189
+00:12:58,360 --> 00:13:00,480
+ that was a trigger for reallocation.
+
+190
+00:13:00,480 --> 00:13:03,280
+ But in this one, we reallocate differently.
+
+191
+00:13:03,280 --> 00:13:06,320
+ So returning negative 1, that's just not a good sign.
+
+192
+00:13:06,320 --> 00:13:11,380
+ Okay, so let's take a look again at find, I mean at the put.
+
+193
+00:13:16,360 --> 00:13:20,560
+ So this code here, when we do the find, position equals p3 dict find of
+
+194
+00:13:20,560 --> 00:13:28,560
+ the inserted key, we basically say if the position is not equal to negative 1,
+
+195
+00:13:28,560 --> 00:13:33,040
+ that means this is a valid entry, which means we're replacing the value.
+
+196
+00:13:33,040 --> 00:13:37,240
+ And again, that's the scenario where we have z equals catchphrase and
+
+197
+00:13:37,240 --> 00:13:40,600
+ then we say z equals w, we're just going to replace the value.
+
+198
+00:13:40,600 --> 00:13:41,760
+ We're not going to change the key.
+
+199
+00:13:41,760 --> 00:13:43,600
+ The key is already in the right position.
+
+200
+00:13:43,600 --> 00:13:45,480
+ The key is already hashed properly.
+
+201
+00:13:45,480 --> 00:13:46,760
+ The index is correct.
+
+202
+00:13:46,760 --> 00:13:48,160
+ The items is correct.
+
+203
+00:13:48,160 --> 00:13:54,000
+ And all we need to do is grab the value and get rid of it and
+
+204
+00:13:54,000 --> 00:13:57,160
+ then alloc the new value and stir copy it in and we're done.
+
+205
+00:13:57,160 --> 00:13:58,820
+ So we're done.
+
+206
+00:13:58,820 --> 00:14:02,680
+ So if we find it, that's great, okay?
+
+207
+00:14:02,680 --> 00:14:05,320
+ So we don't find it, we have to insert it.
+
+208
+00:14:05,320 --> 00:14:07,640
+ But we know where to insert it right here.
+
+209
+00:14:07,640 --> 00:14:14,680
+ But now what we do is we simply say if self length is greater than or
+
+210
+00:14:14,680 --> 00:14:19,220
+ equal to self alloc, that's when we're going to expand it.
+
+211
+00:14:19,220 --> 00:14:26,680
+ So here we're saying if self length is greater than or equal to self alloc 0.7.
+
+212
+00:14:26,680 --> 00:14:31,680
+ Now the alloc here is the number of things in the items which we're
+
+213
+00:14:31,680 --> 00:14:36,840
+ using linearly, which means we can build up 100% before we have to extend it.
+
+214
+00:14:36,840 --> 00:14:39,960
+ So we're looking to see if the length is greater than or equal to self alloc.
+
+215
+00:14:39,960 --> 00:14:41,960
+ Here we were looking at is the length greater than or
+
+216
+00:14:41,960 --> 00:14:45,620
+ equal to self alloc times the load factor 0.7.
+
+217
+00:14:45,620 --> 00:14:47,960
+ That's only triggered in Python 1 dictionaries.
+
+218
+00:14:47,960 --> 00:14:55,560
+ But if we look, this again, this append says, now we're in P1 list.
+
+219
+00:14:55,560 --> 00:15:01,600
+ This is again that duality between Python 1 lists and Python 3.7 dictionaries.
+
+220
+00:15:01,600 --> 00:15:09,880
+ Because in a sense, the items is just a list, right?
+
+221
+00:15:09,880 --> 00:15:14,420
+ So if self length, which means now it's full, it's 100% full,
+
+222
+00:15:14,420 --> 00:15:19,040
+ it's 100% utilized, there are no spaces in items.
+
+223
+00:15:19,040 --> 00:15:21,440
+ If self length is greater than self alloc, we're going to extend it.
+
+224
+00:15:21,440 --> 00:15:26,640
+ So that means that this code here, self length, self alloc,
+
+225
+00:15:26,640 --> 00:15:30,120
+ is really quite simple, right?
+
+226
+00:15:30,120 --> 00:15:36,480
+ So we just realloc the items and realloc whatever.
+
+227
+00:15:36,480 --> 00:15:38,160
+ We're going to do twice as big in this case.
+
+228
+00:15:38,160 --> 00:15:42,880
+ And so that is exactly copied from the list, we just realloc.
+
+229
+00:15:42,880 --> 00:15:48,600
+ Okay, but now we got a little bit more work to do in Python 3.
+
+230
+00:15:48,600 --> 00:15:51,960
+ Because the items was easy, we just realloced it.
+
+231
+00:15:51,960 --> 00:15:54,720
+ We did exactly what lists would do in this situation.
+
+232
+00:15:54,720 --> 00:15:59,000
+ But now we got to fix the index, okay?
+
+233
+00:15:59,000 --> 00:16:07,280
+ And so self items at this point is right, okay?
+
+234
+00:16:07,280 --> 00:16:12,000
+ So self items is right, because realloc did all the work for us.
+
+235
+00:16:12,000 --> 00:16:18,040
+ We doubled the size of it, but then it copied all that stuff, okay?
+
+236
+00:16:18,040 --> 00:16:21,560
+ And the other thing we don't have to do here, which we did have to do in Python 1,
+
+237
+00:16:21,560 --> 00:16:24,960
+ is we didn't have to set all these new items that have been allocated.
+
+238
+00:16:24,960 --> 00:16:30,680
+ Because in items, because it's like a list, alloc and length is all that matters.
+
+239
+00:16:30,680 --> 00:16:33,000
+ And we haven't changed length yet, we have changed alloc.
+
+240
+00:16:33,000 --> 00:16:36,520
+ So the fact there might be garbage in all that new data, it might be zeros,
+
+241
+00:16:36,520 --> 00:16:38,080
+ it might be garbage is okay.
+
+242
+00:16:38,080 --> 00:16:45,320
+ Now what we're going to do is rebuild the index, items hasn't moved.
+
+243
+00:16:45,320 --> 00:16:48,320
+ And so we don't need it, we just free index right now.
+
+244
+00:16:48,320 --> 00:16:53,640
+ Remember, index is that integer array that's twice alloc, right?
+
+245
+00:16:53,640 --> 00:16:58,160
+ So now we just allocate another integer array that's twice the size
+
+246
+00:16:58,160 --> 00:17:03,280
+ of whatever we've got allocated in items, an integer array.
+
+247
+00:17:03,280 --> 00:17:08,320
+ So self arrow alloc times two times size of int, boom.
+
+248
+00:17:08,320 --> 00:17:13,920
+ And then we just have a little for loop, for i equals less than or
+
+249
+00:17:13,920 --> 00:17:17,600
+ equal to self alloc two i plus plus, set it to negative one.
+
+250
+00:17:17,600 --> 00:17:21,560
+ Cuz what we're doing is we're creating a new completely empty index.
+
+251
+00:17:21,560 --> 00:17:25,560
+ The key value pairs are just sitting there happy as a clam in items.
+
+252
+00:17:25,560 --> 00:17:28,760
+ But now we gotta make a new index, okay?
+
+253
+00:17:28,760 --> 00:17:32,680
+ So we're gonna refill this index, but it's really simple.
+
+254
+00:17:33,760 --> 00:17:38,600
+ So now we're going not to alloc, for i equals zero, i less than self length.
+
+255
+00:17:38,600 --> 00:17:41,120
+ Now we're gonna go through the items, and that's length.
+
+256
+00:17:41,120 --> 00:17:47,800
+ And then we're gonna call the find operation based on the key of each of
+
+257
+00:17:47,800 --> 00:17:51,720
+ the items, and that's gonna give us a position.
+
+258
+00:17:51,720 --> 00:17:55,360
+ And it's going to do conflict resolution,
+
+259
+00:17:55,360 --> 00:17:57,880
+ collision resolution using linear probing.
+
+260
+00:17:59,040 --> 00:18:03,840
+ And so at that point, all the index at that position is,
+
+261
+00:18:03,840 --> 00:18:07,120
+ the position is where in this array should it go?
+
+262
+00:18:07,120 --> 00:18:11,640
+ And that means that if it's in the third position in the hash map, and
+
+263
+00:18:11,640 --> 00:18:17,200
+ we're looking at the zeroth position in items, i is zero and position is three.
+
+264
+00:18:17,200 --> 00:18:25,400
+ And so this code, if you compare this code again, it's better memory wise.
+
+265
+00:18:25,400 --> 00:18:29,960
+ If you compare this code to the code inside, if you compare this
+
+266
+00:18:29,960 --> 00:18:37,000
+ real code between the Python one code and the Python three code.
+
+267
+00:18:37,000 --> 00:18:42,320
+ And I don't even do it in KR because it was gonna be so ugly,
+
+268
+00:18:42,320 --> 00:18:44,240
+ I didn't wanna show it to you, right?
+
+269
+00:18:44,240 --> 00:18:49,440
+ So it's ugly in Python one, it is pretty in Python two.
+
+270
+00:18:49,440 --> 00:18:54,360
+ I'm seriously, if you look at this code in underscore put for a while, and
+
+271
+00:18:54,360 --> 00:18:59,120
+ we're like, why didn't they think of that back in 1989?
+
+272
+00:18:59,120 --> 00:19:04,920
+ Why did it take them till whatever 2018 or something to see this?
+
+273
+00:19:04,920 --> 00:19:07,080
+ It's a beautiful data structure, right?
+
+274
+00:19:07,080 --> 00:19:10,000
+ It is a beautiful data structure, okay.
+
+275
+00:19:10,000 --> 00:19:13,160
+ So here we are in this code where we have refilled the index.
+
+276
+00:19:13,160 --> 00:19:18,360
+ And again, self index is changing, right?
+
+277
+00:19:18,360 --> 00:19:21,520
+ And because that's how the conflict resolution works.
+
+278
+00:19:21,520 --> 00:19:24,680
+ And positions in the index might be different before and after.
+
+279
+00:19:24,680 --> 00:19:31,000
+ So, after that, we're done extending.
+
+280
+00:19:31,000 --> 00:19:33,840
+ We're gonna have to do the actual insert.
+
+281
+00:19:33,840 --> 00:19:36,440
+ Cuz the reason we extended is we're gonna insert a new thing.
+
+282
+00:19:36,440 --> 00:19:40,920
+ In this case, if we look at, we're trying to put sally equal c in.
+
+283
+00:19:40,920 --> 00:19:42,840
+ Then we extend from two through four.
+
+284
+00:19:42,840 --> 00:19:46,400
+ And now we're done extending, and so we gotta put sally in, right?
+
+285
+00:19:46,400 --> 00:19:48,600
+ So sally's gonna go in.
+
+286
+00:19:48,600 --> 00:19:52,080
+ And this is the insert code that we've already looked at, right?
+
+287
+00:19:52,080 --> 00:19:54,600
+ But we do have to go find it's the position of sally.
+
+288
+00:19:54,600 --> 00:20:00,260
+ Cuz we found it before in the pre-expanded index slash items.
+
+289
+00:20:00,260 --> 00:20:03,560
+ And now we're finding it in the post-expanded index slash items.
+
+290
+00:20:03,560 --> 00:20:07,800
+ But then we just allocate the key and the value, copy them in, and
+
+291
+00:20:07,800 --> 00:20:12,960
+ then add the key value pair at the end of length.
+
+292
+00:20:12,960 --> 00:20:15,000
+ Which is not alloc, but
+
+293
+00:20:15,000 --> 00:20:19,680
+ length is like the next position in that linear array of items.
+
+294
+00:20:19,680 --> 00:20:24,000
+ So we're new items, we set the new key, the new value, and
+
+295
+00:20:24,000 --> 00:20:29,800
+ then we set the index to be pointing at this entry in self-items.
+
+296
+00:20:29,800 --> 00:20:32,080
+ Cuz index is an integer.
+
+297
+00:20:32,080 --> 00:20:35,400
+ So it's like if we're putting it in, so if we're expanding from two to four and
+
+298
+00:20:35,400 --> 00:20:42,080
+ we're gonna now use three, position two actually, self-index, whatever.
+
+299
+00:20:42,080 --> 00:20:48,280
+ The position is computed by hashing and linear collision cleanup.
+
+300
+00:20:48,280 --> 00:20:51,280
+ And then we set it to length and we add one to the length.
+
+301
+00:20:51,280 --> 00:20:58,720
+ So if you watch kind of all this stuff, it just, of these four lines of code,
+
+302
+00:20:58,720 --> 00:21:01,000
+ only one of those lines has to do with hashing.
+
+303
+00:21:01,000 --> 00:21:03,600
+ And that is the self-index position equals self-length.
+
+304
+00:21:03,600 --> 00:21:10,720
+ We're recording, it's kinda like recording a cookie crumb in the Hansel-Gradle.
+
+305
+00:21:10,720 --> 00:21:13,800
+ So we're just remembering in the index where that is.
+
+306
+00:21:13,800 --> 00:21:18,280
+ So we can jump to the right position in index quickly using hashing,
+
+307
+00:21:18,280 --> 00:21:21,920
+ rather than doing a linear scan of the key value pairs.
+
+308
+00:21:21,920 --> 00:21:26,280
+ But literally, if you took this index away, you have just a list.
+
+309
+00:21:26,280 --> 00:21:28,680
+ And so again, let's look at Python list.
+
+310
+00:21:28,680 --> 00:21:34,840
+ Yeah, this is simpler cuz I'm not, yeah.
+
+311
+00:21:34,840 --> 00:21:39,320
+ But all it does is it extends the, extends, this was a list of strings.
+
+312
+00:21:39,320 --> 00:21:41,160
+ So it's actually a little simpler.
+
+313
+00:21:41,160 --> 00:21:44,520
+ But all it does is it copies the string and then puts it at the end, and
+
+314
+00:21:44,520 --> 00:21:46,400
+ then adds one to the length, and it's done.
+
+315
+00:21:46,400 --> 00:21:49,520
+ And so the Python 3 dictionary does that.
+
+316
+00:21:49,520 --> 00:21:53,840
+ It's kinda cool.
+
+317
+00:21:53,840 --> 00:22:01,040
+ So as we put sallyc, it extends it, it recomputes the index.
+
+318
+00:22:01,040 --> 00:22:07,840
+ And that's why the hash position of z moved, but not the position in items.
+
+319
+00:22:07,840 --> 00:22:13,960
+ The position in index moved, cuz this sub 2, z maps to w in position 2.
+
+320
+00:22:13,960 --> 00:22:17,880
+ That's the index position, not the item's position.
+
+321
+00:22:17,880 --> 00:22:19,920
+ The item's position is just like a linked list.
+
+322
+00:22:19,920 --> 00:22:24,000
+ Z is in 0, Sakai is in sub 1, and sally is in sub 2.
+
+323
+00:22:24,000 --> 00:22:30,600
+ And so that's insert order, and everything works pretty well.
+
+324
+00:22:30,600 --> 00:22:36,640
+ And so for me, as I think about the Python 3 dictionary and
+
+325
+00:22:36,640 --> 00:22:41,520
+ compare that to a classic Kernigan and
+
+326
+00:22:41,520 --> 00:22:44,760
+ Ritchie dictionary where the classic Kernigan and
+
+327
+00:22:44,760 --> 00:22:51,840
+ Ritchie dictionary was so complex on rehashing, that I didn't even write code for it.
+
+328
+00:22:51,840 --> 00:22:54,520
+ I'm like, let's pretend that's not a problem, okay?
+
+329
+00:22:54,520 --> 00:22:59,960
+ And now I can tell you in the Python 3 code, I can tell you,
+
+330
+00:22:59,960 --> 00:23:02,320
+ I can go all the way through the rehashing and
+
+331
+00:23:02,320 --> 00:23:05,440
+ tell you that it's some of the more beautiful code that I've seen.
+
+332
+00:23:06,600 --> 00:23:09,080
+ So I hope that you found this valuable.
+
+333
+00:23:09,080 --> 00:23:10,840
+ Cheers, and I hope to see you online.
+
+334
+00:23:10,840 --> 00:23:20,840
+ [MUSIC]
+

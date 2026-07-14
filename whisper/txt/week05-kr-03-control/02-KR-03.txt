@@ -1,0 +1,265 @@
+ - Hello, welcome to chapter three.
+ I'm Charles Severance, and I'm your instructor.
+ So here in chapter three, again, I want you to read the book.
+ I'm just gonna call your attention to a few of the
+ unique things that might help you make more sense of the book.
+ So we're gonna talk about semicolon use,
+ how it started in C and is used across multiple languages,
+ how else if is a little different across languages,
+ the switch statement and a bit of motivation
+ why the switch statement is even in C,
+ is a comma, I don't know, operator, separator,
+ and then sort of this tendency towards excessive succinctness
+ or brevity that is pretty common in C programming, right?
+ It just, it's like there's such a value
+ in making things really, really short,
+ and that makes it kind of different.
+ So I love semicolon-based languages,
+ and we have a whole bunch of semicolon-based languages
+ that we've learned and are going to learn.
+ Certainly 1978, the C programming language
+ with its non-syntactically important spacing.
+ The key to C is that C, the semicolon, is a terminator,
+ and every statement must be terminated by a semicolon.
+ So we say x equals x plus one semicolon,
+ and x equals x divided by two semicolon, right?
+ And that's the idea, the printf ends in a semicolon.
+ So you may or may not know, in Python,
+ you're allowed to have semicolons.
+ They're pretty much optional,
+ like on the print open paren x closed paren,
+ that semicolon does not need to be there.
+ But it is a separator, not a terminator.
+ So you can think of the print open paren x
+ closed paren semicolon as one statement
+ followed by a separator followed by an empty statement,
+ which does nothing.
+ But the interesting thing is you can put
+ more than one line on one line.
+ You can put more than one line of code
+ by using a separator.
+ So there I say x equals x plus one semicolon,
+ x equals x over two semicolon.
+ I don't have to indent that.
+ I just, it's two lines in the same block of code,
+ and that's legal.
+ Most of the time, people choose not to use semicolon.
+ The other thing about that is that shell scripting,
+ which is sort of the Linux automation,
+ treats it as a separator.
+ And so that sort of looks a bit like shell scripting
+ to have multiple statements on the same line
+ separated by semicolons.
+ In Java, it tends to follow the C pattern
+ where it's a terminator.
+ I tend to like it as a terminator.
+ I don't like the idea that you can leave it off
+ the way JavaScript does.
+ And so you see it's on two assignment statements
+ and the system out printlin in Java.
+ In PHP, PHP follows C very closely.
+ And so it is a terminator there as well.
+ And so I think that's natural.
+ And the good news, if it's a separator,
+ like in JavaScript in the next example,
+ where it's separating it.
+ And so in this case, the x equals x divided by two
+ does not need to be terminated
+ 'cause the closed curly brace is gonna terminate that.
+ And like even the console.log, open paren, closed paren,
+ semicolon, that semicolon is optional.
+ When I tend to write JavaScript,
+ I tend to put semicolons everywhere.
+ When I tend to write Python, I put semicolons nowhere.
+ And then in PHP and Java,
+ I tend to put semicolons everywhere.
+ Even though sometimes there are things you can leave out.
+ Another thing that is very, very subtle
+ is the notion of else if.
+ So C predates Python.
+ And C in this book shows else if
+ as two separate words.
+ And there's an else keyword and an if keyword.
+ And so you say else space if.
+ And then you have the expression and another statement.
+ Else space if expression and another statement.
+ And then else for the one
+ where none of those expressions are true.
+ And if you look at Python, it looks almost identical.
+ It says if expression, then elif expression,
+ elif expression and else.
+ The key is that elif is a separate language construct
+ in Python.
+ And I think it's actually really beautiful and elegant.
+ And the key is that this else if,
+ while it is, I can think of it in C
+ as like indented incorrectly.
+ So you can look at it as the very first if
+ has an if and an else.
+ And everything from the second if on down
+ is really part of that else.
+ And so if you look to the right,
+ you see the curly braces
+ with the indentation that's explicit.
+ It's exactly the same thing.
+ But what you're going to see is you can see that it's,
+ if you were gonna truly correctly indent
+ an if, else if, else if, else in C,
+ you would indent it the way it's shown on the right side.
+ And it's neither here nor there.
+ Very, very, it is very rare
+ that you would see any C programmer, you know,
+ do all the indentation the technically right way.
+ But I just want to call your attention to it
+ that it's different than eleph.
+ Eleph is its own language element
+ that is not a deeper nesting,
+ deeper and deeper nesting.
+ If you were to nest it,
+ you see on the right hand side,
+ you see I've got three closed curly braces.
+ Curly brace, curly brace, curly brace.
+ And it's just, ugh.
+ So the eleph, I think, is a really elegant addition
+ that Python has added.
+ Thus, which statement?
+ (sighs)
+ I think that the reason that the authors
+ put the switch statement into C
+ is there was a time where we would write code
+ in assembly language using what we call a jump table,
+ where we take sort of the, take a number,
+ maybe take it, mask it so it's only from zero through 16,
+ and then look up a series of addresses
+ and jump through a jump table.
+ And the computed go-to was the way in Fortran
+ of expressing a jump table.
+ But in Fortran, it was just a mess.
+ You got these labels and columns one through six,
+ and the continue statement doesn't work like the continuing
+ in C and C-like languages.
+ And you had to have these go-tos
+ to get out of the switch statement.
+ If you think about it
+ from an assembly language perspective,
+ it's not that hard to build the computed go-to
+ with a little tiny jump table.
+ And so I think to some degree,
+ whether or not we have to use a jump table in modern C
+ is really, it's really, really rare
+ where you have to use a jump table.
+ We just would do a few repeating LSIFs, and it's just fine.
+ Back then, a few extra statements might have bothered
+ something if you were gonna do it a million times,
+ you know, a million times a minute or something.
+ The switch statement is much prettier.
+ You do have to put the break statements in there.
+ You can kind of nest the, you have the stack cases,
+ and then there's a default case.
+ So if I, at least I compare the C switch statement
+ with the Fortran computed go-to,
+ I wanna say that the C switch statement
+ was pretty much a lot more elegant,
+ a lot easier to use, a lot easier to understand.
+ And because assembly language programmers of the time
+ did think in terms of jump tables,
+ if a high-level language didn't have a way
+ to express a jump table in that language,
+ then we would kind of think of it as missing.
+ But frankly, you know, in your programming,
+ I'm not sure I've written a switch statement in,
+ 'cause Java has a switch statement too.
+ I probably haven't written a switch statement
+ in over 20 years and maybe more.
+ So I like the fact that it improved on Fortran,
+ but that doesn't mean that you should use it.
+ The comma operator or comma separator,
+ I like to think of it as like a light version
+ of the semicolon.
+ And most people almost never use it,
+ and the only place we use it is when it is sort of idiomatic,
+ where in a for statement,
+ because we're already using semicolon
+ to separate the start before the loop,
+ the loop test, and then the loop increment per iteration,
+ we're using semicolon for that.
+ So if we wanna do like two statements,
+ we are gonna like, oh, i equals zero,
+ j equals strlen s minus one,
+ with a comma in between to say,
+ do these two things before the loop starts.
+ And then at the end, you say i plus plus comma j minus minus,
+ that says do these two things at the end of each loop.
+ So I only see it in idiomatic situations.
+ Just think of it as like we couldn't use a semicolon here.
+ It functions exactly like a semicolon,
+ although the syntax already has a semicolon in it.
+ So I think it's actually a pretty clever way to say,
+ I wanna put two statements in here.
+ Maybe you could put curly braces in there or something,
+ but I thought the comma was a pretty cool thing.
+ Another problem is that there was just this notion
+ that we, as assembly language programmers,
+ we could do things like be smart
+ and leave some value in a register
+ and then check the register a couple of different ways,
+ and that would lead to really succinct, fast code.
+ Hand-tuned code where you might have to look at it
+ to figure out what it's doing,
+ but then you realize, well, I did that in six statements
+ rather than 12 statements.
+ 12 statements might have made more sense,
+ but the six statements were really fast.
+ And in the early days, in the early '70s,
+ they were changing their compilers so fast
+ and changing their hardware so fast
+ that they really didn't build
+ super great optimizing compilers.
+ So they would look at the source code
+ that came out of the compiler
+ and they're like, I could do better than that.
+ So there was a lot of a kind of comparison
+ of the source code between what the C compiler would generate
+ and whatever, and so they found over time
+ that if they would kind of use these tricks
+ that told the compiler to take this C equals getchar
+ and leave the C in a register and compare it to a space,
+ and then compare it again to a new line
+ and compare it again to a tab, we would think,
+ oh, I can see how that would run in assembly language.
+ And I can hope that the compiler
+ would generate the assembly language
+ that would make me happy.
+ And then another pattern you see in this
+ is the number four thing where all the work's been done
+ in the loop test, and so while loop,
+ that whole big expression is just the test
+ to know when it's done, but it's actually reading the data,
+ comparing it three times, storing it in a variable,
+ and when that's all done, there's nothing to do in the loop,
+ and so that's why you say close paren semicolon.
+ And you'll see a lot of those things,
+ especially when doing string stuff
+ where you're sort of zooming through an array
+ and you did it all in the for loop
+ and you don't really have anything to do in the for loop.
+ And again, we're thinking in the early days
+ of how this is gonna translate into assembly language,
+ and so you're trying to make that loop really, really small.
+ And again, it's amazing how often they looked
+ at the resulting assembly language
+ in a non-optimizing compiler situation
+ and then wondered if the compiler could have done better.
+ So that gets us going in this chapter.
+ We talked about the semicolon,
+ we talked about the switch statement,
+ the else if, subtle syntax difference between Python and C,
+ the comma, and just get used to the notion
+ that it's obtuse code.
+ Please don't write obtuse code.
+ These days, the optimizers are so great,
+ and so don't write obtuse code,
+ but don't be too upset as you read the textbook
+ and see obtuse code.
+ (gentle music)
+ (upbeat music)

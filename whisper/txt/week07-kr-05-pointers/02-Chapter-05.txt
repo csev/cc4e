@@ -1,0 +1,485 @@
+ Welcome to C Programming for Everybody. My name is Charles Severance. This is my reading of the 1978 C Programming book written by Brian Kernigan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
+ Chapter 5, Pointers and Arrays
+ Before we start Chapter 5, a quick note from your narrator. From time to time, I have been adding some of my interpretation to this book.
+ But I won't be adding anything to this chapter. I think that sections 5.1 through 5.6 contain some of the most elegantly written text in the book.
+ The concepts are clearly stated, and the example code is short, direct, and easy to understand.
+ Pointers are the essential difference between C and any other modern programming language, so pay close attention to this chapter and make sure that you understand it before continuing.
+ This chapter is as strong now as it was in 1978, and so without further ado, we read and listen as Kernigan and Ritchie teach us about pointers and arrays.
+ A pointer is a variable that contains the address of another variable. Pointers are very much used in C, partly because they are sometimes the only way to express a computation,
+ and partly because they usually lead to more compact and efficient code than can be obtained in other ways.
+ Pointers have been lumped with a go-to statement as a marvelous way to create impossible-to-understand programs. This is certainly true when they are used carelessly,
+ and it is easy to create pointers that point somewhere unexpected. With discipline, however, pointers can also be used to achieve clarity and simplicity.
+ This is the aspect that we will try to illustrate.
+ Section 5.1 - Pointers and Addresses
+ Since a pointer contains the address of an object, it is possible to access the object indirectly through the pointer.
+ Suppose that x is a variable, say int, and that px is a pointer, created in some as-yet unspecified way.
+ The unary operator ampersand gives the address of an object, so the statement px = ampersand x; assigns the address of x to the variable px.
+ px is now said to point to x. The ampersand operator can be applied only to variables and array elements.
+ Constructs like ampersand (x + 1) and ampersand (3) are illegal. It is also illegal to take the address of a register variable.
+ The unary operator asterisk treats its operand as the address of the ultimate target, and accesses that address to fetch the contents.
+ Thus, if y is also an int, y = *px; assigns to y the contents of whatever px points to.
+ So the sequence px = ampersand x; y = *px; assigns the same value to y as does y = x.
+ It is also necessary to declare the variables that participate in all of this.
+ int x, y; int *px; The declaration of x and y is what we have seen all along. The declaration of the pointer px is new. int *px; is intended as a mnemonic.
+ It is equivalent to a variable of type int. In effect, the syntax of the declaration for a variable mimics the syntax of expressions in which the variable might appear.
+ This reasoning is useful in all cases involving complicated declarations.
+ For example, double a to f open parenthesis close parenthesis comma star dp semicolon says that in a particular expression a to f open parenthesis close parenthesis and star dp have values of type double.
+ You should also note the implication in the direction declaration that a pointer is constrained to point to a particular kind of objects.
+ Pointers can occur in expressions. For example, if px points to the integer x, then *px can occur in any context where x could.
+ y = *px + 1 sets y to 1 more than x. print f open parenthesis double quote percent d backslash n double quote comma *px close parenthesis prints the current value of x.
+ And d = square root open parenthesis open parenthesis double close parenthesis *px close parenthesis produces in d the square root of x, which is coerced into a double before being passed to square root.
+ In expressions like y = *px + 1, the unary operators * and ampersand bind more tightly than arithmetic operators, so this expression takes whatever px points at, adds 1, and assigns it to y.
+ We will return shortly to what y = *open parenthesis px + 1 close parenthesis might mean.
+ Pointer references can also occur on the left side of assignments. If px points to x, then *px = 0 sets x to 0 and *px + = 1 increments it, as does *px + +.
+ The parentheses are necessary in this last example. Without them, the expression would increment px instead of what it points to, because unary operators like * and ++ are evaluated right to left.
+ Finally, since pointers are variables, they can be manipulated as other variables can. If py is another pointer to int, then py = px copies the contents of px into py, thus making py point to whatever px points to.
+ Section 5.2 Pointers and Function Arguments Since C passes arguments to functions by callByValue, there is no direct way for the called function to alter the variable in the calling function.
+ What do you do if you really have to change an ordinary argument?
+ For example, a sorting routine might exchange two out-of-order elements with a function called swap(). It's not enough to write swap(a,b); where the swap function is defined as (sample source code on page 91 of the textbook, and you can see it at www.cc4e.com/code).
+ This is a wrong swap, by the way. This is showing you the code that you're not supposed to do.
+ Because of callByValue, swap can't affect the arguments a and b in the routine that called it.
+ Fortunately, there is a way to obtain the desired effect. The calling point program passes pointers to the values to be changed.
+ The call is swap(&a,&b;). Since the operator & gives the address of a variable, &a is a pointer to a. In swap itself, the arguments are declared to be pointers, and the actual operands are accessed through them.
+ So the correct code is on page 92.
+ One common use of pointer arguments is in functions that must return more than a single value. You might say that swap actually returns two values, the new values of its arguments.
+ As an example, consider a function getInt() which performs a free-format input conversion by breaking a stream of characters into integer values, one integer per call. getInt() has to return the value that it found, or an end-of-file signal when there is no more input.
+ These values have to be returned as separate objects, for no matter what value is used for EOF, that could also be a value of the integer.
+ One solution, which is based on the input function scanf() that we will describe in Chapter 7, is to have getInt() return EOF as its function value it finds end-of-file, and any other returned value signals a normal integer.
+ The numeric value of the integer it found is returned through an argument, which then must be a pointer to an integer. This organization separates the end-of-file status from the returned numeric value.
+ The following loop fills an array with integers by calls to getInt. int,n,array(size, semicolon)
+ For n=0, n less than size, double ampersand, getInt("Ampersand v, not equal EOF, semicolon n++", array sub n=v)
+ Each call sets v to the next integer found in the input. Notice that it is essential to write ampersand v instead of v as the argument to getInt.
+ Using plain v is likely to cause an addressing error, since getInt() believes that it has been handed a valid pointer.
+ getInt() is an obvious modification to A to I, which we wrote earlier. The sample code is on page 93 of the textbook, and you can see this sample code at www.cc4e.com/code
+ Pound include stdio.h, getInt("pn", int*pn, semicolon), open curly brace, int c,sign
+ While open paren, open paren, c=getCh, open paren, close paren, close paren, double equals, quote, space, quote, or c, double equals, quote, backslash, n, quote, or c, double equals, backslash, t, quote, close paren, semicolon
+ This loop we've done before, and it skips the white space.
+ Sign equals one, semicolon. If open paren, c, double equals, quote, plus, quote, or c, double equals, quote, minus, quote, close paren, open curly brace, sign equals, open paren, c, double equals, quote, plus, quote, close paren, question mark, one, colon, minus one, semicolon
+ c=getCh, to advance the character, semicolon, and then close curly brace. Those four lines record the sign.
+ Now, for *pn=0, c>=, quote, zero, quote, and c<=, quote, nine, quote, colon, semicolon, c=getCh, open paren, close paren, close curly brace
+ *pn=10*pn+c-, quote, zero, quote
+ *pn*=sign
+ If open paren, c, not equal to eof, close paren, ungetCh, open paren, c, close paren, semicolon, return c
+ Throughout getInt, *pn is used as an ordinary int variable. We have also used getCh and ungetCh as described in Chapter 4,
+ so the one extra character that must be read can be pushed back onto the input.
+ Section 5.3, Pointers and Arrays. In C, there is a strong relationship between pointers and arrays, strong enough that pointers and arrays should really be treated simultaneously.
+ Any operation which can be achieved by array subscripting can also be done with pointers.
+ The pointer version will in general be faster, but at least to the uninitiated, somewhat harder to grasp immediately.
+ The declaration int a sub 10 defines an array a of size 10 that is a block of 10 consecutive objects named a sub 0, a sub 1, dot dot dot, a sub 9.
+ The notation a sub i means the element of the array i positions from the beginning.
+ If pa is a pointer to an integer declared as int *pa, then the assignment pa equals ampersand a sub 0 sets pa to point to the 0th element of a.
+ That is, pa contains the address of a sub 0.
+ Now, the assignment x equals star pa will copy the contents of a sub 0 into x.
+ If pa points to a particular element of array a, then by definition pa points to the next element.
+ If pa points to a particular element of an array a, then by definition pa plus 1 points to the next element.
+ And in general, pa minus i points to i elements before pa and pa plus i points to i elements after. Thus, if pa points to a sub 0, star parenthesis pa plus 1 close parenthesis refers to the contents of a sub 1.
+ pa plus i is the address of a sub i and star print and star open print pa plus i is the contents of a sub i.
+ These remarks are true regardless of the type of the variables in the array a.
+ The definition of adding 1 to a pointer and by extension all pointer arithmetic is that the increment is scaled by the size of the storage of the object that is pointed to.
+ Thus, in pa plus i, i is multiplied by the size of the objects that pa points to before being added to pa.
+ The correspondence between indexing and pointer arithmetic is evidently very close.
+ In fact, a reference to an array is converted by the compiler to a pointer to the beginning of the array.
+ The effect is that the array name is a pointer expression.
+ This has quite a few useful implications. Since the name of an array is a synonym for the location of the zeroth element, the assignment pa equals ampersand a sub 0 can also be written as pa equals a.
+ Rather more surprising, at least at first sight, is the fact that a reference to a sub i can also be written as star open print a plus i closed print.
+ In evaluating a sub i, C converts it to star open print a plus i closed print immediately.
+ The two forms are completely equivalent.
+ Applying the operator ampersand to both parts of this equivalence, it follows that ampersand a sub i and a plus i are also identical.
+ a plus i is the address of the i-th element beyond a.
+ As on the other side of this coin, if pa is a pointer, expressions may use it with a subscript.
+ pa sub i is identical to star open print pa plus i closed print.
+ In short, any array and index expression can be rewritten as a pointer and an offset and vice versa, even in the same statement.
+ There is one difference between an array name and a pointer that must be kept in mind.
+ A pointer is a variable, so pa equals a and pa plus plus are sensible operations, but an array name is a constant, not a variable.
+ Constructions like a equals pa or a plus plus or p equals ampersand a are illegal.
+ When an array name is passed to a function, what is passed is the location of the beginning of the array.
+ Within the called function, this argument is a variable, just like any other variable.
+ And so an array name argument is truly a pointer that is a variable containing an address.
+ We can use this fact to write a new version of sterlin, which computes the length of the string.
+ The sample code is on page 95 of the book, and you can see it in www.cc4e.com/code.
+ page 95 int sterlin open paren s close paren char star s semicolon open curly brace int n semicolon 4 open parenthesis n equals 0 semicolon star s not equal quote backslash zero quote semicolon
+ s plus plus close paren n plus plus return open paren n close paren semicolon close curly brace.
+ Incrementing s is perfectly legal, since it's a pointer variable.
+ s plus plus has no effect on the character string function that called sterlin, but merely increments the sterlin's private copy of the address.
+ As the formal parameters in a function definition, char s open square bracket close square bracket semicolon and char star s semicolon are exactly equivalent.
+ Which one should be written is determined largely by how expressions will be written in the function.
+ When an array name is passed to a function, the function can, at its convenience, believe that it has been handed either an array or a pointer and manipulated accordingly.
+ It can even use both kinds of operations if it seems appropriate and clear.
+ It is possible to pass part of an array to a function by passing a pointer to the beginning of the subarray.
+ For example, if a is an array, f open paren ampersand a sub 2 close paren and f open paren a plus 2 close paren both pass to the function f, the address of the element a sub 2.
+ Because ampersand a sub 2 and a plus 2 are both pointer expressions that refer to the third element of a.
+ Within f, the argument declaration can read f open paren array close paren int array open bracket close bracket semicolon dot dot dot or f open paren array close paren int star array semicolon dot dot dot.
+ So far as f is concerned, the fact that the argument really refers to a part of a larger array is really of no consequence.
+ Section 5.4 address arithmetic. If p is a pointer, then p plus plus increments p to point to the next element of whatever kind of object p points to and p plus equals i increments p to the point i elements beyond where it currently does.
+ These and similar constructions are the simplest and most common forms of pointer or address arithmetic.
+ C is consistent and regular in its approach to address arithmetic.
+ Its integration of pointers arrays and address arithmetic is one of the major strengths of the language.
+ Let us illustrate some of the properties by writing a rudimentary storage allocator, but useful in spite of its simplicity.
+ There are two routines Alec open paren and close paren returns a pointer p to end consecutive character positions, which can be used by the caller of Alec for storing characters.
+ Free open paren p close paren releases the storage thus acquired so it can later be reused.
+ These routines are rudimentary because the calls to free must be made in the opposite order to the calls on Alec.
+ That is, storage managed by Alec and free is a stack or last in first out.
+ The standard seed library provides analogous functions which have no such restrictions and in Chapter 8 will show how improved versions as well.
+ In the meantime, however, many applications really only need a trivial Alec to dispense little pieces of storage of unpredictable sizes at unpredictable times.
+ The simplest implementation is to have Alec hand out pieces of a large character array, which we will call Alec buff.
+ This array is private to Alec and free since they deal in pointers and not array indices.
+ No other routine need know the name of the array, which can be declared as external static that is local to the source file containing Alec and free and invisible outside it.
+ In practical implementations, the array may well not even have a name.
+ It might be obtained by asking the operating system for a pointer to some unnamed block of storage.
+ The other information needed is how much Alec buff has been used.
+ We use a pointer to the next free element called Alec CP.
+ When Alec is asked for n characters, it checks to see if there is enough room left in Alec buff.
+ If so, Alec returns the current value of Alec P, i.e. the beginning of the free block, and then increments it by n to point to the next free area.
+ Free P merely sets Alec P to P if P is inside Alec buff.
+ This next code example is on page 97 of the textbook.
+ You can see the code at www.cc4e.com/code.
+ #include sddio.h #define null 0 (it's a pointer value for in the error report)
+ #define alec_size 1000 (the size of the available space)
+ static char alec_buff open square bracket alec_size close square bracket semicolon
+ static char char star alec_p = alec_buff next free position initialized to the start of the array
+ char star alec open paren n close paren return a pointer to n characters int n semicolon open curly brace
+ if alec_cp + n less than or equal to alec_buff + alec_size close paren open curly brace (meaning we have space)
+ alec_cp + = n return alec_cp - n close parenthesis semicolon close curly brace
+ else if there's not enough room return open paren null close paren semicolon close curly brace
+ free open paren p close paren (this function will free the storage 22 by p)
+ char star p open curly brace if p greater than or equal to alec_buff and p less than alec_buff + alec_size
+ alec_cp = p close curly brace
+ some explanations
+ In general, a pointer can be initialized just as any other variable can, though normally only meaningful values are null (discussed below)
+ or an expression involving the address of a previously defined data of the appropriate type.
+ The declaration "static char star alec_cp = alec_buff" defines alec_cp to be a character pointer and initializes it to point to alec_buff,
+ which is the next free position when the program starts.
+ This could also have been written "static char star alec_cp = ampersand alec_buff sub 0 semicolon"
+ since the array name is the address of the zeroth element, whichever is more natural.
+ The test if open paren alec_p + n less than or equal to alec_buff + alec_size checks if there's enough room to satisfy a request for n characters.
+ If there is, the new value of alec_p would be at most 1 beyond the end of alec_buff.
+ If the request can be satisfied, alec returns a normal pointer (notice the declaration of the function itself).
+ If not, alec must return some kind of signal that there's no space left.
+ C guarantees that no pointer that validly points to data will ever contain a 0,
+ so a return value of 0 can be used to signal an abnormal event, in this case no space.
+ We write null instead of 0, however to indicate more clearly that this is a special value for a pointer.
+ In general, integers cannot be meaningfully assigned to pointers, but 0 is a special case.
+ Tests like if open paren alec_p + n less than or equal to alec_buff + alec_size and if open paren p greater than or equal to alec_buff and p less than alec_buff + alec_size show several important facets of pointer arithmetic.
+ First, pointers may be compared on certain circumstances. If p and q point to members of the same array, then relations like less than, greater than, equal, etc. work properly.
+ p greater than q is true, for example, if p points to an earlier member of the array than q.
+ The relations double equals and not equals exclamation equals also work. Any pointer can be meaningfully compared for equality or inequality with null.
+ But all bets are off if you do arithmetic or comparisons with pointers that point to different arrays. If you're lucky, you get obvious nonsense on all machines. If you're unlucky, your code will work on one machine but collapse mysteriously on another.
+ Second, we've already observed that a pointer and an integer can be added or subtracted. The construction p + n means the nth object beyond the one p currently points to.
+ This is true regardless of the kind of object p is declared to point at. The compiler scales n according to the size of the objects p points to, which is determined by the declaration of p.
+ For example, on the PDP-11, the factors are 1 for char, 2 for int, and short, and 4 for long float and float, and 8 for double. Pointer subtraction is also valid.
+ If p and q point to members of the same array, p-q is the number of elements between p and q. This fact can be used to write yet another version of Stirlen.
+ Stirlen open paren s close paren char star s semicolon open curly brace char star p equals s semicolon while star p not equal backslash single quote backslash zero single quote close paren p++ semicolon.
+ Return open paren p-s close paren semicolon close curly brace.
+ In its declaration, p is initialized s, that is to point to the first character. In the while loop, each character in turn is examined until backslash zero at the end is seen.
+ Since backslash zero is zero and since while tests only whether the expression is zero, it is possible to omit the explicit test, and such loops are often written as while open paren star p close paren p++ semicolon.
+ Because p points to characters, p++ advances p up to the next character each time, and p-s gives the number of characters advanced over, that is the string length.
+ Pointer arithmetic is consistent. If we'd been dealing with floats, which occupy more storage than chars, and if p were a pointer to a float, p++ would advance to the next float.
+ Thus, we could write another version of alloc, which maintains, say, floats instead of chars, merely by changing char to float throughout alloc and free.
+ All the pointer manipulations automatically take into the account the size of the object pointed to, so nothing else has to be altered.
+ Other than the operations mentioned here, adding or subtracting a pointer in an integer, subtracting or comparing two pointers, all other pointer arithmetic is illegal.
+ It is not permitted to add two pointers, or to multiply, or divide, or shift, or mass them, or add float or double to them.
+ Section 5.5 Character, Pointers, and Functions
+ A string constant written as "I am a string" is an array of characters.
+ In the internal representation, the compiler terminates the array with the character backslash zero, so programs can find the end.
+ The length in storage is thus one more than the number of characters between the double quotes.
+ Perhaps the most common occurrence of a string constant is arguments to functions, as in printf("Hello, World" backslash n double quote).
+ When a character string appears like this in a program, access to it is through a character pointer.
+ What printf receives is a pointer to the character array.
+ Character arrays, of course, need not be function arguments.
+ If message is declared as char*message, then the statement "message equals double quote now is the time double quote semicolon" assigns message to a pointer to the actual characters.
+ This is not a string copy, only pointers are involved.
+ C does not provide any operators for processing an entire string of characters as a unit in the language.
+ We will illustrate more aspects of pointers and arrays by studying two useful functions from the standard I/O library to be discussed in Chapter 7.
+ The first function is strcopy(s,t), which copies the string t to the string s.
+ The arguments are written in this order by analogy to assignment, where one would say s=t to assign t to s.
+ The array version is first.
+ strcopy(s,t) char(s,t) int i semicolon i=0 semicolon
+ while s_i=t_i not equal quote backslash zero quote close parenthesis i++ semicolon close curly brace.
+ Note in that while statement that there is a copying of the actual characters as an assignment and then the side effect of the result of that assignment is compared to the end of string which terminates the while loop.
+ For contrast, here is a version of strcopy with pointers.
+ This is on page 100 of the textbook.
+ You can see all the code in the textbook at www.cc4e.com/code.
+ And again, this is example number 2 on page 100.
+ strcopy(s,t) char(s,t) semicolon open curly brace
+ while open paren open paren *s=*t close paren not equal single quote backslash zero single quote close paren open curly brace s++ comma semicolon t++ semicolon close curly brace close curly brace to end the function.
+ Because the arguments are passed by value, strcopy can use s and t in any way it pleases.
+ Here they are conveniently initialized pointers which are marched along the arrays, a character at a time, until the backslash terminates.
+ Then t has been copied to s.
+ In practice, strcopy would not be written as we showed above.
+ A second possibility might be, and this is the third example on page 100 of the textbook,
+ strcopy(s,t) char(s,t) semicolon open curly brace while paren paren *s++ equals *t++ close paren not equal quote backslash zero quote close paren semicolon curly brace.
+ This moves the increment in s and t into the test part. The value of *t++ is the character that t pointed to before t was incremented.
+ The postfix ++ doesn't change t until after this character has been fetched.
+ In the same way, the character is stored in the old position of s before s is incremented.
+ The character is also the value that is compared against backslash zero to control the loop. The net effect is that the characters are copied from t to s up to and including the terminating backslash zero.
+ As the final abbreviation of solving this problem, we can observe that the comparison against backslash zero is redundant so the function is often written as, and now this is the first sample code on page 101 of the textbook.
+ Stir copy, open paren s,t close paren char *s, *t semicolon open curly brace while paren *s++ equals *t++ close paren semicolon curly brace.
+ Although this may seem cryptic at first, the notational convenience is considerable and the idiom should be mastered if for no other reason than you will see it frequently in C programs.
+ The second routine is stir comp open paren s,t which compares the character strings s and t and returns negative zero or positive according to as s is lexicographically less than equal to or greater than t.
+ The value returned is obtained by subtracting the characters at the first position where s and t disagree.
+ This is the second example on page 101 of the textbook which you can see at www.cc4e.com/code.
+ Stir comp open paren s,t close paren char *s open square bracket close square bracket comma t open square bracket close square bracket semicolon open curly brace int i semicolon i equals zero semicolon
+ while s,i double equals t,i close paren open paren s,i++ double equals single quote backslash zero single quote close paren return zero return open paren s,i minus t,i close paren semicolon close curly brace.
+ The pointer version of stir comp is the first example on page 102 of the textbook.
+ Stir comp open paren s,t close paren char *s comma *t open curly brace for open paren semicolon *s double equals *t semicolon s++ comma t++ close paren.
+ If open paren *s equal equal single quote backslash zero single quote close paren return open paren zero close paren return open paren *s minus *t close paren semicolon close curly brace.
+ Since plus plus and minus minus are either prefix or postfix operators the combination of star and plus plus and minus minus occur although less frequently.
+ For example star plus plus p increments p before fetching the character that p points to.
+ Star minus minus p decrements p first.
+ Section 5.6 pointers are not integers.
+ You may notice in older C programs a rather cavalier attitude towards copying pointers.
+ It has generally been true that on most machines a pointer may be assigned to an integer and back again without changing it.
+ No scaling or conversion takes place and no bits are lost.
+ Regrettably this has led to the taking of liberties with routines that return pointers which are then merely passed to other routines.
+ The requisite pointer declarations are often left out.
+ For example consider the function stir save open paren s close paren which copies the string s into a safe place obtained by a call to Alec and returns a pointer to it.
+ Properly this should be written as this is the first example on page 103 of the textbook.
+ You can see the sample code at www.cc4e.com/code.
+ Pound include std live.h char star stir save open paren s close paren save a string somewhere.
+ char star s semicolon open curly brace char star p star alec open paren close paren semicolon.
+ If open paren open paren p equals alec open paren stirlen open paren s close paren plus one close paren close paren not equal null close paren stir copy open paren p comma s close paren semicolon return open paren p close paren semicolon curly brace.
+ In practice there would be a strong tendency mistaken tendency that is to emit declarations.
+ This is the example two on page 103. Pound include std live.h stir save open paren s close paren open curly brace char star p semicolon if parentheses parentheses p equals alec open paren stirlen open paren s close paren plus one close paren close paren not equal null close paren stir copy open paren p comma s.
+ Close paren semicolon return open paren p close paren semicolon.
+ This will work on many machines, since the default type for functions and arguments is int and int and pointer can usually be safely signed back and forth.
+ Nonetheless, this kind of code is inherently risky for it depends on the details of the implementation and machine architecture, which may not hold for the particular compiler you use.
+ It is wiser to be complete in all declarations program Lind will warn of such constructions in case they creep in inadvertently.
+ Section 5.7 multidimensional arrays. In general, rectangular multidimensional arrays are used in computational programs like a weather simulation, and were a way back in the day to write C code that could accept Fortran multidimensional arrays as parameters so that computational or statistical libraries can be written in C.
+ Arrays of pointers are a better mapping to the typical operating system and string manipulation use cases that are more the core of C applications.
+ We also call these ragged arrays because each row can be a different length.
+ This also works well as data is dynamically allocated in C as compared to the more static allocation approach that's typical in Fortran's multidimensional arrays.
+ Now to the textbook.
+ C provides for rectangular multidimensional arrays, although in practice, they tend to be much less used than the arrays of pointers in this section we will show some of their properties.
+ Consider the problem of date conversion from the day of the month to the day of the year and vice versa.
+ For example, March 1st is the 60th day of a non leap year and 61st day of a leap year.
+ Let us define two functions to do the conversions. Day of year converts month and day to the day of the year and month day converts the day of the year into the month and the day.
+ Since this latter function returns two values, the month and day arguments will be pointers.
+ Month day, open parenthesis, 1977 comma 60 ampersand M comma ampersand D closed parenthesis sets M to 3 and D to 1, which is March 1st.
+ These functions both need the same information, a table of the number of days in each month, 30 days, half September, etc.
+ Since the number of days per month differs for leap years and non leap years, it's easier to separate them into two rows of a two dimensional array rather than try to keep track of what happens in February during computation.
+ The array and the functions performing the transformations are as follows.
+ This is example number one on page 104 of the textbook and you can see the code at www.cc4e.com/code.
+ static int day tab open paren to close paren open paren 13 close paren equals open curly brace open curly brace 0 comma 31 and then a number of numbers close curly brace comma open curly brace 0 comma 31 29 and then a bunch of numbers close curly brace close curly brace semicolon.
+ int day of the year open paren year comma month comma day int year comma month comma day semicolon open curly brace int i comma leap semicolon leap equals zero year modulo four double equals zero and year modulo 100 not equals zero or year modulo 400 equals equals zero semicolon.
+ for open paren i equals one i less than month i plus plus close paren day plus equals day tab open square bracket leap close square bracket open square bracket i close square bracket semicolon return open paren day close paren semicolon close curly brace.
+ Then the month day function month day open paren year comma year day comma p month comma p day close paren int year comma year day star p month comma star p day semicolon open curly brace int i comma leap semicolon leap equals year percent four double equals zero.
+ and year percent 100 not equals zero or year percent 1400 double equals zero.
+ for i equals one year day greater than day tab open square bracket leap close square bracket open square bracket i close square bracket semicolon i plus plus close parentheses year day minus equal day tab open square parenthesis open square bracket leap close square bracket open square bracket i close square bracket semicolon.
+ star p month equals i star p day equals year day semicolon close paren.
+ The array day tab has to be external to both day of year and month day so they can both use it.
+ Day tab is the first two dimensional array we've dealt with in see by definition a two dimensional array is really a one dimensional array, each of which elements is also an array and subscripts are written as day tab open square bracket i close square bracket open square bracket j close square bracket.
+ Rather than day tab open square bracket i comma j close square bracket as in most languages.
+ Other than this, a two dimensional array can be treated much the same in the same way as other languages elements are stored by rows that is the right most subscript varies fastest as elements are accessed in storage order.
+ This is initialized by initial list of initializers and braces each row of a two dimensional array is initialized by a corresponding sub list.
+ We started the array day tab with a column of zero, so that month numbers can run from the natural one to 12 instead of zero to 11 since space is not a premium here this is easier than adjusting indices.
+ If a two dimensional array is to be passed to a function, the argument definition declaration in the function must include the column dimension the row dimension is irrelevant, since what is passed in as before, it is a pointer.
+ In this particular case it's a pointer to objects which are arrays of 13 ints, thus the array day tab if it's to be passed to a function f the declaration would be f open paren day tab close paren int day tab open square bracket to close square bracket open square bracket 13 close square bracket semicolon open curly brace dot dot dot close curly brace.
+ The argument declaration in F could also be int day tab open square bracket close square bracket open square bracket 13 close square bracket semicolon since the number of rows is actually irrelevant.
+ It could also be seen as int open paren star day tab close paren open bracket 13 close bracket semicolon which says that the argument is a pointer to an array of 13 integers.
+ The parentheses are necessary since the brackets have higher precedence than asterisk without parentheses the declaration int star day tab sub 13 close square bracket semicolon is an array of 13 pointers to integers, as we shall see in the next section.
+ Section 5.8 pointer arrays pointers to pointers. Since pointers are variables themselves you might expect that there would be uses for arrays of pointers.
+ This is indeed the case, let us illustrate by writing a program that will sort a set of text lines into alphabetic order than a stripped down version of the Unix utility sort.
+ In chapter three we presented a shell sort function that would sort an array of integers. This same algorithm will work except that now we have to deal with lines of text which are of different lengths and which unlike integers can't be compared or moved in a single operation.
+ We will need a data representation data structure that will cope efficiently and conveniently with variable length text lines.
+ This is where an array of pointers enters. If the lines to be sorted are stored end to end in one long character array maintained by Alec perhaps, then each line can be accessed by a pointer to its first character.
+ The pointers themselves can be stored in an array. Two lines can be compared by passing their pointers to strcmp. When two out of order lines have to be swapped or exchanged the pointers in the pointer array are exchanged not the text lines themselves.
+ This eliminates the twin problems of complex storage management and high overhead that would go with moving the text of the actual lines.
+ The sorting process involves three steps. Read all the lines of input, sort them, and then print them in order. As usual, it's best to divide the program into functions that match this natural division with the main routine controlling things.
+ Let us defer the sorting step for a moment and concentrate on the data structures and the input and output.
+ The input routine has to collect and save the characters in each line and build an array of pointers to the lines. It will also have to count the number of input lines since that information is also needed for sorting and printing.
+ Since the input function can only cope with a finite number of input lines, it can return some illegal line count like -1 if too much input is presented. The output routine only has to print the lines in order and the order in which they appear in the array of pointers.
+ This next code segment is actually a combination of three successive sample code segments starting on page 106 of the textbook and it's pretty complex so it might be best for you to see them on www.cc4e.com/code.
+ Line 106, example 1. Okay, #include stdio.h, #include string.h, #define lines 100, the maximum lines of support to be sorted.
+ Main, open paren, close paren, char line ptr, open square bracket lines, close square bracket semicolon, int nlines, which is the number of lines read.
+ If, open paren, open paren, nlines equals read lines, open paren, line ptr, comma, lines, close paren, close paren, greater than or equal to zero, close paren, open curly brace, sort, open paren, line ptr, comma, nlines, close paren, right lines, open paren, line ptr, comma, nlines, close paren, semicolon, close curly brace, else, printf, open paren, double quote, input too big to sort,
+ backslash n, close double quote, close paren, semicolon, and close curly brace to end the main program.
+ This next routine is actually from page 107 of the textbook, but we combined them into one.
+ #define maxlen 1000, read lines, open paren, line ptr, comma, max lines, close paren, char, star, line ptr, open square bracket, close square bracket, semicolon.
+ This is an array of pointers to characters, an array of pointers, pointers being, you know, long, like four bytes, characters being generally one byte, int, max lines, semicolon, open curly brace, int, len, comma, nlines, semicolon, char, star, p, star, alec, open paren, close paren, comma, line, open square bracket, maxlen, close square bracket, semicolon.
+ So, just to recall, alec is a function we did earlier that allows us to allocate some text of varying length, and then lines of maxlen is a place that we're going to read each line into.
+ Beginning the code of read lines, nlines equals zero, while open paren, open paren, len equals getline, open paren, line, comma, maxlen, close paren, close paren, greater than or equal to zero, close paren.
+ If open paren, nlines greater than or equal to maxlines, close paren, return, open paren, minus one, close paren, semicolon.
+ Else if, open paren, open paren, p equals alec, open paren, len, close paren, close paren, double equals null, close paren, return, minus one.
+ So those two tests basically make sure that we don't get too many lines and that we have enough space in our dynamic data area that alec is managing for us.
+ So continuing with the if, where the else opens curly brace, line, sub, len, minus one, equals, quote, backslash, zero, quote, semicolon, stir copy, p, comma, line, close paren, semicolon, line, ptr, sub, nlines, plus, plus, equals, p, semicolon, close curly brace, that finishes the else segment.
+ Return nlines, semicolon, and close curly brace to finish the read lines function.
+ Now, at a high level, we're reading a line into allocated automatic variable line, and then we are calling alec to get another place to copy that line, then we're making a copy of that line, and then we are remembering the pointer to the beginning of that line in line ptr, and that's the essence of it.
+ Okay.
+ Right lines, open paren, line, ptr, comma, nlines, close paren, char, star, line, ptr, open square bracket, close square bracket, semicolon, again, an array of pointer characters, int, nlines, semicolon, which is the number of character pointers in line ptr.
+ Open curly brace, int, i, semicolon, for, paren, i equals zero, semicolon, i less than nlines, semicolon, i plus plus, close paren, printf, open paren, double quote, percent s, backslash n, double quote, comma, line ptr, sub i, close paren, semicolon, close curly brace.
+ A simple loop that goes through the array of character pointers and then prints each one out using printf.
+ The main new thing is the declaration for line ptr, char, star, line, ptr, sub, open square bracket, lines, close square bracket, semicolon.
+ It says that line ptr is an array of lines elements, each element of which is a pointer to a char. That is, line ptr sub i is a character pointer and star line ptr sub i accesses a character.
+ Since line ptr itself is an array that was passed to right lines, it can be treated as a pointer exactly in the same manner as our earlier examples and the function can be written instead as right lines, open paren, line ptr, comma, nlines, close paren,
+ char, star, line ptr, open square bracket, close square bracket, semicolon, int, nline, semicolon, open curly brace, while, open paren, minus, minus nlines, greater than or equal to zero, close paren, printf, open paren, double quote, percent s, backslash n, double quote, comma, star, line ptr, plus plus, close paren, semicolon.
+ That code, by the way, was on page 108, example 1 of the textbook.
+ Star line ptr points initially to the first line, but each increment of line ptr advances it to the next line while nlines is counted down.
+ With input and output under control, we can proceed to sorting.
+ The shell sort from chapter 3 needs minor changes. The declarations have to be modified and the comparison operation must be moved into a function, but the basic algorithm remains the same, which gives us some confidence that it will still work.
+ And this is the second example on page 108 of the textbook, and you can see this example at www.cc4e.com/code. Sort, open paren, v, comma, n, close paren, char, star, v, open square bracket, close square bracket, semicolon, int, n, semicolon, open curly brace.
+ So we're getting an array of pointers to the beginnings of lines and how many of those pointers matter.
+ And the rest of it is shell sort with the stir comp being used to do the string comparison.
+ So it's a three nested for loop with a simple if test in it.
+ So here we go. Open curly brace for the sort function, int, gap, comma, i, comma, j, semicolon, char, star, temp, semicolon, and that's a pointer to a character.
+ For open paren, gap equals n over two, slash, semicolon, gap greater than zero, semicolon, gap slash equals two, close parenthesis. For i equals gap, semicolon, i less than n, semicolon, i plus plus, close parenthesis.
+ For open paren, j equals i minus gap, semicolon, j greater than or equal to zero, semicolon, j minus equals gap, close paren, open curly brace.
+ So that's sort of the shell part of the shell sort and now we have to do our comparison. If open paren, stir comp, open paren, v sub j, comma, v sub j plus gap, close paren, less than or equal to zero, close paren, break.
+ And note that that's only breaking the third deep for loop, which it just goes and then runs the next iteration of the second for loop.
+ Now we do the swapping. Temp equals v sub j, semicolon, v sub j equals a v sub j plus gap, semicolon, v sub j plus gap equals temp.
+ Now that's just swapping pointer values. So the strings that are pointed to by these two pointers, v sub j and v sub j plus gap, if they're out of order, we're going to swap the pointers in the array and move them.
+ But if you then go through like we did in write lines earlier, then they come out in order.
+ But we literally read the data once. We copy it once into its final destination using alloc and stir copy.
+ But once we sort it, which is the most complex part of the calculation, we're only moving the pointers back and forth.
+ So this sort is very efficient and requires no extra memory than what we had before the sort.
+ So that's really nice and it sorts in place. So back to the text.
+ Since any individual element of v, which is an alias to line pointer, ptr, is a character pointer, temp should also be one so one can be copied to the other.
+ We wrote the program about as straightforwardly as possible so as to get it working quickly.
+ It might be faster, for instance, to copy the incoming lines directly into an array made by read lines rather than copying them into line and then to a hidden place maintained by alloc.
+ But it's wiser to make the first draft of something easy to understand and worry about efficiency later.
+ The way to make this program significantly faster is probably not by avoiding an unnecessary copy of the input lines,
+ just instead replacing the shell sort by something quicker and better like quick sort is much more likely to make a real difference that matters.
+ In chapter one, we pointed out that because while in for loops test the termination condition before executing the loop body even once,
+ they help to ensure that the programs will work at their boundaries, in particular with no input.
+ It's illuminating to walk through the functions of the sorting program, checking what happens if there is no input text at all.
+ Section five point nine initialization of pointer arrays.
+ Consider the problem of writing a function month name, open paren and closed paren, which returns a pointer to a character string containing the name of the month.
+ This is an ideal application for an internal static array.
+ Month name contains a private array of character strings and returns a pointer to the proper one when called.
+ The topic of this section is how that array of names is initialized.
+ The syntax is quite similar to the previous initializations.
+ This is sample code from page 109 of the textbook, which you can see at www.cc4e.com/code.
+ Char, star, month name, open paren, closed paren. The return value for this function is a character pointer.
+ Int, n, semicolon, open curly brace.
+ Static char, star name, open square bracket, closed square bracket, equals open curly brace.
+ Quote, illegal month, quote, comma. Double quote, January, double quote, comma. Double quote, February, double quote, comma.
+ And so forth, down to double quote, December, double quote, closed curly brace, semicolon.
+ The body of the function is one line.
+ Return, open paren, open paren, n less than 1 or n greater than 12, closed paren, question mark, name sub 0, colon, name sub n, closed paren, semicolon, closed curly brace.
+ The declaration of name, which is an array of character pointers, is the same as line PTR in the sorting example.
+ The initializer is simply a list of character strings, each assigned to the corresponding position in the array.
+ More precisely, the characters of the ifh string are placed somewhere else and a pointer to them is stored in name sub i.
+ Since the size of the array name is not specified, the compiler itself counts the initializers and fills in the correct number.
+ Section 5.10, pointers versus multi-dimensional arrays.
+ Newcomers to C are sometimes confused about the difference between a two-dimensional array and an array of pointers, such as name in the example above.
+ Given the declarations int, a, open square bracket, 10, closed square bracket, open square bracket, 10, closed square bracket, semicolon, and int star b, open square bracket, 10, closed square bracket, semicolon,
+ the usage of a and b may be similar in that a sub 5, 5 and b sub 5, 5 are both legal references to a single integer.
+ But a is a true array. All 100 storage cells have been allocated, and the conventional rectangular substrip calculation is done to find any given element.
+ For b, however, the declaration only allocates 10 pointers. Each must be set to point to an array of integers.
+ Assuming that each does point to a 10-element array, then there will be 100 storage cells set aside, plus the 10 cells for the pointers.
+ Thus, the array of pointers uses slightly more space and may require an explicit initialization step.
+ But it has two advantages. Accessing an element is done by indirection through a pointer rather than by a multiplication and an addition, and the rows of the array may be of different lengths.
+ That is, each element of b need not point to a 10-element vector. Some may point to two elements, others may point to 20, and some to none at all.
+ Although we have phrased this discussion in terms of integers, by far the most frequent use of arrays of pointers is like that shown in monthname, to store character strings of a diverse length.
+ Section 5.11, command line arguments. In environments that support c, there is a way to pass command line arguments or parameters to a program when it begins executing.
+ When main is called to begin execution, it is called with two arguments. The first, conventionally called argc, is the number of command line arguments the program was invoked with.
+ The second, argv, is a pointer to an array of character strings that contain the arguments, one per string.
+ Manipulating these character strings is a common use of multiple levels of pointers.
+ I would note that back in 1978, the two largest bodies of C code were likely the AT&T Unix kernel itself, and Unix utilities like grep, ls, or the login shell.
+ So writing an operating system was fresh on the mind of the authors while writing this book. These topics find their way into the text of this book.
+ In a sense, a likely second-order goal of the book was to train programmers that might learn C, and then might help build and maintain Unix.
+ The 1978 edition of this textbook fits nicely into a series of AT&T Bell Labs technical reports like "The Portability of C Programs in the Unix System," written by Stephen C. Johnson and Dennis M. Ritchie, published in the Bell System Technical Journal, Volume 57, Number 6, Part 2, July through August 1978, pages 2021 through 2048.
+ You can see this one online if you search for it.
+ Back to the textbook.
+ The simplest illustration of the necessary declarations and use is in the program echo, which simply echoes its command line arguments in a single line separated by blanks.
+ That is, if the command echo "hello, world" is given, the output is "hello, world."
+ By convention, argv sub 0 is the name by which the program was invoked, so argc is at least 1.
+ In the above example, argc is 3, and argv sub 0, argv sub 1, and argv sub 2 are echo, "hello, comma," and world, respectively.
+ The first real argument is argv sub 1, and the last is argv sub argc minus 1.
+ And if argc is 1, there are no command line arguments after the program name.
+ This is shown in the source code to echo, and this source code is on page 111 of the textbook, and you can see this source code at www.cc4e.com/code.
+ #include stdio.h, #include string.h, main open paren argc comma argv close paren int argc semicolon char star argv open square bracket close square bracket semicolon open curly brace int i semicolon
+ for open paren i equals 1 semicolon i less than argc semicolon i plus plus close paren printf open paren double quote percent s percent c double quote comma
+ argv sub i comma open paren i less than argc minus 1 close paren question mark single quote space single quote colon single quotes backslash n single quote close parenthesis semicolon close curly brace to end it.
+ Since argv is a pointer to an array of pointers, there are several ways to write this program that involve manipulating the pointer rather than indexing an array.
+ Let us show two variations, and this is the example number two on page 111 of the textbook. #include stdio.h, #include string.h, main open paren argc comma argv close paren int argc semicolon char star argv open square bracket close square bracket semicolon open curly brace.
+ While open paren minus minus argc greater than zero close paren printf open paren double quote percent s percent c double quote comma star plus plus argv comma open paren argc greater than one close paren question mark single quote space single quote colon single quote backslash n single quote close paren semicolon close curly brace.
+ Since argv is a pointer to the beginning of an array of argument strings, incrementing it by one plus plus argv makes it point at the original array argv sub one instead of argv sub zero.
+ Each successive increment moves it along to the next argument.
+ Star argv is then the pointer to that argument. At the same time, argc is decremented, and when it becomes zero, there are no arguments left to print.
+ Another version, the third version on page 111 of the textbook. #include stdio.h, #include string.h, main open paren argc comma argv close paren int argc semicolon char star argv open square bracket close square bracket semicolon open curly brace.
+ While open paren minus minus argc greater than zero close paren printf open paren open paren argc greater than one close paren question mark double quote percent s blank double quote colon double quote percent s backslash n double quote comma star plus plus argv close paren semicolon close curly brace.
+ This version shows that the format argument of printf can be an expression just like any of the others. This usage is not very frequent, but worth remembering.
+ As a second example, let's make some example enhancements to the pattern finding program from Chapter 4. If you recall, we wired the search pattern deep into the program, and this is an obviously unsatisfactory arrangement for flexible code.
+ Following the lead of the Unix utility grep, which stands for the generalized regular expression parser, let us change the program so that the pattern to be matched is specified by the first argument on the command line.
+ This is example one on page 112 of the book, which you can see at www.cc4e.com/code pound include stdio.h, pound include string.h, pound to find max line 1000 main open paren argc comma argv close paren int argc semicolon char star argv open square bracket close square bracket semicolon open curly brace.
+ Char line open square bracket max line close square bracket semicolon.
+ If open paren argc not equal to close paren printf double quote usage colon find pattern backslash n double quote close paren semicolon.
+ While open paren get line open paren line comma max line close paren greater than zero close paren if index open paren line comma argv sub one close paren greater than or equal to zero close paren printf open paren double quote percent s double quote comma line close paren semicolon close curly brace.
+ The basic model can now be elaborated to illustrate further pointer constructions.
+ Suppose we want to allow two optional arguments.
+ One says print all the lines except those that match the pattern.
+ The second says precede each printed line with its line number.
+ A common convention for C programs is that an argument beginning with a minus sign introduces an optional flag or parameter.
+ If we choose minus x for except to signal the inversion and minus n number to request line numbering then the command find space minus x space minus n the with the input.
+ Now is the time for all good men to come to the aid of their party should produce to comma for all good men.
+ Optional arguments should be permitted in any order and the rest of the program should be insensitive to the number of arguments which were actually present.
+ In particular, the call to index should not reach for to argv sub two where a single flag argument and to argv sub one when there was no single flag.
+ Furthermore, it's convenient for users if option arguments can be concatenated as in find space dash nx space the. Here is the program.
+ And this program is on page 113 of the textbook.
+ And it is complex enough that I suggest that you take a look at it at www.cc4e.com/code.
+ It's it's about 35 lines long.
+ The commentary on the program.
+ Hopefully now you're watching looking at it argv is incremented before each optional argument and argc is decremented.
+ If there are no errors at the end of the loop argc should be one and star argv should point to the point to the pattern.
+ Note that star plus plus argv is a pointer to an argument string.
+ Open paren star plus plus argv close paren open square bracket zero square square bracket is its first character.
+ The parentheses are necessary for without them.
+ The expression would be star plus plus open paren argv sub zero close paren which is quite different and wrong.
+ An alternate valid form would be star star plus plus argv.
+ Section five point twelve pointers to functions and see a function itself is not a variable.
+ But it is possible to define a pointer to a function which can be manipulated passed to functions placed in arrays and so on.
+ We will illustrate this by modifying the sorting procedure written earlier in this chapter so that if the optional argument minus n is given it will sort the input lines numerically instead of lexographically.
+ A sort often consists of three parts a comparison which determines the ordering of any pair of objects an exchange which reverses their order and a sorting algorithm which makes comparisons and exchanges until the objects are in order.
+ The sorting algorithm is independent of the comparison and exchange operations.
+ So by passing different comparison and exchange functions to it we can arrange to sort by different criteria.
+ This approach is taken in our new sort.
+ The lexographic comparison of the two lines is done by stir comp and swapping by swap as before.
+ We will also need a routine num comp which compares two lines on the basis of numeric value and returns the same kind of condition indication as stir comp does.
+ These three functions are declared in main and pointers to them are passed to sort.
+ Sort in turn calls the functions via pointers.
+ We have skimped on error processing for argument so as to concentrate on the main issues.
+ This sample code is from page 115 of the textbook which you can view at www.cc4e.com/code.
+ #include stdio.h, #include string.h, #define lines 100, main open paren argc comma argv close paren int argc semicolon char star argv open square bracket close square bracket semicolon, open curly brace, char star line ptr open bracket lines close square bracket semicolon.
+ This is the pointers to the text lines so we're going to be reading in the lines saving them and keeping an array of the pointer and then we're going to sort that way.
+ Int n lines semicolon int stir comp open paren close paren comma num comp open paren close paren which are comparison functions.
+ Int swap open paren close paren semicolon int numeric equals zero and this is going to be one if it's a numeric sort.
+ First we parse the arguments.
+ If open paren argc greater than one ampersand ampersand argv sub one sub zero equal equal quote minus quote and argv opens bracket one close bracket open bracket one close bracket double equals quote and quote close paren numeric equals one.
+ If open paren open paren n lines equals read lines open paren line ptr comma lines close paren close paren greater than or equal to zero close paren open curly brace.
+ If open paren numeric close paren sort open paren line ptr n lines num comp comma swap close paren semicolon else sort open paren line ptr comma n lines comma stir comp comma swap close paren write lines line ptr comma n lines close paren.
+ Close curly brace else printf open paren double quote input too big to sort backslash n double quote close paren semicolon stir comp num comp and swap are addresses of functions.
+ Since they're known to be functions the ampersand operator is not necessary in the same way that it is not needed before an array name.
+ The compiler arranges for the address of the function to be passed.
+ The second step is to modify our sort function and this is the first example on page 116 of the textbook.
+ Sort open paren v comma n comma comp comma exch exchange close paren char star v open square bracket close square bracket semicolon that's our pointer array of pointers int and semicolon.
+ Int open paren star comp close paren open paren close paren comma open paren star exchange close paren open paren close paren semicolon that declared the type and the fact that these are pointers to functions.
+ It's a little more complex here in the call to code.
+ Open curly brace int gap comma i comma j semicolon and now we're going to do the three nested for loops for the quick sort no shell sort.
+ And then the only really change is in the code checking to see if the two items pair of items are out of order and then what we do.
+ For open paren gap equals n over 2 semicolon gap greater than 0 semicolon gap slash equals 2 close paren.
+ For open paren i equals gap semicolon i less than n semicolon i plus plus close paren.
+ For open paren j equals i minus gap semicolon j greater than or equal to 0 semicolon j minus equals gap close paren open curly brace.
+ Now here starts the different code.
+ If open paren open paren star comp close paren open paren v sub j comma v sub j plus gap close paren less than or equal to 0 close paren break.
+ Open paren star ex exchange close paren open paren ampersand v sub j comma ampersand v sub j plus gap close paren semicolon close curly brace the for loop and then close curly brace for the sort function.
+ And so really all we're doing is we're checking the order of the two items v sub j and v sub j plus gap and if they're out of order i.e. less than or equal to 0.
+ I mean greater than or equal to greater than 0 then we just exchange them with the provided exchange function.
+ And so the key thing here is it looks exactly like the previous time we wrote this code except we're calling the pointer to the comparison function and the pointer to the exchange function.
+ Which is makes this flexible so it can handle different kinds of data.
+ Back to the textbook.
+ The declaration should be studied with some care int open paren star comp close paren open paren close paren says that comp is a pointer to a function that returns an int.
+ The first set of parentheses are necessary without them int star comp open paren close paren would say that comp is a function returning a pointer to an int which is a quite different thing.
+ The use of comp in the line if open paren open paren star comp close paren open paren v sub j comma v sub j plus gap close paren less than or equal to 0 close paren is consistent with the declaration.
+ Comp is a pointer to the function and star comp is the function and open paren star comp close paren open paren v sub j comma v sub j plus gap close paren is the call to it.
+ The parentheses are needed so the components are correctly associated.
+ We've already shown stir comp which compares two strings. Here is num comp which compares two strings on a leading numeric value.
+ This is sample code from page 117 of the textbook which you can see at www.cc4e.com/code.
+ Num comp open paren s1 comma s2 close paren char star s1 comma star s2 semicolon open curly brace double a to f open paren close paren comma v1 comma v2 v1 equals a to f open paren s1 close paren semicolon v2 equals a to f open paren s2 close paren semicolon.
+ If open paren v1 less than v2 close paren return open paren minus 1 else if open paren v1 greater than v2 close paren return open paren 1 close paren semicolon else return open paren 0 close paren semicolon close curly brace.
+ The final step is to add the function swap which exchanges the two pointers. This is adapted directly from what we presented earlier in the chapter.
+ Swap open paren px comma py close paren char star px open square bracket close square bracket comma star py open square bracket close square bracket semicolon open curly brace char star temp semicolon temp equals star px semicolon star px equals star py semicolon star py equals temp semicolon close curly brace.
+ There are a variety of other options that can be added to the sorting program. Some make challenging exercises.
+ This work is based on the 1978 C programming book written by Brian W. Kernigan and Dennis M. Ritchie. Their book is copyright all rights reserved by AT&T, but is used in this work under fair use because of the book's historical and scholarly significance, its lack of availability, and the lack of an accessible version of the book.
+ The book is augmented in places to help understand its right place in historical context amidst the major changes of the 1970s and 1980s as computer science evolved from a hardware-first vendor-centered approach to a software-centered approach where portable operating systems and applications written in C could run on any hardware.
+ This is not the ideal book to learn C programming because the 1978 edition does not reflect the modern C language. Using an obsolete book gives us an opportunity to take students back in time and understand how the C language was evolving as it laid the groundwork for a future with portable applications.
+ [music]

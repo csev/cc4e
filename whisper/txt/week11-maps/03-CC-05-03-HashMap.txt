@@ -1,0 +1,150 @@
+ So now that we understand what a hash function is, we're going to actually build our hash map implementation.
+ But what we're really going to do is make a copy of our list map code and change as few things as possible.
+ You'll be impressed with how easy this really is if you have a bit of working list map code.
+ This is the new constructor, and I can call your attention to the changes, right?
+ Remember, we have a number of buckets. We have however many buckets we have.
+ We have eight heads and eight tails. So we're going to look at the constructor, so we're going to allocate a hash map.
+ It's not that big, right? It's still got the functions for our encapsulation to put, get, size, dump, and iter.
+ That's not changed at all, except it's called hash map instead of list map. The buckets are set to eight.
+ We're going to initialize all eight buckets to have a head of null and a tail of null.
+ Because remember, this is just eight linked lists, and the count is set to zero.
+ Pretty straightforward, especially if you understand the hash list, and if you don't, go back and watch that lecture.
+ Don't just like go, "Oh, I didn't understand what a hash list was. I'll just keep on not understanding and use chat GPT."
+ It's like, "Well, I don't know what to do if that's how you're going to go through this assignment."
+ But if you have and understand a working hash list, this is easy, easy, easy.
+ We've been using list map find before, and all it does is it finds a hash map entry if it's already there.
+ And so we send in the whole hash map self, which is very, you know, Python object-oriented pattern where the first parameter is always self.
+ We have a key we're looking up, and then we're telling it to start in a particular bucket.
+ And that's the real change. If you have hash list find, it doesn't have a bucket. Hash map find has a bucket.
+ And so this code is exactly the same as hash list find, except instead of starting at head, we have an array of heads and we use bucket to figure out the thing.
+ And then we loop through it. We're in the right bucket. Something above us figured out what bucket to go through.
+ And so if we look at hash map get, which is taking a key and having it fall and having a self, we say, hey, compute the bucket from the key and however many buckets we have, which in this case might be eight.
+ And then we do a struct hash map star retval, go find it, passing in the bucket. If the return is null from find, we return the default, otherwise return the value.
+ So, again, there's one line changed between the code from list map get to hash map get.
+ So let's do a quick review of what we do in map put. Now, this is not the hash map put. This is map put. This is our list map put.
+ So we call find. If we find it, then we're just going to update the value and we're done. If we don't find it, we allocate the new entry.
+ We set it's next to null and we link it into the list. And this is the place where you should be drawing a picture.
+ If the head is null, that means we have an empty list, then self head is this new thing. If the self tail is not equal to null, we've linked it at the end, then we're going to update the tail, et cetera.
+ So draw these pictures. And these are the parts where you'll mess it up. You will get these wrong. And it's OK to get these wrong.
+ Put like a print statement in every line here if you're having trouble. Right. And you got all the cases in this nice little four lines of code captures the cases. OK.
+ So remember, we're inserting at the end. So what do we do for hash map put? We have a bucket. We're going to run a hash computation to figure out which bucket it is.
+ Then we're going to call hash map find and we just tell it to find it in the bucket. So in the linked list, sub three or sub four or whatever.
+ And if we found it, we update the value in return. Otherwise, it's time to insert. So we allocate a new one. We said it's next to null.
+ And then we know which bucket it is. So in this, we looked at the previous code. It was for one linked list. And for this current code, there's eight linked lists.
+ But we already know which linked lists we're dealing with. And so literally, you can take the word head and change it to head sub bucket.
+ Everywhere you see head here, you can change it to head sub bucket, tail sub bucket. And literally when I wrote this code, that is exactly what I did.
+ I did it slowly not to mess up. And of course, the compiler helped me if I forgot something.
+ But that's as simple as it is to transform the put from a list map to a hash map. Of course, the dump we have to do a little bit differently.
+ We want to show all the buckets. And so we are showing what bucket it is, the key value pair. But other than that, it's it's really pretty straightforward stuff to do the hash map dump.
+ Remember, I told you that writing a debug tool is essential. So you can change your main code to dump, dump, dump, dump, dump, because you'll mess it up, right?
+ You will not write this code perfectly and you need to be able to debug it. So now let's take a bit of a review of the list map iterator.
+ So recall that the iterator is its own object. We've got the entry, we've got the iterator, and we got the map itself.
+ And the map iterator is allowed to do all the internal stuff because whoever's writing these things, writing them in a group so we can think of as like a protected value.
+ And so really, the essence of the map iteration iterator is a current. So we're going to call the public part of it is next and del.
+ And the private part is what the current thing is, because we're going to we don't get to see the current, but we can use next to get the current back.
+ And so the idea is, is we can call next, next, next, next, next, rather than looking at current.
+ Recall that the way the iterator works is you ask for the iterator and then you hit the iterator with the next and you go until you're done.
+ And when you find something, you print it out. We can do the same thing in C and as well as Python.
+ If we think about how to do the iterator for a hash map, it's a little different.
+ We must move, we must start at generally we start the first bucket and we must move through all the buckets.
+ Eventually, we've got to get to because we got, you know, eight or four linked lists, we got to go through all of them and we got to go down each of them.
+ But if we're looking for the next item and we got to skip empty buckets, so we kind of got a bit of a complex while operation.
+ And so one of the things we're going to do is when we create the map iterator, we are going to store a reference to the hash map.
+ So when we construct the map hash map iterator, we're going to know which bucket is an internal value.
+ Current is an internal value and map is an internal value, which we're going to use to remember that map that we're an iterator for.
+ And then we're going to have a next and a del. This is the constructor and we're saying make an iterator given a hash map.
+ We make the iterator structure. We remember a pointer to the map in case we're going to need it later.
+ The current bucket we're going to look at is zero and the current map entry is the head of the zero bucket.
+ And then next and del are just capsulated methods, basically, and then we return it.
+ Now, that first bucket may or may not be an empty list, right?
+ So that first, you know, there might be just one bucket, the third bucket might have a list in it and zero, one and two won't have anything in it.
+ So remember, so we're starting at the top bucket and our current is pointing to the head of the first bucket, which may be null.
+ The tricky bit is the iter next. And we remember we've given the map iterator, we don't get map, but we've stashed map in underscore map.
+ If self current equals null in the old days in a list map, we knew we were done and we could just return null.
+ But now we have to go down a bucket. So self, this is the iterator's bucket goes from like zero to one.
+ So we increment it. And if the self, the current bucket we're looking at in the iterator is greater than or equal to the maximum number of buckets,
+ we have now got to the last bucket and we return null.
+ And then what we do is we say, OK, that must mean we have more buckets.
+ So we say self current is equal self map. That's our little stashed version of the map.
+ And we're going to go, we've already incremented self bucket, and so we're going to grab the next head and then we're going to loop up to the top.
+ Now, at this point, if that bucket is empty, we're going to do it again.
+ And we're either going to go through this while loop enough times until we either have exhausted the buckets or we have found a bucket that has an entry in it.
+ Then we got to do a little trick, grab the current.
+ So the only way we're coming out of this loop is if self current is not null, because if self current was null,
+ we would have wild our way through and then return null eventually after we exhausted the buckets in the while loop above.
+ So the retval is self current. If self current is not equal to null, we're going to go to the next.
+ And then return retval. I've given you the code. Go through it carefully.
+ It's tricky to write. What I would do is I would like print this code out and draw the picture.
+ OK, draw the picture. So let's take a look at a hash map iterator in action.
+ So this is what it looks like when we just got constructed and we're in the first call to next.
+ Current is pointing at the first item in the first link list, the link head sub zero will fall through.
+ We look at this self current value and it's not equal to null, which is great, which means we have something to return.
+ So that so we don't have to go through the sort of scanning across null entries.
+ So we skip the while loop and we simply set retval to self current.
+ And if it's not equal to null, we advance that and then we return retval.
+ And so at the end, it looks like this. The current has been advanced to the to the next thing.
+ We're going to return on the second call. So the first call returns F equals 19.
+ That's the retval. And the next thing is going to be H equals 17.
+ But now we give it back to the calling code and away we go.
+ So now we come in. In the second call, it's going to do kind of the same thing.
+ Current is going to have pointed to H equals 17. It's not going to it's not null.
+ And so we simply take retval and be self current. And then we advance it as long as self current is not equal to null.
+ And because it was pointing to H equals 17, it is we're going to advance.
+ But now as we exit the second call, current is going to be null.
+ But we're going to take care of that on the third call. So don't worry about that.
+ Retval is H equals 17 and current equals null. So now we're done with the second call.
+ So now we come into the third call. And in this situation, we are pointing at the zero bucket and current is null.
+ So the while loop is going to take over. So while self current equals null, which is true right now,
+ we are going to run the code, say self bucket plus plus, which is the bucket number in the iterator.
+ And we're going to ask, is the bucket number in the iterator greater than or equal to the number of buckets in the map?
+ If we are, we're done. We're at the last one, but we're not. So we're not going to return null.
+ We're going to say self current equals self map head self sub bucket.
+ So we're going to go down to bucket sub one now and we are going to make current point at bucket, whatever the head of bucket one is.
+ And that's OK. We found an empty bucket because remember, I said you got to skip empty buckets.
+ But we're still in the while loop. So while goes up, says self current is still null.
+ I mean, I just moved to the next bucket, but self current is still null.
+ So I add one to the bucket. The bucket becomes two. We check to see if we're done.
+ If it's greater than or equal map buckets, return null, which it's not because we are we're at bucket one and self current is equal to self map.
+ Remember, map is our remembered version of the whole map so we can see all the heads because we've got to work through the heads.
+ So now self current points to B equals 14.
+ And now the while loop goes back up and now self current is not null because it's pointing to the B equals 14 item.
+ So it pops out of that while loop and drops down and says retval equals self current, which was B equals 14.
+ And then it advances self current and self current becomes null again.
+ But that's OK because we're going to return B equals 14 on the third call.
+ So just to review, we return F equals 19 on the first call.
+ We return H equals 17 on the second call and return B equals 14 on the third call.
+ And now it's going to loop back up and we're going to see the fourth call.
+ And so the fourth call is going to come in and current was D equals 21.
+ And so it's pretty simple. We're not going to run the while loop at this point.
+ We're going to return D equals 21. We're advanced current. So current is now pointing to null.
+ And now in the fifth call, current is null.
+ But now that's going to trigger us working in the while loop.
+ We're going to add one to the bucket. The bucket is going to become four.
+ And we say if this bucket inside this iterator is greater than the total buckets in the map, return null.
+ And we're now done. The fifth call returns null that tells the calling code that we are at the end of the list.
+ So if you keep yourself straight and you draw pictures like this and you think it through,
+ this is a surprisingly small amount of code to build a complete iterator for a hash map.
+ I kind of mentioned this in passing, but we still have more work to do.
+ A thing called rehashing. It's not that hard. And feel free to feel free to try it.
+ At some point, if these linked lists get too long, our performance starts to suffer.
+ And so one of the things that hashes do is in the middle of an insert, they'll have something we call a load factor.
+ It's like, whoa, this these buckets, we have each bucket would have a length and we might check all the bucket lengths.
+ And if it got to be like over 10 or 15 or something, we would go from we would have to rehash these things.
+ You don't have to reallocate. You just have to make go from four buckets to eight buckets.
+ And then you recalculate the hash modulo eight and figure out which bucket it belongs in and reconstruct all these things.
+ And so it's not impossible to do a rehash doubling the bucket and reducing the average chain length.
+ But we are not going to do that in this particular thing because we're going to keep it simple.
+ So the hash map iterator, while complex, is surprisingly simple.
+ It's really very similar to the list iterator.
+ The key thing is that we've got to have that while loop that sort of skips at the end of one list.
+ It's got to get to the beginning of the next list and it's got to skip empty buckets.
+ Now, this is why you can see because the things in the list are in somewhat random order.
+ The buckets, the mapping of any key to any bucket is in random order.
+ And this is why when you think of Python 2, we can look in Python 2 and we say,
+ oh, if you iterate through a map, they come out in the same order, but there is no predictable order.
+ But if you do it twice, you're going to get the same order.
+ And the fact that the order might change if you do inserts or deletes, that has to do with the rehashing.
+ So we're kind of at the point where we have built the two foundational types of Python 2.0.
+ We've built a list and we built a dictionary, Python 2.0.
+ Next, we're going to move like to Python 3.0 and start creating a linked list that maintains sorted order
+ and can be iterated in key order. And so that's going to be our treatment.

@@ -1,0 +1,87 @@
+ Hello and welcome to the lecture in C Programming for Everybody that I call The Epilogue.
+ And that's because this lecture happened after the course was completely finished. I have a saying
+ in my life that basically says that when you think you are finished with a journey,
+ often that's when you finally know where the journey actually begins. And that applies in C
+ Programming for Everybody because C Programming for Everybody for me was a four and a half year
+ project to create the book, create the auto graders, create the lectures, get it up on Coursera,
+ get it out on the internet, etc. And so I just was going through the class and at some point I ran
+ into chapter six of Carnegie and Ritchie and I'm like what will some good examples to use,
+ what are some good examples that I can use that will be relevant to the students who perhaps have
+ taken Python for Everybody. And I'm like well why don't we just implement some Python classes, we'll
+ see how complex they get, and if they get, if what works out well it talks about the concept of
+ interfaces and implementations, you know, and so I think it worked out really really well. And so as
+ we were going through chapter six of Carnegie and Ritchie, I built us a Python String class and you
+ can go back and you can watch those other ones as an extendable character array with some chunking
+ where it would allocate some space and then fill that space up and as that space filled up it would
+ extend it. And I made a list class and I used the linked list from Carnegie and Ritchie chapter six.
+ If you recall, I made an extra little bonus section 6.5.1 where I talked about linked list
+ explicitly because in the original Carnegie and Ritchie 1978 book, and I believe it's the
+ same in the 84, but I'm like I'm going to show you linked lists first and so I added this little
+ piece to the the Canon, the Carnegie and Ritchie Canon, I added that. I implemented the Python
+ dictionary using the technique of Carnegie and Ritchie 6.6, pretty much straight on. When I built
+ the Python String class, you'll notice that there's a structure that has a length and an alloc and the
+ alloc is how many characters we allocated and the length is how many of those we've used and we're
+ putting automatically a zero byte at the end of it. As you add things together, eventually you get
+ the length to be nine with a zero byte and the alloc is 10, which means we can't add the letter D
+ and so we use realloc to extend it and make it be 20 and then we have space to put both the letter D
+ and the end of String. We built the Python List class. It was so natural to just make it be a
+ linked list and linked list has two structs. One is the linked list itself that has a head pointer
+ and a tail pointer and a number of items that lets us give back len when we need to give len back,
+ but then every node we're going to just have a list of character strings or character arrays
+ and so we have a pointer to a character array and then we have a pointer to the next and so when we
+ sort of do our constructor, we allocate the object and then we set the head and the tail to null to
+ indicate that the list is currently empty and set the count to zero and we're done. And then as we
+ add things to the list, right, we have these pointers and we point the head to the beginning
+ of the list, the tail to the last item that we added and we store using malloc the strings so
+ that we get a pointer to a string that the list owns rather than the parameter which doesn't belong
+ to us and then we hook the next up and there's a little tricky stuff, right? If the string is empty,
+ which means head is null, then we just point head at the newly allocated node. If the tail is not
+ null, we take the last thing and point it to the one we just made and set tail to new and then we
+ allocate the string and then copy the text from the parameter into text and then we store that
+ as a pointer and then we update our count. Like if we add another one, you have to kind of graph the
+ new one in beyond the tail so the tail instead of being null now points to the one we just created,
+ the fun, and then we update tail to point to that and then the next on that one is zero because
+ that's our way of ending the list. And if we're going to iterate through this list, we start at
+ the head, look at the item, then we go to next and then we'll look at that item and then go to next
+ and look at that item and go to next and it's null and we're done. Again, we were able to build a
+ quite competent Python list object from that. And as you might expect, when we switch to building
+ the dictionary class, we just go into section 6.6 and go in and make a hash table with buckets and
+ it's literally the hash, the bucket-based hash map is probably the most common programming
+ interview question. Perhaps it's less common now because everyone knows that it's a programming
+ interview question, right? And so, you know, I just figured of course a dictionary is going to be a
+ set of buckets that are a set of pointers to lists. You know, recall that hashes are some function
+ that takes the key and creates a large pseudo-random number which means it's deterministic but it's
+ widely distributed with the idea of to limit collisions. So John Smith and Joe Smith hopefully
+ will hash differently even though they're very close, right? And so the way we did this, again,
+ following Kernigan and Ritchie, is we used the key computed a hash which is a large integer generally
+ but then we modulo it based on the number of buckets and so the buckets are in a sense four
+ linked lists. And if we wanted to write this code in a way, we could have kind of used the list object
+ and said here and be a little bit less repetitive but we just implemented the whole thing.
+ So if you look, we start with a struct krdict which has a number of buckets. It has four heads
+ and four tails and a count. And so it's just heads and tails of the way you do linked lists.
+ And if you look at the node, we're going to do key and value and I'm going to make it be a string key
+ and an integer value again to simplify, right? And the char star key is a pointer to a key that
+ we're going to save. And if we look at the new operation, we allocate the actual dictionary
+ object. We decide how many buckets we're going to have. The way I define struct krdict, it's just a
+ four element array. Then we set them all to null so that we know that they're empty because it's
+ important to know if the heads and tails and each of the linked lists are empty. Now one thing is
+ this doesn't have any expansion mechanism and so I just wanted to keep it really simple to show you
+ the data structure so I kind of like punted on rehashing an expansion. And then we set the count
+ to zero and then we return it. As we're inserting things in, right, we use the hash to figure it out
+ and then we simply have four linked lists. So if you were to compare the krlist code to the krdict
+ code, you would see that a lot of it looks the same except we're starting with a head that has
+ been chosen by a hash computation along with modulo based on the number of buckets. As I finished
+ all that up and I finished the class up, I wondered, I began to really wonder. I looked,
+ I started looking at it less from a C and KNR, Kernigan-Ritchie perspective, and more from a
+ Python perspective and I'm like did I just inadvertently do exactly what Guido van Rossum
+ did? Did Guido van Rossum read this book like most of us did in the 70s and 80s and did he just say
+ you know what I'm going to make a list object and it's going to be a linked list and I'm going to
+ make a hash object and it's going to be a set of buckets, linked lists and buckets like everybody
+ would do. So I decided I would ask Guido if I could come out to him and see him and talk to him
+ about the influence that Kernigan and Richie chapter 6 had on his design of Python and in
+ particular was my guess because I didn't look at the Python code to do this. I was really teaching
+ Kernigan and Richie chapter 6 and so up next we have the first of two interviews with Guido
+ asking about how he built his structures and whether or not my structures that I had just
+ guessed and assumed were even close and so we started the interview with me handing him a copy
+ of the Kernigan and Richie c-book which was signed and I left it with him and saying you know skim
+ through chapter 6 and tell me how chapter 6 affected how you built the original version of Python.

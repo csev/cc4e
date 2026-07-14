@@ -1,0 +1,1124 @@
+1
+00:00:00,000 --> 00:00:20,680
+ [MUSIC PLAYING]
+
+2
+00:00:20,680 --> 00:00:27,560
+ Where in the Python 001 did you start building the objects?
+
+3
+00:00:27,560 --> 00:00:31,600
+ And where did the objects come first, and then a syntax came?
+
+4
+00:00:31,600 --> 00:00:34,040
+ Or did you build a syntax, and then the objects?
+
+5
+00:00:34,040 --> 00:00:42,440
+ I think in my head, I had both.
+
+6
+00:00:42,440 --> 00:00:49,400
+ Because I was building a stripped down version of ABC.
+
+7
+00:00:49,400 --> 00:00:55,540
+ And I was very familiar with how ABC implemented
+
+8
+00:00:55,540 --> 00:00:57,840
+ its data structures.
+
+9
+00:00:57,840 --> 00:01:00,960
+ And I had pretty well-developed ideas
+
+10
+00:01:00,960 --> 00:01:08,560
+ about how I would do it instead of the ABC way,
+
+11
+00:01:08,560 --> 00:01:13,320
+ both for the syntax and for the data structures.
+
+12
+00:01:13,320 --> 00:01:18,920
+ So for the syntax, actually, my main gripe about ABC
+
+13
+00:01:18,920 --> 00:01:25,720
+ was that it used uppercase letters for the keywords
+
+14
+00:01:25,720 --> 00:01:27,360
+ of the language.
+
+15
+00:01:27,360 --> 00:01:30,840
+ They had a reason for that, but I
+
+16
+00:01:30,840 --> 00:01:32,600
+ didn't think it was a good reason.
+
+17
+00:01:32,600 --> 00:01:39,880
+ And it just looked horrible to a Unix hacker like myself.
+
+18
+00:01:39,880 --> 00:01:44,160
+ So that's what I wanted to change for the syntax.
+
+19
+00:01:44,160 --> 00:01:46,600
+ But I knew that I wanted to do the indentation.
+
+20
+00:01:46,600 --> 00:01:52,360
+ And I had already participated in the parser for ABC,
+
+21
+00:01:52,360 --> 00:01:54,000
+ so I knew how to do that stuff.
+
+22
+00:01:54,000 --> 00:02:00,000
+ I had some of my own ideas, but I knew what I wanted.
+
+23
+00:02:00,000 --> 00:02:06,240
+ I literally actually started with a parser.
+
+24
+00:02:06,240 --> 00:02:10,200
+ And actually, I started with a lexer and a parser.
+
+25
+00:02:10,200 --> 00:02:13,000
+ Those were actually the first bits of the language
+
+26
+00:02:13,000 --> 00:02:13,800
+ that I wrote.
+
+27
+00:02:13,800 --> 00:02:20,200
+ But before I started, I knew I had very specific ideas
+
+28
+00:02:20,200 --> 00:02:25,720
+ on how the primitive data types would be implemented.
+
+29
+00:02:25,720 --> 00:02:29,760
+ I would use the same reference count mechanism
+
+30
+00:02:29,760 --> 00:02:31,360
+ that I knew well from ABC.
+
+31
+00:02:31,360 --> 00:02:39,320
+ I would implement integers in a similar way,
+
+32
+00:02:39,320 --> 00:02:43,820
+ because I wanted--
+
+33
+00:02:43,820 --> 00:02:48,160
+ Integers would be an easy choice not to put in the object.
+
+34
+00:02:48,160 --> 00:02:52,320
+ Yeah, I wanted everything to be an object.
+
+35
+00:02:52,320 --> 00:02:57,800
+ That was also a thing I approved of about ABC.
+
+36
+00:02:57,800 --> 00:03:00,480
+ And I think I have to take it back
+
+37
+00:03:00,480 --> 00:03:04,400
+ about the arbitrary precision integers.
+
+38
+00:03:04,400 --> 00:03:07,400
+ Those came quickly, but I don't think
+
+39
+00:03:07,400 --> 00:03:11,800
+ that they came immediately.
+
+40
+00:03:11,800 --> 00:03:15,200
+ There was an integer type, which was 32 bits.
+
+41
+00:03:15,200 --> 00:03:17,720
+ There was a separate long type, which
+
+42
+00:03:17,720 --> 00:03:20,720
+ survived until the end of Python 2,
+
+43
+00:03:20,720 --> 00:03:22,320
+ which was arbitrary precision.
+
+44
+00:03:22,320 --> 00:03:25,240
+ And there was a flow type.
+
+45
+00:03:25,240 --> 00:03:30,960
+ Then for the more complex data structures--
+
+46
+00:03:30,960 --> 00:03:36,360
+ and the numeric types were not all that different
+
+47
+00:03:36,360 --> 00:03:41,160
+ or interesting, not that different from ABC.
+
+48
+00:03:41,160 --> 00:03:47,680
+ But for the rest, I sort of had seen
+
+49
+00:03:47,680 --> 00:03:51,600
+ what ABC did, which was that everything was implemented
+
+50
+00:03:51,600 --> 00:03:54,360
+ as a tree, even strings.
+
+51
+00:03:54,360 --> 00:03:57,520
+ And I did not like that, because I
+
+52
+00:03:57,520 --> 00:04:02,000
+ wanted to interface with system calls and C libraries.
+
+53
+00:04:02,000 --> 00:04:08,600
+ And I said, I want strings to be arbitrary length,
+
+54
+00:04:08,600 --> 00:04:11,560
+ but I want them to be a linear buffer.
+
+55
+00:04:11,560 --> 00:04:17,440
+ And so too bad if one string sort of requires
+
+56
+00:04:17,440 --> 00:04:21,640
+ allocating a large buffer at once.
+
+57
+00:04:21,640 --> 00:04:23,760
+ Most strings aren't that long.
+
+58
+00:04:23,760 --> 00:04:25,880
+ I'll make sure that it works for any size.
+
+59
+00:04:25,880 --> 00:04:30,800
+ But I'll optimize for the short strings that
+
+60
+00:04:30,800 --> 00:04:33,160
+ are the bread and butter of so many programs
+
+61
+00:04:33,160 --> 00:04:36,440
+ I imagine would be written in Python.
+
+62
+00:04:36,440 --> 00:04:40,760
+ That is a brilliant choice, but not automatic or intuitive,
+
+63
+00:04:40,760 --> 00:04:43,720
+ that that would be the right answer.
+
+64
+00:04:43,720 --> 00:04:47,800
+ Having sort of written a lot of C code
+
+65
+00:04:47,800 --> 00:04:52,400
+ and knowing that I wanted Python to be extensible with C,
+
+66
+00:04:52,400 --> 00:04:57,000
+ that was also one of the very early choices.
+
+67
+00:04:57,000 --> 00:05:03,840
+ I wanted to sort of link back to C code in a natural way.
+
+68
+00:05:03,840 --> 00:05:08,480
+ So the import system was part of that.
+
+69
+00:05:08,480 --> 00:05:13,520
+ So when Python was a month old or maybe two months old,
+
+70
+00:05:13,520 --> 00:05:16,600
+ if you were appending to a string in a loop,
+
+71
+00:05:16,600 --> 00:05:21,200
+ was it basically extending, reallocating, and copying?
+
+72
+00:05:21,200 --> 00:05:23,920
+ Now, strings were always immutable.
+
+73
+00:05:23,920 --> 00:05:29,840
+ Sorry, yes, it was calculating the size of the result,
+
+74
+00:05:29,840 --> 00:05:33,360
+ allocating a new string object, and then copying
+
+75
+00:05:33,360 --> 00:05:36,080
+ the two originals into that.
+
+76
+00:05:36,080 --> 00:05:39,400
+ There is a string resize internal operation
+
+77
+00:05:39,400 --> 00:05:45,160
+ that is sort of intended to be only used when you're building
+
+78
+00:05:45,160 --> 00:05:48,800
+ up a string before you've shown it to anyone else.
+
+79
+00:05:48,800 --> 00:05:54,400
+ And I needed that because I was envisioning an I/O system
+
+80
+00:05:54,400 --> 00:05:57,800
+ where you say, oh, I'm going to read a line
+
+81
+00:05:57,800 --> 00:06:00,200
+ and I don't know how long that line is going to be,
+
+82
+00:06:00,200 --> 00:06:02,480
+ or maybe I'm going to slurp an entire file
+
+83
+00:06:02,480 --> 00:06:06,440
+ into a single string and I don't know how long that file is.
+
+84
+00:06:06,440 --> 00:06:10,280
+ So I'm allocating a large enough buffer.
+
+85
+00:06:10,280 --> 00:06:12,740
+ I'm reading into that buffer.
+
+86
+00:06:12,740 --> 00:06:16,600
+ And then if it turns out that I allocated 1,000 bytes,
+
+87
+00:06:16,600 --> 00:06:19,200
+ but what I read was only 15 bytes,
+
+88
+00:06:19,200 --> 00:06:24,040
+ I reallocated to give the sort of remaining 85 or whatever,
+
+89
+00:06:24,040 --> 00:06:25,320
+ 900 bytes.
+
+90
+00:06:25,320 --> 00:06:27,800
+ Are we talking about your thinking
+
+91
+00:06:27,800 --> 00:06:31,200
+ before you released the very first version of Python,
+
+92
+00:06:31,200 --> 00:06:32,440
+ meaning you didn't like--
+
+93
+00:06:32,440 --> 00:06:34,160
+ at some point, you came back from vacation
+
+94
+00:06:34,160 --> 00:06:36,800
+ and you handed it to somebody at work.
+
+95
+00:06:36,800 --> 00:06:41,160
+ This is your thinking when there's only one person before
+
+96
+00:06:41,160 --> 00:06:42,600
+ even the 0.01--
+
+97
+00:06:42,600 --> 00:06:45,280
+ Oh, yeah, yeah.
+
+98
+00:06:45,280 --> 00:06:48,240
+ I wanted strings to be done that way,
+
+99
+00:06:48,240 --> 00:06:51,640
+ including the little detail that if you
+
+100
+00:06:51,640 --> 00:06:57,520
+ have a string of, say, 10 bytes, you allocate 11 bytes
+
+101
+00:06:57,520 --> 00:07:00,200
+ and you put a no byte at the end,
+
+102
+00:07:00,200 --> 00:07:05,840
+ just so that if you happen to want to pass that string
+
+103
+00:07:05,840 --> 00:07:09,040
+ to a C library function that expected
+
+104
+00:07:09,040 --> 00:07:13,640
+ zero terminated strings, no byte terminated strings,
+
+105
+00:07:13,640 --> 00:07:15,720
+ you wouldn't have to copy it.
+
+106
+00:07:15,720 --> 00:07:17,440
+ There might be a no byte in the middle,
+
+107
+00:07:17,440 --> 00:07:20,200
+ so things might still go wrong.
+
+108
+00:07:20,200 --> 00:07:26,840
+ But if you sort of knew or trusted that that wasn't the case,
+
+109
+00:07:26,840 --> 00:07:31,360
+ you wouldn't have to make a copy with one extra byte
+
+110
+00:07:31,360 --> 00:07:33,560
+ just to make sure that that no byte was there.
+
+111
+00:07:33,560 --> 00:07:37,080
+ The no byte is part of the data structure, only, of course,
+
+112
+00:07:37,080 --> 00:07:39,880
+ visible on the C side.
+
+113
+00:07:39,880 --> 00:07:42,320
+ So for lists, I had a similar idea.
+
+114
+00:07:42,320 --> 00:07:48,500
+ Again, lists in ABC were a tree structure
+
+115
+00:07:48,500 --> 00:07:53,480
+ that was sort of super efficient,
+
+116
+00:07:53,480 --> 00:07:58,920
+ even if you grew a very large list from small ones.
+
+117
+00:07:58,920 --> 00:08:01,680
+ And I thought that tree structure was way too complicated,
+
+118
+00:08:01,680 --> 00:08:06,680
+ so I said, OK, a list is a mutable data structure.
+
+119
+00:08:06,680 --> 00:08:10,880
+ That was sort of a concept that didn't really exist in ABC.
+
+120
+00:08:10,880 --> 00:08:13,600
+ In ABC, everything was immutable.
+
+121
+00:08:13,600 --> 00:08:17,520
+ I thought, well, pragmatically speaking,
+
+122
+00:08:17,520 --> 00:08:20,200
+ I prefer my larger data structures,
+
+123
+00:08:20,200 --> 00:08:23,600
+ meaning lists and dictionaries, to be mutable.
+
+124
+00:08:23,600 --> 00:08:25,120
+ And so the list was--
+
+125
+00:08:25,120 --> 00:08:28,760
+ the implementation was always just a pointer
+
+126
+00:08:28,760 --> 00:08:32,800
+ to a buffer that could be reallocated.
+
+127
+00:08:32,800 --> 00:08:35,000
+ We call it list in Python.
+
+128
+00:08:35,000 --> 00:08:40,400
+ It really is an array that just is an array of pointers.
+
+129
+00:08:40,400 --> 00:08:42,560
+ And each pointer points to an object.
+
+130
+00:08:42,560 --> 00:08:44,360
+ We know how long that array is.
+
+131
+00:08:44,360 --> 00:08:45,980
+ That's in the object header.
+
+132
+00:08:45,980 --> 00:08:49,960
+ And so if there's no room, we reallocate it.
+
+133
+00:08:49,960 --> 00:08:53,200
+ And if we throw something away from the middle,
+
+134
+00:08:53,200 --> 00:08:58,600
+ then we shift everything over, and we also reallocate.
+
+135
+00:08:58,600 --> 00:09:01,200
+ The only improvement that happened
+
+136
+00:09:01,200 --> 00:09:05,000
+ to that data structure in the last, well,
+
+137
+00:09:05,000 --> 00:09:11,560
+ let's say, 34 years is that the original implementation did not
+
+138
+00:09:11,560 --> 00:09:13,840
+ have over allocation.
+
+139
+00:09:13,840 --> 00:09:18,420
+ I was relying on realloc doing some kind of chunking.
+
+140
+00:09:18,420 --> 00:09:24,720
+ So if you realloc something from 1,000 bytes to 1,004 bytes,
+
+141
+00:09:24,720 --> 00:09:28,120
+ I imagine, well, internally, realloc probably
+
+142
+00:09:28,120 --> 00:09:33,120
+ aligns everything in chunks of 16 bytes or more.
+
+143
+00:09:33,120 --> 00:09:37,040
+ And so it's not going to move that memory in that sort of--
+
+144
+00:09:37,040 --> 00:09:41,800
+ eventually, that was shown to be either false or just
+
+145
+00:09:41,800 --> 00:09:43,120
+ inefficient.
+
+146
+00:09:43,120 --> 00:09:45,800
+ You assumed realloc would do it as well as you would have done
+
+147
+00:09:45,800 --> 00:09:48,480
+ it, but eventually, it didn't.
+
+148
+00:09:48,480 --> 00:09:49,800
+ It didn't, yeah.
+
+149
+00:09:49,800 --> 00:09:54,240
+ And so eventually, there are sort of internally,
+
+150
+00:09:54,240 --> 00:09:59,080
+ there are two sizes that are held in the list object header.
+
+151
+00:09:59,080 --> 00:10:02,720
+ One tells you what the length of the array
+
+152
+00:10:02,720 --> 00:10:05,720
+ is of the list is to the Python user,
+
+153
+00:10:05,720 --> 00:10:09,080
+ and the other one tells you how much space there
+
+154
+00:10:09,080 --> 00:10:12,520
+ is in the array, and the second is always larger than the first.
+
+155
+00:10:12,520 --> 00:10:13,960
+ And then--
+
+156
+00:10:13,960 --> 00:10:16,520
+ I'm shocked that it wasn't a linked list.
+
+157
+00:10:16,520 --> 00:10:17,080
+ Oh, really?
+
+158
+00:10:17,080 --> 00:10:18,360
+ Yeah, I'm shocked.
+
+159
+00:10:18,360 --> 00:10:19,440
+ Oh, I'm sorry.
+
+160
+00:10:19,440 --> 00:10:20,320
+ It's named list.
+
+161
+00:10:20,320 --> 00:10:23,920
+ But OK.
+
+162
+00:10:23,920 --> 00:10:26,240
+ Yeah, I know.
+
+163
+00:10:26,240 --> 00:10:27,400
+ I get what you're doing.
+
+164
+00:10:27,400 --> 00:10:31,560
+ So then talk through, as you built the earliest dictionary
+
+165
+00:10:31,560 --> 00:10:35,360
+ structure, what's different between that?
+
+166
+00:10:35,360 --> 00:10:40,760
+ So again, in ABC, dictionaries were trees,
+
+167
+00:10:40,760 --> 00:10:44,800
+ and in the case of dictionaries,
+
+168
+00:10:44,800 --> 00:10:47,400
+ they were kept in sorted order by the key.
+
+169
+00:10:47,400 --> 00:10:52,320
+ The key was always some orderable object.
+
+170
+00:10:52,320 --> 00:10:57,160
+ Well, I think in ABC, everything was comparable.
+
+171
+00:10:57,160 --> 00:11:00,200
+ At least two things of the same type.
+
+172
+00:11:00,200 --> 00:11:05,800
+ So ABC-- and again, I thought that was too complex,
+
+173
+00:11:05,800 --> 00:11:12,680
+ and I had skimmed at least Knuth volume 3, which explains
+
+174
+00:11:12,680 --> 00:11:15,360
+ the concept of hash tables.
+
+175
+00:11:15,360 --> 00:11:19,960
+ And I was familiar with hash tables in Perl,
+
+176
+00:11:19,960 --> 00:11:22,880
+ where I think they're called hashes.
+
+177
+00:11:22,880 --> 00:11:26,480
+ And so I just sort of--
+
+178
+00:11:26,480 --> 00:11:30,280
+ I leafed through the table of contents of Knuth volume 3,
+
+179
+00:11:30,280 --> 00:11:35,680
+ and I picked a hashing algorithm and sort of a hash table
+
+180
+00:11:35,680 --> 00:11:38,240
+ organization that felt right.
+
+181
+00:11:38,240 --> 00:11:45,440
+ And so I chose open hashing instead of sort
+
+182
+00:11:45,440 --> 00:11:50,400
+ of having separate linked lists for buckets.
+
+183
+00:11:50,400 --> 00:11:54,520
+ And the original hash algorithm for strings, at least,
+
+184
+00:11:54,520 --> 00:11:56,600
+ was something-- I don't know if I
+
+185
+00:11:56,600 --> 00:11:59,640
+ picked the hash function out of Knuth also,
+
+186
+00:11:59,640 --> 00:12:01,440
+ but I probably did.
+
+187
+00:12:01,440 --> 00:12:03,960
+ Between Python 3.7 and Python 3.8,
+
+188
+00:12:03,960 --> 00:12:07,520
+ dictionaries kept their order.
+
+189
+00:12:07,520 --> 00:12:08,480
+ Ah.
+
+190
+00:12:08,480 --> 00:12:10,120
+ Ah.
+
+191
+00:12:10,120 --> 00:12:11,800
+ Like, what happened?
+
+192
+00:12:11,800 --> 00:12:13,920
+ Was it the revenge of ABC?
+
+193
+00:12:13,920 --> 00:12:15,120
+ You know, meaning that trees--
+
+194
+00:12:15,120 --> 00:12:16,800
+ No.
+
+195
+00:12:16,800 --> 00:12:19,880
+ So it's a different kind of order.
+
+196
+00:12:19,880 --> 00:12:22,960
+ In ABC, the keys were sorted.
+
+197
+00:12:22,960 --> 00:12:32,360
+ So if you have numeric keys, if you have the 1, 12, and 500
+
+198
+00:12:32,360 --> 00:12:36,880
+ in your dictionary, in ABC at least,
+
+199
+00:12:36,880 --> 00:12:42,280
+ the keys are ordered 1, 12, 500, or 1, 2, 3, or whatever.
+
+200
+00:12:42,280 --> 00:12:47,560
+ And if you insert 11, it gets inserted between 1 and 12.
+
+201
+00:12:47,560 --> 00:12:51,760
+ On the other hand, in the newer Python dictionaries
+
+202
+00:12:51,760 --> 00:12:57,400
+ that preserve order, it is insertion order.
+
+203
+00:12:57,400 --> 00:13:01,840
+ So it is not made-- because the sort of--
+
+204
+00:13:01,840 --> 00:13:04,600
+ Python dictionaries don't require
+
+205
+00:13:04,600 --> 00:13:09,440
+ that the key type is sortable, is comparable.
+
+206
+00:13:09,440 --> 00:13:12,600
+ It only needs to be hashable.
+
+207
+00:13:12,600 --> 00:13:16,880
+ And so we can-- well, and of course, it needs to be--
+
+208
+00:13:16,880 --> 00:13:21,120
+ you need to have an equality comparison.
+
+209
+00:13:21,120 --> 00:13:23,040
+ Is this string equal to that string?
+
+210
+00:13:23,040 --> 00:13:26,000
+ But you don't need-- you never need to look at,
+
+211
+00:13:26,000 --> 00:13:29,440
+ is this string less than that string?
+
+212
+00:13:29,440 --> 00:13:34,280
+ So what did you do to make it keep insertion order?
+
+213
+00:13:34,280 --> 00:13:39,000
+ So that was in a time when I had long relinquished
+
+214
+00:13:39,000 --> 00:13:45,600
+ or delegated development of most of the basic data types.
+
+215
+00:13:45,600 --> 00:13:48,240
+ I think we had a developer in Japan
+
+216
+00:13:48,240 --> 00:13:54,800
+ who for years had been improving the efficiency
+
+217
+00:13:54,800 --> 00:13:57,440
+ of the dictionary type.
+
+218
+00:13:57,440 --> 00:14:03,000
+ And one of the problems of the original design
+
+219
+00:14:03,000 --> 00:14:05,840
+ with open hashing that I picked from Knuth
+
+220
+00:14:05,840 --> 00:14:08,900
+ is that it's pretty space inefficient.
+
+221
+00:14:08,900 --> 00:14:10,360
+ Because if you have--
+
+222
+00:14:14,840 --> 00:14:19,900
+ let's see if I can reconstruct-- for each key value pair,
+
+223
+00:14:19,900 --> 00:14:24,640
+ you have to have a pointer to the key.
+
+224
+00:14:24,640 --> 00:14:27,960
+ Let's be old-fashioned and say that's four bytes.
+
+225
+00:14:27,960 --> 00:14:29,480
+ You have a pointer to the value.
+
+226
+00:14:29,480 --> 00:14:31,400
+ That's another four bytes.
+
+227
+00:14:31,400 --> 00:14:35,600
+ Then you have the hash, which is another four bytes.
+
+228
+00:14:35,600 --> 00:14:41,000
+ So now the hash table is an array of structs
+
+229
+00:14:41,000 --> 00:14:43,720
+ that are each 12 bytes long.
+
+230
+00:14:43,720 --> 00:14:49,240
+ And for the hash table algorithm to the lookup and insertion
+
+231
+00:14:49,240 --> 00:14:53,360
+ and deletion algorithm to work at all,
+
+232
+00:14:53,360 --> 00:14:58,480
+ you can't have the table be more than 2/3 full.
+
+233
+00:14:58,480 --> 00:15:05,040
+ So that means that if you have an array of 1,000 entries,
+
+234
+00:15:05,040 --> 00:15:10,560
+ you can store at most 600 or 700 key value pairs.
+
+235
+00:15:10,560 --> 00:15:19,240
+ And so you have 300 or 400 times 24 bytes wasted space.
+
+236
+00:15:19,240 --> 00:15:25,920
+ And so our Japanese core dev figured out
+
+237
+00:15:25,920 --> 00:15:33,720
+ a way to have separate tables where the hash table only
+
+238
+00:15:33,720 --> 00:15:41,080
+ contained one thing and the actual key value pairs
+
+239
+00:15:41,080 --> 00:15:47,480
+ and hashes were kept in a table that had no holes in it.
+
+240
+00:15:47,480 --> 00:15:51,500
+ So they were basically kind of growing, filling, remembering.
+
+241
+00:15:51,500 --> 00:15:54,600
+ Everything is remembering where things are laid out.
+
+242
+00:15:54,600 --> 00:15:59,560
+ And so first, he stumbled upon sort of--
+
+243
+00:15:59,560 --> 00:16:04,600
+ I think he refined the algorithm a few times,
+
+244
+00:16:04,600 --> 00:16:06,940
+ having these separate arrays.
+
+245
+00:16:06,940 --> 00:16:12,000
+ And then he stumbled upon the property that, oh, hey,
+
+246
+00:16:12,000 --> 00:16:15,120
+ it happens to preserve insertion order.
+
+247
+00:16:15,120 --> 00:16:17,600
+ In the second table, for sure, right?
+
+248
+00:16:17,600 --> 00:16:20,280
+ Exactly, in the second table.
+
+249
+00:16:20,280 --> 00:16:23,720
+ Because the sort of the table in which you jump around
+
+250
+00:16:23,720 --> 00:16:30,480
+ based on the hash value now just has an index
+
+251
+00:16:30,480 --> 00:16:33,480
+ in into the other table.
+
+252
+00:16:33,480 --> 00:16:36,040
+ And so there is an additional space saving.
+
+253
+00:16:36,040 --> 00:16:43,680
+ Because if your hash table has less than 256 elements,
+
+254
+00:16:43,680 --> 00:16:48,480
+ that array only needs to have one byte for the index.
+
+255
+00:16:48,480 --> 00:16:53,440
+ And so there is like all kinds of cleverness there.
+
+256
+00:16:53,440 --> 00:16:58,200
+ It comes as a surprise to me that you don't do linked lists.
+
+257
+00:16:58,200 --> 00:16:59,280
+ Really?
+
+258
+00:16:59,280 --> 00:17:02,360
+ I could have told you that 10 years ago.
+
+259
+00:17:02,360 --> 00:17:04,960
+ That it doesn't do linked lists.
+
+260
+00:17:04,960 --> 00:17:06,600
+ I mean, I guess, and that has probably
+
+261
+00:17:06,600 --> 00:17:10,920
+ to do with your desire to interoperate the seed kind of
+
+262
+00:17:10,920 --> 00:17:15,040
+ just percolates through about blocks of things
+
+263
+00:17:15,040 --> 00:17:17,960
+ that can be extended and then filled in
+
+264
+00:17:17,960 --> 00:17:21,080
+ seem to be better than generic linked lists.
+
+265
+00:17:21,080 --> 00:17:25,720
+ What I didn't know at the time that that's also
+
+266
+00:17:25,720 --> 00:17:28,920
+ a good architecture for modern hardware,
+
+267
+00:17:28,920 --> 00:17:34,520
+ because you have better cache locality, which is not
+
+268
+00:17:34,520 --> 00:17:41,880
+ a concept that I think I even knew existed in '89.
+
+269
+00:17:41,880 --> 00:17:45,520
+ So I think I just avoided linked lists
+
+270
+00:17:45,520 --> 00:17:48,200
+ because I didn't like them for some other reason.
+
+271
+00:17:48,200 --> 00:17:49,200
+ That's cool.
+
+272
+00:17:49,200 --> 00:17:52,000
+ That's exactly-- well, it's not exactly what I hoped you'd say.
+
+273
+00:17:52,000 --> 00:17:54,640
+ I'd hope you'd do linked lists over and over and over again,
+
+274
+00:17:54,640 --> 00:17:57,000
+ because I just have assumed all my life that linked lists
+
+275
+00:17:57,000 --> 00:17:58,000
+ are the--
+
+276
+00:17:58,000 --> 00:18:00,720
+ linked lists and hash maps and linked lists on top of hash maps
+
+277
+00:18:00,720 --> 00:18:02,600
+ and linked lists, linked lists, linked lists.
+
+278
+00:18:02,600 --> 00:18:05,480
+ Because computer science thinks about linked lists all the time.
+
+279
+00:18:05,480 --> 00:18:08,920
+ There are plenty of pointers in Python,
+
+280
+00:18:08,920 --> 00:18:13,360
+ but sort of the classic linked list is not used much.
+
+281
+00:18:19,200 --> 00:18:22,560
+ [MUSIC PLAYING]
+

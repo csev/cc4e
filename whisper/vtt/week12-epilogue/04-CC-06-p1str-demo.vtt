@@ -1,0 +1,383 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.720
+ - Hello and welcome to a code walkthrough for C programming for everybody.
+
+00:00:05.720 --> 00:00:11.620
+ The code we're walking through is some of the epilogue code where we're comparing kind
+
+00:00:11.620 --> 00:00:19.620
+ of what I did in my chapter six Kearney and O'Ritchie stuff to what Guido tells us was
+
+00:00:19.620 --> 00:00:29.060
+ the Python 1 and then later the Python 3.7 approach to dictionaries, lists, and strings.
+
+00:00:29.060 --> 00:00:32.860
+ So what I'm going to go through right in this one is the string.
+
+00:00:32.860 --> 00:00:35.420
+ So let's take a look at that code.
+
+00:00:35.420 --> 00:00:41.680
+ This is basically the code that is the string code.
+
+00:00:41.680 --> 00:00:48.820
+ Now the pattern that I'm using here is a chunked array of characters.
+
+00:00:48.820 --> 00:00:53.500
+ And so like if you look at it, the string has some data.
+
+00:00:53.500 --> 00:00:57.760
+ But what we're adding for this particular one was something that Guido was very obsessed
+
+00:00:57.760 --> 00:01:02.220
+ with in the early Python version, again from ABC.
+
+00:01:02.220 --> 00:01:07.340
+ And the idea is that we use this thing called reference counting.
+
+00:01:07.340 --> 00:01:11.980
+ And it means that if you sort of assign something, you don't always have to copy all the data.
+
+00:01:11.980 --> 00:01:18.100
+ You can kind of copy a pointer instead, but then you have to be careful that reference
+
+00:01:18.100 --> 00:01:25.300
+ count because the del operation has to know when the reference count goes to zero.
+
+00:01:25.300 --> 00:01:32.140
+ So this pretty much looks like the code that I wrote sort of for the K&R book to implement
+
+00:01:32.140 --> 00:01:35.100
+ it with some reference counting.
+
+00:01:35.100 --> 00:01:42.000
+ And the easiest thing to do is look at the main code here.
+
+00:01:42.000 --> 00:01:46.100
+ And so we create a new string.
+
+00:01:46.100 --> 00:01:49.100
+ We dump it.
+
+00:01:49.100 --> 00:01:51.820
+ We add an H character.
+
+00:01:51.820 --> 00:01:53.420
+ We dump it.
+
+00:01:53.420 --> 00:01:58.100
+ We add LOWorld as a string, and we dump it.
+
+00:01:58.100 --> 00:02:02.060
+ And then we're going to set it to a new value.
+
+00:02:02.060 --> 00:02:05.340
+ But then here's the new part right here.
+
+00:02:05.340 --> 00:02:08.020
+ We're going to create this assignment.
+
+00:02:08.020 --> 00:02:15.620
+ And so this we're creating, we have a variable called x, which is a pointer to a P1STR.
+
+00:02:15.620 --> 00:02:19.760
+ And we have a variable called y, which is also a pointer to a P1STR.
+
+00:02:19.760 --> 00:02:27.240
+ So what this is is this is P1STR_ASSIGN, and we're passing in a pointer.
+
+00:02:27.240 --> 00:02:31.260
+ And so what's going to happen here is this is like, I'm going to increment the reference
+
+00:02:31.260 --> 00:02:32.260
+ count.
+
+00:02:32.260 --> 00:02:33.260
+ You're going to see this.
+
+00:02:33.260 --> 00:02:37.100
+ It's going to increment the reference count because now we're going to have two variables,
+
+00:02:37.100 --> 00:02:41.060
+ x and y, that are literally pointing to the same string.
+
+00:02:41.060 --> 00:02:45.500
+ So let's even run this code, okay?
+
+00:02:45.500 --> 00:02:49.220
+ So I've got it run here.
+
+00:02:49.220 --> 00:02:56.420
+ And so what we see in that last bit, when we make all the top bit here, is all on the
+
+00:02:56.420 --> 00:02:57.420
+ string x.
+
+00:02:57.420 --> 00:03:01.500
+ But the interesting part here is where we say string x equals a completely new string,
+
+00:03:01.500 --> 00:03:05.120
+ and we're pointing out the location in memory that that is.
+
+00:03:05.120 --> 00:03:09.860
+ And then after the assignment statement, we see string y equals a completely new string,
+
+00:03:09.860 --> 00:03:11.920
+ and it's at the same location.
+
+00:03:11.920 --> 00:03:15.620
+ But what we've done is we have incremented the reference count.
+
+00:03:15.620 --> 00:03:22.060
+ Then if you look at the main code, we del x, which was the original P1STR del x, which
+
+00:03:22.060 --> 00:03:23.280
+ is the original one.
+
+00:03:23.280 --> 00:03:29.740
+ And all we do is we decrement the reference count, but we don't actually deallocate data.
+
+00:03:29.740 --> 00:03:32.620
+ And then we still have the string y.
+
+00:03:32.620 --> 00:03:34.620
+ We shouldn't have the string x.
+
+00:03:34.620 --> 00:03:43.340
+ But then what happens when we delete y at the very end here, P1STR_DEL_Y, then it actually
+
+00:03:43.340 --> 00:03:45.860
+ frees the data.
+
+00:03:45.860 --> 00:03:53.540
+ And so the idea is we can copy a reference without copying all the data, have x pointing
+
+00:03:53.540 --> 00:03:57.460
+ to it, y pointing to it, with a reference count of 2.
+
+00:03:57.460 --> 00:03:59.700
+ And then we can free either x or y.
+
+00:03:59.700 --> 00:04:03.140
+ Instead of throwing away the data, that decrements the reference count.
+
+00:04:03.140 --> 00:04:06.740
+ So let's just sort of take a bit of a look.
+
+00:04:06.740 --> 00:04:10.980
+ Now most of this is the same as what we covered.
+
+00:04:10.980 --> 00:04:22.140
+ Like if we look at sort of the constructor, P1STR new, we allocate a buffer.
+
+00:04:22.140 --> 00:04:23.660
+ We allocate the object.
+
+00:04:23.660 --> 00:04:26.260
+ And then we allocate 10 bytes.
+
+00:04:26.260 --> 00:04:28.340
+ And we tell it that it's 10 long.
+
+00:04:28.340 --> 00:04:32.700
+ And we put a new end of string in there.
+
+00:04:32.700 --> 00:04:34.440
+ And we set the reference count to 1.
+
+00:04:34.440 --> 00:04:40.360
+ So as soon as we create it, we assume that this new is going to be assigned into a variable.
+
+00:04:40.360 --> 00:04:43.260
+ And then we make the reference count be 1.
+
+00:04:43.260 --> 00:04:50.320
+ And so if you look at the land and the dump and the et cetera, and you look at the append,
+
+00:04:50.320 --> 00:04:55.580
+ we see the append is pretty much a clone of what I did, where if we don't have enough
+
+00:04:55.580 --> 00:05:01.620
+ space, we allocate another block of 10, as Guido calls this chunking in the video.
+
+00:05:01.620 --> 00:05:03.100
+ And then we reallocate it.
+
+00:05:03.100 --> 00:05:04.460
+ And then we've got 10 more.
+
+00:05:04.460 --> 00:05:09.380
+ And so we can stick our character in to the end of it and add 1 to it.
+
+00:05:09.380 --> 00:05:11.860
+ And then we null terminate the string.
+
+00:05:11.860 --> 00:05:20.120
+ So that code is identical to what I did in the Carnegie and Ritchie book.
+
+00:05:20.120 --> 00:05:25.040
+ And so let's look at the assign code.
+
+00:05:25.040 --> 00:05:34.940
+ So this is the interesting thing, where P1STR_ASSIGN, we have one pointer.
+
+00:05:34.940 --> 00:05:37.380
+ And we're going to return this pointer.
+
+00:05:37.380 --> 00:05:43.320
+ So we have two variables pointing to the same block of dynamically allocated memory.
+
+00:05:43.320 --> 00:05:50.900
+ So when we're doing this assignment statement, in effect, y equals x, inside the object,
+
+00:05:50.900 --> 00:05:52.600
+ we don't need to worry too much about y or x.
+
+00:05:52.600 --> 00:05:56.980
+ But we do need to know that we are now referenced two places.
+
+00:05:56.980 --> 00:06:02.900
+ So every time we reference at a second or third reference, we just add 1 to the reference
+
+00:06:02.900 --> 00:06:03.900
+ count.
+
+00:06:03.900 --> 00:06:05.820
+ So self arrow refs plus plus.
+
+00:06:05.820 --> 00:06:07.100
+ And then we return it.
+
+00:06:07.100 --> 00:06:12.340
+ So then if we look at the code in the main program, where we're saying struct P1STR star
+
+00:06:12.340 --> 00:06:18.180
+ y equals P1STR_ASSIGN x, we could have said y equals x.
+
+00:06:18.180 --> 00:06:22.940
+ But we wanted to record the fact that we've added a reference so that we know that that
+
+00:06:22.940 --> 00:06:24.300
+ has reference count of 2.
+
+00:06:24.300 --> 00:06:27.860
+ So we don't inadvertently free the wrong thing.
+
+00:06:27.860 --> 00:06:32.540
+ And then the only other place that this gets interesting is in the Dell method.
+
+00:06:32.540 --> 00:06:36.380
+ So if we go into the Dell method, what's cool about this?
+
+00:06:36.380 --> 00:06:43.260
+ And this is where reference counts-- and so in our main code, we delete y with an underscore
+
+00:06:43.260 --> 00:06:44.260
+ Dell method.
+
+00:06:44.260 --> 00:06:45.260
+ We delete x.
+
+00:06:45.260 --> 00:06:46.360
+ We can do all that stuff.
+
+00:06:46.360 --> 00:06:50.540
+ And it's inside the object where these reference counts are being resolved.
+
+00:06:50.540 --> 00:06:55.440
+ And so what's cool about this is we're saying, OK, we're going to Dell x, which was the original
+
+00:06:55.440 --> 00:06:58.400
+ thing that we assigned it into.
+
+00:06:58.400 --> 00:07:04.060
+ And if the reference are greater than 1, we don't actually free any data.
+
+00:07:04.060 --> 00:07:07.540
+ We just decrement the reference count, and we're done.
+
+00:07:07.540 --> 00:07:11.580
+ And so that's where we see in the output, we see decrementing reference.
+
+00:07:11.580 --> 00:07:19.500
+ And you see all these addresses are the same-- 0, x, 6, 0, blah, blah, blah, 9, 1, c, 0.
+
+00:07:19.500 --> 00:07:21.620
+ And so they're being decremented.
+
+00:07:21.620 --> 00:07:24.880
+ And so the first free decrements it.
+
+00:07:24.880 --> 00:07:30.980
+ And that goes from 2 to 1, in this case, because the underscore assign incremented it.
+
+00:07:30.980 --> 00:07:33.500
+ And then the underscore Dell decremented it.
+
+00:07:33.500 --> 00:07:39.620
+ But then when we get the ref count to 1, that means we're, in effect, freeing the last reference.
+
+00:07:39.620 --> 00:07:41.780
+ So it prints out freeing reference.
+
+00:07:41.780 --> 00:07:43.020
+ And you can see it says freeing.
+
+00:07:43.020 --> 00:07:45.120
+ We're actually freeing the data.
+
+00:07:45.120 --> 00:07:47.700
+ And so that's where we do the free of self data.
+
+00:07:47.700 --> 00:07:53.060
+ And then we free the self to get rid of it, which is the code we did before.
+
+00:07:53.060 --> 00:08:04.660
+ And so the real essence of this code is the obsession with reference counting.
+
+00:08:04.660 --> 00:08:09.060
+ And that has to do with the fact that you want to be able to point multiple places to
+
+00:08:09.060 --> 00:08:14.500
+ the same string without wasting extra memory just to make a bunch of copies for no real
+
+00:08:14.500 --> 00:08:15.500
+ purpose.
+
+00:08:15.500 --> 00:08:20.620
+ So when you're kind of making a copy that points to the original, then you have to increment
+
+00:08:20.620 --> 00:08:24.180
+ the reference count and decrement it.
+
+00:08:24.180 --> 00:08:29.540
+ And so in the rest of these sample code, I will not add reference counting to it because
+
+00:08:29.540 --> 00:08:32.100
+ we're just going to look at the underlying data structures.
+
+00:08:32.100 --> 00:08:39.980
+ But it's really important to understand that reference counting was essential to the ABC
+
+00:08:39.980 --> 00:08:48.740
+ implementation and Guido's C++ implementation and Python 1.0's implementation.
+
+00:08:48.740 --> 00:08:54.500
+ It was all about reference counting to save very scarce memory so that you could point
+
+00:08:54.500 --> 00:08:58.980
+ to the same string many times, and the reference counts could get very high, especially strings
+
+00:08:58.980 --> 00:09:00.700
+ that were constants.
+
+00:09:00.700 --> 00:09:05.140
+ So reference counting is important, and this is just-- you can take a look at this code
+
+00:09:05.140 --> 00:09:09.200
+ and compare it to the KR code that I built.
+
+00:09:09.200 --> 00:09:21.580
+ Reference counting is an important part of Python.
+

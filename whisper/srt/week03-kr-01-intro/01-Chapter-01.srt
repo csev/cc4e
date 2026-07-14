@@ -1,0 +1,4072 @@
+1
+00:00:00,000 --> 00:00:05,460
+ Welcome to C Programming for Everybody. My name is Charles Severance and this is
+
+2
+00:00:05,460 --> 00:00:10,100
+ my reading of the 1978 C Programming book written by Brian Kernigan and Dennis
+
+3
+00:00:10,100 --> 00:00:14,460
+ Ritchie. At times I add my own interpretation of the material from a
+
+4
+00:00:14,460 --> 00:00:20,940
+ historical perspective. Chapter 1, a tutorial introduction. Let us begin with
+
+5
+00:00:20,940 --> 00:00:25,120
+ a quick introduction to C. Our aim is to show the essential elements of the
+
+6
+00:00:25,120 --> 00:00:29,820
+ language in real programs but without getting bogged down in details, formal
+
+7
+00:00:29,820 --> 00:00:34,940
+ rules, and exceptions. At this point we are not trying to be complete or even
+
+8
+00:00:34,940 --> 00:00:39,660
+ precise. We want you to get as quickly as possible to the point where you can
+
+9
+00:00:39,660 --> 00:00:44,620
+ write useful programs and to do that we have to concentrate on the basics,
+
+10
+00:00:44,620 --> 00:00:49,320
+ variables and constants, arithmetic, control flow, functions, and the
+
+11
+00:00:49,320 --> 00:00:54,180
+ rudiments of input and output. We are quite intentionally leaving out of this
+
+12
+00:00:54,180 --> 00:00:58,500
+ chapter the features of C which are of vital importance for writing bigger
+
+13
+00:00:58,500 --> 00:01:04,460
+ programs. These include pointers, structures, and most of C's rich set of
+
+14
+00:01:04,460 --> 00:01:10,980
+ operators, several control flow statements, and a myriad of details. This approach
+
+15
+00:01:10,980 --> 00:01:15,840
+ has its drawbacks of course. Most notable is that the complete story on any
+
+16
+00:01:15,840 --> 00:01:20,980
+ particular language feature is not found in a single place. The tutorial by being
+
+17
+00:01:20,980 --> 00:01:26,780
+ brief may also mislead and because they cannot use the full power of C the
+
+18
+00:01:26,780 --> 00:01:31,620
+ examples are not as concise and elegant as they might be. We have tried to
+
+19
+00:01:31,620 --> 00:01:36,740
+ minimize these effects but be warned. Another drawback is that later chapters
+
+20
+00:01:36,740 --> 00:01:41,420
+ will necessarily repeat some of this chapter. In any case experienced
+
+21
+00:01:41,420 --> 00:01:44,460
+ programmers should be able to extrapolate from the material in this
+
+22
+00:01:44,460 --> 00:01:48,700
+ chapter to their own programming needs. Beginners should supplement it by
+
+23
+00:01:48,700 --> 00:01:53,060
+ writing small similar programs of their own. Both groups can use it as a
+
+24
+00:01:53,060 --> 00:01:57,020
+ framework on which to hang the more detailed descriptions that begin in
+
+25
+00:01:57,020 --> 00:02:04,420
+ chapter 2. 1.1 getting started. The only way to learn a new programming language
+
+26
+00:02:04,420 --> 00:02:09,060
+ is by writing programs in it. The first program to write is the same for all
+
+27
+00:02:09,060 --> 00:02:16,020
+ languages. Print the words "hello world". This is the basic hurdle. To leap over it
+
+28
+00:02:16,020 --> 00:02:19,900
+ you have to be able to create the program text somewhere, compile it
+
+29
+00:02:19,900 --> 00:02:26,340
+ successfully, load it, run it, and find out where your output went. With these
+
+30
+00:02:26,340 --> 00:02:32,100
+ mechanical details mastered everything else is comparatively easy. In
+
+31
+00:02:32,100 --> 00:02:39,180
+ traditional C the program to print "hello world" is main open parenthesis
+
+32
+00:02:39,180 --> 00:02:45,140
+ closed parenthesis, open curly brace, print F parenthesis double quote hello
+
+33
+00:02:45,140 --> 00:02:52,220
+ comma space world backslash n double quote, closed parenthesis semicolon, closed
+
+34
+00:02:52,220 --> 00:02:57,780
+ curly brace. The modern minimal version of this program needs a bit more syntax.
+
+35
+00:02:57,780 --> 00:03:05,580
+ We add a single line at the beginning hashtag include space left angle
+
+36
+00:03:05,580 --> 00:03:13,300
+ brackets stdio.h right angle bracket. Pound include stdio.h. We have to add
+
+37
+00:03:13,300 --> 00:03:19,420
+ that line for the modern program. Back to the book. Just how to run this program
+
+38
+00:03:19,420 --> 00:03:24,940
+ depends on the system that you're using. As a specific example on the Unix
+
+39
+00:03:24,940 --> 00:03:29,540
+ operating system you must create the source program in a file whose name ends
+
+40
+00:03:29,540 --> 00:03:37,620
+ in .c such as hello.c and then you compile it with the command cc space
+
+41
+00:03:37,620 --> 00:03:42,860
+ hello.c. If you haven't botched anything such as omitting a character or
+
+42
+00:03:42,860 --> 00:03:47,180
+ misspelling something the compilation will proceed silently and make an
+
+43
+00:03:47,180 --> 00:03:53,740
+ executable file called a.out. Running that by the command a.out will
+
+44
+00:03:53,740 --> 00:03:59,700
+ produce hello comma world as its output. On other systems the rules will be
+
+45
+00:03:59,700 --> 00:04:06,060
+ different. Check with a local expert. On modern systems we use the gcc compiler
+
+46
+00:04:06,060 --> 00:04:14,140
+ with the -ancy option to accept the legacy syntax of c. So we use gcc space
+
+47
+00:04:14,140 --> 00:04:21,940
+ -ancy space hello.c and to run the resulting a.out file you usually you
+
+48
+00:04:21,940 --> 00:04:26,380
+ need to prepend the local directory because most shell configurations do not
+
+49
+00:04:26,380 --> 00:04:31,140
+ include the current path in the paths to search for applications so you need to
+
+50
+00:04:31,140 --> 00:04:40,260
+ write ./a.out. Now for some explanations about the program itself. A c
+
+51
+00:04:40,260 --> 00:04:45,780
+ program whatever its size consists of one or more functions which specify the
+
+52
+00:04:45,780 --> 00:04:51,300
+ actual computing operations that are to be done. C functions are similar to
+
+53
+00:04:51,300 --> 00:04:56,860
+ functions and subroutines of a Fortran program or the procedures of PL1, Pascal
+
+54
+00:04:56,860 --> 00:05:03,340
+ etc. In our example main is such a function. Normally you're at liberty give
+
+55
+00:05:03,340 --> 00:05:08,100
+ functions whatever names you like but main is a special name. Your program
+
+56
+00:05:08,100 --> 00:05:13,620
+ begins executing at the beginning of main. This means every program must have
+
+57
+00:05:13,620 --> 00:05:18,460
+ a main somewhere. Main will usually invoke other functions to perform its
+
+58
+00:05:18,460 --> 00:05:24,820
+ job some coming from the same program and others from libraries of previously
+
+59
+00:05:24,820 --> 00:05:29,780
+ written functions. One method of communicating data between functions is
+
+60
+00:05:29,780 --> 00:05:35,260
+ by arguments. The parentheses following the function name surround the argument
+
+61
+00:05:35,260 --> 00:05:41,380
+ list. Here main is a function of no arguments indicated by open parentheses
+
+62
+00:05:41,380 --> 00:05:47,100
+ closed parentheses. The curly braces enclose the statements that make up the
+
+63
+00:05:47,100 --> 00:05:52,900
+ function. They're analogous to the do end of PL1 or the begin end of algal or
+
+64
+00:05:52,900 --> 00:05:59,660
+ Pascal and so on. A function is invoked by naming it followed by a parenthesized
+
+65
+00:05:59,660 --> 00:06:05,700
+ list of arguments. There is no call statement as there is in Fortran or PL1.
+
+66
+00:06:05,700 --> 00:06:12,260
+ The parentheses must be present even if there are no arguments. In the above
+
+67
+00:06:12,260 --> 00:06:16,060
+ text the authors were making connections to the popular general purpose
+
+68
+00:06:16,060 --> 00:06:20,420
+ programming languages of the time. When the book was written it was not all
+
+69
+00:06:20,420 --> 00:06:25,660
+ assured that C and C like languages would ever evolve past writing high
+
+70
+00:06:25,660 --> 00:06:30,820
+ performance applications like operating system kernels and device drivers. By
+
+71
+00:06:30,820 --> 00:06:35,620
+ comparing C to these more general purpose languages the authors are trying
+
+72
+00:06:35,620 --> 00:06:41,420
+ to plant the seed that C could have value as a general purpose language. Back
+
+73
+00:06:41,420 --> 00:06:47,860
+ to the text. The line that says print F parenthesis double quote hello comma
+
+74
+00:06:47,860 --> 00:06:53,540
+ space world backslash and double quote closed parentheses semicolon is a
+
+75
+00:06:53,540 --> 00:06:59,860
+ function call which calls a function named print F with the argument hello
+
+76
+00:06:59,860 --> 00:07:04,660
+ world. Print F is a library function which prints the output to the terminal
+
+77
+00:07:04,660 --> 00:07:09,540
+ unless some other destination is specified. In this case it prints the
+
+78
+00:07:09,540 --> 00:07:15,060
+ string of characters that make up its argument. Any sequence of any number of
+
+79
+00:07:15,060 --> 00:07:19,220
+ characters enclosed in double quotes is called a character string or string
+
+80
+00:07:19,220 --> 00:07:24,460
+ constant. For the moment our only use of the character strings will be as
+
+81
+00:07:24,460 --> 00:07:31,260
+ arguments to print F and other functions. The sequence backslash n in the string
+
+82
+00:07:31,260 --> 00:07:36,820
+ is C notation for the new line character which when printed advances the terminal
+
+83
+00:07:36,820 --> 00:07:42,340
+ to the left margin on the next line. If you leave out the backslash n, a
+
+84
+00:07:42,340 --> 00:07:46,940
+ worthwhile experiment by the way, you'll find that your output is not terminated
+
+85
+00:07:46,940 --> 00:07:51,100
+ by a line feed. The only way to get a new line character into the print F's
+
+86
+00:07:51,100 --> 00:07:58,020
+ argument is with backslash n. If you try to break it into two lines like print
+
+87
+00:07:58,020 --> 00:08:05,740
+ F quote hello world and then just hit the return double quote close parenthesis
+
+88
+00:08:05,740 --> 00:08:10,700
+ semicolon on a new line the C compiler will print out unfriendly diagnostics
+
+89
+00:08:10,700 --> 00:08:15,780
+ about missing quotes. Print F never supplies a new line automatically so
+
+90
+00:08:15,780 --> 00:08:21,060
+ multiple calls can be used to build up an output line in stages. Our first
+
+91
+00:08:21,060 --> 00:08:25,860
+ program could have just as well been written as main open parenthesis close
+
+92
+00:08:25,860 --> 00:08:33,660
+ parenthesis open curly brace print F quote hello quote semicolon print F
+
+93
+00:08:33,660 --> 00:08:41,340
+ quote world quote semicolon print F backslash n semicolon and then on a sixth
+
+94
+00:08:41,340 --> 00:08:46,620
+ line close curly brace and it would have produced the identical output. Note that
+
+95
+00:08:46,620 --> 00:08:51,620
+ backslash n represents only a single character an escape sequence like
+
+96
+00:08:51,620 --> 00:08:56,700
+ backslash n provides a general and extensible mechanism for representing
+
+97
+00:08:56,700 --> 00:09:01,940
+ hard-to-get or invisible characters. Among the others that C provides are
+
+98
+00:09:01,940 --> 00:09:07,540
+ backslash T for tab backslash B for backspace backslash double quote for
+
+99
+00:09:07,540 --> 00:09:15,660
+ double quote and backslash backslash for the backslash itself. 1.2 page 8
+
+100
+00:09:15,660 --> 00:09:20,780
+ variables and arithmetic. The next program prints the following table of
+
+101
+00:09:20,780 --> 00:09:25,100
+ Fahrenheit temperatures in their centigrade or Celsius equivalence. Using
+
+102
+00:09:25,100 --> 00:09:33,260
+ the formula C equals parenthesis 5 divided by 9 close parenthesis parenthesis F - 32.
+
+103
+00:09:33,260 --> 00:09:39,860
+ The table contains Fahrenheit of 0 Celsius of negative 17.8 Fahrenheit of
+
+104
+00:09:39,860 --> 00:09:47,620
+ 20 Celsius of negative 6.7 Fahrenheit of 40 Celsius of 4.4 and so forth. Here is
+
+105
+00:09:47,620 --> 00:09:54,460
+ the program itself. For reference this program is on page 29 of the textbook.
+
+106
+00:09:54,460 --> 00:10:01,220
+ So it starts with #include stdio.h to include the standard
+
+107
+00:10:01,220 --> 00:10:06,140
+ library then it has a comment that says print the Fahrenheit Celsius table for F
+
+108
+00:10:06,140 --> 00:10:14,500
+ equals 0 comma 20 comma dot dot dot comma 300 close common main open
+
+109
+00:10:14,500 --> 00:10:21,900
+ parenthesis close parenthesis open curly brace int lower comma upper comma step
+
+110
+00:10:21,900 --> 00:10:30,980
+ semicolon float far comma Celsius lower equals zero semicolon followed by a
+
+111
+00:10:30,980 --> 00:10:37,820
+ comment upper equals 300 semicolon followed by a comment step equals 20
+
+112
+00:10:37,820 --> 00:10:46,060
+ semicolon followed by a comment far equals lower and then while open
+
+113
+00:10:46,060 --> 00:10:52,700
+ parenthesis far less than or equal to upper close parenthesis open curly brace Celsius
+
+114
+00:10:52,700 --> 00:11:02,420
+ equals parenthesis 5.0 slash 9.0 close parenthesis asterisk open parenthesis far
+
+115
+00:11:02,420 --> 00:11:12,540
+ minus 32.0 close parenthesis semicolon. Then a printf statement printf open
+
+116
+00:11:12,540 --> 00:11:22,660
+ parenthesis double quote percent 4.0 f space percent 6.1 f backslash n close
+
+117
+00:11:22,660 --> 00:11:31,900
+ quote comma far comma Celsius close parenthesis semicolon. Far equals far
+
+118
+00:11:31,900 --> 00:11:38,340
+ plus step and then a closing curly brace to finish the while statement and then a
+
+119
+00:11:38,340 --> 00:11:44,660
+ closing curly brace to finish the main statement. The first two lines slash
+
+120
+00:11:44,660 --> 00:11:51,940
+ star print Fahrenheit to Celsius table for F equals 0 comma 20 dot dot dot 300
+
+121
+00:11:51,940 --> 00:11:58,100
+ star slash are a comment which in this case explains briefly what the program
+
+122
+00:11:58,100 --> 00:12:03,260
+ does. Any characters between slash star and star slash are ignored by the
+
+123
+00:12:03,260 --> 00:12:08,660
+ compiler. They may be used to freely make the program easier to understand.
+
+124
+00:12:08,660 --> 00:12:15,860
+ Comments may appear anywhere a blank or new line can. In C all variables must be
+
+125
+00:12:15,860 --> 00:12:20,660
+ declared before use usually at the beginning of a function before any
+
+126
+00:12:20,660 --> 00:12:25,420
+ executable statements. If you forget a declaration you will get a diagnostic
+
+127
+00:12:25,420 --> 00:12:31,140
+ from the compiler. A declaration consider consists of a type and a list
+
+128
+00:12:31,140 --> 00:12:36,820
+ of variables that have that type as in int lower comma upper comma step
+
+129
+00:12:36,820 --> 00:12:45,220
+ semicolon float far comma Celsius semicolon. The type int implies that the
+
+130
+00:12:45,220 --> 00:12:50,740
+ variables listed are integers. Float stands for floating point i.e. numbers
+
+131
+00:12:50,740 --> 00:12:55,900
+ which may have a fractional part. Precision of both int and float depends
+
+132
+00:12:55,900 --> 00:13:00,900
+ on the particular machine that you are using. On the PDP 11 for instance an
+
+133
+00:13:00,900 --> 00:13:08,840
+ int is a 16-bit signed number. That is one that lies between negative 32,768
+
+134
+00:13:08,840 --> 00:13:16,380
+ and positive 32,767. A float number is a 32-bit quantity which
+
+135
+00:13:16,380 --> 00:13:21,260
+ amounts to about seven significant digits with a magnitude of about 10 to
+
+136
+00:13:21,260 --> 00:13:31,700
+ minus 38 and 10 plus 38. Chapter 2 lists the sizes for other machines. I would
+
+137
+00:13:31,700 --> 00:13:35,900
+ note that the 1970s was a time of transition in the amount of memory
+
+138
+00:13:35,900 --> 00:13:41,860
+ installed in computers. The C language int type was 16 bits in the older but
+
+139
+00:13:41,860 --> 00:13:46,840
+ more generally available computers like the PDP 11. C could be used to write
+
+140
+00:13:46,840 --> 00:13:51,420
+ programs like the UNIX operating system that made efficient use of available
+
+141
+00:13:51,420 --> 00:13:58,140
+ memory. In particular the 1978 version of C did not require that computers support
+
+142
+00:13:58,140 --> 00:14:04,900
+ 32-bit integers. But 32,768 is a pretty small number. The size of an
+
+143
+00:14:04,900 --> 00:14:09,860
+ integer affected the maximum size of arrays and strings. A lot of early C
+
+144
+00:14:09,860 --> 00:14:14,580
+ programs used the long type to get at least a 32-bit integer capable of
+
+145
+00:14:14,580 --> 00:14:20,340
+ representing numbers up to about 2 billion. In modern computers and
+
+146
+00:14:20,340 --> 00:14:25,940
+ databases we tend to choose between 32-bit and 64-bit integers. Back to the
+
+147
+00:14:25,940 --> 00:14:32,460
+ text. C provides several other basic data types besides int and float. Char is
+
+148
+00:14:32,460 --> 00:14:39,100
+ a character, a single byte. Short is a short integer. Long is a long integer and
+
+149
+00:14:39,100 --> 00:14:44,820
+ double is a double precision floating point. The size of these objects are also
+
+150
+00:14:44,820 --> 00:14:49,500
+ machine dependent and details are in chapter 2. There are also arrays,
+
+151
+00:14:49,500 --> 00:14:54,180
+ structures, and unions of these basic types and pointers to them and functions
+
+152
+00:14:54,180 --> 00:14:59,660
+ that return them, all of which we will meet in due course. The actual
+
+153
+00:14:59,660 --> 00:15:02,940
+ computation in our temperature conversion program begins with the
+
+154
+00:15:02,940 --> 00:15:10,140
+ assignments lower equals zero, upper equals 300, step equals 20, far equals
+
+155
+00:15:10,140 --> 00:15:15,660
+ lower, all ending with semicolon. These set the variables to their starting
+
+156
+00:15:15,660 --> 00:15:22,260
+ values. Individual statements are terminated by semicolons. Each line of
+
+157
+00:15:22,260 --> 00:15:27,340
+ the table is computed in the same way so we use a loop which repeats once per
+
+158
+00:15:27,340 --> 00:15:33,460
+ line. This is the purpose of the while statement. While parentheses far less
+
+159
+00:15:33,460 --> 00:15:38,140
+ than or equal upper closed parentheses open curly brace, then the body of the
+
+160
+00:15:38,140 --> 00:15:43,940
+ loop, and then closed curly brace. The condition in the parentheses is tested.
+
+161
+00:15:43,940 --> 00:15:49,420
+ If it is true, i.e. far is less than or equal to upper, the body of the loop, all
+
+162
+00:15:49,420 --> 00:15:53,420
+ of the statements included between the open curly brace and the closed curly
+
+163
+00:15:53,420 --> 00:15:59,140
+ brace are executed. Then the condition is retested. If true, the body is executed
+
+164
+00:15:59,140 --> 00:16:06,060
+ again. When the test becomes false, i.e. far exceeds upper, the loop ends and
+
+165
+00:16:06,060 --> 00:16:10,300
+ execution continues at the statement that follows the loop. There are no
+
+166
+00:16:10,300 --> 00:16:15,860
+ further statements in the program so it terminates. The body of a while loop can
+
+167
+00:16:15,860 --> 00:16:21,380
+ be one or more statements enclosed in braces as the temperature converter or a
+
+168
+00:16:21,380 --> 00:16:27,100
+ single statement without braces as in while open parentheses i less than j
+
+169
+00:16:27,100 --> 00:16:34,300
+ closed parentheses, i equals 2 times i semicolon. In either case, the statements
+
+170
+00:16:34,300 --> 00:16:39,540
+ controlled by the while are indented by one tab stop so you can see at a glance
+
+171
+00:16:39,540 --> 00:16:45,420
+ what statements are inside the loop. The indentation emphasizes the logical
+
+172
+00:16:45,420 --> 00:16:49,820
+ structure of the program. Although C is quite permissive about statement
+
+173
+00:16:49,820 --> 00:16:55,020
+ positioning, proper indentation and the use of whitespace are critical in making
+
+174
+00:16:55,020 --> 00:17:00,300
+ programs easy for people to read. We recommend writing only one statement per
+
+175
+00:17:00,300 --> 00:17:05,700
+ line and usually leaving blanks around operators. The position of the braces is
+
+176
+00:17:05,700 --> 00:17:11,420
+ less important. We have chosen one of the several popular styles. Pick a style
+
+177
+00:17:11,420 --> 00:17:17,580
+ that suits you and then use it consistently. I would add that with these
+
+178
+00:17:17,580 --> 00:17:23,260
+ words the authors triggered a great debate about how to best indent code
+
+179
+00:17:23,260 --> 00:17:28,740
+ and use curly braces that continues to this day. The indentation style used in
+
+180
+00:17:28,740 --> 00:17:34,540
+ this book is often referred to as the KNR style. It tends to put open braces at
+
+181
+00:17:34,540 --> 00:17:38,900
+ the end of statements like if and while to keep code more compact in terms of
+
+182
+00:17:38,900 --> 00:17:44,420
+ the number of lines of code. The best advice is not to debate at all. When you
+
+183
+00:17:44,420 --> 00:17:49,220
+ modify someone else's code just imitate the style that they used when they wrote
+
+184
+00:17:49,220 --> 00:17:57,780
+ their code. Back to the text. Most of the work it's done in the body of the loop.
+
+185
+00:17:57,780 --> 00:18:02,620
+ The Celsius temperature is computed and assigned to the Celsius variable by the
+
+186
+00:18:02,620 --> 00:18:11,060
+ statement Celsius equals open parentheses 5.0 slash 9.0 close parentheses, asterisk
+
+187
+00:18:11,060 --> 00:18:18,660
+ open parentheses, far minus 32.0 close parentheses, semicolon. The reason for
+
+188
+00:18:18,660 --> 00:18:25,220
+ using 5.0 slash 9.0 instead of the simpler looking 5 slash 9 is that in C
+
+189
+00:18:25,220 --> 00:18:31,140
+ as in many other languages integer division truncates so that any fractional
+
+190
+00:18:31,140 --> 00:18:38,780
+ part is discarded. Thus 5 slash 9 is 0 and of course so would then all the
+
+191
+00:18:38,780 --> 00:18:44,000
+ temperatures be 0. A decimal point in a constant indicates that it is floating
+
+192
+00:18:44,000 --> 00:18:53,900
+ point so that 5.0 over 9.0 is 0.555 repeating which is what we want. We also
+
+193
+00:18:53,900 --> 00:19:00,780
+ wrote 32.0 instead of 32 even though since far is afloat 32 would
+
+194
+00:19:00,780 --> 00:19:05,420
+ automatically be converted to float before the subtraction. But as a matter
+
+195
+00:19:05,420 --> 00:19:08,900
+ of style it's wise to write floating-point constants with explicit
+
+196
+00:19:08,900 --> 00:19:13,580
+ decimal points even when they have integral values. It emphasizes their
+
+197
+00:19:13,580 --> 00:19:18,020
+ floating-point nature for human readers and ensures the compiler will see things
+
+198
+00:19:18,020 --> 00:19:23,940
+ the way you do as well. I would note that for those of you familiar with Python
+
+199
+00:19:23,940 --> 00:19:30,620
+ before Python 3 integer division truncated and returned an integer just
+
+200
+00:19:30,620 --> 00:19:36,500
+ like C. In Python 3 one of the major improvements was that the division of
+
+201
+00:19:36,500 --> 00:19:41,340
+ two integers performed the division operation in floating-point and returns
+
+202
+00:19:41,340 --> 00:19:48,220
+ a floating-point result. C and Python 2 made the choice because of efficiency.
+
+203
+00:19:48,220 --> 00:19:52,820
+ Integer division with truncation especially for 16-bit numbers was quite
+
+204
+00:19:52,820 --> 00:19:57,580
+ fast in the 1970s computers compared to floating-point division that kept the
+
+205
+00:19:57,580 --> 00:20:03,180
+ fractional part intact. Early PDP 11 computers did integer division in
+
+206
+00:20:03,180 --> 00:20:07,980
+ hardware while all floating-point was done with loops and functions so it was
+
+207
+00:20:07,980 --> 00:20:13,740
+ far slower. If you wanted to write fast code in 1970s you avoided floating-point
+
+208
+00:20:13,740 --> 00:20:20,700
+ numbers except for special situations. Modern computers usually do 64-bit
+
+209
+00:20:20,700 --> 00:20:25,860
+ floating-point operations almost at the same speed as integer division so we
+
+210
+00:20:25,860 --> 00:20:29,700
+ don't need to allow programmers to avoid using floating-point computations in
+
+211
+00:20:29,700 --> 00:20:34,860
+ their code. The detailed rules for when integers are converted to floating-point
+
+212
+00:20:34,860 --> 00:20:41,540
+ are in chapter 2. For now notice that the assignment far equals lower semicolon
+
+213
+00:20:41,540 --> 00:20:48,600
+ and the test while far less than or equals upper both work as expected. The
+
+214
+00:20:48,600 --> 00:20:54,780
+ int is converted to a float before the operation is done. This example also
+
+215
+00:20:54,780 --> 00:21:00,420
+ shows a bit more of how printf works. printf is actually a general purpose
+
+216
+00:21:00,420 --> 00:21:06,020
+ format conversion function which we will describe completely in chapter 7. Its
+
+217
+00:21:06,020 --> 00:21:11,300
+ first argument is a string of characters to be printed with each percent sign
+
+218
+00:21:11,300 --> 00:21:16,620
+ indicating where one of the other second third etc arguments is to be
+
+219
+00:21:16,620 --> 00:21:21,820
+ substituted and what form it is to be printed in. For instance in the statement
+
+220
+00:21:21,820 --> 00:21:30,420
+ printf parentheses double quote percent 4.0 F space percent 6.1 F
+
+221
+00:21:30,420 --> 00:21:36,300
+ backslash and double quote comma far comma Celsius the conversion specification
+
+222
+00:21:36,300 --> 00:21:42,300
+ percent 4.0 F says that a floating-point number is to be printed in a space at
+
+223
+00:21:42,300 --> 00:21:49,300
+ least four characters wide with no digits after the decimal point. Percent 6.1 F
+
+224
+00:21:49,300 --> 00:21:55,300
+ describes another number to occupy at least six spaces with one digit after
+
+225
+00:21:55,300 --> 00:22:02,580
+ the decimal point, analogous to the F 6.1 of Fortran or the F parentheses six
+
+226
+00:22:02,580 --> 00:22:09,340
+ comma one of PL 1. Parts of a specification may be omitted. Percent 6 F
+
+227
+00:22:09,340 --> 00:22:14,700
+ says that the number is to be at least six characters wide. Percent dot 2 F
+
+228
+00:22:14,700 --> 00:22:19,220
+ requests two places after the decimal point but the width is not constrained
+
+229
+00:22:19,220 --> 00:22:26,260
+ and merely percent F says to print the number itself as floating-point. Printf
+
+230
+00:22:26,260 --> 00:22:31,940
+ also recognizes percent D for decimal integers percent O for octal percent X
+
+231
+00:22:31,940 --> 00:22:36,780
+ for hexadecimal and percent C for characters and percent S for a character
+
+232
+00:22:36,780 --> 00:22:42,780
+ string and percent percent for the percent itself. Each percent
+
+233
+00:22:42,780 --> 00:22:46,140
+ construction in the first argument of printf is paired with its
+
+234
+00:22:46,140 --> 00:22:51,900
+ corresponding second, third, etc. argument. They must line up properly by
+
+235
+00:22:51,900 --> 00:22:57,900
+ number and type or else you'll get meaningless answers. By the way, printf
+
+236
+00:22:57,900 --> 00:23:03,780
+ is not part of the C language. There is no input or output defined in C itself.
+
+237
+00:23:03,780 --> 00:23:09,380
+ There is nothing magic about printf. It's just a useful function which is part of
+
+238
+00:23:09,380 --> 00:23:13,660
+ the standard library of routines that are normally accessible to C programs. In
+
+239
+00:23:13,660 --> 00:23:19,780
+ order to concentrate on C itself, we won't talk much about I/O
+
+240
+00:23:19,780 --> 00:23:27,180
+ until chapter 7. In particular, we'll defer formatted input until then. If you
+
+241
+00:23:27,180 --> 00:23:31,420
+ have to input numbers, read the discussion of the function scanf in
+
+242
+00:23:31,420 --> 00:23:37,740
+ chapter 7 section 7.4. Scanf is much like printf except that it reads input
+
+243
+00:23:37,740 --> 00:23:43,500
+ instead of writing output. The balance between building a feature into the
+
+244
+00:23:43,500 --> 00:23:47,700
+ language itself and providing it as a function in a library is something that
+
+245
+00:23:47,700 --> 00:23:52,860
+ computer language designers struggle with many years later. For example, in
+
+246
+00:23:52,860 --> 00:23:59,300
+ Python 2, print was a language element. In Python 3, one of the non-upwards
+
+247
+00:23:59,300 --> 00:24:04,140
+ compatible and somewhat unpopular changes was changing print to be a
+
+248
+00:24:04,140 --> 00:24:09,020
+ function. Many programmers feel that a print statement is a more elegant way to
+
+249
+00:24:09,020 --> 00:24:14,260
+ express printing, but from a compiler and language design perspective, a function
+
+250
+00:24:14,260 --> 00:24:17,860
+ call with a variable number of parameters is seen as technically more
+
+251
+00:24:17,860 --> 00:24:23,300
+ elegant and flexible. With Kernigan and Ritchie focused on keeping everything
+
+252
+00:24:23,300 --> 00:24:27,460
+ small and portable, they opted to keep all input/output functionality in
+
+253
+00:24:27,460 --> 00:24:32,700
+ libraries. The syntax is a little more complex, but given how computing has
+
+254
+00:24:32,700 --> 00:24:38,900
+ changed in the past 30 years, it is the right choice. Section 1.3, the "for"
+
+255
+00:24:38,900 --> 00:24:43,780
+ statement. As you might expect, there are plenty of different ways to write a
+
+256
+00:24:43,780 --> 00:24:48,440
+ program. Let's try a variation on the temperature converter. This is sample
+
+257
+00:24:48,440 --> 00:24:55,820
+ code is on page 11 of the textbook. Pound sign include less than stdio.h
+
+258
+00:24:55,820 --> 00:25:03,260
+ greater than. Main, open parenthesis, closed parenthesis, open curly brace. Int,
+
+259
+00:25:03,260 --> 00:25:14,140
+ far, that is F-A-H-R, semicolon. For, open parenthesis, far equals zero, semicolon. Far
+
+260
+00:25:14,140 --> 00:25:20,980
+ less than or equal to 300, semicolon. Far equals far plus 20, closed parenthesis.
+
+261
+00:25:20,980 --> 00:25:28,820
+ Printf, open parenthesis, double quote, percent 4d, space, percent 6.1f,
+
+262
+00:25:28,820 --> 00:25:40,260
+ backslash n, close quote. Comma, far, comma, open parenthesis, 5.0/9.0,
+
+263
+00:25:40,260 --> 00:25:46,420
+ closed parenthesis, asterisk, open parenthesis, far minus 32, closed parenthesis,
+
+264
+00:25:46,420 --> 00:25:52,500
+ closed parenthesis, semicolon. This code produces the same answers as the one
+
+265
+00:25:52,500 --> 00:25:56,460
+ before, but it certainly looks different. One major change is the elimination of
+
+266
+00:25:56,460 --> 00:26:02,540
+ most of the variables. Only far, F-A-H-R, remains as an int to show the percent D
+
+267
+00:26:02,540 --> 00:26:07,580
+ conversion in printf. The lower and upper limits of the step size appear only as
+
+268
+00:26:07,580 --> 00:26:12,540
+ constants in the for statement itself. For is a new construction and the
+
+269
+00:26:12,540 --> 00:26:16,140
+ expression that computes the Celsius temperature now appears as the third
+
+270
+00:26:16,140 --> 00:26:22,620
+ argument of printf, instead of in a separate assignment statement. This last
+
+271
+00:26:22,620 --> 00:26:28,660
+ change is an instance of a quite general rule in C. In any context where it is
+
+272
+00:26:28,660 --> 00:26:33,740
+ permissible to use the value of a variable of some type, you can use an
+
+273
+00:26:33,740 --> 00:26:38,860
+ expression of that type. Since the third argument of printf has to be a floating
+
+274
+00:26:38,860 --> 00:26:44,980
+ point value to match the percent 6.1f, any floating point expression can occur
+
+275
+00:26:44,980 --> 00:26:52,020
+ there. The for itself is a loop, a generalization of while. If you compare
+
+276
+00:26:52,020 --> 00:26:57,060
+ it to the earlier while, its operation should be clear. It contains three parts
+
+277
+00:26:57,060 --> 00:27:03,380
+ separated by semicolons. The first part, far equals zero, is done once before the
+
+278
+00:27:03,380 --> 00:27:07,460
+ loop proper is entered. The second part is the test or condition that controls
+
+279
+00:27:07,460 --> 00:27:13,940
+ the loop, far less than or equal to 300. This condition is evaluated. If it is
+
+280
+00:27:13,940 --> 00:27:18,500
+ true, the body of a loop, in this case a single printf is executed, then the
+
+281
+00:27:18,500 --> 00:27:23,780
+ reinitialization step far equals far plus 20 is done and the condition is
+
+282
+00:27:23,780 --> 00:27:29,380
+ reevaluated. The loop terminates when the condition becomes false. As with the
+
+283
+00:27:29,380 --> 00:27:33,580
+ while, the body of the loop can be a single statement or a group of
+
+284
+00:27:33,580 --> 00:27:38,660
+ statements enclosed in braces. The initialization and reinitialization parts
+
+285
+00:27:38,660 --> 00:27:43,940
+ can be any single expression. The choice between while and for is arbitrary and
+
+286
+00:27:43,940 --> 00:27:48,540
+ should be based on what seems clearer. The for is usually appropriate for loops
+
+287
+00:27:48,540 --> 00:27:52,580
+ in which the initialization and reinitialization are single statements
+
+288
+00:27:52,580 --> 00:27:57,540
+ and logically related, since it is more compact than while and keeps the loop
+
+289
+00:27:57,540 --> 00:28:04,220
+ control statements together in one place. I would note that the syntax of the for
+
+290
+00:28:04,220 --> 00:28:10,140
+ and while loop is a feature of C and derived C-like languages. In modern
+
+291
+00:28:10,140 --> 00:28:14,660
+ languages we tend to have two kinds of loop structures, determinant and
+
+292
+00:28:14,660 --> 00:28:19,620
+ indeterminate. The for and the while loop structures in C are both
+
+293
+00:28:19,620 --> 00:28:24,140
+ indeterminate because you must read them closely to make sure they are properly
+
+294
+00:28:24,140 --> 00:28:29,260
+ constructed and, for example, are not unintentionally infinite loops. An
+
+295
+00:28:29,260 --> 00:28:34,980
+ example of a determinant loop is the for each loop in PHP or the for loop in
+
+296
+00:28:34,980 --> 00:28:39,620
+ Python. The semantics of both of these loops is to iterate all the elements in
+
+297
+00:28:39,620 --> 00:28:45,420
+ a collection. But since collections are never infinite, you can be assured that
+
+298
+00:28:45,420 --> 00:28:51,620
+ these determinant loops will not run forever. Section 1.4, symbolic constants.
+
+299
+00:28:51,620 --> 00:28:56,700
+ A final observation before we leave temperature conversion. It's a bad
+
+300
+00:28:56,700 --> 00:29:04,780
+ practice to bury magic numbers or magic constants like 320, 320 in a
+
+301
+00:29:04,780 --> 00:29:08,500
+ program. They convey little information to someone who might read the program
+
+302
+00:29:08,500 --> 00:29:14,580
+ later and they're hard to change in a systematic way. Fortunately, C provides a
+
+303
+00:29:14,580 --> 00:29:20,060
+ way to avoid such magic numbers. With a pound sign defined construction at the
+
+304
+00:29:20,060 --> 00:29:24,900
+ beginning of a program, we can define a symbolic name or symbolic constant to be
+
+305
+00:29:24,900 --> 00:29:29,340
+ a particular string of characters. Thereafter, the compiler will replace all
+
+306
+00:29:29,340 --> 00:29:34,580
+ unquoted occurrences of the name by the corresponding string. Replacement for the
+
+307
+00:29:34,580 --> 00:29:41,260
+ name can actually be any text at all. It's not related to numbers. So this is
+
+308
+00:29:41,260 --> 00:29:48,700
+ a sample code on page 13 of the text. Pound sign include less than stdio.h
+
+309
+00:29:48,700 --> 00:29:57,280
+ greater than. Next line. Pound define lower zero. Next line. Pound
+
+310
+00:29:57,280 --> 00:30:05,740
+ define upper 300. Pound define step 20. For these pound sign
+
+311
+00:30:05,740 --> 00:30:12,300
+ statements, I would note that they have to start in the first column. The rest of
+
+312
+00:30:12,300 --> 00:30:17,260
+ this sample code is the code itself. Main open parentheses, closed parentheses, open
+
+313
+00:30:17,260 --> 00:30:27,580
+ curly brace, int, far, F-A-H-R. For, open parentheses, far equals uppercase lower,
+
+314
+00:30:27,580 --> 00:30:35,380
+ semicolon, far less than or equal to, uppercase upper, semicolon, far equals far
+
+315
+00:30:35,380 --> 00:30:42,220
+ plus uppercase step. And then the same print statement. Printf, open parentheses,
+
+316
+00:30:42,220 --> 00:30:51,380
+ double quote, percent 4D space, percent 6.1F backslash n, quote, comma, far, comma,
+
+317
+00:30:51,380 --> 00:31:00,700
+ percent 5.0/9.0, close parentheses, asterisk, open parentheses, far minus 32,
+
+318
+00:31:00,700 --> 00:31:04,740
+ close parentheses, close parentheses, semicolon, and then to end the program,
+
+319
+00:31:04,740 --> 00:31:10,300
+ close curly brace. The quantities, uppercase lower, uppercase upper, and
+
+320
+00:31:10,300 --> 00:31:16,140
+ uppercase step are constants, so they do not appear in declarations. Symbolic
+
+321
+00:31:16,140 --> 00:31:20,220
+ names are commonly written in uppercase, so they can be readily distinguished
+
+322
+00:31:20,220 --> 00:31:25,460
+ from lowercase variable names. Notice that there is no semicolon at the end of
+
+323
+00:31:25,460 --> 00:31:29,860
+ a pound define statement. Since the whole line after the defined name is
+
+324
+00:31:29,860 --> 00:31:36,060
+ substituted, there would be too many semicolons in the form. Section 1.5, a
+
+325
+00:31:36,060 --> 00:31:41,220
+ collection of useful programs. We are now going to consider a family of related
+
+326
+00:31:41,220 --> 00:31:45,980
+ programs for doing simple operations on character data. You will find that many
+
+327
+00:31:45,980 --> 00:31:51,420
+ programs are just expanded versions of the prototypes we discuss here. Character
+
+328
+00:31:51,420 --> 00:31:55,740
+ input and output. The standard library provides functions for reading and
+
+329
+00:31:55,740 --> 00:32:01,180
+ writing a character at a time. GetChar fetches the next input character each
+
+330
+00:32:01,180 --> 00:32:07,100
+ time it is called and returns the character as its value. That is, after C
+
+331
+00:32:07,100 --> 00:32:11,580
+ equals GetChar, open parentheses, close parentheses, the variable C contains the
+
+332
+00:32:11,580 --> 00:32:15,780
+ next character input. These characters normally come from the terminal or
+
+333
+00:32:15,780 --> 00:32:21,100
+ keyboard, but that need not concern us until chapter 7. The function putChar,
+
+334
+00:32:21,100 --> 00:32:27,740
+ open parentheses, C, close parentheses, is the complement of GetChar. PutChar, open
+
+335
+00:32:27,740 --> 00:32:33,020
+ parentheses, C, close parentheses, prints the content of the variable C on some
+
+336
+00:32:33,020 --> 00:32:38,660
+ output medium, again usually the terminal or screen. Calls to putChar and printf
+
+337
+00:32:38,660 --> 00:32:43,540
+ may be interleaved. The output may be, will appear in the order in which the
+
+338
+00:32:43,540 --> 00:32:48,380
+ calls are made. As with printf, there is nothing special about GetChar and
+
+339
+00:32:48,380 --> 00:32:53,380
+ putChar. They are not part of the C language, but they are universally
+
+340
+00:32:53,380 --> 00:32:58,700
+ available. Once again, I would note that the authors are making the case that the
+
+341
+00:32:58,700 --> 00:33:03,860
+ syntax of the language should not include syntax for input/output operations, but
+
+342
+00:33:03,860 --> 00:33:08,980
+ instead call library functions. Keeping the compiler small and easy to port new
+
+343
+00:33:08,980 --> 00:33:14,220
+ systems was important to the creators of C. And even if something like putChar
+
+344
+00:33:14,220 --> 00:33:18,940
+ was part of the language syntax, it would be translated at runtime to call a
+
+345
+00:33:18,940 --> 00:33:24,220
+ function. Programming languages from the 1960s tended to have a small set of use
+
+346
+00:33:24,220 --> 00:33:27,780
+ cases, read some input, run some calculation, and then write some output.
+
+347
+00:33:27,780 --> 00:33:31,740
+ So it seemed like a few language elements would be sufficient to describe all
+
+348
+00:33:31,740 --> 00:33:36,300
+ programs. But as programs started to make network connections, draw buttons on a
+
+349
+00:33:36,300 --> 00:33:41,020
+ screen, or respond to API calls over the network, it would have been difficult to
+
+350
+00:33:41,020 --> 00:33:45,820
+ keep expanding the core language syntax for each new use case. But it was
+
+351
+00:33:45,820 --> 00:33:50,860
+ extremely natural to add new libraries to languages like C with functions to
+
+352
+00:33:50,860 --> 00:33:57,140
+ call to accomplish these new use cases. File copying. Given GetChar and putChar,
+
+353
+00:33:57,140 --> 00:34:00,700
+ you can write a surprising amount of useful code without knowing anything
+
+354
+00:34:00,700 --> 00:34:05,500
+ more about input/output. The simplest example is a program which copies its
+
+355
+00:34:05,500 --> 00:34:12,060
+ input to its output one character at a time. In outline, here's what we do. Get a
+
+356
+00:34:12,060 --> 00:34:17,740
+ character. While the character is not the end-of-file signal, output the character
+
+357
+00:34:17,740 --> 00:34:23,140
+ we just read and then get a new character. Converting this into C gives
+
+358
+00:34:23,140 --> 00:34:30,420
+ us the sample code on page 14 of the textbook. Pound includes stdio.h, main
+
+359
+00:34:30,420 --> 00:34:37,900
+ open parenthesis close parenthesis open curly brace, int C semicolon, C equals
+
+360
+00:34:37,900 --> 00:34:44,860
+ GetChar open parenthesis, close parenthesis semicolon. While C not equal EOF,
+
+361
+00:34:44,860 --> 00:34:52,060
+ uppercase EOF, close parenthesis, open curly brace, putChar C, C equals GetChar
+
+362
+00:34:52,060 --> 00:34:59,420
+ semicolon, close parenthesis, close curly brace. The relational operator
+
+363
+00:34:59,420 --> 00:35:07,140
+ exclamation equals means not equal to. The main problem is detecting the end of the
+
+364
+00:35:07,140 --> 00:35:12,820
+ input. By convention, GetChar returns the value, which is not a valid character
+
+365
+00:35:12,820 --> 00:35:17,520
+ when it encounters the end of input. In this way, programs can detect when
+
+366
+00:35:17,520 --> 00:35:21,820
+ they did not get a character and they've actually simply run out of input. The
+
+367
+00:35:21,820 --> 00:35:25,100
+ only complication, which is a serious nuisance, is that there are two
+
+368
+00:35:25,100 --> 00:35:30,940
+ conventions in common use about what that end-of-file value really is. We have
+
+369
+00:35:30,940 --> 00:35:36,940
+ deferred this issue by using the same symbolic name EOF, capital EOF, for the
+
+370
+00:35:36,940 --> 00:35:43,380
+ value, whatever it might be. In practice, EOF will be either negative 1 or 0, so
+
+371
+00:35:43,380 --> 00:35:49,820
+ the program must be preceded by the appropriate pound-define EOF minus 1 or
+
+372
+00:35:49,820 --> 00:35:56,700
+ pound-define EOF 0 to work properly. By using the symbolic constant EOF to
+
+373
+00:35:56,700 --> 00:36:01,020
+ represent the value that GetChar returns when the end-of-file occurs, we are
+
+374
+00:36:01,020 --> 00:36:06,820
+ assured that only one thing in the program depends on the
+
+375
+00:36:06,820 --> 00:36:16,140
+ specific numeric value of EOF. I would know. Most of that is incorrect.
+
+376
+00:36:16,140 --> 00:36:22,100
+ Modern C compilers actually define EOF in the stdio.h include file, so you never
+
+377
+00:36:22,100 --> 00:36:27,780
+ define EOF in your code. In modern C, the value of EOF is minus 1. You should just
+
+378
+00:36:27,780 --> 00:36:33,100
+ include stdio.h and use predefined EOF constant to check for end-of-file. The
+
+379
+00:36:33,100 --> 00:36:38,820
+ nuisance of different values for EOF was resolved shortly after 1978.
+
+380
+00:36:38,820 --> 00:36:45,260
+ Continuing with the text, we also declare C to be an int, not a chair, char, so that
+
+381
+00:36:45,260 --> 00:36:49,160
+ it can hold the value which GetChar returns. As we'll see in chapter 2, the
+
+382
+00:36:49,160 --> 00:36:53,780
+ value is actually an int because it must be capable of representing end-of-file
+
+383
+00:36:53,780 --> 00:37:00,100
+ in addition to all possible characters. So the program for copying could actually
+
+384
+00:37:00,100 --> 00:37:06,740
+ be written more concisely by experienced C programmers. In C, any assignment such
+
+385
+00:37:06,740 --> 00:37:11,620
+ as C equals GetChar open parenthesis, closed parenthesis can be used in an
+
+386
+00:37:11,620 --> 00:37:17,300
+ expression. Its value is simply the residual value being assigned to the
+
+387
+00:37:17,300 --> 00:37:22,120
+ left-hand side. If the assignment of a character to the variable C is put
+
+388
+00:37:22,120 --> 00:37:26,480
+ inside the test part of a while statement, the file copy program can be
+
+389
+00:37:26,480 --> 00:37:33,140
+ written as shown in the example code on page 15 of the textbook. Pound include
+
+390
+00:37:33,140 --> 00:37:40,980
+ stdio.h main open parenthesis, closed parenthesis, open curly brace, int space C
+
+391
+00:37:40,980 --> 00:37:47,740
+ semicolon, while open parenthesis, open parenthesis, C equals GetChar open
+
+392
+00:37:47,740 --> 00:37:52,620
+ parenthesis, closed parenthesis, closed parenthesis, not equal EOF, closed
+
+393
+00:37:52,620 --> 00:37:58,340
+ parenthesis, put char C, parenthesis C, closed parenthesis semicolon, closed
+
+394
+00:37:58,340 --> 00:38:04,220
+ curly brace. The program gets a character, assigns it to C, and then tests whether
+
+395
+00:38:04,220 --> 00:38:08,900
+ the character was the end-of-file signal. If it was not, the body of the while is
+
+396
+00:38:08,900 --> 00:38:13,940
+ executed printing the character. The while then repeats. When the input is, end
+
+397
+00:38:13,940 --> 00:38:19,380
+ of input is finally reached, the while terminates and so does main. This
+
+398
+00:38:19,380 --> 00:38:24,340
+ version centralizes the input. There's now only one call to GetChar and
+
+399
+00:38:24,340 --> 00:38:28,340
+ shrinks the program. Nesting an assignment is a test of one of the
+
+400
+00:38:28,340 --> 00:38:33,540
+ places where C permits a valuable conciseness. It is possible to get
+
+401
+00:38:33,540 --> 00:38:38,980
+ carried away and create impenetrable code, though a tendency that we will try,
+
+402
+00:38:38,980 --> 00:38:44,620
+ though that is a tendency we will try to curb. It's important to recognize that
+
+403
+00:38:44,620 --> 00:38:47,980
+ the parentheses around the assignment within the conditional are really
+
+404
+00:38:47,980 --> 00:38:53,900
+ necessary. The precedence of exclamation equal, not equals, is higher than that of
+
+405
+00:38:53,900 --> 00:38:58,580
+ equals, the assignment operator, which means that in absence of parentheses, the
+
+406
+00:38:58,580 --> 00:39:05,020
+ relational test, exclamation equals, would be done before the assignment equals. So
+
+407
+00:39:05,020 --> 00:39:09,580
+ the statement C equals GetChar parentheses, open parentheses, closed parentheses, not
+
+408
+00:39:09,580 --> 00:39:17,980
+ equal EOF, is equivalent to C equals GetChar open, no, sorry, is equivalent to C
+
+409
+00:39:17,980 --> 00:39:21,620
+ equals open parentheses, GetChar open parentheses, closed parentheses, not
+
+410
+00:39:21,620 --> 00:39:33,220
+ equal EOF, closed parentheses. This has the undesired effect of setting. It is
+
+411
+00:39:33,220 --> 00:39:36,500
+ important to recognize that the parentheses around the assignment within
+
+412
+00:39:36,500 --> 00:39:41,660
+ the conditional are really necessary. The precedence of exclamation equals is
+
+413
+00:39:41,660 --> 00:39:47,620
+ higher than that of equals, which means that in the absence of parentheses, the
+
+414
+00:39:47,620 --> 00:39:52,700
+ relational test not equals would be done before the assignment. So the statement C
+
+415
+00:39:52,700 --> 00:39:59,020
+ equals GetChar not equal EOF is equivalent to C equals, open parentheses,
+
+416
+00:39:59,020 --> 00:40:05,020
+ GetChar not equal EOF, closed parentheses. This has the undesired effect of setting C
+
+417
+00:40:05,020 --> 00:40:10,500
+ to 0 or 1, depending on whether or not the call of GetChar encountered the end
+
+418
+00:40:10,500 --> 00:40:16,420
+ of file. More on this in chapter 2. The next program counts characters. It is a
+
+419
+00:40:16,420 --> 00:40:21,700
+ small elaboration of the copy program. This sample code is on page 16 of the
+
+420
+00:40:21,700 --> 00:40:28,660
+ textbook. #include stdio.h, main, open parentheses, closed parentheses, open
+
+421
+00:40:28,660 --> 00:40:37,420
+ curly brace, long, NC semicolon, NC equals 0 semicolon, while, open
+
+422
+00:40:37,420 --> 00:40:43,620
+ parentheses, GetChar, open parentheses, closed parentheses, exclamation equal EOF,
+
+423
+00:40:43,620 --> 00:40:52,660
+ plus plus NC semicolon, printf, double quote, percent, LD, backslash, N, double
+
+424
+00:40:52,660 --> 00:41:00,060
+ quote, comma, NC, parenthesis, semicolon, closed curly brace. The statement plus plus
+
+425
+00:41:00,060 --> 00:41:07,140
+ NC semicolon shows a new operator, plus plus, which means increment by 1. You
+
+426
+00:41:07,140 --> 00:41:14,740
+ could write NC equals NC plus 1, but plus plus NC is more concise and often more
+
+427
+00:41:14,740 --> 00:41:19,860
+ efficient. There is a corresponding operator, minus minus, to decrement by 1.
+
+428
+00:41:19,860 --> 00:41:28,580
+ The operators plus plus and minus minus can either be prefix operators, plus plus
+
+429
+00:41:28,580 --> 00:41:35,860
+ NC or postfix, NC plus plus. These two forms have different values and
+
+430
+00:41:35,860 --> 00:41:42,220
+ expressions, as will be shown in chapter 2, but plus plus NC and NC plus plus both
+
+431
+00:41:42,220 --> 00:41:48,780
+ increment NC. For the moment, we'll stick to the prefix form. The character
+
+432
+00:41:48,780 --> 00:41:54,180
+ counting program accumulates its count in a long variable instead of an int. On a
+
+433
+00:41:54,180 --> 00:42:01,060
+ PDP-11, the maximum value of an int is 32,767, and it would take relatively
+
+434
+00:42:01,060 --> 00:42:06,240
+ little input to overflow that counter if it were declared as an int. In Honeywell
+
+435
+00:42:06,240 --> 00:42:11,380
+ and IBM C, long and int are synonymous and much larger. The conversion
+
+436
+00:42:11,380 --> 00:42:16,540
+ specification percent LD signals to printf that the corresponding argument is
+
+437
+00:42:16,540 --> 00:42:23,500
+ a long integer. We again, as a note, we again see another reference to the fact
+
+438
+00:42:23,500 --> 00:42:29,580
+ that the number of bits of the int type is in transition in 1978. The older PDP-11
+
+439
+00:42:29,580 --> 00:42:34,380
+ used a 16-bit integer to save limited memory on a small, almost obsolete
+
+440
+00:42:34,380 --> 00:42:38,820
+ computer, while later computers from IBM and Honeywell have already switched to
+
+441
+00:42:38,820 --> 00:42:43,740
+ their int type to be 32 bits. This allowed code originally written for the
+
+442
+00:42:43,740 --> 00:42:49,340
+ PDP-11, like Unix or even the C compiler, to be recompiled on the IBM or
+
+443
+00:42:49,340 --> 00:42:55,780
+ Honeywell with very few changes. To cope with bigger numbers, you can use a double,
+
+444
+00:42:55,780 --> 00:43:00,340
+ which is a double length float. We will also use a for statement instead of a
+
+445
+00:43:00,340 --> 00:43:05,700
+ while to illustrate an alternate way to write a while loop. This code is the
+
+446
+00:43:05,700 --> 00:43:13,180
+ second sample code on page 16 of the textbook. Pound include STDI.H, main
+
+447
+00:43:13,180 --> 00:43:19,660
+ open parenthesis, closed parenthesis, open curly brace, double NC semicolon, for
+
+448
+00:43:19,660 --> 00:43:26,220
+ open parenthesis, NC equals zero, semicolon, getchar open parenthesis, closed parenthesis, not
+
+449
+00:43:26,220 --> 00:43:33,660
+ equal EOF, semicolon, plus plus NC, closed parenthesis, and then a semicolon. A
+
+450
+00:43:33,660 --> 00:43:37,660
+ semicolon in this case is an empty statement, because there's nothing in the
+
+451
+00:43:37,660 --> 00:43:44,540
+ body of the of the for loop, and at the end we say printf double quote percent
+
+452
+00:43:44,540 --> 00:43:52,180
+ dot zero F backslash N double quote comma NC closed parenthesis, semicolon,
+
+453
+00:43:52,180 --> 00:44:00,180
+ closed curly bracket. Printf uses percent F for both float and double. Percent dot
+
+454
+00:44:00,180 --> 00:44:05,820
+ zero F suppresses printing of the non-existent fraction part. The body of
+
+455
+00:44:05,820 --> 00:44:09,780
+ the for loop here is empty, because all the work is done in the test and
+
+456
+00:44:09,780 --> 00:44:15,060
+ reinitialization parts of the for loop. But the grammatical rules of C require
+
+457
+00:44:15,060 --> 00:44:19,980
+ that a for statement have a body. The isolated semicolon, technically a
+
+458
+00:44:19,980 --> 00:44:25,220
+ null statement, is there to satisfy that syntax requirement. We put it on a
+
+459
+00:44:25,220 --> 00:44:30,260
+ separate line to make it more visible. Before we leave the character counting
+
+460
+00:44:30,260 --> 00:44:36,060
+ program, observe that if the input contains no characters, the while or for
+
+461
+00:44:36,060 --> 00:44:41,740
+ test fails on the very first call to getchar, so that the loop program produces
+
+462
+00:44:41,740 --> 00:44:47,500
+ zero, the right answer. This is an important observation. One of the nice
+
+463
+00:44:47,500 --> 00:44:52,580
+ things about while and for is they are tested at the top of the loop
+
+464
+00:44:52,580 --> 00:44:57,500
+ before proceeding with the body. If there is nothing to do, nothing is done,
+
+465
+00:44:57,500 --> 00:45:02,700
+ even if that means never going through the loop body. Programs should act
+
+466
+00:45:02,700 --> 00:45:08,580
+ intelligently when handed input like no characters. The while and the for
+
+467
+00:45:08,580 --> 00:45:12,540
+ statements help ensure that they do reasonable things with boundary
+
+468
+00:45:12,540 --> 00:45:19,500
+ conditions. Line counting. The next program counts lines in its input. Input
+
+469
+00:45:19,500 --> 00:45:24,220
+ lines are assumed to be terminated by the new line character, backslash n, that has
+
+470
+00:45:24,220 --> 00:45:28,700
+ been carefully appended to every line written out. This is sample code on line
+
+471
+00:45:28,700 --> 00:45:36,060
+ 17 of the textbook. Count includes the stdio.h, main, open parenthesis, closed
+
+472
+00:45:36,060 --> 00:45:44,940
+ parenthesis, open curly brace, int, c, comma, nl, semicolon. nl equals zero,
+
+473
+00:45:44,940 --> 00:45:51,180
+ semicolon, while, open parenthesis, open parenthesis, c equals getchar, open
+
+474
+00:45:51,180 --> 00:45:55,580
+ parenthesis, closed parenthesis, closed parenthesis, not equal eof, closed
+
+475
+00:45:55,580 --> 00:46:02,500
+ parenthesis, if, open parenthesis, c, double equals, single quote, backslash n,
+
+476
+00:46:02,500 --> 00:46:09,740
+ single quote, closed parenthesis, plus plus, nl, semicolon. Printf, double
+
+477
+00:46:09,740 --> 00:46:14,940
+ quote, percent d, backslash n, double quote, comma, nl, closed parenthesis,
+
+478
+00:46:14,940 --> 00:46:22,020
+ semicolon, closed curly brace. The body of the while loop now consists of an if,
+
+479
+00:46:22,020 --> 00:46:27,860
+ which in turn controls the increment plus plus nl. The if statement tests its
+
+480
+00:46:27,860 --> 00:46:32,660
+ parenthesized condition, and if true, does the statement or group of statements
+
+481
+00:46:32,660 --> 00:46:37,860
+ inside braces that follow. We have again indented to show what is controlled by
+
+482
+00:46:37,860 --> 00:46:43,500
+ what. The double equal sign in is the c notation for is equal to, like
+
+483
+00:46:43,500 --> 00:46:50,100
+ Fortran's dot eq dot. This symbol is used to distinguish the equality test, a
+
+484
+00:46:50,100 --> 00:46:54,940
+ question being asked, from the single equal sign used for assignment. Since
+
+485
+00:46:54,940 --> 00:46:59,700
+ assignment is about twice as frequently used as equality testing in typical C
+
+486
+00:46:59,700 --> 00:47:05,900
+ programs, it's appropriate that the operator be half as long. A single
+
+487
+00:47:05,900 --> 00:47:09,860
+ character can be written between single quotes to produce a value equal to the
+
+488
+00:47:09,860 --> 00:47:13,660
+ numerical value of the character in the machine's character set. This is called a
+
+489
+00:47:13,660 --> 00:47:18,500
+ character constant. So for example, single quote a single quote is a
+
+490
+00:47:18,500 --> 00:47:23,260
+ character constant. In the ASCII character set, its value is 65, the
+
+491
+00:47:23,260 --> 00:47:28,900
+ internal representation of the character a. Of course, double single quote a
+
+492
+00:47:28,900 --> 00:47:34,020
+ single quote is to be preferred over 65. Its meaning is obvious, and it is
+
+493
+00:47:34,020 --> 00:47:38,780
+ independent of a particular character set. These escape sequences that are
+
+494
+00:47:38,780 --> 00:47:43,780
+ used in character strings are also legal in character constants. So in tests and
+
+495
+00:47:43,780 --> 00:47:49,940
+ arithmetic and expressions, single quote backslash n single quote stands for the
+
+496
+00:47:49,940 --> 00:47:55,180
+ value of a new line character. You should note carefully that single quote
+
+497
+00:47:55,180 --> 00:48:00,900
+ backslash n is a single character, and in expressions is equivalent to a
+
+498
+00:48:00,900 --> 00:48:05,740
+ single integer. On the other hand, double quote backslash n double quote is a
+
+499
+00:48:05,740 --> 00:48:11,020
+ character string which happens to contain only one character. The topics of
+
+500
+00:48:11,020 --> 00:48:17,740
+ strings versus characters is discussed further in chapter two. The numeric bios
+
+501
+00:48:17,740 --> 00:48:22,460
+ that are shown for characters are using the ASCII character set. The character
+
+502
+00:48:22,460 --> 00:48:26,980
+ sets in the 1970s were quite intricate. Most were eight bits long to conserve
+
+503
+00:48:26,980 --> 00:48:31,740
+ computer memory and only support a hundred or so Latin-like characters. This
+
+504
+00:48:31,740 --> 00:48:36,140
+ is why early programming languages use special characters like asterisk and
+
+505
+00:48:36,140 --> 00:48:39,980
+ curly brace in their syntax very carefully. They needed to choose
+
+506
+00:48:39,980 --> 00:48:44,500
+ characters that were commonly available on computer keyboards from different
+
+507
+00:48:44,500 --> 00:48:49,380
+ manufacturers. Modern programming languages like Python 3 and Ruby store
+
+508
+00:48:49,380 --> 00:48:54,820
+ internal string values using the Unicode character set, so they are all able to
+
+509
+00:48:54,820 --> 00:48:59,840
+ represent all the characters in all languages around the world. Modern
+
+510
+00:48:59,840 --> 00:49:05,020
+ languages tend to represent eight-bit values in the range from 0 to 256 using
+
+511
+00:49:05,020 --> 00:49:11,700
+ a byte or similar type. Python 2 strings were stored as 8-bit bytes and Python
+
+512
+00:49:11,700 --> 00:49:17,140
+ 3 strings are stored as 32-bit Unicode characters. Moving to Unicode was a
+
+513
+00:49:17,140 --> 00:49:25,700
+ major effort in the Python 2 to Python 3 transition. Word counting. The fourth in
+
+514
+00:49:25,700 --> 00:49:30,820
+ our series of useful programs counts lines, words, and characters. With a loose
+
+515
+00:49:30,820 --> 00:49:35,320
+ definition that a word is any sequence of characters that does not contain a
+
+516
+00:49:35,320 --> 00:49:42,100
+ blank, a tab, or a new line. This is a very very bare-bones version of the Unix
+
+517
+00:49:42,100 --> 00:49:52,820
+ utility WC. This example is on page 18 in the textbook. Pound include stdio.h
+
+518
+00:49:52,820 --> 00:50:01,980
+ pound to find yes, one, pound to find no, zero. Main, open parentheses, close parentheses,
+
+519
+00:50:01,980 --> 00:50:13,180
+ open curly brace. Int, c comma nl comma nw comma nc comma n word. n word equals no,
+
+520
+00:50:13,180 --> 00:50:21,660
+ nl equals nw equals nc equals zero. While, open parentheses, open parentheses, c
+
+521
+00:50:21,660 --> 00:50:31,940
+ equals getchar, not equal to eof. Open curly brace, plus plus nc. If, parentheses,
+
+522
+00:50:31,940 --> 00:50:41,260
+ c double equals quote backslash n quote, parentheses, plus plus nl. If, open
+
+523
+00:50:41,260 --> 00:50:49,020
+ parentheses, c double equals single quote space single quote, double vertical bar,
+
+524
+00:50:49,020 --> 00:50:58,140
+ c double equals single quote backslash n single quote, double vertical bar, c
+
+525
+00:50:58,140 --> 00:51:04,900
+ equals equals single quote backslash t single quote, close parentheses, n word
+
+526
+00:51:04,900 --> 00:51:13,540
+ equals no. Else, if, open parentheses, n word equal equal no, close parentheses, open
+
+527
+00:51:13,540 --> 00:51:21,720
+ curly brace, n word equals yes, semicolon, plus plus nw, semicolon, close curly
+
+528
+00:51:21,720 --> 00:51:28,860
+ brace, close curly brace. Printf, open parentheses, double quote percent d
+
+529
+00:51:28,860 --> 00:51:37,860
+ space percent d space percent d backslash n double quote comma nl comma nw comma
+
+530
+00:51:37,860 --> 00:51:46,140
+ nc, close curly brace. Every time the program encounters the first character
+
+531
+00:51:46,140 --> 00:51:51,700
+ of a word, it counts it. The variable n word records whether the program is
+
+532
+00:51:51,700 --> 00:51:58,220
+ currently in a word or not. Initially, it is not in a word, which is assigned the
+
+533
+00:51:58,220 --> 00:52:03,140
+ value no. We prefer the symbolic constants yes and no to the literal values
+
+534
+00:52:03,140 --> 00:52:07,940
+ 1 and 0, because they make the program more readable. Of course, in a program as tiny
+
+535
+00:52:07,940 --> 00:52:11,420
+ as this, it makes little difference, but in larger programs, the increase of
+
+536
+00:52:11,420 --> 00:52:17,020
+ clarity is well worth the modest x effort to write it this way to make it
+
+537
+00:52:17,020 --> 00:52:21,500
+ more readable. You will also find that it's easier to make changes to programs
+
+538
+00:52:21,500 --> 00:52:30,020
+ where numbers appear only as symbolic constants. The line nl equals nw equals
+
+539
+00:52:30,020 --> 00:52:37,780
+ nc equals zero sets all three variables to zero. This is not a special case, but a
+
+540
+00:52:37,780 --> 00:52:42,260
+ consequence of the fact that an assignment has a value and assignments
+
+541
+00:52:42,260 --> 00:52:49,140
+ associate right to left. It's really as if we had written nc equals open
+
+542
+00:52:49,140 --> 00:52:55,700
+ parentheses nl equals open parentheses nw equals zero, close parentheses, close
+
+543
+00:52:55,700 --> 00:53:01,100
+ parentheses semicolon. The operator double vertical bar, vertical bar,
+
+544
+00:53:01,100 --> 00:53:08,340
+ vertical bar, means or. So the line if open parentheses c double equals single
+
+545
+00:53:08,340 --> 00:53:13,100
+ quote space single quote, vertical bar, vertical bar, c double equals single
+
+546
+00:53:13,100 --> 00:53:19,020
+ quote backslash n single quote, double vertical bar, c double equals quote
+
+547
+00:53:19,020 --> 00:53:26,100
+ backslash t quote parentheses says if c is a blank or c is a new line or c is a
+
+548
+00:53:26,100 --> 00:53:30,940
+ tab. The escape sequence backslash t is a visible representation of the tab
+
+549
+00:53:30,940 --> 00:53:35,620
+ character. There is a corresponding operator which is double ampersand for
+
+550
+00:53:35,620 --> 00:53:40,740
+ and. Expressions connected by double ampersand or double vertical bar are
+
+551
+00:53:40,740 --> 00:53:45,180
+ evaluated left to right and it is guaranteed that the evaluation will stop
+
+552
+00:53:45,180 --> 00:53:50,660
+ as true as true soon as the truth or falsehood for the overall expression is
+
+553
+00:53:50,660 --> 00:53:57,500
+ no. Thus, if c contains a blank there is no need to test whether contends contains
+
+554
+00:53:57,500 --> 00:54:02,340
+ a new line or tab. So these tests are not made. This isn't particularly important
+
+555
+00:54:02,340 --> 00:54:07,780
+ here but is very significant in more complicated situations as we will soon
+
+556
+00:54:07,780 --> 00:54:13,180
+ see. I would note that the double vertical bar and double ampersand are
+
+557
+00:54:13,180 --> 00:54:17,180
+ the norm for boolean operators in c-like languages. When a new language was being
+
+558
+00:54:17,180 --> 00:54:20,940
+ designed it was really easy to just adopt the c convention for logical
+
+559
+00:54:20,940 --> 00:54:25,740
+ operators because while they may seem cryptic, millions of software developers
+
+560
+00:54:25,740 --> 00:54:30,820
+ were already familiar with the operators. In this way the relationship between c
+
+561
+00:54:30,820 --> 00:54:35,620
+ and c-like languages is like the relationship between Latin and romance
+
+562
+00:54:35,620 --> 00:54:42,340
+ languages including English. Back to the text. The example also shows the c else
+
+563
+00:54:42,340 --> 00:54:47,780
+ statement which specifies an alternative action to be done if the condition part
+
+564
+00:54:47,780 --> 00:54:52,980
+ of an if statement is false. The general form is if open parentheses expression
+
+565
+00:54:52,980 --> 00:54:59,300
+ closed parentheses statement one else statement two. One and only one of the
+
+566
+00:54:59,300 --> 00:55:03,300
+ two statements associated with an if then else is done. If the expression is
+
+567
+00:55:03,300 --> 00:55:08,580
+ true statement one is executed. If not statement two is executed. Each
+
+568
+00:55:08,580 --> 00:55:13,140
+ statement can actually be in fact quite complicated. In the word count problem
+
+569
+00:55:13,140 --> 00:55:19,900
+ the one after the else is an if that controls two statements in braces.
+
+570
+00:55:19,900 --> 00:55:26,220
+ Section 1.6 arrays. Understanding the capabilities and limitations of c
+
+571
+00:55:26,220 --> 00:55:31,660
+ arrays is one of the most important topics in our historical look at the c
+
+572
+00:55:31,660 --> 00:55:36,060
+ programming language. Most importantly the number of elements in an array
+
+573
+00:55:36,060 --> 00:55:41,620
+ declaration must be a constant at compile time and the size of an array
+
+574
+00:55:41,620 --> 00:55:46,060
+ cannot be adjusted using an array declaration while the program's running.
+
+575
+00:55:46,060 --> 00:55:52,500
+ This inability to automatically resize c arrays as data is added leads to a
+
+576
+00:55:52,500 --> 00:55:57,500
+ class of security laws that are generally referred to as buffer overflow.
+
+577
+00:55:57,500 --> 00:56:02,660
+ Where a program reads more data in that can fit into an array and is tricked to
+
+578
+00:56:02,660 --> 00:56:07,860
+ overriding other data or code and compromising an application. Later in
+
+579
+00:56:07,860 --> 00:56:12,780
+ this book we will create dynamic array like structures in C using pointers and
+
+580
+00:56:12,780 --> 00:56:18,940
+ the standard library C alloc function. Python has support for non-dynamic arrays
+
+581
+00:56:18,940 --> 00:56:22,940
+ buffers. Python buffers are generally not used except for programmers writing
+
+582
+00:56:22,940 --> 00:56:27,300
+ library code that talks to low-level code written in a language other than
+
+583
+00:56:27,300 --> 00:56:32,940
+ Python or talking to operating system things like Linux. More commonly used
+
+584
+00:56:32,940 --> 00:56:39,100
+ Python list and dictionary structures and change their sizes automatically as
+
+585
+00:56:39,100 --> 00:56:45,500
+ elements are added and deleted at runtime. Java has support for non-dynamic
+
+586
+00:56:45,500 --> 00:56:50,500
+ arrays like C which are given a length at the moment they are created and the
+
+587
+00:56:50,500 --> 00:56:54,340
+ array length cannot be increased nor decreased without making a new array and
+
+588
+00:56:54,340 --> 00:56:58,940
+ copying all the elements from the first to the second array. Java does provide
+
+589
+00:56:58,940 --> 00:57:02,900
+ list and map structures that automatically adjust their length as data
+
+590
+00:57:02,900 --> 00:57:09,060
+ is added or removed. Java has a class called ArrayList which can be dynamically
+
+591
+00:57:09,060 --> 00:57:15,620
+ extended but provides array like linear access. It is a list internally but it
+
+592
+00:57:15,620 --> 00:57:22,100
+ can be used like an array externally. The underlying technique that is used to
+
+593
+00:57:22,100 --> 00:57:26,100
+ implement language structures like Python's list is dynamic memory
+
+594
+00:57:26,100 --> 00:57:29,900
+ allocation and a linked list structure. Linked lists are one of the most
+
+595
+00:57:29,900 --> 00:57:34,260
+ important data structures in all of computer science. We will cover dynamic
+
+596
+00:57:34,260 --> 00:57:40,580
+ allocation and implementing data structures in C in chapter 6. For now we
+
+597
+00:57:40,580 --> 00:57:46,020
+ will merely examine the syntax of C arrays but keep in mind that allocating
+
+598
+00:57:46,020 --> 00:57:54,220
+ an array in C is very different than creating a list in Python. Back to the
+
+599
+00:57:54,220 --> 00:57:59,900
+ text. Let us write a program to count the number of occurrences of each digit of
+
+600
+00:57:59,900 --> 00:58:05,260
+ white space characters like tab and new line and all other characters. This is an
+
+601
+00:58:05,260 --> 00:58:10,180
+ artificial problem to solve but it permits us to illustrate several aspects
+
+602
+00:58:10,180 --> 00:58:17,020
+ of C in one program. There are 12 categories of input so it is convenient
+
+603
+00:58:17,020 --> 00:58:22,220
+ to use an array to hold the number of occurrences of each digit rather than 10
+
+604
+00:58:22,220 --> 00:58:27,500
+ individual variables. Actually 12 individual variables. Here is one version
+
+605
+00:58:27,500 --> 00:58:34,580
+ of the program on page 21 in the textbook. I would note that as these
+
+606
+00:58:34,580 --> 00:58:38,620
+ programs get larger and larger it is harder and harder for you to just
+
+607
+00:58:38,620 --> 00:58:43,820
+ listen to me read them and you have to go look at them in the textbook. So I
+
+608
+00:58:43,820 --> 00:58:49,020
+ recommend that you go check out the textbook in page 20 and find this actual
+
+609
+00:58:49,020 --> 00:58:56,300
+ code. Pound include stdio.h main open parentheses closed parentheses open
+
+610
+00:58:56,300 --> 00:59:07,140
+ curly brace int C comma I comma n white comma n other semicolon int n digit open
+
+611
+00:59:07,140 --> 00:59:13,100
+ square bracket 10 closed square bracket semicolon and white equals n other
+
+612
+00:59:13,100 --> 00:59:20,180
+ equals 0 semicolon for open parentheses I equals 0 semicolon I less than 10
+
+613
+00:59:20,180 --> 00:59:27,420
+ semicolon plus plus I open I mean closed parentheses n digit open square bracket
+
+614
+00:59:27,420 --> 00:59:34,700
+ I closed square bracket equals 0 semicolon. Now we're going to have a loop
+
+615
+00:59:34,700 --> 00:59:40,460
+ to read all of our input while double open parentheses C equals get char open
+
+616
+00:59:40,460 --> 00:59:45,180
+ parentheses closed parentheses and another closed parentheses not equal EOF
+
+617
+00:59:45,180 --> 00:59:52,500
+ closed parentheses. If open parentheses C greater than or equal to single quote
+
+618
+00:59:52,500 --> 00:59:58,260
+ zero single quote double ampersand C less than or equal single quote nine
+
+619
+00:59:58,260 --> 01:00:05,740
+ single quote closed parentheses plus plus n digit open square bracket C minus
+
+620
+01:00:05,740 --> 01:00:12,660
+ single quote zero single quote closed square bracket semicolon else if open
+
+621
+01:00:12,660 --> 01:00:21,580
+ parentheses C double equals space quote space quote or double vertical bar C
+
+622
+01:00:21,580 --> 01:00:27,500
+ double equals single quote backslash and single quote double vertical bar C
+
+623
+01:00:27,500 --> 01:00:33,140
+ double equals single quote backslash T single quote closed parentheses plus plus
+
+624
+01:00:33,140 --> 01:00:40,900
+ n white semicolon else plus plus n other but if statement was a sort of a three
+
+625
+01:00:40,900 --> 01:00:46,140
+ branch yet if checking to see if we were doing a digit of white space character
+
+626
+01:00:46,140 --> 01:00:50,540
+ or some other character at the end of the while loop we're not the end of the
+
+627
+01:00:50,540 --> 01:00:55,340
+ lot while loop and so we say print F parentheses double quote digits equals
+
+628
+01:00:55,340 --> 01:00:59,980
+ double quote closed parentheses semicolon. Now we'll note in this that there is no
+
+629
+01:00:59,980 --> 01:01:04,820
+ new line so we can have these print F's kind of concatenate outward without
+
+630
+01:01:04,820 --> 01:01:11,900
+ going to a separate line. For parentheses I equals zero semicolon I less than 10
+
+631
+01:01:11,900 --> 01:01:19,060
+ semicolon plus plus I closed parentheses print F double quote space percent D
+
+632
+01:01:19,060 --> 01:01:26,140
+ double quote comma n digit open square bracket I closed square bracket closed
+
+633
+01:01:26,140 --> 01:01:33,700
+ parentheses semicolon. Print F open parentheses double quote backslash n
+
+634
+01:01:33,700 --> 01:01:40,580
+ white space equals percent D comma other equals percent D backslash and double
+
+635
+01:01:40,580 --> 01:01:47,000
+ quote comma n white comma n other closed parentheses semicolon closed curly
+
+636
+01:01:47,000 --> 01:01:53,460
+ brace. Let's go through the code. The declaration int n digit open square
+
+637
+01:01:53,460 --> 01:01:58,900
+ bracket 10 closed square bracket semicolon declares n digit to be an
+
+638
+01:01:58,900 --> 01:02:04,500
+ array of ten integers. Array of subscripts always start and zero in C
+
+639
+01:02:04,500 --> 01:02:09,980
+ rather than one as in Fortran or PL1 so the elements are n digit sub zero n
+
+640
+01:02:09,980 --> 01:02:17,260
+ digit sub 1 dot dot dot n digit sub 9. Square brackets are the sub. This is
+
+641
+01:02:17,260 --> 01:02:21,460
+ reflected in the for loops which initialize and print the array. A
+
+642
+01:02:21,460 --> 01:02:25,820
+ subscript can be any integer expression which of course includes
+
+643
+01:02:25,820 --> 01:02:32,780
+ integer variables like I and integer constants. This particular program relies
+
+644
+01:02:32,780 --> 01:02:38,460
+ heavily on the properties of character representation of the digits. For example
+
+645
+01:02:38,460 --> 01:02:45,480
+ if C greater than or equal to single quote 0 single quote double ampersand C
+
+646
+01:02:45,480 --> 01:02:51,260
+ less than or equal to single quote 9 single quote closed parentheses determines
+
+647
+01:02:51,260 --> 01:02:58,020
+ whether it's a digit. That is if the numeric value of the digit and the
+
+648
+01:02:58,020 --> 01:03:03,020
+ numeric value of the digit is C minus double quote 0 double quote. This only
+
+649
+01:03:03,020 --> 01:03:08,820
+ works if double quote 0 double quote 1 etc are positive and increasing order
+
+650
+01:03:08,820 --> 01:03:14,100
+ and there's nothing but digits between 0 and 9. Fortunately this is true for all
+
+651
+01:03:14,100 --> 01:03:20,580
+ conventional character sets. By definition arithmetic involving chars and
+
+652
+01:03:20,580 --> 01:03:24,860
+ ints converts everything to int before proceeding. So char variables and
+
+653
+01:03:24,860 --> 01:03:29,660
+ constants are essentially identical to ints in arithmetic
+
+654
+01:03:29,660 --> 01:03:34,940
+ contexts. This is quite natural and convenient for example C minus single
+
+655
+01:03:34,940 --> 01:03:39,220
+ quote 0 single quote is an integer expression that gives us a value between
+
+656
+01:03:39,220 --> 01:03:44,860
+ 0 and 9 an integer value between 0 and 9 corresponding to the character quote 0
+
+657
+01:03:44,860 --> 01:03:50,940
+ quote 2 quote 9 quote stored in C and is thus a valid subscript for the 10
+
+658
+01:03:50,940 --> 01:03:56,900
+ element array and digit. The decision as to whether the character is a digit a
+
+659
+01:03:56,900 --> 01:04:01,620
+ white space or something else is made by the sequence if open parentheses C
+
+660
+01:04:01,620 --> 01:04:07,540
+ greater than or equal to quote 0 quote double ampersand C less than or equal
+
+661
+01:04:07,540 --> 01:04:14,140
+ quote 0 quote a quote 9 quote closed parentheses plus plus and digit open
+
+662
+01:04:14,140 --> 01:04:21,860
+ square bracket C minus quote 0 quote closed bracket semicolon. Else if C double
+
+663
+01:04:21,860 --> 01:04:28,540
+ equals single quote or C double equals single quote backslash n or C double
+
+664
+01:04:28,540 --> 01:04:35,940
+ equals single quote backslash t plus plus n white. Else plus plus n other. The
+
+665
+01:04:35,940 --> 01:04:42,460
+ pattern if in parentheses condition statement else if parentheses condition
+
+666
+01:04:42,460 --> 01:04:47,260
+ statement else statement occurs frequently in programs as a way to
+
+667
+01:04:47,260 --> 01:04:51,620
+ express a multi-way decision. The code is simply read from the top of the bot
+
+668
+01:04:51,620 --> 01:04:56,420
+ to until the bottom until some condition is satisfied. At that point the
+
+669
+01:04:56,420 --> 01:05:00,740
+ corresponding statement part is executed and the entire construction is finished.
+
+670
+01:05:00,740 --> 01:05:06,660
+ Of course statement can be several statements enclosed in braces. If none
+
+671
+01:05:06,660 --> 01:05:10,140
+ of the conditions are satisfied the statement after the final else is
+
+672
+01:05:10,140 --> 01:05:15,540
+ executed if present. If the final else and statement are omitted as in the word
+
+673
+01:05:15,540 --> 01:05:21,180
+ count program no action takes place. There can be an arbitrary number of else
+
+674
+01:05:21,180 --> 01:05:27,980
+ if condition statements groups between the initial if and the final else. As a
+
+675
+01:05:27,980 --> 01:05:32,540
+ matter of style is advisable to format this construction as we have shown with
+
+676
+01:05:32,540 --> 01:05:36,300
+ proper indentation so that long decisions do not march off the right
+
+677
+01:05:36,300 --> 01:05:41,540
+ side of the page. The switch statement to be discussed in chapter 3 provides
+
+678
+01:05:41,540 --> 01:05:46,020
+ another way to write multi-way branching that is particularly suitable when the
+
+679
+01:05:46,020 --> 01:05:49,820
+ condition being tested is simply whether some integer or character
+
+680
+01:05:49,820 --> 01:05:56,180
+ expression matches one of a set of constants. For contrast we will present a
+
+681
+01:05:56,180 --> 01:06:02,700
+ switch version of this program in chapter 3. Functions. In C a function is
+
+682
+01:06:02,700 --> 01:06:07,220
+ equivalent to a subroutine or function in FORTRAN or a procedure in PL 1
+
+683
+01:06:07,220 --> 01:06:11,940
+ Pascal etc. A function provides a convenient way to encapsulate some
+
+684
+01:06:11,940 --> 01:06:16,180
+ computation in a black box which can then be used without worrying about its
+
+685
+01:06:16,180 --> 01:06:20,500
+ innards. Functions are really the only way to cope with the potential
+
+686
+01:06:20,500 --> 01:06:25,140
+ complexity of large programs. With properly designed functions it is
+
+687
+01:06:25,140 --> 01:06:31,660
+ possible to ignore how a job gets done knowing what is done is sufficient. C is
+
+688
+01:06:31,660 --> 01:06:36,860
+ designed to make the use of functions easy convenient and efficient. You will
+
+689
+01:06:36,860 --> 01:06:41,780
+ often see a function only a few lines long called only once just because it
+
+690
+01:06:41,780 --> 01:06:47,740
+ clarifies some piece of code. So far we have used functions like printf getchar
+
+691
+01:06:47,740 --> 01:06:52,780
+ and putchar that have been provided for us. Now it's time to write a few of our
+
+692
+01:06:52,780 --> 01:06:57,980
+ own. Since C has no exponentiation operator like the double asterisk of
+
+693
+01:06:57,980 --> 01:07:02,940
+ FORTRAN or PL 1 let us illustrate the mechanics of function definition by
+
+694
+01:07:02,940 --> 01:07:09,300
+ writing a function power open parenthesis m comma n close parenthesis to raise an
+
+695
+01:07:09,300 --> 01:07:17,260
+ integer into a positive power n. That is the value of power parenthesis 2 comma 5
+
+696
+01:07:17,260 --> 01:07:24,980
+ is 32. This function certainly doesn't do the whole job of exponentiation since it
+
+697
+01:07:24,980 --> 01:07:29,820
+ only handles positive powers of small integers but it is best to confuse only
+
+698
+01:07:29,820 --> 01:07:35,620
+ one issue at a time. Here is the function power and a main program to exercise it
+
+699
+01:07:35,620 --> 01:07:41,000
+ so you can see the whole structure at once. This sample code is on page 23 of
+
+700
+01:07:41,000 --> 01:07:51,700
+ the textbook. Pound include stdio.h main open curly brace int i semicolon for
+
+701
+01:07:51,700 --> 01:07:57,460
+ parentheses i equals 0 semicolon i less than 10 semicolon plus plus i close
+
+702
+01:07:57,460 --> 01:08:08,620
+ parenthesis. printf double quote percent d space percent d space percent d backslash n double quote comma i comma power open
+
+703
+01:08:08,620 --> 01:08:15,260
+ parenthesis 2 comma i close parenthesis comma power open parenthesis negative 3
+
+704
+01:08:15,260 --> 01:08:20,260
+ comma i close parenthesis close parenthesis semicolon close curly brace
+
+705
+01:08:20,260 --> 01:08:26,740
+ the end of the main. Now we begin the function. Power open parenthesis x comma n
+
+706
+01:08:26,740 --> 01:08:37,020
+ close parenthesis int x comma n semicolon open curly brace int i comma p p
+
+707
+01:08:37,020 --> 01:08:45,060
+ equals 1 for open parenthesis i equals 1 semicolon i less than or equal to n
+
+708
+01:08:45,060 --> 01:08:53,980
+ semicolon plus plus i. p equals p times x semicolon return open parenthesis p
+
+709
+01:08:53,980 --> 01:09:00,300
+ close parenthesis semicolon close curly brace. Each function has the same form.
+
+710
+01:09:00,300 --> 01:09:07,220
+ Function name open parenthesis argument list if any followed by argument
+
+711
+01:09:07,220 --> 01:09:12,380
+ declarations if any followed by the body of the function which includes
+
+712
+01:09:12,380 --> 01:09:18,340
+ declarations and statements. Functions can appear in either order and in one
+
+713
+01:09:18,340 --> 01:09:22,820
+ source file or two. If of course the source file appears in two files you will
+
+714
+01:09:22,820 --> 01:09:27,220
+ have to say more to compile and load it than if all appears in one but that's an
+
+715
+01:09:27,220 --> 01:09:31,300
+ operating system matter not a language attribute. For the moment we'll just
+
+716
+01:09:31,300 --> 01:09:35,180
+ assume that both functions are in the same file so whatever you learned
+
+717
+01:09:35,180 --> 01:09:41,540
+ about C programs running them will not change. The function power is called twice
+
+718
+01:09:41,540 --> 01:09:46,620
+ in the line printf open parenthesis double quote percent d space percent d
+
+719
+01:09:46,620 --> 01:09:53,500
+ space percent d backslash n double quote comma i comma power open parenthesis 2
+
+720
+01:09:53,500 --> 01:09:59,260
+ comma i close parenthesis comma power open parenthesis negative 3 comma i
+
+721
+01:09:59,260 --> 01:10:05,300
+ close parenthesis close parenthesis. Each call passes two arguments to the power
+
+722
+01:10:05,300 --> 01:10:09,540
+ function which each time returns an integer to be formatted and printed. In
+
+723
+01:10:09,540 --> 01:10:17,380
+ the expression power open parenthesis 2 comma i is just an integer as 2 and i are. Not
+
+724
+01:10:17,380 --> 01:10:21,220
+ all functions produce an integer value and we'll take this up in more detail in
+
+725
+01:10:21,220 --> 01:10:27,260
+ chapter 4. In power the arguments have to declared appropriately so their types
+
+726
+01:10:27,260 --> 01:10:31,460
+ are known before the beginning of the body of the function. This is done by the
+
+727
+01:10:31,460 --> 01:10:38,260
+ line int x comma n semicolon that follows the function name. The argument
+
+728
+01:10:38,260 --> 01:10:43,540
+ declarations go between the argument list and the opening left brace. Each
+
+729
+01:10:43,540 --> 01:10:48,500
+ declaration is terminated by a semicolon. The names used for power and for its
+
+730
+01:10:48,500 --> 01:10:53,180
+ arguments are purely local to power and not accessible to any other functions.
+
+731
+01:10:53,180 --> 01:10:58,300
+ Other routines can use the same names for their variables without conflict. This
+
+732
+01:10:58,300 --> 01:11:03,860
+ is all so true of the variables i and p within the function. The i and power is
+
+733
+01:11:03,860 --> 01:11:09,620
+ unrelated to the i in main. The value that power compute computes is returned
+
+734
+01:11:09,620 --> 01:11:16,340
+ to main by the return statement which is just as in PL 1. Any expression must
+
+735
+01:11:16,340 --> 01:11:22,100
+ occur within the parentheses. A function need not return a value. A return
+
+736
+01:11:22,100 --> 01:11:26,420
+ statement with no expression causes control but no useful value to be
+
+737
+01:11:26,420 --> 01:11:31,580
+ returned to the call caller as does falling off the end of a function by
+
+738
+01:11:31,580 --> 01:11:39,060
+ reaching the terminating right curly brace. Section 1.8 arguments call by
+
+739
+01:11:39,060 --> 01:11:44,500
+ value. One aspect of C function which may be unfamiliar to programmers who are used
+
+740
+01:11:44,500 --> 01:11:50,140
+ to other languages particularly Fortran and PL 1. In C all function arguments
+
+741
+01:11:50,140 --> 01:11:55,460
+ are passed by value. This means that the called function is given the values of
+
+742
+01:11:55,460 --> 01:12:00,560
+ its arguments in temporary variables actually on a stack rather than their
+
+743
+01:12:00,560 --> 01:12:05,740
+ addresses. This leads to some different properties than are seen with call by
+
+744
+01:12:05,740 --> 01:12:11,460
+ reference languages like Fortran and PL 1 in which the called routine is handled
+
+745
+01:12:11,460 --> 01:12:17,580
+ the address of the argument not its value. It may seem strange that the
+
+746
+01:12:17,580 --> 01:12:21,020
+ authors are calling so much attention to the fact that function arguments are
+
+747
+01:12:21,020 --> 01:12:25,880
+ passed call by value in the very first chapter. Most modern programming
+
+748
+01:12:25,880 --> 01:12:31,740
+ languages like Python PHP or Java pass single value arguments by value by
+
+749
+01:12:31,740 --> 01:12:35,800
+ default and to pass in an argument by reference you need to do something
+
+750
+01:12:35,800 --> 01:12:42,440
+ special like adding the ampersand in the function declaration in PHP. Passing by
+
+751
+01:12:42,440 --> 01:12:48,140
+ reference was the norm before C and passing by value was the norm after C.
+
+752
+01:12:48,140 --> 01:12:53,020
+ Since modern languages were deeply influenced by and often written in C
+
+753
+01:12:53,020 --> 01:12:59,180
+ passing by value is the norm for modern languages. It's nice because it isolates
+
+754
+01:12:59,180 --> 01:13:03,620
+ the data in the calling code from the called code so the called code can't
+
+755
+01:13:03,620 --> 01:13:08,980
+ easily mess with its arguments either intentionally or by mistake and create
+
+756
+01:13:08,980 --> 01:13:14,860
+ an unexpected side effect and possibly a bug or security flaw in the calling code.
+
+757
+01:13:14,860 --> 01:13:21,340
+ It was a bit of work to make pass by value work in C. C implements a call stack
+
+758
+01:13:21,340 --> 01:13:26,500
+ where a bit of memory is automatically allocated at each function call and C
+
+759
+01:13:26,500 --> 01:13:30,300
+ makes a copy of the values in the calling code to pass them into the called
+
+760
+01:13:30,300 --> 01:13:34,300
+ code in a way that the calling code can see the values and change their local
+
+761
+01:13:34,300 --> 01:13:39,740
+ copies without affecting the values in the calling code. The same call stack
+
+762
+01:13:39,740 --> 01:13:44,980
+ that made it possible for C function arguments to be passed by value also
+
+763
+01:13:44,980 --> 01:13:49,820
+ made it possible for a function to call itself recursively. Fortran functions
+
+764
+01:13:49,820 --> 01:13:55,180
+ could not be called recursively until the 1990 version of Fortran. If you know
+
+765
+01:13:55,180 --> 01:13:59,260
+ your Python you know that simple variables like integers and strings are
+
+766
+01:13:59,260 --> 01:14:03,500
+ passed by value while structured data like dictionaries and lists are passed
+
+767
+01:14:03,500 --> 01:14:09,660
+ by reference i.e. the called function can modify its arguments. We will later see
+
+768
+01:14:09,660 --> 01:14:15,860
+ this in C as well. Talking about call stacks recursive functions and the fact
+
+769
+01:14:15,860 --> 01:14:20,540
+ that arrays and structured are called by reference is jumping ahead somewhat. So
+
+770
+01:14:20,540 --> 01:14:25,900
+ for now let's just remember the author's point that normal values
+
+771
+01:14:25,900 --> 01:14:33,140
+ like integers and floats are passed by value in C. Back to the text. The main
+
+772
+01:14:33,140 --> 01:14:37,580
+ distinction is that in C the called function cannot alter a variable in the
+
+773
+01:14:37,580 --> 01:14:43,620
+ calling function. It can only alter its private temporary copy. Call by value is
+
+774
+01:14:43,620 --> 01:14:48,780
+ an asset however not a liability. It usually leads to more compact programs
+
+775
+01:14:48,780 --> 01:14:53,500
+ with fewer extraneous variables because arguments can be treated as conveniently
+
+776
+01:14:53,500 --> 01:14:58,380
+ initialized local variables in the called routine. For example here is a
+
+777
+01:14:58,380 --> 01:15:06,460
+ version of power which makes use of this fact. This code is on page 24 of the text.
+
+778
+01:15:06,460 --> 01:15:15,980
+ Power open parenthesis x comma n close parenthesis int x comma n semicolon open
+
+779
+01:15:15,980 --> 01:15:24,420
+ curly brace int i comma p semicolon for open parenthesis p equals 1 semicolon n
+
+780
+01:15:24,420 --> 01:15:32,500
+ greater than 0 semicolon minus minus n close parenthesis p equals p times x
+
+781
+01:15:32,500 --> 01:15:39,420
+ semicolon return open parenthesis p close parenthesis semicolon close curly
+
+782
+01:15:39,420 --> 01:15:45,040
+ brace. The argument n is used as a temporary variable and is counted down
+
+783
+01:15:45,040 --> 01:15:50,500
+ until it becomes 0. There is no longer a need for the variable i as in the
+
+784
+01:15:50,500 --> 01:15:55,620
+ previous example. Whatever is done to n inside the power function has no effect
+
+785
+01:15:55,620 --> 01:16:00,460
+ on the argument that power was originally called with. When necessary it
+
+786
+01:16:00,460 --> 01:16:04,260
+ is possible to arrange for a function to modify the variable in the calling
+
+787
+01:16:04,260 --> 01:16:08,940
+ routine. The caller must provide the address of their variable to be set
+
+788
+01:16:08,940 --> 01:16:14,600
+ technically a pointer to the variable and the called function must declare the
+
+789
+01:16:14,600 --> 01:16:19,740
+ argument to be a pointer and reference the actual variable indirectly through
+
+790
+01:16:19,740 --> 01:16:26,180
+ it. We will cover this in detail in chapter 5. When the name of an array is
+
+791
+01:16:26,180 --> 01:16:30,620
+ used as an argument the value passed to the function is actually the location
+
+792
+01:16:30,620 --> 01:16:36,620
+ or address of the beginning of the array. There is no copying of the elements in
+
+793
+01:16:36,620 --> 01:16:43,460
+ the array. By subscripting this value the function can access and alter any element
+
+794
+01:16:43,460 --> 01:16:50,860
+ of the array in the calling code. This is the topic of the next section. Now I
+
+795
+01:16:50,860 --> 01:16:54,500
+ would recommend that you're careful looking at the code samples in the rest
+
+796
+01:16:54,500 --> 01:16:59,580
+ of this chapter. Recall that in C array sizes do not grow and shrink
+
+797
+01:16:59,580 --> 01:17:04,340
+ dynamically at all after they're allocated. The author statically allocate
+
+798
+01:17:04,340 --> 01:17:09,700
+ character arrays capable of handling up to 1,000 characters long. Their code
+
+799
+01:17:09,700 --> 01:17:14,900
+ works but it is somewhat brittle. So look at the next two sections as examples of
+
+800
+01:17:14,900 --> 01:17:19,700
+ C syntax with many important concepts about character strings stored as arrays
+
+801
+01:17:19,700 --> 01:17:24,740
+ and calling patterns when passing arrays to functions as parameters. But not
+
+802
+01:17:24,740 --> 01:17:30,660
+ exactly the best practice when handling dynamically sized data. Back to the text.
+
+803
+01:17:30,660 --> 01:17:35,420
+ Probably the most common type of array in C is an array of characters. To
+
+804
+01:17:35,420 --> 01:17:39,260
+ illustrate the use of character arrays and functions to manipulate them let's
+
+805
+01:17:39,260 --> 01:17:43,220
+ write a program that reads a set of lines and prints the longest. The basic
+
+806
+01:17:43,220 --> 01:17:48,920
+ outline is simple enough. While there's another line, if it's longer than the
+
+807
+01:17:48,920 --> 01:17:53,860
+ previous longest, save it and its length and at the very end print the longest
+
+808
+01:17:53,860 --> 01:17:58,740
+ line. The outline makes it clear that the program divides naturally into pieces.
+
+809
+01:17:58,740 --> 01:18:03,780
+ One piece gets a new line, another checks it, another saves it, and then the rest
+
+810
+01:18:03,780 --> 01:18:09,020
+ controls the process. Since things divide so nicely, it would be well
+
+811
+01:18:09,020 --> 01:18:14,860
+ to write them that way too. Accordingly, let's write first a separate function
+
+812
+01:18:14,860 --> 01:18:20,260
+ called get line to fetch the next line of input. This is a generalization of get
+
+813
+01:18:20,260 --> 01:18:24,420
+ char. To make the function useful in other contexts, we'll try to make it as
+
+814
+01:18:24,420 --> 01:18:30,340
+ flexible as possible. At the minimum, get line has to return a signal about
+
+815
+01:18:30,340 --> 01:18:34,540
+ possible end of file. A more generally useful design would be to return the
+
+816
+01:18:34,540 --> 01:18:40,180
+ length of the line or zero if the end of file is encountered. Zero is never a
+
+817
+01:18:40,180 --> 01:18:45,060
+ valid line length since every line has at least one character. Even a line
+
+818
+01:18:45,060 --> 01:18:49,860
+ containing only a new line has length one. I would note that here in chapter
+
+819
+01:18:49,860 --> 01:18:54,520
+ one, we have changed the book's original use of the function name get line to get
+
+820
+01:18:54,520 --> 01:18:58,900
+ underscore line in the code examples because it conflicts with the
+
+821
+01:18:58,900 --> 01:19:04,420
+ stdio.h that defines get line as a library function. In this chapter, the
+
+822
+01:19:04,420 --> 01:19:08,420
+ authors are providing examples around function naming and linking. In later
+
+823
+01:19:08,420 --> 01:19:12,100
+ chapters, code samples will simply use the built-in get line without an
+
+824
+01:19:12,100 --> 01:19:18,660
+ underscore to read an input. When we find a line that is longer than the
+
+825
+01:19:18,660 --> 01:19:22,660
+ previous longest, it must be saved somewhere. This suggests a second
+
+826
+01:19:22,660 --> 01:19:27,900
+ function, copy, to copy the new line to a safe place. Finally, we need a main
+
+827
+01:19:27,900 --> 01:19:34,300
+ program to control get line and copy. Here is the result. The sample code for
+
+828
+01:19:34,300 --> 01:19:40,700
+ this is on page 26 and it's a bit long so you might want to show take a look at
+
+829
+01:19:40,700 --> 01:19:48,960
+ the sample code in a browser. Pound include stdio.h. Pound define max line
+
+830
+01:19:48,960 --> 01:19:58,180
+ 1000. Main open paren closed paren. Open curly brace. Int len semicolon which is
+
+831
+01:19:58,180 --> 01:20:03,260
+ the current line length. Int max semicolon which is the maximum length
+
+832
+01:20:03,260 --> 01:20:10,780
+ we've seen so far. Char line open square bracket max line closed square bracket
+
+833
+01:20:10,780 --> 01:20:17,100
+ semicolon. A character array that's the current input line and then char save
+
+834
+01:20:17,100 --> 01:20:21,980
+ open square bracket max line closed square bracket semicolon which is a
+
+835
+01:20:21,980 --> 01:20:28,380
+ character array that has the longest line where we're going to save it. On to
+
+836
+01:20:28,380 --> 01:20:37,060
+ the code. Max equals 0 while open paren open paren len equals get line open
+
+837
+01:20:37,060 --> 01:20:45,300
+ paren line comma max line closed paren closed paren greater than 0. If len is
+
+838
+01:20:45,300 --> 01:20:53,340
+ greater than max open curly brace max equals len to save it and then copy line
+
+839
+01:20:53,340 --> 01:21:03,220
+ comma save. Close curly brace. If open paren max greater than 0 i.e. there was a
+
+840
+01:21:03,220 --> 01:21:11,300
+ line. Print f open paren double quote percent s double quote comma save. Close
+
+841
+01:21:11,300 --> 01:21:17,100
+ curly brace to end the main program. Now we're in the first function. Get line
+
+842
+01:21:17,100 --> 01:21:25,420
+ open parentheses s comma lim closed parentheses. Char s open bracket closed
+
+843
+01:21:25,420 --> 01:21:31,100
+ bracket semicolon. Since it's being passed in as an argument we don't need
+
+844
+01:21:31,100 --> 01:21:38,940
+ to know the length of it and the next argument is int lim semicolon. So get
+
+845
+01:21:38,940 --> 01:21:45,700
+ line takes the character array of unknown length and a limit that tells us
+
+846
+01:21:45,700 --> 01:21:53,500
+ the length of the character array. Open curly brace int c comma i semicolon. For
+
+847
+01:21:53,500 --> 01:22:02,380
+ open parentheses i equals 0 semicolon i less than lim minus 1 double ampersand
+
+848
+01:22:02,380 --> 01:22:07,740
+ parentheses c equals get char open parentheses closed parentheses closed
+
+849
+01:22:07,740 --> 01:22:16,620
+ parentheses not equal eof and double ampersand c not equal single quote
+
+850
+01:22:16,620 --> 01:22:25,740
+ backslash n back single quote semicolon plus plus i. And in the body of the loop
+
+851
+01:22:25,740 --> 01:22:33,260
+ it's s open square bracket i closed square bracket equals c. From now on I'll
+
+852
+01:22:33,260 --> 01:22:42,220
+ read that s sub i equals c. At the end of the loop we say if open parentheses c
+
+853
+01:22:42,220 --> 01:22:46,860
+ double equals single quote backslash n single quote closed parentheses open
+
+854
+01:22:46,860 --> 01:22:58,500
+ curly brace s sub i equals c plus plus i closed curly brace. S sub i equals quote
+
+855
+01:22:58,500 --> 01:23:07,220
+ backslash 0 quote semicolon return open parentheses i closed parentheses semicolon
+
+856
+01:23:07,220 --> 01:23:13,500
+ closed curly brace. And that's the end of the get line function. And now we on to
+
+857
+01:23:13,500 --> 01:23:20,860
+ the copy function. Copy open parentheses s1 s2 closed parentheses. The purpose of this
+
+858
+01:23:20,860 --> 01:23:27,860
+ function is copy s1 to s2 assume that s2 is big enough. The declaration is char
+
+859
+01:23:27,860 --> 01:23:33,660
+ s1 open square bracket closed square bracket comma s2 open square bracket
+
+860
+01:23:33,660 --> 01:23:40,220
+ closed square bracket. As a note these arrays have a size we just don't know
+
+861
+01:23:40,220 --> 01:23:44,980
+ what they are and we hope that they're large enough. The body of the copy
+
+862
+01:23:44,980 --> 01:23:55,340
+ function starts with open curly brace int i semicolon i equals 0 while open
+
+863
+01:23:55,340 --> 01:24:02,500
+ parentheses open parentheses s2 sub i equals s1 sub i closed parentheses not
+
+864
+01:24:02,500 --> 01:24:09,940
+ equal single quote backslash 0 single quote plus plus i closed curly brace to
+
+865
+01:24:09,940 --> 01:24:15,980
+ end the copy function. Main and get line communicate both through a pair of
+
+866
+01:24:15,980 --> 01:24:20,140
+ arguments and a returned value. In get line the arguments are declared by the
+
+867
+01:24:20,140 --> 01:24:27,060
+ lines char s open square bracket closed square bracket semicolon int lim
+
+868
+01:24:27,060 --> 01:24:33,580
+ semicolon. Specify that the first argument is an array of unknown length and the
+
+869
+01:24:33,580 --> 01:24:38,940
+ second is an integer. The length of the array s is not specified in get line
+
+870
+01:24:38,940 --> 01:24:45,480
+ since it's determined in main. Get line uses return to send a value back to the
+
+871
+01:24:45,480 --> 01:24:50,420
+ caller just as the function power did. Some functions return a useful value
+
+872
+01:24:50,420 --> 01:24:56,420
+ others like copy are only used for their effect and return no value. Get line
+
+873
+01:24:56,420 --> 01:25:01,740
+ puts the character backslash 0 the null character whose integer value is 0 at
+
+874
+01:25:01,740 --> 01:25:06,220
+ the end of the array it's creating to mark the end of the string of characters.
+
+875
+01:25:06,220 --> 01:25:11,820
+ This convention is also used by the C compiler. When a string
+
+876
+01:25:11,820 --> 01:25:18,540
+ constant like double quote H E L L O backslash N double quote is written in a
+
+877
+01:25:18,540 --> 01:25:23,500
+ C program a compiler creates an array of characters containing the characters of
+
+878
+01:25:23,500 --> 01:25:29,940
+ the string and adds a backslash 0 at the end to terminate it so that functions
+
+879
+01:25:29,940 --> 01:25:38,660
+ such as printf can detect the end. So that would lead to an array that has H E
+
+880
+01:25:38,660 --> 01:25:49,260
+ L L O backslash N backslash 0. So it's a 5 character array with a new line which
+
+881
+01:25:49,260 --> 01:25:54,180
+ is a sixth character and then backslash 0 which is an actual character. Again we
+
+882
+01:25:54,180 --> 01:25:58,220
+ don't know the arrays don't know their length and so you use the backslash 0
+
+883
+01:25:58,220 --> 01:26:04,940
+ as the indicator of the end of a string. The percent s format specification in
+
+884
+01:26:04,940 --> 01:26:10,380
+ printf expects a string represented in exactly this form. If you examine copy
+
+885
+01:26:10,380 --> 01:26:15,300
+ you will discover that it too relies on the fact that its input argument s1 is
+
+886
+01:26:15,300 --> 01:26:22,700
+ terminated by backslash 0 and it copies this character backslash 0 into the
+
+887
+01:26:22,700 --> 01:26:30,340
+ argument output argument s2. All of this implies that backslash 0 is not part of
+
+888
+01:26:30,340 --> 01:26:36,660
+ normal text it's merely a marker. It is worth mentioning in passing that even a
+
+889
+01:26:36,660 --> 01:26:43,100
+ program as small as this one presents some sticky design problems. For example
+
+890
+01:26:43,100 --> 01:26:47,900
+ what should main do if it encounters a line which is bigger than its limit?
+
+891
+01:26:47,900 --> 01:26:53,740
+ Get line works properly and that it stops collecting when the array is full
+
+892
+01:26:53,740 --> 01:26:58,740
+ even if no new line has been seen. By testing the length and the last
+
+893
+01:26:58,740 --> 01:27:04,020
+ character returned main can determine whether the line was too long and cope
+
+894
+01:27:04,020 --> 01:27:10,420
+ with it as it wishes. In interests of brevity we have ignored this issue.
+
+895
+01:27:10,420 --> 01:27:16,380
+ There's also no way for a user of get line function to know in advance how
+
+896
+01:27:16,380 --> 01:27:22,020
+ long an input line might be so get line checks for overflow. On the other hand a
+
+897
+01:27:22,020 --> 01:27:26,460
+ user of the copy function already knows or should be able to find out how big
+
+898
+01:27:26,460 --> 01:27:33,940
+ the strings are so we have chosen not to add error checking to it.
+
+899
+01:27:33,940 --> 01:27:43,220
+ Section 1.10 scope external variables. The variables in main line
+
+900
+01:27:43,220 --> 01:27:50,660
+ save etc are private or local to main because they are declared within main no
+
+901
+01:27:50,660 --> 01:27:55,580
+ other function can have direct access to them. The same is true of the variables
+
+902
+01:27:55,580 --> 01:28:00,180
+ in the other functions for example the variable i in get line is unrelated to
+
+903
+01:28:00,180 --> 01:28:06,180
+ the i in copy. Each local variable in a routine comes into existence only when a
+
+904
+01:28:06,180 --> 01:28:11,300
+ function is called and disappears when the function is exited. It is for this
+
+905
+01:28:11,300 --> 01:28:16,220
+ reason that such variables are usually known as automatic variables following
+
+906
+01:28:16,220 --> 01:28:21,740
+ terminology in other languages. We'll use the term automatic henceforth to refer
+
+907
+01:28:21,740 --> 01:28:27,460
+ to these dynamic local variables. Chapter 4 discusses the static storage class in
+
+908
+01:28:27,460 --> 01:28:31,900
+ which local variables do retain their values between function invocations.
+
+909
+01:28:31,900 --> 01:28:37,820
+ Because automatic variables come and go with function invocation they do not
+
+910
+01:28:37,820 --> 01:28:42,580
+ retain their values from one call to the next and must be explicitly set upon
+
+911
+01:28:42,580 --> 01:28:48,940
+ each entry. If they are not set they will contain garbage. As an alternative to
+
+912
+01:28:48,940 --> 01:28:53,100
+ automatic variables it is possible to define variables which are external to
+
+913
+01:28:53,100 --> 01:28:59,020
+ all functions that is global variables which can be accessed by name by any
+
+914
+01:28:59,020 --> 01:29:04,580
+ function that cares to. This function is rather like Fortran common or PL one
+
+915
+01:29:04,580 --> 01:29:09,100
+ external. Because external variables are globally accessible they can be used
+
+916
+01:29:09,100 --> 01:29:14,100
+ instead of arguments to communicate data between functions. Furthermore because
+
+917
+01:29:14,100 --> 01:29:18,180
+ external variables remain in existence permanently rather than appearing and
+
+918
+01:29:18,180 --> 01:29:22,900
+ disappearing as functions are called and exited they retain their values even
+
+919
+01:29:22,900 --> 01:29:28,020
+ after the functions that set them are done. An external variable has to be
+
+920
+01:29:28,020 --> 01:29:34,020
+ defined outside of any function. This allocates actual storage for it. The
+
+921
+01:29:34,020 --> 01:29:38,740
+ function also must be declared and each function that wants to access it. This
+
+922
+01:29:38,740 --> 01:29:43,980
+ may be done either by an explicit extern declaration or implicitly by
+
+923
+01:29:43,980 --> 01:29:49,540
+ context. To make the discussion concrete let's rewrite the longest line program
+
+924
+01:29:49,540 --> 01:29:56,380
+ with line, save, and max as external variables. This requires changing the
+
+925
+01:29:56,380 --> 01:30:02,900
+ calls, declarations, and bodies of all three functions. This sample code is on
+
+926
+01:30:02,900 --> 01:30:08,340
+ page 29 of the textbook and it's pretty long but I'll read it for you.
+
+927
+01:30:08,340 --> 01:30:16,820
+ Pound include stdio.h. Pound define max line 1000. We're still outside of main.
+
+928
+01:30:16,820 --> 01:30:25,380
+ Char line open bracket max line close bracket semicolon. Char save open bracket
+
+929
+01:30:25,380 --> 01:30:31,860
+ max line semicolon. Int max semicolon. Those are our three global variables.
+
+930
+01:30:31,860 --> 01:30:41,700
+ Starting the main. Main open paren close paren open curly brace. Int len. Extern
+
+931
+01:30:41,700 --> 01:30:46,580
+ int max. So we're saying that this is an integer but it's also not to be
+
+932
+01:30:46,580 --> 01:30:54,140
+ allocated inside of main. Extern char save open square bracket close square
+
+933
+01:30:54,140 --> 01:31:00,580
+ bracket. The line length the length of the save array is defined above so we
+
+934
+01:31:00,580 --> 01:31:07,620
+ don't need to define it here. Max equals zero semicolon. While double parentheses
+
+935
+01:31:07,620 --> 01:31:13,260
+ len double left parentheses len equals get line parentheses greater than zero
+
+936
+01:31:13,260 --> 01:31:21,060
+ parentheses. If parentheses len greater than max open curly brace max equals len
+
+937
+01:31:21,060 --> 01:31:26,980
+ copy open parentheses no parentheses semicolon no parameters to copy because
+
+938
+01:31:26,980 --> 01:31:31,900
+ it's going to simply talk to the global variables. Close curly brace. After the
+
+939
+01:31:31,900 --> 01:31:38,580
+ loop finishes we say if open parentheses max greater than zero then printf open
+
+940
+01:31:38,580 --> 01:31:44,140
+ parentheses double quote percent s double quote comma save close parentheses
+
+941
+01:31:44,140 --> 01:31:50,460
+ semicolon close close curly brace and that is the end of the main. So now we
+
+942
+01:31:50,460 --> 01:31:54,940
+ have the get line function which is specialized to deal with external
+
+943
+01:31:54,940 --> 01:32:04,060
+ variables okay. So we start get line open parentheses close parentheses no
+
+944
+01:32:04,060 --> 01:32:11,920
+ parameters open curly brace int comma c comma int c comma i semicolon. These are
+
+945
+01:32:11,920 --> 01:32:18,980
+ local variables. Extern char line open curly brace close curly brace semicolon.
+
+946
+01:32:18,980 --> 01:32:26,300
+ This is the our reference inside of get line to the global variable line. For
+
+947
+01:32:26,300 --> 01:32:33,980
+ open parentheses i equals zero semicolon i less than max line minus one max line
+
+948
+01:32:33,980 --> 01:32:40,820
+ minus one max line is a predefined constant at compile time. For i less
+
+949
+01:32:40,820 --> 01:32:46,020
+ than max line minus one double ampersand parentheses c equals get char open
+
+950
+01:32:46,020 --> 01:32:50,900
+ parentheses close parentheses close parentheses not equal eof double
+
+951
+01:32:50,900 --> 01:32:58,580
+ ampersand i.e. and c not equal single quote backslash n single quote semicolon
+
+952
+01:32:58,580 --> 01:33:04,880
+ plus plus i. Line sub i equals c. That's the for loop that in effect reads
+
+953
+01:33:04,880 --> 01:33:12,060
+ characters one at a time and puts them in line. After the for loop we say if
+
+954
+01:33:12,060 --> 01:33:17,880
+ open parentheses c double equals single quote backslash n single quote close
+
+955
+01:33:17,880 --> 01:33:24,300
+ parentheses open curly brace line sub i equals c plus plus i close curly brace.
+
+956
+01:33:24,300 --> 01:33:34,060
+ This ensures that we append the new line to the function. Line sub i equals
+
+957
+01:33:34,060 --> 01:33:39,580
+ single quote backslash zero backslash that's semicolon the that's the string
+
+958
+01:33:39,580 --> 01:33:46,020
+ termination character. Return i return open parentheses i close parentheses. This
+
+959
+01:33:46,020 --> 01:33:50,300
+ is the length that get line is returning and then close curly brace to end the
+
+960
+01:33:50,300 --> 01:33:55,180
+ get line function. And then we have the copy function and again it takes no
+
+961
+01:33:55,180 --> 01:34:01,100
+ parameters. Copy open parentheses close parentheses curly brace int i extern
+
+962
+01:34:01,100 --> 01:34:08,460
+ char line open bracket close bracket comma save open bracket close bracket
+
+963
+01:34:08,460 --> 01:34:15,420
+ semicolon. i equals zero while parentheses open parentheses open parentheses save
+
+964
+01:34:15,420 --> 01:34:24,140
+ sub i equals line sub i close parentheses is not equal quote backslash zero quote
+
+965
+01:34:24,140 --> 01:34:33,180
+ plus plus i. Close curly brace for copy. So the external variables in main get
+
+966
+01:34:33,180 --> 01:34:38,620
+ line and copy are defined by the very first lines in the example above outside
+
+967
+01:34:38,620 --> 01:34:43,180
+ of main which state their type and cause storage to be allocated for them.
+
+968
+01:34:43,180 --> 01:34:47,940
+ Syntactically external definitions are just like the declarations we use
+
+969
+01:34:47,940 --> 01:34:52,900
+ previously but because they occur outside of any function including outside the
+
+970
+01:34:52,900 --> 01:34:58,820
+ main function the variables are external. Before a function can use or access an
+
+971
+01:34:58,820 --> 01:35:02,140
+ external variable the name of the variable must be made known to the
+
+972
+01:35:02,140 --> 01:35:07,620
+ function. One way to do this is to write an extern declaration in the function.
+
+973
+01:35:07,620 --> 01:35:13,620
+ The declaration is the same as before except for the added keyword extern. In
+
+974
+01:35:13,620 --> 01:35:19,360
+ certain circumstances the extern declaration can be omitted. If the
+
+975
+01:35:19,360 --> 01:35:23,820
+ external definition of the variable occurs in the same source file before
+
+976
+01:35:23,820 --> 01:35:27,620
+ it's used in a particular function then there's no need for an extern
+
+977
+01:35:27,620 --> 01:35:31,900
+ declaration in the function. The extern declarations in main and get line and
+
+978
+01:35:31,900 --> 01:35:37,740
+ copy are thus redundant. In fact common practice is to place all definition of
+
+979
+01:35:37,740 --> 01:35:42,580
+ all external variables at the beginning of the source file and then omit all
+
+980
+01:35:42,580 --> 01:35:48,460
+ extern declarations. If the program is in several source files and a variable is
+
+981
+01:35:48,460 --> 01:35:54,460
+ defined in say file 1 and used in file 2 then an extern declaration is needed in
+
+982
+01:35:54,460 --> 01:35:59,580
+ file 2 to connect the two occurrences of the variables. This topic is discussed at
+
+983
+01:35:59,580 --> 01:36:04,980
+ length in chapter 4. You should note that we are using the words declaration and
+
+984
+01:36:04,980 --> 01:36:09,420
+ definition very carefully when we refer to external variables in this section.
+
+985
+01:36:09,420 --> 01:36:13,780
+ Definition refers to the place where the variable is actually created or assigned
+
+986
+01:36:13,780 --> 01:36:18,420
+ storage. Declaration refers to places where the nature of the variable is
+
+987
+01:36:18,420 --> 01:36:23,900
+ stated but no storage is allocated. By the way there is a tendency to make
+
+988
+01:36:23,900 --> 01:36:28,220
+ everything in sight an extern variable because it appears to simplify things.
+
+989
+01:36:28,220 --> 01:36:32,200
+ Argument lists are short and variables are always there when you want them but
+
+990
+01:36:32,200 --> 01:36:37,140
+ external variables are always there also when you don't want them. The style of
+
+991
+01:36:37,140 --> 01:36:40,940
+ coding is fraught with peril since it leads to programs whose data connections
+
+992
+01:36:40,940 --> 01:36:45,900
+ are not at all obvious. Variables can be changed in unexpected and even
+
+993
+01:36:45,900 --> 01:36:51,360
+ inadvertent ways and the program is hard to modify when it becomes necessary. The
+
+994
+01:36:51,360 --> 01:36:56,080
+ second version of the longest line program is inferior to the first partly
+
+995
+01:36:56,080 --> 01:37:00,740
+ because of these reasons and partly because it destroys the generality
+
+996
+01:37:00,740 --> 01:37:05,820
+ of two quite useful functions by hardwiring them into the names of the
+
+997
+01:37:05,820 --> 01:37:12,580
+ variables they will manipulate. Section 1.11 summary. At this point we have
+
+998
+01:37:12,580 --> 01:37:16,380
+ covered what might be called the conventional core of C. With this
+
+999
+01:37:16,380 --> 01:37:20,580
+ handful of building blocks it's possible to write useful programs of considerable
+
+1000
+01:37:20,580 --> 01:37:26,460
+ size and it probably a good idea if you paused long enough to do so. The
+
+1001
+01:37:26,460 --> 01:37:30,860
+ exercises that follow are intended to give you suggestions for programs of
+
+1002
+01:37:30,860 --> 01:37:36,460
+ somewhat greater complexity than the ones presented in this chapter. After you
+
+1003
+01:37:36,460 --> 01:37:40,820
+ have this much C under control it will be well worth your effort to read on
+
+1004
+01:37:40,820 --> 01:37:45,300
+ for the features covered in the next few chapters are where the power and
+
+1005
+01:37:45,300 --> 01:37:52,780
+ expressiveness of the language begin to become apparent. This work is based on
+
+1006
+01:37:52,780 --> 01:37:57,860
+ the 1978 C programming book written by Brian W. Kernigan and Dennis M. Ritchie.
+
+1007
+01:37:57,860 --> 01:38:03,340
+ Their book is copyright all rights reserved by AT&T but is used in this
+
+1008
+01:38:03,340 --> 01:38:07,100
+ work under fair use because of the book's historical and scholarly
+
+1009
+01:38:07,100 --> 01:38:11,900
+ significance, its lack of availability, and the lack of an accessible version of
+
+1010
+01:38:11,900 --> 01:38:16,580
+ the book. The book is augmented in places to help understand its right place in a
+
+1011
+01:38:16,580 --> 01:38:21,700
+ historical context amidst the major changes of the 1970s and 1980s as
+
+1012
+01:38:21,700 --> 01:38:25,900
+ computer science evolved from a hardware-first vendor-centered approach
+
+1013
+01:38:25,900 --> 01:38:29,420
+ to a software-centered approach where portable operating systems and
+
+1014
+01:38:29,420 --> 01:38:35,180
+ applications written in C could run on any hardware. This is not the ideal book
+
+1015
+01:38:35,180 --> 01:38:39,940
+ to learn C programming because the 1978 edition does not reflect the modern C
+
+1016
+01:38:39,940 --> 01:38:44,700
+ language. Using an obsolete book gives us an opportunity to take students back in
+
+1017
+01:38:44,700 --> 01:38:49,700
+ time and understand how the C language was evolving as it laid the groundwork
+
+1018
+01:38:49,700 --> 01:38:53,980
+ for a future with portable applications.
+

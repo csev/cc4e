@@ -1,0 +1,224 @@
+ Hello, and welcome to our continuing series of lectures
+ on improving our implementation of a Python object.
+ So what we've been doing is we have been building a series
+ of implementations, of approximate implementations,
+ some of the things that we find in Python,
+ like the Python dictionary.
+ And so the last thing we worked on was this Python dictionary class,
+ and the previous implementation was just a linked list with a key.
+ Now, we're going to eventually have to build all kinds of different
+ implementations, and so the part of what we're doing
+ is we're working toward abstraction, where we're separating what the object
+ is that we're interacting with from how we build it underneath.
+ And so we're going to do things like move our methods into the structure
+ instead of just using prefix-style naming conventions,
+ and just reduce the need to look inside the class
+ or inside the structure that is holding our class
+ for code that's in our calling code.
+ So we don't want to have to look at the class values inside the class.
+ So this is just continuing along understanding object-oriented principles.
+ The three principles of object orientations are encapsulation,
+ abstraction, inheritance, and polymorphism.
+ And so for now, we're bundling more things together.
+ That's encapsulation, and we're working on abstraction,
+ and that is thinking about separately how we are going to use this object
+ from how we're going to build the object.
+ We're going to reveal less and less of our implementation details to the caller.
+ And so for a while, we just said,
+ "Well, we'll just take the class and add an underscore and name it,"
+ et cetera, et cetera, and it seems absolutely simple enough.
+ And in some ways, you see that C++ does exactly that
+ when it's compiling C++ to C code.
+ But it seems like it's simple enough,
+ and it seems like you would keep it straight,
+ but it turns out to be a bad idea in practice.
+ So Python strings, which I can write Python code
+ and not have to look up documentation,
+ are real objects that follow the principle of encapsulation.
+ Everything that you touch is inside of the object,
+ like uppercase, because searching for something.
+ PHP strings are kind of more archaic,
+ and that PHP is more of a C-like way of thinking about things,
+ and there are type, and then there's a bunch of libraries
+ that know how to use this type.
+ And so I'm going to show you some ickiness in PHP,
+ but I do love PHP, so I'm not just criticizing PHP.
+ PHP has a lot going for it.
+ But in the language and the library, there are some annoyances.
+ So let's take a look at a little bit of Python
+ and some equivalent PHP.
+ And so you sort of see this notion
+ that naming convention seems tempting,
+ but it's not necessarily a great idea.
+ So in Python, we say x equals a string, we call x.find,
+ and it has the first parameter, the thing we're looking for.
+ And then we have y equals x.replace old new.
+ And so the first parameter is the old string,
+ and the second parameter is the new string.
+ And then we say how long this thing is.
+ And so everything's very consistent.
+ But if we look at PHP, it's almost identical,
+ except it's calling libraries, right?
+ So $x equals a string with old in it,
+ and then we're going to use stir pose.
+ That is the position in a string,
+ and the first parameter is what they call the haystack,
+ and then the second parameter is width, which we call the needle.
+ But then we look at the replacement, which is equivalent of x.replace
+ in Python, and it's not stir replace, it's stir_replace.
+ So do we use underscores or do we not use underscores?
+ And then the thing that just drives me crazy is what is the,
+ what would you expect the first, second,
+ and third parameter of PHP stir replace?
+ Well, if I was writing it, it would be the source string,
+ the old search string, and the new thing to replace it with.
+ But that's not what it is.
+ The stir_replace says old string, new string,
+ and then the string we're doing the searching in.
+ You can go look this up, but PHP talks about how there were generations
+ of things, like stir pose, I think, is one of the earlier ones.
+ Stirlen, basically, that's one of the older ones,
+ and so it's consistent with stir pose,
+ but not consistent with stir replace.
+ And so the naming conventions is just less than ideal,
+ and you can just see from a programmer understanding,
+ it's just really simple that if we look at the Python,
+ it says y equals x.replace old new,
+ I can remember that calling sequence,
+ and I can never remember the stir_replace in PHP.
+ So the thing we're going to do here
+ is we're going to put the methods in the structure,
+ and so we see some of our C code before and after,
+ and so we create a PyDict,
+ and then you'll notice that just like what PHP did,
+ I called those PyDict_put, PyDict_len, and PyDict_get.
+ I was consistent because I always used underscores,
+ and PyDict is the name of the structure, PyDict_del,
+ and so I was pretty consistent with that.
+ But now what we're going to do in the name of encapsulation
+ is we are going to take all those methods,
+ make them be part of the structure.
+ We're going to find that they're just pointers to the methods,
+ but we are going to have global methods.
+ We're just not going to access them through their global names.
+ So we're going to create a new PyDict,
+ saying PyDict_new, but then we're going to call to put something in,
+ we're going to call DCT arrow put,
+ and remember, we have to make this first parameter
+ like the self parameter DCT,
+ that's just always going to be that first parameter
+ because we're sort of doing it Python style,
+ and then you kind of know that Z is the key and catchphrase is the value.
+ And so that's the calling sequence.
+ And again, that DCT comma is just because we're not an object-oriented language,
+ and so we put self in there.
+ Again, homage back to exactly the way that Python did it
+ and why they did it the way they did it,
+ because they were creating an object-oriented framework
+ on top of a non-object-oriented environment, just like we are.
+ And then you look at DCT arrow len,
+ and of course, putting DCT in as the first parameter is redundant,
+ but necessary, and we can do a DCT get,
+ and in effect, other than the first parameter, which is DCT,
+ we are putting the key in, and away it goes,
+ and then we could call the Dell method.
+ But now you'll notice that every single method
+ that is associated with a PyDict is in the PyDict structure.
+ So let's talk about how we're going to do that and why.
+ And so this all kind of falls under leaky abstractions,
+ meaning that when we're in the main calling code
+ and we sneak in and peek at the data attributes inside the class,
+ we call this leaking.
+ And later we'll talk about iterators and why we...
+ Iterators seem inconvenient and clunky,
+ but what their whole job really is,
+ is to hide implementation details to make it cleaner abstraction.
+ When the calling code depends on the internal implementation names
+ and approaches, that's what it is to be leaky.
+ So we need to define a contract between the class
+ and its calling code from above that we won't change.
+ We're going to call this contract on interface.
+ Another kind of word for that is abstraction.
+ And so if we look at all the code in our earlier implementation,
+ the whole thing is leaky, right?
+ Especially if you look at that for loop where it says for struct
+ denode cur equals DCT arrow head, cur not equal null,
+ cur equals cur next, print cur key, and cur value.
+ And so what happens is, that should trigger a little like...
+ Eh, eh, eh, that says don't look inside these things.
+ And this is what we later we'll talk about iterators,
+ how far we go and how we actually...
+ What we look at, this code that we're looking at right here,
+ I think it's pretty,
+ but it kind of violates the abstraction boundary
+ because we're looking too deeply into the fact
+ that this is even a linked list.
+ We don't know there's a linked list. It may not be a linked list.
+ It may be some other kind of a structure.
+ It may be a tree or whatever.
+ And we will later get to the point
+ where we will make these things different implementations,
+ not just a linked list.
+ And so that's this idea that you should be like,
+ "Oh no, there's this little wall, but now I'm looking inside."
+ And then when you're looking inside,
+ that's when you kind of are violating the abstraction boundary,
+ or we call it a leaky abstraction.
+ What this leads to is the notion of not all object attributes are the same.
+ And so when we're going to build an object,
+ we are going to decide what parts of these things are the contract
+ and what parts are leave us alone, we're going to hide this stuff.
+ And so the concepts in object-oriented programming
+ are that things that the calling code is allowed to see,
+ whether they be data or methods are called public.
+ Things that are like reserved for class use only are private.
+ And then when we start talking about inheritance,
+ which we won't talk about too much,
+ there is this middle class called protected.
+ And that is stuff that classes and derived classes can look at,
+ but not the calling code.
+ So protected is sort of more like private
+ from the point of view of calling code.
+ So if you look at the abstraction boundary that we have here,
+ we see that the place where the abstraction boundary
+ is sort of failing is that head and tail.
+ We want to make an abstraction boundary and say that look,
+ that the notion of head and the tail, that's going to be all ours
+ and that's going to be all inside.
+ And that's inside the abstraction boundary
+ and you're not supposed to mess with it.
+ So we look at how we do this in Java, there is a keyword called private.
+ And so Java, we're making a point class
+ and we're making two double values that we're saying x and y are private,
+ which means you can't access it outside of this class.
+ The constructor is public and the dump is public.
+ And so you see that that just means that you can't access x and y
+ outside of the class, but you can access dump and the constructor.
+ In C++, you see a private and a public.
+ And so private says this double x and y
+ are things that can only be used inside the class
+ and public is the constructor can be used outside the class
+ and the dump can be used outside the class.
+ And this is just syntax that they put in.
+ Now, interestingly, access control in Python is a little sort of wonkier
+ because Python doesn't really put things like public and private.
+ So what Python is doing, and you've seen these
+ across all the Python you've done,
+ where you see these double underscores and dundas, as it were,
+ like the constructor, you're not supposed to call
+ the underscore underscore init underscore underscore.
+ That's just when you create an object, that's what happens.
+ And so the init is an internal method, it's a private method.
+ Underscore underscore x and underscore underscore y
+ are totally valid variable names,
+ except we're marking to the outside world,
+ hey, you're not supposed to access these.
+ And then def dump, the fact that we didn't put double underscore
+ in front of it means that it's public.
+ And so double underscore is the signal inside of Python to do access control.
+ And we look at some of the stuff that C++ really does,
+ this was borrowed in many ways from how C++ does things internally.
+ So up next, we're going to talk about this map and the abstraction
+ and the kinds of things that we do under the covers
+ of the implementation details of the abstraction.
+ [MUSIC]

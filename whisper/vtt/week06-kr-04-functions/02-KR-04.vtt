@@ -1,0 +1,1937 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:04.600
+ Welcome to chapter four, Functions and Program Structure.
+
+00:00:04.600 --> 00:00:08.440
+ In this chapter, we're going to start digging a little deeper.
+
+00:00:08.440 --> 00:00:11.520
+ Part of the goal of this course is to get you to the point
+
+00:00:11.520 --> 00:00:14.240
+ where we can talk about how things really work.
+
+00:00:14.240 --> 00:00:16.600
+ Eventually, in the next course, we'll even go down
+
+00:00:16.600 --> 00:00:19.640
+ to hardware and architecture and gates.
+
+00:00:19.640 --> 00:00:22.680
+ And so it's time to start opening things up
+
+00:00:22.680 --> 00:00:24.640
+ and looking at how things work.
+
+00:00:24.640 --> 00:00:26.920
+ And so this is a good time to do so.
+
+00:00:26.920 --> 00:00:29.020
+ And the big thing we're gonna learn, among other things,
+
+00:00:29.020 --> 00:00:33.600
+ is the concept of a stack, how pass-by-reference works,
+
+00:00:33.600 --> 00:00:37.520
+ how pass-by-value and pass-by-reference work,
+
+00:00:37.520 --> 00:00:38.920
+ a little bit about recursion.
+
+00:00:38.920 --> 00:00:42.440
+ Recursion's a thing that I worry about a lot.
+
+00:00:42.440 --> 00:00:45.560
+ Well, we'll get there.
+
+00:00:45.560 --> 00:00:47.560
+ And preprocessors, these are all things
+
+00:00:47.560 --> 00:00:50.000
+ where we're really starting, it's not so much
+
+00:00:50.000 --> 00:00:51.800
+ about just how functions work,
+
+00:00:51.800 --> 00:00:54.700
+ but how functions are implemented
+
+00:00:54.700 --> 00:00:57.840
+ and how that affects how they work.
+
+00:00:57.840 --> 00:01:00.040
+ So the first thing I wanna talk to you about
+
+00:01:00.040 --> 00:01:04.000
+ is a really nifty computer science concept called a stack.
+
+00:01:04.000 --> 00:01:09.000
+ A stack is a data structure that we use
+
+00:01:09.000 --> 00:01:11.920
+ and it has a couple of attributes.
+
+00:01:11.920 --> 00:01:15.380
+ The idea of a stack is we start with an empty stack
+
+00:01:15.380 --> 00:01:17.960
+ and we put things on the stack and then we take things off.
+
+00:01:17.960 --> 00:01:20.640
+ We take them off, the last thing we put on
+
+00:01:20.640 --> 00:01:21.800
+ is the first thing we get off.
+
+00:01:21.800 --> 00:01:23.440
+ And they go up and they go down.
+
+00:01:23.440 --> 00:01:27.160
+ You can push things onto them and take things off of them.
+
+00:01:27.160 --> 00:01:29.780
+ We can approximate this with a Python list.
+
+00:01:29.780 --> 00:01:31.160
+ So we start with an empty list.
+
+00:01:31.160 --> 00:01:33.120
+ We append the string one to it
+
+00:01:33.120 --> 00:01:34.760
+ and the stack has a one on it.
+
+00:01:34.760 --> 00:01:36.960
+ It's kind of growing up from the bottom
+
+00:01:36.960 --> 00:01:38.340
+ and it's gonna shrink from the top.
+
+00:01:38.340 --> 00:01:40.600
+ And then we append a two to it
+
+00:01:40.600 --> 00:01:43.160
+ and then our stack is now one and two.
+
+00:01:43.160 --> 00:01:45.120
+ So the bottom thing in the stack is one
+
+00:01:45.120 --> 00:01:46.720
+ and the top one is two.
+
+00:01:46.720 --> 00:01:48.480
+ And then we append a three to it
+
+00:01:48.480 --> 00:01:50.760
+ and we have one, two, three on the stack.
+
+00:01:50.760 --> 00:01:52.360
+ At that point, we pop.
+
+00:01:52.360 --> 00:01:56.020
+ Pop says, give me the most recent pushed thing
+
+00:01:56.020 --> 00:01:57.380
+ and then take it off.
+
+00:01:57.380 --> 00:02:01.480
+ So we pop off three and the stack remains with one and two.
+
+00:02:01.480 --> 00:02:04.680
+ Again, this is also known as the last in, first out
+
+00:02:04.680 --> 00:02:06.240
+ or LIFO queue.
+
+00:02:06.240 --> 00:02:07.680
+ Queue is like a line of things.
+
+00:02:07.680 --> 00:02:10.640
+ And so the last thing in is the first thing you got out.
+
+00:02:10.640 --> 00:02:13.200
+ So that's a stack and we're gonna use stacks
+
+00:02:13.200 --> 00:02:14.660
+ in function calls.
+
+00:02:14.660 --> 00:02:18.640
+ So historically, when we talk about call by value
+
+00:02:18.640 --> 00:02:20.040
+ and call by reference,
+
+00:02:20.040 --> 00:02:23.440
+ we basically say that call by value means that somehow
+
+00:02:23.440 --> 00:02:26.480
+ this value like in the main program MA with a variable
+
+00:02:26.480 --> 00:02:30.720
+ with a value 42 ends up being copied into the function
+
+00:02:30.720 --> 00:02:35.720
+ and the parameter OP has got a copy of the 42.
+
+00:02:35.720 --> 00:02:39.680
+ It's not the original MA, it's the copy of 42.
+
+00:02:39.680 --> 00:02:42.480
+ So 42 gets passed in the function one
+
+00:02:42.480 --> 00:02:44.480
+ and OP is a copy of 42.
+
+00:02:44.480 --> 00:02:48.360
+ So then inside the function, we can subtract 10 from it
+
+00:02:48.360 --> 00:02:51.220
+ and then we can see that.
+
+00:02:51.220 --> 00:02:52.800
+ But then when we get back in the main function,
+
+00:02:52.800 --> 00:02:55.640
+ we see that MA has been unchanged.
+
+00:02:55.640 --> 00:02:58.080
+ It's like, oh, we built a little wall around the function
+
+00:02:58.080 --> 00:02:59.920
+ and nothing inside the function happens.
+
+00:02:59.920 --> 00:03:01.880
+ The outside world is unaffected by it.
+
+00:03:01.880 --> 00:03:06.400
+ And that's a great oversimplification of call by value.
+
+00:03:06.400 --> 00:03:08.440
+ Of course, call by reference means the stuff
+
+00:03:08.440 --> 00:03:11.240
+ you do in this function can affect outside the function.
+
+00:03:11.240 --> 00:03:14.720
+ But let's talk a little bit about how a stack is used
+
+00:03:14.720 --> 00:03:16.520
+ to accomplish this.
+
+00:03:16.520 --> 00:03:19.280
+ So just to use some terminology,
+
+00:03:19.280 --> 00:03:24.040
+ C calls these variables that are allocated inside the function
+
+00:03:24.040 --> 00:03:28.400
+ before the function starts as the automatic variables.
+
+00:03:28.400 --> 00:03:31.340
+ And frankly, int MA equals 42 in main
+
+00:03:31.340 --> 00:03:33.720
+ is an automatic variable inside the main
+
+00:03:33.720 --> 00:03:36.800
+ 'cause main is a function inside a C program
+
+00:03:36.800 --> 00:03:39.800
+ that happens to be the one that starts everything out.
+
+00:03:39.800 --> 00:03:43.440
+ So if we get to the point where it says int MA equals 42
+
+00:03:43.440 --> 00:03:46.720
+ and then it prints MA being 42,
+
+00:03:46.720 --> 00:03:49.800
+ at that point on the stack, the C runtime
+
+00:03:49.800 --> 00:03:53.880
+ has allocated one integer and we've assigned 42 to it.
+
+00:03:53.880 --> 00:03:55.880
+ So that's what the stack looks like
+
+00:03:55.880 --> 00:03:58.080
+ at that first print statement in main.
+
+00:03:58.080 --> 00:04:02.200
+ Then we call the function one and pass MA in.
+
+00:04:02.200 --> 00:04:04.760
+ And this is where the C runtime library
+
+00:04:04.760 --> 00:04:09.760
+ kind of before everything starts out in the function one,
+
+00:04:09.760 --> 00:04:13.000
+ it allocates what's called a stack frame.
+
+00:04:13.000 --> 00:04:17.720
+ And a stack frame includes the parameters OP
+
+00:04:17.720 --> 00:04:21.820
+ and the automatic variables that are inside of that function.
+
+00:04:21.820 --> 00:04:24.680
+ And so in this case, we're gonna get two variables.
+
+00:04:24.680 --> 00:04:28.560
+ We're gonna get OP as an integer and TN as an integer.
+
+00:04:28.560 --> 00:04:30.760
+ And before the program starts up,
+
+00:04:30.760 --> 00:04:35.760
+ the value 42 is copied from MA into OP.
+
+00:04:35.760 --> 00:04:38.280
+ And so the stack frame is the context
+
+00:04:38.280 --> 00:04:41.400
+ in which that function operates.
+
+00:04:41.400 --> 00:04:44.520
+ So when it first starts, you see that OP has 42.
+
+00:04:44.520 --> 00:04:47.280
+ You also see we have two copies of the number 42
+
+00:04:47.280 --> 00:04:49.920
+ and we have a parameter OP
+
+00:04:49.920 --> 00:04:53.920
+ and then we have the automatic variable, the TN.
+
+00:04:53.920 --> 00:04:59.040
+ Then the next line runs, okay?
+
+00:04:59.040 --> 00:05:01.000
+ And at that point, OP is changed.
+
+00:05:01.000 --> 00:05:03.440
+ OP equals OP minus TN.
+
+00:05:03.440 --> 00:05:05.360
+ And so OP becomes 32.
+
+00:05:05.360 --> 00:05:08.000
+ But you'll notice that on the stack,
+
+00:05:08.000 --> 00:05:09.080
+ beyond the stack frame,
+
+00:05:09.080 --> 00:05:13.080
+ the stack frame is our current execution of the function one.
+
+00:05:13.080 --> 00:05:15.040
+ Beyond the stack frame, the 42 is still there.
+
+00:05:15.040 --> 00:05:15.960
+ We can't see it.
+
+00:05:15.960 --> 00:05:18.040
+ We're in the function right now
+
+00:05:18.040 --> 00:05:20.120
+ and we're only seeing the top part of the stack.
+
+00:05:20.120 --> 00:05:21.440
+ We're not seeing the part of the stack
+
+00:05:21.440 --> 00:05:23.540
+ that belongs to the main program.
+
+00:05:23.540 --> 00:05:25.640
+ So that's where it prints out 32.
+
+00:05:25.640 --> 00:05:30.000
+ So 32 in the function says OP is 32 and that's fine.
+
+00:05:30.000 --> 00:05:33.800
+ And then we return and that's when the C Runtime
+
+00:05:33.800 --> 00:05:37.280
+ removes the stack frame, pops those things off the stack.
+
+00:05:37.280 --> 00:05:39.960
+ It remembers how much it put on and it pops all the stuff
+
+00:05:39.960 --> 00:05:41.840
+ off the stack that it put on.
+
+00:05:41.840 --> 00:05:44.680
+ And then it's basically comes back into MA
+
+00:05:44.680 --> 00:05:47.740
+ and the stack frame for the main program
+
+00:05:47.740 --> 00:05:51.000
+ has one variable in it and it's MA and it has 42.
+
+00:05:51.000 --> 00:05:54.640
+ And that's because one operated in its stack frame
+
+00:05:54.640 --> 00:05:57.280
+ and now the main program is back to operating
+
+00:05:57.280 --> 00:05:58.560
+ in the same stack frame.
+
+00:05:58.560 --> 00:06:03.560
+ You can almost think of this as like one never happened.
+
+00:06:03.560 --> 00:06:07.160
+ From main's perspective, it had some variables.
+
+00:06:07.160 --> 00:06:09.360
+ One ran and a stack frame was created.
+
+00:06:09.360 --> 00:06:12.540
+ Some of the main data was copied into the one stack frame.
+
+00:06:12.540 --> 00:06:14.760
+ One operated in its stack frame.
+
+00:06:14.760 --> 00:06:18.100
+ And then the stack frame went away right before one
+
+00:06:18.100 --> 00:06:20.400
+ or right at the moment that one returned.
+
+00:06:20.400 --> 00:06:22.440
+ And the return value ends up in the stack frame too.
+
+00:06:22.440 --> 00:06:23.960
+ I just haven't shown you that
+
+00:06:23.960 --> 00:06:26.080
+ and these don't send return value.
+
+00:06:26.080 --> 00:06:29.400
+ So the return value comes back from the stack frame.
+
+00:06:29.400 --> 00:06:32.400
+ But you can see how main started with the stack
+
+00:06:32.400 --> 00:06:36.120
+ with one variable on it and then it one ran
+
+00:06:36.120 --> 00:06:39.080
+ and all that stuff happened and then it kind of was undone.
+
+00:06:39.080 --> 00:06:40.720
+ And that's where the changed variable
+
+00:06:40.720 --> 00:06:42.520
+ just kind of went away.
+
+00:06:42.520 --> 00:06:44.880
+ And so the stack, it's as if nothing ever happened
+
+00:06:44.880 --> 00:06:47.120
+ except it went up and then it went back down.
+
+00:06:47.120 --> 00:06:51.720
+ Now one thing we notice and in Python we see this too
+
+00:06:51.720 --> 00:06:53.900
+ where you say everything is called by value
+
+00:06:53.900 --> 00:06:58.880
+ which implies a copy except for things like certain objects
+
+00:06:58.880 --> 00:07:00.880
+ and calling methods and objects.
+
+00:07:00.880 --> 00:07:03.560
+ And if, but if you look at say this function zap
+
+00:07:03.560 --> 00:07:08.560
+ and we pass in X and X starts out as original
+
+00:07:08.560 --> 00:07:12.480
+ and then it calls the zap function and it passes in
+
+00:07:12.480 --> 00:07:14.360
+ and it's got the original then it gets changed
+
+00:07:14.360 --> 00:07:19.360
+ inside the zap function and that change prints out.
+
+00:07:19.360 --> 00:07:23.700
+ But then when it comes back, it is back to the original.
+
+00:07:23.700 --> 00:07:26.280
+ So X is back to the original in the main code.
+
+00:07:26.280 --> 00:07:27.640
+ And you might say, oh, that looks right.
+
+00:07:27.640 --> 00:07:29.260
+ And that's actually quite intuitive
+
+00:07:29.260 --> 00:07:33.800
+ and that Python has made it so a call by value
+
+00:07:33.800 --> 00:07:37.600
+ inside of this call by value to the zap function.
+
+00:07:37.600 --> 00:07:40.640
+ It happened, meaning that nothing changed
+
+00:07:40.640 --> 00:07:42.480
+ outside of the zap function.
+
+00:07:42.480 --> 00:07:44.560
+ And it was a call by value, not a call by reference.
+
+00:07:44.560 --> 00:07:48.040
+ Now, I'm not gonna go into it at least not right now
+
+00:07:48.040 --> 00:07:49.800
+ talking about why that really worked.
+
+00:07:49.800 --> 00:07:52.520
+ And it's less about call by value and call by reference
+
+00:07:52.520 --> 00:07:56.360
+ and more about the fact that Y is really a pointer
+
+00:07:56.360 --> 00:07:57.200
+ to an object.
+
+00:07:57.200 --> 00:08:00.320
+ And when Y equals changed executes inside of zap
+
+00:08:00.320 --> 00:08:03.040
+ the object pointer, it points to a different object
+
+00:08:03.040 --> 00:08:04.960
+ and then, but X never changed.
+
+00:08:04.960 --> 00:08:08.440
+ And so Python has a slightly different runtime
+
+00:08:08.440 --> 00:08:11.440
+ but it leads to this notion that seems like
+
+00:08:11.440 --> 00:08:16.440
+ a string variable in Python is call by value.
+
+00:08:16.440 --> 00:08:19.800
+ Now, if we look at the similar
+
+00:08:19.800 --> 00:08:23.680
+ but quite different code inside of C,
+
+00:08:23.680 --> 00:08:27.520
+ we see the main has a character array X
+
+00:08:27.520 --> 00:08:29.480
+ of unknown length, which is original.
+
+00:08:29.480 --> 00:08:32.760
+ And that just unknown length means that it says,
+
+00:08:32.760 --> 00:08:36.280
+ it's looks like eight characters plus a backslash zero
+
+00:08:36.280 --> 00:08:37.900
+ which is nine characters.
+
+00:08:37.900 --> 00:08:40.480
+ And it prints out kind of like a string.
+
+00:08:40.480 --> 00:08:42.480
+ It's a character array with a terminator.
+
+00:08:42.480 --> 00:08:46.920
+ And then we call zap pass X in.
+
+00:08:46.920 --> 00:08:51.560
+ And then inside of zap, zap takes a character array
+
+00:08:51.560 --> 00:08:54.480
+ as its parameter and it can print out the word original
+
+00:08:54.480 --> 00:08:58.920
+ when it starts and then it copies changed into it.
+
+00:08:58.920 --> 00:09:02.760
+ And then it says at the end, it's Y is at the end
+
+00:09:02.760 --> 00:09:05.080
+ is changed, but then we come back
+
+00:09:05.080 --> 00:09:07.940
+ and back in the main program, it got changed.
+
+00:09:07.940 --> 00:09:12.180
+ So does that mean it was called by reference or what?
+
+00:09:12.180 --> 00:09:18.220
+ And the answer is sort of, and this is where it kind of helps.
+
+00:09:18.220 --> 00:09:21.200
+ So it turns out that when you are passing
+
+00:09:21.200 --> 00:09:26.200
+ an array into a function in C,
+
+00:09:26.200 --> 00:09:30.360
+ you're not actually passing the contents of the array.
+
+00:09:30.360 --> 00:09:32.740
+ So most of the time we think of that 42 being copied
+
+00:09:32.740 --> 00:09:34.660
+ if it's an integer, if it's just like a scalar thing
+
+00:09:34.660 --> 00:09:37.120
+ like a float or an enter char or something
+
+00:09:37.120 --> 00:09:38.520
+ that's being copied.
+
+00:09:38.520 --> 00:09:40.680
+ But when you have an array that could be gigantic.
+
+00:09:40.680 --> 00:09:44.240
+ So it doesn't actually copy in the whole array.
+
+00:09:44.240 --> 00:09:49.240
+ So when X is being passed into zap and being received as Y,
+
+00:09:49.300 --> 00:09:51.920
+ we're not actually passing the string
+
+00:09:51.920 --> 00:09:54.360
+ 'cause that could be a million characters for all we know.
+
+00:09:54.360 --> 00:09:56.380
+ So it's not like it makes an extra copy
+
+00:09:56.380 --> 00:09:57.680
+ of a million characters.
+
+00:09:57.680 --> 00:10:02.220
+ What it's doing is it's passing in the address
+
+00:10:02.220 --> 00:10:03.960
+ of the start of the string,
+
+00:10:03.960 --> 00:10:06.040
+ not on the stack, but somewhere else.
+
+00:10:06.040 --> 00:10:08.940
+ It actually could be on the stack somewhere,
+
+00:10:08.940 --> 00:10:11.520
+ but it's not in the stack frame
+
+00:10:11.520 --> 00:10:15.480
+ and the word original is not copied into the stack frame.
+
+00:10:15.480 --> 00:10:17.800
+ The stack frame only includes a pointer
+
+00:10:17.800 --> 00:10:22.080
+ or the address, X is the address of the letter O
+
+00:10:22.080 --> 00:10:24.840
+ and then Y is also the address of the letter O,
+
+00:10:24.840 --> 00:10:27.580
+ which means when we're calling str copy,
+
+00:10:27.580 --> 00:10:29.840
+ we are overriding those characters.
+
+00:10:29.840 --> 00:10:32.260
+ Oh, and by the way, I carefully made sure
+
+00:10:32.260 --> 00:10:34.120
+ that the string changed was shorter
+
+00:10:34.120 --> 00:10:37.060
+ than the string original or my program could have blown up
+
+00:10:37.060 --> 00:10:41.720
+ because this is C and arrays don't get bigger.
+
+00:10:41.720 --> 00:10:45.680
+ Python strings get bigger, but arrays don't.
+
+00:10:45.680 --> 00:10:48.600
+ In a couple more lectures, we will build a data structure
+
+00:10:48.600 --> 00:10:52.200
+ where it's like a Python string and we can add to it
+
+00:10:52.200 --> 00:10:55.560
+ and you'll see that the code is very complex.
+
+00:10:55.560 --> 00:10:59.360
+ A character array is very simple, okay?
+
+00:10:59.360 --> 00:11:04.360
+ And so it's not exactly a pass by reference.
+
+00:11:04.360 --> 00:11:07.500
+ It is a pass by location.
+
+00:11:07.500 --> 00:11:10.040
+ And if you happen to misuse that location,
+
+00:11:10.040 --> 00:11:13.320
+ meaning you write to that location, you write to location.
+
+00:11:13.320 --> 00:11:15.560
+ Now this might've been in like read only memory something,
+
+00:11:15.560 --> 00:11:16.720
+ your program might've blown up.
+
+00:11:16.720 --> 00:11:19.440
+ So you better be sure what you're doing
+
+00:11:19.440 --> 00:11:21.680
+ when you start messing inside of a function
+
+00:11:21.680 --> 00:11:23.840
+ with an array that's been passed to you.
+
+00:11:23.840 --> 00:11:25.240
+ Now sometimes you're supposed to.
+
+00:11:25.240 --> 00:11:27.200
+ Sometimes we tell you to write that.
+
+00:11:27.200 --> 00:11:29.840
+ Another thing that you're gonna see in this
+
+00:11:29.840 --> 00:11:32.240
+ is the reference to register variables.
+
+00:11:32.240 --> 00:11:35.160
+ This is another rather historical notion.
+
+00:11:35.160 --> 00:11:39.760
+ And in my opinion, it really had to do with convincing
+
+00:11:39.760 --> 00:11:42.520
+ really skilled assembly language programmers
+
+00:11:42.520 --> 00:11:45.440
+ that they could get the same performance out of C
+
+00:11:45.440 --> 00:11:48.040
+ that they were used to getting inside assembly language.
+
+00:11:48.040 --> 00:11:49.760
+ And so what are registers?
+
+00:11:49.760 --> 00:11:53.080
+ Well, when you have a central processing unit
+
+00:11:53.080 --> 00:11:55.800
+ and you have memory, the data lives in the memory
+
+00:11:55.800 --> 00:11:57.840
+ and the registers live in the central processing unit.
+
+00:11:57.840 --> 00:11:59.520
+ And depending on the speed of things,
+
+00:11:59.520 --> 00:12:04.440
+ a register might be 40 times faster than regular memory.
+
+00:12:04.440 --> 00:12:08.960
+ And so if you could keep a variable like i in a loop,
+
+00:12:08.960 --> 00:12:11.680
+ you could keep that in a register that's faster.
+
+00:12:11.680 --> 00:12:14.880
+ And so what we can do with saying register int x is say,
+
+00:12:14.880 --> 00:12:16.880
+ hey, by the way, next few lines,
+
+00:12:16.880 --> 00:12:18.520
+ x is a really important variable
+
+00:12:18.520 --> 00:12:19.920
+ and I expect to use it a lot.
+
+00:12:19.920 --> 00:12:23.800
+ So if you can possibly not store this in memory,
+
+00:12:23.800 --> 00:12:24.760
+ please do so.
+
+00:12:24.760 --> 00:12:27.000
+ And that's why the only kind of weird thing
+
+00:12:27.000 --> 00:12:29.440
+ about the register is you can't get the memory address
+
+00:12:29.440 --> 00:12:30.680
+ of a register variable.
+
+00:12:30.680 --> 00:12:32.980
+ Now in modern compilers,
+
+00:12:32.980 --> 00:12:36.440
+ we have runtime optimizers that are miraculous.
+
+00:12:36.440 --> 00:12:37.760
+ I mean, they border on miraculous,
+
+00:12:37.760 --> 00:12:39.820
+ even the simplest of runtime optimizers
+
+00:12:39.820 --> 00:12:42.920
+ that speed the code up at runtime are miraculous.
+
+00:12:42.920 --> 00:12:46.400
+ And saying this is a register or that's a register
+
+00:12:46.400 --> 00:12:48.720
+ might actually confuse things.
+
+00:12:48.720 --> 00:12:50.480
+ So all the register does is hey,
+
+00:12:50.480 --> 00:12:53.240
+ I am never gonna ask you the address of this variable.
+
+00:12:53.240 --> 00:12:54.800
+ So don't bother putting it in memory
+
+00:12:54.800 --> 00:12:56.400
+ if you don't feel like it.
+
+00:12:56.400 --> 00:12:58.160
+ Okay, and so it's probably,
+
+00:12:58.160 --> 00:13:01.600
+ but I also think it's kind of fascinating and fun
+
+00:13:01.600 --> 00:13:03.640
+ to think about this.
+
+00:13:03.640 --> 00:13:08.640
+ Think about how early C developers were so deeply connected
+
+00:13:08.640 --> 00:13:11.720
+ to their assembly language that is at the runtime.
+
+00:13:13.560 --> 00:13:16.140
+ Recursion, recursion, recursion, recursion.
+
+00:13:16.140 --> 00:13:19.720
+ When a function calls itself, it's called recursion.
+
+00:13:19.720 --> 00:13:22.640
+ It's a powerful, it's a beautiful concept.
+
+00:13:22.640 --> 00:13:26.660
+ There is places when if you're given a tree-like structure,
+
+00:13:26.660 --> 00:13:28.480
+ like you parse some XML or something
+
+00:13:28.480 --> 00:13:30.720
+ and you're reading through the XML,
+
+00:13:30.720 --> 00:13:34.860
+ recursion is such a pretty way to write code.
+
+00:13:34.860 --> 00:13:38.800
+ I'm about to show you a very simple recursion example
+
+00:13:38.800 --> 00:13:40.440
+ that are two things.
+
+00:13:40.440 --> 00:13:43.920
+ First, they're really inefficient and silly uses
+
+00:13:43.920 --> 00:13:46.040
+ of recursion and they mislead you
+
+00:13:46.040 --> 00:13:47.920
+ as to why you should use recursion.
+
+00:13:47.920 --> 00:13:50.120
+ And they misleadingly kind of tell you that like,
+
+00:13:50.120 --> 00:13:52.320
+ recursion is great, let's use it for something
+
+00:13:52.320 --> 00:13:54.460
+ it is not well used for.
+
+00:13:54.460 --> 00:13:59.480
+ So really in this section, I'm not trying to show you
+
+00:13:59.480 --> 00:14:02.600
+ what recursion is used for well.
+
+00:14:02.600 --> 00:14:05.080
+ I'm more interested in giving you a really
+
+00:14:06.560 --> 00:14:11.560
+ artificial synthetic example to show how the call stack works
+
+00:14:11.560 --> 00:14:15.640
+ and how recursion works with the call stack.
+
+00:14:15.640 --> 00:14:19.720
+ So here we have, I mean some tortured code.
+
+00:14:19.720 --> 00:14:22.080
+ It is not pretty code.
+
+00:14:22.080 --> 00:14:27.080
+ This is a, I'm writing code that if given a number like three,
+
+00:14:27.080 --> 00:14:30.800
+ adds up one plus two plus three, okay?
+
+00:14:30.800 --> 00:14:32.200
+ And gives me six.
+
+00:14:32.200 --> 00:14:33.960
+ There are so many ways to do this.
+
+00:14:33.960 --> 00:14:35.300
+ There's even a closed form solution
+
+00:14:35.300 --> 00:14:39.020
+ that doesn't even require a loop that's called algebra.
+
+00:14:39.020 --> 00:14:40.920
+ But we're going to use recursion.
+
+00:14:40.920 --> 00:14:46.840
+ So if you look at the int main, I'm gonna say sum up three.
+
+00:14:46.840 --> 00:14:49.720
+ That means sum up things one, two, three.
+
+00:14:49.720 --> 00:14:51.520
+ So sum up is being called from main
+
+00:14:51.520 --> 00:14:53.900
+ and then I've got the return value and I say sup.
+
+00:14:53.900 --> 00:14:55.640
+ And you'll notice in the printout
+
+00:14:55.640 --> 00:14:58.400
+ that sup is the very last thing that comes out.
+
+00:14:58.400 --> 00:15:03.000
+ And so if you walk through sum up,
+
+00:15:03.000 --> 00:15:05.680
+ you see that there is a parameter called above
+
+00:15:05.680 --> 00:15:07.120
+ that's coming, I call that above
+
+00:15:07.120 --> 00:15:09.200
+ 'cause it's coming from whoever's calling us.
+
+00:15:09.200 --> 00:15:11.680
+ There's a parameter below which is we're gonna compute
+
+00:15:11.680 --> 00:15:14.920
+ a value and send it down to the next copy of ourselves down.
+
+00:15:14.920 --> 00:15:18.800
+ And then sum is the sum of the above value
+
+00:15:18.800 --> 00:15:21.040
+ and the sum of the below values.
+
+00:15:21.040 --> 00:15:25.520
+ And then retval is, I mean actually sum is just coming back
+
+00:15:25.520 --> 00:15:26.840
+ from the call to ourselves.
+
+00:15:26.840 --> 00:15:29.600
+ And then retval is adding those two things together.
+
+00:15:29.600 --> 00:15:32.820
+ And I do this in exceedingly slow motion
+
+00:15:32.820 --> 00:15:34.000
+ with print statements everywhere
+
+00:15:34.000 --> 00:15:35.680
+ that just makes us look ugly
+
+00:15:35.680 --> 00:15:37.320
+ because really the only thing that matters
+
+00:15:37.320 --> 00:15:39.680
+ is where it says sum equals sum up below.
+
+00:15:39.680 --> 00:15:44.280
+ And what we're doing is we're calling the same function again.
+
+00:15:44.280 --> 00:15:47.280
+ So if you look in main and you see the sum up call,
+
+00:15:47.280 --> 00:15:50.360
+ that is going to create a stack frame.
+
+00:15:50.360 --> 00:15:51.640
+ And in that stack frame,
+
+00:15:51.640 --> 00:15:54.280
+ it's gonna have whatever the three number is.
+
+00:15:54.280 --> 00:15:55.640
+ We're gonna make an above variable,
+
+00:15:55.640 --> 00:15:57.520
+ copy three into the above variable
+
+00:15:57.520 --> 00:15:59.720
+ and allocate it below sum and retval.
+
+00:15:59.720 --> 00:16:03.080
+ So our stack frame is gonna have four integers on it.
+
+00:16:03.080 --> 00:16:05.680
+ And then the function starts working.
+
+00:16:05.680 --> 00:16:08.140
+ And the way the recursion works
+
+00:16:08.140 --> 00:16:10.660
+ is there's always gotta be a time at which it stops.
+
+00:16:10.660 --> 00:16:12.560
+ This is kind of like going down, down, down
+
+00:16:12.560 --> 00:16:14.360
+ and then has to work its way back up.
+
+00:16:14.360 --> 00:16:17.060
+ If it goes down forever, that's called a stack overflow.
+
+00:16:17.060 --> 00:16:18.600
+ And then your computer runs out of memory
+
+00:16:18.600 --> 00:16:19.760
+ and your application blows up.
+
+00:16:19.760 --> 00:16:24.760
+ So you have to have a time at which the stack algorithm stops.
+
+00:16:24.760 --> 00:16:28.360
+ So what we're saying is if we're being told
+
+00:16:28.360 --> 00:16:31.000
+ to sum up one or less,
+
+00:16:31.000 --> 00:16:32.880
+ well, we define the sum of that as one.
+
+00:16:32.880 --> 00:16:36.340
+ So we just return the sum of everything up to one as one.
+
+00:16:36.340 --> 00:16:39.800
+ And that's our way of stopping the recursion at the bottom.
+
+00:16:39.800 --> 00:16:41.360
+ And then what we do is we take below
+
+00:16:41.360 --> 00:16:42.480
+ and we subtract one from it.
+
+00:16:42.480 --> 00:16:45.240
+ So if we're being called with three, below becomes two.
+
+00:16:45.240 --> 00:16:47.700
+ And so you see that over in the lower stack frame,
+
+00:16:47.700 --> 00:16:50.540
+ below is two, right?
+
+00:16:50.540 --> 00:16:53.160
+ Below is two and we're about to go down
+
+00:16:53.160 --> 00:16:55.360
+ deeper into the call tree.
+
+00:16:55.360 --> 00:17:00.320
+ And so we're gonna call sum equals sum up below.
+
+00:17:00.320 --> 00:17:03.000
+ So what happens now is we're passing two in
+
+00:17:03.000 --> 00:17:04.440
+ to another stack frame.
+
+00:17:04.440 --> 00:17:07.220
+ And so there's not really another copy of the code,
+
+00:17:07.220 --> 00:17:08.960
+ but there's another stack frame.
+
+00:17:08.960 --> 00:17:13.280
+ And so now we're calling sum up with two as the parameter.
+
+00:17:13.280 --> 00:17:15.760
+ That's our below, but then we see the stack frame.
+
+00:17:15.760 --> 00:17:16.960
+ And now this is the stack frame
+
+00:17:16.960 --> 00:17:19.080
+ that's kind of on the left-hand side there.
+
+00:17:19.080 --> 00:17:22.000
+ Above in this stack frame is two.
+
+00:17:22.000 --> 00:17:23.760
+ And then execution begins
+
+00:17:23.760 --> 00:17:26.640
+ and we subtract one from below.
+
+00:17:26.640 --> 00:17:28.720
+ Well, above is not less than one.
+
+00:17:28.720 --> 00:17:33.140
+ So we subtract one and below becomes one
+
+00:17:33.140 --> 00:17:34.800
+ because it's two minus one.
+
+00:17:34.800 --> 00:17:35.820
+ And we're going to go down.
+
+00:17:35.820 --> 00:17:38.840
+ So it says down one, which means it's going to, again,
+
+00:17:38.840 --> 00:17:41.320
+ say sum equals sum up below.
+
+00:17:41.320 --> 00:17:43.640
+ And below in this case is one.
+
+00:17:43.640 --> 00:17:46.980
+ And so it makes another stack frame.
+
+00:17:46.980 --> 00:17:50.800
+ So we're actually, there is a maximum of like three calls
+
+00:17:50.800 --> 00:17:52.560
+ here and then it's gonna work its way out.
+
+00:17:52.560 --> 00:17:55.400
+ So then it calls another stack frame
+
+00:17:55.400 --> 00:17:57.800
+ that's not shown on the right-hand side.
+
+00:17:57.800 --> 00:18:00.480
+ And then it runs with one as above
+
+00:18:00.480 --> 00:18:02.120
+ and then above is less than or equal to one.
+
+00:18:02.120 --> 00:18:02.960
+ So it returns one.
+
+00:18:02.960 --> 00:18:04.760
+ And that's why it says in one.
+
+00:18:04.760 --> 00:18:07.440
+ And it doesn't say anything because then it's returned
+
+00:18:07.440 --> 00:18:09.220
+ and it returned the value one.
+
+00:18:09.220 --> 00:18:12.960
+ So now the third stack frame comes off.
+
+00:18:12.960 --> 00:18:15.520
+ And now we're in the other stack frame and sum
+
+00:18:15.520 --> 00:18:18.320
+ is what the return value of the sum up call was.
+
+00:18:18.320 --> 00:18:22.080
+ So it says back one, and then it says above.
+
+00:18:22.080 --> 00:18:24.840
+ Now we're in the stack frame that's on the right-hand side.
+
+00:18:24.840 --> 00:18:27.960
+ So sum is one, below is one, above is two.
+
+00:18:27.960 --> 00:18:31.520
+ And so we compute retval, which is one plus two,
+
+00:18:31.520 --> 00:18:32.640
+ and that's three.
+
+00:18:32.640 --> 00:18:35.840
+ And we print that out and that's kinda where we're indicating.
+
+00:18:35.840 --> 00:18:40.220
+ And then we return the three, right?
+
+00:18:40.220 --> 00:18:43.200
+ And then it returns retval and it runs some more.
+
+00:18:43.200 --> 00:18:47.640
+ It gets three back, then it adds the three to it
+
+00:18:47.640 --> 00:18:50.640
+ and returns one more time and the stack all pops up.
+
+00:18:50.640 --> 00:18:52.360
+ And eventually you get six.
+
+00:18:52.360 --> 00:18:57.620
+ And this is a, you can look at this as long as you like.
+
+00:18:57.620 --> 00:19:03.560
+ This code is like a foolish way to make this calculation
+
+00:19:03.560 --> 00:19:07.640
+ like most artificial recursion examples.
+
+00:19:07.640 --> 00:19:11.080
+ But the key thing here is just think about the stack frame.
+
+00:19:11.080 --> 00:19:14.340
+ Every time you call in, another stack frame happens.
+
+00:19:14.340 --> 00:19:15.640
+ Call in, stack frame happens.
+
+00:19:15.640 --> 00:19:17.040
+ And then when the return value happens,
+
+00:19:17.040 --> 00:19:18.800
+ it goes back to that stack frame.
+
+00:19:18.800 --> 00:19:21.680
+ So the stack frame is a way of pausing execution
+
+00:19:21.680 --> 00:19:23.880
+ at the moment, create a new stack frame,
+
+00:19:23.880 --> 00:19:26.320
+ execute in that stack frame, and if you need to,
+
+00:19:26.320 --> 00:19:27.840
+ have a yet another stack frame.
+
+00:19:27.840 --> 00:19:30.640
+ And so this idea of creating a stack frame
+
+00:19:30.640 --> 00:19:32.400
+ with the parameters and automatic variables,
+
+00:19:32.400 --> 00:19:34.040
+ each time you call a function,
+
+00:19:34.040 --> 00:19:36.040
+ copying the parameters into that stack frame,
+
+00:19:36.040 --> 00:19:38.640
+ and then executing the function in that stack frame.
+
+00:19:38.640 --> 00:19:41.440
+ We're not making extra copies of the function,
+
+00:19:41.440 --> 00:19:43.840
+ we are just creating a new stack frame.
+
+00:19:43.840 --> 00:19:48.240
+ That's what the essence of recursion is,
+
+00:19:48.240 --> 00:19:50.280
+ is the fact that you have a stack,
+
+00:19:50.280 --> 00:19:52.680
+ and each call makes a stack frame,
+
+00:19:52.680 --> 00:19:54.200
+ and if you recursively call again,
+
+00:19:54.200 --> 00:19:56.560
+ you just make another stack frame.
+
+00:19:56.560 --> 00:19:58.840
+ And so it's almost easier in my mind
+
+00:19:58.840 --> 00:20:01.860
+ to think through how stack frames work
+
+00:20:01.860 --> 00:20:04.880
+ than it is to think through how recursive code works.
+
+00:20:04.880 --> 00:20:08.760
+ Now, I wanna talk a little bit about the C preprocessor.
+
+00:20:08.760 --> 00:20:11.400
+ It's the last thing in this chapter,
+
+00:20:11.400 --> 00:20:13.020
+ and it's in some ways orthogonal
+
+00:20:13.020 --> 00:20:14.460
+ to functions and program structure.
+
+00:20:14.460 --> 00:20:16.420
+ I mean, it is part of program structure.
+
+00:20:17.760 --> 00:20:21.040
+ And so I've talked a lot about how wonderfully
+
+00:20:21.040 --> 00:20:24.680
+ the C compiler, and eventually Unix,
+
+00:20:24.680 --> 00:20:29.740
+ solved so many problems of software source code portability.
+
+00:20:29.740 --> 00:20:33.780
+ And things like endianess, and character arrays,
+
+00:20:33.780 --> 00:20:36.960
+ and masking and shifting not being necessary,
+
+00:20:36.960 --> 00:20:38.440
+ that those were awesome.
+
+00:20:38.440 --> 00:20:39.960
+ But the problem was is that
+
+00:20:39.960 --> 00:20:43.600
+ C has always operated in an environment.
+
+00:20:43.600 --> 00:20:44.940
+ The language has changed.
+
+00:20:46.560 --> 00:20:49.800
+ In the early days, it wasn't standardized.
+
+00:20:49.800 --> 00:20:53.400
+ By '84, it got standardized, ANSI-C came out.
+
+00:20:53.400 --> 00:20:56.360
+ A lot of people used it outside its original creation,
+
+00:20:56.360 --> 00:20:57.880
+ and so a lot of things got fixed
+
+00:20:57.880 --> 00:21:00.480
+ in the first decade of C's use.
+
+00:21:00.480 --> 00:21:02.160
+ The language evolved a lot.
+
+00:21:02.160 --> 00:21:03.880
+ The language kept evolving,
+
+00:21:03.880 --> 00:21:05.920
+ and a lot of the things that would make it evolve
+
+00:21:05.920 --> 00:21:08.840
+ are things like integers went from 32 bits
+
+00:21:08.840 --> 00:21:11.120
+ in some situations to 64 bits,
+
+00:21:11.120 --> 00:21:14.200
+ and then you have to say, well, what is a long?
+
+00:21:14.200 --> 00:21:16.600
+ It's long 64, long 32.
+
+00:21:16.600 --> 00:21:19.080
+ 'Cause it started with int being 16 bits,
+
+00:21:19.080 --> 00:21:22.280
+ and long being 32, and then long was 64.
+
+00:21:22.280 --> 00:21:25.160
+ Well, for a while, then ints were 32, and longs were 32,
+
+00:21:25.160 --> 00:21:28.480
+ and then ints were 32, and longs were 64,
+
+00:21:28.480 --> 00:21:30.680
+ and what would happen if ints were 64?
+
+00:21:30.680 --> 00:21:33.480
+ And it had to do with computer architecture, 64 bits, right?
+
+00:21:33.480 --> 00:21:38.140
+ And so sometimes you would have a bit of code,
+
+00:21:38.140 --> 00:21:41.920
+ and you knew you wanted a 32-bit thing,
+
+00:21:41.920 --> 00:21:44.020
+ and you weren't sure if an int or a long or a short
+
+00:21:44.020 --> 00:21:45.320
+ was gonna give you 32.
+
+00:21:45.320 --> 00:21:46.880
+ And so you had to say, you know,
+
+00:21:46.880 --> 00:21:48.480
+ I really need different source code.
+
+00:21:48.480 --> 00:21:52.400
+ Like if I'm working on a PDP-11, I got one thing,
+
+00:21:52.400 --> 00:21:54.080
+ and if I'm working on an Interdata-7-32,
+
+00:21:54.080 --> 00:21:58.360
+ I want another thing, 'cause really I want a 32-bit integer.
+
+00:21:58.360 --> 00:22:00.680
+ And now there's actually int-32 in some of these things
+
+00:22:00.680 --> 00:22:02.360
+ 'cause you do need to know sometimes
+
+00:22:02.360 --> 00:22:04.120
+ you're using 32-bit integer.
+
+00:22:04.120 --> 00:22:05.680
+ Then libraries changed.
+
+00:22:05.680 --> 00:22:08.840
+ There's calling sequences that changed because, again,
+
+00:22:08.840 --> 00:22:10.160
+ as computers got bigger and bigger,
+
+00:22:10.160 --> 00:22:12.680
+ and memory got bigger, and disk drives got bigger,
+
+00:22:12.680 --> 00:22:15.440
+ you would be in a certain version of an operating system,
+
+00:22:15.440 --> 00:22:19.720
+ and the calls to reading files might be slightly different.
+
+00:22:19.720 --> 00:22:22.600
+ And so it's not really that the source code was portable.
+
+00:22:22.600 --> 00:22:26.540
+ It's the calling sequences to libraries started to change.
+
+00:22:26.540 --> 00:22:30.360
+ Hardware evolved, operating systems evolved.
+
+00:22:30.360 --> 00:22:32.320
+ C started running on non-UNIX
+
+00:22:32.320 --> 00:22:34.320
+ because C originally started on UNIX,
+
+00:22:34.320 --> 00:22:37.120
+ but then it quickly went to other operating systems
+
+00:22:37.120 --> 00:22:38.880
+ 'cause it was such a powerful concept.
+
+00:22:38.880 --> 00:22:41.540
+ But sometimes in these other operating systems,
+
+00:22:41.540 --> 00:22:43.000
+ just things were kind of different
+
+00:22:43.000 --> 00:22:44.640
+ because they weren't working on UNIX.
+
+00:22:44.640 --> 00:22:48.640
+ And so the preprocessor really was an effective way
+
+00:22:48.640 --> 00:22:51.360
+ to patch your source code so that you could say,
+
+00:22:51.360 --> 00:22:53.400
+ look, I wrote this source code 10 years ago,
+
+00:22:53.400 --> 00:22:55.860
+ and it worked on a PDP-11,
+
+00:22:55.860 --> 00:22:59.980
+ and now I'm gonna run this on an IBM 360 architecture,
+
+00:22:59.980 --> 00:23:02.120
+ and I don't want to change,
+
+00:23:02.120 --> 00:23:04.760
+ that there's a few changes I need to make
+
+00:23:04.760 --> 00:23:08.080
+ that have nothing to do with what a for loop looks like,
+
+00:23:08.080 --> 00:23:10.440
+ but it has to do with like what library I'm calling
+
+00:23:10.440 --> 00:23:13.240
+ or what the return type for that library might be.
+
+00:23:13.240 --> 00:23:17.880
+ So the preprocessor allowed us to put variations
+
+00:23:17.880 --> 00:23:18.740
+ in the source code.
+
+00:23:18.740 --> 00:23:21.760
+ And the preprocessor, it really feels weird
+
+00:23:21.760 --> 00:23:24.720
+ 'cause its syntax is very different
+
+00:23:24.720 --> 00:23:28.040
+ because the preprocessor is kind of a line-oriented processor
+
+00:23:28.040 --> 00:23:30.800
+ and it has these pound things, right?
+
+00:23:30.800 --> 00:23:35.800
+ These like pound if def, pound define, pound else,
+
+00:23:35.800 --> 00:23:38.060
+ pound end if, and pound include.
+
+00:23:38.060 --> 00:23:40.500
+ That's even a preprocessor.
+
+00:23:40.500 --> 00:23:43.900
+ So what the preprocessor is, is not a compiler at all.
+
+00:23:43.900 --> 00:23:47.260
+ It is a source code to source code translator.
+
+00:23:47.260 --> 00:23:50.520
+ It expands the include files, and then it makes changes.
+
+00:23:50.520 --> 00:23:54.560
+ So in the top example where you see pound include stdio.h,
+
+00:23:54.560 --> 00:23:57.240
+ you can actually run GCC minus capital E,
+
+00:23:57.240 --> 00:23:59.240
+ and it says just run the preprocessor
+
+00:23:59.240 --> 00:24:00.720
+ and shows me what comes out.
+
+00:24:00.720 --> 00:24:04.040
+ You take 10, 12 lines of code on the left
+
+00:24:04.040 --> 00:24:07.120
+ and it puts out hundreds and hundreds of lines of code
+
+00:24:07.120 --> 00:24:07.960
+ on the right.
+
+00:24:07.960 --> 00:24:09.480
+ I'm just showing you a subset of it.
+
+00:24:09.480 --> 00:24:12.560
+ But the biggest part is the fact that include stdio.h
+
+00:24:12.560 --> 00:24:14.980
+ is literally expanded.
+
+00:24:14.980 --> 00:24:18.640
+ And then that is C code without the pound include, okay?
+
+00:24:18.640 --> 00:24:20.160
+ So that's the preprocessor.
+
+00:24:20.160 --> 00:24:21.760
+ But then another example here
+
+00:24:21.760 --> 00:24:24.700
+ is I'm creating this use_long.
+
+00:24:24.700 --> 00:24:26.040
+ This is not really a variable.
+
+00:24:26.040 --> 00:24:28.340
+ This is a compile time variable.
+
+00:24:28.340 --> 00:24:32.300
+ So I'm gonna create a new string called int_32,
+
+00:24:32.300 --> 00:24:35.540
+ and if use_long has been defined,
+
+00:24:35.540 --> 00:24:37.880
+ I'm gonna make int32 be a long.
+
+00:24:37.880 --> 00:24:40.920
+ Else, I'm gonna make int_32 be an int.
+
+00:24:40.920 --> 00:24:42.160
+ And again, this could be a thing
+
+00:24:42.160 --> 00:24:44.060
+ where I'm compiling for different architectures,
+
+00:24:44.060 --> 00:24:49.060
+ and I want this variable IP address to be a 32-bit integer,
+
+00:24:49.060 --> 00:24:52.260
+ and I need it to work on different operating systems.
+
+00:24:52.260 --> 00:24:58.000
+ So in this case, because use_long is not defined,
+
+00:24:58.000 --> 00:25:00.380
+ int32 as a string substitution,
+
+00:25:00.380 --> 00:25:01.980
+ like a macro string substitution
+
+00:25:01.980 --> 00:25:04.360
+ before the compiler even does anything,
+
+00:25:04.360 --> 00:25:06.760
+ turns int32 into int.
+
+00:25:06.760 --> 00:25:10.400
+ And so that's what the five lines of pound if def
+
+00:25:10.400 --> 00:25:12.080
+ and all that stuff do is it says
+
+00:25:12.080 --> 00:25:16.960
+ change this int32 string in my source code into int.
+
+00:25:16.960 --> 00:25:20.200
+ And so what we see on the right is really C code.
+
+00:25:20.200 --> 00:25:24.760
+ What we see on the left is kind of preprocessor plus C code.
+
+00:25:24.760 --> 00:25:28.360
+ And so the preprocessor transforms source code
+
+00:25:28.360 --> 00:25:29.200
+ to source code.
+
+00:25:29.200 --> 00:25:32.280
+ So I was looking around at some old code
+
+00:25:32.280 --> 00:25:36.000
+ that I happened to have grabbed and put into GitHub,
+
+00:25:36.000 --> 00:25:40.880
+ which was some code from 1994 from XMosaic 1.2.
+
+00:25:40.880 --> 00:25:43.000
+ And for those of you who took my internet history,
+
+00:25:43.000 --> 00:25:43.880
+ technology and security,
+
+00:25:43.880 --> 00:25:48.520
+ you know that XMosaic was the first web browser
+
+00:25:48.520 --> 00:25:51.720
+ that was portable across multiple operating systems.
+
+00:25:51.720 --> 00:25:54.240
+ And the more, and then eventually Mosaic ended up
+
+00:25:54.240 --> 00:25:56.760
+ on Unix systems with X windows,
+
+00:25:56.760 --> 00:25:58.320
+ that's why it's called XMosaic,
+
+00:25:58.320 --> 00:26:00.100
+ and it went to the Mac and went to the PC.
+
+00:26:00.100 --> 00:26:03.920
+ And so it was really many Unixes, Mac and PC.
+
+00:26:03.920 --> 00:26:06.120
+ And what we're seeing here on the right-hand side
+
+00:26:06.120 --> 00:26:08.080
+ is actual source code from that,
+
+00:26:08.080 --> 00:26:10.960
+ which was written in like 1993, 1994.
+
+00:26:10.960 --> 00:26:14.640
+ And what you see is a bunch of if-defs and if-end-defs
+
+00:26:14.640 --> 00:26:17.640
+ and some comments and like there's an if-defs,
+
+00:26:17.640 --> 00:26:19.120
+ hilarious nine broken.
+
+00:26:19.120 --> 00:26:20.960
+ And it has to do with like,
+
+00:26:20.960 --> 00:26:23.480
+ where do we find the error messages on this
+
+00:26:23.480 --> 00:26:26.740
+ across all these weird operating systems?
+
+00:26:26.740 --> 00:26:28.520
+ 'Cause the way they put error messages,
+
+00:26:28.520 --> 00:26:30.000
+ sometimes they would use extern,
+
+00:26:30.000 --> 00:26:33.200
+ which are global variables defined inside the runtime.
+
+00:26:33.200 --> 00:26:34.760
+ And we would just look at those variables.
+
+00:26:34.760 --> 00:26:36.280
+ We would make a function call
+
+00:26:36.280 --> 00:26:38.680
+ and it would write into these global variables.
+
+00:26:38.680 --> 00:26:40.880
+ But then that global variable might be different.
+
+00:26:40.880 --> 00:26:45.880
+ So this is actually from some code that was HTTP and C.
+
+00:26:45.880 --> 00:26:49.580
+ That was some early network connections.
+
+00:26:49.580 --> 00:26:51.600
+ Now these days, you know, we just do this stuff
+
+00:26:51.600 --> 00:26:54.920
+ in like the pound import requests in Python.
+
+00:26:54.920 --> 00:26:58.320
+ But in those days, the C libraries for network connections
+
+00:26:58.320 --> 00:27:01.600
+ were really different, meaning that they were just,
+
+00:27:01.600 --> 00:27:02.780
+ you know, here comes the network,
+
+00:27:02.780 --> 00:27:05.840
+ here's this language C, it's been around by, you know,
+
+00:27:05.840 --> 00:27:10.320
+ 89, 90, 91, the network was there.
+
+00:27:10.320 --> 00:27:11.800
+ And so we were building libraries,
+
+00:27:11.800 --> 00:27:14.400
+ but then how each library worked in each operating system
+
+00:27:14.400 --> 00:27:16.200
+ was a little wonky.
+
+00:27:16.200 --> 00:27:20.800
+ And so they had to write different C code to compensate
+
+00:27:20.800 --> 00:27:24.400
+ for the different operating systems that this C program,
+
+00:27:24.400 --> 00:27:27.560
+ a web browser would be running on.
+
+00:27:27.560 --> 00:27:30.860
+ And so all these if-defs mean that one source code
+
+00:27:30.860 --> 00:27:35.820
+ with a few predefined constants, compile time constants,
+
+00:27:35.820 --> 00:27:39.560
+ could then work on a wide range of operating systems.
+
+00:27:39.560 --> 00:27:43.280
+ And so yes, the C language itself is portability, portable,
+
+00:27:43.280 --> 00:27:46.380
+ but we also wanna be portable over time.
+
+00:27:46.380 --> 00:27:50.900
+ And so sometimes libraries change, operating systems change,
+
+00:27:50.900 --> 00:27:54.200
+ and we want to be able to compensate for that.
+
+00:27:54.200 --> 00:27:56.880
+ And so this is an important part of C.
+
+00:27:56.880 --> 00:27:59.640
+ These days, it's less important
+
+00:27:59.640 --> 00:28:02.020
+ because a lot of the libraries have stabilized
+
+00:28:02.020 --> 00:28:03.600
+ and they don't change quite so much.
+
+00:28:03.600 --> 00:28:06.040
+ And so this code here would probably just be
+
+00:28:06.040 --> 00:28:08.240
+ a bit of socket code and the errors would come back
+
+00:28:08.240 --> 00:28:10.680
+ the same way, no matter what version.
+
+00:28:10.680 --> 00:28:15.680
+ Like VMS is an operating system that doesn't exist anymore.
+
+00:28:15.680 --> 00:28:19.000
+ ThinkC doesn't exist anymore.
+
+00:28:19.000 --> 00:28:20.960
+ Next doesn't exist anymore.
+
+00:28:20.960 --> 00:28:22.880
+ Solaris doesn't exist anymore.
+
+00:28:22.880 --> 00:28:24.160
+ So these are all operating systems
+
+00:28:24.160 --> 00:28:25.760
+ that don't even exist anymore.
+
+00:28:25.760 --> 00:28:28.560
+ But this code was portable across all those things.
+
+00:28:28.560 --> 00:28:30.360
+ And actually, I compiled all this
+
+00:28:30.360 --> 00:28:31.760
+ and you can kinda take a look at it.
+
+00:28:31.760 --> 00:28:35.600
+ I made a video where I resurrected this code,
+
+00:28:35.600 --> 00:28:37.340
+ oh, it's gotta be eight or nine years ago,
+
+00:28:37.340 --> 00:28:41.200
+ on a Macintosh, which is evolved from Next.
+
+00:28:41.200 --> 00:28:42.760
+ I don't know if I could get it to work again,
+
+00:28:42.760 --> 00:28:45.360
+ but back then I got it to work on a Macintosh
+
+00:28:45.360 --> 00:28:48.320
+ and I said, defined it as Next.
+
+00:28:48.320 --> 00:28:50.740
+ And so I compiled the C code,
+
+00:28:50.740 --> 00:28:53.520
+ and there is an X Windows on Macintosh,
+
+00:28:53.520 --> 00:28:55.980
+ so I got the X Windows library, got all this stuff working,
+
+00:28:55.980 --> 00:28:59.720
+ and I told it, you're a Next, and I recompiled the C code,
+
+00:28:59.720 --> 00:29:01.400
+ and eventually something came up.
+
+00:29:01.400 --> 00:29:04.000
+ And I made a video about it,
+
+00:29:04.000 --> 00:29:06.340
+ because I knew that it'd be very difficult
+
+00:29:06.340 --> 00:29:09.080
+ to keep this thing working over time.
+
+00:29:09.080 --> 00:29:13.080
+ But to go from 1994 to 2014
+
+00:29:13.080 --> 00:29:17.120
+ and recompile something 20 years later,
+
+00:29:17.120 --> 00:29:18.400
+ that's still pretty impressive,
+
+00:29:18.400 --> 00:29:20.720
+ that Next code would still work.
+
+00:29:20.720 --> 00:29:23.280
+ Things like the VM code, VMS code,
+
+00:29:23.280 --> 00:29:26.840
+ there's no VMS computers that I know of these days.
+
+00:29:26.840 --> 00:29:32.760
+ So it just shows that the idea of portability is a,
+
+00:29:32.760 --> 00:29:39.320
+ some of it is simple and elegant,
+
+00:29:39.320 --> 00:29:41.960
+ and was laid down in 1978,
+
+00:29:41.960 --> 00:29:44.400
+ but then there are things outside the programming language
+
+00:29:44.400 --> 00:29:48.040
+ that were evolving, and still are evolving to this day.
+
+00:29:48.040 --> 00:29:51.120
+ And if you are doing C coding today,
+
+00:29:51.120 --> 00:29:53.960
+ or C++ coding today, you may be using things
+
+00:29:53.960 --> 00:29:54.960
+ that start with pound sign,
+
+00:29:54.960 --> 00:29:59.960
+ which are compiler directives, rather than C code.
+
+00:29:59.960 --> 00:30:05.160
+ So, with that, dive into chapter four,
+
+00:30:05.160 --> 00:30:07.520
+ and learn about functions.
+
+00:30:07.520 --> 00:30:10.100
+ (gentle music)
+

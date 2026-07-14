@@ -1,0 +1,928 @@
+1
+00:00:00,000 --> 00:00:20,560
+ [MUSIC PLAYING]
+
+2
+00:00:20,560 --> 00:00:24,840
+ Can you walk us up to the inspirations and the history
+
+3
+00:00:24,840 --> 00:00:31,460
+ of how perhaps ABC got so good at OO?
+
+4
+00:00:31,460 --> 00:00:41,120
+ So ABC was actually not object oriented.
+
+5
+00:00:41,120 --> 00:00:47,320
+ ABC had a fixed set of data types.
+
+6
+00:00:47,320 --> 00:00:54,040
+ The data types were composable, like you
+
+7
+00:00:54,040 --> 00:01:00,600
+ could have, say, a list of integers or a list of strings.
+
+8
+00:01:00,600 --> 00:01:04,360
+ And those would share the operations on lists.
+
+9
+00:01:04,360 --> 00:01:09,600
+ But there was no concept of class.
+
+10
+00:01:09,600 --> 00:01:16,040
+ There was no concept of users defining classes.
+
+11
+00:01:16,040 --> 00:01:20,380
+ There was no concept of subclassing,
+
+12
+00:01:20,380 --> 00:01:24,880
+ either in the implementation or for the built-in types.
+
+13
+00:01:24,880 --> 00:01:30,480
+ So ABC had a bunch of really convenient to use primitives.
+
+14
+00:01:30,480 --> 00:01:33,920
+ They did a lot of work for you, but they weren't really OO.
+
+15
+00:01:33,920 --> 00:01:34,960
+ That's correct.
+
+16
+00:01:34,960 --> 00:01:44,480
+ And they insisted that there was only a single numeric type,
+
+17
+00:01:44,480 --> 00:01:50,560
+ in part so that they could sort of not deal
+
+18
+00:01:50,560 --> 00:01:55,960
+ with the complicated hierarchy of integers and floats
+
+19
+00:01:55,960 --> 00:01:59,240
+ and rationals and sort of--
+
+20
+00:01:59,240 --> 00:02:01,320
+ So then, but when you started Python,
+
+21
+00:02:01,320 --> 00:02:04,680
+ you had like object orientation very front of mind,
+
+22
+00:02:04,680 --> 00:02:07,400
+ not just a convenient set of primitives,
+
+23
+00:02:07,400 --> 00:02:10,240
+ but a convenient set of object-based primitives.
+
+24
+00:02:10,240 --> 00:02:13,480
+ Where-- did you read that in it?
+
+25
+00:02:13,480 --> 00:02:14,360
+ Yeah.
+
+26
+00:02:14,360 --> 00:02:17,620
+ Or did you read that somewhere else?
+
+27
+00:02:17,620 --> 00:02:22,160
+ I was familiar with C++.
+
+28
+00:02:22,160 --> 00:02:22,720
+ Yeah.
+
+29
+00:02:22,720 --> 00:02:28,840
+ And I think that might have been the only object-oriented
+
+30
+00:02:28,840 --> 00:02:31,200
+ language that I knew at the time.
+
+31
+00:02:31,200 --> 00:02:34,200
+ At least, I can't think of any--
+
+32
+00:02:34,200 --> 00:02:38,280
+ well, I own a big book about Simula,
+
+33
+00:02:38,280 --> 00:02:43,240
+ which is sort of the granddaddy of all object-oriented
+
+34
+00:02:43,240 --> 00:02:46,040
+ languages, I don't think I ever managed
+
+35
+00:02:46,040 --> 00:02:49,440
+ to get my hands on a Simula compiler.
+
+36
+00:02:49,440 --> 00:02:52,640
+ And I have to admit, I also only skimmed the book
+
+37
+00:02:52,640 --> 00:02:55,840
+ because it was actually sort of--
+
+38
+00:02:55,840 --> 00:02:58,160
+ Had you written C++ before?
+
+39
+00:02:58,160 --> 00:02:59,080
+ Yes.
+
+40
+00:02:59,080 --> 00:03:02,360
+ Like what kind of-- how much have you written C++?
+
+41
+00:03:02,360 --> 00:03:06,320
+ Enough to invent automatic--
+
+42
+00:03:06,320 --> 00:03:07,600
+ I forget what they're called.
+
+43
+00:03:07,600 --> 00:03:11,320
+ The pointers that are like automatically ref counted.
+
+44
+00:03:11,320 --> 00:03:13,600
+ So yeah, I forget, C++--
+
+45
+00:03:13,600 --> 00:03:14,600
+ They're a standard--
+
+46
+00:03:14,600 --> 00:03:17,040
+ --counting on top of C++ so that you would not
+
+47
+00:03:17,040 --> 00:03:20,200
+ lose your sanity while working in C++?
+
+48
+00:03:20,200 --> 00:03:23,560
+ No, because I was very familiar with ref counts.
+
+49
+00:03:23,560 --> 00:03:27,000
+ Because ABC's implementation is written in C,
+
+50
+00:03:27,000 --> 00:03:31,200
+ and everything uses reference counting.
+
+51
+00:03:31,200 --> 00:03:34,120
+ And it works out better in ABC because there
+
+52
+00:03:34,120 --> 00:03:38,040
+ are no cycles possible in the data types.
+
+53
+00:03:38,040 --> 00:03:41,240
+ Because there are no mutable data types.
+
+54
+00:03:41,240 --> 00:03:47,240
+ You can't have an object that contains itself or references
+
+55
+00:03:47,240 --> 00:03:50,680
+ itself directly or indirectly in ABC.
+
+56
+00:03:50,680 --> 00:03:54,200
+ I don't think that I sort of realized
+
+57
+00:03:54,200 --> 00:03:57,140
+ all the details of why that is important.
+
+58
+00:03:57,140 --> 00:04:01,560
+ And I didn't care, because pragmatically, those things
+
+59
+00:04:01,560 --> 00:04:05,520
+ aren't always as important as they seem to be theoretically.
+
+60
+00:04:05,520 --> 00:04:09,400
+ But anyway, I was very familiar with reference counting
+
+61
+00:04:09,400 --> 00:04:13,840
+ in C and how it was used for ABC.
+
+62
+00:04:13,840 --> 00:04:16,320
+ I think that that's where I learned about it.
+
+63
+00:04:16,320 --> 00:04:20,840
+ And I didn't hear much about it elsewhere.
+
+64
+00:04:20,840 --> 00:04:26,160
+ Then at some point when I was teaching myself C++--
+
+65
+00:04:26,160 --> 00:04:28,840
+ this must have been in the mid '80s--
+
+66
+00:04:28,840 --> 00:04:31,400
+ one of the things I tried was--
+
+67
+00:04:31,400 --> 00:04:34,560
+ I mean, my experience with ABC and reference counts
+
+68
+00:04:34,560 --> 00:04:38,600
+ in the implementation was that it was very error prone.
+
+69
+00:04:38,600 --> 00:04:45,640
+ We regularly had to sort of deal with bugs in the implementation
+
+70
+00:04:45,640 --> 00:04:51,400
+ where we either leaked memory or sort of crashed
+
+71
+00:04:51,400 --> 00:04:53,840
+ because we had freed things early.
+
+72
+00:04:53,840 --> 00:04:55,520
+ And it was always like, oh, there's
+
+73
+00:04:55,520 --> 00:04:58,080
+ a missing ink ref or dec ref.
+
+74
+00:04:58,080 --> 00:05:01,320
+ And of course, the missing dec ref
+
+75
+00:05:01,320 --> 00:05:05,080
+ is much harder to debug because you leak a byte here
+
+76
+00:05:05,080 --> 00:05:07,200
+ and you leak a byte there and nobody notices.
+
+77
+00:05:07,200 --> 00:05:10,480
+ Because people didn't write large applications in ABC.
+
+78
+00:05:10,480 --> 00:05:22,360
+ So anyway, someone probably put me on the idea of in C++,
+
+79
+00:05:22,360 --> 00:05:26,000
+ you can override primitive operations to the extent
+
+80
+00:05:26,000 --> 00:05:30,640
+ that you can build automatic reference counting.
+
+81
+00:05:30,640 --> 00:05:36,960
+ And I built that for some toy application
+
+82
+00:05:36,960 --> 00:05:45,840
+ and played with it and realized that it didn't work right.
+
+83
+00:05:45,840 --> 00:05:49,040
+ The problem was that it was like--
+
+84
+00:05:49,040 --> 00:05:52,920
+ and I probably didn't know enough C++ at the time,
+
+85
+00:05:52,920 --> 00:05:57,840
+ or possibly C++ hadn't developed certain subtle mechanisms
+
+86
+00:05:57,840 --> 00:06:01,200
+ like move operations.
+
+87
+00:06:01,200 --> 00:06:06,000
+ It was very crude, like overloading assignment.
+
+88
+00:06:06,000 --> 00:06:08,280
+ That was basically what I did.
+
+89
+00:06:08,280 --> 00:06:15,040
+ And so I found that where if I had handwritten reference count
+
+90
+00:06:15,040 --> 00:06:19,120
+ operations, I would sort of know, OK, this object
+
+91
+00:06:19,120 --> 00:06:23,440
+ is owned here, so we pass it to some function.
+
+92
+00:06:23,440 --> 00:06:27,160
+ That function doesn't have to increment the reference count
+
+93
+00:06:27,160 --> 00:06:30,920
+ just because it's using that object because it's not
+
+94
+00:06:30,920 --> 00:06:34,280
+ going anywhere as long as the color of that function
+
+95
+00:06:34,280 --> 00:06:36,040
+ has a reference to it.
+
+96
+00:06:36,040 --> 00:06:38,520
+ On the other hand, the automatic reference counting,
+
+97
+00:06:38,520 --> 00:06:42,880
+ as I had implemented it using C++,
+
+98
+00:06:42,880 --> 00:06:46,040
+ would say, oh, we're passing this thing as an argument
+
+99
+00:06:46,040 --> 00:06:48,880
+ to a function, so increment the reference count.
+
+100
+00:06:48,880 --> 00:06:51,560
+ Oh, that function returns, decrement the reference count.
+
+101
+00:06:51,560 --> 00:06:54,080
+ So there was much, much, much more reference counting
+
+102
+00:06:54,080 --> 00:06:57,920
+ activity and sort of that part I didn't like.
+
+103
+00:06:57,920 --> 00:07:00,880
+ And so Python still does it manually
+
+104
+00:07:00,880 --> 00:07:03,720
+ and is written in C, not in C++.
+
+105
+00:07:03,720 --> 00:07:09,520
+ But somehow, I picked up the idea of vtables,
+
+106
+00:07:09,520 --> 00:07:14,680
+ or at least arrays of pointers to functions,
+
+107
+00:07:14,680 --> 00:07:19,720
+ as a handy way to implement objects.
+
+108
+00:07:19,720 --> 00:07:24,320
+ And actually, initially for the first probably six months,
+
+109
+00:07:24,320 --> 00:07:28,840
+ Python was not object oriented.
+
+110
+00:07:28,840 --> 00:07:33,280
+ And so very few people saw that, like a handful of my coworkers
+
+111
+00:07:33,280 --> 00:07:35,000
+ saw that.
+
+112
+00:07:35,000 --> 00:07:39,400
+ And the implementation had this notion
+
+113
+00:07:39,400 --> 00:07:44,800
+ of you can implement an object type
+
+114
+00:07:44,800 --> 00:07:47,600
+ by putting a bunch of function pointers
+
+115
+00:07:47,600 --> 00:07:51,400
+ and a bit of other information in a standard structure that
+
+116
+00:07:51,400 --> 00:07:52,960
+ describes the type.
+
+117
+00:07:52,960 --> 00:07:55,680
+ I called it a type, not an object.
+
+118
+00:07:55,680 --> 00:07:59,560
+ So in a way that you were emulating C++ as a way
+
+119
+00:07:59,560 --> 00:08:03,040
+ of creating perception of object oriented programming
+
+120
+00:08:03,040 --> 00:08:05,120
+ without truly being an object.
+
+121
+00:08:05,120 --> 00:08:05,640
+ Yeah.
+
+122
+00:08:05,640 --> 00:08:08,400
+ Oh, and wait a second.
+
+123
+00:08:08,400 --> 00:08:11,560
+ There is another step that I just missed.
+
+124
+00:08:11,560 --> 00:08:23,880
+ So in around '88, I spent a summer as an intern at DexCirc.
+
+125
+00:08:23,880 --> 00:08:27,680
+ And I talked to the designers and inventors
+
+126
+00:08:27,680 --> 00:08:31,160
+ of a language named Modula 3.
+
+127
+00:08:31,160 --> 00:08:37,840
+ And they were putting the last proof reading efforts
+
+128
+00:08:37,840 --> 00:08:40,320
+ for the Modula 3 report.
+
+129
+00:08:40,320 --> 00:08:45,120
+ But they had built a Modula 2 and 1/2 compiler.
+
+130
+00:08:45,120 --> 00:08:46,600
+ They called it Modula 2 Plus.
+
+131
+00:08:46,600 --> 00:08:53,360
+ And in their documentation, either the draft
+
+132
+00:08:53,360 --> 00:08:59,560
+ of the Modula 3 manual or the internal Modula 2 Plus manual,
+
+133
+00:08:59,560 --> 00:09:04,400
+ I learned this concept of how Modula 2 Plus and 3
+
+134
+00:09:04,400 --> 00:09:09,520
+ do kind of not quite object orientation.
+
+135
+00:09:09,520 --> 00:09:14,080
+ And I think they meant it as sort of a reaction
+
+136
+00:09:14,080 --> 00:09:17,000
+ to how it was done in C++.
+
+137
+00:09:17,000 --> 00:09:19,520
+ They said Modula 3 is not actually
+
+138
+00:09:19,520 --> 00:09:22,000
+ an object oriented language.
+
+139
+00:09:22,000 --> 00:09:28,800
+ But the sort of the key part of object oriented use
+
+140
+00:09:28,800 --> 00:09:36,360
+ where you define a class through a bunch of functions
+
+141
+00:09:36,360 --> 00:09:41,840
+ and the notation where you say object dot method
+
+142
+00:09:41,840 --> 00:09:47,320
+ and then the arguments instead of function and then the object
+
+143
+00:09:47,320 --> 00:09:49,520
+ and then the rest of the arguments.
+
+144
+00:09:49,520 --> 00:09:54,680
+ They said if you use that notation object dot or thing
+
+145
+00:09:54,680 --> 00:09:59,280
+ dot dot method paren and then arguments,
+
+146
+00:09:59,280 --> 00:10:06,240
+ thing had to be something that had a type.
+
+147
+00:10:06,240 --> 00:10:09,920
+ I think it was a structure type that had a bunch of function
+
+148
+00:10:09,920 --> 00:10:11,840
+ pointers in it.
+
+149
+00:10:11,840 --> 00:10:18,600
+ And so the method names were simply
+
+150
+00:10:18,600 --> 00:10:23,080
+ fields or members of that structure in Modula 3.
+
+151
+00:10:23,080 --> 00:10:27,080
+ And so to create the equivalent of a class,
+
+152
+00:10:27,080 --> 00:10:33,520
+ you defined a structure that had a bunch of function pointers.
+
+153
+00:10:33,520 --> 00:10:34,480
+ They were all typed.
+
+154
+00:10:34,480 --> 00:10:36,000
+ So you could say this is a function
+
+155
+00:10:36,000 --> 00:10:40,240
+ that takes one argument of this type and it returns blah, blah.
+
+156
+00:10:40,240 --> 00:10:43,080
+ And then a bunch of those with names.
+
+157
+00:10:43,080 --> 00:10:46,000
+ And the trick was if the compiler sort of noticed
+
+158
+00:10:46,000 --> 00:10:49,320
+ that you were using that and then you were calling it,
+
+159
+00:10:49,320 --> 00:10:53,280
+ it would say, oh, we're going to insert
+
+160
+00:10:53,280 --> 00:10:59,080
+ the thing whose method you just used as the very first parameter
+
+161
+00:10:59,080 --> 00:11:00,440
+ to the function.
+
+162
+00:11:00,440 --> 00:11:04,600
+ This is where Python's explicit self comes from.
+
+163
+00:11:04,600 --> 00:11:10,840
+ And so that is all Modula 3's design that I copied.
+
+164
+00:11:10,840 --> 00:11:15,960
+ And so originally in Python, I didn't have a user level
+
+165
+00:11:15,960 --> 00:11:19,280
+ notation to even do that.
+
+166
+00:11:19,280 --> 00:11:22,680
+ The type system was only extensible
+
+167
+00:11:22,680 --> 00:11:26,120
+ by writing a C extension.
+
+168
+00:11:26,120 --> 00:11:26,880
+ Oh.
+
+169
+00:11:26,880 --> 00:11:30,840
+ And so the author of--
+
+170
+00:11:30,840 --> 00:11:33,280
+ The class keyword, what we think of as a class keyword,
+
+171
+00:11:33,280 --> 00:11:36,760
+ was not there for a month and a half.
+
+172
+00:11:36,760 --> 00:11:40,440
+ In the first probably five or six months, it wasn't there.
+
+173
+00:11:40,440 --> 00:11:48,680
+ And I think we had an intern who knew C++ better
+
+174
+00:11:48,680 --> 00:11:52,360
+ or who somehow had the right--
+
+175
+00:11:52,360 --> 00:11:53,200
+ who knows?
+
+176
+00:11:53,200 --> 00:11:55,800
+ He was younger than me.
+
+177
+00:11:55,800 --> 00:12:04,160
+ And he said, hey, if you want to give users the ability
+
+178
+00:12:04,160 --> 00:12:06,720
+ to define their own classes, here
+
+179
+00:12:06,720 --> 00:12:08,680
+ is a hack how you could do it.
+
+180
+00:12:08,680 --> 00:12:12,400
+ You add this little bit of syntax,
+
+181
+00:12:12,400 --> 00:12:14,760
+ and then you map it to this structure
+
+182
+00:12:14,760 --> 00:12:18,560
+ at the implementation time, and it all works.
+
+183
+00:12:18,560 --> 00:12:20,000
+ And that's 5.1c.
+
+184
+00:12:20,000 --> 00:12:21,640
+ And yeah.
+
+185
+00:12:21,640 --> 00:12:24,320
+ And so everything else was working.
+
+186
+00:12:24,320 --> 00:12:30,160
+ We had a working interpreter with a REPL, and integers,
+
+187
+00:12:30,160 --> 00:12:33,560
+ and floats, and strings, and tuples, and lists,
+
+188
+00:12:33,560 --> 00:12:38,400
+ and dictionaries, and functions, and types
+
+189
+00:12:38,400 --> 00:12:42,440
+ that were sort of internal things.
+
+190
+00:12:42,440 --> 00:12:47,600
+ I think even then you could ask for the type of an object.
+
+191
+00:12:47,600 --> 00:12:53,040
+ Did you, at the time, in these first six months of Python,
+
+192
+00:12:53,040 --> 00:12:57,440
+ did you feel like you were doing core research
+
+193
+00:12:57,440 --> 00:13:00,840
+ on what object orientation was going to mean in the future?
+
+194
+00:13:00,840 --> 00:13:01,340
+ No.
+
+195
+00:13:01,340 --> 00:13:02,800
+ Or were you just--
+
+196
+00:13:02,800 --> 00:13:08,120
+ I was just hacking together an implementation of a language
+
+197
+00:13:08,120 --> 00:13:11,280
+ that I didn't know where it was going.
+
+198
+00:13:11,280 --> 00:13:14,320
+ I obviously spent enough time on it
+
+199
+00:13:14,320 --> 00:13:21,760
+ that I was hoping it would go somewhere.
+
+200
+00:13:21,760 --> 00:13:22,260
+ But--
+
+201
+00:13:22,260 --> 00:13:24,080
+ You didn't think of yourself as like a--
+
+202
+00:13:24,080 --> 00:13:25,720
+ that you were going to someday write
+
+203
+00:13:25,720 --> 00:13:29,040
+ a paper about how object orientation should be done.
+
+204
+00:13:29,040 --> 00:13:31,360
+ You weren't thinking like a researcher would think.
+
+205
+00:13:31,360 --> 00:13:33,080
+ Definitely not that.
+
+206
+00:13:33,080 --> 00:13:34,280
+ You were just solving problems.
+
+207
+00:13:34,280 --> 00:13:35,720
+ I was not a researcher.
+
+208
+00:13:35,720 --> 00:13:37,800
+ I was a programmer.
+
+209
+00:13:37,800 --> 00:13:42,280
+ I do not have a PhD.
+
+210
+00:13:42,280 --> 00:13:47,680
+ I was employed by CWI as a programmer.
+
+211
+00:13:47,680 --> 00:13:50,360
+ Do you now even think maybe that you
+
+212
+00:13:50,360 --> 00:13:54,440
+ made a profound contribution?
+
+213
+00:13:54,440 --> 00:13:56,480
+ You're the first person to tell me that.
+
+214
+00:13:56,480 --> 00:14:02,280
+ And I'm not sure that I totally believe it.
+
+215
+00:14:02,280 --> 00:14:08,680
+ I would say that the Modula 3 inventors sort of
+
+216
+00:14:08,680 --> 00:14:14,800
+ made that contribution because they were much more sort
+
+217
+00:14:14,800 --> 00:14:19,760
+ of researchy types, theory types.
+
+218
+00:14:19,760 --> 00:14:24,360
+ They thought long and deep about all the sort
+
+219
+00:14:24,360 --> 00:14:27,840
+ of theoretical and eventual repercussions
+
+220
+00:14:27,840 --> 00:14:29,200
+ of designs like that.
+
+221
+00:14:29,200 --> 00:14:36,040
+ And I was happy to implement something even if there were
+
+222
+00:14:36,040 --> 00:14:39,360
+ edge cases where it would just not do the right thing at all,
+
+223
+00:14:39,360 --> 00:14:45,320
+ like until we finally, after about a decade or so,
+
+224
+00:14:45,320 --> 00:14:49,560
+ added a cyclic garbage collector to the language.
+
+225
+00:14:49,560 --> 00:14:53,280
+ Python would leak memory irretrievably
+
+226
+00:14:53,280 --> 00:14:58,400
+ in many situations where you had created a cycle
+
+227
+00:14:58,400 --> 00:15:04,480
+ and then lost the last pointer into the cycle from outside it.
+
+228
+00:15:04,480 --> 00:15:09,000
+ And it took a very long time before our users convinced us
+
+229
+00:15:09,000 --> 00:15:14,280
+ that there were some edge cases where that was actually
+
+230
+00:15:14,280 --> 00:15:17,080
+ a real problem and there was no good existing solution.
+
+231
+00:15:17,080 --> 00:15:20,080
+ [MUSIC PLAYING]
+
+232
+00:15:34,480 --> 00:15:37,240
+ (dramatic music)
+

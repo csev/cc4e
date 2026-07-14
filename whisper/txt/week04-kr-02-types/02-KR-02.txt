@@ -1,0 +1,443 @@
+ Welcome to chapter two, Types, Operators, and Expressions.
+ So again, I'm not going to tell you everything.
+ The book, I want you to read the book.
+ The book does a great job.
+ I'm just gonna call your attention
+ to some things that might seem a little bit weird
+ if you're coming from a language like Python
+ or JavaScript or even PHP where things are objects
+ and you don't even notice it.
+ You've been using objects your whole career
+ and you didn't even realize it.
+ So we're gonna talk about data types and storage allocation.
+ One of the things that you just got,
+ part of what I love about teaching this historical view on C
+ is that we have to talk about storage allocation.
+ Float and double worked out pretty well,
+ partly because in the early days of C,
+ they did them all in software, so they just made them easy
+ and they made them work well.
+ They weren't expected to be fast.
+ The things that they wanted to be super fast
+ were like the integer and byte data, character data.
+ Type conversion, and then there's a story
+ that connects integer division in Python 2
+ and all that pain of Python 3 and how division changed
+ and why it was the way it was and how that worked.
+ And again, it has to do with performance
+ and simple decisions that got made, sadly.
+ Bitwise logical operations, we'll talk about them.
+ You're probably not going to use them,
+ but it's really important in a historical context
+ to understand why they were so thorough.
+ And it really had to do with the fact that
+ because of word oriented computers switching to character
+ oriented computers, all of us programmers
+ were thinking in words and if we didn't see shifting
+ and masking and bitwise stuff, we'd be like,
+ I can't program in this thing 'cause a lot of our work
+ in those word oriented computers was masking and shifting.
+ And so it's like we had to have it.
+ We didn't use it as much as we could have thought.
+ So let's start with division.
+ (sighs)
+ In the good old days, we were not worried too much
+ about doing division and if you were doing division
+ and you cared about the division,
+ you were probably doing it in floating point
+ because you were doing scientific computing
+ and you did that on supercomputers.
+ You didn't do that on general purpose computers.
+ Unixer's really designed for general purpose computers
+ and in general purpose computers, you thought to yourself,
+ why is division that important?
+ And I'm sure they made some decision somewhere.
+ I do not know why.
+ It probably had to do with one of the computers
+ they were working with had truncating division in hardware
+ and non-truncating division in software.
+ I don't know, or rounding division or whatever.
+ A lot of those computers didn't even have
+ fast floating point, so some of the computers
+ they were working on did all the floating point in software
+ and maybe they even did integer division in software
+ with loops and stuff, but we don't know.
+ I don't exactly know, but they made this decision
+ to do integer division truncating.
+ And this was one of the biggest things
+ of going from Python 2 to Python 3
+ that was the most painful.
+ So Python 2 was over 25 years old
+ and it wasn't that long after C that Python 2 was written.
+ Python 2 was written in C.
+ And Python 2 to Python 3 transition was a big deal.
+ It took a long time, it took 12 years to get there.
+ But Python 2 was like the greatest thing ever
+ except for a few things.
+ Because Python 2 was so related to C,
+ the strings in Python 2 natively were ASCII, not Unicode,
+ which meant it couldn't even do like Spanish characters,
+ let alone Asian characters.
+ Print was part of the language
+ and the programmers got a lot of help.
+ Like they got an automated code converter
+ and syntax checkers and they did all kinds of things
+ where they would take certain libraries
+ like the print function and they would put it in Python 3
+ and then we backported to Python 2.
+ So you could like switch from using the print statement
+ to the print function.
+ And there were lots of things that made this transition
+ as easy as possible.
+ The one thing that they really never could crack
+ and we just had to bite the bullet and get used to it
+ was Python 2 returns integer and the division is truncated.
+ So if you do three divided by four is zero in Python 2.
+ And in Python 3, integer three divided by integer four
+ becomes a floating point 0.75
+ because that's what calculators do.
+ And the Python 2 division truncated
+ because it didn't seem like it mattered much back in the 80s
+ and C integer division truncated.
+ (coughs)
+ So three quarters in C was zero
+ and three quarters, integer three quarters was zero in C
+ and so it was in Python.
+ And 20 plus years later,
+ that was the one thing we couldn't auto convert
+ and Python 3 does it the way Python does.
+ So it's less of a problem in C
+ because C is actually a strongly typed language
+ which means if I wanted to say three over four,
+ I knew whether it was integers or floats
+ and I could force that.
+ And so, but in Python you just, what's the variable?
+ And so it imputes the variable type
+ from the result of that expression.
+ Where C has got to declare X as a float
+ or a double or an int.
+ So when a C programmer writes a division,
+ they need to know, they know already
+ that they have to cast the values
+ or use float constants
+ to trigger type conversion and expressions.
+ So as you're looking through the chapters
+ seeing these type conversions and casting,
+ that's the kind of problem that was solved.
+ But then Python simplified it
+ and then made it really kind of yucky
+ and then they had to fix it.
+ It's better in Python 3
+ and most of you have just learned Python 3
+ so consider yourself lucky.
+ So another thing they talk about a lot
+ and it has to do with as we start thinking
+ about storage allocation on a bit by bit basis,
+ we tend to need to know how to represent
+ and print things out, not just in base 10.
+ And it really has to do with the fact
+ that base eight and base 16 are better
+ at printing out binary data, raw data.
+ 10 is the number like where, you know,
+ how many pizzas do you want?
+ I want 16 pizzas or 22 pizzas.
+ It's our natural, the way we think, the way humans think.
+ So talk about, to talk about bases,
+ let's start by just reviewing what base 10 means.
+ There is, you know, the ones place and the tens place
+ and of course later there's hundreds and thousands,
+ but the four in 42 represents four tens.
+ So you can think of it as four times 10, which is 40
+ and then the ones place is two more.
+ So 42 is 40 plus two, which is kind of redundant.
+ We do that instinctively.
+ So now let's take a look at base eight.
+ So 42 in base 10 is 52 in base eight.
+ And what base eight is really doing
+ is it means that the digits in the two places
+ means something different,
+ meaning the five and 52 represents an eight.
+ So there's five eights in this number
+ that we're dealing with and two ones.
+ And so five times eight is 40 and two times one is two.
+ And so converting from 52 base eight to 52 base 10,
+ we get to 42.
+ And we used base eight and again,
+ base eight lines up perfectly with base two
+ 'cause three base two digits equals one base eight digit.
+ And I did a lot of base eight in the early days,
+ but base 16 is really the way we tend to do it now
+ 'cause it's a little more dense.
+ The rightmost place is still the ones
+ and the next place is the 16s.
+ So the two in the 16s place represents two times 16 or 32.
+ And then what's left over is 10,
+ which we represent with an A and 10 plus 32 is 42.
+ Now the problem is, is we only have digits zero through nine.
+ So by convention, 10 is A, 11 is B, 12 is C,
+ 13 is D, 14 is E and 15 is F.
+ F is all the ones, it's four ones.
+ I know that, I just like four ones.
+ So I can convert hex from hex to base two,
+ like very, very quickly.
+ And if I need to look at a dump of some memory,
+ I can dump it in hex and then when I need to,
+ I can convert it to base two.
+ So just converting back and forth
+ between base 16 and base two is a bit of a trick.
+ And I don't really care if you do much of this,
+ you can grab this sample code and play with it.
+ This is a conversion from base 10,
+ a base number like one, two, three, four,
+ to base eight and then base 16.
+ And the way this one does it is it converts the number
+ in effect from the rightmost number up to the low digit
+ up to the high digit.
+ And so what you do is you use the modulo function.
+ And so you take your number one, two, three, four,
+ and you take it modulo eight,
+ and what's left over as a remainder is two.
+ So that's the far right number in the new one.
+ And then you chop it off with integer division,
+ you chop that off and see what's left and that's 154.
+ And you're accumulating the two in the converted number.
+ And then you take the modulo of 154, modulo eight,
+ and you get two, and then you chop off the next eight
+ with integer divide by four and you get 19.
+ So now your bottom two digits are two, two.
+ And then you do 19 modulo eight and you get three.
+ And that next digit from the right is a three.
+ Then you divide by eight,
+ integer divide by eight to get what's left over.
+ And that's below eight.
+ And so that the fourth digit from the right is a two.
+ So one, two, three, four in base eight is two, three, two, two.
+ And you can do the exact same thing.
+ The difference is you gotta look up the digits
+ because the base 16 needs the A, B, C, D, E, F.
+ And so I make a little string.
+ Now we're talking Python here.
+ And so we do repeatedly modulo 16, integer divide by 16,
+ modulo 16, integer divide by 16, modulo 16,
+ integer divide by 16.
+ And so we take one, two, three, four.
+ And when we convert it to base 16,
+ it kind of comes up from the bottom as two D four,
+ which we read four D two.
+ So that's just an algorithm that converts these.
+ You tend to use this modulo.
+ And that's how we can convert from one base to another.
+ Now it's not critical in this class.
+ We're not gonna spend a lot of time converting bases,
+ but we just need to be aware that
+ because there was so much awareness of how bits were stored,
+ we tended to print a lot of stuff out
+ in hexadecimal or in base eight.
+ And so I just want you to know what those things are.
+ So if you look, for example,
+ at the ASCII chart that we've already seen,
+ you see that it shows us that the letter A is 65,
+ and in hex it's 41, and in octal it's 101,
+ and in base two, or binary,
+ it's one and a bunch of zeros and a one.
+ And so this is just something that's making,
+ and in the old days you had to be just much more aware
+ of the real bits inside the computer,
+ and hex and base eight, hex and octal,
+ were better ways to sort of know what the bits were.
+ So there you go.
+ Now another thing that C really was
+ one of the early innovative language
+ was byte addressable computers, right?
+ And so we don't think much, everything's a string,
+ and we can look at the characters in the string.
+ But in the old days, before C
+ and the generation of computers that kind of triggered C,
+ we didn't have characters.
+ You couldn't, in the hardware, load a character.
+ You could only load a word,
+ and then you had to find the character within the word.
+ And the language that really was the immediate precursor
+ to C was the B language.
+ And the difference was is the B language was a really cool,
+ low-level word-oriented language,
+ and then the C language came from B
+ and became a byte-oriented language.
+ And so C sort of like said, we're gonna do byte addressing.
+ So if I take a look at the way I had to do character support
+ in a CD6-6500, which is the computer I was using
+ in like 1975, 1976, it was a scientific computer.
+ It barely cared about printing characters.
+ It didn't even have lowercase.
+ It had 60-bit words and packed 6-bit uppercase characters
+ into those words, and it used a series of zeros
+ to fill it up.
+ And so if I put the words Hello World into the CDC6500,
+ it took two words, and Hello W-O-R-L
+ was packed into the first word, and D was in the second one,
+ and then we did what was called zero filling.
+ The rest of those characters were all zeros,
+ the integer zero, zero, zero, zero, zero, zero, zero, zero.
+ And if I wanted to know what the fifth character
+ of this two-word string was, like the O, for example,
+ you would create a mask, and in that mask,
+ you would have zeros where you wanted to get rid of stuff
+ and ones where you wanted to copy stuff.
+ So you would take Hello World and you'd run it
+ through this mask with the bits in the right position,
+ and then you would get the O and all zeros
+ in the rest of the word, and then you would have to shift it
+ half the way down, 'cause there were 10 characters,
+ so you had to shift it five characters to the right,
+ and then you would have the letter O
+ in the bottom six bits of that word,
+ and then I could write an if statement.
+ That's how I would say if the fifth character
+ is the letter O, I had to extract the fifth character
+ by hand.
+ So you can imagine how happy I was
+ when I began to see programming languages
+ that allowed me to use more of an array syntax
+ and say strings of five, or even in this case,
+ zero, one, two, three, four, strings of four,
+ where I could treat characters as an array.
+ The notion of a character array for me in 1977 was,
+ what, why would you, you know, you couldn't do that, right?
+ And so we, you know,
+ a whole generation of programmers went,
+ go through their entire career
+ without having to do any masking and shifting.
+ So this chapter's gonna talk to you about it,
+ and you might say, well, if C was so good
+ at doing it for you, why did they show it?
+ And that is that people like me
+ would not have had respect for this language
+ if it weren't for the fact that they had
+ a good masking and shifting,
+ 'cause we were doing that all the time
+ in these word-oriented computers
+ and word-oriented languages.
+ And just as C and Unix were making
+ the world safe for characters,
+ then we had this other problem.
+ And I'm only gonna talk a little bit about this.
+ Just don't worry about it.
+ The concept of indianess.
+ So if you're loading words,
+ do you load them with the least significant digits first,
+ or the most significant digits first?
+ And most computers were big-endian,
+ and big-endian to us software developers
+ made the most sense, 'cause that's how we thought
+ it would lay out.
+ But it turns out that a few processors wanted to load,
+ if they were gonna do an add,
+ they wanted to load the low end of the integer first
+ so they could start the addition
+ while they're bringing in the high end,
+ and they could overlap the load and the add.
+ And then Intel, which in those days
+ wasn't all that popular,
+ but they were so interested
+ in the microprocessor performance
+ that they became little-endian
+ so that their loading and addition were fast.
+ And so we've been stuck with
+ a lot of little-endian microprocessors since then,
+ and big-endian and little-endian,
+ it's one of the harder things to solve, really.
+ It really is.
+ And so I'm gonna show you some code.
+ I really, all I want you to do
+ is feel sorry for those of us
+ who had to figure out little-endian and big-endian.
+ And let me just give you an outline
+ of what this code is doing.
+ I'm not gonna walk through it in detail.
+ It just is kinda scary.
+ So, and you're not even gonna understand
+ most of this code until chapter five.
+ It's just, let's just talk a little bit about the bits
+ and how masking and shifting would have worked
+ if we didn't have character arrays.
+ So what I'm doing in this program
+ is I'm creating a character array.
+ The length of this character array
+ is hello world plus one for the terminator,
+ H-E-L-L-O space W-O-R-L-D.
+ So 11 plus one should be 12 characters are allocated.
+ And then what I'm doing in this next line
+ that says int star S-I
+ is I'm actually saying I wanna take the same storage
+ and pretend it's an integer array.
+ And so that's what that line is.
+ It takes the address of the beginning of the first character
+ and convert it from a pointer to a character,
+ which is char S is a pointer to a character,
+ and have it be a pointer to an integer.
+ And again, I'm sort of like jumping ahead in chapter five.
+ So I'm not expecting to understand all this.
+ I'm just making you aware of it.
+ So in those first two lines,
+ I've got a character array and an integer array.
+ Okay, and this is a 32-bit integer.
+ And so that means that the characters are stuck
+ into 32-bit integers in a little endian way.
+ And so if you look, that means that
+ if you just look at memory from left to right,
+ that the lowest of the first four, which is 32 bits,
+ the first character that comes out is the L, right?
+ And you can see the little endian,
+ which in your mind thinks it should be shifted,
+ but that's because this is running on a little endian computer.
+ And different computers will give you different results.
+ And this is a little endian example.
+ And so you can see with masking and shifting
+ where I'm gonna try to get the E out,
+ which would normally be the second character,
+ but it's kind of the second from the bottom
+ of the first integer.
+ And so what I do is I make a mask
+ and I'm gonna print this out.
+ I take FF, which is eight bits of ones,
+ and then I shift it up eight characters to the left.
+ And you can see that in the printout.
+ And then I mask out that character, which is the E,
+ but then it's in the wrong position.
+ And then I have to take that masked result
+ and I have to shift it back down eight
+ so that it's in the bottom part.
+ So now I can check to see what that letter is.
+ This is how I would pull out the second character
+ of a string so I could check to see if it's an E,
+ because I can't compare directly
+ the second character of string, right?
+ And Python, you're like, why are we doing this?
+ And that's why you build a string class
+ instead of use a character array for this.
+ And I've made it even worse by starting
+ with taking a character array and viewing it
+ as an integer array, and then playing with the integers.
+ So, you don't have to understand this.
+ Just be thankful that you use Python.
+ And if you don't use Python, you use C.
+ And whether it's a big-endian or a little-endian machine,
+ you can treat an array of characters
+ as an array of characters, and you can get the third one
+ or the fifth one with a square bracket notation, okay?
+ Storage allocation, storage allocation, storage allocation.
+ So a summary of this lecture is we talked
+ about number-based conversion.
+ We talked a little bit about division,
+ why the Python 2 integer division happened.
+ I don't really have a really good answer for that.
+ Concept of integers and words and bytes
+ and masking and shifting and characters.
+ Just because these topics are covered in this chapter,
+ and they will feel very foreign to you and unnatural.
+ But just give 'em a shot, read through 'em,
+ understand them, and they'll make sense later.
+ Later, we're gonna learn about structures
+ and pointers and addresses advancing and stuff like that.
+ It'll all make a lot more sense coming up.
+ (gentle music)

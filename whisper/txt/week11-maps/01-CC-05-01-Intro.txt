@@ -1,0 +1,62 @@
+ Hello and welcome to the last lecture in this course. We're going to talk about TreeMaps and
+ HashMaps. Up till now we've built a map abstraction, we've looked at how iterators work, we've created a
+ linked list implementation of the hash abstraction, and now we're going to go and build a hash
+ version and a tree version of that same thing. If you recall some lectures ago I read a Robert Frost
+ poem, you know, miles to go before I sleep. Well, that's where we're at now. We're coming to the end
+ of this miles to go, although as you'll see the end is really just the beginning of the next phase.
+ And with a little foreshadowing, if you have been with me for a very long time, all the way
+ since Python for Everybody, which for me was recorded a number of years ago already,
+ this is the first complete piece of code that I showed you, and that was the code to count the
+ number of words in a file by splitting them, then creating a dictionary, and then counting them.
+ Now we're going to finish this lecture by implementing this in C, but I'm getting ahead
+ of myself. So the idea here is we're exploring, you know, different key value implementation
+ alternatives. We built an unordered Java-based hash map, which is like a Python 2 dictionary.
+ If you recall, Python 2 had unordered hash maps, which meant you sort of ended up with your stuff
+ coming out in a random order. It was the same order, but every time you inserted something,
+ the order might change. Now Python 3, they tend to, later versions of Python 3, they tend to be
+ ordered, which are more like the list map that we did. We're going to have a map that is sorted,
+ that's more like Java's tree map with an iterator, and it is sort of chapter 6.5 or section 6.5 of
+ the book, and it is a combination of a tree map and a linked list map, but Java doesn't have such
+ thing, which really kind of surprises me. They got a tree map and they got a hash map, but they don't
+ have a linked tree map or a linked map. So here we go. Now these, the two abstractions, I mean,
+ two implementations we're going to build, kind of, you see them in Python, you see them in C++,
+ and you pretty much see them in Java as well, but we're going to do our own thing.
+ So I would say to you when you're writing this code, I don't want you to think that when I wrote
+ this code that I gave you as samples or when I wrote these slides, that it was easy for me.
+ The concept of trees and hashes are pretty straightforward, but then you got to solve
+ the little problems of how to take the previous and hook it to the current and hook the next to the
+ current next to the next from the preview. And so you've got to draw pictures, and this is actual
+ picture that I drew. I really wrote all this code from scratch. I mean, I didn't come up with the
+ idea of a tree from scratch, but I wrote this code from scratch. And you can see that the,
+ like when I was building the tree map, my goal was to find the right place in the tree to insert
+ the next item. And so you see I've got this 1, 3, 5, 7, 9, 11, 13. So I kind of constructed this tree
+ that was right, it was in order. And then I was trying to figure out where I might put 4 and where
+ I might put 8 and where I might put 14. And then I kind of had this notion when I was writing the
+ picture that I, you'll see I had the words lowest, node, greater than, and then I cross them all out
+ because that wasn't enough. And you'll see when we get there that I have the lowest node greater
+ than and the greatest node less than. And I've got to get both of those things. And so as we
+ work our way down the tree, we've got to keep track of this. I'm getting way ahead of myself.
+ Like many data structure programming tasks, they, you can draw the picture and it makes a lot of
+ sense. You see the hash map, which is the first one we're going to do. That's really just nothing
+ more than a bunch of linked lists with a hash function picking the head. Instead of one head,
+ it has in this case four heads. So that one turns out to be easy and that's the first one that we're
+ going to do. But when I wrote this, I mean, I knew what I was doing. I knew what a tree was. I knew
+ what a hash was. That's the easy part. The hard part's writing the code. Now taking the code from
+ someone else, like if you're taking it from Python or C++ or Java, that's easy. Thank heaven. They
+ wrote it and they tested it. And we have a nice tested working implementations. So you shouldn't
+ have to write this stuff in most languages. And so we're just understanding how to write it. But
+ if you do it right, you're going to make mistakes and you're going to, you're going to be 80% right.
+ But then it's going to be real hard to debug this stuff. So part of what you need to figure,
+ you need to accept the fact that you will, you're not likely to write it perfect the first time
+ and debugging is difficult. You're going to print out a bunch of like percent P's and hex
+ values and stuff. And you're going to just go through it slowly. Like what did I do wrong?
+ Because the main programs for the programming assignments that I give you are really kind of
+ like unit tests. They're sort of pushing your implementation to see if it's capable of handling
+ all of the common situations. And so don't, don't stress if it doesn't work right away.
+ My implementations didn't work right away. They failed. You can, you know, if you can go to some
+ website and get the solution. I mean, if you're going to do that, just go to Python and make a
+ dictionary. If that's your goal, your goal is to struggle with doing something that you understand.
+ You know how to do it. You know what a tree is. You kind of know that you got prebs and necks and
+ lefts and rights, but you still got to write the code and making one or two mistakes and then fixing
+ those one or two mistakes is essential to understanding. So with that up next, we're
+ going to talk about the HashMap.

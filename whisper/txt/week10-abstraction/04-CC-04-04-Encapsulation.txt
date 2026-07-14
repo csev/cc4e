@@ -1,0 +1,89 @@
+ So it's time to stop deep diving into object-oriented theory and get to writing some code.
+ So we're going to start with something simple. We're going to do encapsulation.
+ The second thing we're going to do is iteration, but for now we're just going to do encapsulation
+ and then in the next section we'll do iteration. And really, most of this code you've already done,
+ we're just kind of refactoring it and moving things around and taking these, you know,
+ functions that we named by convention and we allowed the calling code to use and moving them
+ into the class using some pointers. So a real accomplishment here is the map arrow put,
+ the map arrow get, and the map arrow del. These things are now named and accessed in such a way
+ that they are attributes. The functions we're calling are attributes in the class itself.
+ And so other than that, it's not that different. And so it's not that big of a deal. The other
+ thing we're going to do is be a little more explicit about what things in these classes
+ are public and what things in this class that we're building are private. So we'll start with a map
+ entry. This is the structure that makes up the nodes of the linked lists. The key is a character
+ string and the actual value is an integer. We're just going to make it simple. We've got to
+ dynamically allocate the key like we've been doing. And then we have a prev and a next.
+ The key there is the prev and the next are double underscore. So that means they're private. But we
+ are going to decide that key and value are public. And we just indicate that much like Python would
+ do by not putting double underscores in front of it and remembering in our mind that they're
+ allowed to be used in calling code. The map structure, most of it looks pretty simple.
+ We have a head, we have a tail, and we have a count. You've been maintaining those for
+ some time now. Those are private attributes, so we've renamed them in such a way that they
+ have double underscores in front of them. And then we have a series of public methods.
+ We have five of them. The key thing is these are pointers to functions. And that's what
+ void star put, that's parentheses star put. That means that we're allocating a variable in the
+ structure named put. And it is a function pointer that will return a void. It's a pointer to a
+ function that returns a void. So not only are we defining the attribute that we're going to use to
+ access the function, we're also defining the calling sequence. It returns a void and it takes
+ three parameters, a struct map pointer to self, char star key, and int value. So when it's all
+ said and done, this is not putting the code in here, as it might say in JavaScript, for example.
+ What it is is a single 64-bit number, which is a pointer to the beginning of a function. Now the
+ function method signature has to match. So we're defining the method signature, but in terms of
+ allocating, we're really allocating one pointer for put, one pointer for get, one pointer for size,
+ one pointer for dump, and one pointer for del. And again, you look at get. Well, get takes as its
+ first parameter a pointer to the map, which is self, a key that we're going to use to do the lookup,
+ and then a default value to return. And then get returns an int. And so that's pretty straightforward.
+ It took me a little while to get the pattern right about, because the parentheses here are really,
+ really important, because we're both defining the attribute name, and the rules of its use,
+ and the method signature of the function that we're eventually going to point to.
+ But that's pretty much it, right? We're just going to put these things in. And so the constructor is
+ pretty straightforward. It's not that different than the constructor that you did.
+ We got to build these functions, double_map_put, double_map_get, map_size. They're outside of this.
+ They're above us in the source code somewhere. And we're just saying p arrow put, which is an
+ public attribute put, is equal to ampersand, the address of the double_map_put function.
+ Super simple. Ampersand is address of. Address of that function. Get is address of that function.
+ Size is address of that function. Dump is address of the function. And we're done. And this is kind
+ of showing you that this is-- let's see-- head is a 64-bit pointer, tail is a 64-bit pointer,
+ count is probably a 64-bit integer or a 32-bit integer, put, get, size, dump, and del are all
+ 64-bit. So the size of the map itself, the map structure, is about 10 words or less. And that,
+ again, has to do with efficiency. But you probably have most of the code you need for map_put,
+ map_get, map_size, map_dump, and map_del. So map_dump is pretty simple. If we look at this,
+ the self is the pointer to the map. So it has a head and a next. And we're going to just go
+ through it until cur is equal to null. We've got a map entry, which is the type. Now, we don't
+ double_thecur, because that's really just an automatic variable inside this function. That
+ has nothing to do with the outside world. And you'll notice that we're just access double_head.
+ We're accessing double_next, because we're in the class. And so those are private, but they're
+ totally legit to access them when we're building a dump tool inside the class. So private things
+ are accessed in the methods in the class. That's normal. We don't have to hide those.
+ I'll tell you, when I'm building something like this, the first thing I want to get to work is
+ some kind of a dumper, because how-- I mean, when I write this code before I hand parts of it over
+ to you, I have map dump, map dump, map dump, map dump. Every line, I put a map dump. And eventually,
+ when stuff starts working, I start taking the map dumps out. So just debug, debug, debug, debug,
+ always. So that's why I'm just like, I couldn't write this code if I didn't have a map dump.
+ So I'm going to make you guys do it as well. So the destructor, like most destructors, the key
+ thing is to draw the picture and figure out what parts were dynamically allocated and then call
+ free, or which parts came from malloc, and then make sure you free them. And so we're just going
+ to loop through. And again, we're in the class, so we're happily using double underscore attributes.
+ We're going to loop through. We're going to-- and the order of this is always important,
+ but by now, it should make sense. We're going to free the key, because remember, that's a string
+ pointer that we malloced. We do not need to free the value. That's just actually part of the map
+ entry struct. And we're going to get rid of that in a second. We're going to advance to the next
+ one first, and then we're going to free the current map entry. And then we'll say current next, and
+ we're going to loop up. And so eventually, we're just going to go through the linked list
+ and free the key, and then free the entry itself. And we've given back all of our data.
+ And then we're all done with that. We actually free the 10 words or so that is the map structure.
+ Again, this should start to look familiar to you. So get is pretty simple, as long as you have some
+ code that is map find. Map find is going to do all the hard work, but map find can look at underscore
+ head and all that stuff, and next and look at all that, write some for loops. It should be not too
+ hard. And again, underscore, underscore, map find is private, but we're in the class. And so
+ just have fun talking to the private stuff. Map put is something you're going to have to write,
+ but if you think about it, if you get map find, and you've done this before, you've used a find
+ like method to find the thing in the linked list, and you update it. If you found it,
+ it's really simple. You just change the value and return. And if not, you add it to the end of the
+ list. You construct a new map entry, and you add it to the end of the list. And so again,
+ I just hope by now you can knock these things out. And so that's basically it. I mean,
+ if you really think this was a very simple section where all we're doing is changing
+ from globally named functions, we're enforcing the rules of private, double underscore,
+ and then we're taking those pointers, we've declared pointers to functions in our map,
+ and then our constructor sets them up, and the rest is really just refactoring code
+ that you pretty much already have.

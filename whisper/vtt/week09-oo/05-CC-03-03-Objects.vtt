@@ -1,0 +1,257 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:04.120
+ So now what we're going to do is we're going to try to build objects in C.
+
+00:00:04.120 --> 00:00:10.620
+ C doesn't have object-oriented support, so in a sense we're going to do it by writing functions and using structures and pointers, et cetera.
+
+00:00:10.620 --> 00:00:19.620
+ So we're kind of answering the question about how was Python's object-oriented layer layered on top of a C structure?
+
+00:00:19.620 --> 00:00:28.120
+ So we can kind of put ourselves in the position of Guido van Rossum as he was building Python in 1991,
+
+00:00:28.120 --> 00:00:31.120
+ and say, how are we going to make this syntax work?
+
+00:00:31.120 --> 00:00:37.420
+ How are we going to, in C, which is underneath all of this, how can we make this syntax work?
+
+00:00:37.420 --> 00:00:45.120
+ And so this is just review, you know, we've got class point, we've got a constructor, takes two parameters, self is our instance pointer,
+
+00:00:45.120 --> 00:00:52.120
+ and we've got dump, and we've got origin, and then if we look at the main program, we create a new point, call the constructor,
+
+00:00:52.120 --> 00:01:01.120
+ we can see that point.dump, that is the function name dump inside a point, but then we've also got to pass the instance in,
+
+00:01:01.120 --> 00:01:12.120
+ or the shortcut syntax, and so the pt.origin() that is kind of paying more homage to the way C++ would have called methods,
+
+00:01:12.120 --> 00:01:15.120
+ and then of course the del operator at the end.
+
+00:01:15.120 --> 00:01:24.120
+ So, let's build ourselves some code in C. We are building, in effect, a point object in C.
+
+00:01:24.120 --> 00:01:31.120
+ So, we're going to just start with a structure, and the structure is going to be point, and there's some instance variables,
+
+00:01:31.120 --> 00:01:38.120
+ we're going to just allocate a double x and a double y inside of it, but then the methods are kind of weird.
+
+00:01:38.120 --> 00:01:44.120
+ We are going to take the del method, the dump method, and the origin method, and we're going to define them
+
+00:01:44.120 --> 00:01:55.120
+ as pointers to functions. So, void open paren star del close paren open paren construct point star self close paren semicolon.
+
+00:01:55.120 --> 00:02:02.120
+ The void is the return type of this function. Star del means a function named del that the code is not here,
+
+00:02:02.120 --> 00:02:09.120
+ but this points to a function somewhere else, and then the construct point star self, that's the first parameter, right?
+
+00:02:09.120 --> 00:02:15.120
+ And so, construct point star self is the fact we're going to have one parameter, it's going to be named self,
+
+00:02:15.120 --> 00:02:20.120
+ and it is a pointer to a structure, and we've got something similar to dump.
+
+00:02:20.120 --> 00:02:25.120
+ The origin is pretty much the same, except it's got a return value, okay?
+
+00:02:25.120 --> 00:02:31.120
+ And so, that now is a structure. This is C. So, the structure is going to allocate one double, two doubles,
+
+00:02:31.120 --> 00:02:37.120
+ which should be eight bytes each, and then three pointers, which is eight bytes each.
+
+00:02:37.120 --> 00:02:42.120
+ So, we've got eight times five, that's going to be 40 bytes. It's not a dynamic structure.
+
+00:02:42.120 --> 00:02:47.120
+ It is exactly 40 bytes of allocation, because C structures are just memory.
+
+00:02:47.120 --> 00:02:53.120
+ And so, it's not like you can sort of throw more stuff in there. You've got to define it, you've got to define what type it is,
+
+00:02:53.120 --> 00:02:58.120
+ and it's going to allocate space. We are going to use a naming convention for now,
+
+00:02:58.120 --> 00:03:05.120
+ and we're going to create the dump function, and the dump function is going to take a self parameter,
+
+00:03:05.120 --> 00:03:09.120
+ and we're going to name it point_dump. That's just a naming convention.
+
+00:03:09.120 --> 00:03:15.120
+ And we're going to name the first parameter as it comes into our function, self, just like Python.
+
+00:03:15.120 --> 00:03:22.120
+ We're going to print out object, point, at, and then percent p, which is the way we print a pointer out.
+
+00:03:22.120 --> 00:03:28.120
+ So, self is a pointer. X equals percent f, y equals percent f, and then we're going to print out self,
+
+00:03:28.120 --> 00:03:35.120
+ and self, arrow, x, and self, arrow, y. Now, remember, that kind of looks like PHP,
+
+00:03:35.120 --> 00:03:38.120
+ because self is a pointer to a structure, not a structure itself.
+
+00:03:38.120 --> 00:03:46.120
+ So, we use the arrow operator to both dereference self and then look up the attribute variable x.
+
+00:03:46.120 --> 00:03:55.120
+ So, if you look at the output, you see it's object, point, at, big long hex number for the address, and x equals four, y equals five.
+
+00:03:55.120 --> 00:04:00.120
+ And then we have the void point del, which is very similar, construct point star self.
+
+00:04:00.120 --> 00:04:05.120
+ So, the first parameter to del is self, and all of the first parameters are always going to be self
+
+00:04:05.120 --> 00:04:08.120
+ when we create these functions that we're going to treat as methods.
+
+00:04:08.120 --> 00:04:14.120
+ And then we're going to free. All that's going to do is call free on the pointer where we originally allocated it.
+
+00:04:14.120 --> 00:04:19.120
+ Then we're going to create the origin method, and again, take a single parameter self,
+
+00:04:19.120 --> 00:04:25.120
+ and we're going to return the square root of self x times self x plus self y times self y,
+
+00:04:25.120 --> 00:04:30.120
+ and that's going to have return value. And then we're going to go and do the constructor.
+
+00:04:30.120 --> 00:04:36.120
+ And the constructor is going to return a pointer to a point, and it's called point new.
+
+00:04:36.120 --> 00:04:41.120
+ We're going to sort of follow the new convention, and it's going to take two parameters, an x and a y.
+
+00:04:41.120 --> 00:04:49.120
+ So, the first thing we've got to do is we've got to allocate the 40 bytes, size of star p, which is a double, a double,
+
+00:04:49.120 --> 00:04:54.120
+ two doubles and two pointers to functions, which I think I've got it right, is 40 characters.
+
+00:04:54.120 --> 00:04:58.120
+ And then we're going to set the, we'll get that address of 40 characters back,
+
+00:04:58.120 --> 00:05:03.120
+ and we're going to set the x value to be x from the constructor, the y value to y from the constructor call,
+
+00:05:03.120 --> 00:05:09.120
+ and then we're going to set the dump pointer to ampersand point dump.
+
+00:05:09.120 --> 00:05:14.120
+ Now, this is done on purpose where point dump is defined earlier in the file,
+
+00:05:14.120 --> 00:05:19.120
+ and then put p origin as the same thing, point ampersand point origin.
+
+00:05:19.120 --> 00:05:27.120
+ So, in each object that we're creating, we are going to record the address of three in effect global functions, right?
+
+00:05:27.120 --> 00:05:32.120
+ They're named point underscore, but these are just regular old functions in the global function namespace.
+
+00:05:32.120 --> 00:05:36.120
+ Right now, you know, we don't have namespaces. We're in C, folks.
+
+00:05:36.120 --> 00:05:42.120
+ We can't sort of do that fancy stuff, so we just use a naming convention to accomplish it.
+
+00:05:42.120 --> 00:05:49.120
+ And then when we're done with the constructor, we do return p so that whatever is calling us gets their instance back.
+
+00:05:49.120 --> 00:05:56.120
+ So, p is the instance, but we are in the constructor allocating and filling the instance up with data.
+
+00:05:56.120 --> 00:06:01.120
+ And it's just a struct. It's just 40 bytes of memory with some labels.
+
+00:06:01.120 --> 00:06:10.120
+ So, in the main code, we say struct point star pt equals point underscore new and then paren 4.0 comma 5.0.
+
+00:06:10.120 --> 00:06:14.120
+ And this looks a lot like OO code, except it's not.
+
+00:06:14.120 --> 00:06:18.120
+ We're using a pointer to a structure, and we're calling a global function called point new.
+
+00:06:18.120 --> 00:06:23.120
+ We just happen to have named it in a way that looks a lot like object orientation.
+
+00:06:23.120 --> 00:06:34.120
+ And so now what we can do is we can say pt arrow dump, which means go look up the dump variable inside the point object that's pointed to by pt and then call it.
+
+00:06:34.120 --> 00:06:40.120
+ But we still have to pass in pt as that first parameter because that is self. That is the instance.
+
+00:06:40.120 --> 00:06:48.120
+ So, all these functions, dump, del, origin, all need to have as their first parameter self.
+
+00:06:48.120 --> 00:06:55.120
+ And so pt dump looks up dump, but then we still have to put pt in as a parameter.
+
+00:06:55.120 --> 00:07:02.120
+ And that syntax, we're just going to do the same thing for pt arrow origin, open paren pt, close paren, and then to clean things up.
+
+00:07:02.120 --> 00:07:08.120
+ And in this case, we need to, well, the program is done, but you know, you need to free up allocated memory.
+
+00:07:08.120 --> 00:07:12.120
+ So, the memory is allocated in the constructor. 40 bytes is allocated in the constructor.
+
+00:07:12.120 --> 00:07:18.120
+ And then those same 40 bytes are deallocated by calling free in the destructor.
+
+00:07:18.120 --> 00:07:25.120
+ And so we, for all intents and purposes, there is, other than conceptually, there is no objects involved in this.
+
+00:07:25.120 --> 00:07:28.120
+ There's structs, there's pointers, and there's functions.
+
+00:07:28.120 --> 00:07:32.120
+ The fact that you can get a pointer to a function means that we've kind of imitated it.
+
+00:07:32.120 --> 00:07:44.120
+ And again, I look at this as how Guido van Rossum actually was like facing this and thought to himself, how am I going to figure this out?
+
+00:07:44.120 --> 00:07:48.120
+ How am I going to make it look like this is object orientation?
+
+00:07:48.120 --> 00:07:54.120
+ So, this is kind of probably some of the code looked a lot like this in the early days of Python.
+
+00:07:54.120 --> 00:08:03.120
+ And then there was kind of a simple syntactic transformation layer in the Python sort of parsing to call these things with naming conventions.
+
+00:08:03.120 --> 00:08:06.120
+ So, you can do a lot of object orientation with naming conventions.
+
+00:08:06.120 --> 00:08:11.120
+ And if you recall, C++ started as a language preprocessor.
+
+00:08:11.120 --> 00:08:17.120
+ And so, again, you could almost look at this as how did C++ get built, right?
+
+00:08:17.120 --> 00:08:28.120
+ C++ had some OO syntax that then transformed the OO syntax into C code that looks a lot like this, which is, oh, we got some functions.
+
+00:08:28.120 --> 00:08:35.120
+ The functions have naming conventions, and we create a struct, and that struct has data in it, but it also has pointers to function in it.
+
+00:08:35.120 --> 00:08:44.120
+ And we'll call the data the attributes, and we'll call the pointers to the functions the methods, and voila, we have object oriented programming.
+
+00:08:44.120 --> 00:08:51.120
+ So, up next, we're going to actually implement the Python string class or at least a little bit of the Python string class.
+

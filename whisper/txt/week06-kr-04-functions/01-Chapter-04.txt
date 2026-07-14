@@ -1,0 +1,665 @@
+ Welcome to C Programming for Everybody. My name is Charles Severance and this is my reading of the 1978 C programming book written by Brian Kernigan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
+ Chapter 4, Functions in Program Structure. Functions break large computing tasks into smaller ones and enable people to build on what others have done instead of starting over from scratch.
+ Appropriate functions can often hide details of operation from parts of the program that don't need to know about them, thus clarifying the whole and easing the pain of making changes.
+ C has been designed to make functions efficient and easy to use. C programs generally consist of numerous small functions rather than a few big ones. A program may reside on one or more source files in any convenient way. The source files may be compiled separately and loaded together, along with previously compiled functions from libraries. We will not go into that process here, since the details vary according to the local system.
+ Most programmers are familiar with library functions for input and output like getChar and putChar, and numerical computations like sine, cosine, and square root. In this chapter, we will show more about writing new functions.
+ 4.1 Basics. To begin, let us design and write a program to print each line of input that contains a particular pattern or string of characters. This is a special function of the Unix utility program "grap".
+ For example, searching for the pattern "the" in the set of lines "now is the time for all good men to come to the aid of their party" will produce the output "now is the time men to come to the aid of their party".
+ The basic structure of the task falls neatly into three pieces. While there is another line, if that line contains a pattern, print it. Although it is certainly possible to put the code for all of this in one main routine, a better way is to use the natural structure to advantage by making each part a separate function.
+ Three small pieces are easier to deal with than the one big one, because irrelevant details can be buried in the functions, and the chance of unwanted interactions minimized, and the pieces might even be useful later in their own right.
+ While there is another line is getline, a function we wrote in Chapter 1, and printit is printf, which someone has already provided for us. This means that we need to only write a routine which decides if the line contains an occurrence of the pattern.
+ We can solve that problem by stealing a design from PL1. The function index(s,t) returns the position, or index, in the string "s" where the string "t" begins, or -1 if "s" doesn't contain "t".
+ We use 0 rather than 1 as the starting position in "s" because C arrays always begin in position 0. When we later need more sophisticated pattern matching, we only have to replace index. The rest of the code can remain the same.
+ Recall that because the modern STDL.h defines a getline function, whenever the book writes this function to teach a feature of functions, we rename it to get_line.
+ Given this much design, filling in the details of the program is straightforward. Here's the whole thing, so you can see how the pieces fit together.
+ For now, the pattern to be searched for is a literal string in the argument of index, which is not the most general of mechanisms.
+ We will return shortly to a discussion of how to initialize character arrays, and in Chapter 5, we will show how to make the pattern a parameter that is set when the program is run.
+ This is also a new version of getline. You might find it instructive to compare it to the one in Chapter 1.
+ Pound include stdio.h. Pound define maxline 1000. Main, open parenthesis, close parenthesis, open curly brace. Char, line, open square bracket, maxline, close square bracket, semicolon. While, parenthesis, getline, open parenthesis, line, maxline, close parenthesis, greater than 0, close parenthesis.
+ If, open parenthesis, index, open parenthesis, line, double quote, the, double quote, close parenthesis, greater than or equal to 0, close parenthesis, printf, open parenthesis, double quote, percent s, double quote, line, close parenthesis, semicolon, and close curly brace to finish the main function.
+ The next function is getLine. getLine(s,lim(char(s)) int lim; int c,i; for i=0; i<lim-1; and
+ paren(c)=getchar(' not equal EOF'; c not equal '; ++i'; s_i=c) (that loop basically read until it found a new line or end a file)
+ if (c double equal quote backslash end quote, close parenthesis, open curly brace, s_i=c; ++i; close curly brace, closing the if)
+ s_i=(quote, backslash zero, quote, semicolon) to terminate the string properly, return, open paren(i), close paren( semicolon) to return the length of the line, and then close curly brace to finish the getLine function.
+ Now the new code, index(s,t), close parenthesis, char(s), open square bracket, close square bracket, comma, t, open square bracket, close square bracket, semicolon.
+ I would note that when we are declaring a character array and we don't give the length of the array, that means that we are inside of a function.
+ The length of the array exists, but it was from the calling code.
+ So char(s), open square bracket, close square bracket, t, open square bracket, close square bracket, semicolon, means parameters s and t are strings of some length, and we will use backslash zero to know when that length is done.
+ Beginning the code in index with an open curly brace, int(i,j,k, semicolon), and then we have two nested for loops, for, open paren(i=0), s_i not equal to, quote, backslash zero, quote, semicolon, i++, open curly brace.
+ For j=i, k=0, semicolon, t_k not equal to, backslash zero, and, double ampersand, s_j double equals t_k, semicolon, j++, k++, semicolon.
+ If, open paren(t_k) double equals, quote, backslash zero, quote, closed paren, return, open paren(i), closed paren, semicolon, closed curly brace, return, open paren minus one, closed paren, semicolon, curly brace.
+ Each function has the form, name, argument list, if any, in parentheses, argument declarations, if any, open curly brace, declarations and statements, if any, closed curly brace.
+ As suggested, various parts may be absent. A minimal function is dummy, open paren, closed paren, open curly brace, closed curly brace, which does nothing.
+ A do-nothing function is sometimes useful as a placeholder during program development. The function name may also be preceded by a type if the function returns something other than an integer value. This is the topic of the next section.
+ A program is just a set of individual function definitions. Communication between the functions is, in this case, by arguments and values returned by the functions.
+ It can also be via external variables. The functions can occur in any order in the source file, and the source program can be split into multiple files, so long as no function is split.
+ The return statement is the mechanism for returning a residual value from the called function to its caller. Any expression can follow return.
+ Return, open parentheses, expression, closed parentheses. The calling function is free to ignore the return value if it wishes. Furthermore, there is no need to have an expression after the return.
+ In that case, no value is returned to the caller. Control also returns to the caller with no value when execution falls off the end of the function by reaching the right closing brace.
+ It is not illegal, but probably a sign of trouble if a function returns a value from one place and no value from another place.
+ In any case, the residual value of a function which does not return one is certain to be garbage. The C verifier lint checks for such errors.
+ Mechanics of how to compile and load a C program which resides on multiple source files vary from one system to the next. On the Unix system, for example, the CC command mentioned in Chapter 1 does the job.
+ Suppose that three functions are in three files called main.c, getline.c, and index.c. Then the command cc main.c getline.c index.c compiles the three files and places the resulting relocatable object code in files main.o, getline.o, and index.o, and loads them all into an executable file named a.out.
+ If there is an error, say in main.c, that file can be recompiled by itself and the result loaded with the previous object files with the command cc main.c getline.o index.o.
+ The CC command uses the .c suffix versus the .o suffix name and convention to distinguish source files from object files.
+ I would note that this CC example exactly as the authors wrote, it does not quite work as described in modern C compilers. If you want to compile your source code and leave the compiled object code around after the compile, you add the -c option to the compiler call.
+ Modern C compilers generally do accept multiple files with either .c or .o suffixes and can combine them into a runnable application.
+ Section 4.2, Functions Returning Non-Integers. So far, none of our programs has contained any declaration of the type of a function.
+ This is because, by default, a function is implicitly declared by its appearance in an expression or statement, such as while openparen getline openparen line comma maxline closeparen greater than zero closeparen.
+ If a name which has not been previously declared occurs in an expression and is followed by a left parenthesis, it is declared by context to be a function name.
+ Furthermore, by default, the function is assumed to return an int. Since char promotes to int in expressions, there is no need to declare functions that return char. These assumptions cover the majority of classes, including all of our examples so far.
+ I would add, that's not quite true anymore. In modern C languages, you are required to provide a type for each function. If you leave off the type for a function declaration at a minimum, you will get a stern warning message.
+ But sometimes functions do not intend to return anything at all, and so the void type was invented to indicate that a function returns nothing.
+ The rule of requiring a type on a modern function definition in C, even if it's void, allows the compiler to check to make sure all of your return values in a function match the expected return type.
+ Back to the text. But what happens if a function must return some other type?
+ Many numerical functions like square root, sine, and cosine return double. Other specialized functions return other types. To illustrate how to deal with this, let us write and use the function a to f, which converts its argument string s to its double precision floating point equivalent.
+ a to f is an extension of a to i, which we wrote versions of in chapters two and three. It handles an optional sign and decimal point and the presence or absence of either the integer or fractional part.
+ We note that this is not a high quality input conversion routine. Doing everything takes a bit more space than we care to use here in this book.
+ First, a to f must declare the type of the value it returns since it's not int. Because float is converted to double in expressions, there is no point in saying that a to f returns float.
+ We might as well make use of the extra precision and thus declare it to return double. The type name precedes the function name like this.
+ Double a to f, open parenthesis, s, close parenthesis, char, s, open square bracket, close square bracket, open curly brace, double val, comma, power, int, i, comma, sine, semicolon.
+ For i equals zero, semicolon, s sub i, double equals, quote, space, quote, or s sub i, double equals, quote, backslash, end quote, or s sub i, double equals, quote, backslash, t, quote, semicolon, i plus plus, semicolon.
+ That skips the white space. Sine equals one. If s sub i, double equals, quote, plus, quote, or s sub i, double equals, quote, minus, quote, sine equals, and now we're going to use a turner operator here,
+ paren, s sub i plus plus, close bracket, double equals, quote, plus, quote, close paren, question mark, one, colon, minus one, semicolon, and that basically tells us it makes sine be one or negative one based on the presence or absence of a plus or minus.
+ For val equals zero, semicolon, s sub i greater than or equal to, quote, zero, quote, double ampersand, s sub i less than or equal to, double quote, nine, quote, i plus plus, close paren, val equals 10 times val plus s sub i minus, quote, zero, quote, semicolon.
+ What this is doing is multiplying the current value by 10, in effect shifting it left, and then adding in that new lower empty spot the digit that we're encountering, which is somewhere between the character zero and the character nine.
+ Continuing, if paren, s sub i double equals, quote, dot, quote, close paren, i plus plus, for, open paren, power equals one, semicolon, s sub i greater than or equal to, quote, zero, quote, double ampersand, s sub i less than or equal to, quote, nine, quote, semicolon, i plus plus,
+ open curly brace, val equals 10 times val plus s sub i minus, quote, zero, quote.
+ Again, shifting the number to the left as we encounter characters, power star equals 10, semicolon, close curly brace, return, open parenthesis, sine times val over power, close parenthesis, semicolon.
+ Close curly brace.
+ Second, and just as important, the calling routine must state that a to f returns a non-end value.
+ The declaration is shown in the following primitive desk calculator, barely adequate for checkbook balancing, which reads one number per line, optionally preceded by sine, and adds them all up, printing the sum after each input.
+ This example is from page 70 of the textbook.
+ Pound include stdio.h, pound define, max line 100, main, open parenthesis, close parenthesis, open curly brace, double, sum, comma, a to f, open parenthesis, close parenthesis, semicolon, char, line, open square bracket, max line, close square bracket, semicolon, sum equals zero,
+ while, open parenthesis, get line, open parenthesis, line, comma, max line, close parenthesis, greater than zero, close parenthesis, print f, quote, backslash t, percent, dot 2f, backslash n, comma, sum, plus equals a to f, open parenthesis, line, close parenthesis, semicolon, close curly brace.
+ That code used the plus equals side effect operator and merged the call to a to f right into the second parameter of print f.
+ The declaration, double, sum, a to f, open parenthesis, close parenthesis, says that sum is a double variable and that a to f is a function that returns a double value.
+ As a mnemonic, it suggests that sum and a to f, parenthesis, dot, dot, dot, are both double precision floating point values.
+ Unless a to f is explicitly declared in both places, c assumes it returns an integer and you will get nonsense answers.
+ If a to f itself and the call to it in main aren't typed inconsistently within the same source file, it will be detected by the compiler.
+ But if, as is more likely, a to f were compiled separately, the mismatch would not be detected and a to f would return a double, which main would treat as an int and meaningless answers would result.
+ Lindt catches this error.
+ Given a to f, we could in principle write a to i to convert a string to an integer in terms of it.
+ Int, a to i, open parenthesis, close parenthesis, char, s, open square bracket, close square bracket, semicolon, open curly brace, double, a to f, open parenthesis, close parenthesis, semicolon.
+ Return, open parenthesis, a to f, close parenthesis, s, close parenthesis, close parenthesis, semicolon, close curly brace.
+ Note the structure of the declarations in the return statement.
+ The value in the expression in return expression is always converted to the type of the function before the return is taken.
+ Therefore, the value of a to f, a double, is converted automatically to int when it appears in a return, since the function a to i returns an int.
+ The conversion of a floating point value to int truncates any fractional part, as we discussed in Chapter 2.
+ More on function arguments.
+ In Chapter 1, we discussed the fact that function arguments are passed by value.
+ That is, the called function receives a private, temporary copy of each argument, not its address.
+ This means that the function cannot affect the original argument in the calling function.
+ Within a function, each argument is in effect a local variable initialized to the value with which the function was called.
+ When an array name appears as an argument to a function, the location of the beginning of the array is passed.
+ Elements are not copied.
+ The function can alter elements of the array by subscripting from this location.
+ The effect is that arrays are always passed by reference.
+ In Chapter 5, we will discuss the use of pointers to permit functions to affect non-arrays in calling functions.
+ A bit of a digression.
+ Since including array as an argument passes the location or memory address of the array into the function,
+ the function can change the items in the array using array subscripts.
+ In particular, the array contents are not copied when an array is passed into a C function.
+ When we get to structs in a future chapter, we will find that the content of structs also are passed using the address of the entire struct.
+ So structs are passed by reference as well.
+ When thinking about pass by reference or pass by value, remember that a char variable is a single item similar to int and passed by value, i.e. it is copied.
+ In C, strings are arrays of characters, so they are passed by reference.
+ Python follows this design for the same efficiency reason as C.
+ Normal single variables like int or float are copied before being passed into a function and therefore passed by value.
+ Collections like list or dict are passed into functions by reference, so the contents can be changed within a function.
+ Python strings are not technically copied when being passed into a function,
+ but the way assignments happen in Python make it seem like strings are passed by value, since they can never be modified.
+ You can learn more with a bit of web research, but the easy way is to imagine in Python that strings are passed by value with a clever trick to avoid requiring a copy for every function call.
+ PHP follows the same pattern of passing numbers and strings by value and passing arrays as reference.
+ PHP passes strings by value without requiring a copy, again, using clever runtime code. Because in Java, JavaScript and PHP strings are objects, of course, which we haven't discussed much yet.
+ Those languages can make sure that strings act as if they were passed by value and not passed by reference the way they are always passed in C.
+ C made decisions on its runtime based on getting the maximum performance out of the hardware of the 1970s at the expense of making it too easy to write code that overwrites memory and leads to corrupted programs that have dangerous and undefined behavior.
+ Languages like PHP, Java and JavaScript add a small amount of runtime overhead to do things like store the length of an array and make sure we programmers don't overreference the array and overwrite random bits of our program's code or data.
+ The creators of C placed more priority on speed and efficient use of memory than safety.
+ It is like driving an automobile in the rain without ABS, automatic braking system. It is fast but dangerous and should be reserved by highly skilled and very careful programmers and drivers, and those drivers should probably be on a race course.
+ By the way, back to the text. By the way, there is no entirely satisfactory way to write a portable function that accepts a variable number of arguments because there is no portable way for the called function to determine how many arguments were actually passed in a given call.
+ Thus, you can't write a truly portable function that will compute the maximum of an arbitrary number of arguments, as will the max functions that are built in to Fortran and PL1.
+ It is generally safe to deal with a variable number of arguments if the called function doesn't use an argument that was not actually supplied, and if the types are consistent.
+ printf, the most common C function with a variable number of arguments, uses information from the first argument, which is the formatting string, to determine how many other arguments are present and what their types are.
+ It fails badly if the caller does not supply enough arguments or if types are not what the first argument says. It is also non-portable and therefore must be modified for different programming environments.
+ Alternatively, if arguments are of known types, it is possible to mark the end of the argument list in some agreed upon way, such as a special argument value, often zero, that stands for the end of the arguments.
+ Interestingly, modern languages like Python, PHP, and Java, go to great lengths to make variable length argument lists work predictably and portably.
+ The syntax for variable length argument lists in these languages can be a bit obtuse at times, but at least it is allowed, documented, reliable, and portable.
+ Section four, external variables.
+ A C program consists of a set of external objects, which are either variables or functions.
+ The adjective external is used primarily in contrast to internal, which describes arguments and automatic variables defined inside functions.
+ External variables are defined outside any function and are thus potentially available to many functions.
+ Functions themselves are always external, because C does not allow functions to be defined inside other functions.
+ By default, external variables are also global, so that all references to such a variable by the same name, even from functions that are compiled separately, are references to the same thing.
+ In this sense, external variables are analogous to Fortran common or PL1 external.
+ We will later see how to define external variables and functions that are not globally available, but instead only visible within a single source file.
+ Because external variables are globally accessible, they provide an alternative to function arguments and return values for communicating data between function.
+ Any function may access an external variable by referring it to by name, if the name has been declared somehow.
+ If a large number of variables must be shared among functions, external variables are a more convenient and efficient than long argument lists.
+ As pointed out in Chapter 1, however, this reasoning should be applied with some caution, for it can have a bad effect on program structure and lead to programs with many data connections between functions.
+ A second reason for using external variables concerns initialization.
+ In particular, external arrays may be initialized, but automatic, i.e. internal arrays, may not.
+ We will treat initialization near the end of this chapter.
+ A third reason for using external variables is their scope and lifetime.
+ Automatic variables are internal to a function.
+ They come into existence when the routine is entered and disappear when it's left.
+ External variables, on the other hand, are permanent.
+ They do not come and go, so they retain values from one function invocation to the next.
+ Thus, if two functions must share some data, yet neither calls the other, it is often most convenient if the shared data is kept in external variables rather than passed in and out via arguments.
+ Let's examine this issue further with a larger example.
+ The problem is to write another calculator program better than the previous one.
+ This one permits plus, minus, asterisk, and slash, and equals.
+ Equals will print our answer.
+ Because it is somewhat easier to implement, the calculator will use reverse-polish notation instead of infix notation.
+ Reverse-polish notation is the scheme used by, for example, Hewlett-Packard pocket calculators.
+ In reverse-polish notation, each operator follows its operands.
+ An infix expression, like open parentheses 1 minus 2, close parentheses star, open parentheses 4 plus 5, close parentheses equals, is entered as 1, 2, minus, 4, 5, plus, star, equals.
+ Parentheses are not needed in reverse-polish notation.
+ The implementation is quite simple.
+ Each operand is pushed onto a stack.
+ When an operator arrives, the proper number of operands, 2 for binary operators, are popped.
+ The operator applied to them, and the result is pushed back onto the stack.
+ In the example above, 1 and 2 are pushed, then replaced by their difference, negative 1.
+ Next, 4 and 5 are pushed, then replaced by their sum, 9.
+ And then the product of negative 1 and 9, which is negative 9, replaces them on the stack.
+ And then the equal sign operator prints the top element without removing it.
+ So intermediate steps in a calculation can be checked.
+ The operations of pushing and popping a stack are trivial.
+ But by the time error detection and recovery are added, they're long enough so it's better to put each in a separate function than to repeat the code throughout the whole program.
+ And there should be a separate function for fetching the next input operator or operand.
+ Thus, the overall structure of the program is, while next operator or operand is not in the file, if it's a number, push it.
+ Else, if it's an operator, pop operands, do the operation, and push the result.
+ Else, error.
+ The main design decision that has not yet been discussed is where the stack is.
+ That is, what routines access it directly.
+ One possibility is to keep it in main and pass the stack and current stack position to the routines that push and pop it.
+ But main doesn't need to know about the variables that control the stack.
+ It should only think about pushing and popping.
+ So we have decided to make the stack and its associated information external variables accessible to push and pop, but not to main.
+ Translating this outline to code is easy enough.
+ The main program is primarily a big switch on the type of operator or operand.
+ This is a more typical use of switch than the one shown in Chapter 3.
+ This sample code is from page 74 of the textbook.
+ Pound include stdio.h, pound define maxop 20, pound define number quote zero quote.
+ This is going to be a single, we found a number, and pound define two big quote nine quote, a signal that the string is too big.
+ Main, open parenthesis, close parenthesis, open curly brace, int type semicolon, char s, open square bracket, maxop, close square bracket, semicolon,
+ double op two, a to f, open parenthesis, close parenthesis, comma, pop, open parenthesis, close parenthesis, comma, push, open parenthesis, close parenthesis, semicolon.
+ While open parenthesis, open parenthesis, type equals getop, open parenthesis, s comma maxop, close parenthesis, close parenthesis, not equal eof, close parenthesis.
+ Switch, open parenthesis, type, close parenthesis, open curly brace, case, number, colon, note that number is a predefined constant above.
+ Push, open parenthesis, a to f, open parenthesis, s, close parenthesis, close parenthesis, semicolon, break.
+ Case, quote, plus, quote, colon, push, open parenthesis, pop, open parenthesis, close parenthesis, plus, pop, open parenthesis, close parenthesis, semicolon, break, semicolon.
+ Case, quote, asterisk, quote, colon, push, open parenthesis, pop, open parenthesis, close parenthesis, asterisk, pop, open parenthesis, close parenthesis, semicolon, break, semicolon, that was the multiplication.
+ Case, quote, minus, quote, colon, op2 equals pop, open parenthesis, close parenthesis, push, open parenthesis, pop, minus, op2, close parenthesis, semicolon, break, semicolon, that was the subtraction.
+ Case, open parenthesis, slash, close parenthesis, colon, op2 equals pop, open parenthesis, semicolon. If op2 not equal 0.0, push, open parenthesis, pop, open parenthesis, close parenthesis, slash, op2, close parenthesis, semicolon, else, printf, double quote, zero divisor popped, backslash n, double quote, close parenthesis, semicolon, break, break, break.
+ Case, quote, equal, quote, colon, printf, open parenthesis, double quote, backslash t, percent f, backslash n, double quote, comma, push, open parenthesis, pop, open parenthesis, close parenthesis, close parenthesis, semicolon.
+ So to print it, we pop it and push it and then print the residual value of the push function.
+ Next line is break, semicolon.
+ Case, quote, c, quote, colon, clear, open paren, close paren, semicolon, break, semicolon.
+ Case, too big, colon, printf, double quote, percent dot 20 s, space, dot, dot, dot, is too long, backslash n, double quote, comma, s, close paren, semicolon, break, semicolon.
+ Default, colon, printf, open paren, double quote, unknown command, percent c, backslash n, double quote, comma, type, open paren, close paren, semicolon, break, semicolon, close curly brace to finish the switch statement and then close curly brace to finish the main.
+ So now we're going to have a separate file that has some of these functions defined.
+ This file is on page 75 of the textbook.
+ This file will be compiled separately, but then later linked altogether with the main program, but we're going to define push, pop, and clear in this file.
+ Pound include stdio.h, pound define maxval 100, maximum value, that'd be the maximum value of our stack, the maximum size of our stack, maximum depth of our stack.
+ Now we're declaring variables outside of any function, these are the external variables.
+ Int sp equals zero, double val, open square bracket, maxval, close square bracket, semicolon.
+ And so those variables are external variables and they're outside of all of the functions, but we can use them in any function and there's just one copy no matter what function we're using.
+ So now we define our functions.
+ Push, open paren, f, close paren, double f, semicolon, open curly brace.
+ If, open paren, sp less than maxval, close paren, return, open paren, val, open square bracket, sp++, close square bracket equals f, close paren, semicolon.
+ Else, open curly brace, printf, double quote, error, colon, stack, full, backslash, end, double quote, close paren, semicolon.
+ Clear, open paren, close paren, semicolon, return, open paren, zero, close paren, semicolon, close curly brace to finish the else and then close curly brace to finish the double function, the push function.
+ And now we define the pop, double pop, open paren, close paren, open curly brace.
+ If, open paren, sp greater than zero, close paren, return, open paren, val, open square bracket, minus, minus, sp, close square bracket, close curly brace, semicolon.
+ Else, open curly brace, printf, open paren, double quote, error, colon, stack, empty, backslash, end, close quote, close double quote, close paren, semicolon.
+ Clear, open paren, close paren, semicolon, return, open paren, zero, close paren, semicolon, close curly brace to finish the else and then close curly brace to finish the double.
+ And the last function we're going to define is the clear function, which is quite simple. Clear, open paren, close paren, open curly brace, sp equals zero, semicolon, close paren.
+ I would note that just read this one carefully. They're very good at using side effect operators and side effect assignments and to keep this code very simple and succinct. And you really have to understand a lot of the other stuff that you've covered in the book up to this point.
+ Back to the text. The command C clears the stack with a function clear, which can also be used by push and pop in case of error. We'll return to get up in a moment.
+ As discussed in chapter one, a variable is external if it is defined outside the body of any function. Thus the stack and stack pointer, which must be shared by push, pop and clear, are defined outside the three functions. But if main itself does not refer to the stack or stack pointer, their representation is carefully hidden.
+ Thus the code for the equal operator must use push, open paren, pop, paren, close paren, close paren, semicolon to examine the top of the stack without disturbing it.
+ Notice also that because plus and multiplication are commutative operators, the order in which the popped operands are combined is irrelevant. But for the minus and slash operators, the left and right operands must be distinguished.
+ This example code above shows why it's important to remember the KNRC rearrangement license as it applies to operators that are associative and commutative.
+ If the code for the minus operator were written push, open paren, pop, open paren, close paren, minus pop, open paren, close paren, semicolon, there is no guarantee that the left pop will run before the right pop.
+ And since these functions access global variables and have side effects, it is important to force the compiler not to rearrange the order of the function calls.
+ To force the evaluation order, the code is broken into two statements. Op2 equals pop, open paren, close paren, semicolon. Push, open paren, pop, open paren, close paren, minus op2, close paren, semicolon.
+ Now you might think that the lesson here is that the KNRC arrangement license, which was done to allow optimization and performance, is a bad idea.
+ But the more important lesson is that writing low-level utility functions like push and pop that use global variables and have side effects is a dangerous pattern in any programming language.
+ Section 4.5, scope rules. The functions and external variables that make up a C program need not all be compiled at the same time.
+ The source text of the program may be kept in several files and previously compiled routines may be loaded from libraries.
+ The two questions of interest are how are declarations written so that variables are properly declared during compilation and how are declarations set up so that all the pieces will be properly linked or connected when the program is loaded.
+ The scope of a name is the part of the program over which the name is defined.
+ For an automatic variable, declared at the beginning of a function, the scope is the function in which the name is declared and variables of the same name in different functions are unrelated.
+ The same is true of the arguments of the function.
+ The scope of an external variable lasts from the point at which it is declared in a source file to the end of that file.
+ For example, if val, sp, push, pop, and clear are defined in one file in the order shown above,
+ that is int sp equals zero, double val open square bracket max val close square bracket semicolon,
+ double push open paren f close paren open curly brace dot dot dot close curly brace, double pop
+ open paren close paren open curly brace dot dot dot close curly brace, clear open paren close paren
+ open curly brace dot dot dot close curly brace, then the variables val and sp may be used in push,
+ pop, and clear simply by naming them and no further declarations are needed.
+ On the other hand, if an external variable is to be referenced before it is defined or it is defined
+ in a different source file from the one in which it's being used, then an extern declaration is
+ mandatory. It is very important to distinguish between the declaration of an external variable
+ and its definition. A declaration announces the property of the variable, its type, its size,
+ etc. A definition also causes storage to be allocated. If the lines int sp semicolon double
+ val open square bracket max val close square bracket semicolon appear outside any function,
+ they define the external variables sp and val and cause the storage to be allocated and also serve
+ as the declaration for the rest of that source file. On the other hand, the lines extern int sp
+ extern double val open square bracket close square bracket semicolon declare for the rest of the
+ source file that sp is an int and val is a double array whose size is determined and allocated
+ elsewhere, but they do not create variables or allocate storage for them. There must be only one
+ definition of an external variable among all the files that make up the source program.
+ Other files may contain extern declarations to access it. There may also be an extern
+ declaration in the file containing the definition. Any initialization of an external variable goes
+ only with the definition. Array sizes must be specified with the definition,
+ but are optional with the extern declaration. Although it is not a likely organization for
+ this program, val and sp could be defined and initialized in one file and the functions push,
+ pop, and clear defined in another. Then these definitions and declarations would be necessary
+ to tie them together. In file one, we would see int sp equals zero semicolon double val open square
+ bracket max val close square bracket semicolon and then in file two, extern int sp semicolon
+ extern double val open square bracket close square bracket semicolon double push open
+ paren aff close paren open curly brace dot dot dot close curly brace double pop open paren close paren
+ open curly brace dot dot dot close curly brace clear open paren close paren open curly brace dot
+ dot dot close curly brace. Because the extern declarations in file two lie ahead and outside
+ the three functions, they apply to all. One set of declarations suffices for all of file two.
+ For larger programs, the pound include file inclusion facility discussed later in this
+ chapter allows one to keep only a single copy of the extern declarations for the program
+ and have that inserted in each source file as it's being compiled. Let us now turn to the
+ implementation of getup, the function that fetches the next operator or operand. The basic task is
+ easy. Skip blanks, tabs and new lines. If the character is not a digit or a decimal point,
+ return it. Otherwise, collect a string of digits that might include a decimal point and return
+ number a single signal that a number has been collected. Routine is substantially complicated
+ by an attempt to handle the situation properly when the input number is too long. Getup reads
+ digits perhaps with an intervening decimal point until it doesn't see anymore but only stores the
+ ones that fit. If there was no overflow, it returns number in the string of digits. If the
+ number was too long, however, getup discards the rest of the input line so the user can simply
+ retype the line from the point of error. It returns too big as the overflow signal.
+ This example code is from page 78 of the textbook and you can view it at www.cc4e.com/code, page 78.
+ Getup, operand s comma limb close operand char s open square bracket close square bracket semicolon
+ int limb semicolon open curly brace int i comma c semicolon while open paren open paren c equals
+ get ch open paren close paren close paren double equals quote space quote or c double equals
+ quote backslash t quote or c double equals quote backslash n quote close paren semicolon.
+ Skip all the blanks. If c is not equal quote dot quote and open paren c less than quote zero
+ quote vertical bar vertical bar c greater than quote nine quote close paren close paren return
+ return open paren c close paren s sub zero equals c four paren i equals one semicolon
+ open paren c equals get chart open paren close paren close paren greater than or equal to quote
+ zero quote and c less than or equal to quote nine quote semicolon i plus plus inside the for loop.
+ If i less than limb s sub i equals c if open paren c double equals quote dot quote
+ close paren open curly brace we begin to collect the fraction. If open paren i less than limb
+ close paren s sub i equals c for open paren i plus plus c equals get char open paren close paren
+ close paren greater than or equal to quote zero quote ampersand ampersand c less than or equal to
+ quote nine quote semicolon i plus plus close paren if open paren i less than limb close paren
+ s sub i equals c close curly brace to close the if statement where we're collecting the fraction.
+ If open paren i less than limb close paren open curly brace this means the number is
+ good. Ungetch is ch open paren c close paren semicolon s sub i equals quote backslash zero quote
+ semicolon return open paren number close paren and recall that number is a predefined constant.
+ Close curly brace else open curly brace if it's too big we're going to skip to the end of the line.
+ While open paren c not equal quote backslash end quote and c not equal eof open paren c equals get
+ char open paren close paren semicolon s sub limb minus one equals quote backslash zero quote
+ semicolon return too big semicolon close curly brace to finish the if and then close curly brace
+ to finish the function. Recall that too big is a constant that indicates that we've read too much.
+ Back to the text. What are getch and ungetch? Well it is often the case that a programming reading
+ input cannot determine that is read enough until it is read too much. One instance is collecting
+ characters that make up a number until the first non-judge is seen the number is not complete
+ but then the program has read one character too far and that is a character it is not prepared for.
+ The problem would be solved if it were possible to unread the unwanted character then every time
+ the program reads one character too many it could push it back on the input so that the rest of the
+ code would behave as if it never been read. Fortunately it is easy to simulate ungetting
+ a character by writing a pair of cooperating functions. Getch delivers the next input character
+ to be considered ungetch puts the character back on the input so the next call to getch will return
+ it again. How they work together is simple ungetch puts the pushed back characters into a shared
+ buffer a character array getch reads from the buffer as there's anything there and then it calls
+ getchar if the buffer is empty. There must be an index variable which records the position of the
+ current character in the buffer since the buffer and index are shared by getch and ungetch and must
+ retain their values between calls they must be external to both routines thus we can write getch
+ and ungetch and their shared variables as follows this is on page 79 of the textbook we can see the
+ code at www.cc4e.com/code and go to page 79 pound include stdi.h pound defined buff size 100
+ char buff open square bracket buff size closed square bracket semicolon int buff p equals zero
+ semicolon those were the external variables outside any function here's the first function
+ getch open paren closed paren open curly brace return open parentheses open parentheses buff p
+ greater than zero closed parentheses question mark buff open square bracket minus minus buff p
+ closed square bracket colon getchar open paren closed paren closed paren semicolon
+ close curly brace to finish the getch function the ungetch function pushes a character back on
+ input ungetch open paren c closed paren int c semicolon open curly brace if open paren buff p
+ greater than buff size printf open paren double quote ungetch colon too many characters backslash
+ n double quote close paren semicolon else buff open square bracket buff p plus plus closed square
+ bracket equals c semicolon and then close curly brace to finish the ungetch ch function we have
+ used an array for pushback rather than a single character since the generality may come in handy
+ later section 4.6 static variables static variables are a third class of storage in addition to the
+ extern and automatic that we've already met static variables may either be internal or external
+ internal static variables are local to a particular function just like automatic variables are but
+ unlike automatics they remain in existence rather than coming and going each time the function's
+ activated this means that internal static variables provide private permanent storage in a function
+ character strings that appear within a function such as the arguments of printf are internal static
+ an external static variable is known within the remainder of the source file in which it's declared
+ but not in any other file external static thus provides a way to hide names like buff and buff
+ p in the getch ungetch combination which must be external so they can be shared yet which should
+ not be visible to users of getch and ungetch so there's no possibility of conflict if the two
+ routines are compiled in one file as in static char buff open square bracket buff size close
+ square bracket semicolon static int buff p equals zero semicolon getch open paren close paren open
+ curly brace dot dot dot close curly brace ungetch open paren c close paren open curly brace dot dot
+ close curly brace then no other routine will be able to access buff and buff p in fact they will
+ not conflict with the same names in other files of the same program static storage whether internal
+ or external is specified by prefixing the normal declaration with the word static the variable is
+ external if it's defined outside of any function and internal if defined inside a function normally
+ functions are external objects their names are known globally it is possible for a function
+ however to be declared static this makes its name unknown outside the file in which it's declared
+ in c static connotates not only permanence but also a degree of what might be called privacy
+ internal static objects are known only inside one function external static objects variables
+ or function are are known only within the source file in which they appear their names do not
+ interfere with variables or functions of the same name in other files external static variables and
+ functions provide a way to conceal data objects and any internal routines that manipulate them so that
+ other routines and data cannot conflict even inadvertently for example getch and ungetch form
+ a module for character input and pushback buff and buff p should be static so they are inaccessible
+ from the outside in the same way push pop and clear form a module for stack manipulations val
+ and sp should also be external static 4.7 register variables the fourth and final storage class is
+ called register our register declaration advises the compiler that the variable in question will
+ be heavily used when possible register variables are placed in machine registers which may result
+ in smaller and faster programs the register declaration looks like register int x semicolon
+ register char c semicolon and so on the end part may be omitted register can only be applied to
+ automatic variables and the formal parameters of a function in this latter case the function
+ declaration looks like f open paren c comma n close paren register int c comma n semicolon open curly brace
+ register int i semicolon and then dot dot dot close curly brace in practice there are some
+ restrictions on register variables reflecting the realities of the underlying hardware only a few
+ variables in each function may be kept in registers and only certain types are allowed
+ the word register is ignored for excess or disallowed declarations and it is not
+ possible to take the address of a register variable a topic that will be covered in chapter five the
+ specific restrictions vary from machine to machine as an example on the pdp 11 only the first three
+ register declarations in a function are effective and the types must be int char or pointer
+ as a quick aside the description of the details of the implementation of the register modder
+ modifier on the pdp 11 is a delightful peek into how the c compiler generated runtime code on that
+ particular system in the 1970s as compilers have become more sophisticated the compiler could decide
+ which variables to keep in registers far better than the programmer could and since how variables
+ would be allocated to registers might be different on different hardware architectures the register
+ indication is generally ignored by modern c compilers so you should probably never use it
+ in your code as a matter of fact i wrote the following sample c program and compiled it with
+ the minus capital s option so i could see the generated assembly language with and without the
+ register declaration with optimization there was no difference between the code generated with or
+ without the register declaration the reason the generated assembly code was identical once you
+ take a look at it was regardless of the use the register keyboard was that the c optimizer on my
+ arm based computer in 2022 realized the best way to implement the code was to keep both of the
+ variables in registers because the loop code was so simple and the cpu in my computer has plenty
+ registers and optimized any loading and storing of the data for these variables right out of the
+ program in 1978 the authors likely included the register function as a feature to convince the
+ experienced assembly language programmers that they should write all but the lowest lowest level
+ code in c so write a little tiny bit in c and then i mean write a little tiny bit in assembly
+ language and write everything else in c so here's an example that's not in the textbook it's on page
+ 81 if it were in the textbook you can see this code at www.cc4e.com/code page 81 and this is
+ code that i wrote to play with the register keyword to mostly convince myself it was pointless to use
+ it but here we go pound include stdio.h int main open print close print open curly brace
+ int compute semicolon register int iter semicolon scan f open print double quote percent d
+ close quote comma ampersand compute close parentheses semicolon print f open parentheses
+ double quote compute space percent d backslash n double quote comma compute close parentheses semicolon
+ four open print iter equals zero semicolon iter less than one thousand semicolon iter plus plus
+ close parentheses open curly brace compute equals open parentheses compute times 22 close parentheses
+ times seven if compute greater than one thousand compute equals compute modulo one thousand
+ close curly brace print f open print double quote compute space percent d backslash n close quote
+ comma compute semicolon close curly brace now some of these i wrote this code in a way that
+ tries to convince the the optimizer that i'm actually going to use these values that's why i
+ read the value from input as compared to a constant it would actually optimize the optimizer so so so
+ smart that it would just eliminate all the constant calculations so but that's my sample
+ playing with register section 4.8 block structure c is not a block structured language in the sense
+ of pl1 or algal in that functions may not be defined within other functions on the other hand
+ variables can be defined in a block structured fashion declarations of variables including
+ initializations may follow the left brace that introduces any compound statement not just the
+ one that begins a function variables declared this this way supersede any identically named
+ variables in outer blocks and remain in existence until the matching right brace for example if open
+ parenthesis n greater than 0 close parenthesis open curly brace int i semicolon declare a new i for open
+ parenthesis i equals 0 semicolon i less than n semicolon i plus plus close parenthesis and dot dot
+ dot the rest of the for loop and then a close curly brace for the if the scope of the variable
+ i is in the true branch of the if this i is unrelated to any other i in the program
+ block structure also applies to external variables given the declarations int x semicolon
+ f open parenthesis close parenthesis open curly brace double x semicolon dot dot dot close parenthesis
+ then within the function f occurrences of x refer to the internal double variable outside of f
+ they refer to the external integer this is same is true of the names of formal parameters
+ for example in z semicolon outside of any function f open parenthesis close parenthesis
+ double z semicolon open curly brace dot dot dot close curly brace within function f z refers to
+ the formal parameter not the external variable section 4.9 initialization initialization has
+ been mentioned in passing many times so far but always peripherally to some other topic
+ this section summarized some of the rules now that we have discussed the various storage classes
+ in absence of explicit initialization external and static variables are guaranteed to be
+ initialized to zero automatic and register variables have undefined or garbage values
+ simple variables not arrays or structures may be initialized when they are declared
+ by following the name with an equal sign and a constant expression int x equals one semicolon
+ char s quote equals single quote backslash single quote single quote semicolon a constant of a
+ single character what that is a single quote itself long day equals 60 times 24 semicolon
+ which is the minutes in a day for external and static variables the initialization is done once
+ conceptually at compile time for automatic and register variables it is done each time
+ the function or block is entered for automatic and register variables the initializer is not
+ restricted to being a constant it may in fact be any valid expression involving previously defined
+ values even function calls for example the initializations of the binary search program
+ that we wrote in chapter 3 could be written as binary open parentheses x comma v comma n close
+ parentheses int x comma v open square bracket close square bracket comma n semicolon open curly brace
+ int low equals zero semicolon int high equals n minus one semicolon and int mid followed by
+ the rest of the function and then close curly brace instead of initializing these as the first
+ executable statements and we would do this with binary open paren x comma v comma n close paren
+ int x comma v open square bracket close square bracket comma n semicolon open curly brace
+ int low comma mid comma high semicolon low equals zero semicolon high equals n minus one semicolon
+ and so forth in effect initializations of automatic variables are just shorthand for
+ assignment statements which form to prefer is largely a matter of taste we have generally
+ used explicit assignments because initializers and declarations are harder to see automatic arrays
+ may not be initialized external and static arrays may be initialized by following the declaration
+ with a list of initializers enclosed in braces and separated by commas for example the character
+ counting program of chapter 1 which originally was main open parentheses close parentheses open
+ curly brace int c comma i comma n white comma n other int n digit open square bracket 10 close
+ square bracket semicolon n white equals n other equals zero for open parentheses i equals zero
+ semicolon i less than 10 semicolon i plus plus close parentheses n digits of i equals zero and
+ then the rest of the code followed by a close curly brace finishing main this could be written
+ instead using initializers as follows int and white equals zero semicolon int and other equals
+ zero semicolon int n digit open square bracket 10 close square bracket equals open curly brace
+ zero comma zero comma zero comma zero comma zero comma zero comma zero comma zero
+ close curly brace 10 zeros in a row and separated by commas and in braces
+ and then the main code is simply main open paren close paren open curly brace int comma c comma
+ i and then the rest of the main code close curly brace the idea is is that with the initializers
+ as with the external variables outside of the main function you do not need to initialize them
+ even with a for loop in the beginning of the main program these initializations are actually all
+ unnecessary since they're all zero anyways but it's a good form to make them explicit anyway
+ if there are fewer initializers than the specialized size the others will be zero
+ it is an error to have too many initializers regrettably there is no way to specify specify
+ the repetition of an initializer nor to initialize an element in the middle of the array without
+ supplying all the intervening intervening values as well character arrays are a special case
+ of initialization a string may be used instead of the braces and commas notation
+ as in char pattern open square bracket close square bracket equals double quote t h e double
+ quote semicolon this is a shorthand for the longer but equivalent char pattern open square
+ bracket close square bracket equals open curly brace single quote t single quote comma single
+ quote h single quote comma single quote e single quote comma single quote backslash zero single
+ quote close curly brace semicolon when the size of an array of any type is omitted the compiler
+ will compute the length of the array by counting the initials initializers in this specific case
+ one is four three actual characters plus the terminating backslash zero i would note that the
+ primary difference between c and c influence like languages like java php and javascript
+ the key is that c strings are character arrays while in the other languages strings are objects
+ these string objects do have inside themselves an array of bytes or characters but they also keep
+ things like the length of the string and provide functionality like extract a substring in the
+ methods in these objects in c there is a set of library functions that perform string operations
+ like compare two strings while string comparison is built into the string objects in each of the
+ other languages strings as character arrays allow programmers to build very fast low-level code in
+ libraries and operating systems but to write the code well you need to understand what is really
+ going on at the low level section 4.10 recursion c functions may be used recursively that is a
+ function may call itself either directly or indirectly one traditional example involves
+ printing of a number as a character string as we mentioned before the digits are generated in the
+ wrong order low order digits are available before for high order digits but they have to be printed
+ in the other way around there are two solutions to this problem one is to store the digits in an array
+ as they are generated and then print them in reverse order as we did in chapter 3 with i2a
+ the first version of print d follows this pattern this is sample code on page 85 of the textbook
+ you can view the sample code at www.cc4e.com/code page 85 example one pound include stdl.h print d
+ open paren and close paren int n open curly brace char s open square bracket 10 close square
+ bracket semicolon and i semicolon if parenthesis n less than zero parenthesis open curly brace put
+ char open paren single quote dash single quote close paren semicolon n equals minus n semicolon
+ close curly brace i equals zero semicolon do open curly brace s sub i plus plus equals n modulo 10
+ plus quote zero quote which gets the next character while parentheses parentheses n
+ slash equal 10 close parentheses greater than zero close parentheses semicolon and we reverse the string while
+ open paren minus minus i greater than equal to zero close paren put char open paren s sub i
+ close paren semicolon close curly brace to end the print d function
+ the alternative is a recursive solution in which each call of print d first it calls itself to
+ cope with any leading digits then prints the trailing digit after that call returns this is
+ an example on page 85 of the textbook and it's example two pound include stdio.h print d open
+ paren and close paren int n semicolon open curly brace int i semicolon if open paren n less than
+ zero close paren open curly brace put char open paren single quote dash single quote close paren
+ semicolon n equals minus n semicolon close curly brace to finish the if if open paren open paren
+ i equals n over 10 close paren not equal zero close paren print d open paren i close paren semicolon
+ that's the recursive call and after the recursive call comes back we do put char open paren n modulo
+ 10 plus single quote zero single quote close paren semicolon close curly brace to end the
+ print d function when a function calls itself recursively each invocation gets a fresh set of
+ all the automatic variables quite independent of the previous set thus in print d 123 the first
+ print d has n equals 123 it passes 12 to a second print d then prints three when that one returns
+ in the same way the second print d passes one to a third which prints it and then prints two
+ recursion generally provides no saving in storage since somewhere a stack of values is being
+ processed or has to be maintained nor will it be faster but recursive code is more compact and often
+ much easier to write and understand recursion is especially convenient for recursively defined data
+ structures like trees we will see a nice example in chapter six as an aside ah recursion recursion
+ recursion recursion is a beloved concept in computer science it is often taught early in
+ most programming courses because it is just so cool most examples are sadly like computing factorial
+ or the example above converting an integer to a string and they're not good uses of recursion
+ actually but when you do finally find yourself in need of traversing a tree-based structure like an
+ xml document or parsing a mathematical expression with parentheses recursion is the ideal solution
+ so the problem in a sense is not recursion but when it is taught and what examples are used
+ interestingly kerning and richie include the correct warning about using recursion when it
+ is not the best solution in the above text and it bears another read back to the book
+ recursion generally provides no saving in storage since somewhere a stack of values is being
+ processed or has to be maintained nor will it be faster but recursive code is more compact and
+ often much easier to write and understand recursion is especially convenient for recursively defined
+ data structures like trees we will see a nice example in chapter six i couldn't have said it better
+ section 4.11 the c preprocessor c provides certain language extensions by means of a simple
+ macro preprocessor the pound define capability which we have used is the most common of these
+ extensions another is the ability to include the entire contents of other files during compilation
+ file inclusion to facilitate handling of pound defines and declarations among other things c
+ provides a file inclusion feature any line that looks like pound include space double quote file
+ name double quote is replaced by the contents of the file name the quotes are indeed mandatory
+ often a line or two of this form appears at the very beginning of each source file to include
+ common pound defined statements and external declarations for global variables pound includes
+ may be nested pound include is the preferred way to tie declarations together for a large problem
+ and in a large program it guarantees that all the source files will be supplied with the same
+ definitions and variable declarations thus eliminating a particularly nasty kind of bug
+ of course when an include file is changed all the files that depend on it must be recompiled
+ macro substitution a definition of the form pound define yes one calls for a macro substitution of
+ the simplest kind replace replacing a logical name by a string of characters names in the pound define
+ have the same forms of as the c identifiers the replacement text is arbitrarily normally the
+ replacement text is the rest of the line a long definition may be continued by placing a backslash
+ at the end of the line to be continued the scope of the name defined with pound define is from
+ from its point of definition to the end of the source file names may be redefined and a definition
+ may use previous definitions substitutions do not place take place within quoted strings so
+ for example if yes is a defined name there would be no substitution in printf open print double
+ quote yes double quote close print since implementation of pound define is a macro
+ pre-pass not part of the compiler proper there are very few grammatical restrictions on what
+ can be defined for example alcohol fans can say pound define then and then nothing pound define
+ begin open curly brace pound define end semicolon close curly brace and then write approximate alcohol
+ if paren i greater than zero close paren then begin a equals one semicolon b equals two end
+ it is also possible to define macros with arguments so the replacement text depends
+ on the way the macro is called as an example define a macro called max like this pound define
+ max open paren a comma b open paren open paren a close paren greater than open paren b close paren
+ question mark open paren a close paren colon open paren b close paren close paren now the line x
+ equals max open paren p plus q comma r plus s close paren semicolon will be replaced in the
+ preprocessor by the line x equals open paren open paren p plus q close paren greater than open paren
+ r plus s close paren question mark open paren p plus q close paren colon open paren r plus s
+ close paren close paren semicolon this provides a maximum function that expands into inline code
+ rather than a function call so long as the arguments are treated consistently this macro
+ will serve for any data type there is no need for different kinds of max for different data types as
+ there would be with functions of course if you examine the expansion of max above you will notice
+ some pitfalls the expressions are evaluated twice it is bad if they involve side effects like function
+ calls increment operators or perhaps push and pop like we've used before some care has to be taken
+ with parentheses to make sure the order order of evaluation is preserved consider the macro
+ pound define square open paren x close paren equals x times x when it is invoked as square
+ open paren z plus one close paren there are even some purely lexical problems there can be no space
+ between the macro name and the left parentheses that introduces the argument list nevertheless
+ macros are quite valuable one practical example is the standard io library to be described in
+ chapter seven in which get char and put char are defined as macros obviously put char needs an
+ argument thus avoiding the overhead of a function call per care to profit process other capabilities
+ of the macro processor are described in appendix a as a bit of a long aside in this section we are
+ talking about the pre processor it's probably a good time to talk a bit about why we use this
+ terminology for those of you with a computer science degree from back in the day many of you
+ wrote a compiler as a senior project just like i did building a compiler was a great project
+ because part of the goal of computer science is to understand the technologies that make programming
+ possible from the language syntax down to the hardware the compiler that translates our source
+ code into machine code is an essential part of the technology stack that we use early compilers for
+ languages like the early fortran variants tended to be translators they just translated code one
+ line at a time from a high level language to assembly language you could think of early
+ fortran programs in the 1950s and the 1960s as just more convenient ways to write assembly language
+ for programmers that knew assembly language you always needed to be aware of assembly language
+ and the translation that it was going to write fast fortran programs were small and optimization
+ was done at the fortran level often leading to some hard to understand code by the mid 1970s
+ programming languages were based on parsing theory and we used what is called a grammar to
+ define the language kerning and richie kept io statements out of the c language to keep its
+ formal definition i.e its grammar as simple as possible as these new languages emerged
+ they allowed for more theoretical and powerful approach to converting source code to machine
+ language the theoretical advances in compiler and language design meant that parts of the compiler
+ might be reusable across multiple programming languages each language could have its own syntax
+ and grammar rules and they could be plugged into the compiler and poof you would have a new
+ programming language it got to the point where unix system unix systems had a tool called yak
+ which stood for yet another compiler compiler you would give it a grammar for your new language
+ and it would make a compiler for you as a matter of fact the javascript language that was created
+ in 10 days back in 1995 was possible because brendan ike had a lot of experience with compiler
+ generators he defined a grammar for javascript and generated his first compiler part of what
+ made a compiler generate generator possible is the idea of a multi-step compiler or the tasks of a
+ compiler were broken down into a series of simpler and more well-defined steps here are the steps of
+ a typical c compiler in the 1970s first a preprocessor step that takes c code with syntax
+ like pound define and pow include as its input and produces raw c code output with those instructions
+ processed and or expanded the preprocessor processor was a c2c transformation next a parser step that
+ took the raw c code applied the grammar to the language and created what is called a parse tree
+ think of the tree as a hierarchy of statements grouped into blocks grouped into functions etc
+ of things like a loop or just one node in a parse tree after that a code generation would turn the
+ parse tree into some kind of simplistic portable internal code that expanded things like loops and
+ if-then-else statements into code after that a code optimization that looked at the internal code
+ and moved things around eliminating any redundant computations say don't compute the same things
+ twice this step is why the authors make such a big fuss about how there are times where c might do
+ things in a slightly different order in an expression even in the presence of parentheses remember
+ the k and r c arrangement license back in chapter 2 that rule removes constraints on the compiler's
+ optimization step so it can generate the most efficient code i would note that all the steps
+ up to this point did not depend in any way on the actual machine language of the system that they
+ were running on this meant a preprocessor parser code generator and code optimizer could literally
+ be written in c and used on any architecture the final step is a code generator that takes the
+ optimized intermediate code and generates the actual assembly and machine language for the
+ processor for fun you can add the minus capital s parameter to your c compiler and see the resulting
+ assembly language output for your system if you look at the machine language generated on an intel
+ or amd processor and compare it to the machine language on an arm processor it will look very
+ different because all but the final compiler steps did not depend on the computer where the
+ program is being run you could actually create a c compiler on a new computer architecture
+ by writing a code generator on the new computer then running all but the last step of the compiler
+ on one computer then copying the internal code generated by the compiler to the new compiler
+ and running the code generation step on the new computer then you actually have a working c
+ compiler on the new computer and the first step is usually to recompile the c compiler itself from
+ source code to produce a fully native c compiler on the new computer that can compile all the rest
+ of the c code you have including possibly the mostly portable elements of the unix operating
+ system on the new compiler yes describing how to cross compile and bootstrap a c compiler onto
+ a new computer hardware architecture can give you a headache if you think about it too much
+ but this notion of bootstrapping a c compiler onto a new architecture was an important technique to
+ move c and then unix to a wide range of very different computer architectures we see this
+ in action as the unix like mac os operating system over the past 20 years was delivered initially
+ on a motorola 68000 family processors then on power pc processors and then on intel processors
+ and most recently on arm-based processors built by apple using the software portability patterns
+ that come from c and unix and described by kerning and richey in this book apple now makes their own
+ hardware that can be tuned and evolved over time as their operating system and their applications
+ requirements dictate the use of a grammar by the way is to define a programming language is one of
+ the reasons that syntax errors are so obtuse the compiler is not looking at your code like a human
+ it is following a very set of simple rules to parser code and it's stuck with something illogical
+ and gives you a message like unexpected unexpected statement block or constant on line 17 and the
+ error is nowhere near line 17 modern compilers are more sophisticated of course than the steps
+ above but these steps give you a sense that the compiler does many things to make it so your code
+ can actually run very efficiently and given that kerning and richey were building a programming
+ language c a more mostly portable operating system written in c unix and a mostly portable c compiler
+ written in c some of their innovative work and research into compiler design finds its way into
+ this book so we have a section in this chapter called the c preprocessor so here we are at the
+ end of chapter four and it's a good time to talk about the word address up to this point in the
+ book if you count them the word address has been used 10 times without a precise definition beyond
+ the notion that data is stored in memory and the address of the data is where the data is stored
+ in memory in the next chapter this notion of the address where the data is stored becomes very real
+ and tangible as we explore pointers as well as the ampersand and asterisk operators up to now
+ an experienced javascript php or java programmer can view c as just another set of similar syntax
+ rules with a few quirky runtime bits but in the next chapter we will deeply explore the concept
+ of data allocation and location it turns out that every programming language pays a lot of attention
+ to data allocation and location but the runtime environments of modern languages work very hard
+ not to expose you to those details just because modern languages hide the difficult bits from us
+ it does not mean that those languages solve the problem using magic eventually the problem needs
+ to be solved and that is why the compiler and low level runtime elements of language like php
+ javascript and java are usually written in c so the builders of those languages can
+ solve the difficult data storage and allocation problems for you this work is based on the 1978
+ c programming book written by brian w kerningan and denis m richie their book is copyright all
+ rights reserved by at&t but is used in this work under fair use because of the book's historical
+ and scholarly significance its lack of availability and the lack of an accessible version of the book
+ the book is augmented in places to help understand its right place in a historical context amidst the
+ major changes of the 1970s and 1980s as computer science evolved from a hardware first vendor
+ centered approach to a software centered approach where portable operating systems and applications
+ written in c could run on any hardware this is not the ideal book to learn c programming because
+ the 1978 edition does not reflect the modern c language using an obsolete book gives us an
+ opportunity to take students back in time and understand how the c language was evolving
+ as it laid the groundwork for a future with portable applications

@@ -1,0 +1,118 @@
+ So now we come to the last section of this module, and that is iterators. It's all been
+ building up to iterators. And this is a situation where you might say, wow, I don't like iterators.
+ Iterators seem like a more complex way to write loops than just looking at like head and next and
+ sneaking in and violating the abstraction boundary. But as you'll see in the overall next module,
+ you're going to have to have very different underlying data structures. And we want to be
+ able to write the same code over and over again. So at some level, what we're doing here is we're
+ building a map implementation that can be a linked list, a hash map list, I mean, a hash-based map,
+ a list-based map, or a tree-based map. And what we want is this code right here. This code
+ should not change. We should say, hey, give me a map. We got a map entry, we got a map iterator.
+ Those are all part of the contract that we have with the object, be it a linked list, tree, or map,
+ a hash. We're going to do a put, put, put, put, dump, get, get. Now we're going to iterate. The hash
+ won't even have like a-- it doesn't have a head. And the next, it's not going to work, right? So
+ we're going to have to say, hey, there's this abstraction. Give me an iterator for your map,
+ OK? And we don't know what's in the iterator. We don't need to know what's in the iterator.
+ The only thing we need to know is it has a method called next. That's it. So we're basically saying,
+ let's get started. Give me an iterator from the map. Call the iterator method, passing the map
+ instance as a parameter, and give me back iterator. And then we write a while loop.
+ And we say, hey, iterator, give me the next thing. It is up to the iterator to start at the beginning
+ and then advance and move down. And when we get null, we break. If not, we print key and value
+ from the cur. Now, cur is of type map entry. There's a map iter, iter next, and then
+ cur is what we get back from iterator. So we get from iter, iter next, we get back a map entry.
+ And so if you recall, key and value are public in the map entry. So I could have had you hide those
+ behind sort of getters and have a get key and whatever and name those underscore. But we're
+ just going to leave them public attributes for now. If we were implementing Java-- I mean,
+ right now, we're kind of hard coding this string key integer throughout. So it's going to be OK.
+ And then, of course, we call the destructor on the iterator once we're kind of done with that loop.
+ And then we call the destructor on the overall map. And this code should be roughly the same
+ when we go from linked lists, hashes, to trees. This is the moment. And it's this iteration pattern.
+ So I'm going to do a bunch of pictures. And so I just want to-- I've been drawing some pretty complex
+ pictures on these things. But by now, the whole pattern of what next means and prev and these
+ things being null, a doubly linked list, and that key, pointing to another little-- a char star key,
+ which points to another little statically allocated thing, and a head points to the tail,
+ and a head and a tail, and all that stuff. I'm just going to, for this section, really simplify
+ these pictures. It's to say, look, there's a variable called head somewhere. And it points
+ to a z equals 22. Then it points to a w equals 42. And then that's the last one. And that points--
+ the next there points to null. And so I'm going to really use a succinct representation of linked
+ lists going forward. If we review what we don't want to do, we do not want our calling code to
+ know about count. We do not want it to know about head. We don't even want it to know about next
+ within the entries. We don't want to know that. We do want to know about key and value. And so
+ the calling code where map arrow number underscore head, current underscore next, no, no, no, no,
+ no. That's not allowed. Those are private. So in our calling code, if we're looking at things
+ have underscores, technically we could do it, because there's nothing in C that's stopping us.
+ We create those things. So we don't want to call head or count, because then if we change when we're
+ doing a map, head's not there anymore. I mean, hash, head's not there. Next doesn't work. I mean,
+ we've got to hide that. We've got to wrap it. We've got to create a strong abstraction around
+ this notion of starting a loop and then iterating one iteration of a loop, and then ending the loop.
+ We have to abstract that away. This is the concept of separation of concerns. Our calling code does
+ not need to be concerned about how the object can be looped through. So we need a generic notion of
+ looping. So you can think of the iterator object itself as a thing you create, and it sort of starts
+ at the beginning, and then you hit it. Next, give me another one. Give me another one. Give me another
+ one. And inside the iterator, the state is changing. It's like advancing. And it just gives them to you
+ one at a time. You can't ask it for the same one. Once it's been given to you, it's sort of like
+ ratcheted down to the next one. So if we look at this Python code, we start with a dictionary.
+ A maps to one, B to two, C to three. And we print it, and there's the dictionary. And we say,
+ oh, let's convert that to a list. And that list is the keys, which is A, B, C. And then say,
+ give me an iterator from that dictionary. We print that out, and we print the type of it.
+ It is of type dict underscore key iterator object. And so the iterator itself is not the entire
+ dictionary. It is not a list of all the keys. It is an internal structure that Python is going to
+ maintain. And then we're going to poke it by calling next, next, next. Now, the whole next thing,
+ that's probably calling an internal method like double underscore, next double underscore.
+ So next is part of the Python language. So if you look at the while loop, it's a while true loop.
+ We say item equals next. So that means give me the next available item in the iterator,
+ and then advance it. And if we're past the end, return me false. Then I say if item is false,
+ break. And otherwise, I print the item. And so I'm getting that item is A, B, and C. But the key
+ thing here in Python, just we're using Python to keep it as simple as possible, is the iterator is
+ something that's created. The iterator doesn't contain all the data. The iterator contains
+ pointers inside of it so that it knows what to do next. And we repeatedly probe the iterator with
+ the next call to get the next thing. And that both advances, returns, and indicates when we have run
+ out of things. So it's weird because we're so used to say like for blah, in blah, or for this, that.
+ But that's not how iterators work. Iterators want this next thing to happen. Let's C code to do the
+ iterator. You create it. You loop next through. And the C one is going to look pretty much the same
+ as the Python one. So if we look at the map iterator structure, it is going to have the kind
+ of things that we needed. We just are going to pull them in. So the concept of current,
+ like we've used the variable current in the past for these loops, is in the map iterator structure.
+ And it's private. So we've moved that from sort of a variable that was in the main scope to inside
+ this and made it private. The only public things we have are a next method and a del method.
+ And so now what we have is a simple contract. You can see our kind of outside contract for this
+ class is it's created by the map class. But once it's constructed, next and del are the only thing
+ that you can do with this. And that's that. And then we get to decide inside this class.
+ And so when we construct it, we're basically going to start it. We're going to allocate the
+ right size. We're going to take the current and point it at the first item pulling from the head
+ of the linked list. And then we're going to set the two methods next and del based on the address
+ of the implementations of the functions that implement it. And then we're done. And so because
+ we're inside of the map, and that's map iter, so this is what you get when you go map arrow iter,
+ you get this code. And so we're totally allowed to do everything private with map, because again,
+ the developer of the map class is the same person or team that's developing map iter. And if we
+ wanted to change head to x, we could, because we would just go inside all our code and change it.
+ But head is not exposed to the calling code, so they wouldn't notice that change. Again, that's
+ the key. At the moment the constructor is called before the first call to next, this is what the
+ map iter looks like. Current is pointing to the first item in our linked list. Then the while loop
+ starts and it calls head. Now you'll notice that it's kind of got this weird thing where it grabs
+ the current. And that's because current starts at, we could have implemented this differently,
+ but the way I did it was, current is pointing at head, and I have to, for the return, it's got to
+ return the first call to next, I grab current, and then I advance current. So at the moment that it
+ returns, the return value is b equals 14, and current now points at 21, d equals 21, preparing
+ for the next call to the next function. So then it comes in, and retval grabs 21, and that's what
+ we return, and then we advance to 19, and you can kind of see retval and current chase each other
+ down this linked list. So we return f equals 19, and then current points to null, and then we
+ notice that current is null, and then we return null to tell our calling code that we are finished.
+ So to start the iteration, to prime the iteration, we call the map object and say, hey, give me an
+ iterator for the map, and we get that back, and we're going to store that in our variable iterator.
+ Then we're going to start an infinite loop that says while one, or while true,
+ cur equals iter next, give me the next one, which the first time too is going to give me the first
+ one. Then if I got a null, I'm done with the loop, otherwise I print the key and the value of the one
+ I got, and then I go up and I iterate to the next one, print it, up print, up print, up print,
+ oh, I got a null, and then I delete the iterator. And this is super equivalent to what we do in
+ Python, where we say x equal, give me the iterator for the dictionary x in the variable it, then while
+ true, we advance to the advanced next of it, otherwise give me false. If we got a false,
+ we're done, and otherwise we printed it. So these two are very, very parallel. And you'll notice that
+ Java and C++ don't do iterators the same thing, but I wrote this C code to mimic Python's way of
+ doing this. So it's been quite a long journey. We really focused on abstraction and encapsulation,
+ and we've done it with iterators. And all we've done now is we've laid the groundwork for multiple
+ implementations of the map. We shouldn't have to change our main code anymore. We should be able
+ to put a, we build a list map, a list map, and then we're going to build a hash map, and we're
+ going to build a tree map. Those have increasing complexity and improved performance characteristics.
+ And now you really are going to start seeing why we say have abstraction so that we can fool around
+ underneath the abstraction and accomplish really cool things and get closer to what Python really
+ does underneath of a dictionary implementation.

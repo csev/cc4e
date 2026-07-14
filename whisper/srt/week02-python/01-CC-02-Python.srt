@@ -1,0 +1,3640 @@
+1
+00:00:00,000 --> 00:00:02,280
+ - Hello and welcome to C Programming for Everybody.
+
+2
+00:00:02,280 --> 00:00:05,860
+ I'm Charles Severance and I'm your professor for this course.
+
+3
+00:00:05,860 --> 00:00:10,860
+ In this lecture, we are going to do a very rapid translation
+
+4
+00:00:10,860 --> 00:00:12,460
+ from Python to C.
+
+5
+00:00:12,460 --> 00:00:15,740
+ So as I've shown you in our earlier lectures,
+
+6
+00:00:15,740 --> 00:00:18,120
+ C is kind of like the mother tongue
+
+7
+00:00:18,120 --> 00:00:20,400
+ of advanced programming languages.
+
+8
+00:00:20,400 --> 00:00:23,440
+ Python itself was written and still is written in C.
+
+9
+00:00:23,440 --> 00:00:25,900
+ And Python is deeply influenced by C,
+
+10
+00:00:25,900 --> 00:00:28,880
+ even though the syntax looks very different, right?
+
+11
+00:00:30,120 --> 00:00:32,380
+ And if you've taken all my other classes,
+
+12
+00:00:32,380 --> 00:00:35,720
+ you will have seen PHP, you'll have seen JavaScript.
+
+13
+00:00:35,720 --> 00:00:40,080
+ And to some degree, even CSS takes some of its inspiration
+
+14
+00:00:40,080 --> 00:00:42,100
+ from the syntax of C.
+
+15
+00:00:42,100 --> 00:00:45,200
+ And so I'm not intending for this
+
+16
+00:00:45,200 --> 00:00:46,740
+ to be your first programming class.
+
+17
+00:00:46,740 --> 00:00:49,280
+ I intend for you to be an expert at Python.
+
+18
+00:00:49,280 --> 00:00:51,400
+ Well, not expert, but certainly,
+
+19
+00:00:51,400 --> 00:00:52,880
+ I'm not gonna tell you what an if statement is.
+
+20
+00:00:52,880 --> 00:00:55,080
+ I'm not gonna tell you what a variable is.
+
+21
+00:00:55,080 --> 00:00:56,980
+ I'm gonna just tell you how to use variables in C
+
+22
+00:00:56,980 --> 00:00:58,680
+ and I'm gonna tell you how to use if statements in C.
+
+23
+00:00:58,680 --> 00:01:01,720
+ And so that's why a solid foundation of Python,
+
+24
+00:01:01,720 --> 00:01:05,200
+ not wizard, but solid foundation of Python is essential.
+
+25
+00:01:05,200 --> 00:01:08,560
+ And frankly, I would rather that you learned a bit of PHP,
+
+26
+00:01:08,560 --> 00:01:13,420
+ some JavaScript, and all this other stuff before you come.
+
+27
+00:01:13,420 --> 00:01:16,300
+ I think that C programming is not the first class
+
+28
+00:01:16,300 --> 00:01:18,600
+ that you should take, but instead,
+
+29
+00:01:18,600 --> 00:01:21,760
+ it is your gateway to the advanced work
+
+30
+00:01:21,760 --> 00:01:22,600
+ that you're going to do.
+
+31
+00:01:22,600 --> 00:01:24,360
+ And so I think C is very, very important.
+
+32
+00:01:24,360 --> 00:01:27,480
+ I just don't think it's your first programming class.
+
+33
+00:01:27,480 --> 00:01:31,760
+ So, you might think Python and C are not very different,
+
+34
+00:01:31,760 --> 00:01:35,460
+ although Python is written in C.
+
+35
+00:01:35,460 --> 00:01:38,680
+ Python has whitespace that is part of its syntax.
+
+36
+00:01:38,680 --> 00:01:41,220
+ C whitespace is ignored.
+
+37
+00:01:41,220 --> 00:01:43,520
+ I do like C better in that.
+
+38
+00:01:43,520 --> 00:01:45,920
+ Python is very object oriented.
+
+39
+00:01:45,920 --> 00:01:48,740
+ If you read an article I wrote on Quora,
+
+40
+00:01:48,740 --> 00:01:50,800
+ you'll see I rank all my languages
+
+41
+00:01:50,800 --> 00:01:53,160
+ and I put JavaScript and Python
+
+42
+00:01:53,160 --> 00:01:55,720
+ as the most object oriented languages.
+
+43
+00:01:55,720 --> 00:01:57,440
+ Java is a little less object oriented
+
+44
+00:01:57,440 --> 00:02:00,520
+ and C is like the least un-object oriented.
+
+45
+00:02:00,520 --> 00:02:02,400
+ C is not object oriented at all.
+
+46
+00:02:02,400 --> 00:02:06,540
+ Python has wonderfully convenient data structures
+
+47
+00:02:06,540 --> 00:02:08,320
+ in the form of lists and dictionaries.
+
+48
+00:02:08,320 --> 00:02:13,320
+ PHP has arrays and JavaScript has objects,
+
+49
+00:02:13,320 --> 00:02:15,720
+ the all beautiful, beautiful stuff.
+
+50
+00:02:15,720 --> 00:02:17,740
+ They're very object oriented structures.
+
+51
+00:02:17,740 --> 00:02:19,400
+ Python, C does not.
+
+52
+00:02:19,400 --> 00:02:21,520
+ It's fast, it's efficient, it's powerful,
+
+53
+00:02:21,520 --> 00:02:22,960
+ it's got structs and pointers,
+
+54
+00:02:22,960 --> 00:02:25,520
+ and by golly, you will use them
+
+55
+00:02:25,520 --> 00:02:28,160
+ and they're not convenient,
+
+56
+00:02:28,160 --> 00:02:30,280
+ but they are scorchingly fast.
+
+57
+00:02:30,280 --> 00:02:32,760
+ And by the time we're done with all this,
+
+58
+00:02:32,760 --> 00:02:36,780
+ we will see how to use structs and pointers
+
+59
+00:02:36,780 --> 00:02:38,700
+ to build lists and dictionaries.
+
+60
+00:02:38,700 --> 00:02:42,640
+ And that really is, we will follow down the path
+
+61
+00:02:42,640 --> 00:02:43,600
+ of building Python.
+
+62
+00:02:43,600 --> 00:02:46,560
+ So you'll see a common theme throughout this class
+
+63
+00:02:46,560 --> 00:02:50,540
+ of how Python achieves what it's trying to achieve
+
+64
+00:02:50,540 --> 00:02:51,760
+ by writing C.
+
+65
+00:02:51,760 --> 00:02:54,860
+ Python has automatic memory management
+
+66
+00:02:54,860 --> 00:02:57,520
+ to the point where if you've been a Python programmer,
+
+67
+00:02:57,520 --> 00:03:00,000
+ or a PHP programmer, or a Java programmer,
+
+68
+00:03:00,000 --> 00:03:00,840
+ or a JavaScript programmer,
+
+69
+00:03:00,840 --> 00:03:03,840
+ you probably don't even know what memory management is.
+
+70
+00:03:03,840 --> 00:03:06,080
+ Well, you're going to by the end of this class.
+
+71
+00:03:06,080 --> 00:03:08,080
+ And by the end of this class,
+
+72
+00:03:08,080 --> 00:03:11,520
+ you're going to be able to see how Python
+
+73
+00:03:11,520 --> 00:03:14,900
+ automates memory management for you, right?
+
+74
+00:03:14,900 --> 00:03:16,360
+ Python is written in the 80s,
+
+75
+00:03:16,360 --> 00:03:18,040
+ and C was written in the 70s.
+
+76
+00:03:18,040 --> 00:03:22,580
+ In many ways, I see Python as a convenience layer
+
+77
+00:03:22,580 --> 00:03:24,920
+ that was built on top of C.
+
+78
+00:03:24,920 --> 00:03:27,880
+ Just, C programmers look at C, it's like,
+
+79
+00:03:27,880 --> 00:03:29,100
+ it's great, it's great, it's great.
+
+80
+00:03:29,100 --> 00:03:33,640
+ If we just had this layer of easiness on top of it,
+
+81
+00:03:33,640 --> 00:03:34,960
+ then things would be better.
+
+82
+00:03:34,960 --> 00:03:37,460
+ And so, that's what Python is.
+
+83
+00:03:37,460 --> 00:03:40,700
+ Now, Python also introduced things like
+
+84
+00:03:40,700 --> 00:03:44,200
+ quite different syntax to make it indentation
+
+85
+00:03:44,200 --> 00:03:48,960
+ required, because they thought it was a good idea.
+
+86
+00:03:48,960 --> 00:03:51,720
+ So we could argue one way or the other.
+
+87
+00:03:51,720 --> 00:03:52,640
+ I mean, I'll tell you,
+
+88
+00:03:52,640 --> 00:03:55,740
+ when I'm writing a million lines of code,
+
+89
+00:03:55,740 --> 00:03:58,720
+ white space is not, to me, a good way to have syntax.
+
+90
+00:03:58,720 --> 00:04:02,320
+ So, we're going to look at C through a Python lens.
+
+91
+00:04:02,320 --> 00:04:05,020
+ And we're going to learn by example.
+
+92
+00:04:05,020 --> 00:04:07,940
+ Now, most of the time, I tell you,
+
+93
+00:04:07,940 --> 00:04:12,040
+ don't copy and paste.
+
+94
+00:04:12,040 --> 00:04:14,160
+ Don't cheat.
+
+95
+00:04:14,160 --> 00:04:16,880
+ Don't look for solutions.
+
+96
+00:04:16,880 --> 00:04:20,360
+ This lecture is the exception to that rule.
+
+97
+00:04:20,360 --> 00:04:22,980
+ I've written this lecture as a Rosetta stone.
+
+98
+00:04:22,980 --> 00:04:26,140
+ It's just a little tiny bit of connection
+
+99
+00:04:26,140 --> 00:04:28,180
+ to what you already know in Python,
+
+100
+00:04:28,180 --> 00:04:30,400
+ to what you're going to do in C.
+
+101
+00:04:30,400 --> 00:04:33,600
+ And so, I'm not intending at this point
+
+102
+00:04:33,600 --> 00:04:37,220
+ for you to build your own stuff based on reading a book.
+
+103
+00:04:37,220 --> 00:04:40,300
+ I actually just want you, and if I give you assignments
+
+104
+00:04:40,300 --> 00:04:41,820
+ to do these particular things,
+
+105
+00:04:41,820 --> 00:04:44,560
+ I really do want you to just watch this lecture,
+
+106
+00:04:44,560 --> 00:04:47,020
+ grab the PowerPoint, and feel free to cut and paste
+
+107
+00:04:47,020 --> 00:04:50,040
+ from my PowerPoint into my assignments.
+
+108
+00:04:50,040 --> 00:04:53,840
+ Because this is, I don't know if you've ever seen it,
+
+109
+00:04:53,840 --> 00:04:57,560
+ where the mama tiger is teaching a baby tiger how to hunt,
+
+110
+00:04:57,560 --> 00:05:00,000
+ and the mama tiger goes out and gets something or other
+
+111
+00:05:00,000 --> 00:05:01,800
+ and brings it back and puts it near the baby tiger
+
+112
+00:05:01,800 --> 00:05:03,900
+ and lets the baby tiger chase it.
+
+113
+00:05:03,900 --> 00:05:05,420
+ Well, that's kind of what I'm doing.
+
+114
+00:05:05,420 --> 00:05:08,440
+ I'm the mama tiger, and I'm giving you some C code,
+
+115
+00:05:08,440 --> 00:05:09,840
+ and I'm putting it right in front of you,
+
+116
+00:05:09,840 --> 00:05:11,280
+ and then I want you to take that C code,
+
+117
+00:05:11,280 --> 00:05:14,360
+ and I want you to run it and play with it and understand it.
+
+118
+00:05:14,360 --> 00:05:16,560
+ So, I'm not expecting in this lecture
+
+119
+00:05:16,560 --> 00:05:19,160
+ that you're going to derive it,
+
+120
+00:05:19,160 --> 00:05:22,100
+ that you're going to sort of somehow read the textbook,
+
+121
+00:05:22,100 --> 00:05:23,920
+ look at a problem, and solve the problem.
+
+122
+00:05:23,920 --> 00:05:24,760
+ That's later.
+
+123
+00:05:24,760 --> 00:05:26,480
+ That is, that's absolutely later.
+
+124
+00:05:26,480 --> 00:05:28,440
+ So, this is the beginning.
+
+125
+00:05:28,440 --> 00:05:30,240
+ This is trying to make connections,
+
+126
+00:05:30,240 --> 00:05:33,400
+ conceptual connections, to the complex knowledge
+
+127
+00:05:33,400 --> 00:05:36,140
+ you have about Python, to little places
+
+128
+00:05:36,140 --> 00:05:39,080
+ where you can hook things onto in C.
+
+129
+00:05:39,080 --> 00:05:41,160
+ And so, the idea is to go through it quickly.
+
+130
+00:05:41,160 --> 00:05:46,160
+ So, I do assign some of these as programming exercises.
+
+131
+00:05:47,200 --> 00:05:50,220
+ It's intended for me, my intent is that you'll watch
+
+132
+00:05:50,220 --> 00:05:53,060
+ the lectures and just work on the code at the same time.
+
+133
+00:05:53,060 --> 00:05:56,320
+ I'm not trying to test what you learned.
+
+134
+00:05:56,320 --> 00:06:01,160
+ I really want you to watch and listen and type.
+
+135
+00:06:01,160 --> 00:06:03,760
+ That's how we learn, right?
+
+136
+00:06:03,760 --> 00:06:05,640
+ You could cut and paste it, or you could type it,
+
+137
+00:06:05,640 --> 00:06:07,480
+ and you could type it one piece at a time.
+
+138
+00:06:07,480 --> 00:06:09,440
+ And the mere act of you typing,
+
+139
+00:06:09,440 --> 00:06:11,020
+ even though you're just looking at a slide
+
+140
+00:06:11,020 --> 00:06:14,220
+ and typing it in, at this point in the course,
+
+141
+00:06:14,220 --> 00:06:16,600
+ that is the learning objective of this lecture.
+
+142
+00:06:16,600 --> 00:06:20,040
+ Now, that whole rule of just typing code in
+
+143
+00:06:20,040 --> 00:06:22,320
+ that you're looking from someone else,
+
+144
+00:06:22,320 --> 00:06:24,480
+ don't do that forever.
+
+145
+00:06:24,480 --> 00:06:26,400
+ Later, I want you to do things like
+
+146
+00:06:26,400 --> 00:06:28,080
+ synthesize what you learn in the book,
+
+147
+00:06:28,080 --> 00:06:29,800
+ synthesize it, struggle through it,
+
+148
+00:06:29,800 --> 00:06:32,200
+ and figure things out and do the assignment yourself.
+
+149
+00:06:32,200 --> 00:06:33,700
+ So, don't go searching.
+
+150
+00:06:33,700 --> 00:06:35,040
+ If you wanna gain maximum benefit,
+
+151
+00:06:35,040 --> 00:06:36,740
+ if you're just in the biggest hurry of all,
+
+152
+00:06:36,740 --> 00:06:37,720
+ just go ahead and search.
+
+153
+00:06:37,720 --> 00:06:41,320
+ But please, if you want benefit from this class,
+
+154
+00:06:41,320 --> 00:06:42,640
+ don't cheat yourself.
+
+155
+00:06:42,640 --> 00:06:45,880
+ There's a lot of similarities that I'm not gonna cover.
+
+156
+00:06:45,880 --> 00:06:48,200
+ You can go read the textbook,
+
+157
+00:06:48,200 --> 00:06:51,800
+ like the plus, minus, asterisk, slash, and percent.
+
+158
+00:06:51,800 --> 00:06:53,760
+ Hey, probably when you were learning Python,
+
+159
+00:06:53,760 --> 00:06:55,400
+ you're like, whoa, what's this percent thing?
+
+160
+00:06:55,400 --> 00:06:56,480
+ And why did they choose percent?
+
+161
+00:06:56,480 --> 00:06:58,440
+ And the answer is, that's what C chose.
+
+162
+00:06:58,440 --> 00:07:01,840
+ And so, modulo is just percent in all these other languages
+
+163
+00:07:01,840 --> 00:07:03,880
+ because they flipped a coin in C
+
+164
+00:07:03,880 --> 00:07:05,700
+ and decided percent was modulo.
+
+165
+00:07:05,700 --> 00:07:08,420
+ The comparison operators,
+
+166
+00:07:08,420 --> 00:07:10,280
+ the assignment operator is equal sign,
+
+167
+00:07:10,280 --> 00:07:12,480
+ which means that the equality operator's
+
+168
+00:07:12,480 --> 00:07:15,080
+ gotta be double equals, exclamation equals,
+
+169
+00:07:15,080 --> 00:07:16,480
+ less than, greater than, less than, equal.
+
+170
+00:07:16,480 --> 00:07:17,780
+ All that stuff's the same.
+
+171
+00:07:17,780 --> 00:07:20,600
+ Variable naming rules, the same.
+
+172
+00:07:20,600 --> 00:07:22,040
+ You start with a letter, underscore,
+
+173
+00:07:22,040 --> 00:07:23,740
+ and then numbers, letters, and underscores.
+
+174
+00:07:23,740 --> 00:07:26,120
+ And case matters, both languages.
+
+175
+00:07:26,120 --> 00:07:28,680
+ While loops, the concept of break and continue,
+
+176
+00:07:28,680 --> 00:07:32,000
+ which some people get all worried about.
+
+177
+00:07:32,000 --> 00:07:33,280
+ I love break and continue.
+
+178
+00:07:33,280 --> 00:07:34,640
+ If you've taken my other courses
+
+179
+00:07:34,640 --> 00:07:36,760
+ and you'll see when we talk about it in C,
+
+180
+00:07:36,760 --> 00:07:38,680
+ I love break and continue in C, too.
+
+181
+00:07:38,680 --> 00:07:41,400
+ Maybe 'cause I learned C first,
+
+182
+00:07:41,400 --> 00:07:43,680
+ and I just love break, and you,
+
+183
+00:07:43,680 --> 00:07:44,840
+ okay, enough about that.
+
+184
+00:07:44,840 --> 00:07:46,040
+ I love break and continue.
+
+185
+00:07:46,040 --> 00:07:47,840
+ Okay, enough about that.
+
+186
+00:07:47,840 --> 00:07:50,920
+ Constants, about the only thing
+
+187
+00:07:50,920 --> 00:07:53,520
+ that's really different in constants
+
+188
+00:07:53,520 --> 00:07:56,280
+ is like strings and characters and booleans.
+
+189
+00:07:56,280 --> 00:07:58,780
+ And strings and characters are like the biggest thing
+
+190
+00:07:58,780 --> 00:08:00,400
+ in the beginning.
+
+191
+00:08:00,400 --> 00:08:04,160
+ Both have int and float and char and byte.
+
+192
+00:08:04,160 --> 00:08:08,220
+ Now, again, byte and string and char are not the same thing.
+
+193
+00:08:08,220 --> 00:08:11,320
+ C has no str class, which is the string class,
+
+194
+00:08:11,320 --> 00:08:12,720
+ list or dictionary.
+
+195
+00:08:12,720 --> 00:08:15,440
+ And Python has no concept of struct or double.
+
+196
+00:08:15,440 --> 00:08:18,800
+ And in a sense, you could think of Python's float
+
+197
+00:08:18,800 --> 00:08:20,880
+ as really C's double, right?
+
+198
+00:08:20,880 --> 00:08:23,740
+ And so, by the time Python was written,
+
+199
+00:08:23,740 --> 00:08:26,520
+ the notion of shorter floating point numbers
+
+200
+00:08:26,520 --> 00:08:28,220
+ is less critical.
+
+201
+00:08:28,220 --> 00:08:30,360
+ There are some differences.
+
+202
+00:08:30,360 --> 00:08:33,700
+ A lot of this, I think, was in the design of Python,
+
+203
+00:08:33,700 --> 00:08:35,920
+ trying to be a little less obtuse and a little more
+
+204
+00:08:35,920 --> 00:08:37,000
+ convenient.
+
+205
+00:08:37,000 --> 00:08:38,200
+ For me, it's annoying.
+
+206
+00:08:38,200 --> 00:08:40,320
+ I write the C versions of the operators,
+
+207
+00:08:40,320 --> 00:08:43,920
+ like and, double ampersand, not is exclamation point,
+
+208
+00:08:43,920 --> 00:08:47,080
+ we call that bang, or double vertical bar.
+
+209
+00:08:47,080 --> 00:08:50,080
+ And in Python, they're all convenient.
+
+210
+00:08:50,080 --> 00:08:52,680
+ We use the word A and B, but okay, whatever.
+
+211
+00:08:52,680 --> 00:08:57,740
+ So there, in C, we have a for loop,
+
+212
+00:08:57,740 --> 00:08:59,660
+ but it's an indeterminate loop,
+
+213
+00:08:59,660 --> 00:09:02,120
+ if you remember the definition from Python for everybody.
+
+214
+00:09:02,120 --> 00:09:04,120
+ Indeterminate loop is one that you have to examine
+
+215
+00:09:04,120 --> 00:09:05,560
+ to see if it's got an infinite loop.
+
+216
+00:09:05,560 --> 00:09:10,560
+ Whereas in Python, if you say for x in some list,
+
+217
+00:09:10,560 --> 00:09:12,680
+ you're gonna go through the whole list.
+
+218
+00:09:12,680 --> 00:09:13,800
+ It's a determinant loop.
+
+219
+00:09:13,800 --> 00:09:16,920
+ It only runs until that list is exhausted.
+
+220
+00:09:16,920 --> 00:09:19,280
+ C does not have such a thing, right?
+
+221
+00:09:19,280 --> 00:09:22,680
+ It just, every loop has got a condition to finish it.
+
+222
+00:09:22,680 --> 00:09:25,700
+ Now we write loops like for i equals one to 100,
+
+223
+00:09:25,700 --> 00:09:27,640
+ or zero to 99.
+
+224
+00:09:27,640 --> 00:09:29,200
+ We write them, and you can look at them and say,
+
+225
+00:09:29,200 --> 00:09:30,420
+ yeah, that's not an infinite loop.
+
+226
+00:09:30,420 --> 00:09:33,120
+ It's just, technically, you have to look at the loop
+
+227
+00:09:33,120 --> 00:09:35,480
+ to make sure that you haven't inadvertently
+
+228
+00:09:35,480 --> 00:09:37,500
+ made an infinite loop.
+
+229
+00:09:37,500 --> 00:09:39,360
+ There's no predefined true and false.
+
+230
+00:09:39,360 --> 00:09:41,640
+ I find this really like, wow, couldn't they,
+
+231
+00:09:41,640 --> 00:09:45,200
+ they got EOF, capital EOF for end of file in C.
+
+232
+00:09:45,200 --> 00:09:49,400
+ None and null are similar concepts, but quite different.
+
+233
+00:09:49,400 --> 00:09:51,920
+ None in Python is its own type.
+
+234
+00:09:51,920 --> 00:09:55,740
+ Null is the number zero.
+
+235
+00:09:55,740 --> 00:09:59,640
+ That's cast to be a pointer to nothing.
+
+236
+00:09:59,640 --> 00:10:04,640
+ And so, none is like specially marked empty.
+
+237
+00:10:04,640 --> 00:10:08,200
+ Null is a zero.
+
+238
+00:10:08,200 --> 00:10:11,300
+ We'll get there, we'll get there.
+
+239
+00:10:11,300 --> 00:10:15,520
+ Strings and character arrays, for a while,
+
+240
+00:10:15,520 --> 00:10:18,520
+ you can kind of pretend that character arrays in C
+
+241
+00:10:18,520 --> 00:10:21,200
+ are mostly like strings, like when you throw a constant
+
+242
+00:10:21,200 --> 00:10:24,700
+ and you pass it to a function, they kind of look the same.
+
+243
+00:10:24,700 --> 00:10:26,920
+ But like, once we start working with them,
+
+244
+00:10:26,920 --> 00:10:29,040
+ you'll see they're very, very different.
+
+245
+00:10:29,040 --> 00:10:31,440
+ That's kind of the first fun part,
+
+246
+00:10:31,440 --> 00:10:33,320
+ the first part of this class,
+
+247
+00:10:33,320 --> 00:10:36,480
+ is like strings are now your responsibility.
+
+248
+00:10:36,480 --> 00:10:39,240
+ There's no help, right?
+
+249
+00:10:39,240 --> 00:10:42,400
+ And C, of course, has no list or dictionary,
+
+250
+00:10:42,400 --> 00:10:46,100
+ and Python has no concept of tightly packed data,
+
+251
+00:10:46,100 --> 00:10:50,120
+ which is what structs are, and doubles and floats.
+
+252
+00:10:50,120 --> 00:10:52,700
+ So here we go, let's get started.
+
+253
+00:10:52,700 --> 00:10:55,100
+ Let's see if my pen is working here, yeah.
+
+254
+00:10:55,100 --> 00:10:57,040
+ So what we're gonna see is on one side,
+
+255
+00:10:57,040 --> 00:10:58,160
+ we're gonna see some Python.
+
+256
+00:10:58,160 --> 00:11:00,440
+ On the other side, we're gonna see some C.
+
+257
+00:11:00,440 --> 00:11:02,960
+ And so this is just talking about output.
+
+258
+00:11:02,960 --> 00:11:04,920
+ This is Python 3, of course.
+
+259
+00:11:04,920 --> 00:11:07,160
+ And so we have a print function,
+
+260
+00:11:07,160 --> 00:11:09,360
+ and it takes any number of parameters.
+
+261
+00:11:09,360 --> 00:11:11,320
+ One of the things you'll notice about the print function
+
+262
+00:11:11,320 --> 00:11:13,080
+ is like, hello, space world.
+
+263
+00:11:13,080 --> 00:11:14,920
+ Well, that's part of this constant.
+
+264
+00:11:14,920 --> 00:11:18,200
+ But answer comma 42 puts a little space
+
+265
+00:11:18,200 --> 00:11:20,420
+ in between answer and 42 in the output.
+
+266
+00:11:20,420 --> 00:11:22,120
+ So if you wanna suppress
+
+267
+00:11:22,120 --> 00:11:25,040
+ that kind of automatic addition of spacing,
+
+268
+00:11:25,040 --> 00:11:27,400
+ you have to maybe concatenate things together,
+
+269
+00:11:27,400 --> 00:11:29,220
+ or are some other trick.
+
+270
+00:11:29,220 --> 00:11:32,240
+ The print statement automatically knows
+
+271
+00:11:32,240 --> 00:11:35,120
+ if it's got a string, or a float, or an integer,
+
+272
+00:11:35,120 --> 00:11:37,560
+ and it just does things kinda all automatically.
+
+273
+00:11:37,560 --> 00:11:39,520
+ And so if you wanna see something,
+
+274
+00:11:39,520 --> 00:11:42,160
+ usually you just print it, okay?
+
+275
+00:11:42,160 --> 00:11:44,400
+ So let's take a look at the compare and contrast.
+
+276
+00:11:44,400 --> 00:11:47,080
+ So first off, pretty much you're gonna have to start
+
+277
+00:11:47,080 --> 00:11:48,340
+ every one of your C programs
+
+278
+00:11:48,340 --> 00:11:50,540
+ with pound include standard io.h.
+
+279
+00:11:50,540 --> 00:11:51,640
+ Comments are different.
+
+280
+00:11:55,080 --> 00:11:58,320
+ Python comments are pound sign to the end of the line.
+
+281
+00:11:58,320 --> 00:12:03,320
+ C comments are slash star across multiple lines
+
+282
+00:12:03,320 --> 00:12:05,560
+ to star slash, so everything in between there.
+
+283
+00:12:05,560 --> 00:12:07,000
+ That can be multiple lines.
+
+284
+00:12:07,000 --> 00:12:09,280
+ Later versions of C also add the,
+
+285
+00:12:09,280 --> 00:12:12,300
+ what's called the C++ style of comments in the JavaScript,
+
+286
+00:12:12,300 --> 00:12:14,960
+ uses those as comments, which is the double slash.
+
+287
+00:12:14,960 --> 00:12:19,000
+ So when you're writing, you probably can use double slash
+
+288
+00:12:19,000 --> 00:12:20,360
+ in the C that you're using,
+
+289
+00:12:20,360 --> 00:12:21,940
+ but I'm kinda being kinda strict,
+
+290
+00:12:21,940 --> 00:12:24,640
+ and so I'm pretending I'm in 1978,
+
+291
+00:12:24,640 --> 00:12:28,240
+ so I'm not using that C++ style comment.
+
+292
+00:12:28,240 --> 00:12:32,080
+ Again, that came from C++, it didn't come from JavaScript.
+
+293
+00:12:32,080 --> 00:12:33,800
+ Some of you have taken Python classes
+
+294
+00:12:33,800 --> 00:12:36,060
+ where there's this like underscore underscore main,
+
+295
+00:12:36,060 --> 00:12:38,040
+ and it calls this thing, and it makes a function,
+
+296
+00:12:38,040 --> 00:12:41,340
+ and calls it, and indents everything one tab,
+
+297
+00:12:41,340 --> 00:12:44,480
+ and they're really imitating C in that respect.
+
+298
+00:12:44,480 --> 00:12:46,940
+ And I think, I don't like that style.
+
+299
+00:12:46,940 --> 00:12:49,920
+ I think those people who do that in Python,
+
+300
+00:12:49,920 --> 00:12:52,000
+ I'm sure they have a good reason,
+
+301
+00:12:52,000 --> 00:12:56,040
+ but I think they're just like wishing it was C.
+
+302
+00:12:56,040 --> 00:12:59,000
+ 'Cause the definition of C is the code,
+
+303
+00:12:59,000 --> 00:13:01,820
+ a program starts, when it starts running,
+
+304
+00:13:01,820 --> 00:13:05,280
+ it searches for a function named main,
+
+305
+00:13:05,280 --> 00:13:06,600
+ and later we'll see that this function
+
+306
+00:13:06,600 --> 00:13:08,520
+ can actually have arguments,
+
+307
+00:13:08,520 --> 00:13:11,200
+ and it returns an integer as to the success or failure.
+
+308
+00:13:11,200 --> 00:13:14,480
+ So really, main is a function.
+
+309
+00:13:14,480 --> 00:13:16,080
+ And so that first line there,
+
+310
+00:13:16,080 --> 00:13:19,360
+ int main open paren close paren open curly brace,
+
+311
+00:13:19,360 --> 00:13:21,540
+ that is the definition of a function
+
+312
+00:13:21,540 --> 00:13:23,740
+ that happens to be named main.
+
+313
+00:13:23,740 --> 00:13:26,920
+ And then we have printf.
+
+314
+00:13:26,920 --> 00:13:31,500
+ Now, again, I don't know if you've learned Python 2,
+
+315
+00:13:31,500 --> 00:13:34,360
+ but in Python 2, there was a print statement.
+
+316
+00:13:34,360 --> 00:13:38,240
+ In Python 3, there is a print function,
+
+317
+00:13:38,240 --> 00:13:41,420
+ and so here we're using a Python 3 print function,
+
+318
+00:13:41,420 --> 00:13:45,440
+ and C never did the statement.
+
+319
+00:13:45,440 --> 00:13:48,800
+ So C decided, as we'll talk about later,
+
+320
+00:13:48,800 --> 00:13:51,640
+ to not have any input/output,
+
+321
+00:13:51,640 --> 00:13:54,960
+ any reading or writing in the language itself,
+
+322
+00:13:54,960 --> 00:13:57,360
+ but instead put them in standard libraries.
+
+323
+00:13:57,360 --> 00:14:01,160
+ And that's what this pound includes, stdio.h is saying,
+
+324
+00:14:01,160 --> 00:14:04,440
+ okay, I'm gonna do some IO here, input/output here,
+
+325
+00:14:04,440 --> 00:14:08,240
+ and so include the C input/output library.
+
+326
+00:14:08,240 --> 00:14:13,240
+ Okay, and so printf takes as its first parameter a string.
+
+327
+00:14:13,240 --> 00:14:15,640
+ The other thing you see in C
+
+328
+00:14:15,640 --> 00:14:19,080
+ is you can't use single quotes for long strings.
+
+329
+00:14:19,080 --> 00:14:20,300
+ Later we'll see single quotes,
+
+330
+00:14:20,300 --> 00:14:22,760
+ but in C there's a major difference
+
+331
+00:14:22,760 --> 00:14:25,280
+ between single quotes and double quotes.
+
+332
+00:14:25,280 --> 00:14:27,840
+ Single quotes are single characters,
+
+333
+00:14:27,840 --> 00:14:30,720
+ and double quotes are a character array.
+
+334
+00:14:30,720 --> 00:14:33,800
+ Not a string, character array.
+
+335
+00:14:33,800 --> 00:14:36,280
+ The other thing is things like the end of line.
+
+336
+00:14:36,280 --> 00:14:40,840
+ So in Python, the new line is added implicitly.
+
+337
+00:14:40,840 --> 00:14:43,620
+ In C, you have to add it explicitly.
+
+338
+00:14:43,620 --> 00:14:46,880
+ And so that's basically saying print hello world,
+
+339
+00:14:46,880 --> 00:14:49,200
+ and then go to the beginning of the next line.
+
+340
+00:14:49,200 --> 00:14:52,840
+ Now, this first parameter is actually not just a string.
+
+341
+00:14:52,840 --> 00:14:56,120
+ It's a string with embedded format codes
+
+342
+00:14:56,120 --> 00:14:58,200
+ that start with percent.
+
+343
+00:14:58,200 --> 00:15:03,200
+ Percent D says there is a corresponding integer number,
+
+344
+00:15:03,200 --> 00:15:08,280
+ and I want you to convert that into a string
+
+345
+00:15:08,280 --> 00:15:09,620
+ and print it out.
+
+346
+00:15:09,620 --> 00:15:12,800
+ I guess I should probably just re-array some of this.
+
+347
+00:15:12,800 --> 00:15:16,220
+ So it says answer, and then a number.
+
+348
+00:15:16,220 --> 00:15:21,040
+ And so you can have more than one of these things,
+
+349
+00:15:21,040 --> 00:15:22,320
+ and then they match.
+
+350
+00:15:22,320 --> 00:15:25,220
+ So that says there's an integer as another parameter.
+
+351
+00:15:25,220 --> 00:15:28,600
+ So you can have one parameter, two parameters, et cetera.
+
+352
+00:15:28,600 --> 00:15:32,280
+ So for beyond one parameter, like in this one,
+
+353
+00:15:32,280 --> 00:15:34,920
+ X percent dot one F,
+
+354
+00:15:34,920 --> 00:15:37,220
+ that corresponds to this first floating point number,
+
+355
+00:15:37,220 --> 00:15:40,940
+ and this percent D corresponds to the integer one, okay?
+
+356
+00:15:40,940 --> 00:15:42,640
+ So you have these percent things.
+
+357
+00:15:42,640 --> 00:15:45,680
+ Now, we will learn that these percent things
+
+358
+00:15:45,680 --> 00:15:50,680
+ have a language unto themselves in chapter eight.
+
+359
+00:15:50,680 --> 00:15:53,480
+ And this is basically saying,
+
+360
+00:15:53,480 --> 00:15:55,720
+ please print me a floating point number
+
+361
+00:15:55,720 --> 00:15:58,480
+ with only one digit of precision, right?
+
+362
+00:15:58,480 --> 00:16:03,180
+ So percent dot one F says print a floating point number.
+
+363
+00:16:03,180 --> 00:16:06,840
+ And then if we wanna string, it's percent S,
+
+364
+00:16:06,840 --> 00:16:10,520
+ but this really, Sarah here, double quote Sarah, double quote,
+
+365
+00:16:10,520 --> 00:16:12,960
+ is a character array.
+
+366
+00:16:12,960 --> 00:16:17,120
+ And it's actually not five characters, but six,
+
+367
+00:16:17,120 --> 00:16:20,080
+ because there is always a terminating zero character
+
+368
+00:16:20,080 --> 00:16:20,920
+ at the end.
+
+369
+00:16:20,920 --> 00:16:24,640
+ And so percent S says the parameter needs to be
+
+370
+00:16:24,640 --> 00:16:28,280
+ a character array and properly terminated
+
+371
+00:16:28,280 --> 00:16:32,280
+ by an end to string indicator, which is a zero character.
+
+372
+00:16:32,280 --> 00:16:35,880
+ So that's this, right?
+
+373
+00:16:35,880 --> 00:16:37,600
+ It's pretty simple,
+
+374
+00:16:37,600 --> 00:16:40,560
+ but we've got a lot of stuff to cover here.
+
+375
+00:16:40,560 --> 00:16:42,800
+ And this is the Rosetta Stone.
+
+376
+00:16:42,800 --> 00:16:45,920
+ It's more complex in C, you have more control,
+
+377
+00:16:45,920 --> 00:16:48,560
+ you're doing things more explicitly,
+
+378
+00:16:48,560 --> 00:16:52,180
+ and it's not doing it for you automatically.
+
+379
+00:16:52,180 --> 00:16:55,760
+ So let's take a look at a simple number input.
+
+380
+00:16:55,760 --> 00:16:58,160
+ Now you'll see that some of these things come from
+
+381
+00:16:58,160 --> 00:17:01,020
+ my Python for everybody class.
+
+382
+00:17:01,020 --> 00:17:06,020
+ This is the famous US floor to European floor elevator,
+
+383
+00:17:06,020 --> 00:17:07,520
+ converter.
+
+384
+00:17:07,520 --> 00:17:09,780
+ So we're gonna print something out.
+
+385
+00:17:09,780 --> 00:17:14,720
+ Now one thing about C is that you've got to declare
+
+386
+00:17:14,720 --> 00:17:16,620
+ all your variables.
+
+387
+00:17:16,620 --> 00:17:18,660
+ Python is sort of a typeless language.
+
+388
+00:17:18,660 --> 00:17:21,520
+ It's increasingly getting more typey,
+
+389
+00:17:21,520 --> 00:17:23,920
+ but it's a typeless language.
+
+390
+00:17:23,920 --> 00:17:26,860
+ So we have to declare that we're gonna have two variables,
+
+391
+00:17:26,860 --> 00:17:29,700
+ USF and EUF, and they're gonna be integers.
+
+392
+00:17:29,700 --> 00:17:33,120
+ We print the statement, but the only difference there
+
+393
+00:17:33,120 --> 00:17:34,760
+ is we have to put the backslash n in,
+
+394
+00:17:34,760 --> 00:17:37,000
+ otherwise it won't automatically do that.
+
+395
+00:17:37,000 --> 00:17:39,240
+ And then we have this IO routine, again,
+
+396
+00:17:39,240 --> 00:17:42,320
+ coming from stdio.h, called scanf.
+
+397
+00:17:42,320 --> 00:17:44,640
+ And its first parameter, much like printf,
+
+398
+00:17:44,640 --> 00:17:46,400
+ is actually a formatting string.
+
+399
+00:17:46,400 --> 00:17:48,800
+ And what this says is this says,
+
+400
+00:17:48,800 --> 00:17:52,080
+ read four little ways, find me a number,
+
+401
+00:17:52,080 --> 00:17:53,880
+ as long as it seems like a number, keep reading,
+
+402
+00:17:53,880 --> 00:17:56,000
+ and turn that into an integer and give it back to me.
+
+403
+00:17:56,000 --> 00:17:59,800
+ And so it actually has got some scanning built into it.
+
+404
+00:17:59,800 --> 00:18:02,680
+ And it reads until it finds a non-digit,
+
+405
+00:18:02,680 --> 00:18:04,360
+ and then stops and says that's the number.
+
+406
+00:18:04,360 --> 00:18:07,480
+ So it turns out, in C, the way,
+
+407
+00:18:07,480 --> 00:18:09,720
+ you could type a lot of different things here.
+
+408
+00:18:09,720 --> 00:18:11,400
+ We won't go into that in too much detail.
+
+409
+00:18:11,400 --> 00:18:12,840
+ We'll hold that until chapter eight.
+
+410
+00:18:12,840 --> 00:18:16,380
+ But the idea is it doesn't work exactly the same,
+
+411
+00:18:16,380 --> 00:18:20,120
+ although this input in Python reads a line.
+
+412
+00:18:20,120 --> 00:18:22,480
+ Now, again, I got this little note here.
+
+413
+00:18:22,480 --> 00:18:26,520
+ If you recall, if you recall, in Python 2,
+
+414
+00:18:26,520 --> 00:18:28,400
+ there was an input and a raw input.
+
+415
+00:18:28,400 --> 00:18:30,280
+ And raw input was what read a line,
+
+416
+00:18:30,280 --> 00:18:33,040
+ which I tended to use when I was teaching Python 2.
+
+417
+00:18:34,280 --> 00:18:36,280
+ Input was a weird thing that had
+
+418
+00:18:36,280 --> 00:18:38,240
+ some kind of scanning thing going on,
+
+419
+00:18:38,240 --> 00:18:39,920
+ and it scanned and threw stuff away,
+
+420
+00:18:39,920 --> 00:18:40,960
+ and it grabbed something,
+
+421
+00:18:40,960 --> 00:18:43,040
+ and it might go to multiple lines.
+
+422
+00:18:43,040 --> 00:18:46,840
+ And it was totally inconsistent,
+
+423
+00:18:46,840 --> 00:18:49,160
+ and it was worse than scanf.
+
+424
+00:18:49,160 --> 00:18:52,520
+ So I was really glad when they just got rid of it
+
+425
+00:18:52,520 --> 00:18:55,800
+ in Python 3, and then they changed the name.
+
+426
+00:18:55,800 --> 00:18:57,600
+ What used to be Python 2's raw input
+
+427
+00:18:57,600 --> 00:19:00,200
+ became input in Python 3.
+
+428
+00:19:00,200 --> 00:19:04,880
+ So the old input from Python 2 is kind of like homage
+
+429
+00:19:04,880 --> 00:19:09,120
+ to scanf in C, but it's not exactly the same.
+
+430
+00:19:09,120 --> 00:19:11,840
+ And the reason it's not the same is
+
+431
+00:19:11,840 --> 00:19:18,900
+ the input in Python 2 was deriving the type of the data
+
+432
+00:19:18,900 --> 00:19:20,060
+ from what it encountered.
+
+433
+00:19:20,060 --> 00:19:21,480
+ So it might give you back a string,
+
+434
+00:19:21,480 --> 00:19:22,880
+ it might give you back a floating point,
+
+435
+00:19:22,880 --> 00:19:24,880
+ it might go like, ooh, that's dangerous, right?
+
+436
+00:19:24,880 --> 00:19:28,960
+ And that's because the type of USF in Python here
+
+437
+00:19:28,960 --> 00:19:32,840
+ is determined, it's not pre-declared.
+
+438
+00:19:32,840 --> 00:19:36,220
+ So it's known because we're gonna convert it to an integer.
+
+439
+00:19:36,220 --> 00:19:40,400
+ And by the way, both the input and the scanf,
+
+440
+00:19:40,400 --> 00:19:42,560
+ we can write stuff that confuses it badly
+
+441
+00:19:42,560 --> 00:19:43,700
+ and causes it to blow up,
+
+442
+00:19:43,700 --> 00:19:47,360
+ but we're not worrying too much about that right now.
+
+443
+00:19:47,360 --> 00:19:49,040
+ We're just kinda getting the basics done.
+
+444
+00:19:49,040 --> 00:19:52,320
+ So we read an integer, we subtract one,
+
+445
+00:19:52,320 --> 00:19:54,320
+ we print it out, right?
+
+446
+00:19:54,320 --> 00:19:58,360
+ We read an integer, oh, I forgot to say this ampersand.
+
+447
+00:19:59,160 --> 00:20:01,120
+ Call by reference and call by value.
+
+448
+00:20:01,120 --> 00:20:04,800
+ So in Python, this is coming back as a function return,
+
+449
+00:20:04,800 --> 00:20:07,280
+ so it's really easy to assign it into USF.
+
+450
+00:20:07,280 --> 00:20:12,280
+ Whereas in C, we put these parameters on scanf call,
+
+451
+00:20:12,280 --> 00:20:15,560
+ and we have to say, oh, and by the way,
+
+452
+00:20:15,560 --> 00:20:16,720
+ I want you to change it.
+
+453
+00:20:16,720 --> 00:20:21,080
+ Because ultimately, if we don't put ampersand on,
+
+454
+00:20:21,080 --> 00:20:23,880
+ it's what's called call by value, not call by reference.
+
+455
+00:20:23,880 --> 00:20:27,200
+ And ampersand USF is a way to tell C
+
+456
+00:20:27,200 --> 00:20:31,140
+ to actually give it the address of the USF variable
+
+457
+00:20:31,140 --> 00:20:33,480
+ rather than the value in the USF variable.
+
+458
+00:20:33,480 --> 00:20:38,320
+ And in that is a whole chapter that we will cover,
+
+459
+00:20:38,320 --> 00:20:40,480
+ like I think four and five,
+
+460
+00:20:40,480 --> 00:20:44,000
+ will be all about the ampersand and call by reference.
+
+461
+00:20:44,000 --> 00:20:45,560
+ And call by, we're way ahead,
+
+462
+00:20:45,560 --> 00:20:47,880
+ 'cause I don't think chapters one through four would,
+
+463
+00:20:47,880 --> 00:20:49,640
+ all they ever do is mention call by reference
+
+464
+00:20:49,640 --> 00:20:52,960
+ and then say, oh, that's in the future.
+
+465
+00:20:52,960 --> 00:20:55,480
+ So I'm gonna just say, oh, that's in the future.
+
+466
+00:20:55,480 --> 00:20:58,720
+ I will tell you that that ampersand is really important
+
+467
+00:20:58,720 --> 00:21:00,240
+ and the code doesn't work without it
+
+468
+00:21:00,240 --> 00:21:04,200
+ because it is the way that C does call by reference
+
+469
+00:21:04,200 --> 00:21:07,060
+ for simple variables like integers and floats.
+
+470
+00:21:07,060 --> 00:21:10,200
+ As you're gonna see on the next slide,
+
+471
+00:21:10,200 --> 00:21:11,640
+ there's always an exception.
+
+472
+00:21:11,640 --> 00:21:16,620
+ String input, okay.
+
+473
+00:21:16,620 --> 00:21:18,800
+ So here we're gonna, this is a help my hello Sarah thing,
+
+474
+00:21:18,800 --> 00:21:21,980
+ right, we say enter your name and then we say name input.
+
+475
+00:21:21,980 --> 00:21:24,020
+ Now the beauty is here in Python
+
+476
+00:21:24,020 --> 00:21:26,920
+ is input gives us a whole line, okay.
+
+477
+00:21:26,920 --> 00:21:28,680
+ And then we just print hello name
+
+478
+00:21:28,680 --> 00:21:30,600
+ and you'll notice that there's like this little space
+
+479
+00:21:30,600 --> 00:21:32,880
+ that comes out automatically.
+
+480
+00:21:32,880 --> 00:21:36,320
+ So switching over to C, we have our included library,
+
+481
+00:21:36,320 --> 00:21:38,880
+ we have the int main, which is the,
+
+482
+00:21:38,880 --> 00:21:42,000
+ and then we have to pre-declare a character array.
+
+483
+00:21:42,000 --> 00:21:44,400
+ There is no like, make it a string.
+
+484
+00:21:44,400 --> 00:21:46,320
+ If this were Python, we could say,
+
+485
+00:21:46,320 --> 00:21:49,200
+ hey, let's make a string, but you can't.
+
+486
+00:21:49,200 --> 00:21:50,460
+ And what's even more important
+
+487
+00:21:50,460 --> 00:21:52,580
+ is you gotta tell it how long,
+
+488
+00:21:52,580 --> 00:21:55,200
+ which means that we could type too much stuff in here
+
+489
+00:21:55,200 --> 00:21:56,360
+ and blow our program up.
+
+490
+00:21:56,360 --> 00:21:58,760
+ And that's one of the difficulties of C
+
+491
+00:21:58,760 --> 00:22:01,720
+ is the fact that arrays, including character arrays,
+
+492
+00:22:01,720 --> 00:22:04,200
+ have fixed length and they don't auto-extend.
+
+493
+00:22:04,200 --> 00:22:09,200
+ There is no, there is no dot append in C.
+
+494
+00:22:09,200 --> 00:22:13,340
+ You can't like say, oh, name dot append, you can't do it.
+
+495
+00:22:13,340 --> 00:22:16,720
+ Python, it's an object, it's not an actual array.
+
+496
+00:22:16,720 --> 00:22:17,800
+ Python, it's an object.
+
+497
+00:22:17,800 --> 00:22:19,360
+ Name is a string object.
+
+498
+00:22:19,360 --> 00:22:22,280
+ Here, name is a character array with 100 elements
+
+499
+00:22:22,280 --> 00:22:24,360
+ and if you put 20 in, you'll be fine.
+
+500
+00:22:24,360 --> 00:22:25,840
+ If you put 80 in, you'll be fine.
+
+501
+00:22:25,840 --> 00:22:28,280
+ If you put 101 in, it's gonna blow up.
+
+502
+00:22:28,280 --> 00:22:31,040
+ Ah, well, that's okay.
+
+503
+00:22:31,040 --> 00:22:32,940
+ That's why C is fast.
+
+504
+00:22:32,940 --> 00:22:34,840
+ We'll get to all that, we'll get to all that.
+
+505
+00:22:34,840 --> 00:22:37,100
+ So we print out a prompt and we say scanf
+
+506
+00:22:37,100 --> 00:22:40,860
+ and we say, in this case, %s, give me a string,
+
+507
+00:22:40,860 --> 00:22:42,560
+ and you can put a limit on it.
+
+508
+00:22:42,560 --> 00:22:46,520
+ So we're saying, look, only read up to 100 characters.
+
+509
+00:22:46,520 --> 00:22:49,480
+ And you'll notice there is no ampersand on name
+
+510
+00:22:49,480 --> 00:22:52,220
+ and that is because name is an array.
+
+511
+00:22:52,220 --> 00:22:56,280
+ And so when you put name in with no square brackets,
+
+512
+00:22:56,280 --> 00:23:00,280
+ no index operator, then you're passing the address
+
+513
+00:23:00,280 --> 00:23:01,760
+ of the beginning of the array.
+
+514
+00:23:01,760 --> 00:23:05,400
+ And so that is, in a sense, an ampersand.
+
+515
+00:23:05,400 --> 00:23:07,040
+ That is the location of the beginning
+
+516
+00:23:07,040 --> 00:23:09,040
+ of a 100-character array.
+
+517
+00:23:09,040 --> 00:23:11,400
+ We're gonna scan up to 100 characters into it
+
+518
+00:23:11,400 --> 00:23:15,560
+ and so it really is roughly equivalent to the input.
+
+519
+00:23:15,560 --> 00:23:19,120
+ And then we just, again, say, hello, %s
+
+520
+00:23:19,120 --> 00:23:21,360
+ and then name is the corresponding thing.
+
+521
+00:23:21,360 --> 00:23:24,280
+ And so it says, hello, Sarah.
+
+522
+00:23:24,280 --> 00:23:26,440
+ Now a lot of what we did in the Python for everybody
+
+523
+00:23:26,440 --> 00:23:28,000
+ is read whole lines of input.
+
+524
+00:23:28,000 --> 00:23:30,800
+ And we tended to use string parsing of those lines,
+
+525
+00:23:30,800 --> 00:23:32,460
+ like we would trim the stuff off the end
+
+526
+00:23:32,460 --> 00:23:34,320
+ and then we'd split it and do all these things.
+
+527
+00:23:34,320 --> 00:23:36,580
+ And there's no good split in C.
+
+528
+00:23:36,580 --> 00:23:38,360
+ So we won't be doing too much of that,
+
+529
+00:23:38,360 --> 00:23:40,280
+ but it does help to understand
+
+530
+00:23:40,280 --> 00:23:41,960
+ how to read a whole line of input.
+
+531
+00:23:41,960 --> 00:23:44,080
+ So now we're gonna read something that doesn't have,
+
+532
+00:23:44,080 --> 00:23:46,320
+ it has lots of spaces, we're gonna read the whole line
+
+533
+00:23:46,320 --> 00:23:48,660
+ and we're just gonna echo the whole line, right?
+
+534
+00:23:48,660 --> 00:23:51,160
+ Enter line, read the line, print the line.
+
+535
+00:23:51,160 --> 00:23:53,040
+ So now we're gonna have, again,
+
+536
+00:23:53,040 --> 00:23:56,760
+ we have to declare how big of a string we're willing to take,
+
+537
+00:23:56,760 --> 00:24:01,240
+ char line with 1,000 characters in it.
+
+538
+00:24:01,240 --> 00:24:03,720
+ The prompt by now should be pretty easy
+
+539
+00:24:03,720 --> 00:24:06,240
+ and we have a really weird looking
+
+540
+00:24:06,240 --> 00:24:11,600
+ % square bracket, caret, backslash,
+
+541
+00:24:11,600 --> 00:24:15,520
+ and close square bracket, 1,000s.
+
+542
+00:24:15,520 --> 00:24:18,880
+ Well, if you took Python for everybody
+
+543
+00:24:18,880 --> 00:24:21,520
+ and you remember chapter 11, regular expressions,
+
+544
+00:24:21,520 --> 00:24:23,120
+ that should look familiar to you.
+
+545
+00:24:23,120 --> 00:24:27,200
+ Open bracket, caret, backslash, and close bracket
+
+546
+00:24:27,200 --> 00:24:30,600
+ says match any character that's not a new line.
+
+547
+00:24:30,600 --> 00:24:34,840
+ So that says scan up to the end of a line
+
+548
+00:24:34,840 --> 00:24:39,100
+ or until you hit 1,000 characters.
+
+549
+00:24:39,100 --> 00:24:44,100
+ Read a whole line, but stop at 1,000 characters.
+
+550
+00:24:44,120 --> 00:24:46,200
+ And then, of course, a line is just a parameter
+
+551
+00:24:46,200 --> 00:24:48,360
+ and then we print that thing out, okay?
+
+552
+00:24:48,360 --> 00:24:50,800
+ And so a lot of C programmers probably never written
+
+553
+00:24:50,800 --> 00:24:54,240
+ this particular line of code, but it gives you a sense
+
+554
+00:24:54,240 --> 00:24:57,680
+ that there's a lot of sort of programmability
+
+555
+00:24:57,680 --> 00:25:02,640
+ and things like regular expressions that Python had.
+
+556
+00:25:02,640 --> 00:25:04,540
+ Well, those are kind of an old concept.
+
+557
+00:25:04,540 --> 00:25:07,000
+ Those are seven 1970s concepts.
+
+558
+00:25:07,000 --> 00:25:12,000
+ This C language had that concept in it in 1970.
+
+559
+00:25:13,000 --> 00:25:16,540
+ There's another way that's a little safer to do this,
+
+560
+00:25:16,540 --> 00:25:18,200
+ and these are the exact same thing
+
+561
+00:25:18,200 --> 00:25:20,700
+ where this command fgit s.
+
+562
+00:25:20,700 --> 00:25:25,160
+ So fgit s says put it into up to 1,000 characters,
+
+563
+00:25:25,160 --> 00:25:27,560
+ looking for a new line, and reading
+
+564
+00:25:27,560 --> 00:25:28,880
+ from what's called standard input.
+
+565
+00:25:28,880 --> 00:25:31,560
+ So in C there are three basic files.
+
+566
+00:25:31,560 --> 00:25:32,880
+ One is the standard input,
+
+567
+00:25:32,880 --> 00:25:36,000
+ which usually is read up to EOF, standard output,
+
+568
+00:25:36,000 --> 00:25:37,160
+ which is where printf is going,
+
+569
+00:25:37,160 --> 00:25:39,480
+ and then there's a thing called standard error,
+
+570
+00:25:39,480 --> 00:25:41,400
+ which is where you send error messages
+
+571
+00:25:41,400 --> 00:25:43,120
+ that you don't just wanna go to the output.
+
+572
+00:25:43,120 --> 00:25:45,000
+ So the input and the output,
+
+573
+00:25:45,000 --> 00:25:49,160
+ like if you're gonna make a program to do uppercase,
+
+574
+00:25:49,160 --> 00:25:52,020
+ you would read your input, you would uppercase it,
+
+575
+00:25:52,020 --> 00:25:53,920
+ and then send it out.
+
+576
+00:25:53,920 --> 00:25:57,420
+ But if, for example, you encountered a character
+
+577
+00:25:57,420 --> 00:25:59,360
+ that you didn't wanna copy and you wanted to send an error,
+
+578
+00:25:59,360 --> 00:26:01,040
+ says I'm not gonna copy,
+
+579
+00:26:01,040 --> 00:26:02,480
+ you wouldn't just send it to standard output,
+
+580
+00:26:02,480 --> 00:26:04,160
+ you actually send it to standard error.
+
+581
+00:26:04,160 --> 00:26:07,680
+ When you're running just on a terminal,
+
+582
+00:26:07,680 --> 00:26:11,120
+ like in your command line, standard input is your keyboard,
+
+583
+00:26:11,120 --> 00:26:12,440
+ standard output is your screen,
+
+584
+00:26:12,440 --> 00:26:13,900
+ and standard error is your screen.
+
+585
+00:26:13,900 --> 00:26:15,640
+ So you can see both the error messages
+
+586
+00:26:15,640 --> 00:26:17,720
+ and the output of the program.
+
+587
+00:26:17,720 --> 00:26:18,960
+ But if you're running sort of
+
+588
+00:26:18,960 --> 00:26:20,760
+ with redirecting input and output,
+
+589
+00:26:20,760 --> 00:26:23,760
+ you do tend to still see the error message on your screen,
+
+590
+00:26:23,760 --> 00:26:27,440
+ and it doesn't end up hidden in some standard output.
+
+591
+00:26:27,440 --> 00:26:30,240
+ But in this case, we're using FGATS,
+
+592
+00:26:30,240 --> 00:26:33,320
+ which is part of the standard library,
+
+593
+00:26:33,320 --> 00:26:36,680
+ and we are saying read this from standard input.
+
+594
+00:26:36,680 --> 00:26:39,760
+ Now, you'll see in a second when we read a file,
+
+595
+00:26:39,760 --> 00:26:41,200
+ FGATS can read a file,
+
+596
+00:26:41,200 --> 00:26:43,800
+ and that third parameter is the file handle,
+
+597
+00:26:43,800 --> 00:26:47,120
+ but there are three predefined file handles in C programs,
+
+598
+00:26:47,120 --> 00:26:49,720
+ standard in, standard out, and standard error.
+
+599
+00:26:49,720 --> 00:26:52,360
+ They're all named STDIN, that's their name.
+
+600
+00:26:52,360 --> 00:26:57,360
+ They're predefined constants in the C standard,
+
+601
+00:26:57,360 --> 00:26:59,280
+ STDIO.H library.
+
+602
+00:26:59,280 --> 00:27:01,440
+ Okay, so now we're gonna read a file.
+
+603
+00:27:01,440 --> 00:27:03,500
+ We do this a lot in Python.
+
+604
+00:27:03,500 --> 00:27:05,340
+ We go get a file handle, it reads it.
+
+605
+00:27:05,340 --> 00:27:07,760
+ This might fail, of course, if the file doesn't exist,
+
+606
+00:27:07,760 --> 00:27:10,400
+ and we got a nice determinant loop.
+
+607
+00:27:10,400 --> 00:27:11,920
+ Remember, we're talking about independent loops
+
+608
+00:27:11,920 --> 00:27:15,200
+ and this for in, it's so Python-y, and it's so awesome,
+
+609
+00:27:15,200 --> 00:27:20,200
+ and it's like so expressive, I love it, I miss it, okay.
+
+610
+00:27:20,200 --> 00:27:24,640
+ And then line.strip, which takes the new line off,
+
+611
+00:27:24,640 --> 00:27:26,520
+ and so that's gonna read, you know,
+
+612
+00:27:26,520 --> 00:27:29,520
+ just reads a little file, writes it out.
+
+613
+00:27:29,520 --> 00:27:32,080
+ So we have to create a variable.
+
+614
+00:27:32,080 --> 00:27:33,720
+ We'll call it 1,000 characters.
+
+615
+00:27:33,720 --> 00:27:38,040
+ Now we are, and in Python, we could have any length
+
+616
+00:27:38,040 --> 00:27:40,280
+ of characters in our file, and it would work.
+
+617
+00:27:40,280 --> 00:27:43,480
+ But in C, now we're going to have to actually say
+
+618
+00:27:43,480 --> 00:27:45,360
+ we can only handle up to 1,000 characters,
+
+619
+00:27:45,360 --> 00:27:47,760
+ because we've declared the line that we're gonna use,
+
+620
+00:27:47,760 --> 00:27:50,940
+ the line variable we're gonna read this in has 1,000.
+
+621
+00:27:50,940 --> 00:27:53,960
+ There is a equivalent to the handle.
+
+622
+00:27:53,960 --> 00:27:58,540
+ File is a type, it's defined in STDIO.H, star hand,
+
+623
+00:27:58,540 --> 00:28:01,360
+ which means it's a pointer to a file object.
+
+624
+00:28:02,720 --> 00:28:06,880
+ And hand equals fopen, romeo.text, r,
+
+625
+00:28:06,880 --> 00:28:11,080
+ so that's two character arrays, romeo.txt and r.
+
+626
+00:28:11,080 --> 00:28:15,760
+ And actually, the open in Python is inspired
+
+627
+00:28:15,760 --> 00:28:20,760
+ by the fopen in C, and that's 'cause, again,
+
+628
+00:28:20,760 --> 00:28:24,400
+ when they were writing Python, they were writing it in C,
+
+629
+00:28:24,400 --> 00:28:25,920
+ why don't we take an open, and all they did
+
+630
+00:28:25,920 --> 00:28:29,260
+ was made the open in Python be a little easier.
+
+631
+00:28:30,880 --> 00:28:35,080
+ So we don't have any kind of a io for in,
+
+632
+00:28:35,080 --> 00:28:37,640
+ so we have to write our own while loop here.
+
+633
+00:28:37,640 --> 00:28:40,840
+ So we're gonna call fget s, line,
+
+634
+00:28:40,840 --> 00:28:42,320
+ give me up to 1,000 characters
+
+635
+00:28:42,320 --> 00:28:45,240
+ from the file handle named hand.
+
+636
+00:28:45,240 --> 00:28:49,120
+ And fget s returns null, which is a constant
+
+637
+00:28:49,120 --> 00:28:52,880
+ that's defined in STDIO.H, if it reaches end of file.
+
+638
+00:28:52,880 --> 00:28:55,440
+ So this basically is a loop that says
+
+639
+00:28:55,440 --> 00:28:57,360
+ read everything up till end of file.
+
+640
+00:28:57,360 --> 00:28:59,880
+ Very similar to this for line in hand.
+
+641
+00:28:59,880 --> 00:29:00,880
+ And then we're printing it.
+
+642
+00:29:00,880 --> 00:29:03,760
+ Now, I don't have to strip it because fget s
+
+643
+00:29:03,760 --> 00:29:08,440
+ actually takes the new line that is the end of each line.
+
+644
+00:29:08,440 --> 00:29:12,000
+ So in Python, you would get double spacing
+
+645
+00:29:12,000 --> 00:29:13,400
+ if you didn't strip the new line
+
+646
+00:29:13,400 --> 00:29:15,960
+ at the end of each one of these little things, right?
+
+647
+00:29:15,960 --> 00:29:19,560
+ Each line, whereas the fget s is nice enough
+
+648
+00:29:19,560 --> 00:29:21,880
+ not to give us the new line.
+
+649
+00:29:21,880 --> 00:29:22,800
+ So there we go.
+
+650
+00:29:22,800 --> 00:29:27,620
+ So a counted loop.
+
+651
+00:29:27,620 --> 00:29:30,560
+ Now, this honestly is not one of my favorite things
+
+652
+00:29:30,560 --> 00:29:33,560
+ in Python, but this range is a generator
+
+653
+00:29:33,560 --> 00:29:36,160
+ that's gonna generate the numbers zero through four.
+
+654
+00:29:36,160 --> 00:29:38,240
+ For i in range, this is effectively
+
+655
+00:29:38,240 --> 00:29:41,840
+ kind of a dynamically generated set.
+
+656
+00:29:41,840 --> 00:29:42,760
+ And then we're gonna print it.
+
+657
+00:29:42,760 --> 00:29:44,320
+ So we're gonna have zero, one, two, three, four.
+
+658
+00:29:44,320 --> 00:29:46,160
+ In C, we of course have to declare
+
+659
+00:29:46,160 --> 00:29:47,840
+ that i is gonna be an int.
+
+660
+00:29:47,840 --> 00:29:52,360
+ And the for loop has three pieces separated by semicolons.
+
+661
+00:29:52,360 --> 00:29:54,040
+ There's the initialization piece.
+
+662
+00:29:54,040 --> 00:29:57,900
+ Now, PHP and JavaScript are the exact same thing.
+
+663
+00:29:57,900 --> 00:29:59,040
+ So this looks familiar to you.
+
+664
+00:29:59,040 --> 00:30:00,680
+ That's because you took those classes.
+
+665
+00:30:00,680 --> 00:30:01,800
+ Congratulations.
+
+666
+00:30:01,800 --> 00:30:04,800
+ So for i equals zero is the initialization
+
+667
+00:30:04,800 --> 00:30:07,320
+ that says before the loop starts, set i to zero.
+
+668
+00:30:07,320 --> 00:30:09,740
+ Then there is the middle part is the test
+
+669
+00:30:09,740 --> 00:30:12,700
+ whether or not the loop should run or continue to run.
+
+670
+00:30:12,700 --> 00:30:14,160
+ It's a top tested loop.
+
+671
+00:30:14,160 --> 00:30:16,800
+ And so i less than five must be true
+
+672
+00:30:16,800 --> 00:30:18,520
+ or the loop won't run at all.
+
+673
+00:30:18,520 --> 00:30:20,040
+ But given that i is zero at the beginning,
+
+674
+00:30:20,040 --> 00:30:20,920
+ it's less than five.
+
+675
+00:30:20,920 --> 00:30:22,600
+ So it's gonna run at least once.
+
+676
+00:30:22,600 --> 00:30:24,640
+ And then each time through the loop at the bottom,
+
+677
+00:30:24,640 --> 00:30:27,040
+ after the loop is run, we're gonna add one to i
+
+678
+00:30:27,040 --> 00:30:30,320
+ with a i++, a post increment operator.
+
+679
+00:30:30,320 --> 00:30:34,960
+ And again, that line of code, PHP, JavaScript, Java,
+
+680
+00:30:34,960 --> 00:30:37,320
+ all look the same except PHP has dollar signs
+
+681
+00:30:37,320 --> 00:30:40,320
+ for variable prefixes, which bothers me,
+
+682
+00:30:40,320 --> 00:30:42,160
+ but it is what it is.
+
+683
+00:30:42,160 --> 00:30:45,840
+ And of course we have a block, curly brace,
+
+684
+00:30:45,840 --> 00:30:48,320
+ open curly brace and close curly brace denote the block.
+
+685
+00:30:48,320 --> 00:30:50,560
+ And then we simply print the variable out
+
+686
+00:30:50,560 --> 00:30:54,560
+ and both bits of code produce the exact same output.
+
+687
+00:30:54,560 --> 00:30:57,520
+ So if we get a little bit trickier,
+
+688
+00:30:57,520 --> 00:31:00,280
+ we're going to take an example
+
+689
+00:31:00,280 --> 00:31:01,880
+ from my Python for everybody class
+
+690
+00:31:01,880 --> 00:31:04,360
+ and look at the max and min.
+
+691
+00:31:04,360 --> 00:31:06,280
+ And because we need to prime the loop,
+
+692
+00:31:06,280 --> 00:31:08,120
+ we're going to set our max val to none
+
+693
+00:31:08,120 --> 00:31:09,400
+ and the min val to none.
+
+694
+00:31:09,400 --> 00:31:12,480
+ And we're gonna do a middle tested infinite loop.
+
+695
+00:31:12,480 --> 00:31:16,840
+ While true, we're gonna read the input line,
+
+696
+00:31:16,840 --> 00:31:19,480
+ each line like five, two, nine.
+
+697
+00:31:19,480 --> 00:31:21,480
+ We're gonna strip it just because.
+
+698
+00:31:21,480 --> 00:31:23,560
+ We're gonna check to see if it's the string done.
+
+699
+00:31:23,560 --> 00:31:26,160
+ If it is, we're gonna break out of the loop, right?
+
+700
+00:31:26,160 --> 00:31:29,400
+ And then we're gonna convert it to an integer
+
+701
+00:31:29,400 --> 00:31:32,000
+ and we're gonna check to see if max val is none
+
+702
+00:31:32,000 --> 00:31:35,160
+ or the value we read is greater than max val.
+
+703
+00:31:35,160 --> 00:31:36,800
+ We're gonna remember it.
+
+704
+00:31:36,800 --> 00:31:39,680
+ And if min val is none or the value we just read
+
+705
+00:31:39,680 --> 00:31:41,560
+ is less than min val, we're gonna remember it.
+
+706
+00:31:41,560 --> 00:31:44,800
+ And when the loop finally reads all the way through,
+
+707
+00:31:44,800 --> 00:31:47,480
+ we're gonna print out the maximum and the minimum.
+
+708
+00:31:47,480 --> 00:31:49,000
+ So this is pretty much the same code
+
+709
+00:31:49,000 --> 00:31:53,040
+ except we're using scanf with a %d format input format
+
+710
+00:31:53,040 --> 00:31:55,720
+ and scanning into the val integer variable
+
+711
+00:31:55,720 --> 00:31:59,120
+ and using ampersand to indicate that it's called by reference
+
+712
+00:31:59,120 --> 00:32:01,920
+ and to replace the current val.
+
+713
+00:32:01,920 --> 00:32:03,760
+ And then the rest of it's the same, right?
+
+714
+00:32:03,760 --> 00:32:08,040
+ If it's the first one or we've got a larger one, we keep it.
+
+715
+00:32:08,040 --> 00:32:09,680
+ If it's the first one or we got a smaller one,
+
+716
+00:32:09,680 --> 00:32:11,080
+ we keep that one as well.
+
+717
+00:32:11,080 --> 00:32:12,520
+ We loop through and it all goes.
+
+718
+00:32:12,520 --> 00:32:15,360
+ Now, one thing that if we're using scanf,
+
+719
+00:32:15,360 --> 00:32:19,160
+ as I mentioned before, scanf doesn't sort of stop
+
+720
+00:32:19,160 --> 00:32:20,240
+ at the end of lines.
+
+721
+00:32:20,240 --> 00:32:21,400
+ It keeps on going.
+
+722
+00:32:21,400 --> 00:32:25,280
+ And so if I have five, two, and nine,
+
+723
+00:32:25,280 --> 00:32:29,200
+ and again, we have to use Ctrl+D or EOF here to finish this,
+
+724
+00:32:29,200 --> 00:32:32,240
+ or we have two, five, space two, five, space nine,
+
+725
+00:32:32,240 --> 00:32:34,240
+ and then EOF, it does the same
+
+726
+00:32:34,240 --> 00:32:37,600
+ because scanf is just looking for an integer.
+
+727
+00:32:37,600 --> 00:32:39,480
+ It's really, it's algorithm.
+
+728
+00:32:39,480 --> 00:32:40,560
+ We'll see this in chapter eight,
+
+729
+00:32:40,560 --> 00:32:43,440
+ but the thing that it does, it's like get me an integer,
+
+730
+00:32:43,440 --> 00:32:45,920
+ which means throw away stuff that's not an integer.
+
+731
+00:32:45,920 --> 00:32:48,000
+ So away you go.
+
+732
+00:32:48,000 --> 00:32:52,320
+ So that's a slightly more sephonic version
+
+733
+00:32:52,320 --> 00:32:55,240
+ of this min-max using scanf.
+
+734
+00:32:55,240 --> 00:32:58,600
+ And it doesn't suffer from the problem of using get us
+
+735
+00:32:58,600 --> 00:33:03,160
+ and having to worry about the size of the arrays,
+
+736
+00:33:03,160 --> 00:33:05,200
+ that's character arrays.
+
+737
+00:33:05,200 --> 00:33:06,640
+ Here's a guessing game.
+
+738
+00:33:06,640 --> 00:33:08,280
+ That's one of my favorite applications.
+
+739
+00:33:08,280 --> 00:33:10,080
+ So we have an infinite loop,
+
+740
+00:33:10,080 --> 00:33:12,160
+ the ultimate non-determinant loop,
+
+741
+00:33:12,160 --> 00:33:14,520
+ a loop that you gotta examine to know
+
+742
+00:33:14,520 --> 00:33:16,240
+ that it's gonna finish.
+
+743
+00:33:16,240 --> 00:33:18,520
+ And in this particular one, we're just looping to EOF.
+
+744
+00:33:18,520 --> 00:33:20,320
+ You're using try and accept.
+
+745
+00:33:20,320 --> 00:33:21,160
+ Why?
+
+746
+00:33:21,160 --> 00:33:23,640
+ Because line doesn't give you any return indication
+
+747
+00:33:23,640 --> 00:33:24,720
+ that it's hit into file.
+
+748
+00:33:24,720 --> 00:33:26,840
+ So we just have to like have it blow up
+
+749
+00:33:26,840 --> 00:33:28,840
+ and then do an accept and then jump out.
+
+750
+00:33:28,840 --> 00:33:31,480
+ Oh, well.
+
+751
+00:33:31,480 --> 00:33:33,560
+ So we throw away the new line,
+
+752
+00:33:33,560 --> 00:33:36,200
+ and then we convert the line to an integer,
+
+753
+00:33:36,200 --> 00:33:40,120
+ and we say if guess is 42, nice work,
+
+754
+00:33:40,120 --> 00:33:41,840
+ and then break, which gets out of the loop.
+
+755
+00:33:41,840 --> 00:33:44,360
+ The break affects the loop, not the if.
+
+756
+00:33:44,360 --> 00:33:47,760
+ And then LF, guess less than 42, too low,
+
+757
+00:33:47,760 --> 00:33:49,520
+ else, print too high.
+
+758
+00:33:49,520 --> 00:33:52,120
+ So this is a classic multi-way if.
+
+759
+00:33:52,120 --> 00:33:52,960
+ We're gonna have an if,
+
+760
+00:33:52,960 --> 00:33:55,280
+ you can have kind of as many LFs as you want,
+
+761
+00:33:55,280 --> 00:33:57,600
+ dot, dot, dot, and then an else.
+
+762
+00:33:57,600 --> 00:34:00,000
+ When you do the same thing in C,
+
+763
+00:34:00,000 --> 00:34:01,480
+ we're gonna use the scan F pattern,
+
+764
+00:34:01,480 --> 00:34:03,840
+ waiting till we see EOF.
+
+765
+00:34:03,840 --> 00:34:07,200
+ If the guess is 42,
+
+766
+00:34:09,880 --> 00:34:12,040
+ we print nice work, and then break.
+
+767
+00:34:12,040 --> 00:34:14,240
+ Now we have to have curly braces here,
+
+768
+00:34:14,240 --> 00:34:17,320
+ because that is a two-statement block,
+
+769
+00:34:17,320 --> 00:34:19,280
+ and so if you're having more than one statement,
+
+770
+00:34:19,280 --> 00:34:21,780
+ you've gotta do curly braces.
+
+771
+00:34:21,780 --> 00:34:26,280
+ And then else, this else matches up with that if,
+
+772
+00:34:26,280 --> 00:34:28,720
+ else, if, guess less than 42, print F.
+
+773
+00:34:28,720 --> 00:34:32,440
+ Now, modern programmers would tend to put curly braces,
+
+774
+00:34:32,440 --> 00:34:34,320
+ even though this is only one line,
+
+775
+00:34:34,320 --> 00:34:38,360
+ but this print F is the statement connected to the if,
+
+776
+00:34:38,360 --> 00:34:39,880
+ and it does not need curly braces,
+
+777
+00:34:39,880 --> 00:34:43,160
+ 'cause what comes after an if is a statement
+
+778
+00:34:43,160 --> 00:34:46,000
+ or block of statements with curly braces.
+
+779
+00:34:46,000 --> 00:34:47,480
+ And the same is true of this else.
+
+780
+00:34:47,480 --> 00:34:49,200
+ The print F is the single statement,
+
+781
+00:34:49,200 --> 00:34:52,080
+ so you would not see curly braces here.
+
+782
+00:34:52,080 --> 00:34:55,160
+ And I would write this with curly braces,
+
+783
+00:34:55,160 --> 00:34:57,360
+ but because the authors of the book
+
+784
+00:34:57,360 --> 00:34:59,320
+ are really very succinct,
+
+785
+00:34:59,320 --> 00:35:01,260
+ they tend to not put curly braces in,
+
+786
+00:35:01,260 --> 00:35:03,160
+ so I'm calling your attention to that.
+
+787
+00:35:03,160 --> 00:35:08,280
+ Now, a really important thing to call your attention to
+
+788
+00:35:08,280 --> 00:35:13,040
+ is the difference between else, space, if, and elif.
+
+789
+00:35:13,040 --> 00:35:18,120
+ Now, the high level is what we're doing in C
+
+790
+00:35:18,120 --> 00:35:21,440
+ is not really a multi-way if.
+
+791
+00:35:21,440 --> 00:35:24,880
+ What we're doing in Python is truly a multi-way if.
+
+792
+00:35:24,880 --> 00:35:27,300
+ This if and elif and else
+
+793
+00:35:27,300 --> 00:35:29,460
+ are really part of the same block of code.
+
+794
+00:35:29,460 --> 00:35:34,680
+ But this else if is two keywords,
+
+795
+00:35:34,680 --> 00:35:38,480
+ and so if you look at the first if,
+
+796
+00:35:38,480 --> 00:35:40,880
+ the first if has one block of code,
+
+797
+00:35:40,880 --> 00:35:44,920
+ which is the print F, nice work, and the break.
+
+798
+00:35:44,920 --> 00:35:47,520
+ And then the else clause of the first if
+
+799
+00:35:47,520 --> 00:35:49,320
+ is this entire block of code here,
+
+800
+00:35:49,320 --> 00:35:52,400
+ which is if gets less than 42, print F, yada, yada,
+
+801
+00:35:52,400 --> 00:35:54,000
+ and then another else.
+
+802
+00:35:54,000 --> 00:35:55,440
+ And so this is a block.
+
+803
+00:35:55,440 --> 00:35:59,160
+ So this is a block if, and in the else clause,
+
+804
+00:35:59,160 --> 00:36:01,080
+ there is another block if.
+
+805
+00:36:01,080 --> 00:36:05,960
+ And so if you look at this, really, the indentation
+
+806
+00:36:05,960 --> 00:36:09,320
+ of this stuff ought to be in this,
+
+807
+00:36:09,320 --> 00:36:11,120
+ like the else if part and the else,
+
+808
+00:36:11,120 --> 00:36:13,240
+ that indentation should be further in.
+
+809
+00:36:13,240 --> 00:36:18,760
+ Now, by convention, we don't add that indentation,
+
+810
+00:36:18,760 --> 00:36:20,240
+ even though it's technically correct,
+
+811
+00:36:20,240 --> 00:36:23,120
+ because this is an else, and then there's one statement,
+
+812
+00:36:23,120 --> 00:36:25,760
+ and that statement is the if, okay?
+
+813
+00:36:25,760 --> 00:36:30,760
+ And so we use this idiomatically
+
+814
+00:36:30,760 --> 00:36:31,680
+ all the time.
+
+815
+00:36:31,680 --> 00:36:36,680
+ It looks like a multi-way if, else if, else, but it's not.
+
+816
+00:36:36,680 --> 00:36:42,240
+ It's actually a further and further deeply nested else if,
+
+817
+00:36:42,240 --> 00:36:44,240
+ an else with an if inside the else,
+
+818
+00:36:44,240 --> 00:36:46,540
+ and then another else with an if inside the else.
+
+819
+00:36:46,540 --> 00:36:48,040
+ We just don't indent it.
+
+820
+00:36:48,040 --> 00:36:52,280
+ We indent it, by convention, as if it were a multi-way if.
+
+821
+00:36:52,280 --> 00:36:57,680
+ You don't need to know this precisely
+
+822
+00:36:57,680 --> 00:37:02,680
+ when you are writing code, but I just wanna point that out
+
+823
+00:37:02,680 --> 00:37:06,160
+ in case, like in the back of your mind, you're like,
+
+824
+00:37:06,160 --> 00:37:09,760
+ why is Python called lf, which is one reserved word,
+
+825
+00:37:09,760 --> 00:37:14,400
+ and why does C not have an lf, but instead has an else if?
+
+826
+00:37:14,400 --> 00:37:16,880
+ I think when the Guido invented Python,
+
+827
+00:37:16,880 --> 00:37:19,680
+ he said, look, that's a cool convention.
+
+828
+00:37:19,680 --> 00:37:22,240
+ Let's make it actually part of the language,
+
+829
+00:37:22,240 --> 00:37:25,520
+ rather than an idiomatic use of the language.
+
+830
+00:37:25,520 --> 00:37:27,320
+ Okay, enough of that, enough of that.
+
+831
+00:37:27,920 --> 00:37:30,080
+ Okay, calling by value functions.
+
+832
+00:37:30,080 --> 00:37:32,240
+ This is pretty easy, right?
+
+833
+00:37:32,240 --> 00:37:34,280
+ There's no def keyword.
+
+834
+00:37:34,280 --> 00:37:36,480
+ You have the return value, the name of the function,
+
+835
+00:37:36,480 --> 00:37:38,540
+ and the parameters, and then, of course,
+
+836
+00:37:38,540 --> 00:37:39,640
+ before the curly braces,
+
+837
+00:37:39,640 --> 00:37:41,640
+ you have to have the type of the parameters.
+
+838
+00:37:41,640 --> 00:37:43,820
+ Those are not the type of the variables in the function.
+
+839
+00:37:43,820 --> 00:37:45,480
+ Those are the type of the parameters.
+
+840
+00:37:45,480 --> 00:37:48,200
+ In Python, you don't need to tell it what type they are.
+
+841
+00:37:48,200 --> 00:37:51,600
+ Python is kind of a flexible, typeless language.
+
+842
+00:37:51,600 --> 00:37:54,100
+ The type of a variable goes right along with it.
+
+843
+00:37:54,100 --> 00:37:56,340
+ Any, you could be inside MyMult and say,
+
+844
+00:37:56,340 --> 00:37:58,320
+ what kind of a thing is A?
+
+845
+00:37:58,320 --> 00:38:00,600
+ And then A could be an integer, it could be a float,
+
+846
+00:38:00,600 --> 00:38:03,020
+ it could be whatever, it could be a string, right?
+
+847
+00:38:03,020 --> 00:38:06,040
+ Because that's an object, and an object can have a type,
+
+848
+00:38:06,040 --> 00:38:11,040
+ whereas A is just a number, and you have to tell it in C,
+
+849
+00:38:11,040 --> 00:38:13,680
+ that number that's coming in, it is an integer.
+
+850
+00:38:13,680 --> 00:38:18,120
+ And if someone miscalls it in C, like put 6.0 here,
+
+851
+00:38:18,120 --> 00:38:20,680
+ it just blows up, doesn't work right.
+
+852
+00:38:20,680 --> 00:38:24,320
+ I mean, it might do something, it's just unexpected, right?
+
+853
+00:38:24,320 --> 00:38:26,080
+ So there's no cleverness.
+
+854
+00:38:26,080 --> 00:38:28,300
+ Now there might be some checking,
+
+855
+00:38:28,300 --> 00:38:29,960
+ you might get a compiler warning that says,
+
+856
+00:38:29,960 --> 00:38:33,640
+ how come it's an integer here, and it's a floating point here?
+
+857
+00:38:33,640 --> 00:38:36,200
+ That will be dangerous, but it won't fix it for you,
+
+858
+00:38:36,200 --> 00:38:38,260
+ and it doesn't automatically convert it.
+
+859
+00:38:38,260 --> 00:38:40,080
+ Whereas if you did this in Python,
+
+860
+00:38:40,080 --> 00:38:41,580
+ it would automatically convert.
+
+861
+00:38:41,580 --> 00:38:44,280
+ So you have a far greater responsibility
+
+862
+00:38:44,280 --> 00:38:47,680
+ to match your types up in C.
+
+863
+00:38:47,680 --> 00:38:53,160
+ Things like return statement, pretty much functions the same.
+
+864
+00:38:53,160 --> 00:38:55,200
+ That was, you know, the Python return statement
+
+865
+00:38:55,200 --> 00:38:57,160
+ is an imitation of the C return statement.
+
+866
+00:38:57,160 --> 00:38:59,620
+ You do have to declare your variable types
+
+867
+00:38:59,620 --> 00:39:02,020
+ that aren't going to be used temporary inside the function.
+
+868
+00:39:02,020 --> 00:39:06,160
+ Scope-wise, right, this C is not outside,
+
+869
+00:39:06,160 --> 00:39:09,160
+ and we will see later when we get to the functions chapter
+
+870
+00:39:09,160 --> 00:39:12,240
+ about external values and static values, et cetera.
+
+871
+00:39:12,240 --> 00:39:14,520
+ But the default scoping is that any variable
+
+872
+00:39:14,520 --> 00:39:16,540
+ that you declare inside of a function
+
+873
+00:39:16,540 --> 00:39:18,080
+ only lives inside the function.
+
+874
+00:39:18,080 --> 00:39:21,360
+ There is no A, B, or C in the main code,
+
+875
+00:39:21,360 --> 00:39:25,600
+ and that's the same as how Python works.
+
+876
+00:39:25,600 --> 00:39:29,960
+ Whew, that's a lot of Rosetta stone.
+
+877
+00:39:29,960 --> 00:39:32,040
+ We talked about input-output, we talked about looping,
+
+878
+00:39:32,040 --> 00:39:33,240
+ we talked about reading a file,
+
+879
+00:39:33,240 --> 00:39:34,320
+ we've talked about strings,
+
+880
+00:39:34,320 --> 00:39:36,400
+ which are really character arrays.
+
+881
+00:39:36,400 --> 00:39:38,560
+ We've talked about float.
+
+882
+00:39:38,560 --> 00:39:41,360
+ And later, later, later, later, later,
+
+883
+00:39:41,360 --> 00:39:42,640
+ we're gonna learn a lot.
+
+884
+00:39:42,640 --> 00:39:45,680
+ Chapters five and six are the crazy chapters,
+
+885
+00:39:45,680 --> 00:39:48,880
+ but we're going to play with how would we implement
+
+886
+00:39:48,880 --> 00:39:51,600
+ some of the things that Python strings,
+
+887
+00:39:51,600 --> 00:39:53,720
+ lists, and dictionaries handle.
+
+888
+00:39:53,720 --> 00:39:55,980
+ And before this course is over,
+
+889
+00:39:55,980 --> 00:40:00,080
+ we're going to come back and get inside the mind
+
+890
+00:40:00,080 --> 00:40:04,880
+ of what it would take to build Python using the C language.
+
+891
+00:40:04,880 --> 00:40:09,880
+ So we'll see how alloc, structures, pointers, et cetera,
+
+892
+00:40:09,880 --> 00:40:15,560
+ character arrays can be used to build string object,
+
+893
+00:40:15,560 --> 00:40:17,320
+ list object, and dict object.
+
+894
+00:40:17,320 --> 00:40:19,800
+ And that, to me, is the learning objective of this course,
+
+895
+00:40:19,800 --> 00:40:24,800
+ is not so much how to code C because it's your job,
+
+896
+00:40:24,800 --> 00:40:29,240
+ but what in C is necessary to make a higher level language
+
+897
+00:40:29,240 --> 00:40:34,000
+ like Python or JavaScript or Java or C# work.
+
+898
+00:40:34,000 --> 00:40:36,120
+ And we'll get to that before the end of the course.
+
+899
+00:40:36,120 --> 00:40:41,120
+ It is a long course, and again, this was a long lecture.
+
+900
+00:40:41,120 --> 00:40:46,580
+ This takes some time to absorb.
+
+901
+00:40:46,580 --> 00:40:49,860
+ And just zooming through this,
+
+902
+00:40:49,860 --> 00:40:53,960
+ you achieve nothing if you just do the homework
+
+903
+00:40:53,960 --> 00:40:56,920
+ without understanding it, so take your time.
+
+904
+00:40:56,920 --> 00:40:58,560
+ I put the lines in this lecture,
+
+905
+00:40:58,560 --> 00:41:02,400
+ the lines of code are there very much on purpose.
+
+906
+00:41:02,400 --> 00:41:05,320
+ Every single one is trying to teach something.
+
+907
+00:41:05,320 --> 00:41:09,260
+ So I hope you'll take the time to learn all this material.
+
+908
+00:41:09,260 --> 00:41:10,100
+ Cheers.
+
+909
+00:41:10,100 --> 00:41:12,680
+ (gentle music)
+
+910
+00:41:16,580 --> 00:41:19,160
+ (gentle music)
+

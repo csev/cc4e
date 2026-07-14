@@ -1,0 +1,888 @@
+1
+00:00:00,000 --> 00:00:05,000
+ So now we're going to build a Python Dictionary class.
+
+2
+00:00:05,000 --> 00:00:08,640
+ And here is the code that we would put in our dictionary.
+
+3
+00:00:08,640 --> 00:00:12,760
+ I kept the strings really short because of all the,
+
+4
+00:00:12,760 --> 00:00:16,080
+ I want the examples to be pretty short and easy.
+
+5
+00:00:16,080 --> 00:00:16,920
+ So what do we do?
+
+6
+00:00:16,920 --> 00:00:20,020
+ We create a dictionary and we use the, you know,
+
+7
+00:00:20,020 --> 00:00:22,960
+ bracket square bracket operator to create a key.
+
+8
+00:00:22,960 --> 00:00:24,620
+ It's a key value pair.
+
+9
+00:00:24,620 --> 00:00:28,200
+ The key Z match it goes to catch phrase, we print it out.
+
+10
+00:00:28,200 --> 00:00:30,960
+ The dictionary Z goes to W,
+
+11
+00:00:30,960 --> 00:00:33,360
+ which is replacing catchphrase with W.
+
+12
+00:00:33,360 --> 00:00:35,640
+ 'Cause if you overwrite the same key,
+
+13
+00:00:35,640 --> 00:00:39,600
+ you have to put the same, you have to replace the value.
+
+14
+00:00:39,600 --> 00:00:41,400
+ And then we're going to throw three more things.
+
+15
+00:00:41,400 --> 00:00:46,400
+ Y maps to B, C maps to capital C, and A maps to D.
+
+16
+00:00:46,400 --> 00:00:49,360
+ That's just so that it's not sorted too badly.
+
+17
+00:00:49,360 --> 00:00:50,960
+ And then I print it out.
+
+18
+00:00:50,960 --> 00:00:54,680
+ And then I print the length of it.
+
+19
+00:00:54,680 --> 00:00:58,040
+ I do a get and with a default value of 404.
+
+20
+00:00:58,040 --> 00:01:00,000
+ So sometimes I get that for Z,
+
+21
+00:01:00,000 --> 00:01:02,520
+ I get the W and then for X is not there.
+
+22
+00:01:02,520 --> 00:01:03,820
+ So I get the 404.
+
+23
+00:01:03,820 --> 00:01:08,480
+ Again, kind of an homage to the HTTP error code 404 not found.
+
+24
+00:01:08,480 --> 00:01:10,280
+ And then I use it right over a little for loop
+
+25
+00:01:10,280 --> 00:01:12,640
+ for key and dict, et cetera.
+
+26
+00:01:12,640 --> 00:01:14,440
+ I can print the key value pairs out.
+
+27
+00:01:14,440 --> 00:01:17,000
+ We'll do the same thing in C.
+
+28
+00:01:17,000 --> 00:01:21,280
+ And again, this is almost a perfect transformation, literally.
+
+29
+00:01:21,280 --> 00:01:24,280
+ We first create the dictionary with calling a new,
+
+30
+00:01:24,280 --> 00:01:28,560
+ then we put the word catchphrase in the Z key,
+
+31
+00:01:28,560 --> 00:01:31,080
+ then we print it, then we put a W in the Z key,
+
+32
+00:01:31,080 --> 00:01:33,180
+ which should override it, and we print that.
+
+33
+00:01:33,180 --> 00:01:37,280
+ And then we set the Y key to be B, the C to be capital C,
+
+34
+00:01:37,280 --> 00:01:40,200
+ the A to be capital D, and then we print that.
+
+35
+00:01:40,200 --> 00:01:42,240
+ And then we ask, how long is it?
+
+36
+00:01:42,240 --> 00:01:44,760
+ And then we do a get to look up under the Z key
+
+37
+00:01:44,760 --> 00:01:46,200
+ and the X key, one of which is there,
+
+38
+00:01:46,200 --> 00:01:47,240
+ one of which is not there.
+
+39
+00:01:47,240 --> 00:01:48,920
+ And I get a null back in that situation.
+
+40
+00:01:48,920 --> 00:01:52,200
+ I guess I was a little C like in my get code.
+
+41
+00:01:52,200 --> 00:01:57,120
+ And then I dump it out and I do a struct denode loop
+
+42
+00:01:57,120 --> 00:02:00,200
+ go from the head until it's null and I print out the key
+
+43
+00:02:00,200 --> 00:02:03,520
+ and the value from each of those dictionary nodes.
+
+44
+00:02:03,520 --> 00:02:05,540
+ And then I delete it at the end.
+
+45
+00:02:05,540 --> 00:02:08,020
+ So this is the code.
+
+46
+00:02:08,020 --> 00:02:12,000
+ Now again, notice we don't know much about looking things up.
+
+47
+00:02:12,000 --> 00:02:13,960
+ We don't know how the length is maintained.
+
+48
+00:02:13,960 --> 00:02:16,280
+ We don't know how the static and dynamic allocation
+
+49
+00:02:16,280 --> 00:02:17,500
+ is going to happen.
+
+50
+00:02:17,500 --> 00:02:20,760
+ We now have a contract with a bunch of library code
+
+51
+00:02:20,760 --> 00:02:23,360
+ that is going to implement this dictionary object for us
+
+52
+00:02:23,360 --> 00:02:27,240
+ and do all of them memory manipulation on our behalf.
+
+53
+00:02:27,240 --> 00:02:29,740
+ Again, we start with the basic stuff.
+
+54
+00:02:29,740 --> 00:02:30,880
+ The big thing we're going to do
+
+55
+00:02:30,880 --> 00:02:32,760
+ is we're going to not just have a value.
+
+56
+00:02:32,760 --> 00:02:34,160
+ It looks a lot like a linked list.
+
+57
+00:02:34,160 --> 00:02:35,500
+ We're going to have a key value pair.
+
+58
+00:02:35,500 --> 00:02:37,960
+ The py dict has a head and a tail and a count,
+
+59
+00:02:37,960 --> 00:02:39,680
+ just like the py list.
+
+60
+00:02:39,680 --> 00:02:42,500
+ And if you look at the constructor,
+
+61
+00:02:42,500 --> 00:02:45,400
+ it's pretty much like the constructor for the list.
+
+62
+00:02:45,400 --> 00:02:50,120
+ We allocate the dict py dict structure
+
+63
+00:02:50,120 --> 00:02:52,480
+ and we set the head and tail to null to indicate empty.
+
+64
+00:02:52,480 --> 00:02:54,360
+ And we set the count to zero and we're done.
+
+65
+00:02:54,360 --> 00:02:55,560
+ And the same with the del.
+
+66
+00:02:55,560 --> 00:02:59,560
+ The del is very much like the linked list del.
+
+67
+00:02:59,560 --> 00:03:01,440
+ Because we've allocated the key, the key
+
+68
+00:03:01,440 --> 00:03:03,640
+ is also going to be a dynamically allocated
+
+69
+00:03:03,640 --> 00:03:05,360
+ pointer to a character array.
+
+70
+00:03:05,360 --> 00:03:07,880
+ So we got a free curr key along with curr value.
+
+71
+00:03:07,880 --> 00:03:09,640
+ But then everything else is the same.
+
+72
+00:03:09,640 --> 00:03:13,520
+ We preload the next value, then we free curr,
+
+73
+00:03:13,520 --> 00:03:15,080
+ then we move to the next value.
+
+74
+00:03:15,080 --> 00:03:16,640
+ And then when it's all said and done,
+
+75
+00:03:16,640 --> 00:03:19,800
+ we free self, which is the py dict value.
+
+76
+00:03:19,800 --> 00:03:22,440
+ When it's all said and done, we can call the new
+
+77
+00:03:22,440 --> 00:03:26,200
+ and then we can set a key, like catchphrase.
+
+78
+00:03:26,200 --> 00:03:29,680
+ And the key thing there is the key and value
+
+79
+00:03:29,680 --> 00:03:33,760
+ are both malloced bits of memory.
+
+80
+00:03:33,760 --> 00:03:36,680
+ Just like before we had the text,
+
+81
+00:03:36,680 --> 00:03:38,880
+ which was a malloced bit of memory and copied
+
+82
+00:03:38,880 --> 00:03:40,240
+ and we had to free it.
+
+83
+00:03:40,240 --> 00:03:41,880
+ But now we just have two things.
+
+84
+00:03:41,880 --> 00:03:44,120
+ And so the key and the value are two things
+
+85
+00:03:44,120 --> 00:03:46,320
+ that are going to be malloced and then copied
+
+86
+00:03:46,320 --> 00:03:47,520
+ into the malloced area.
+
+87
+00:03:47,520 --> 00:03:49,120
+ So some methods for you to build.
+
+88
+00:03:49,120 --> 00:03:51,560
+ The lens should be pretty easy.
+
+89
+00:03:51,560 --> 00:03:53,760
+ Similarly, we have a print that's going to be pretty
+
+90
+00:03:53,760 --> 00:03:58,520
+ and I want you to match exactly the output of the Python.
+
+91
+00:03:58,520 --> 00:04:02,800
+ And so it turns out that we can make a method called find,
+
+92
+00:04:02,800 --> 00:04:07,200
+ which returns a denode rather than get returns a string
+
+93
+00:04:07,200 --> 00:04:09,400
+ and find returns a denode.
+
+94
+00:04:09,400 --> 00:04:14,400
+ And then we can use find both in get and in put.
+
+95
+00:04:14,400 --> 00:04:17,600
+ Now we use it pretty much in get to go find it
+
+96
+00:04:17,600 --> 00:04:21,680
+ and then return the value because we have the key.
+
+97
+00:04:21,680 --> 00:04:24,240
+ We look up find it by key and then return the value.
+
+98
+00:04:24,240 --> 00:04:27,760
+ So that's pretty easy to do the get once you have find.
+
+99
+00:04:27,760 --> 00:04:30,120
+ So the find is a for loop where you're going to go
+
+100
+00:04:30,120 --> 00:04:31,240
+ and you're going to find it.
+
+101
+00:04:31,240 --> 00:04:33,680
+ And if you find it, you're going to send it back.
+
+102
+00:04:33,680 --> 00:04:36,080
+ And if you're not, you're going to send a null back.
+
+103
+00:04:36,080 --> 00:04:38,520
+ Now you better check if it's null, right?
+
+104
+00:04:38,520 --> 00:04:42,760
+ Including in the get, you've got to check if it's null.
+
+105
+00:04:42,760 --> 00:04:44,440
+ But then in the put, what you do is
+
+106
+00:04:44,440 --> 00:04:47,880
+ you look up the old one with pydict_find.
+
+107
+00:04:47,880 --> 00:04:51,040
+ And if you get one, if old is not equal to null,
+
+108
+00:04:51,040 --> 00:04:55,320
+ then you're updating the key, updating the value for the key.
+
+109
+00:04:55,320 --> 00:04:56,760
+ And if not, you're adding it.
+
+110
+00:04:56,760 --> 00:04:59,200
+ Now the thing about the else clause here
+
+111
+00:04:59,200 --> 00:05:01,640
+ is it looks a lot like a linked list.
+
+112
+00:05:01,640 --> 00:05:04,120
+ Because really if you look at this thing,
+
+113
+00:05:04,120 --> 00:05:06,640
+ it is a linked list.
+
+114
+00:05:06,640 --> 00:05:08,440
+ It's just there's two values in each one.
+
+115
+00:05:08,440 --> 00:05:09,800
+ We're not doing anything magical.
+
+116
+00:05:09,800 --> 00:05:12,240
+ Now more advanced dictionary implementations
+
+117
+00:05:12,240 --> 00:05:15,240
+ might use hash maps or binary trees or other things
+
+118
+00:05:15,240 --> 00:05:17,720
+ like that, like that we're in chapter six that we
+
+119
+00:05:17,720 --> 00:05:19,160
+ didn't talk too much about.
+
+120
+00:05:19,160 --> 00:05:21,240
+ But for now, we're just going to make our dictionary
+
+121
+00:05:21,240 --> 00:05:22,800
+ be a linked list.
+
+122
+00:05:22,800 --> 00:05:25,040
+ But instead of just a value, it's a key and a value.
+
+123
+00:05:25,040 --> 00:05:26,880
+ So we can look it up by key.
+
+124
+00:05:26,880 --> 00:05:29,080
+ And so we're not doing too much tricky stuff
+
+125
+00:05:29,080 --> 00:05:34,560
+ to make our dictionary really by just adding a bit to a list.
+
+126
+00:05:34,560 --> 00:05:37,240
+ So let's just take a look at how this
+
+127
+00:05:37,240 --> 00:05:42,520
+ is going to work in sort of the real world as it runs.
+
+128
+00:05:42,520 --> 00:05:44,720
+ So remember, we have kind of the dictionary
+
+129
+00:05:44,720 --> 00:05:47,480
+ itself, which is a head and a tail and a count.
+
+130
+00:05:47,480 --> 00:05:49,120
+ And then we have the dictionary nodes,
+
+131
+00:05:49,120 --> 00:05:51,320
+ which is our key and value.
+
+132
+00:05:51,320 --> 00:05:53,420
+ And the next one, now the key and the value
+
+133
+00:05:53,420 --> 00:05:54,760
+ are not the actual strings.
+
+134
+00:05:54,760 --> 00:05:55,840
+ They're just pointers to strings,
+
+135
+00:05:55,840 --> 00:05:57,640
+ which means we're going to have to use malloc.
+
+136
+00:05:57,640 --> 00:05:59,400
+ When we get a key and we get a value,
+
+137
+00:05:59,400 --> 00:06:04,400
+ we're going to have to malloc and copy both of those things.
+
+138
+00:06:04,400 --> 00:06:07,520
+ So if we start and we see pydict_new,
+
+139
+00:06:07,520 --> 00:06:10,840
+ we're going to get a dictionary with head and tail
+
+140
+00:06:10,840 --> 00:06:12,880
+ that point to null.
+
+141
+00:06:12,880 --> 00:06:18,120
+ And then if we add catchphrase, well, we allocate the z.
+
+142
+00:06:18,120 --> 00:06:21,320
+ We allocate and copy the key z.
+
+143
+00:06:21,320 --> 00:06:25,600
+ And we allocate and copy the value and put those in key.
+
+144
+00:06:25,600 --> 00:06:29,000
+ And then next is null and head and tail point to this thing.
+
+145
+00:06:29,000 --> 00:06:30,480
+ So we've allocated three things.
+
+146
+00:06:30,480 --> 00:06:33,040
+ We've allocated a denode.
+
+147
+00:06:33,040 --> 00:06:38,680
+ And we've allocated two character arrays using malloc.
+
+148
+00:06:38,680 --> 00:06:42,640
+ So then let's say we're going to run the next line of code,
+
+149
+00:06:42,640 --> 00:06:46,800
+ which is setting the key z to w.
+
+150
+00:06:46,800 --> 00:06:51,640
+ Now when you're in the put code, you go and you call find.
+
+151
+00:06:51,640 --> 00:06:53,480
+ And you see that there is a thing.
+
+152
+00:06:53,480 --> 00:06:55,280
+ There is already a z in there.
+
+153
+00:06:55,280 --> 00:06:57,040
+ So what you've got to do is you've
+
+154
+00:06:57,040 --> 00:06:59,260
+ got to replace catchphrase.
+
+155
+00:06:59,260 --> 00:07:05,800
+ So you actually, before you go and make a new value,
+
+156
+00:07:05,800 --> 00:07:07,680
+ you then copy w into it.
+
+157
+00:07:07,680 --> 00:07:09,440
+ You want to free the old stuff.
+
+158
+00:07:09,440 --> 00:07:14,280
+ And so you tend to free the value that was in there before.
+
+159
+00:07:14,280 --> 00:07:17,600
+ And then you malloc and copy in for the new value.
+
+160
+00:07:17,600 --> 00:07:19,480
+ So if you're done, at the end of this,
+
+161
+00:07:19,480 --> 00:07:22,400
+ you will have catchphrase somewhere in magic free space.
+
+162
+00:07:22,400 --> 00:07:26,400
+ We don't know how C does magic free space, but it does do it.
+
+163
+00:07:26,400 --> 00:07:29,080
+ So at the end of the second put, you
+
+164
+00:07:29,080 --> 00:07:31,320
+ still have one entry, but the value
+
+165
+00:07:31,320 --> 00:07:33,680
+ has been changed from pointing at catchphrase
+
+166
+00:07:33,680 --> 00:07:35,680
+ to pointing at w.
+
+167
+00:07:35,680 --> 00:07:37,640
+ Then we add y equals b.
+
+168
+00:07:37,640 --> 00:07:40,340
+ Well, you do a find and there is no y key.
+
+169
+00:07:40,340 --> 00:07:42,240
+ So now it's more like a linked list.
+
+170
+00:07:42,240 --> 00:07:46,280
+ You create a new D node and you append it to the end,
+
+171
+00:07:46,280 --> 00:07:47,880
+ just like in a linked list.
+
+172
+00:07:47,880 --> 00:07:50,740
+ And then you save the key and point key at it.
+
+173
+00:07:50,740 --> 00:07:53,240
+ And then you save the value into new malloc space
+
+174
+00:07:53,240 --> 00:07:54,760
+ and then point value at that.
+
+175
+00:07:54,760 --> 00:07:58,280
+ And then we go to the next one, where we point C,
+
+176
+00:07:58,280 --> 00:08:00,280
+ that we don't find C in there.
+
+177
+00:08:00,280 --> 00:08:03,320
+ So we create a new D node.
+
+178
+00:08:03,320 --> 00:08:07,240
+ And then we do a malloc of the key and a malloc of the value.
+
+179
+00:08:07,240 --> 00:08:09,440
+ And we point to those and then copy the data
+
+180
+00:08:09,440 --> 00:08:11,360
+ into those two malloced areas.
+
+181
+00:08:11,360 --> 00:08:14,180
+ And then point key and value at those malloced areas.
+
+182
+00:08:14,180 --> 00:08:16,720
+ And you can kind of see that this is really, at this point,
+
+183
+00:08:16,720 --> 00:08:20,380
+ unless we find the key in there already,
+
+184
+00:08:20,380 --> 00:08:22,220
+ it's just a linked list that happens
+
+185
+00:08:22,220 --> 00:08:25,480
+ to have two character arrays that are dynamically
+
+186
+00:08:25,480 --> 00:08:28,520
+ allocated and copied, one for key, one for value.
+
+187
+00:08:28,520 --> 00:08:30,520
+ That was a bunch of object orientation.
+
+188
+00:08:30,520 --> 00:08:32,800
+ It was kind of a walk down the path
+
+189
+00:08:32,800 --> 00:08:35,120
+ that Guido van Rossum took probably
+
+190
+00:08:35,120 --> 00:08:37,800
+ in the first few weeks of him building the string
+
+191
+00:08:37,800 --> 00:08:39,560
+ class, list class, and dictionary class.
+
+192
+00:08:39,560 --> 00:08:43,440
+ Chances are good, he built something very, very similar.
+
+193
+00:08:43,440 --> 00:08:45,680
+ And then he's like, OK, now I've got to make this better.
+
+194
+00:08:45,680 --> 00:08:47,720
+ But if I was just writing this thing,
+
+195
+00:08:47,720 --> 00:08:49,480
+ he'd probably just type this out.
+
+196
+00:08:49,480 --> 00:08:51,760
+ It's kind of pretty for computer scientists
+
+197
+00:08:51,760 --> 00:08:54,960
+ who've been doing algorithm data structures their whole lives.
+
+198
+00:08:54,960 --> 00:08:57,640
+ It's like, well, why don't I just make a class that does this?
+
+199
+00:08:57,640 --> 00:09:01,320
+ Now that I've got sort of an object oriented universe,
+
+200
+00:09:01,320 --> 00:09:04,080
+ let me hide all of the dynamic memory.
+
+201
+00:09:04,080 --> 00:09:05,800
+ And that's really what we're doing.
+
+202
+00:09:05,800 --> 00:09:08,760
+ We're hiding the dynamic memory and the implementation details
+
+203
+00:09:08,760 --> 00:09:12,400
+ and all the for loops and while loops are being hidden.
+
+204
+00:09:12,400 --> 00:09:13,200
+ They're important.
+
+205
+00:09:13,200 --> 00:09:15,200
+ And if you were to look at the source code
+
+206
+00:09:15,200 --> 00:09:17,800
+ to str, list, and dict in Python,
+
+207
+00:09:17,800 --> 00:09:19,880
+ you'd see they're allocating and reallocating.
+
+208
+00:09:19,880 --> 00:09:22,800
+ They're doing it a lot more cleverly than what we did.
+
+209
+00:09:22,800 --> 00:09:24,880
+ You don't want to call realloc too many times,
+
+210
+00:09:24,880 --> 00:09:26,920
+ but for now it works.
+
+211
+00:09:26,920 --> 00:09:29,000
+ We're doing small stuff.
+
+212
+00:09:29,000 --> 00:09:31,280
+ There is an infinite number.
+
+213
+00:09:31,280 --> 00:09:34,640
+ There's an infinite array of optimizations
+
+214
+00:09:34,640 --> 00:09:38,360
+ to make all of this way faster and more impressive.
+
+215
+00:09:38,360 --> 00:09:44,160
+ But that's really for another time.
+
+216
+00:09:44,160 --> 00:09:49,960
+ So we've kind of got the idea of the baby steps
+
+217
+00:09:49,960 --> 00:09:53,680
+ from a procedural language with pointers, structures,
+
+218
+00:09:53,680 --> 00:09:55,800
+ and dynamic memory allocation.
+
+219
+00:09:55,800 --> 00:09:58,960
+ How you would take the step using those underlying things
+
+220
+00:09:58,960 --> 00:10:03,120
+ in a procedural language to build basic objects
+
+221
+00:10:03,120 --> 00:10:05,840
+ and support those objects, perhaps as you're building
+
+222
+00:10:05,840 --> 00:10:08,240
+ a new language like Python.
+

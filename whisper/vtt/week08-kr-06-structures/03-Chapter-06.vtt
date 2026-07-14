@@ -1,0 +1,1280 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:16.000
+ Welcome to C Programming for Everybody. My name is Charles Severance and this is my reading of the 1978 C Programming book written by Brian Kernigan and Dennis Ritchie. At times I add my own interpretation of the material from a historical perspective.
+
+00:00:16.000 --> 00:00:26.000
+ Chapter 6, Structures. A structure is a collection of one or more variables, possibly of different types, grouped together under a single name for convenient handling.
+
+00:00:26.000 --> 00:00:38.000
+ While we talk about data structures and how to use them in every language, this section is about understanding how software developers carefully control the low level shape of their data items to solve their problems.
+
+00:00:38.000 --> 00:00:57.000
+ When you first learn about the C struct keyword, you might think it's equivalent to a Python dict. A dynamic key value store like a PHP array, Java, MyApp, or JavaScript object, but nothing is further from the truth. These other languages provide us with easy to use data structures where all of the challenging problems are solved.
+
+00:00:57.000 --> 00:01:12.000
+ This chapter tells, or told, the creators of Python, PHP, Java, and JavaScript how to solve the complex problems and build convenient and flexible data structures which we now all use in those object oriented languages.
+
+00:01:12.000 --> 00:01:36.000
+ One way to look at this code in the chapter is to think of it as a lesson on how one might build Python's list and dict data structures. If the code in the chapter takes you a little while to figure out, mentally make a note of thanks for all the hard work that modern languages invest to make their high level data structures flexible and easy to use.
+
+00:01:36.000 --> 00:01:48.000
+ Back to the textbook. Their traditional example of a structure is a payroll record. An employee is described as a set of attributes such as name, address, social security number, salary, etc.
+
+00:01:48.000 --> 00:02:07.000
+ Some of these in turn could be structures, a name has several components as does an address and even a salary. Structures help organize complicated data, particularly in large programs, because in many situations they permit a group of related variables to be treated as a unit instead of separate entities.
+
+00:02:07.000 --> 00:02:16.000
+ In this chapter, we'll try to illustrate how structures are used. The programs that we will use are bigger than many others in the book, but are still of modest size.
+
+00:02:16.000 --> 00:02:28.000
+ Section 6.1 basics. Let us revisit the date conversion routines of Chapter 5. A date consists of several parts such as the day, month, and year, and perhaps the day of the year and the month name.
+
+00:02:28.000 --> 00:02:52.000
+ These five variables can all be placed in a single structure like this. Struct, date, open curly brace, int day semicolon, int month semicolon, int year semicolon, int year day semicolon, char, mon name, open square bracket for, close square bracket semicolon, curly brace, semicolon.
+
+00:02:52.000 --> 00:03:04.000
+ The keyword struct introduces a structure declaration, which is a list of declarations in closed embraces. An optional name called the structure tag may follow the word struct as with date here.
+
+00:03:04.000 --> 00:03:26.000
+ The tag names this kind of a structure and can subsequently be used as shorthand for the detailed declaration. The elements or variables mentioned in a structure are called its members. A structure, member, or tag and ordinary, i.e. non-member variable, can have the same name without conflict, since they are always distinguished by context.
+
+00:03:26.000 --> 00:03:33.000
+ Of course, as a matter of style, one would normally use the same names only for closely related objects.
+
+00:03:33.000 --> 00:03:40.000
+ The right brace that terminates the list of members may be followed by a list of variables, just as for any basic type.
+
+00:03:40.000 --> 00:04:03.000
+ That is, struct, open curly brace, dot dot dot, close curly brace, x comma y comma z semicolon, is syntactically analogous to int, x comma y comma z semicolon, in the sense that each statement declares x, y, and z to be variables of the named type and causes space to be allocated for them.
+
+00:04:03.000 --> 00:04:12.000
+ A structured declaration that is not followed by a list of variables allocates no storage. It merely describes a template or the shape of the structure.
+
+00:04:12.000 --> 00:04:18.000
+ If the declaration is tagged, however, the tag can be used in later definitions of the actual instances of the structure.
+
+00:04:18.000 --> 00:04:36.000
+ For example, given the declaration of date above, struct, date, d defines a variable d which is a structure of type date. An external or static structure can be initialized by following its definition with a list of initializers for the components.
+
+00:04:36.000 --> 00:04:51.000
+ Struct, date, d equals open curly brace, 14 comma 7 comma 1776 comma 186 comma double quote jul double quote close curly brace semicolon.
+
+00:04:51.000 --> 00:05:00.000
+ A member of a particular structure is referred to in an expression by construction of the form structure name dot member.
+
+00:05:00.000 --> 00:05:24.000
+ The structure member operator dot connects the structure name and the member name. To set leap from the date in structure d, for example, leap equals d dot year modulo 4 double equals 0 and d dot year modulo 100 not equal to 0 or d dot year modulo 400 double equals 0 semicolon.
+
+00:05:24.000 --> 00:05:39.000
+ Or to check the month name, if open paren strcmp open paren d dot mun name comma double quote auj double quote close paren double equals 0 close paren dot dot dot.
+
+00:05:39.000 --> 00:05:53.000
+ Or to convert the first character of the month name to lowercase, d dot mun name sub 0 equals lower open paren d dot mun name sub 0 close paren semicolon.
+
+00:05:53.000 --> 00:06:12.000
+ Structures may be nested. A payroll record might actually look like struct person open curly brace char name open square bracket name size close square bracket semicolon, char address open square bracket adder size close square bracket semicolon, long zip code semicolon,
+
+00:06:12.000 --> 00:06:25.000
+ long ss number semicolon, double salary, struct date birthdate semicolon, struct date higher date semicolon, close curly brace semicolon.
+
+00:06:25.000 --> 00:06:39.000
+ The person structure contains two dates. If we declare emp as struct person emp semicolon, then emp dot birthdate dot month refers to the month of birth.
+
+00:06:39.000 --> 00:06:45.000
+ The structure member operator dot associates left to right.
+
+00:06:45.000 --> 00:06:48.000
+ Section 6.2 Structures and Functions.
+
+00:06:48.000 --> 00:06:59.000
+ There are a number of restrictions on C structures. The essential rules are that only operations you can perform on a structure are to take its address with ampersand and access one of its members.
+
+00:06:59.000 --> 00:07:08.000
+ This implies that structures may not be assigned or copied to as a unit and that they cannot be passed or returned from functions.
+
+00:07:08.000 --> 00:07:11.000
+ These restrictions will be removed in forthcoming versions.
+
+00:07:11.000 --> 00:07:17.000
+ Bonus to structures do not suffer these limitations, however, so structures and functions do work together comfortably.
+
+00:07:17.000 --> 00:07:22.000
+ Finally, automatic structures like automatic arrays cannot be initialized.
+
+00:07:22.000 --> 00:07:25.000
+ Only external or static structures can.
+
+00:07:25.000 --> 00:07:31.000
+ This prediction was indeed accurate. Modern C compilers do support the copying of a structure with a single assignment statement.
+
+00:07:31.000 --> 00:07:37.000
+ Given that a C structure is just a fixed length block of memory, it's easy to generate machine code to copy it.
+
+00:07:37.000 --> 00:07:43.000
+ A key bit to remember that when the C structure is copied, it is done as a shallow copy.
+
+00:07:43.000 --> 00:07:51.000
+ A shallow copy copies the values of the variables and the pointers in the structure, but does not make copies of any data which the pointers point to.
+
+00:07:51.000 --> 00:07:59.000
+ A structure that contains other structures, i.e. not pointers to structures, then those structures are shallow copied as well.
+
+00:07:59.000 --> 00:08:01.000
+ Back to the text.
+
+00:08:01.000 --> 00:08:07.000
+ Let us investigate some of these points by rewriting the date conversion functions in the last chapter to use structures.
+
+00:08:07.000 --> 00:08:16.000
+ Since the rules prohibit passing of a structure to a function directly, we must either pass the components separately or pass a pointer to the whole thing.
+
+00:08:16.000 --> 00:08:32.000
+ The first alternative uses of day of year, which as we wrote in chapter 5. D.YearDay = DayOfYear(D.Year,D.Month,D.Day,Semicolon)
+
+00:08:32.000 --> 00:08:34.000
+ The other way is to pass a pointer.
+
+00:08:34.000 --> 00:08:48.000
+ If we have declared higherDate as struct Date higherDate Semicolon and rewritten DayOfYear, we could then say higherDate.YearDay = DayOfYear(&higherDate,Semicolon)
+
+00:08:48.000 --> 00:08:57.000
+ to pass a pointer to higherDate to DayOfYear. The function has to be modified because its argument is now a pointer rather than a list of variables.
+
+00:08:57.000 --> 00:09:07.000
+ This example code is on page 122 of the textbook and you can see it at www.cc4e.com/code
+
+00:09:07.000 --> 00:09:27.000
+ Struct Date open curly brace int day Semicolon int month Semicolon int year Semicolon int year day Semicolon int mon name open square bracket 4 close square bracket Semicolon close curly brace Semicolon
+
+00:09:27.000 --> 00:09:55.500
+ Static int day tab, open square bracket 2, close square bracket, open square bracket 13, close square bracket equals open curly brace, open curly brace, 0, 31, 28, 31, 30, 31, 30, 31, 31, 31, 31, close curly brace, comma, and then another list just as long as that, with a close curly brace and a semicolon.
+
+00:09:55.500 --> 00:10:00.560
+ That just initialized the lookup table for the days in each month.
+
+00:10:00.560 --> 00:10:21.400
+ Now on to the function. Day of year, open paren, pd, close paren, struct, date, star, pd, semicolon, open curly brace, int i, day, leap, semicolon, day equals pd minus greater than day, semicolon,
+
+00:10:21.400 --> 00:10:43.640
+ leap equals pd minus greater than year, percent 4, double equals 0, and pd minus greater than year, percent 100, not equal to 0, or pd minus greater than year, percent 400, double equals 0, semicolon.
+
+00:10:43.640 --> 00:11:04.140
+ For open paren, i equals 1, semicolon, i less than pd minus greater than month, semicolon, i plus plus, close paren, day plus equals day tab, open square bracket leap, close square bracket, open square bracket i, close square bracket, semicolon.
+
+00:11:04.140 --> 00:11:11.040
+ Return open paren, day, close paren, semicolon, close curly brace.
+
+00:11:11.040 --> 00:11:25.040
+ The declaration, struct, date, star, pd says that pd is a pointer to a structure of type date, the notion exemplified by pd minus greater than year.
+
+00:11:25.040 --> 00:11:35.040
+ I think I'll call that, at this point, pd right arrow, because that's really what it is. It's the minus greater than looks like an arrow to the right, so I'm going to call it right arrow, but it's really two characters.
+
+00:11:35.040 --> 00:11:51.040
+ pd right arrow year is new. If p is a pointer to a structure, then pd right arrow member of structure refers to the particular member. The operator right arrow is a minus sign, followed by a greater than.
+
+00:11:51.040 --> 00:12:08.040
+ Since pd points to the structure, the year member could also be referenced as open paren, star, pd, close paren, dot, year. But pointers to structures are so frequently used that the right arrow notation is provided both as a convenient shorthand.
+
+00:12:08.040 --> 00:12:21.040
+ The parentheses are necessary in open paren, star, pd, close paren, dot, year, because the precedence of the structure member operator dot is higher than the pointer lookup operator asterisk.
+
+00:12:21.040 --> 00:12:44.040
+ Both right arrow and dot associate from left to right, so p, right arrow, q, right arrow, mem, and emp, dot, birthdate, dot, month, are open paren, p, right arrow, q, close paren, right arrow, mem, and open paren, emp, dot, birthdate, close paren, dot, month.
+
+00:12:44.040 --> 00:12:59.040
+ For completeness, here is the other function, monthday, rewritten to use the structure. This is the first example on page 123 of the text, which you can look at the source code at www.cc4e.com/code.
+
+00:12:59.040 --> 00:13:09.040
+ I won't read the struct and the date, the struct date definition in the struct int, static int daytab definition. We'll just go monthday.
+
+00:13:09.040 --> 00:13:21.040
+ Monthday, open paren, pd, close paren, struct date, star, pd, semicolon, open curly brace, int, i, comma, leap, semicolon.
+
+00:13:21.040 --> 00:13:36.040
+ Leap equals pd, right arrow, year, percent four, double equals zero, and pd, right arrow, year, percent 100, not equal to zero, or pd, right arrow, year, percent 400, double equals zero, semicolon.
+
+00:13:36.040 --> 00:13:41.040
+ pd, right arrow, day, equals pd, right arrow, year, day.
+
+00:13:41.040 --> 00:14:07.040
+ For, open paren, i equals one, semicolon, pd, right arrow, day, greater than, daytab, sub leap, sub i, semicolon, i plus plus, close paren, pd, right arrow, day, minus equals, daytab, sub leap, sub i, semicolon, pd, right arrow, month, equals i, semicolon, close curly brace.
+
+00:14:07.040 --> 00:14:20.040
+ The structure operators, right arrow and dot, together with parentheses for argument lists and square brackets for subscripts, are the top of the precedence hierarchy and thus bind very tightly.
+
+00:14:20.040 --> 00:14:45.040
+ For example, given the declaration, struct, open curly brace, int, x, int, star, y, semicolon, close curly brace, star, p, semicolon, then plus plus p, right arrow, x, increments x, not p, because the implied parenthesization is plus plus, open paren, p, right arrow, x, close paren.
+
+00:14:45.040 --> 00:15:01.040
+ Parentheses can be used after the binding, open paren, plus plus p, right arrow, x, increments p before accessing x, and open paren, p plus plus, close paren, right arrow, x, increments p afterward.
+
+00:15:01.040 --> 00:15:04.040
+ The last set of parentheses is unnecessary.
+
+00:15:04.040 --> 00:15:21.040
+ In the same way, star, p, right arrow, y, fetches whatever y points to, star, p, right arrow, y, plus plus, increments y after accessing whatever it points to, just like star, s, plus plus.
+
+00:15:21.040 --> 00:15:38.040
+ Open paren, star, p, right arrow, y, close paren, plus plus, increments whatever y points to, and star, p, plus plus, right arrow, y, increments p after accessing whatever y points to.
+
+00:15:38.040 --> 00:15:52.040
+ Section 6.3, arrays of structures. Structures are especially suitable for managing arrays of related variables. For instance, consider a program to count the occurrences of each C keyword.
+
+00:15:52.040 --> 00:16:14.040
+ We need an array of character strings to hold the names, and an array of integers to hold the counts. One possibility is to use two parallel arrays, keyword and key count, as in char star keyword, open square bracket n keys, close square bracket semicolon, int key count, open square bracket n keys, close square bracket semicolon.
+
+00:16:14.040 --> 00:16:29.040
+ But the very fact that the arrays are parallel indicates a different organization is possible. Each keyword entry is really a pair, char star keyword semicolon, int key count semicolon, and there's an array of the pairs.
+
+00:16:29.040 --> 00:16:48.040
+ The structure declaration, struct key, open curly brace, char star keyword semicolon, int key count semicolon, close curly brace, key tab, open square bracket n keys, close square bracket semicolon, defines an array key tab of structures of this type and allocates storage to them.
+
+00:16:48.040 --> 00:17:10.040
+ Each element of the array is a structure. This could also be written, struct key, open curly brace, char star keyword semicolon, int key count semicolon, close curly brace semicolon, struct key, key tab, open square bracket n keys, close square bracket semicolon.
+
+00:17:10.040 --> 00:17:25.040
+ Since the structure key tab actually contains a constant set of names, it's easiest to initialize it once and for all when it's defined. The structural initialization is quite analogous to the earlier ones. The definition is followed by a list of initializers and closed embraces.
+
+00:17:25.040 --> 00:17:48.040
+ Struct key, open curly brace, char star keyword semicolon, int key count semicolon, close curly brace, key tab, open square bracket, close square bracket, equals open curly brace, double quote break comma zero comma, double quote case comma zero comma, double quote char comma zero comma,
+
+00:17:48.040 --> 00:18:01.040
+ and so forth down to double quote unsigned, double quote comma zero comma, double quote while, double quote comma zero, close curly brace semicolon.
+
+00:18:01.040 --> 00:18:27.040
+ These initializers are listed in pairs corresponding to the structure members. It would be more precise to enclose initializers for each row or structure in the braces, as in open curly brace, double quote break, double quote comma zero, close curly brace comma, open curly brace, double quote case, double quote comma zero, close curly brace comma, and so forth.
+
+00:18:27.040 --> 00:18:44.040
+ Open braces are not necessarily when the initializers are simple variables or character strings and when all are present. As usual, the compiler will compute the number of entries in the array key tab if the initializers are present and the open square bracket, closed square bracket is left empty.
+
+00:18:44.040 --> 00:19:01.040
+ The open counting program begins with a definition of key tab. The main routine reads the input repeatedly by calling a function get word that fetches input one word at a time. Each word is looked up in key tab with a version of the binary search function we wrote in chapter 3.
+
+00:19:01.040 --> 00:19:07.040
+ Of course, the list of keywords has to be given in increasing order for this to work.
+
+00:19:07.040 --> 00:19:19.040
+ Here's the first example on page 125 of the textbook. You can see this at www.cc4e.com/code.
+
+00:19:19.040 --> 00:19:42.040
+ #include sddio.h, #define maxword 20, #define letter quote a quote, main open paren close paren, open curly brace, int n comma t semicolon, char word open square bracket maxword close square bracket semicolon.
+
+00:19:42.040 --> 00:19:52.040
+ While open paren open paren t equals get word open paren word comma maxword close paren close paren not equal eof close paren.
+
+00:19:52.040 --> 00:20:13.040
+ If open paren t double equal letter close paren if double open paren open paren n equals binary open paren word comma key tab comma n keys close paren close paren greater than or equal to zero close paren key tab sub n dot key count plus plus.
+
+00:20:13.040 --> 00:20:40.040
+ For open paren n equals zero semicolon n less than n keys semicolon n plus plus if open paren key tab sub n dot key count greater than zero close paren print f double quote percent 4d space percent s backslash n double quote comma key tab sub n dot key count comma key tab sub n dot key word
+
+00:20:40.040 --> 00:20:46.040
+ close paren semicolon and then a close curly brace to finish main.
+
+00:20:46.040 --> 00:21:14.040
+ Binary to find the word in the table binary open paren word comma tab comma n close paren char star word semicolon struct key tab open square bracket close square bracket semicolon int n open curly brace int low comma high comma mid comma cond low equals zero semicolon high equals n minus one semicolon.
+
+00:21:14.040 --> 00:21:28.040
+ While open paren low less than or equal to high close paren open curly brace mid equals paren low plus high close paren over two semicolon.
+
+00:21:28.040 --> 00:21:45.040
+ If open paren open paren cond equals stir comp open paren word comma tab comma open square bracket mid close square bracket dot keyword close paren close paren less than zero close paren high equals mid minus one semicolon.
+
+00:21:45.040 --> 00:22:04.040
+ Else if open paren cond greater than zero close paren low equals mid plus one semicolon else return open paren mid close paren semicolon close curly brace to finish the while and then return open paren minus one close paren semicolon close curly brace.
+
+00:22:04.040 --> 00:22:22.040
+ Okay so that's really a rewrite of the binary function from the earlier part where we were just taking the keyword and the count and looking up in the array but then using the dot keyword to find the actual keyword.
+
+00:22:22.040 --> 00:22:33.040
+ Back to the text. We'll show function get word in a moment. For now it suffices to say it returns letter each time it finds a word and copies the word into its first argument.
+
+00:22:33.040 --> 00:22:43.040
+ Quantity n keys is the number of keywords and key tab. Although we could count this by hand it's a lot easier and safer to do it by machine, especially if the list is subject to change.
+
+00:22:43.040 --> 00:22:52.040
+ One possibility would be to terminate the list of initializers with a null pointer and then the loop along key tab just runs until the end is found.
+
+00:22:52.040 --> 00:23:04.040
+ But this is more than is needed since the size of the array is completely determined at compile time. The number of entries is just the size of key tab divided by the size of the struct key.
+
+00:23:04.040 --> 00:23:13.040
+ C provides a compile time up unary operator called size of which can be used to compute the size of any object.
+
+00:23:13.040 --> 00:23:28.040
+ The expression size of open paren object close paren yields an integer equal to the size of the specified object. The size is given in unspecified units called bytes which are the same size as a char close paren.
+
+00:23:28.040 --> 00:23:37.040
+ The object can be an actual variable or an array or structure or the name of a basic type like int or double or the name of a derived type like a structure.
+
+00:23:37.040 --> 00:23:49.040
+ In our case the number of keywords is the array size divided by the size of one array element and this computation is used in a pound define statement to set the value of n keys.
+
+00:23:49.040 --> 00:24:02.040
+ Pound define n keys open paren size of open paren key tab close paren divided by size of open paren struct key close paren close paren.
+
+00:24:02.040 --> 00:24:11.040
+ Now for the function get_word. We have actually written a more general get_word than is necessary for this program but it is not really much more complicated.
+
+00:24:11.040 --> 00:24:20.040
+ get_word returns the next word from the input where a word is either a string of letters or digits beginning with a letter or a single character.
+
+00:24:20.040 --> 00:24:34.040
+ The type of the object that is the returned function as a function value. It is the letter if the token is a word, euf or end of file or the character itself if it's non-alphabetic.
+
+00:24:34.040 --> 00:24:43.040
+ This sample code is on page 127 of the textbook which you can see at www.cc4e.com/code.
+
+00:24:43.040 --> 00:25:04.040
+ Pound define letter quote a quote pound define digit quote zero quote. get_word open paren w comma lim close paren char star w colon semicolon int lim semicolon open curly brace int c comma t semicolon.
+
+00:25:04.040 --> 00:25:23.040
+ if open paren type open paren c equals star w plus plus equals get_ch open paren close paren close paren not equal letter close paren open curly brace star w equals quote backslash zero quote semicolon.
+
+00:25:23.040 --> 00:25:34.040
+ return open paren c close paren semicolon close curly brace. That if statement has got some stuff going on in it. You might want to look at it very closely.
+
+00:25:34.040 --> 00:25:51.040
+ While open paren minus minus lim greater than zero close paren open curly brace t equals type open paren c equals star w plus plus equals get_ch open paren close paren close paren semicolon.
+
+00:25:51.040 --> 00:26:14.040
+ If open paren t not equal letter and t not equal digit close paren open curly brace un get_ch open paren c close paren semicolon break semicolon close curly brace star open paren w minus one close paren equals quote backslash zero quote semicolon.
+
+00:26:14.040 --> 00:26:21.040
+ return open paren letter close paren semicolon close curly brace close curly brace.
+
+00:26:21.040 --> 00:26:31.040
+ That example code has a lot of stuff about pointers and incrementing pointers and dereferencing pointers etc. So take a good look at that code.
+
+00:26:31.040 --> 00:26:33.040
+ Back to the text.
+
+00:26:33.040 --> 00:26:48.040
+ Get_word uses the routines get_ch and un_get_ch which we wrote in Chapter 4. When the collection of an alphabetic token stops, get_word has gone one character too far. That call to un_get_ch pushes that character back on the input for the next call.
+
+00:26:48.040 --> 00:27:07.040
+ Get_word calls another function called type to determine the type of each individual character for input. Here is a version that's only for ASCII. This code is the second example on page 127 of the textbook at www.cc4e.com/code.
+
+00:27:07.040 --> 00:27:34.040
+ Type open paren c close paren int c semicolon open curly brace. If open paren c greater than or equal to quote a quote and c less than or equal to quote z quote or c greater than or equal to quote uppercase a quote and c less than or equal to quote uppercase z quote close paren, return letter semicolon.
+
+00:27:34.040 --> 00:27:50.040
+ Else if open paren c greater than or equal to quote zero quote and c less than or equal to quote nine quote close paren, return open paren digit close paren semicolon. Else return open paren c close paren semicolon.
+
+00:27:50.040 --> 00:27:53.040
+ Close curly brace.
+
+00:27:53.040 --> 00:28:05.040
+ The symbolic constants letter and digits can have any values that do not conflict with non non alphanumeric values and EOF. The obvious choices are quote a quote and quote zero quote.
+
+00:28:05.040 --> 00:28:18.040
+ Get_word can be faster if calls to the function type are replaced by references to the appropriate array type. The standard C library provides macros like is_alpha and is_digit which operate in this manner.
+
+00:28:18.040 --> 00:28:34.040
+ Section 6.4, Pointers to Structures. To illustrate some of the considerations involved with pointers and arrays of structures, let us write a keyword counting program again, this time using pointers instead of array indices.
+
+00:28:34.040 --> 00:28:46.040
+ As an aside, I would note that it's a classic early assignment in any programming language to do a word frequency program. Here is a Python program from my Python for Everybody course to count words from an input stream.
+
+00:28:46.040 --> 00:28:56.040
+ Handle equals open open parentheses single quote Romeo dot txt single quote comma quote are quote close parentheses.
+
+00:28:56.040 --> 00:29:06.040
+ Words equals handle dot read open paren close paren dot split open paren close paren counts equals dict open paren close paren.
+
+00:29:06.040 --> 00:29:20.040
+ For word in words colon counts sub word equals counts dot get open paren word comma zero close paren plus one print open paren counts close paren.
+
+00:29:20.040 --> 00:29:25.040
+ This section in this book implements a less general word counting program in C.
+
+00:29:25.040 --> 00:29:37.040
+ The code depends on several functions from earlier in the book and the code below is pretty complex where the programmer only has access to low level language without powerful and easy to use data types like Python's list or dict.
+
+00:29:37.040 --> 00:30:03.040
+ It is likely that Ido Van Rossum read this book, took a long look at this code and designed the dict data structure in Python so the rest of us can write a data parsing and word frequency programming program in the above six lines of code without worrying about dynamic memory allocation, pointer management, string length, and a myriad of other details that must be solved when you're solving this program in C.
+
+00:30:03.040 --> 00:30:11.040
+ Since Python is open source, you can actually look at the C code that implements the dict object in a file called dict object dot C.
+
+00:30:11.040 --> 00:30:16.040
+ It is almost 6,000 lines of code and includes other files or utility code.
+
+00:30:16.040 --> 00:30:20.040
+ There, thankfully, we only have to write one line of Python to use it.
+
+00:30:20.040 --> 00:30:23.040
+ Counts equals dict open paren close paren.
+
+00:30:23.040 --> 00:30:28.040
+ We will leave the complex bits to the C programmers that build and maintain.
+
+00:30:28.040 --> 00:30:33.040
+ This section is not showing us how to use the Python dict object.
+
+00:30:33.040 --> 00:30:39.040
+ Rather, it is showing how one would build a dict-like structure using C.
+
+00:30:39.040 --> 00:30:44.040
+ So, continuing with section 6.4, pointers to structures.
+
+00:30:44.040 --> 00:30:50.040
+ The external definition of key tab do not need to change, but main and binary do need modification.
+
+00:30:50.040 --> 00:31:03.040
+ This is an example on page 129 of the textbook, and that is available at www.cc4e.com/code.
+
+00:31:03.040 --> 00:31:06.040
+ Pointer version of counting C keywords.
+
+00:31:06.040 --> 00:31:09.040
+ Main, open paren, close paren, open curly brace.
+
+00:31:09.040 --> 00:31:11.040
+ Int, T, semicolon.
+
+00:31:11.040 --> 00:31:16.040
+ Char, word, open square bracket, max word, close square bracket, semicolon.
+
+00:31:16.040 --> 00:31:22.040
+ Struct key, star, binary, open paren, close paren, comma, star p, semicolon.
+
+00:31:22.040 --> 00:31:33.040
+ While, open paren, open paren, T equals get word, open paren, word, comma, max word, close paren, close paren, not equal EOF, close paren.
+
+00:31:33.040 --> 00:31:37.040
+ If, open paren, T equal equal letter, close paren.
+
+00:31:37.040 --> 00:31:47.040
+ If, open paren, open paren, B equals binary, open paren, word, comma, key tab, comma, N keys, close paren, close paren, not equal null, close paren.
+
+00:31:47.040 --> 00:31:51.040
+ P, right arrow, key count, plus plus.
+
+00:31:51.040 --> 00:31:59.040
+ For P equals key tab, P less than key tab plus N keys, semicolon, P plus plus, close parenthesis.
+
+00:31:59.040 --> 00:32:19.040
+ If, open paren, P right arrow, key count, greater than zero, close paren, printf, open paren, double quote, percent 4D, space, percent S, backslash N, double quote, comma, P right arrow, key count, comma, P right arrow, keyword.
+
+00:32:19.040 --> 00:32:25.040
+ And now we look at the binary search.
+
+00:32:25.040 --> 00:32:43.040
+ Struct key star binary, open paren, word, comma, tab, comma, N, close paren, char star word, struct key tab, open square bracket, close square bracket, semicolon, int N, open curly brace, int cond, semicolon.
+
+00:32:43.040 --> 00:32:59.040
+ Struct key star low equals ampersand tab sub zero, semicolon, struct key star high equals ampersand tab sub N minus one, semicolon, struct key equals mid.
+
+00:32:59.040 --> 00:33:13.040
+ While, open paren, low less than or equal to high, close paren, open curly brace, mid equals low plus high minus low divided by two.
+
+00:33:13.040 --> 00:33:34.040
+ Open paren, cond, equals strcmp, word, comma, mid, right arrow, keyword, close paren, close paren, less than zero, close paren, high equals mid minus one, semicolon. Else, if, close paren, cond, greater than zero, close paren, low equals mid plus one, semicolon.
+
+00:33:34.040 --> 00:33:47.040
+ Else, return, open paren, mid, close paren, semicolon, close curly brace to finish the while, and then return, open paren, null, close paren, close curly brace.
+
+00:33:47.040 --> 00:33:50.040
+ There are several things worthy of note here.
+
+00:33:50.040 --> 00:33:58.040
+ First, the declaration of binary must indicate that it returns a pointer to the structure type key instead of an integer.
+
+00:33:58.040 --> 00:34:06.040
+ This is declared both in main and in binary. If binary finds the word, it returns a pointer to it. If it fails, it returns null.
+
+00:34:06.040 --> 00:34:16.040
+ Second, all the accessing elements of key dab is done by pointers. This causes one very significant change in binary.
+
+00:34:16.040 --> 00:34:33.040
+ The computation of the middle element can no longer be simply mid equals paren, low plus high, close paren, divided by two, because the addition of two pointers will not produce any kind of useful answer, even when divided by two, and is in fact illegal.
+
+00:34:33.040 --> 00:34:47.040
+ This must be changed to mid equals low plus open paren, high minus low, close paren, divided by two, which sets mid to the point to the element halfway between low and high.
+
+00:34:47.040 --> 00:35:00.040
+ You should also study the initializers for low and high. It is possible to initialize a pointer to the address of a previously defined object, and that is precisely what we have done here.
+
+00:35:00.040 --> 00:35:11.040
+ In main, we wrote for open paren p equals key dab semicolon, p less than key dab plus n keys semicolon, p plus plus close paren.
+
+00:35:11.040 --> 00:35:24.040
+ If p is a pointer to a structure, any arithmetic on p takes into account the actual size of the structure, so p plus plus increments p by the correct amount to get to the next element in the array of structures.
+
+00:35:24.040 --> 00:35:35.040
+ But don't assume that the size of a structure is the sum of the sizes of its members, because alignment requirements for different objects potentially may cause holes in the structure.
+
+00:35:35.040 --> 00:35:54.040
+ Finally, an aside on program format. When a function returns a complicated type, as in struct key star binary open paren word comma tab comma n close paren, the function name can kind of be hard to see and/or find with a text editor.
+
+00:35:54.040 --> 00:36:05.040
+ Another style is sometimes used. On two lines now, struct key star on the first line and binary open paren word comma tab comma n close paren.
+
+00:36:05.040 --> 00:36:11.040
+ The spacing is mostly a matter of personal taste. Pick the form you like and hold to it.
+
+00:36:11.040 --> 00:36:25.040
+ Section 6.5, self-referential structures. Before we start this section, a slightly longer aside from your narrator. Up to now, I've resisted the temptation to augment the book with my own bits of code.
+
+00:36:25.040 --> 00:36:37.040
+ But we have reached the single point in the book where I feel that there is too big of a conceptual leap between two sections, so I'm going to add some of my own narrative between sections 6.4 and 6.5.
+
+00:36:37.040 --> 00:36:51.040
+ The rest of this chapter talks very nicely about binary trees and hash tables, both essential low level data structures in computer science and both excellent ways to understand pointers and how C can be used to build data structures like the Python dictionary.
+
+00:36:51.040 --> 00:37:09.040
+ However, the author skipped separately describing the structure of a dynamically constructed linked list, which is the first and foundational collection data structure in computer science and should be understood before moving to tree and hash map structures.
+
+00:37:09.040 --> 00:37:27.040
+ Linked lists form the foundation of the Python list object, Java array object, PHP numeric key arrays, and JavaScript arrays. The linked list can be dynamically extended and items can be added in the middle efficiently as well as being pushed or popped on or off the front or back of the list.
+
+00:37:27.040 --> 00:37:33.040
+ Linked lists are used also to implement queues as well as other aspects of operating system.
+
+00:37:33.040 --> 00:37:45.040
+ I will attempt to mimic the author's writing style in this new section of the book. I'll write some sample code using a more modern dialect of C so it's easier to run on a modern compiler.
+
+00:37:45.040 --> 00:38:04.040
+ Section 6.5.1, linked lists, bonus content. Suppose we want to read a file and print the file in reverse order. We don't know how many lines will be in the file before we read the file so we can't simply use an array of pointers to strings and character arrays like lines.
+
+00:38:04.040 --> 00:38:16.040
+ In a sense, we need a dynamic array that grows as we encounter new lines. When we reach the end of the file, we then just loop through our stored lines from the end to the beginning so we can print them out in reverse order.
+
+00:38:16.040 --> 00:38:27.040
+ One solution is to make a data structure called a doubly linked list of character strings. In addition to each line of data, we will store a pointer to the previous line and the next line as well.
+
+00:38:27.040 --> 00:38:37.040
+ As a pointer to the first item, we add to the list and then we'll call this the head of the list and then the most recent item we've added to the list which we'll call the tail of the list.
+
+00:38:37.040 --> 00:38:43.040
+ We will see a singly linked list as part of the HashMap data structure in a following section.
+
+00:38:43.040 --> 00:38:50.040
+ A single linked list can only be traversed in a forward direction. A doubly linked list can be traversed either forwards or backwards.
+
+00:38:50.040 --> 00:39:02.040
+ Given that our linked list of strings will keep expanding as we get new lines, we avoid hard coding array sizes like #defineMaxLen1000 in the previous chapter, we were building a program to sort a file.
+
+00:39:02.040 --> 00:39:22.040
+ Going back to the description of a line in our doubly linked list, it is clearly a structure with three components struct LNode open curly brace, char star text semicolon, struct LNode star prev semicolon, struct LNode star next semicolon, close curly brace.
+
+00:39:22.040 --> 00:39:41.040
+ This recursive definition of LNode might look chancy, but it's actually quite correct. It is illegal for a structure to contain an instance of itself, but struct LNode star prev declares prev to be a pointer to an LNode, not an LNode itself.
+
+00:39:41.040 --> 00:39:59.040
+ We'll write this code in a more modern C dialect using modern memory allocation and I/O routines provided by the standard C library. This code is on page 130 of the textbook, available at www.cc4e.com/code.
+
+00:39:59.040 --> 00:40:26.040
+ #include stdio.h, #include stdlib.h, #include string.h, #defineMaxLen1000, this is the length of the line, not the number of lines, struct LNode open curly brace, char star text semicolon, struct LNode star prev semicolon, struct LNode star next semicolon, close curly brace semicolon.
+
+00:40:26.040 --> 00:40:50.040
+ Now we have our main program to print the lines in reverse, and we will use int main open paren close paren, because we're coding in a modern dialect of C, open curly brace, struct LNode star head equals null semicolon, struct LNode star tail equals null semicolon, char line, sub max line semicolon.
+
+00:40:50.040 --> 00:41:15.040
+ While open paren fgit s, open paren line comma max line comma stdin, close paren not equal null, close paren open curly brace, char star save equals open paren char star, close paren malloc, open paren strlen, open paren line, close paren plus one, close paren semicolon.
+
+00:41:15.040 --> 00:41:41.040
+ Stir copy, save comma line, struct LNode star new equals, open paren struct LNode star close paren malloc, open paren sizeof, struct LNode close paren close paren semicolon, new right arrow text equals save, new right arrow next equals null, new right arrow prev equals tail, and tail equals new.
+
+00:41:41.040 --> 00:41:54.040
+ If head equals equals null, close paren head equals new semicolon, close curly brace to finish the while. Now we'll print it all out.
+
+00:41:54.040 --> 00:42:23.040
+ For, open paren struct LNode star current equals tail semicolon, current not equal to null semicolon, current equals current right arrow prev, close parentheses, open curly brace, printf, open paren double quote s, close double quote comma, current right arrow text, close paren semicolon, close curly brace to finish the for, and then close curly brace to finish the main.
+
+00:42:23.040 --> 00:42:31.040
+ Interestingly, if we wanted to print the list in forward order, or if we did have only a singly linked list, our loop would look as follows.
+
+00:42:31.040 --> 00:42:54.040
+ For, open paren struct LNode star current equals head semicolon, current not equal to null semicolon, current equals current right arrow next, close paren, open curly brace, printf, open paren double quote percent s, double quote comma, current right arrow text, close paren semicolon, close curly brace.
+
+00:42:54.040 --> 00:43:08.040
+ In general, we use the variable names head, tail, and current, as well as next and prev, or similar names when writing code that builds or uses a linked list, so other programmers will quickly understand what we are talking about.
+
+00:43:08.040 --> 00:43:17.040
+ After a while, reading a for loop to traverse a linked list becomes as natural as reading a for loop that progresses through a sequence of numbers.
+
+00:43:17.040 --> 00:43:21.040
+ Section 6.5.2, Binary Trees
+
+00:43:21.040 --> 00:43:27.040
+ Suppose we want to handle the more general problem of counting the occurrences of all the words in some input.
+
+00:43:27.040 --> 00:43:52.040
+ Since the list of words isn't known in advance, we can't conveniently sort it and use a binary search. Yet we can't do a linear search for each word that has arrived to see if it's already been seen. The program would take forever. More precisely, what is the expected running time, and it would grow quadratically with a number of input words. How can we organize the data to cope efficiently with a list of arbitrary words?
+
+00:43:52.040 --> 00:44:14.040
+ Our solution is to keep the set of words seen so far sorted at all times by placing each word into its proper position in the order as it arrives. This shouldn't be done by shifting the words in a linear array, though. That takes too long. Instead, we will use a data structure called a binary tree.
+
+00:44:14.040 --> 00:44:29.040
+ The tree contains one node per distinct word. Each node contains a pointer to the text of the word, a count of the number of occurrences of the word, a pointer to the left child node, and a pointer to the right child node.
+
+00:44:29.040 --> 00:44:45.040
+ No node may have more than two children. It might have only zero or one. The nodes are maintained so that any node in the left tree contains only words that are less than the words at the node, and the right tree only contains words that are greater.
+
+00:44:45.040 --> 00:44:54.040
+ To find out whether a new word is already in the tree, one starts at the root and compares the new word to the word starting at that node. If they match, we found it.
+
+00:44:54.040 --> 00:45:10.040
+ If the new word is less than the tree word, the search continues down the left, otherwise the right child is searched. If there is no child in the required direction, then the word is not in the tree, and in fact the proper place for it to be is the missing child.
+
+00:45:10.040 --> 00:45:23.040
+ This search process is inherently recursive, since the search for any node uses a search from one of its children. Accordingly, recursive routines for inserting and printing will be the most natural.
+
+00:45:23.040 --> 00:45:29.040
+ Going back to the description of a node, this is clearly a structure with four components.
+
+00:45:29.040 --> 00:45:51.040
+ Struct t-node, open curly brace, char star word, int count semicolon, struct t-node star left semicolon, struct t-node star right semicolon, close curly brace. This recursive declaration of a node might look chancy, but actually it's quite correct.
+
+00:45:51.040 --> 00:46:03.040
+ It's illegal for a structure to contain an instance of itself, but struct t-node star left semicolon declares left to be a pointer to a node, not a node itself.
+
+00:46:03.040 --> 00:46:22.040
+ The code for the whole program is surprisingly small, given the handful of supporting routines that we've already written. These are getword to fetch input, and alloc to provide space for squirreling the words away. The main routine simply reads words with getword and installs them in the tree with tree.
+
+00:46:22.040 --> 00:46:32.040
+ This is the first example on page 131 of the textbook, which you can see at www.cc4e.com/code.
+
+00:46:32.040 --> 00:46:59.040
+ Pound include stdio.h, pound define maxword 20, pound define letter single quote a single quote, main open paren close paren, open curly brace, struct t-node star root comma star tree open paren close paren semicolon, char word open square bracket maxword close square bracket semicolon, int t semicolon, root equals null.
+
+00:46:59.040 --> 00:47:26.040
+ While open paren open paren t equals getword open paren word comma maxword close paren close paren not equal eof close paren, if open paren t double equal letter close paren, root equals tree open paren root comma word close paren semicolon, tree print open paren root close paren semicolon, close curly brace.
+
+00:47:26.040 --> 00:47:41.040
+ The tree itself is straightforward. A word is presented by main to the top level root of the tree. At each stage, that word is compared to the word already stored at the node and is percolated down either to the left or right subtree by a recursive called a tree.
+
+00:47:41.040 --> 00:47:53.040
+ Eventually, the word either matches something already in the tree, in which case the count simply is incremented, or a null pointer is encountered, indicating the node must be created and added to the tree.
+
+00:47:53.040 --> 00:48:01.040
+ If a new node is created, tree returns a pointer to it, which is installed in the parent node.
+
+00:48:01.040 --> 00:48:12.040
+ This is the example on page 132 of the textbook at www.cc4e.com/code.
+
+00:48:12.040 --> 00:48:31.040
+ Pound includes string.h struct tnode open curly brace char star word semicolon int count semicolon struct tnode star left semicolon struct tnode star right semicolon close curly brace semicolon.
+
+00:48:31.040 --> 00:48:47.040
+ Struct tnode star tree open paren p, w close paren. We're going to install w at or below p. Struct tnode star p semicolon char star w open curly brace.
+
+00:48:47.040 --> 00:49:00.040
+ Struct tnode star t alloc open paren close paren semicolon char star stir save open paren close paren semicolon int cond semicolon.
+
+00:49:00.040 --> 00:49:13.040
+ If open paren p equal null close paren open curly brace. We've got a new word p equals t alloc open paren close paren to make a new node.
+
+00:49:13.040 --> 00:49:27.040
+ p right arrow word equals stir save open paren w close paren semicolon p right arrow count equals one p right arrow left equals p right arrow right equals null.
+
+00:49:27.040 --> 00:49:48.040
+ Close curly brace else if open paren open paren cond equals stir comp w comma p right arrow word close paren close paren double equals zero close paren p right arrow count plus plus indicate that we've seen the word one more time.
+
+00:49:48.040 --> 00:49:58.040
+ Else if open paren cond less than zero close paren lower we'll go into the left part of the tree.
+
+00:49:58.040 --> 00:50:06.040
+ p right arrow left equals tree p right arrow left comma w close paren semicolon.
+
+00:50:06.040 --> 00:50:23.040
+ Else p right arrow right equals tree open paren p right arrow right comma w close paren semicolon return open paren p close paren semicolon close curly brace.
+
+00:50:23.040 --> 00:50:36.040
+ And that's a bit of code. It's not much and it's beautiful recursion is happening the return p at the very end is really really important because we're kind of always overriding it but we're okay.
+
+00:50:36.040 --> 00:50:53.040
+ So, but the overriding works its way back up to the recursion because it's recursive it's using pointers away we go back to the text storage for the new node is fixed by routine called T alloc, which is an adaptation of the alloc we wrote earlier,
+
+00:50:53.040 --> 00:51:07.040
+ which returns a pointer to a free space suitable for holding a tree node. We'll discuss this more in a moment. The new word is copied to a hidden place by stir say if the count is initialized and the two children are made no.
+
+00:51:07.040 --> 00:51:21.040
+ This part of the code is executed only at the edge of the tree when a new node is being added. We have unwisely for a production program omitted error checking on the values between returned by stir save and T alloc.
+
+00:51:21.040 --> 00:51:34.040
+ Tree print prints the tree in left subtree order. At each node it prints its left subtree all the words less than this word than the word itself, then the right subtree, all the words greater.
+
+00:51:34.040 --> 00:51:46.040
+ If you feel shaky about recursion, draw yourself a tree and printed with tree print. It's one of the cleanest recursive routines, you can find.
+
+00:51:46.040 --> 00:51:57.040
+ The example code is on page 133 of the textbook, which you can see at www.cc4e.com/code.
+
+00:51:57.040 --> 00:52:19.040
+ I won't read the struct T node code, just tree print. Tree print open paren p close paren struct T node star p semicolon open curly brace if open paren p not equal to no close paren curly brace open curly brace.
+
+00:52:19.040 --> 00:52:36.040
+ Tree print open paren p right arrow left close paren semicolon print f percent 4d space percent s backslash n double quote comma p right arrow count comma p right arrow word some close parentheses semicolon.
+
+00:52:36.040 --> 00:52:47.040
+ Tree print open paren p right arrow right close paren semicolon close curly brace for the if and then close curly brace for the tree print function.
+
+00:52:47.040 --> 00:52:57.040
+ Again, I agree with the authors and that is one of the cleanest and most beautiful and most applicable uses of recursion that you will probably ever see in all your career.
+
+00:52:57.040 --> 00:53:04.040
+ I'm not a fan of recursion in all uses cases, but you really can't do this any other way well.
+
+00:53:04.040 --> 00:53:15.040
+ Back to the text. As a practical note, if the tree becomes unbalanced because the words don't arrive in random order, the running time of the program can grow too fast.
+
+00:53:15.040 --> 00:53:22.040
+ As a worst case, if the words are already in order, this program does an expensive simulation of linear search.
+
+00:53:22.040 --> 00:53:35.040
+ There are generalizations of the binary tree, notably two, three trees, AVL trees, and I would add balanced binary trees, which do not suffer from this worst case behavior, but we will not describe them here.
+
+00:53:35.040 --> 00:53:48.040
+ Before we leave this example, it's also worth a brief digression on a problem related to storage allocators. Clearly, it's desirable that there only be one storage allocator in a program, even though it allocates different kinds of objects.
+
+00:53:48.040 --> 00:53:56.040
+ But if one allocator is to process requests for, say, pointers to chars and pointers to struct T nodes, two questions arise.
+
+00:53:56.040 --> 00:54:08.040
+ First, does it meet the requirement of most real machines that objects of a certain types must satisfy alignment restrictions? For example, integers must often be located on even addresses.
+
+00:54:08.040 --> 00:54:27.040
+ Second, what declarations can cope with the fact that alloc necessarily returns different kinds of pointers? Alignment requirements can generally be satisfied easily at the cost of some wasted space merely by ensuring the allocator always returns a pointer that meets all alignment restrictions.
+
+00:54:27.040 --> 00:54:41.040
+ For an example, in the PDB-11, it is sufficient that alloc always returns an even pointer since any type of object may be stored at an even address. The only cost is a wasted character on the odd length requests.
+
+00:54:41.040 --> 00:54:58.040
+ Similar actions are taken on other machines. Thus, the implementation of alloc may not be portable, but its usage is. The alloc of Chapter 5 does not guarantee any particular alignment. In Chapter 8, we'll show how to do the job right.
+
+00:54:58.040 --> 00:55:18.040
+ As an aside, by now you know that when the authors mention the PDB-11, they are sharing some aspects of the challenge of making C work on previous generation computers with short memory words and small amounts of memory, and at the same time making them work well on the incoming generation of computers with larger words and more memory.
+
+00:55:18.040 --> 00:55:31.040
+ The research thought and care that went into making sure the C code was portable across multiple generations of computer hardware is on display in the previous paragraph.
+
+00:55:31.040 --> 00:55:48.040
+ The question of the type declaration for alloc is a vexing one for any language that takes its type checking seriously. In C, the best procedure is to declare that alloc returns a pointer to char, and then explicitly coerce the pointer into the desired type with a cast.
+
+00:55:48.040 --> 00:56:10.040
+ Therefore, if p is declared as char * p; then openparen struct tnode * closeparen p converts it into a tnode pointer expression. Thus, t-alloc is written as struct tnode * t-alloc openparen closeparen open-kirley-brace char * alloc
+
+00:56:10.040 --> 00:56:22.040
+ return openparen openparen struct tnode * closeparen alloc openparen sizeof openparen struct tnode closeparen closeparen closeparen
+
+00:56:22.040 --> 00:56:30.040
+ This is more than is needed for current compilers, but represents the safest course for the future.
+
+00:56:30.040 --> 00:56:41.040
+ I would add that these concerns that the authors mention in this section are also nicely resolved in modern C compilers. In the NC version of C, they introduced the notion of the void type.
+
+00:56:41.040 --> 00:56:51.040
+ The void type indicates the lack of a type, much like null is used to indicate not a valid pointer or not a flying toy.
+
+00:56:51.040 --> 00:57:02.040
+ In 1978, because the char type was generally the most native type on any system, it was often used as the generic pointer needed to return memory from an allocation function.
+
+00:57:02.040 --> 00:57:10.040
+ In modern C, we use pointers to void and then cast the returning pointer to be a pointer to whatever struct or other data we just allocated.
+
+00:57:10.040 --> 00:57:17.040
+ If we were writing alloc, the alloc routine in this book using modern C, it would return a pointer to void.
+
+00:57:17.040 --> 00:57:28.040
+ The 1978 version is char * alloc openparen closeparen and the modern version is void * alloc openparen closeparen.
+
+00:57:28.040 --> 00:57:47.040
+ We've left the book alone, we haven't used void throughout the book, but it is a testament to the foresight of the authors that all the pointer casting code in this book still works today the same, regardless of whether the memory allocation functions return char or void pointers to the allocated data.
+
+00:57:47.040 --> 00:57:59.040
+ Section 6.6, table lookup. As an aside, in this section, we finish our quick tour of the implementations of the three core data structures in computer science.
+
+00:57:59.040 --> 00:58:05.040
+ One, the linked list, two, the tree, and three, the hash map as described in this section.
+
+00:58:05.040 --> 00:58:16.040
+ A singly linked list is also part of a hash map implementation, so you can compare it to the doubly linked list code introduced in the earlier bonus section 6.5.1.
+
+00:58:16.040 --> 00:58:33.040
+ This section is worth understanding well because not only is it an excellent review of pointers and structures, but also because one of the most common questions on a face-to-face programming interview is draw a hash map on the whiteboard and explain how it works.
+
+00:58:33.040 --> 00:58:41.040
+ This is an easy question if you study and understand this section of the book, and almost impossible if you have not.
+
+00:58:41.040 --> 00:58:46.040
+ In some ways, this section is the most intricate data structure that's described in the book.
+
+00:58:46.040 --> 00:58:49.040
+ It is why it is so popular in coding interviews.
+
+00:58:49.040 --> 00:58:55.040
+ Chapters 7 and 8 talk about lots of practical things like input/output of the UNIX operating system.
+
+00:58:55.040 --> 00:59:00.040
+ Elegant data structures and their use are core concepts in computer science.
+
+00:59:00.040 --> 00:59:06.040
+ Understanding them highlights the difference between a good programmer and a computer scientist.
+
+00:59:06.040 --> 00:59:12.040
+ In a sense, understanding how a hash map is the secret handshake of computer science.
+
+00:59:12.040 --> 00:59:29.040
+ And it is the secret handshake because of this book and this section of this book written back in 1978 and used in a course that the person interviewing you may have took when they were in college.
+
+00:59:29.040 --> 00:59:37.040
+ Hash maps were difficult for them to understand back then, and so if you understand the concept, then you must be solid.
+
+00:59:37.040 --> 00:59:43.040
+ So I hope you pay close attention to this section and remember the handshake.
+
+00:59:43.040 --> 00:59:46.040
+ Back to the text.
+
+00:59:46.040 --> 00:59:53.040
+ In this section, we will write the innards of a table lookup package as an illustration of more aspects of structures.
+
+00:59:53.040 --> 01:00:00.040
+ This code is typical of what might be found in the symbol table management routines of a macro processor or a compiler.
+
+01:00:00.040 --> 01:00:03.040
+ For example, consider the C pound-to-find statement.
+
+01:00:03.040 --> 01:00:13.040
+ When a line like pound-to-find yes one is encountered, the name replacement text, the name yes and the replacement text one are stored in a table.
+
+01:00:13.040 --> 01:00:20.040
+ Later, when the name yes appears in a statement like inward equals yes semicolon, it must be replaced by one.
+
+01:00:20.040 --> 01:00:25.040
+ There are two major routines that manipulate the names and replacement text.
+
+01:00:25.040 --> 01:00:32.040
+ Install open paren s comma t closed paren records the name s and replacement t in the table.
+
+01:00:32.040 --> 01:00:35.040
+ S and t are just character strings.
+
+01:00:35.040 --> 01:00:44.040
+ Lookup open paren s closed paren searches for s in the table and returns a pointer to the place where it was found or null if it wasn't there.
+
+01:00:44.040 --> 01:00:47.040
+ The algorithm used is a hash search.
+
+01:00:47.040 --> 01:00:55.040
+ The incoming name is converted to a small positive integer, which is then used to index into an array of pointers.
+
+01:00:55.040 --> 01:01:01.040
+ An array element points to the beginning of a chain of blocks describing the names that have the hash value.
+
+01:01:01.040 --> 01:01:06.040
+ And if it is null, then no names have hashed to that value.
+
+01:01:06.040 --> 01:01:15.040
+ A block in the chain is a structure containing pointers to the name, the replacement text, and the next block in the chain.
+
+01:01:15.040 --> 01:01:20.040
+ A null next pointer marks the end of the chain.
+
+01:01:20.040 --> 01:01:36.040
+ Struct enlist open paren char star name semicolon char star def semicolon struct enlist star next semicolon closed curly brace semicolon.
+
+01:01:36.040 --> 01:01:51.040
+ The pointer array is just pound define hash size 100 static struct enlist star hash tab open square bracket hash size closed square bracket semicolon.
+
+01:01:51.040 --> 01:02:02.040
+ The hashing function, which is used by both lookup and install, simply adds up the character values in the string and forms the remainder module of the array size.
+
+01:02:02.040 --> 01:02:09.040
+ This is not the best possible algorithm, but it has the merit of extreme simplicity.
+
+01:02:09.040 --> 01:02:32.040
+ Hash open paren s close paren char star s semicolon open curly brace int hash val for open curly brace hash val equals zero star s not equal quote single quote backslash zero single quote semicolon close paren.
+
+01:02:32.040 --> 01:02:47.040
+ Hash val plus equals star s plus plus semicolon return open paren hash val modulo percent hash size close paren semicolon closed curly brace.
+
+01:02:47.040 --> 01:02:53.040
+ As an aside, hashing functions are one of the foundational notions in computer science.
+
+01:02:53.040 --> 01:03:06.040
+ Hashing functions are used for everything from high performance in memory structures, organizing databases, data, digital signing, network packet checksums, security algorithms, and much more.
+
+01:03:06.040 --> 01:03:13.040
+ The above text is a really great example of a really simple hashing function.
+
+01:03:13.040 --> 01:03:30.040
+ You should understand this simple presentation well so that when you encounter a more complex implementation or use of hashing, you can fall back on this text to understand that at its core hashing is a very simple concept.
+
+01:03:30.040 --> 01:03:37.040
+ So much of this chapter is a succinct example of some of the most powerful concepts in computer science.
+
+01:03:37.040 --> 01:03:43.040
+ Please don't look at the eight lines of code above and think I got that and just jump to the next bit.
+
+01:03:43.040 --> 01:03:47.040
+ This chapter is showing you the way of the master programmer.
+
+01:03:47.040 --> 01:03:51.040
+ Wax on, wax off.
+
+01:03:51.040 --> 01:03:57.040
+ Be patient, slow down, and enjoy your time here.
+
+01:03:57.040 --> 01:03:59.040
+ Back to the text.
+
+01:03:59.040 --> 01:04:03.040
+ The hashing process produces a starting index in the array hash tab.
+
+01:04:03.040 --> 01:04:08.040
+ If the string is to be found anywhere, it will be in the chain of locks beginning there.
+
+01:04:08.040 --> 01:04:10.040
+ The search is performed by lookup.
+
+01:04:10.040 --> 01:04:14.040
+ If lookup finds the entry already present, it just returns a pointer to it.
+
+01:04:14.040 --> 01:04:17.040
+ If not, it returns null.
+
+01:04:17.040 --> 01:04:18.040
+ Here's the code.
+
+01:04:18.040 --> 01:04:27.040
+ Struct enlist *lookup open paren s close paren char *s semicolon
+
+01:04:27.040 --> 01:04:34.040
+ open curly brace struct enlist *np semicolon
+
+01:04:34.040 --> 01:04:44.040
+ for open paren np equals hash tab sub hash open paren s close paren close square bracket semicolon
+
+01:04:44.040 --> 01:04:52.040
+ np not equal null semicolon np equals an np right arrow next close parenthesis
+
+01:04:52.040 --> 01:04:58.040
+ if strcmp open paren s comma np right arrow name close paren double equals zero
+
+01:04:58.040 --> 01:05:07.040
+ return open paren np close paren semicolon return open paren null close paren semicolon close curly brace
+
+01:05:07.040 --> 01:05:12.040
+ install uses lookup to determine whether the name installed is already present.
+
+01:05:12.040 --> 01:05:16.040
+ If so, the new definition must supersede the old one.
+
+01:05:16.040 --> 01:05:20.040
+ Otherwise, a completely new entry is created.
+
+01:05:20.040 --> 01:05:27.040
+ Install returns null if for any reason there's no room for a new entry.
+
+01:05:27.040 --> 01:05:37.040
+ Struct enlist *install open paren name comma def close paren char *name comma *def semicolon
+
+01:05:37.040 --> 01:05:45.040
+ open curly brace struct enlist *np comma *lookup open paren close paren semicolon
+
+01:05:45.040 --> 01:05:54.040
+ char *save comma *alloc open paren close paren semicolon int hash val semicolon
+
+01:05:54.040 --> 01:06:02.040
+ if open paren open paren np equals lookup open paren name close paren close paren double equal null
+
+01:06:02.040 --> 01:06:06.040
+ close paren open curly brace i.e. it's not found
+
+01:06:06.040 --> 01:06:18.040
+ np equals open paren struct nlist *close paren alloc open paren sizeof open paren *np close paren close paren semicolon
+
+01:06:18.040 --> 01:06:23.040
+ if np equals null return null that means the allocation failed
+
+01:06:23.040 --> 01:06:33.040
+ if open paren open paren np right arrow name equals strsave open paren name close paren close paren double equals null
+
+01:06:33.040 --> 01:06:51.040
+ close paren return open paren null close paren semicolon hash val equals hash open paren np right arrow name close paren semicolon
+
+01:06:51.040 --> 01:07:05.040
+ np next equals hash tab open square bracket hash val close square bracket semicolon hash tab open square bracket hash val close square bracket equals np semicolon
+
+01:07:05.040 --> 01:07:21.040
+ we're actually pushing these new ones to the head of this singly linked list and so those last two statements push the most recent top of the list forward and then replace with a new one at the top of the list
+
+01:07:21.040 --> 01:07:25.040
+ the list does not stay in any order
+
+01:07:25.040 --> 01:07:38.040
+ so we have a close curly brace to end all that if for the not found code close curly brace else this is the already their code
+
+01:07:38.040 --> 01:07:51.040
+ free open paren np right arrow def close paren semicolon free the previous definition that's the string part of the pound define
+
+01:07:51.040 --> 01:08:06.040
+ if open paren np right arrow def equal strsave open paren def close paren close paren equals null close paren return open paren null close paren semicolon
+
+01:08:06.040 --> 01:08:11.040
+ return open paren np close paren semicolon close curly brace
+
+01:08:11.040 --> 01:08:25.040
+ so that last bit there was to if you have a pound define with the same keyword and a different later you have a later a different definition you can replace the definition
+
+01:08:25.040 --> 01:08:41.040
+ so that last bit was replacing the definition again this code is pretty intricate it's really both the hash table and a singly linked list going on at the same time so take a close look at this on page 136 of the book
+
+01:08:41.040 --> 01:08:59.040
+ strsave merely copies the string given its argument to a safe space obtained by a call to alloc we've showed this code in chapter 5 since calls to alloc and free may occur in any order and since alignment matters the simple version of alloc is just not adequate here
+
+01:08:59.040 --> 01:09:03.040
+ see more in chapter 7 and 8
+
+01:09:03.040 --> 01:09:16.040
+ as an aside one of the reasons that the authors make vague forward-looking statements when they talk about dynamic memory is that large-scale memory management in a programming language is still a subject of active research 40 years later
+
+01:09:16.040 --> 01:09:31.040
+ back in 1978 it was absolutely not a settled topic you can see this when the authors build a simple non-production memory allocation scheme with their own alloc and free routines backed by a fixed length static external array of characters
+
+01:09:31.040 --> 01:09:45.040
+ dynamic allocation is essential to writing competency programs but it is likely that the production grade dynamic memory support was still somewhat non-portable when the book was written so they use simple self-contained implementations in this book
+
+01:09:45.040 --> 01:10:08.040
+ modern dynamic memory support is through the malloc c-alloc and free functions in the standard library these functions request dynamic memory blocks from the operating system and manage those areas on behalf of your c-code on unix and unix like systems the memory allocation layer asked the underlying operating systems for blocks of memory through the sbrk interface
+
+01:10:08.040 --> 01:10:17.040
+ even with virtual memory programmers must carefully manage their use of dynamically allocated memory because memory is never unlimited
+
+01:10:17.040 --> 01:10:33.040
+ section 6.7 fields when stored spaces at a premium it may be necessary to pack several objects into a single machine word one especially common use is a set of single bit at flags and applications like compiler symbol tables
+
+01:10:33.040 --> 01:10:42.040
+ externally imposed data formats such as interfaces to hardware devices also often require the ability to get at pieces of a word
+
+01:10:42.040 --> 01:11:03.040
+ as an aside we are going to go now from low level programming to even lower level programming the unix operating system is written in C and unix needs to have for example an implementation of the internet protocol so it can be connected to the internet one of the most important internet protocols is the transmission control protocol TCP
+
+01:11:03.040 --> 01:11:24.040
+ in order to implement TCP you need to send very precisely formatted data across the network the data is very tightly packed in order to save precious network bandwidth the exact format of a TCP header is described in the TCP Wikipedia page if you look at the header you will find that it bits 96 through 99
+
+01:11:24.040 --> 01:11:41.040
+ TCP expects a four bit integer that defines the data offset exactly what this data means is less relevant unless you're actually writing the TCP implementation but it does demonstrate that we need to control our data layout at times on a bit by bit basis
+
+01:11:41.040 --> 01:12:00.040
+ this section covers how we can use struct to build up a TCP header in C, which can be parsed and set without using masking and shifting operations with hard coded numbers. The section below is simpler than constructing a valid TCP header using a carefully packed struct, but it does lay the groundwork for these more complex situations.
+
+01:12:00.040 --> 01:12:16.040
+ Now back to the text. Imagine a fragment of a compiler that manipulates a symbol table. Each identifier in a program has certain information associated with it for example, whether or not it's a keyword, whether or not it's external and or static and so on.
+
+01:12:16.040 --> 01:12:37.040
+ The most compact way to encode such information is a set of one bit flags in a single char or int. The usual way this is done is define a set of masks corresponding to the relevant bit positions as in pound defined keyword 01, pound defined external 02, and pound defined static 04.
+
+01:12:37.040 --> 01:12:50.040
+ The numbers of course must be powers of 2 so that the shifting works. Then accessing the bits become a matter of bit fiddling with shifting, masking, and complementing operators which were described in Chapter 2.
+
+01:12:50.040 --> 01:13:09.040
+ Certain idioms appear frequently flags vertical par equals external vertical bar static turns on the external and static bits and flags while flags ampersand equal tilled open paren external or static close paren semicolon turns them off.
+
+01:13:09.040 --> 01:13:23.040
+ And if open paren open paren flags ampersand paren external vertical bar static close paren close paren equal equal zero dot dot dot is true if both bits are off.
+
+01:13:23.040 --> 01:13:39.040
+ Although these idioms are readily mastered as an alternative see offers the capability of defining and accessing fields within a word directly, rather than by bitwise logical operators. A field is a set of adjacent bits within a single int.
+
+01:13:39.040 --> 01:13:57.040
+ The syntax of field definition and access is based on structures. For example, the symbol table pound defines above could be replaced by the definition of three fields struct unsigned is keyword colon one semicolon unsigned is
+
+01:13:57.040 --> 01:14:11.040
+ external colon one semicolon unsigned is static colon one semicolon close curly brace flags. This defines a variable called flags that contains three one bit fields.
+
+01:14:11.040 --> 01:14:28.040
+ The number following the colon represents the field with in bits. The fields are declared unsigned to emphasize that they are really unsigned quantities individual fields are referenced as flags is keyword flags is external, etc.
+
+01:14:28.040 --> 01:14:37.040
+ Just like other structure members fields behave like small unsigned integers and may participate in arithmetic expressions just like the other integers.
+
+01:14:37.040 --> 01:14:52.040
+ Thus the previous examples may be written much more naturally as flags is underscore extern equals flags is static equals one semicolon turn the bits on.
+
+01:14:52.040 --> 01:15:16.040
+ Flags is external equals flags is static equals one semicolon to turn the bits on flags is external equals flags is static equals zero turns them off. And if open print flags is external double equals zero and flags is static double equals zero close print dot dot dot to test them.
+
+01:15:16.040 --> 01:15:29.040
+ A field may not overlap an int boundary. If the width would cause this to happen the field is aligned to the next int boundary fields need not be named unnamed fields with a colon and width only are used for padding.
+
+01:15:29.040 --> 01:15:45.040
+ Special with zero may be used to force alignment to the next int boundary. There are a number of caveats that apply to fields perhaps the most significant fields are assigned left to right on some machines and right to left on others reflecting the nature of different hardware.
+
+01:15:45.040 --> 01:15:59.040
+ This means that although fields are quite useful for maintaining internally defined data structures, the question of which end comes first has to has to be carefully considered when picking apart externally defined data.
+
+01:15:59.040 --> 01:16:12.040
+ Other restrictions to bear in mind fields are unsigned, they may only be stored in ints or equivalently unsigned. They are not arrays and they do not have addresses, so the ampersand operator cannot be applied to them.
+
+01:16:12.040 --> 01:16:22.040
+ Section 6.8 unions. A union is a variable which may hold at different times objects of different types and sizes.
+
+01:16:22.040 --> 01:16:35.040
+ With a compiler keeping track of the size and alignment requirements, unions provide a way to manipulate different kinds of data in a single area of storage without embedding any machine dependent information in the program.
+
+01:16:35.040 --> 01:16:47.040
+ For example, again from a compiler symbol table, suppose constants may be ints, floats or character pointers. The value of a particular constant must be stored in a variable of the proper type.
+
+01:16:47.040 --> 01:16:56.040
+ Yet it is most convenient for table management if the value occupies the same amount of storage and is stored in the same place regardless of its type.
+
+01:16:56.040 --> 01:17:04.040
+ This is the purpose of a union to provide a single variable which can legitimately hold one of several types.
+
+01:17:04.040 --> 01:17:21.040
+ As with fields, the syntax is based on structures. Union, utag, open curly brace, int, ival, float, fval, char, star, pval, close curly brace, uval.
+
+01:17:21.040 --> 01:17:29.040
+ The variable uval will be large enough to hold the largest of these three types regardless of the machine it is compiled on.
+
+01:17:29.040 --> 01:17:39.040
+ The code is independent of hardware characteristics. Any one of these types may be assigned to uval and then used in expressions so long as the usage is consistent.
+
+01:17:39.040 --> 01:17:47.040
+ The type retrieved must be the type most recently stored. It is the responsibility of the programmer to keep track of what type is currently stored in a union.
+
+01:17:47.040 --> 01:17:55.040
+ The results are machine dependent if something is stored as one type and extracted as another type.
+
+01:17:55.040 --> 01:18:06.040
+ Syntactically, members of a union are accessed as union name dot member or union pointer right arrow member, justice for structures.
+
+01:18:06.040 --> 01:18:13.040
+ If the variable utype is used to keep track of the current type stored in uval, then one might see code as
+
+01:18:13.040 --> 01:18:27.040
+ if openparen utype double equals int closeparen printf paren double quote percent d backslash n double quote comma uval dot ival closeparen semicolon
+
+01:18:27.040 --> 01:18:40.040
+ else if openparen utype double equal float closeparen printf openparen double quote percent f backslash n double quote comma uval dot fval
+
+01:18:40.040 --> 01:18:52.040
+ closeparen semicolon else if openparen utype double equals string closeparen printf double quote percent s backslash n double quote comma uval dot pval
+
+01:18:52.040 --> 01:19:07.040
+ closeparen semicolon else printf openparen double quote bad type percent d and utype backslash n double quote comma utype closeparen semicolon.
+
+01:19:07.040 --> 01:19:12.040
+ Unions may occur in structures and arrays and vice versa.
+
+01:19:12.040 --> 01:19:19.040
+ The notion for accessing a member of a union in a structure or vice versa is identical to that for nested structures.
+
+01:19:19.040 --> 01:19:38.040
+ For example, in a structure array defined by struct open curly brace char star name semicolon int flags semicolon int utype semicolon union open curly brace int ival semicolon float fval semicolon
+
+01:19:38.040 --> 01:19:51.040
+ char star pval semicolon close curly brace uval semicolon close curly brace simtab open square bracket nsim close square bracket semicolon.
+
+01:19:51.040 --> 01:20:07.040
+ The variable ival is referred to as simtab sub i dot uval dot ival and the first character of the string pval by star simtab sub i dot uval dot pval.
+
+01:20:07.040 --> 01:20:12.040
+ In effect, a union is a structure in which all the members have offset zero.
+
+01:20:12.040 --> 01:20:19.040
+ The structure is big enough to hold the widest member and the alignment is appropriate for all types in the union.
+
+01:20:19.040 --> 01:20:25.040
+ As with structures, the only operations currently permitted on unions are accessing a member and taking the address.
+
+01:20:25.040 --> 01:20:30.040
+ Unions may not be assigned to, passed to functions, or returned by functions.
+
+01:20:30.040 --> 01:20:36.040
+ Pointers to unions can be used in a manner identical to pointers to structures.
+
+01:20:36.040 --> 01:20:40.040
+ Just as an aside, the above limitations on unions are just no longer accurate.
+
+01:20:40.040 --> 01:20:46.040
+ Like structures, modern C compilers can assign the contents of the union to another union variable.
+
+01:20:46.040 --> 01:20:52.040
+ You can also pass unions into functions by value and receive a union as the return type of a function.
+
+01:20:52.040 --> 01:21:01.040
+ The storage allocator in Chapter 8 shows how a union can be used to force a variable to be aligned on a particular kind of storage boundary.
+
+01:21:01.040 --> 01:21:09.040
+ Section 6.9. Type def. C provides a facility called type def for creating new data type names.
+
+01:21:09.040 --> 01:21:20.040
+ For example, the declaration type def space int space length semicolon makes the name length a synonym for int.
+
+01:21:20.040 --> 01:21:27.040
+ The type length can be used in declarations, CAS, etc. in exactly the same ways int can be.
+
+01:21:27.040 --> 01:21:36.040
+ Length len comma maxlen semicolon length star lengths open square bracket close square bracket semicolon.
+
+01:21:36.040 --> 01:21:48.040
+ Similar, the declaration type def char star string semicolon makes string a synonym for char star or a character pointer,
+
+01:21:48.040 --> 01:22:00.040
+ which then may be used in declarations like string p comma line ptr open square bracket lines close square bracket comma Alec open paren close paren semicolon.
+
+01:22:00.040 --> 01:22:08.040
+ Note that the type being declared in a type def appears in the position of a variable name, not right after the word type def.
+
+01:22:08.040 --> 01:22:15.040
+ Syntactically, type def is like the storage class, extern, static, etc.
+
+01:22:15.040 --> 01:22:21.040
+ We've used uppercase letters in these examples to emphasize the names.
+
+01:22:21.040 --> 01:22:27.040
+ A more complicated example, we could make type defs for the tree nodes shown earlier in the chapter.
+
+01:22:27.040 --> 01:22:49.040
+ Type def struct tnode open curly brace char star word semicolon int count semicolon struct tnode star left semicolon struct tnode star right semicolon close curly brace tree node comma star tree ptr.
+
+01:22:49.040 --> 01:22:58.040
+ This creates two new type keywords called tree node, which is a structure and tree ptr, which is a pointer to the structure.
+
+01:22:58.040 --> 01:23:24.040
+ Then the routine t alec could become tree ptr t alec open paren close paren open curly brace char star alec open paren close paren semicolon return open paren open paren tree ptr close paren alec open paren size of open paren tree node close paren close paren close paren semicolon close curly brace.
+
+01:23:24.040 --> 01:23:31.040
+ It should be emphasized that a type def declaration does not exactly create a new type in any sense.
+
+01:23:31.040 --> 01:23:55.040
+ It merely adds a new name for some existing types, nor are there any new semantics variables declared this way have exactly the same property as variables who whose declarations are spelled out explicitly.
+
+01:23:55.040 --> 01:24:23.040
+ For example, type def int open paren star pfi close paren open paren close paren semicolon creates a type pfi to mean pointer to a function returning integer, which can be used in context like pfi stir comp comma num comp comma swap in a sort program in Chapter 5.
+
+01:24:23.040 --> 01:24:26.040
+ There are two main reasons for using type def declaration.
+
+01:24:26.040 --> 01:24:51.040
+ The first is to parameterize program against portability problems. If type defs are used for the data types which may be machine dependent, only type defs need to change when the program is moved. One common situation is to use type def names for various integer quantities, and then make an appropriate set of choices of short int and long for each host machine.
+
+01:24:51.040 --> 01:25:05.040
+ The second purpose of type defs is to provide better documentation for a program type called tree PTR may be easier to understand than one declared only as a pointer to a complicated structure.
+
+01:25:05.040 --> 01:25:19.040
+ Finally, there's always the possibility that in the future, a compiler or some other program such as lint may make use of the information contained in type def declaration to perform some extra checking on the program.
+
+01:25:19.040 --> 01:25:27.040
+ This work is based on the 1978 C programming book written by Brian W. Kernigan and Dennis M. Ritchie.
+
+01:25:27.040 --> 01:25:41.040
+ Their book is copyright all rights reserved by AT&T, but is used in this work under fair use because of the book's historical and scholarly significance, its lack of availability, and the lack of an accessible version of the book.
+
+01:25:41.040 --> 01:26:02.040
+ The book is augmented in places to help understand its right place in historical context amidst the major changes of the 1970s and 1980s as computer science evolved from a hardware first vendor centered approach to a software centered approach where portable operating systems and applications written in C could run on any hardware.
+
+01:26:02.040 --> 01:26:22.040
+ This is not the ideal book to learn C programming because the 1978 edition does not reflect the modern C language. Using an obsolete book gives us an opportunity to take students back in time and understand how the C language was evolving as it laid the groundwork for a future with portable applications.
+
+01:26:32.040 --> 01:26:37.040
+ [MUSIC]
+

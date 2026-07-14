@@ -1,0 +1,1208 @@
+1
+00:00:00,000 --> 00:00:04,140
+ - Hello, and welcome to chapter one of Kernigan and Ritchie.
+
+2
+00:00:04,140 --> 00:00:05,460
+ My name's Charles Severance, and of course,
+
+3
+00:00:05,460 --> 00:00:08,860
+ I'm your professor for this course that's about history.
+
+4
+00:00:08,860 --> 00:00:11,720
+ So, welcome to this course.
+
+5
+00:00:11,720 --> 00:00:14,720
+ It's really part of a learning path.
+
+6
+00:00:14,720 --> 00:00:19,220
+ I don't think that C should be your first programming language,
+
+7
+00:00:19,220 --> 00:00:21,700
+ and I don't think it should be your last programming language.
+
+8
+00:00:21,700 --> 00:00:23,240
+ I have a whole series of courses
+
+9
+00:00:23,240 --> 00:00:25,440
+ that are all free and available online,
+
+10
+00:00:25,440 --> 00:00:28,200
+ both just on the web, on places like Free Code Camp,
+
+11
+00:00:28,200 --> 00:00:31,300
+ in Coursera, and edX, and the place that you're at
+
+12
+00:00:31,300 --> 00:00:36,000
+ in my learning path that you're at right now is C programming,
+
+13
+00:00:36,000 --> 00:00:39,920
+ and we're not learning C programming to learn C programming,
+
+14
+00:00:39,920 --> 00:00:43,400
+ we're learning C programming to take a historical look
+
+15
+00:00:43,400 --> 00:00:47,820
+ at how computers work and lead into computer architecture.
+
+16
+00:00:47,820 --> 00:00:50,000
+ I'm not trying to teach you coding in C,
+
+17
+00:00:50,000 --> 00:00:52,620
+ but I am going to explain how computers work
+
+18
+00:00:52,620 --> 00:00:56,240
+ and things like how Java works using C
+
+19
+00:00:56,240 --> 00:00:58,540
+ as kind of like the,
+
+20
+00:00:58,540 --> 00:01:00,880
+ it just gives me a way to explain Java to you.
+
+21
+00:01:00,880 --> 00:01:03,480
+ So, the outline of the textbook
+
+22
+00:01:03,480 --> 00:01:07,360
+ is a pretty typical computer science textbook
+
+23
+00:01:07,360 --> 00:01:09,960
+ where it starts off easy and then,
+
+24
+00:01:09,960 --> 00:01:11,900
+ whoa, everything goes pretty crazy.
+
+25
+00:01:11,900 --> 00:01:14,020
+ So chapters one through four,
+
+26
+00:01:14,020 --> 00:01:15,680
+ and we're on chapter one right now,
+
+27
+00:01:15,680 --> 00:01:19,100
+ is mostly syntax, and it's just another programming language,
+
+28
+00:01:19,100 --> 00:01:21,680
+ and especially if you know a little bit of Java
+
+29
+00:01:21,680 --> 00:01:25,360
+ or a little bit of PHP or a little bit of JavaScript,
+
+30
+00:01:25,360 --> 00:01:26,720
+ some of that syntax is gonna be like,
+
+31
+00:01:26,720 --> 00:01:28,080
+ whoa, of course this is familiar,
+
+32
+00:01:28,080 --> 00:01:29,440
+ and the answer is, well, that's because
+
+33
+00:01:29,440 --> 00:01:31,880
+ all those languages came from C.
+
+34
+00:01:31,880 --> 00:01:35,120
+ So it kind of feels like just another programming language
+
+35
+00:01:35,120 --> 00:01:38,240
+ except that arrays are not lists,
+
+36
+00:01:38,240 --> 00:01:41,240
+ and character arrays are not strings,
+
+37
+00:01:41,240 --> 00:01:44,040
+ and character arrays kind of look like strings,
+
+38
+00:01:44,040 --> 00:01:45,440
+ but they don't work like strings,
+
+39
+00:01:45,440 --> 00:01:47,400
+ and you can get in all kinds of trouble.
+
+40
+00:01:47,400 --> 00:01:50,600
+ But other than that, once you sort of stop worrying
+
+41
+00:01:50,600 --> 00:01:54,580
+ about how long things are, pretend it's okay,
+
+42
+00:01:54,580 --> 00:01:57,420
+ which is dangerous, of course, when you write code.
+
+43
+00:01:57,420 --> 00:01:59,400
+ Chapters one through four feel a lot like
+
+44
+00:01:59,400 --> 00:02:00,760
+ you're just any other programming language,
+
+45
+00:02:00,760 --> 00:02:02,200
+ but then chapters five and six
+
+46
+00:02:02,200 --> 00:02:04,360
+ are the valuable chapters of this book,
+
+47
+00:02:04,360 --> 00:02:06,460
+ but they also become a lot more difficult.
+
+48
+00:02:06,460 --> 00:02:09,280
+ So don't give chapters one through four a short shrift
+
+49
+00:02:09,280 --> 00:02:12,640
+ because five and six are gonna just go, woo.
+
+50
+00:02:12,640 --> 00:02:15,840
+ And then seven and eight is just sort of filling in detail,
+
+51
+00:02:15,840 --> 00:02:19,000
+ and seven and eight are not so critical.
+
+52
+00:02:19,000 --> 00:02:23,240
+ It just kind of fills in all the gaps.
+
+53
+00:02:23,240 --> 00:02:25,600
+ So that's the outline of the book.
+
+54
+00:02:25,600 --> 00:02:27,920
+ Just expect that one through four is gonna be smooth,
+
+55
+00:02:27,920 --> 00:02:29,400
+ and then five and six are gonna be like,
+
+56
+00:02:29,400 --> 00:02:32,440
+ now we're really getting somewhere, okay?
+
+57
+00:02:32,440 --> 00:02:34,360
+ So looking at chapter one, again,
+
+58
+00:02:34,360 --> 00:02:36,180
+ chapters, sections one through one, five,
+
+59
+00:02:36,180 --> 00:02:38,880
+ looks not that different than any other programming language
+
+60
+00:02:38,880 --> 00:02:40,200
+ that you've learned.
+
+61
+00:02:40,200 --> 00:02:42,840
+ It's chapter one, section 1.6 is arrays.
+
+62
+00:02:42,840 --> 00:02:47,240
+ Eostatic allocation, arrays, you have to know
+
+63
+00:02:47,240 --> 00:02:49,540
+ how big they are when you declare them,
+
+64
+00:02:49,540 --> 00:02:52,280
+ and you can't resize them until chapter five,
+
+65
+00:02:52,280 --> 00:02:53,560
+ at which point we'll start talking about
+
+66
+00:02:53,560 --> 00:02:56,400
+ dynamic memory and pointers and resizing.
+
+67
+00:02:56,400 --> 00:02:59,840
+ Chapter 1.7 and 1.8, functions and parameters,
+
+68
+00:02:59,840 --> 00:03:03,000
+ and it's all call by value in this early phase.
+
+69
+00:03:03,000 --> 00:03:05,640
+ Call by reference is in chapter five,
+
+70
+00:03:05,640 --> 00:03:07,140
+ 'cause we need to know about pointers
+
+71
+00:03:07,140 --> 00:03:08,640
+ before we talk about chapter five,
+
+72
+00:03:08,640 --> 00:03:10,520
+ even though they use a little pointer syntax
+
+73
+00:03:10,520 --> 00:03:12,080
+ here and there in chapter one.
+
+74
+00:03:12,080 --> 00:03:15,480
+ And section 1.9 is character arrays,
+
+75
+00:03:15,480 --> 00:03:17,140
+ read this one closely,
+
+76
+00:03:17,140 --> 00:03:20,000
+ because there is no string object in C.
+
+77
+00:03:20,000 --> 00:03:22,480
+ There's no objects at all in C.
+
+78
+00:03:22,480 --> 00:03:25,320
+ And in section 1.10, they talk about variable scoping
+
+79
+00:03:25,320 --> 00:03:27,800
+ between functions, and that feels kind of similar
+
+80
+00:03:27,800 --> 00:03:30,160
+ to other languages, and part of it is because
+
+81
+00:03:30,160 --> 00:03:33,740
+ other languages took their inspiration from C.
+
+82
+00:03:33,740 --> 00:03:36,720
+ So if we just take a quick look at C character arrays,
+
+83
+00:03:36,720 --> 00:03:40,860
+ we must understand that the size of the character array
+
+84
+00:03:40,860 --> 00:03:44,400
+ is at allocation time, and there is nothing auto-extended.
+
+85
+00:03:44,400 --> 00:03:47,360
+ And if you write a for loop that goes off the end
+
+86
+00:03:47,360 --> 00:03:50,920
+ of the loop, like I've got, where I have a character array
+
+87
+00:03:50,920 --> 00:03:54,200
+ that's 10 long, and I write a loop that goes up to 1,000,
+
+88
+00:03:54,200 --> 00:03:56,800
+ storing data in it, eventually the program will blow up,
+
+89
+00:03:56,800 --> 00:04:01,800
+ and you can see, in Python, you just add characters,
+
+90
+00:04:01,800 --> 00:04:03,960
+ whereas in C, if you add characters
+
+91
+00:04:03,960 --> 00:04:07,320
+ beyond what was allocated, the system blows up.
+
+92
+00:04:07,320 --> 00:04:10,440
+ And you probably heard me say more than once
+
+93
+00:04:10,440 --> 00:04:13,240
+ that the C language is probably responsible
+
+94
+00:04:13,240 --> 00:04:17,040
+ for 90% of the significant security holes
+
+95
+00:04:17,040 --> 00:04:19,640
+ in all of computing, and this kind of code,
+
+96
+00:04:19,640 --> 00:04:23,680
+ where you allocate an array and then you wildly go beyond it,
+
+97
+00:04:23,680 --> 00:04:26,960
+ ends up making it so that people can inject things
+
+98
+00:04:26,960 --> 00:04:30,400
+ into operating systems and routers and all kinds of things.
+
+99
+00:04:30,400 --> 00:04:33,800
+ So this is why we don't use C to write programs.
+
+100
+00:04:33,800 --> 00:04:35,320
+ I mean, here we are in the first page.
+
+101
+00:04:35,320 --> 00:04:39,560
+ The example one of chapter one is why we don't write C
+
+102
+00:04:39,560 --> 00:04:42,960
+ very often, or if we do, we have to be really careful
+
+103
+00:04:42,960 --> 00:04:44,680
+ at reviewing it and making sure that it's right.
+
+104
+00:04:44,680 --> 00:04:47,280
+ It's really fast, but it's also dangerous.
+
+105
+00:04:47,280 --> 00:04:51,120
+ String constants and character constants.
+
+106
+00:04:51,120 --> 00:04:55,960
+ Strings and characters in most languages,
+
+107
+00:04:55,960 --> 00:04:58,880
+ Java's a little different, but PHP, Python, and JavaScript
+
+108
+00:04:58,880 --> 00:05:01,120
+ treat single and double quotes roughly the same,
+
+109
+00:05:01,120 --> 00:05:02,880
+ and they create string constants,
+
+110
+00:05:02,880 --> 00:05:06,080
+ and that's a multi-character thing that has a length.
+
+111
+00:05:06,080 --> 00:05:09,960
+ C doesn't have a multi-character thing, has a length.
+
+112
+00:05:09,960 --> 00:05:11,560
+ It has an array of characters.
+
+113
+00:05:11,560 --> 00:05:14,080
+ It has a zero character at the end of it.
+
+114
+00:05:14,080 --> 00:05:17,000
+ In C, single quotes are a single character,
+
+115
+00:05:17,000 --> 00:05:19,680
+ and double quotes are a character array.
+
+116
+00:05:19,680 --> 00:05:24,680
+ So a single, a double quote with one character in it
+
+117
+00:05:24,680 --> 00:05:28,680
+ is actually two bytes, 'cause it's the character
+
+118
+00:05:28,680 --> 00:05:30,880
+ and the string ending.
+
+119
+00:05:30,880 --> 00:05:33,480
+ Whereas in Python, a string has a length.
+
+120
+00:05:33,480 --> 00:05:35,080
+ It doesn't really have an ending character.
+
+121
+00:05:35,080 --> 00:05:38,000
+ There's a special character that we use for an ending.
+
+122
+00:05:38,000 --> 00:05:41,720
+ In C, a character is a byte, which is a short integer,
+
+123
+00:05:41,720 --> 00:05:44,920
+ usually eight bits in most computers,
+
+124
+00:05:44,920 --> 00:05:48,160
+ and so we, you gotta be real careful.
+
+125
+00:05:48,160 --> 00:05:50,560
+ You got double quote things and single quote things,
+
+126
+00:05:50,560 --> 00:05:55,560
+ and single quote things in C are far more like integers
+
+127
+00:05:55,560 --> 00:06:01,000
+ and far less like strings, and so in Python,
+
+128
+00:06:01,000 --> 00:06:02,820
+ you just use them interchangeably,
+
+129
+00:06:02,820 --> 00:06:04,520
+ single quotes and double quotes.
+
+130
+00:06:04,520 --> 00:06:07,240
+ Character sets.
+
+131
+00:06:07,240 --> 00:06:10,800
+ The char in C is like a number.
+
+132
+00:06:10,800 --> 00:06:12,560
+ It's a tiny number.
+
+133
+00:06:12,560 --> 00:06:16,840
+ It's eight bits long, so you can go from zero to 255,
+
+134
+00:06:16,840 --> 00:06:18,720
+ and the character representations depend
+
+135
+00:06:18,720 --> 00:06:23,120
+ on the character set, but quite often, they're ASCII,
+
+136
+00:06:23,120 --> 00:06:25,400
+ and so you can just go look up an ASCII chart
+
+137
+00:06:25,400 --> 00:06:28,640
+ and figure out what the numeric representation
+
+138
+00:06:28,640 --> 00:06:31,880
+ of the letter A is, and in Python,
+
+139
+00:06:31,880 --> 00:06:35,480
+ we can actually see the ordinal position of A
+
+140
+00:06:35,480 --> 00:06:38,440
+ by using the ord function, but that's the ord function
+
+141
+00:06:38,440 --> 00:06:40,540
+ of a single character string, which pulls the ord
+
+142
+00:06:40,540 --> 00:06:43,660
+ of the very first character, and we find that it's 65,
+
+143
+00:06:43,660 --> 00:06:46,160
+ and if you look up in the ASCII chart, it's 65,
+
+144
+00:06:46,160 --> 00:06:51,160
+ but in Python, Python 3, Python 3 are multi-byte characters
+
+145
+00:06:51,160 --> 00:06:56,000
+ that represent Unicode, and Unicode is much larger
+
+146
+00:06:56,000 --> 00:06:56,840
+ than eight bits.
+
+147
+00:06:56,840 --> 00:06:59,360
+ I think Unicode is 32 bits.
+
+148
+00:06:59,360 --> 00:07:02,460
+ UTF-8 is a way to represent Unicode,
+
+149
+00:07:02,460 --> 00:07:04,900
+ and Unicode is a 32-bit character set,
+
+150
+00:07:04,900 --> 00:07:09,160
+ and so if you say what is the integer equivalent
+
+151
+00:07:09,160 --> 00:07:14,160
+ of the character smiley face, you see that it's 128,522,
+
+152
+00:07:14,160 --> 00:07:19,600
+ and that's in a space of 32-bit, it's a 32-bit integer,
+
+153
+00:07:19,600 --> 00:07:22,680
+ and that's the character point within that 32-bit integer
+
+154
+00:07:22,680 --> 00:07:24,640
+ that represents smiley face.
+
+155
+00:07:24,640 --> 00:07:27,280
+ In C, there is no smiley face.
+
+156
+00:07:27,280 --> 00:07:30,160
+ You can't represent, well, unless you put a bunch
+
+157
+00:07:30,160 --> 00:07:32,740
+ of libraries into it, but the norm out of the box C
+
+158
+00:07:32,740 --> 00:07:35,000
+ can't represent a smiley face.
+
+159
+00:07:35,000 --> 00:07:38,120
+ It can represent an uppercase A, and you can say
+
+160
+00:07:38,120 --> 00:07:40,780
+ what is the A, and you'll notice we're printing it out
+
+161
+00:07:40,780 --> 00:07:44,880
+ with a percent C and a percent D, and it's the same thing.
+
+162
+00:07:44,880 --> 00:07:49,800
+ If you print a character out as a character, it's an A,
+
+163
+00:07:49,800 --> 00:07:51,760
+ and if you print it out as an integer, it's an A.
+
+164
+00:07:51,760 --> 00:07:53,560
+ We don't even need an ord function,
+
+165
+00:07:53,560 --> 00:07:58,340
+ because character constants are really integer constants
+
+166
+00:07:58,340 --> 00:08:00,860
+ in the ASCII character set, okay?
+
+167
+00:08:00,860 --> 00:08:04,740
+ Just understand that.
+
+168
+00:08:04,740 --> 00:08:07,100
+ Every time you see single quote A, single quote,
+
+169
+00:08:07,100 --> 00:08:10,740
+ think of it as an integer, as a number that happens
+
+170
+00:08:10,740 --> 00:08:13,980
+ to be conveniently looked up for you by the C compiler.
+
+171
+00:08:13,980 --> 00:08:17,560
+ And you can take a look at the ASCII character set,
+
+172
+00:08:17,560 --> 00:08:19,860
+ and you can go look at uppercase A, and you see
+
+173
+00:08:19,860 --> 00:08:22,440
+ that its decimal equivalent is 65.
+
+174
+00:08:22,440 --> 00:08:25,800
+ You also see in this table that its hexadecimal is 41,
+
+175
+00:08:25,800 --> 00:08:30,800
+ and its octal is 101, and its binary, its actual bits
+
+176
+00:08:30,800 --> 00:08:34,780
+ are one bunch of zeros and a one.
+
+177
+00:08:34,780 --> 00:08:38,940
+ Now the reason we like octal and hex, as programmers,
+
+178
+00:08:38,940 --> 00:08:43,240
+ is it's easier to convert directly one without having,
+
+179
+00:08:43,240 --> 00:08:45,440
+ converting from decimal requires like divisions
+
+180
+00:08:45,440 --> 00:08:49,000
+ and modulo and stuff like that, but converting from octal
+
+181
+00:08:49,000 --> 00:08:54,000
+ or hex to binary is direct on a digit by digit basis.
+
+182
+00:08:54,000 --> 00:08:58,200
+ So I can convert an octal digit to a binary,
+
+183
+00:08:58,200 --> 00:09:01,680
+ set of binary digits just by looking at each digit
+
+184
+00:09:01,680 --> 00:09:04,080
+ in succession, so when we're printing out
+
+185
+00:09:04,080 --> 00:09:05,280
+ and we want to be able to understand
+
+186
+00:09:05,280 --> 00:09:07,880
+ what the raw bit pattern is of some data,
+
+187
+00:09:07,880 --> 00:09:10,640
+ we tend to print it out in hex or in octal
+
+188
+00:09:10,640 --> 00:09:11,920
+ so that we can quickly figure out
+
+189
+00:09:11,920 --> 00:09:14,560
+ what bits are set inside that value.
+
+190
+00:09:14,560 --> 00:09:20,680
+ Strings in C are not strings, they're arrays of characters,
+
+191
+00:09:20,680 --> 00:09:25,000
+ and there is no length, so you can ask Python
+
+192
+00:09:25,000 --> 00:09:26,520
+ what the length of a string is,
+
+193
+00:09:26,520 --> 00:09:28,720
+ and the string knows its length.
+
+194
+00:09:28,720 --> 00:09:31,440
+ But in C, you can ask what the length of a string is,
+
+195
+00:09:31,440 --> 00:09:33,360
+ but it turns into a for loop that scans
+
+196
+00:09:33,360 --> 00:09:35,320
+ until it finds the end of the string,
+
+197
+00:09:35,320 --> 00:09:37,920
+ and the end of the string is a special character,
+
+198
+00:09:37,920 --> 00:09:42,580
+ which is, quote, backslash zero, quote, which is zero.
+
+199
+00:09:42,580 --> 00:09:44,640
+ I mean, it's literally the integer zero,
+
+200
+00:09:44,640 --> 00:09:46,320
+ so you have characters that are non-zero,
+
+201
+00:09:46,320 --> 00:09:47,720
+ and then you have a zero character,
+
+202
+00:09:47,720 --> 00:09:50,820
+ and the length is how many characters are in this array
+
+203
+00:09:50,820 --> 00:09:51,720
+ up to the end.
+
+204
+00:09:51,720 --> 00:09:54,800
+ Now, that is different than the allocation,
+
+205
+00:09:54,800 --> 00:09:58,520
+ so you can have, in this case, I have an example
+
+206
+00:09:58,520 --> 00:10:03,520
+ of a six character array, and I put six things in it.
+
+207
+00:10:03,520 --> 00:10:04,600
+ It's all full.
+
+208
+00:10:04,600 --> 00:10:06,240
+ I could have terminated it,
+
+209
+00:10:06,240 --> 00:10:09,200
+ like you notice I say x sub three equals zero.
+
+210
+00:10:09,200 --> 00:10:13,760
+ It's no, it's still got six characters in the array,
+
+211
+00:10:13,760 --> 00:10:16,040
+ but now the end of the string in that array,
+
+212
+00:10:16,040 --> 00:10:19,240
+ or the end of the character sequence in that array,
+
+213
+00:10:19,240 --> 00:10:21,520
+ has a zero at position sub three,
+
+214
+00:10:21,520 --> 00:10:23,040
+ and of course, arrays start at zero,
+
+215
+00:10:23,040 --> 00:10:24,880
+ so you see the first three characters,
+
+216
+00:10:24,880 --> 00:10:26,480
+ and the third one is an end,
+
+217
+00:10:26,480 --> 00:10:28,480
+ and that stops it to print out,
+
+218
+00:10:28,480 --> 00:10:30,880
+ and so you gotta A, allocate
+
+219
+00:10:30,880 --> 00:10:33,120
+ for the end of the character string,
+
+220
+00:10:33,120 --> 00:10:36,120
+ and you B, you've gotta have it there.
+
+221
+00:10:36,120 --> 00:10:38,820
+ Just because it goes up to six,
+
+222
+00:10:38,820 --> 00:10:40,160
+ if you don't have the end of the string,
+
+223
+00:10:40,160 --> 00:10:45,160
+ it's gonna go off and randomly go through memory
+
+224
+00:10:45,160 --> 00:10:49,200
+ until it blows up, probably, right?
+
+225
+00:10:49,200 --> 00:10:52,900
+ And so strings must be terminated.
+
+226
+00:10:52,900 --> 00:10:54,600
+ If you append something to a string,
+
+227
+00:10:54,600 --> 00:10:57,560
+ first you have to have enough space in that string.
+
+228
+00:10:57,560 --> 00:10:59,320
+ If you append something to a character array,
+
+229
+00:10:59,320 --> 00:11:00,760
+ you have to have enough space,
+
+230
+00:11:00,760 --> 00:11:02,400
+ and then if you overwrite the end of the string,
+
+231
+00:11:02,400 --> 00:11:04,440
+ you gotta add another little mark to say,
+
+232
+00:11:04,440 --> 00:11:06,920
+ now the end of the string has been moved.
+
+233
+00:11:06,920 --> 00:11:09,480
+ So terminating a string is a thing
+
+234
+00:11:09,480 --> 00:11:10,960
+ that you always gotta think about,
+
+235
+00:11:10,960 --> 00:11:13,000
+ both when you're scanning through a string,
+
+236
+00:11:13,000 --> 00:11:14,960
+ and when you're creating a new string.
+
+237
+00:11:14,960 --> 00:11:19,280
+ Like I said, the C string length is only computable
+
+238
+00:11:19,280 --> 00:11:21,920
+ by a loop that scans for a zero character.
+
+239
+00:11:21,920 --> 00:11:24,120
+ So there's a strlen function in string.h
+
+240
+00:11:24,120 --> 00:11:25,860
+ that computes the string,
+
+241
+00:11:25,860 --> 00:11:28,600
+ but it's very, very different
+
+242
+00:11:28,600 --> 00:11:31,480
+ than the len function in Python.
+
+243
+00:11:31,480 --> 00:11:34,240
+ Len function in Python, x is an object,
+
+244
+00:11:34,240 --> 00:11:36,780
+ and length is an attribute of that object.
+
+245
+00:11:36,780 --> 00:11:39,540
+ Whereas in C, there is an array,
+
+246
+00:11:39,540 --> 00:11:42,400
+ and it has a length, and it has a zero position,
+
+247
+00:11:42,400 --> 00:11:44,480
+ but to ask how long is it,
+
+248
+00:11:44,480 --> 00:11:47,000
+ you've gotta actually loop through all the characters
+
+249
+00:11:47,000 --> 00:11:49,160
+ looking for the zero marker.
+
+250
+00:11:49,160 --> 00:11:52,600
+ So you kinda can find a length of a character,
+
+251
+00:11:52,600 --> 00:11:54,240
+ a length of a string,
+
+252
+00:11:54,240 --> 00:11:57,720
+ the length of a quote unquote string in C,
+
+253
+00:11:57,720 --> 00:11:59,200
+ but you gotta write a for loop to do it.
+
+254
+00:11:59,200 --> 00:12:00,240
+ You don't have to write a for loop,
+
+255
+00:12:00,240 --> 00:12:02,280
+ 'cause Python just knows the length.
+
+256
+00:12:02,280 --> 00:12:05,160
+ Later we'll bring all these things together, much later.
+
+257
+00:12:05,160 --> 00:12:11,720
+ So one of your assignments, exercise 117,
+
+258
+00:12:11,720 --> 00:12:14,360
+ is reversing a string in C
+
+259
+00:12:14,360 --> 00:12:19,720
+ without requiring any information, an extra string.
+
+260
+00:12:19,720 --> 00:12:21,440
+ You can't, you have a string,
+
+261
+00:12:21,440 --> 00:12:23,240
+ it's got a certain amount of space,
+
+262
+00:12:23,240 --> 00:12:25,440
+ and you've gotta just flip.
+
+263
+00:12:25,440 --> 00:12:27,420
+ You gotta swap the characters.
+
+264
+00:12:27,420 --> 00:12:30,200
+ You're gonna probably have to draw a picture to do that.
+
+265
+00:12:30,200 --> 00:12:34,600
+ It is exercise 117, and I'm gonna tell you, do not cheat.
+
+266
+00:12:34,600 --> 00:12:36,920
+ There are probably a million solutions
+
+267
+00:12:36,920 --> 00:12:37,760
+ out there on the internet.
+
+268
+00:12:37,760 --> 00:12:40,720
+ ChetGPT will tell you how to do it.
+
+269
+00:12:40,720 --> 00:12:42,200
+ Don't be tempted.
+
+270
+00:12:42,200 --> 00:12:47,120
+ As you do this, you will get there.
+
+271
+00:12:47,120 --> 00:12:50,480
+ I show you a blurred out version of it.
+
+272
+00:12:50,480 --> 00:12:52,840
+ It's not all that much code.
+
+273
+00:12:52,840 --> 00:12:55,560
+ So don't shortcut this.
+
+274
+00:12:55,560 --> 00:12:57,680
+ Don't just, the solution,
+
+275
+00:12:57,680 --> 00:13:00,080
+ getting the solution to this assignment
+
+276
+00:13:00,080 --> 00:13:02,240
+ without actually doing it
+
+277
+00:13:02,240 --> 00:13:04,640
+ is the meanest thing you'll ever do to yourself.
+
+278
+00:13:04,640 --> 00:13:07,580
+ You have to do the reversal in place.
+
+279
+00:13:07,580 --> 00:13:09,480
+ It's a classic interview question.
+
+280
+00:13:09,480 --> 00:13:12,840
+ At the interview, you don't get to go to ChetGPT.
+
+281
+00:13:12,840 --> 00:13:16,760
+ You gotta think about even length strings,
+
+282
+00:13:16,760 --> 00:13:19,340
+ odd length strings, empty strings,
+
+283
+00:13:19,340 --> 00:13:21,040
+ and single character strings.
+
+284
+00:13:21,040 --> 00:13:23,280
+ You're gonna have to draw some pictures.
+
+285
+00:13:23,280 --> 00:13:25,000
+ Take your time.
+
+286
+00:13:25,000 --> 00:13:26,880
+ Enjoy this assignment.
+
+287
+00:13:26,880 --> 00:13:28,280
+ Seriously.
+
+288
+00:13:28,280 --> 00:13:29,640
+ It's not that big.
+
+289
+00:13:29,640 --> 00:13:30,760
+ And when you get it done,
+
+290
+00:13:30,760 --> 00:13:32,340
+ you can be very, very proud of yourself
+
+291
+00:13:32,340 --> 00:13:36,000
+ that you really thought through the low-level storage
+
+292
+00:13:36,000 --> 00:13:38,000
+ of what an array of characters
+
+293
+00:13:38,000 --> 00:13:40,840
+ with an ending marker is working with.
+
+294
+00:13:40,840 --> 00:13:44,920
+ And so that's why it's such a good interview question.
+
+295
+00:13:44,920 --> 00:13:45,760
+ So there we go.
+
+296
+00:13:45,760 --> 00:13:49,120
+ That's kinda my call-outs from chapter one.
+
+297
+00:13:49,120 --> 00:13:51,660
+ Give you an overall sense of the book,
+
+298
+00:13:51,660 --> 00:13:53,040
+ see character arrays,
+
+299
+00:13:53,040 --> 00:13:56,120
+ and encouraging you to actually do your homework
+
+300
+00:13:56,120 --> 00:13:59,000
+ even though there's a million ways to get it done for you.
+
+301
+00:13:59,000 --> 00:13:59,840
+ Cheers.
+
+302
+00:13:59,840 --> 00:14:02,420
+ (gentle music)
+

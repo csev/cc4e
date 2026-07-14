@@ -1,0 +1,262 @@
+ So now we're going to dive into the notion of abstractions.
+ We're going to take an interface and kind of compare it
+ across a number of different languages. We're going to call this abstraction a map.
+ A map is a common term that we use kind of abstractly to describe key value collections.
+ And each different language tends to have a different name for that.
+ C++, they actually call it a map. Python calls it a dictionary.
+ Java also calls it a map, but with an uppercase.
+ And in PHP, we call it arrays. And in JavaScript, they're actually objects.
+ And then we're going to look at the iterator pattern
+ as an abstraction for looping across multiple implementations.
+ So let's take a look at some sample Python code that's playing with a dictionary class.
+ So we created a dictionary at the very beginning.
+ Then we filled it up with some key value pairs.
+ And so you'll notice that like D sub z equals 8 and D sub z equals 1.
+ That's got to be a replacement. So there's no 8 in there after that second replacement.
+ We then print it. Then we do a get of z to see if it's there.
+ And then we do a get of x, and it's not there. So we see x equals 42 when it executes.
+ Then we say, give me an iterator of the items in this dictionary.
+ And so what that basically is going to do is the iterator itself is not a list.
+ In earlier versions, like Python 2, when you asked for the items, you tended to get
+ a fully filled out list. But that's a waste of memory.
+ So the iterator is simply a data structure that is keeping track of where in the list we are.
+ And then we call it next over and over and over to advance through the iterator.
+ So we don't have to make a complete copy of all the data.
+ We just have a little pointer that advances through.
+ So items is a relatively small data structure.
+ I mean, it doesn't include all the data in the dictionary.
+ It just is itself a pointer to something. It's all internal.
+ Remember, abstraction is like, hey, I can give you the next thing.
+ Internally, there's pointers and all kinds of crazy things inside these iterators,
+ which we shall soon see.
+ So if you print out items, you will see that it's like an item iterator for dictionaries.
+ That's what that class dict item iterator is telling us.
+ But then we can call the next function, which is built into Python, and say, hey, iterator,
+ do your job and hand me back the next thing.
+ Or if we reach the end of the dictionary, false.
+ Now, if you come in any order, these have any order dictionaries, of course.
+ But we get back the entry or we get back false.
+ So we say, while entry, then we print the entry.
+ And then we say, hey, give me the next one.
+ And then loop up to the top.
+ And when it becomes false, we're all done.
+ And so what you see, because this is an order dictionary,
+ is you see z1, x9, b3, a4, and then it finishes.
+ So we don't know about next, arrow next.
+ We don't know even the-- in this case, we're just getting a tuple back.
+ So we do know that.
+ But if we take a look at the same kind of concept in PHP,
+ we make an array and we fill it up.
+ z gets to be 8, z gets to be 1.
+ And that's an overwrite.
+ And then we put three more things in.
+ And we can print them out.
+ We see that it's kind of an order dictionary, as it were.
+ x, z, y, b, a.
+ And then we do a get.
+ And we're using the null coalesce operator, which is the double question mark.
+ So we say, give me a sub z.
+ And if that doesn't exist, then give me back 42.
+ So it's kind of like a get.
+ But that's a PHP 7 and later.
+ So we look up x, and we don't get it.
+ So we see x equals 42.
+ And then we run through an iterator.
+ And again, there are structures inside of arrays.
+ But we know nothing about how PHP implemented the arrays.
+ We just know that if we say, for each a, as key is assigned a value,
+ we can print out k and v.
+ And so this is a very abstract way of saying, I want to go through all of them.
+ I want the keys and values.
+ Give those back to me.
+ But I don't care how you do it, whether you make extra copies of data, et cetera.
+ So that's another iterator pattern.
+ Now, in C, the data structure we create is a map.
+ And if you read this, you'll see that it talks about how the implementations work,
+ et cetera, et cetera, et cetera.
+ But the C++ equivalent of a dictionary is, in effect, a map.
+ And so this is some C++ code.
+ The first thing we see is we're going to create a map.
+ And in this less than, greater than syntax,
+ you're seeing that the map is mapping a string to an integer.
+ So the key, in this case, is a string.
+ And the value is an integer.
+ The previous two languages didn't care so much about types.
+ And so that's why they-- but now we're in C++, which cares greatly about types.
+ And so now we say mp sub z equals 8.
+ Then mp sub z equals 1, which, again, is a replace operator.
+ Then y, b, and a are set to 2, 3, and 4, respectively.
+ And then we do like a get operation.
+ And this one is a little funky in C.
+ Why they didn't give us a get operation, I do not know.
+ But what this is using as a ternary operation is saying mp count.
+ How many z keys are inside this thing?
+ And if it's greater than 0, we print out mp sub z.
+ And if it's not greater than 0-- if it's 0, then we print out 42,
+ which functions like a Python get on a dictionary.
+ So this syntax is funky.
+ You can go like Google it.
+ It's like there's two ways you can do it.
+ And neither of them makes me particularly happy.
+ Because I think that for a map-like object,
+ a get with a default is pretty valuable.
+ The notion of running through and counting means you found it or didn't find it.
+ And if you found it, why don't you give it back to me?
+ But they just don't have a get.
+ But now we see an iteration.
+ So it says for auto.
+ Auto is a type, but it's an automatic type.
+ And it knows that this mp is a map string int.
+ And so it creates this current pointer, which is a pointer to--
+ not exactly a map string, it's a map entry.
+ But we don't care about that.
+ There's actually a type.
+ Curr, the variable curr, has a type.
+ Whatever the mp begin is going to give us back as a type.
+ And it knows that based on map string int.
+ And it makes curr the right type.
+ So this is like whatever type you want.
+ But it is not any type.
+ It's a very precise type.
+ And that's a sort of a hallmark of C++, is all the types are very, very precise.
+ So it's a for loop.
+ You see the three semicolons?
+ The initialization clause, auto curr equals mp begin, says, hey, we've got our iterator.
+ Get me started.
+ Begin.
+ Go to the beginning of it.
+ And give me the first one.
+ And as long as curr is not equal to mp end, there are no more.
+ That's kind of like their null.
+ And then plus plus curr.
+ So we're incrementing curr.
+ And then there's a key and a value.
+ And they don't call them key and value.
+ They call them first and second.
+ That's the thing coming back from mp begin has an attribute first and an attribute second.
+ And we call the c_str to convert that to a C string.
+ So I can use printf.
+ So I don't have to use cout.
+ Just because I don't know why.
+ I didn't want to use cout in this one.
+ But you see an abstraction where the first and the second are known.
+ But because this is a key and a value, it's not such a big deal.
+ And so that's doing the same thing in C++.
+ In Java, they have an interface.
+ And you see the word interface here.
+ An interface named map less than greater than k comma v.
+ And just like in C++, this is saying a map is a key and a value.
+ But what we're putting in here is the type of the key and the type of the value.
+ So we're going to make a map that has a string key and an integer value.
+ You might say why didn't I do string string?
+ And that's because it makes it just easier when I'm writing so much C code.
+ It also will be fun when we actually count things, if you remember.
+ From a long time ago, we did count it.
+ But map is the class.
+ And string integer, this is kind of polymorphism where it can be a map.
+ It maps strings to integers, or integers to strings, or strings to strings,
+ or who knows what to who knows what else.
+ Meaning this map is exceedingly flexible.
+ And it doesn't care what kind of type it's using.
+ As long as the type meets some basic criteria.
+ So here's a bit of Java code that does the same thing that we've been doing.
+ And so we see that we're going to make this variable map, lowercase,
+ is of type map, map of strings to integers.
+ And we're going to create a new tree map of strings to integers.
+ And the new creates a new object.
+ Now the difference between a map and a tree map is a map is an interface
+ and a tree map is an implementation.
+ The tree map says we're going to build this key value store,
+ but we're going to store our data in a tree.
+ And that says to a computer scientist
+ that it's going to have a certain performance and memory footprint.
+ Trees are a great way to store key value data.
+ But they take a little bit more memory than a linked list, as we will later see.
+ And so we're choosing an implementation.
+ The other thing where it says tree map that you might use is what's called a hash map.
+ Which is a simpler map implementation, but doesn't keep things in order.
+ So you can choose.
+ The map doesn't change, but you can say I'd like this to be a tree map or a hash map.
+ They're both key value stores.
+ One is an ordered key value store and a hash map is an unordered key value store.
+ And they both have different performance behaviors and internal implementation details.
+ But it doesn't matter because they're both maps.
+ In this code that we write, we could literally change tree map to hash map
+ and the code will work exactly the same.
+ But the order of the key value pairs might be a little bit different.
+ Now you'll notice that when we're putting stuff in, we call a method, map.put.
+ So everything we've seen so far says like map open bracket quote z quote close bracket equals 8.
+ Java chose not to do what's called operator overloading.
+ And so it really does everything in a method.
+ So the kind of things that you think are going to be done with an assignment statement
+ or some other syntax tend to be done.
+ It's like, OK, we're going to do everything with methods and parameters.
+ Now map is the object instance that's being worked on.
+ And z, that's basically saying map sub z equals 8.
+ And we'll do in a put of z of 1, which is going to overwrite.
+ You'll see I'm doing the same thing in each one of these things.
+ And then put in y, b, and a with 2, 3, and 4 respectively.
+ I can print it out.
+ And if you look at the printout, it looks a lot like what it looks like in Python.
+ There's this thing called get or default, map.get or default,
+ which is if the key z is in there, give it to the value.
+ Or just give me 42 as a default.
+ And in the first case, z is there.
+ In the second case, x is not there.
+ So you see x is 42.
+ That's not a bad name for it.
+ It's a little more verbose than get.
+ It's pretty much the same as what we do in Python.
+ And then we have an iterator.
+ And now you see in this for loop, you see kind of the notion of the fact
+ that the iteration variable has a type.
+ So we don't have this auto.
+ Later versions of Java may have an auto.
+ But now I'm explicitly showing you.
+ It's not a map string integer.
+ It's a map.entry, which is an entry inside of a map.
+ It's an abstract interface to the entry inside of a map.
+ Each entry that's got to match the string integer that's in the map.
+ And so there's a map string integer, which is the whole map.
+ And then there's a map entry, which is one of the entries.
+ But this map entry is also kind of an iterator, right?
+ So we're going to iterate and move forward.
+ So it's not just the key and the value.
+ It's really the key and the value and the position.
+ But we don't see the position.
+ All we know is we use this for syntax, which is kind of like a for in in Python.
+ And we call map.entry set, which is I want a set of all the entries.
+ And that map entry set does not construct a giant in memory list
+ and then go through it.
+ That actually creates a single map entry with the key and the value of the first one.
+ And then you hit it again.
+ And it gives you the second one.
+ You hit it again.
+ It gives the third one.
+ And pretty soon it gives you null.
+ Which means that the loop is going to stop.
+ And the entry itself does have a key and a value.
+ Now, key and value are known in the map entry interface.
+ So you say entry.getKey and entry.getValue.
+ Now, they're using methods to give us back the key and the value
+ versus in previous things you saw attributes being used in the iterators.
+ And that's because Java is obsessed with preferring to use accessor methods
+ like getters and setters versus just grabbing attributes.
+ And the key thing is they can add just a little bit of business logic if they want
+ rather than having to do something and have the key and the value
+ already completely computed sitting in an attribute for you to use.
+ Entry.getKey, sometimes it just grabs something that's already got computed
+ or it might actually go do something or do some work.
+ And so by putting these things in what Java calls getters and setters,
+ in this case we're not seeing a setter so much.
+ But making it so that instead of it being entry.key,
+ it's entry.getKey open print close print.
+ That's a very Java way of thinking about this.
+ So we started by talking about a simple Python dictionary where we fill it up,
+ we use get, then we create an iterator,
+ and then we abstractly loop through that iterator.
+ And that's what we wanted to accomplish in this section
+ just to see how that is done in a wide range of different languages.
+ Because the map abstraction is kind of like this thing
+ that we use as software developers, and then it's a kind of a sealed thing,
+ and then underneath it all the magic happens.

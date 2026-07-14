@@ -1,0 +1,65 @@
+ [MUSIC]
+ That Bell Labs bunch of smart people, I call it 1200 PhD level people in Murray Hill in basically one giant building.
+ And so that's a lot of people rubbing up against each other, and they're all doing technical kinds of things.
+ And the environment did not tell people what to do. It was go do your thing.
+ And once a year, one side of one piece of paper, tell us what you did, and that will determine how much money you get next year, but it was a very long cycle.
+ The one extra thing is that it was a problem-rich environment.
+ And so there were things that you could work on, and there was this, I think, very gentle gravitational drift towards doing something that somebody else might care about.
+ Lots of people, you know, who cares what other people think, I'm going to do my stuff.
+ But I think most people got some reward, you know, psychic reward from, I do something, I give it to you, and you say, that was great.
+ And then you say, but, and you tell me all the things that aren't yet great.
+ But that kind of thing was very common at the labs, because AT&T at that time basically supplied telephone service to most of the United States, a million people, all kinds of interesting problems in and around communications.
+ And so no matter what you were interested in, there would be some part of AT&T that could probably make use of that.
+ So that was part of it, but then there was the external world as well, the research community Bell Labs was just part of the academic research community.
+ So they're both outlets, and the labs was perfectly happy to have people do either.
+ And so all of that, I think, worked out really very well.
+ And it helped to have stable funding, because basically at that point, if you made a long-distance phone call in the United States, remember the concept of long-distance, right, if you made one of those calls,
+ a tiny slice of the revenue of that financed Bell Labs with the charter of make the service better.
+ And we won't worry about the details of how you do that.
+ So at the time, there was a lot of interest in programming languages.
+ This all came out of the Multics experience, right, where people at Bell Labs and, of course, the folks at MIT had realized that writing things in a high-level language made sense.
+ And then the question is, what's the high-level language?
+ And they started with PL1, which in the abstract sounded like a good idea, and in reality was a horrible idea, because it was a horrible language.
+ And so Martin Richards from Cambridge, University of Cambridge, had this language called BCPL.
+ And he had spent, if I understand it correctly, a sabbatical year at MIT, planted the language in some sense.
+ And it was much simpler, much cleaner, much better suited to system programming kinds of things than any version of PL1 would have been.
+ And so the people at Bell Labs, Ken Thompson, Dennis Ritchie, and so on, had gotten some experience with high-level languages as suitable for writing lots of different things.
+ BCPL wasn't a suitable thing for modern machines because it was typeless.
+ And newer machines clearly were coming on stream that would have types like bytes and integers and maybe bigger things.
+ And so at some point Ken did a lot of experimenting, Ken Thompson did a lot of experimenting with simpler versions, even of BCPL, a particular one called B, which was an interpretive language, no compiler.
+ And that was, again, expressive enough that people started to like it. And that's sort of where I started in on this.
+ I mean, I had written bits of PL1. It was awful. I'd written Fortran better.
+ But the B was sort of nicer to use, but it was still typeless and an interpreter as well, so it wouldn't be terribly efficient.
+ But with the PDP-11 in the offing, and I don't remember the exact timing here, it was clear that a version of something that felt sort of like B,
+ but which had some mechanism to include types so that you could talk about characters or integers, was going to be the way to go.
+ And that's where Dennis picked up and started developing the C language and the compiler to go with it and so on.
+ The portability was very much on people's minds at that time, because although the core UNIX work was done on the PDP-11,
+ there were other machines at the time that were in the same equivalence class.
+ Interdata had a couple of 732, 832 numbers like that. And I think there were probably HP machines as well, etc.
+ And the other thing that was in some ways harder was that there was the big mainframe kind of computers that were used by the local computer center.
+ And these were fundamentally stripped down versions of the Multics machines. They were GE 635 kind of things.
+ And so those were big, clunky, word-oriented machines. They were, in effect, IBM 7094s, cleaned up a bit.
+ And getting something that would compile sensibly for those machines that really didn't have characters in a language
+ which had become what it was so it could manipulate characters, I think there was a bit of a strain there.
+ But that portability, how do you get the same language to work on different computers?
+ And Dennis's original compiler really was targeted at the PDP-11.
+ And Steve Johnson came along with a portable C compiler which basically separated the front end.
+ Let's recognize the language, let's build some intermediate structure, and then let's generate code for different kinds of machines.
+ I had written a tutorial on B because I thought it was interesting, maybe I can tell other people how to use it.
+ And so when C started to be used, and I became somewhat better at using it, then I basically repurposed the B tutorial,
+ brought it forward and made the C tutorial out of it.
+ And so I used C for essentially all the software I was writing at that time.
+ And I kind of liked it. It was good. It was a nice match for the way people think about computing, I think.
+ But also a very nice match for the actual hardware of the time, you could imagine what the compiler was doing.
+ All of it was clear, so efficient, expressive, and nicely matched to everything around it.
+ And then somewhere in probably 1977, early-ish, I coerced Dennis into writing a book about it.
+ First edition came out in '78, and at that point the language was pretty reasonable.
+ The book, I think it was right on the cusp of whether structures were fully part of the language or not.
+ A bit of overhang there, and I don't remember, but I think probably they were not quite but awful close.
+ And since Dennis was doing both compiler and book, it was at least a consistent viewpoint.
+ Question, can you pick up a structure as a unit and pass it around, or do you have to do something special?
+ But that's a milestone. And then the next one is probably the 1988 book and the development of the NCC standard,
+ the first standard, which is essentially, again, about the same time.
+ And so I think those are the ways I measured. And at that point, call it 1988, give or take, just before you encountered it,
+ C was probably just fine for anything you might reasonably want to do.
+ And this is probably heresy or something, but I don't think that the changes in evolution since then have bought enough in some sense.

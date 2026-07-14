@@ -1,0 +1,197 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:10.000
+ [MUSIC]
+
+00:00:30.000 --> 00:00:40.000
+ That Bell Labs bunch of smart people, I call it 1200 PhD level people in Murray Hill in basically one giant building.
+
+00:00:40.000 --> 00:00:45.000
+ And so that's a lot of people rubbing up against each other, and they're all doing technical kinds of things.
+
+00:00:45.000 --> 00:00:50.000
+ And the environment did not tell people what to do. It was go do your thing.
+
+00:00:50.000 --> 00:00:58.000
+ And once a year, one side of one piece of paper, tell us what you did, and that will determine how much money you get next year, but it was a very long cycle.
+
+00:00:58.000 --> 00:01:02.000
+ The one extra thing is that it was a problem-rich environment.
+
+00:01:02.000 --> 00:01:13.000
+ And so there were things that you could work on, and there was this, I think, very gentle gravitational drift towards doing something that somebody else might care about.
+
+00:01:13.000 --> 00:01:16.000
+ Lots of people, you know, who cares what other people think, I'm going to do my stuff.
+
+00:01:16.000 --> 00:01:26.000
+ But I think most people got some reward, you know, psychic reward from, I do something, I give it to you, and you say, that was great.
+
+00:01:26.000 --> 00:01:29.000
+ And then you say, but, and you tell me all the things that aren't yet great.
+
+00:01:29.000 --> 00:01:43.000
+ But that kind of thing was very common at the labs, because AT&T at that time basically supplied telephone service to most of the United States, a million people, all kinds of interesting problems in and around communications.
+
+00:01:43.000 --> 00:01:50.000
+ And so no matter what you were interested in, there would be some part of AT&T that could probably make use of that.
+
+00:01:50.000 --> 00:01:58.000
+ So that was part of it, but then there was the external world as well, the research community Bell Labs was just part of the academic research community.
+
+00:01:58.000 --> 00:02:02.000
+ So they're both outlets, and the labs was perfectly happy to have people do either.
+
+00:02:02.000 --> 00:02:06.000
+ And so all of that, I think, worked out really very well.
+
+00:02:06.000 --> 00:02:17.000
+ And it helped to have stable funding, because basically at that point, if you made a long-distance phone call in the United States, remember the concept of long-distance, right, if you made one of those calls,
+
+00:02:17.000 --> 00:02:24.000
+ a tiny slice of the revenue of that financed Bell Labs with the charter of make the service better.
+
+00:02:24.000 --> 00:02:28.000
+ And we won't worry about the details of how you do that.
+
+00:02:28.000 --> 00:02:31.000
+ So at the time, there was a lot of interest in programming languages.
+
+00:02:31.000 --> 00:02:41.000
+ This all came out of the Multics experience, right, where people at Bell Labs and, of course, the folks at MIT had realized that writing things in a high-level language made sense.
+
+00:02:41.000 --> 00:02:45.000
+ And then the question is, what's the high-level language?
+
+00:02:45.000 --> 00:02:54.000
+ And they started with PL1, which in the abstract sounded like a good idea, and in reality was a horrible idea, because it was a horrible language.
+
+00:02:54.000 --> 00:03:01.000
+ And so Martin Richards from Cambridge, University of Cambridge, had this language called BCPL.
+
+00:03:01.000 --> 00:03:08.000
+ And he had spent, if I understand it correctly, a sabbatical year at MIT, planted the language in some sense.
+
+00:03:08.000 --> 00:03:16.000
+ And it was much simpler, much cleaner, much better suited to system programming kinds of things than any version of PL1 would have been.
+
+00:03:16.000 --> 00:03:28.000
+ And so the people at Bell Labs, Ken Thompson, Dennis Ritchie, and so on, had gotten some experience with high-level languages as suitable for writing lots of different things.
+
+00:03:28.000 --> 00:03:32.000
+ BCPL wasn't a suitable thing for modern machines because it was typeless.
+
+00:03:32.000 --> 00:03:40.000
+ And newer machines clearly were coming on stream that would have types like bytes and integers and maybe bigger things.
+
+00:03:40.000 --> 00:03:55.000
+ And so at some point Ken did a lot of experimenting, Ken Thompson did a lot of experimenting with simpler versions, even of BCPL, a particular one called B, which was an interpretive language, no compiler.
+
+00:03:55.000 --> 00:04:02.000
+ And that was, again, expressive enough that people started to like it. And that's sort of where I started in on this.
+
+00:04:02.000 --> 00:04:08.000
+ I mean, I had written bits of PL1. It was awful. I'd written Fortran better.
+
+00:04:08.000 --> 00:04:18.000
+ But the B was sort of nicer to use, but it was still typeless and an interpreter as well, so it wouldn't be terribly efficient.
+
+00:04:18.000 --> 00:04:27.000
+ But with the PDP-11 in the offing, and I don't remember the exact timing here, it was clear that a version of something that felt sort of like B,
+
+00:04:27.000 --> 00:04:36.000
+ but which had some mechanism to include types so that you could talk about characters or integers, was going to be the way to go.
+
+00:04:36.000 --> 00:04:43.000
+ And that's where Dennis picked up and started developing the C language and the compiler to go with it and so on.
+
+00:04:43.000 --> 00:04:50.000
+ The portability was very much on people's minds at that time, because although the core UNIX work was done on the PDP-11,
+
+00:04:50.000 --> 00:04:55.000
+ there were other machines at the time that were in the same equivalence class.
+
+00:04:55.000 --> 00:05:06.000
+ Interdata had a couple of 732, 832 numbers like that. And I think there were probably HP machines as well, etc.
+
+00:05:06.000 --> 00:05:15.000
+ And the other thing that was in some ways harder was that there was the big mainframe kind of computers that were used by the local computer center.
+
+00:05:15.000 --> 00:05:21.000
+ And these were fundamentally stripped down versions of the Multics machines. They were GE 635 kind of things.
+
+00:05:21.000 --> 00:05:28.000
+ And so those were big, clunky, word-oriented machines. They were, in effect, IBM 7094s, cleaned up a bit.
+
+00:05:28.000 --> 00:05:37.000
+ And getting something that would compile sensibly for those machines that really didn't have characters in a language
+
+00:05:37.000 --> 00:05:42.000
+ which had become what it was so it could manipulate characters, I think there was a bit of a strain there.
+
+00:05:42.000 --> 00:05:48.000
+ But that portability, how do you get the same language to work on different computers?
+
+00:05:48.000 --> 00:05:52.000
+ And Dennis's original compiler really was targeted at the PDP-11.
+
+00:05:52.000 --> 00:05:59.000
+ And Steve Johnson came along with a portable C compiler which basically separated the front end.
+
+00:05:59.000 --> 00:06:08.000
+ Let's recognize the language, let's build some intermediate structure, and then let's generate code for different kinds of machines.
+
+00:06:08.000 --> 00:06:14.000
+ I had written a tutorial on B because I thought it was interesting, maybe I can tell other people how to use it.
+
+00:06:14.000 --> 00:06:23.000
+ And so when C started to be used, and I became somewhat better at using it, then I basically repurposed the B tutorial,
+
+00:06:23.000 --> 00:06:27.000
+ brought it forward and made the C tutorial out of it.
+
+00:06:27.000 --> 00:06:33.000
+ And so I used C for essentially all the software I was writing at that time.
+
+00:06:33.000 --> 00:06:39.000
+ And I kind of liked it. It was good. It was a nice match for the way people think about computing, I think.
+
+00:06:39.000 --> 00:06:45.000
+ But also a very nice match for the actual hardware of the time, you could imagine what the compiler was doing.
+
+00:06:45.000 --> 00:06:53.000
+ All of it was clear, so efficient, expressive, and nicely matched to everything around it.
+
+00:06:53.000 --> 00:07:03.000
+ And then somewhere in probably 1977, early-ish, I coerced Dennis into writing a book about it.
+
+00:07:03.000 --> 00:07:07.000
+ First edition came out in '78, and at that point the language was pretty reasonable.
+
+00:07:07.000 --> 00:07:14.000
+ The book, I think it was right on the cusp of whether structures were fully part of the language or not.
+
+00:07:14.000 --> 00:07:20.000
+ A bit of overhang there, and I don't remember, but I think probably they were not quite but awful close.
+
+00:07:20.000 --> 00:07:26.000
+ And since Dennis was doing both compiler and book, it was at least a consistent viewpoint.
+
+00:07:26.000 --> 00:07:32.000
+ Question, can you pick up a structure as a unit and pass it around, or do you have to do something special?
+
+00:07:32.000 --> 00:07:40.000
+ But that's a milestone. And then the next one is probably the 1988 book and the development of the NCC standard,
+
+00:07:40.000 --> 00:07:46.000
+ the first standard, which is essentially, again, about the same time.
+
+00:07:46.000 --> 00:07:55.000
+ And so I think those are the ways I measured. And at that point, call it 1988, give or take, just before you encountered it,
+
+00:07:55.000 --> 00:08:00.000
+ C was probably just fine for anything you might reasonably want to do.
+
+00:08:00.000 --> 00:08:10.000
+ And this is probably heresy or something, but I don't think that the changes in evolution since then have bought enough in some sense.
+

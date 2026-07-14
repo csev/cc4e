@@ -1,0 +1,1048 @@
+1
+00:00:00,000 --> 00:00:02,880
+ So now we're going to dive into the notion of abstractions.
+
+2
+00:00:02,880 --> 00:00:06,000
+ We're going to take an interface and kind of compare it
+
+3
+00:00:06,000 --> 00:00:10,880
+ across a number of different languages. We're going to call this abstraction a map.
+
+4
+00:00:10,880 --> 00:00:17,280
+ A map is a common term that we use kind of abstractly to describe key value collections.
+
+5
+00:00:17,280 --> 00:00:20,320
+ And each different language tends to have a different name for that.
+
+6
+00:00:20,320 --> 00:00:24,240
+ C++, they actually call it a map. Python calls it a dictionary.
+
+7
+00:00:24,240 --> 00:00:26,800
+ Java also calls it a map, but with an uppercase.
+
+8
+00:00:26,800 --> 00:00:30,720
+ And in PHP, we call it arrays. And in JavaScript, they're actually objects.
+
+9
+00:00:30,720 --> 00:00:34,080
+ And then we're going to look at the iterator pattern
+
+10
+00:00:34,080 --> 00:00:37,920
+ as an abstraction for looping across multiple implementations.
+
+11
+00:00:37,920 --> 00:00:43,280
+ So let's take a look at some sample Python code that's playing with a dictionary class.
+
+12
+00:00:43,280 --> 00:00:45,280
+ So we created a dictionary at the very beginning.
+
+13
+00:00:45,280 --> 00:00:49,680
+ Then we filled it up with some key value pairs.
+
+14
+00:00:49,680 --> 00:00:53,440
+ And so you'll notice that like D sub z equals 8 and D sub z equals 1.
+
+15
+00:00:53,440 --> 00:00:58,960
+ That's got to be a replacement. So there's no 8 in there after that second replacement.
+
+16
+00:00:58,960 --> 00:01:03,760
+ We then print it. Then we do a get of z to see if it's there.
+
+17
+00:01:03,760 --> 00:01:08,720
+ And then we do a get of x, and it's not there. So we see x equals 42 when it executes.
+
+18
+00:01:08,720 --> 00:01:13,600
+ Then we say, give me an iterator of the items in this dictionary.
+
+19
+00:01:13,600 --> 00:01:19,680
+ And so what that basically is going to do is the iterator itself is not a list.
+
+20
+00:01:19,680 --> 00:01:23,920
+ In earlier versions, like Python 2, when you asked for the items, you tended to get
+
+21
+00:01:23,920 --> 00:01:27,200
+ a fully filled out list. But that's a waste of memory.
+
+22
+00:01:27,200 --> 00:01:33,280
+ So the iterator is simply a data structure that is keeping track of where in the list we are.
+
+23
+00:01:33,280 --> 00:01:38,080
+ And then we call it next over and over and over to advance through the iterator.
+
+24
+00:01:38,080 --> 00:01:41,120
+ So we don't have to make a complete copy of all the data.
+
+25
+00:01:41,120 --> 00:01:44,240
+ We just have a little pointer that advances through.
+
+26
+00:01:44,240 --> 00:01:48,000
+ So items is a relatively small data structure.
+
+27
+00:01:48,000 --> 00:01:51,040
+ I mean, it doesn't include all the data in the dictionary.
+
+28
+00:01:51,040 --> 00:01:55,680
+ It just is itself a pointer to something. It's all internal.
+
+29
+00:01:55,680 --> 00:01:59,120
+ Remember, abstraction is like, hey, I can give you the next thing.
+
+30
+00:01:59,120 --> 00:02:03,920
+ Internally, there's pointers and all kinds of crazy things inside these iterators,
+
+31
+00:02:03,920 --> 00:02:05,120
+ which we shall soon see.
+
+32
+00:02:05,120 --> 00:02:10,800
+ So if you print out items, you will see that it's like an item iterator for dictionaries.
+
+33
+00:02:10,800 --> 00:02:14,160
+ That's what that class dict item iterator is telling us.
+
+34
+00:02:14,160 --> 00:02:19,360
+ But then we can call the next function, which is built into Python, and say, hey, iterator,
+
+35
+00:02:19,360 --> 00:02:23,600
+ do your job and hand me back the next thing.
+
+36
+00:02:23,600 --> 00:02:28,480
+ Or if we reach the end of the dictionary, false.
+
+37
+00:02:28,480 --> 00:02:31,280
+ Now, if you come in any order, these have any order dictionaries, of course.
+
+38
+00:02:31,280 --> 00:02:34,800
+ But we get back the entry or we get back false.
+
+39
+00:02:34,800 --> 00:02:39,760
+ So we say, while entry, then we print the entry.
+
+40
+00:02:39,760 --> 00:02:42,560
+ And then we say, hey, give me the next one.
+
+41
+00:02:42,560 --> 00:02:44,160
+ And then loop up to the top.
+
+42
+00:02:44,160 --> 00:02:46,320
+ And when it becomes false, we're all done.
+
+43
+00:02:46,320 --> 00:02:49,120
+ And so what you see, because this is an order dictionary,
+
+44
+00:02:49,120 --> 00:02:54,000
+ is you see z1, x9, b3, a4, and then it finishes.
+
+45
+00:02:54,000 --> 00:02:58,240
+ So we don't know about next, arrow next.
+
+46
+00:02:58,240 --> 00:03:02,080
+ We don't know even the-- in this case, we're just getting a tuple back.
+
+47
+00:03:02,080 --> 00:03:03,120
+ So we do know that.
+
+48
+00:03:03,120 --> 00:03:07,680
+ But if we take a look at the same kind of concept in PHP,
+
+49
+00:03:07,680 --> 00:03:10,640
+ we make an array and we fill it up.
+
+50
+00:03:11,360 --> 00:03:13,760
+ z gets to be 8, z gets to be 1.
+
+51
+00:03:13,760 --> 00:03:14,880
+ And that's an overwrite.
+
+52
+00:03:14,880 --> 00:03:17,440
+ And then we put three more things in.
+
+53
+00:03:17,440 --> 00:03:18,800
+ And we can print them out.
+
+54
+00:03:18,800 --> 00:03:22,240
+ We see that it's kind of an order dictionary, as it were.
+
+55
+00:03:22,240 --> 00:03:25,040
+ x, z, y, b, a.
+
+56
+00:03:25,040 --> 00:03:27,120
+ And then we do a get.
+
+57
+00:03:27,120 --> 00:03:31,520
+ And we're using the null coalesce operator, which is the double question mark.
+
+58
+00:03:31,520 --> 00:03:34,800
+ So we say, give me a sub z.
+
+59
+00:03:34,800 --> 00:03:37,440
+ And if that doesn't exist, then give me back 42.
+
+60
+00:03:37,440 --> 00:03:38,560
+ So it's kind of like a get.
+
+61
+00:03:38,560 --> 00:03:41,680
+ But that's a PHP 7 and later.
+
+62
+00:03:41,680 --> 00:03:44,160
+ So we look up x, and we don't get it.
+
+63
+00:03:44,160 --> 00:03:45,680
+ So we see x equals 42.
+
+64
+00:03:45,680 --> 00:03:48,160
+ And then we run through an iterator.
+
+65
+00:03:48,160 --> 00:03:51,520
+ And again, there are structures inside of arrays.
+
+66
+00:03:51,520 --> 00:03:55,360
+ But we know nothing about how PHP implemented the arrays.
+
+67
+00:03:55,360 --> 00:04:00,880
+ We just know that if we say, for each a, as key is assigned a value,
+
+68
+00:04:00,880 --> 00:04:02,160
+ we can print out k and v.
+
+69
+00:04:02,160 --> 00:04:07,680
+ And so this is a very abstract way of saying, I want to go through all of them.
+
+70
+00:04:07,680 --> 00:04:09,520
+ I want the keys and values.
+
+71
+00:04:09,520 --> 00:04:10,480
+ Give those back to me.
+
+72
+00:04:10,480 --> 00:04:14,800
+ But I don't care how you do it, whether you make extra copies of data, et cetera.
+
+73
+00:04:14,800 --> 00:04:17,280
+ So that's another iterator pattern.
+
+74
+00:04:17,280 --> 00:04:20,560
+ Now, in C, the data structure we create is a map.
+
+75
+00:04:20,560 --> 00:04:24,960
+ And if you read this, you'll see that it talks about how the implementations work,
+
+76
+00:04:24,960 --> 00:04:26,880
+ et cetera, et cetera, et cetera.
+
+77
+00:04:26,880 --> 00:04:32,480
+ But the C++ equivalent of a dictionary is, in effect, a map.
+
+78
+00:04:32,480 --> 00:04:35,200
+ And so this is some C++ code.
+
+79
+00:04:35,200 --> 00:04:38,160
+ The first thing we see is we're going to create a map.
+
+80
+00:04:38,160 --> 00:04:40,800
+ And in this less than, greater than syntax,
+
+81
+00:04:40,800 --> 00:04:45,120
+ you're seeing that the map is mapping a string to an integer.
+
+82
+00:04:45,120 --> 00:04:47,360
+ So the key, in this case, is a string.
+
+83
+00:04:47,360 --> 00:04:48,960
+ And the value is an integer.
+
+84
+00:04:48,960 --> 00:04:54,160
+ The previous two languages didn't care so much about types.
+
+85
+00:04:54,160 --> 00:04:59,840
+ And so that's why they-- but now we're in C++, which cares greatly about types.
+
+86
+00:04:59,840 --> 00:05:02,720
+ And so now we say mp sub z equals 8.
+
+87
+00:05:02,720 --> 00:05:06,800
+ Then mp sub z equals 1, which, again, is a replace operator.
+
+88
+00:05:06,800 --> 00:05:10,480
+ Then y, b, and a are set to 2, 3, and 4, respectively.
+
+89
+00:05:10,480 --> 00:05:15,120
+ And then we do like a get operation.
+
+90
+00:05:15,120 --> 00:05:19,120
+ And this one is a little funky in C.
+
+91
+00:05:19,120 --> 00:05:22,800
+ Why they didn't give us a get operation, I do not know.
+
+92
+00:05:22,800 --> 00:05:26,720
+ But what this is using as a ternary operation is saying mp count.
+
+93
+00:05:26,720 --> 00:05:30,320
+ How many z keys are inside this thing?
+
+94
+00:05:30,320 --> 00:05:32,720
+ And if it's greater than 0, we print out mp sub z.
+
+95
+00:05:32,720 --> 00:05:37,280
+ And if it's not greater than 0-- if it's 0, then we print out 42,
+
+96
+00:05:37,280 --> 00:05:41,440
+ which functions like a Python get on a dictionary.
+
+97
+00:05:41,440 --> 00:05:42,800
+ So this syntax is funky.
+
+98
+00:05:42,800 --> 00:05:43,920
+ You can go like Google it.
+
+99
+00:05:43,920 --> 00:05:47,440
+ It's like there's two ways you can do it.
+
+100
+00:05:47,440 --> 00:05:49,840
+ And neither of them makes me particularly happy.
+
+101
+00:05:49,840 --> 00:05:52,240
+ Because I think that for a map-like object,
+
+102
+00:05:52,240 --> 00:05:56,480
+ a get with a default is pretty valuable.
+
+103
+00:05:57,520 --> 00:06:02,640
+ The notion of running through and counting means you found it or didn't find it.
+
+104
+00:06:02,640 --> 00:06:04,400
+ And if you found it, why don't you give it back to me?
+
+105
+00:06:04,400 --> 00:06:06,240
+ But they just don't have a get.
+
+106
+00:06:06,240 --> 00:06:09,760
+ But now we see an iteration.
+
+107
+00:06:09,760 --> 00:06:11,040
+ So it says for auto.
+
+108
+00:06:11,040 --> 00:06:14,240
+ Auto is a type, but it's an automatic type.
+
+109
+00:06:14,240 --> 00:06:21,120
+ And it knows that this mp is a map string int.
+
+110
+00:06:21,120 --> 00:06:25,280
+ And so it creates this current pointer, which is a pointer to--
+
+111
+00:06:25,280 --> 00:06:28,400
+ not exactly a map string, it's a map entry.
+
+112
+00:06:28,400 --> 00:06:29,840
+ But we don't care about that.
+
+113
+00:06:29,840 --> 00:06:31,040
+ There's actually a type.
+
+114
+00:06:31,040 --> 00:06:33,520
+ Curr, the variable curr, has a type.
+
+115
+00:06:33,520 --> 00:06:37,040
+ Whatever the mp begin is going to give us back as a type.
+
+116
+00:06:37,040 --> 00:06:39,360
+ And it knows that based on map string int.
+
+117
+00:06:39,360 --> 00:06:41,440
+ And it makes curr the right type.
+
+118
+00:06:41,440 --> 00:06:43,280
+ So this is like whatever type you want.
+
+119
+00:06:43,280 --> 00:06:45,040
+ But it is not any type.
+
+120
+00:06:45,040 --> 00:06:46,560
+ It's a very precise type.
+
+121
+00:06:46,560 --> 00:06:52,320
+ And that's a sort of a hallmark of C++, is all the types are very, very precise.
+
+122
+00:06:52,320 --> 00:06:53,200
+ So it's a for loop.
+
+123
+00:06:53,200 --> 00:06:54,960
+ You see the three semicolons?
+
+124
+00:06:54,960 --> 00:07:03,200
+ The initialization clause, auto curr equals mp begin, says, hey, we've got our iterator.
+
+125
+00:07:03,200 --> 00:07:04,080
+ Get me started.
+
+126
+00:07:04,080 --> 00:07:05,280
+ Begin.
+
+127
+00:07:05,280 --> 00:07:06,640
+ Go to the beginning of it.
+
+128
+00:07:06,640 --> 00:07:07,840
+ And give me the first one.
+
+129
+00:07:07,840 --> 00:07:14,480
+ And as long as curr is not equal to mp end, there are no more.
+
+130
+00:07:14,480 --> 00:07:15,840
+ That's kind of like their null.
+
+131
+00:07:15,840 --> 00:07:18,160
+ And then plus plus curr.
+
+132
+00:07:18,160 --> 00:07:20,240
+ So we're incrementing curr.
+
+133
+00:07:20,240 --> 00:07:22,320
+ And then there's a key and a value.
+
+134
+00:07:22,320 --> 00:07:23,760
+ And they don't call them key and value.
+
+135
+00:07:23,760 --> 00:07:25,680
+ They call them first and second.
+
+136
+00:07:25,680 --> 00:07:31,280
+ That's the thing coming back from mp begin has an attribute first and an attribute second.
+
+137
+00:07:31,280 --> 00:07:34,960
+ And we call the c_str to convert that to a C string.
+
+138
+00:07:34,960 --> 00:07:36,240
+ So I can use printf.
+
+139
+00:07:36,240 --> 00:07:38,080
+ So I don't have to use cout.
+
+140
+00:07:38,080 --> 00:07:39,440
+ Just because I don't know why.
+
+141
+00:07:39,440 --> 00:07:41,120
+ I didn't want to use cout in this one.
+
+142
+00:07:41,120 --> 00:07:46,320
+ But you see an abstraction where the first and the second are known.
+
+143
+00:07:46,320 --> 00:07:49,680
+ But because this is a key and a value, it's not such a big deal.
+
+144
+00:07:49,680 --> 00:07:52,880
+ And so that's doing the same thing in C++.
+
+145
+00:07:53,760 --> 00:07:56,960
+ In Java, they have an interface.
+
+146
+00:07:56,960 --> 00:07:58,960
+ And you see the word interface here.
+
+147
+00:07:58,960 --> 00:08:04,320
+ An interface named map less than greater than k comma v.
+
+148
+00:08:04,320 --> 00:08:10,400
+ And just like in C++, this is saying a map is a key and a value.
+
+149
+00:08:10,400 --> 00:08:14,000
+ But what we're putting in here is the type of the key and the type of the value.
+
+150
+00:08:14,000 --> 00:08:18,400
+ So we're going to make a map that has a string key and an integer value.
+
+151
+00:08:18,400 --> 00:08:20,160
+ You might say why didn't I do string string?
+
+152
+00:08:20,160 --> 00:08:24,000
+ And that's because it makes it just easier when I'm writing so much C code.
+
+153
+00:08:24,000 --> 00:08:28,240
+ It also will be fun when we actually count things, if you remember.
+
+154
+00:08:28,240 --> 00:08:30,480
+ From a long time ago, we did count it.
+
+155
+00:08:30,480 --> 00:08:32,320
+ But map is the class.
+
+156
+00:08:32,320 --> 00:08:37,360
+ And string integer, this is kind of polymorphism where it can be a map.
+
+157
+00:08:37,360 --> 00:08:42,000
+ It maps strings to integers, or integers to strings, or strings to strings,
+
+158
+00:08:42,000 --> 00:08:44,480
+ or who knows what to who knows what else.
+
+159
+00:08:44,480 --> 00:08:47,360
+ Meaning this map is exceedingly flexible.
+
+160
+00:08:47,360 --> 00:08:49,760
+ And it doesn't care what kind of type it's using.
+
+161
+00:08:49,760 --> 00:08:52,560
+ As long as the type meets some basic criteria.
+
+162
+00:08:52,560 --> 00:08:56,960
+ So here's a bit of Java code that does the same thing that we've been doing.
+
+163
+00:08:56,960 --> 00:09:01,200
+ And so we see that we're going to make this variable map, lowercase,
+
+164
+00:09:01,200 --> 00:09:04,720
+ is of type map, map of strings to integers.
+
+165
+00:09:04,720 --> 00:09:08,480
+ And we're going to create a new tree map of strings to integers.
+
+166
+00:09:08,480 --> 00:09:10,320
+ And the new creates a new object.
+
+167
+00:09:10,320 --> 00:09:15,520
+ Now the difference between a map and a tree map is a map is an interface
+
+168
+00:09:15,520 --> 00:09:17,760
+ and a tree map is an implementation.
+
+169
+00:09:17,760 --> 00:09:21,040
+ The tree map says we're going to build this key value store,
+
+170
+00:09:21,040 --> 00:09:22,720
+ but we're going to store our data in a tree.
+
+171
+00:09:22,720 --> 00:09:25,600
+ And that says to a computer scientist
+
+172
+00:09:25,600 --> 00:09:29,520
+ that it's going to have a certain performance and memory footprint.
+
+173
+00:09:29,520 --> 00:09:32,320
+ Trees are a great way to store key value data.
+
+174
+00:09:32,320 --> 00:09:38,480
+ But they take a little bit more memory than a linked list, as we will later see.
+
+175
+00:09:38,480 --> 00:09:42,240
+ And so we're choosing an implementation.
+
+176
+00:09:42,240 --> 00:09:46,240
+ The other thing where it says tree map that you might use is what's called a hash map.
+
+177
+00:09:46,240 --> 00:09:51,280
+ Which is a simpler map implementation, but doesn't keep things in order.
+
+178
+00:09:51,280 --> 00:09:52,640
+ So you can choose.
+
+179
+00:09:52,640 --> 00:09:57,680
+ The map doesn't change, but you can say I'd like this to be a tree map or a hash map.
+
+180
+00:09:57,680 --> 00:09:59,600
+ They're both key value stores.
+
+181
+00:09:59,600 --> 00:10:05,040
+ One is an ordered key value store and a hash map is an unordered key value store.
+
+182
+00:10:05,040 --> 00:10:11,120
+ And they both have different performance behaviors and internal implementation details.
+
+183
+00:10:11,120 --> 00:10:14,320
+ But it doesn't matter because they're both maps.
+
+184
+00:10:14,320 --> 00:10:18,240
+ In this code that we write, we could literally change tree map to hash map
+
+185
+00:10:18,240 --> 00:10:20,240
+ and the code will work exactly the same.
+
+186
+00:10:20,240 --> 00:10:23,040
+ But the order of the key value pairs might be a little bit different.
+
+187
+00:10:23,040 --> 00:10:30,240
+ Now you'll notice that when we're putting stuff in, we call a method, map.put.
+
+188
+00:10:30,240 --> 00:10:36,960
+ So everything we've seen so far says like map open bracket quote z quote close bracket equals 8.
+
+189
+00:10:36,960 --> 00:10:40,880
+ Java chose not to do what's called operator overloading.
+
+190
+00:10:40,880 --> 00:10:43,440
+ And so it really does everything in a method.
+
+191
+00:10:43,440 --> 00:10:47,040
+ So the kind of things that you think are going to be done with an assignment statement
+
+192
+00:10:47,040 --> 00:10:50,400
+ or some other syntax tend to be done.
+
+193
+00:10:50,400 --> 00:10:56,880
+ It's like, OK, we're going to do everything with methods and parameters.
+
+194
+00:10:56,880 --> 00:11:00,560
+ Now map is the object instance that's being worked on.
+
+195
+00:11:00,560 --> 00:11:05,440
+ And z, that's basically saying map sub z equals 8.
+
+196
+00:11:05,440 --> 00:11:08,640
+ And we'll do in a put of z of 1, which is going to overwrite.
+
+197
+00:11:08,640 --> 00:11:10,880
+ You'll see I'm doing the same thing in each one of these things.
+
+198
+00:11:10,880 --> 00:11:14,480
+ And then put in y, b, and a with 2, 3, and 4 respectively.
+
+199
+00:11:14,480 --> 00:11:15,360
+ I can print it out.
+
+200
+00:11:15,360 --> 00:11:20,080
+ And if you look at the printout, it looks a lot like what it looks like in Python.
+
+201
+00:11:20,080 --> 00:11:24,320
+ There's this thing called get or default, map.get or default,
+
+202
+00:11:24,320 --> 00:11:28,960
+ which is if the key z is in there, give it to the value.
+
+203
+00:11:28,960 --> 00:11:30,880
+ Or just give me 42 as a default.
+
+204
+00:11:30,880 --> 00:11:32,400
+ And in the first case, z is there.
+
+205
+00:11:32,400 --> 00:11:33,840
+ In the second case, x is not there.
+
+206
+00:11:33,840 --> 00:11:35,360
+ So you see x is 42.
+
+207
+00:11:35,360 --> 00:11:36,560
+ That's not a bad name for it.
+
+208
+00:11:36,560 --> 00:11:38,560
+ It's a little more verbose than get.
+
+209
+00:11:38,560 --> 00:11:41,440
+ It's pretty much the same as what we do in Python.
+
+210
+00:11:41,440 --> 00:11:43,200
+ And then we have an iterator.
+
+211
+00:11:43,200 --> 00:11:48,880
+ And now you see in this for loop, you see kind of the notion of the fact
+
+212
+00:11:48,880 --> 00:11:53,840
+ that the iteration variable has a type.
+
+213
+00:11:53,840 --> 00:11:55,040
+ So we don't have this auto.
+
+214
+00:11:55,040 --> 00:11:56,720
+ Later versions of Java may have an auto.
+
+215
+00:11:56,720 --> 00:11:58,880
+ But now I'm explicitly showing you.
+
+216
+00:11:58,880 --> 00:12:01,120
+ It's not a map string integer.
+
+217
+00:12:01,120 --> 00:12:04,080
+ It's a map.entry, which is an entry inside of a map.
+
+218
+00:12:04,080 --> 00:12:09,280
+ It's an abstract interface to the entry inside of a map.
+
+219
+00:12:09,280 --> 00:12:12,720
+ Each entry that's got to match the string integer that's in the map.
+
+220
+00:12:12,720 --> 00:12:15,280
+ And so there's a map string integer, which is the whole map.
+
+221
+00:12:15,280 --> 00:12:18,240
+ And then there's a map entry, which is one of the entries.
+
+222
+00:12:18,240 --> 00:12:22,480
+ But this map entry is also kind of an iterator, right?
+
+223
+00:12:22,480 --> 00:12:25,040
+ So we're going to iterate and move forward.
+
+224
+00:12:25,040 --> 00:12:26,640
+ So it's not just the key and the value.
+
+225
+00:12:26,640 --> 00:12:28,800
+ It's really the key and the value and the position.
+
+226
+00:12:28,800 --> 00:12:30,880
+ But we don't see the position.
+
+227
+00:12:30,880 --> 00:12:38,560
+ All we know is we use this for syntax, which is kind of like a for in in Python.
+
+228
+00:12:38,560 --> 00:12:43,680
+ And we call map.entry set, which is I want a set of all the entries.
+
+229
+00:12:43,680 --> 00:12:47,840
+ And that map entry set does not construct a giant in memory list
+
+230
+00:12:47,840 --> 00:12:49,840
+ and then go through it.
+
+231
+00:12:49,840 --> 00:12:54,800
+ That actually creates a single map entry with the key and the value of the first one.
+
+232
+00:12:54,800 --> 00:12:56,080
+ And then you hit it again.
+
+233
+00:12:56,080 --> 00:12:57,120
+ And it gives you the second one.
+
+234
+00:12:57,120 --> 00:12:57,680
+ You hit it again.
+
+235
+00:12:57,680 --> 00:12:58,560
+ It gives the third one.
+
+236
+00:12:58,560 --> 00:13:00,560
+ And pretty soon it gives you null.
+
+237
+00:13:00,560 --> 00:13:02,160
+ Which means that the loop is going to stop.
+
+238
+00:13:02,160 --> 00:13:06,160
+ And the entry itself does have a key and a value.
+
+239
+00:13:06,160 --> 00:13:10,160
+ Now, key and value are known in the map entry interface.
+
+240
+00:13:10,160 --> 00:13:13,680
+ So you say entry.getKey and entry.getValue.
+
+241
+00:13:13,680 --> 00:13:18,880
+ Now, they're using methods to give us back the key and the value
+
+242
+00:13:18,880 --> 00:13:23,760
+ versus in previous things you saw attributes being used in the iterators.
+
+243
+00:13:23,760 --> 00:13:30,400
+ And that's because Java is obsessed with preferring to use accessor methods
+
+244
+00:13:30,400 --> 00:13:34,640
+ like getters and setters versus just grabbing attributes.
+
+245
+00:13:34,640 --> 00:13:38,560
+ And the key thing is they can add just a little bit of business logic if they want
+
+246
+00:13:38,560 --> 00:13:41,200
+ rather than having to do something and have the key and the value
+
+247
+00:13:41,200 --> 00:13:44,880
+ already completely computed sitting in an attribute for you to use.
+
+248
+00:13:44,880 --> 00:13:49,200
+ Entry.getKey, sometimes it just grabs something that's already got computed
+
+249
+00:13:49,200 --> 00:13:51,520
+ or it might actually go do something or do some work.
+
+250
+00:13:51,520 --> 00:13:56,000
+ And so by putting these things in what Java calls getters and setters,
+
+251
+00:13:56,000 --> 00:13:59,200
+ in this case we're not seeing a setter so much.
+
+252
+00:14:00,800 --> 00:14:04,080
+ But making it so that instead of it being entry.key,
+
+253
+00:14:04,080 --> 00:14:06,240
+ it's entry.getKey open print close print.
+
+254
+00:14:06,240 --> 00:14:09,840
+ That's a very Java way of thinking about this.
+
+255
+00:14:09,840 --> 00:14:16,000
+ So we started by talking about a simple Python dictionary where we fill it up,
+
+256
+00:14:16,000 --> 00:14:18,560
+ we use get, then we create an iterator,
+
+257
+00:14:18,560 --> 00:14:22,480
+ and then we abstractly loop through that iterator.
+
+258
+00:14:22,480 --> 00:14:25,600
+ And that's what we wanted to accomplish in this section
+
+259
+00:14:25,600 --> 00:14:29,680
+ just to see how that is done in a wide range of different languages.
+
+260
+00:14:29,680 --> 00:14:33,840
+ Because the map abstraction is kind of like this thing
+
+261
+00:14:33,840 --> 00:14:38,320
+ that we use as software developers, and then it's a kind of a sealed thing,
+
+262
+00:14:38,320 --> 00:14:41,840
+ and then underneath it all the magic happens.
+

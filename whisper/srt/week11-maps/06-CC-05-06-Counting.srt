@@ -1,0 +1,252 @@
+1
+00:00:00,000 --> 00:00:08,480
+ Well, it's been quite a journey. We have built in C a whole object-oriented pattern, reviewed
+
+2
+00:00:08,480 --> 00:00:16,720
+ all of object-oriented programming, implemented a number of different Python objects in C as a way
+
+3
+00:00:16,720 --> 00:00:22,720
+ to understand how C++ works, how Java works, how Python works, how they all work under the covers.
+
+4
+00:00:24,000 --> 00:00:30,160
+ So we come to the end of this sort of walk through all these amazing data structures. I hope you've
+
+5
+00:00:30,160 --> 00:00:35,440
+ had fun. But one of the things I like to do at the end is I like to go back to the beginning.
+
+6
+00:00:35,440 --> 00:00:40,400
+ So some of you have been with me from the very beginning. Python for Everybody may be the first
+
+7
+00:00:40,400 --> 00:00:49,680
+ programming class that you ever took. And I want to now finish by reviewing the very first program
+
+8
+00:00:49,680 --> 00:00:57,600
+ that I ever showed you in Python for Everybody. It is from chapter one. I love this example.
+
+9
+00:00:57,600 --> 00:01:04,720
+ And this is counting the most common word in a file. So it's in Python, we read a file name,
+
+10
+00:01:04,720 --> 00:01:11,680
+ we create a dictionary, we read all the lines, we split it. I think we don't do conversion to lower
+
+11
+00:01:11,680 --> 00:01:18,000
+ case, but then we're going through all the word and words. And we're saying we're going to set the
+
+12
+00:01:18,000 --> 00:01:23,520
+ counts to counts.get word comma zero. Remember when you first saw that zero was the default,
+
+13
+00:01:23,520 --> 00:01:29,760
+ then we're going to add one. And that's the way when we see the first word, we sort of bootstrap
+
+14
+00:01:29,760 --> 00:01:34,400
+ whatever the word is that we're looking at. Then we have a max loop. So we're going to iterate
+
+15
+00:01:34,400 --> 00:01:39,840
+ with items. We're going to look for word comma count and items. And we're going to do a simple
+
+16
+00:01:39,840 --> 00:01:45,120
+ max loop. And then when it's all done, we're going to print out the largest word and the count of the
+
+17
+00:01:45,120 --> 00:01:56,400
+ number of times that large word was shown. So fast forward. Here we go. Now you by now have built
+
+18
+00:01:56,400 --> 00:02:05,120
+ a tree map, hopefully. So now what we're going to do is we're going to use your tree map code and
+
+19
+00:02:05,120 --> 00:02:12,560
+ we're going to implement this count. So we're going to have a tree map, call the constructor for it.
+
+20
+00:02:12,560 --> 00:02:17,120
+ That's our dictionary. We're going to have the tree map entry that we're going to need to use to
+
+21
+00:02:17,120 --> 00:02:21,600
+ go through the iterator. We're going to have a tree map iterator. We're going to create,
+
+22
+00:02:21,600 --> 00:02:28,800
+ because we don't have strings, we're going to create a 100 item array name char array and word.
+
+23
+00:02:28,800 --> 00:02:32,800
+ And yes, it's dangerous. We're just not going to be too mean to our code and blow it up, but we
+
+24
+00:02:32,800 --> 00:02:38,880
+ could. And then variables like i and j and count max value and char max key. That's all of our setup
+
+25
+00:02:38,880 --> 00:02:46,720
+ stuff. So we're going to open the file name using scanf. Now we're in C. It's not Python anymore,
+
+26
+00:02:46,720 --> 00:02:53,920
+ but you can see the similarity. So then we're going to do an fopen of the file using read. And
+
+27
+00:02:53,920 --> 00:03:00,160
+ again, you see the similarity. We're going to do a scanf through fscanf with a file pointer.
+
+28
+00:03:00,160 --> 00:03:07,040
+ And we're going to do a %s, which gives us a word. And word there is a pass by reference,
+
+29
+00:03:07,040 --> 00:03:11,600
+ because remember, word's an array. If we don't get an end of file, we're going to-- then we're
+
+30
+00:03:11,600 --> 00:03:17,280
+ going to write a for loop to go through word and call to_lower, which is in ctype.h. And then we
+
+31
+00:03:17,280 --> 00:03:24,320
+ are going to carefully put a new line at the end of word. And then we're going to get the current
+
+32
+00:03:24,320 --> 00:03:33,360
+ count with map get. Ask for map, which is like self. Word is the key and zero is the default.
+
+33
+00:03:33,360 --> 00:03:39,920
+ And then we're going to do a map put into the word position with count plus 1. And then we're going
+
+34
+00:03:39,920 --> 00:03:45,760
+ to f close it, or close the thing, and we're going to dump the map. Then what we're going to do is
+
+35
+00:03:45,760 --> 00:03:53,600
+ write a max loop. Max key equals null. Max value equals negative 1. It's a count, so I guess we
+
+36
+00:03:53,600 --> 00:03:58,960
+ can assume that negative 1 works here, because there's only positive integers in our dictionary
+
+37
+00:03:58,960 --> 00:04:04,640
+ slash tree map. We're going to ask for an iterator. We're going to create an infinite loop.
+
+38
+00:04:04,640 --> 00:04:08,720
+ We're going to ask for the next item from the iterator. If it's null, we're done.
+
+39
+00:04:08,720 --> 00:04:14,000
+ And if max key is null or the curve value is greater than or equal to max value,
+
+40
+00:04:14,000 --> 00:04:20,640
+ the one we're looking at is greater than our current max, we retain max key and max value.
+
+41
+00:04:20,640 --> 00:04:26,960
+ And when we're done, we give back the iterator, and we print out the max key and the max value.
+
+42
+00:04:27,600 --> 00:04:35,520
+ And then we delete the map. And so that's the miles to go before I sleep.
+
+43
+00:04:35,520 --> 00:04:47,120
+ Been a long time, but the end is really the beginning. These are the most basic data
+
+44
+00:04:47,120 --> 00:04:52,720
+ structures. These are the classic data structures. These are the data structures from chapter 6 of
+
+45
+00:04:52,720 --> 00:05:01,760
+ Kernigan and Ritchie. These are the data structures for 40 plus years that people have been learning
+
+46
+00:05:01,760 --> 00:05:08,000
+ about. Once you get good, and I hope you have taken the time to get really good at these data
+
+47
+00:05:08,000 --> 00:05:18,240
+ structures, because what these are is they're like the omelet of cooking. They're easy. It seems like
+
+48
+00:05:18,240 --> 00:05:23,200
+ everyone knows how to do them. But until you know how to do the easy stuff, you can't understand
+
+49
+00:05:23,200 --> 00:05:31,280
+ the large fancy stuff. And a recipe, you need foundational notions, and you can create something
+
+50
+00:05:31,280 --> 00:05:38,160
+ amazing. If you have done all the work in this course and you've done it well, your journey can
+
+51
+00:05:38,160 --> 00:05:44,320
+ continue with many great cookbooks. The one I'm showing you now is what we called CLR,
+
+52
+00:05:46,480 --> 00:05:50,720
+ because the authors, when I did it back in grad school, there was only three authors, not four
+
+53
+00:05:50,720 --> 00:06:00,240
+ authors. CLR, and this is a thick book, a very thick book. And what you're going to find is this
+
+54
+00:06:00,240 --> 00:06:05,760
+ is a very well-written book. And if you know everything in this course, you should be able
+
+55
+00:06:05,760 --> 00:06:13,440
+ to open this book up to Warshell's algorithm and write an implementation of C, Warshell's algorithm,
+
+56
+00:06:13,440 --> 00:06:18,400
+ because you know how to allocate things, you know how to create structures with pointers in them,
+
+57
+00:06:18,400 --> 00:06:25,200
+ and you know how to deallocate them. And if you learn every lesson in this course, you can start,
+
+58
+00:06:25,200 --> 00:06:31,520
+ you can almost open anywhere, alpha, beta, pruning, all kinds of things. You just open it up
+
+59
+00:06:31,520 --> 00:06:36,080
+ and go four or five pages, look at how they describe the algorithm, and then implement.
+
+60
+00:06:36,080 --> 00:06:42,480
+ So I'm not going to teach you every one of the algorithms in this book. What I've taught you
+
+61
+00:06:43,920 --> 00:06:49,600
+ is what an algorithm is and what the foundational pieces of all algorithms are.
+
+62
+00:06:49,600 --> 00:06:58,000
+ Okay, so I wish you luck, and I encourage you to keep going on your journey. Your journey is not
+
+63
+00:06:58,000 --> 00:07:11,200
+ ending, it's beginning.
+
