@@ -1,0 +1,7 @@
+C Language Design Principles from the 1978 Kernighan and Ritchie Book
+
+C, low-level language, dynamic memory allocation, heap, memory fragmentation, portability, pointers, call by reference, Lint, Unix
+
+The lecture covers Chapter 0 of the 1978 C Programming book by Kernighan and Ritchie. It explains that C is a low-level language dealing with fundamental computer objects such as characters, integers, and addresses. The language provides no built-in heap or garbage collection, requiring manual memory management via malloc and free functions. This design choice, while a strength, can lead to memory leaks and fragmentation if the programmer forgets to free allocated memory.
+
+The book highlights C's portability across hardware platforms, as demonstrated by Unix systems running on both PDP-11 and Interdata 832 architectures with minimal code changes. C's minimal design philosophy, influenced by BCPL and B, includes features such as pointers for address arithmetic and call-by-value semantics, with call-by-reference achieved through explicit pointers. The lecture also notes the Lint tool as a static analysis utility for type checking and portability.

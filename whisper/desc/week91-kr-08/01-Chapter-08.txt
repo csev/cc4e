@@ -1,0 +1,7 @@
+C Programming: Unix System Interface (1978 Edition)
+
+file descriptors, read system call, write system call, open, create, close, unlink, lseek, file I/O, buffered I/O, unbuffered I/O, C programming, Unix, Kernighan Ritchie
+
+This lecture covers Chapter 8 of the 1978 C Programming book by Brian Kernighan and Dennis Ritchie, which details the interface between C programs and the Unix operating system. The chapter explains that all input and output in Unix is handled through file descriptors (0 for standard input, 1 for standard output, 2 for standard error), and describes the low-level read and write system calls for direct file operations. It also covers the open, create, close, and unlink functions for file management.
+
+The chapter further details random access using lseek, the implementation of standard library functions such as fopen and getc using file descriptors, and the historical context of C as a systems programming language. This 1978 book was foundational for modern computing, providing a portable approach to systems programming that influenced the development of later languages including Python, PHP, and Java.

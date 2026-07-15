@@ -1,0 +1,7 @@
+Iterators for Uniform Data Structure Iteration
+
+iterators, abstraction, linked list, hash map, tree map, iterator pattern, next method, encapsulation
+
+The lecture explains how iterators provide a consistent interface for iterating over diverse data structures including linked lists, hash maps, and tree maps without requiring changes to iteration code. This abstraction allows the same loop implementation to work across different underlying structures while hiding implementation details like head pointers or internal traversal mechanics.
+
+The iterator pattern uses a `next` method that returns the next element or null when finished. Calling code creates an iterator from the data structure and uses a loop that repeatedly calls `next` until null is returned, ensuring the internal state of the iteration remains encapsulated and enabling seamless switching between data structure implementations.

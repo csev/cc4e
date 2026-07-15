@@ -1,0 +1,7 @@
+Object Oriented Patterns: Historical Evolution and C Implementation
+
+object oriented patterns, historical perspective, c implementation, python, c++, java, javascript, php, scheme, lisp, simula 67, algol 60, fortran
+
+This lecture reviews fundamental object-oriented programming concepts including classes, instances, attributes, and methods, emphasizing that object orientation is a conceptual model rather than a syntax. It demonstrates how C serves as the foundational language for implementing object-oriented features in modern languages such as Python.
+
+The lecture traces the historical evolution of object-oriented programming from early languages like Fortran (1955) and ALGOL 60 (1960) through Simula 67, Lisp, and Scheme to contemporary languages including C++, Java, JavaScript, PHP, and C#. It notes that Python implemented object orientation in 1991, PHP added object-oriented features in 2000, and JavaScript adopted a more pure object-oriented pattern inspired by Scheme.

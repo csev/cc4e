@@ -1,0 +1,7 @@
+Sorted Linked TreeMap: Binary Tree for Lookup and Linked List for Iteration
+
+TreeMap, binary tree, linked list, sorted key-value store, iteration, depth-first search, recursive dump
+
+The lecture details the implementation of a sorted linked TreeMap that combines a binary tree for fast key lookups with a linked list to support iteration. This structure maintains keys in sorted order, enabling logarithmic time complexity for key operations while providing ordered traversal. Each TreeMapEntry contains key, value, left, and right pointers to enforce the tree structure.
+
+The implementation includes a recursive depth-first search function for visualizing the tree structure, which prints nodes with indentation levels. To support iteration without a stack, the TreeMap concurrently maintains a sorted linked list, ensuring keys can be traversed in order without additional stack management.

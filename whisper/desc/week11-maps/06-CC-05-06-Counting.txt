@@ -1,0 +1,7 @@
+Implementing Word Count in C Using Tree Map
+
+tree map, c programming, file i/o, word count, dictionary, iterator, tolower
+
+This lecture implements a word count program in C using a tree map data structure. The program reads a file, converts each word to lowercase using `tolower` from `ctype.h`, and maintains counts in a dictionary. It then uses an iterator to find and output the most frequent word.
+
+The lecture emphasizes that foundational data structures are essential for programming. These structures, as covered in chapter 6 of Kernighan and Ritchie's work, enable learners to implement complex algorithms after mastering core concepts.

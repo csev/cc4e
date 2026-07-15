@@ -1,0 +1,7 @@
+Python List Class Implementation in C
+
+C, Python, list, linked list, memory management, dynamic allocation, destructor, PyList, node, pointer, printf
+
+This lecture details the implementation of a Python list class in C using a linked list structure. The PyList object contains head and tail pointers and a count field. The implementation appends strings, prints the list, checks the length, and performs index lookups, returning negative one for missing elements.
+
+The destructor traverses the linked list from head to tail, freeing each node's string data before the node itself to avoid memory leaks. The list printing method uses printf to output the list in Python-like format without string concatenation, and the lecture covers the implementation of the len, index, and append methods.

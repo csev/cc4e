@@ -1,0 +1,7 @@
+Hash Map Implementation Using Linked Lists and Hashing
+
+hash map, linked list, hash function, bucket, modulo
+
+This lecture explains a hash map implementation that uses linked lists for each bucket. The structure distributes key-value pairs across multiple buckets based on a hash function, which is derived from a list map by extending the single linked list to multiple linked lists.
+
+The hash function processes each character in the key by shifting the current hash value left and then performing an exclusive OR with the character. The final hash value is reduced modulo the number of buckets to assign the key to a specific bucket. This method may result in collisions with random data.

@@ -1,0 +1,7 @@
+How Python Data Structures Were Built Using Kernighan and Ritchie Chapter 6
+
+python, string class, list class, dictionary class, kernighan and ritchie, chapter 6, linked list, hash table
+
+In the epilogue lecture of the C Programming for Everybody course, the instructor implemented Python string, list, and dictionary classes using techniques from Chapter 6 of Kernighan and Ritchie's C Programming book. The string class employs a dynamic array with chunking and realloc for extension, the list class is a linked list with head and tail pointers, and the dictionary class uses a hash table with buckets implemented as linked lists.
+
+The instructor questioned whether Guido van Rossum had been influenced by the same book when designing Python's core data structures, leading to an interview with Guido to explore the potential impact of Kernighan and Ritchie Chapter 6 on the original Python design.

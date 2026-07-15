@@ -1,0 +1,7 @@
+Building Point Objects in C Without OOP Support
+
+C, structures, function pointers, memory allocation, constructor, destructor, object-oriented programming, Python, C++
+
+This lecture details building a point object in C without native object-oriented support. It uses a structure with two double values (x and y) and three function pointers for methods (dump, del, origin). The structure is fixed at 40 bytes (8 bytes per double and 8 bytes per function pointer).
+
+This implementation illustrates how Python's early OOP layer was designed in 1991 by Guido van Rossum using C structures and function pointers. It also shows the historical parallel with C++, which initially transformed OOP syntax into C code.

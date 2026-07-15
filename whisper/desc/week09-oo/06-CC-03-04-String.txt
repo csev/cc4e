@@ -1,0 +1,7 @@
+Implementing Python String Behavior in C with Dynamic Memory Management
+
+C, Python string, object-oriented, memory allocation, realloc, encapsulation, string buffer
+
+This lecture explains how to create a C string class that replicates Python's string functionality. The class uses a structure with fields for string length, allocated buffer size, and the character data array. The implementation handles memory allocation and deallocation internally to avoid manual memory management.
+
+The lecture covers the design of the PyStr class, including a constructor, methods for appending single characters and strings, and a buffer expansion mechanism using realloc. Encapsulation is enforced by hiding internal state and providing controlled access through methods, ensuring safe string operations without buffer overflows.

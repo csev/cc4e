@@ -1,0 +1,7 @@
+Building a Hash Map from List Map with Minimal Changes
+
+hash_map, list_map, linked_list, bucket, iterator, hash_function
+
+This lecture details how to implement a hash map by minimal modifications to a list map. The hash map uses an array of eight buckets, each containing a linked list. The find method now requires a bucket index, and the get and put methods compute the bucket index from the key.
+
+The hash map iterator traverses buckets sequentially, skipping empty linked lists. It maintains a current bucket index and a pointer to the current entry. When the current entry is null, the iterator advances to the next non-empty bucket. This design handles key distribution without rehashing.

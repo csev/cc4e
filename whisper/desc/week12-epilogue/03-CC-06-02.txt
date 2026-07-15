@@ -1,0 +1,7 @@
+Python 1.0 List and Dictionary: Extendable Arrays, Not Linked Lists
+
+python1.0, extendable arrays, linked lists, data structures, cache efficiency, memory allocation
+
+The speaker corrects the misconception that Guido van Rossum used linked lists in Python 1.0's core data structures. Instead, Python 1.0 list and dictionary objects were implemented as extendable arrays of pointers.
+
+This array-based implementation was more cache-efficient for the hardware of the early 1990s, when CPUs and main memory had comparable speeds. The contiguous memory layout minimized cache misses compared to linked lists, which would have caused repeated bouncing through memory.

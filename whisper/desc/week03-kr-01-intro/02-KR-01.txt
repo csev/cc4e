@@ -1,0 +1,7 @@
+Kernighan and Ritchie Chapter 1: C Character Arrays
+
+C programming, character arrays, string termination, null terminator, Kernighan and Ritchie
+
+This lecture covers the first chapter of Kernighan and Ritchie's C programming textbook, explaining that C uses character arrays (not string objects) for text data. Each string in C requires a null terminator (the character zero) to mark its end, and the chapter introduces static array allocation and call-by-value function parameters.
+
+The lecture emphasizes the security risks of buffer overflows in C when character arrays are accessed beyond their allocated size. It also encourages learners to complete the in-place string reversal exercise to understand low-level memory management and string operations.

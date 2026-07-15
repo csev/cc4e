@@ -1,0 +1,7 @@
+TreeMap put: Simultaneous maintenance of sorted linked list and binary search tree
+
+TreeMap, sorted linked list, binary search tree, put method, simultaneous update, gap insertion
+
+This lecture explains the implementation of the TreeMap put method that simultaneously maintains a sorted linked list and a binary search tree. It uses left and right pointers to track the gap (the largest key less than and smallest key greater than the new key) during tree traversal, enabling efficient insertion into the linked list without additional cost.
+
+The implementation handles edge cases including insertion at the beginning (when left is null), insertion at the end (when right is null), and updating existing keys. The binary search tree supports fast lookups in logarithmic time, while the linked list supports iteration in linear time.

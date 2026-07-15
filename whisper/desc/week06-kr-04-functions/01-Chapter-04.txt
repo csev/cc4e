@@ -1,0 +1,7 @@
+C Programming Chapter 4: Functions, Scope, and Variables
+
+functions, scope, variables, external variables, static variables, register variables, recursion, initialization, c preprocessor
+
+This lecture covers Chapter 4 of the 1978 C Programming book by Kernighan and Ritchie, detailing the structure of functions, scope rules, and variable storage classes. It explains how functions are defined, the differences between external and automatic variables, static variables, and register variables.
+
+The chapter also addresses variable initialization, recursion, and the C preprocessor including macros and file inclusion, providing historical context for early C programming practices.

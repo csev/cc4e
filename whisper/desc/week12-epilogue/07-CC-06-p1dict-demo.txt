@@ -1,0 +1,7 @@
+Comparison of Kernighan and Ritchie and Python 1.0 Dictionary Implementations
+
+hash tables, open hashing, linear probing, collision resolution, rehashing, Kernighan and Ritchie, Python 1.0
+
+This lecture compares two dictionary implementations: the author's adaptation of Kernighan and Ritchie Chapter 6 (using an array of linked lists) and the Python 1.0 implementation (a single array of key-value nodes with linear probing for collisions).
+
+Both implementations use open hashing for collision resolution and rehash when the load factor is at or above 70% by doubling the array size and reinserting all items. The Python 1.0 implementation is a simplified approximation of Guido van Rossum's original dictionary design.

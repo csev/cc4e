@@ -1,0 +1,7 @@
+Early Python Design: Lexer, Parser, and Core Data Structures
+
+python, design, lexer, parser, reference_counting, string, list, dictionary, open_hashing
+
+The creator of Python began implementation with a lexer and parser, drawing from experience with the ABC language. He implemented reference counting for memory management and decided all data types should be objects, avoiding ABC's tree-based structures.
+
+Strings were designed as immutable objects with linear buffers including null terminators for C interoperability. Lists used mutable arrays of object pointers, while dictionaries initially employed open hashing from Knuth's algorithms but were later optimized by a Japanese developer for space efficiency and insertion order.

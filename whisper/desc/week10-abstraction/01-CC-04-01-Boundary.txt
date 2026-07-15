@@ -1,0 +1,7 @@
+Reducing Leaky Abstractions in Python Object Implementations
+
+abstraction, encapsulation, leaky abstractions, python, interface, access control
+
+This lecture focuses on improving Python object implementations by moving methods into the structure to reduce leaks in abstraction. This approach ensures that calling code does not need to inspect internal implementation details, such as the underlying linked list structure.
+
+The lecture compares Python and PHP string handling to highlight naming convention inconsistencies, such as PHP's strpos and str_replace functions having different parameter orders. It also explains Python's double underscore convention for private methods and access control mechanisms in C++ and Java.

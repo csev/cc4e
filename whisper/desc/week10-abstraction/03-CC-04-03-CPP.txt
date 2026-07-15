@@ -1,0 +1,7 @@
+C++ Operator Overloading and Its Impact on Python and Java
+
+operator overloading, c++, python, java, syntax transformation, references, garbage collection
+
+C++ was released in 1980 and became a pivotal language in unifying object-oriented and procedural programming paradigms. The lecture explains how C++'s operator overloading mechanisms, such as the [] operator for maps, influenced the design of later languages including Python and Java.
+
+Python implemented a syntax transformation to achieve the [] operator behavior without references, while Java opted for explicit methods (put and get) to avoid reference semantics that could complicate garbage collection. These design choices reflect trade-offs between language flexibility and safety that shaped modern language development.

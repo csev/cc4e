@@ -1,0 +1,7 @@
+Python 0.01 List Implementation Compared to Carnegie and Ritchie Linked List
+
+python list, linked list, array of pointers, realloc, dynamic resizing, c programming, carnegie and ritchie, python 0.01
+
+The lecture compares the list data structure implementation in Python 0.01 with the linked list implementation from the book "Carnegie and Ritchie" Chapter 6. In Python 0.01, lists are implemented as arrays of pointers to characters allocated via malloc with an initial size of two elements. The Carnegie and Ritchie implementation uses a linked list with head and tail pointers, where each node contains a string pointer and a next pointer.
+
+The key technical difference lies in the dynamic resizing mechanism. The Python implementation extends the array using realloc when the current size is exceeded, copying existing elements and adding the new element without pointer manipulation. This approach avoids the linked list pointer operations required in the Carnegie and Ritchie implementation.

@@ -1,0 +1,7 @@
+Python's First Six Months Without User-Defined Classes
+
+Python, Modula 3, reference counting, class, function pointers
+
+Python's initial implementation, developed by Guido van Rossum, lacked user-defined classes for the first six months. The language used a structure-based approach inspired by Modula 3, where objects were represented as structures containing function pointers. This design avoided the need for a class keyword until later development.
+
+The implementation employed manual reference counting, a technique from ABC, to manage memory. This approach avoided the pitfalls of automatic reference counting in C++, which the creator found error-prone. Python added a cyclic garbage collector after about a decade to address memory leaks from object cycles.

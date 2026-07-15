@@ -1,0 +1,7 @@
+Python 3.7 Introduces Insert Order Preservation in Dictionaries
+
+python, 3.7, dictionaries, insert order, hash table, rehashing, load factor, modula 3, abc
+
+Python 3.7 introduced insert order preservation for dictionaries by decoupling the hash index from the key-value store. This change resolved the inconsistent iteration order in Python 3.6, where dictionary order was pseudo-random and could change during rehashing. The implementation maintains an integer array (index) that points to the positions of key-value pairs in a list (items), ensuring iteration order matches insertion sequence while supporting efficient hash-based lookups.
+
+Guido van Rossum designed Python using C after finding C++ experiments disappointing. ABC influenced Python with implicit iteration and reference counting, while Modula 3 contributed the self mechanism for object-oriented programming.

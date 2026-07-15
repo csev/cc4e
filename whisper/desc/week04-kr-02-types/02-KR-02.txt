@@ -1,0 +1,7 @@
+Historical Context of C Integer Division and Base Conversion
+
+C, integer division, truncation, base conversion, hexadecimal, octal, bitwise operations, masking, shifting, endianness
+
+This lecture covers the historical context of C programming, focusing on data types and storage allocation. It explains the historical roots of integer division truncation in C and how this influenced the transition from Python 2 to Python 3, where integer division in Python 2 truncated but in Python 3 it returned a float. The lecture also discusses base conversion between octal and hexadecimal and their use in representing binary data.
+
+The lecture details the shift from word-oriented to byte-oriented systems in C's development, starting from the B language. It describes masking and shifting operations used in early systems (e.g., on the CDC 6500) to handle characters and touches on endianness (big-endian vs. little-endian) and its impact on memory representation.

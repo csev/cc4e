@@ -1,0 +1,7 @@
+Implementing HashMap and TreeMap in C
+
+HashMap, TreeMap, C, Data structures, Hash table
+
+This lecture covers the implementation of two map data structures in C: a hash map and a tree map. The course previously developed an unordered linked list-based hash map abstraction, and now implements a sorted tree map structure.
+
+The lecture emphasizes the challenges of writing these implementations from scratch, including managing linked lists for the hash map and tree nodes for the tree map. Debugging is difficult, but the exercise is designed to reinforce understanding through iterative problem-solving.

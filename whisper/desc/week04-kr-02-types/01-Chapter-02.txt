@@ -1,0 +1,7 @@
+C Programming Chapter 2: Types, Operators, and Expressions (1978)
+
+variable names, data types, char, int, float, double, operators, expressions, constants, type conversions, bitwise operators, arithmetic operators, relational operators, logical operators, assignment operators, ternary operator, precedence, associativity
+
+This lecture covers Chapter 2 of the 1978 C Programming book by Kernighan and Ritchie, detailing variable naming rules, data types (char, int, float, double), and their machine-dependent sizes. It explains arithmetic operators, relational and logical operators, type conversions, and the use of constants and string literals.
+
+The lecture highlights the historical context of the 1978 C standard, including machine-specific data sizes (e.g., char as 8 bits on PDP-11, 9 bits on Honeywell 6000), the Year 2038 problem arising from 32-bit integer overflow in Unix timestamps, and the application of bitwise operators in low-level programming.

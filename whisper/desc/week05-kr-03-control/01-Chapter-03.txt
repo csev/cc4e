@@ -1,0 +1,7 @@
+C Control Flow Statements: Chapter 3 of 1978 Kernighan and Ritchie Book
+
+control flow, C, if-else, switch, while, for, do-while, break, continue, go to, labels
+
+This lecture covers Chapter 3 of the 1978 C Programming book by Kernighan and Ritchie. It explains control flow statements including statements and blocks, if/else constructs, else if patterns, switch statements, and loop structures (while, for, do while).
+
+The lecture also details break and continue statements, as well as go to and labels, highlighting their historical use in C and the book's significance in the evolution of portable C applications during the 1970s.

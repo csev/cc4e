@@ -1,0 +1,7 @@
+C Programming for Python Developers
+
+C, Python, variables, loops, input, output, strings, character arrays
+
+This lecture provides a translation from Python to C for students with a solid foundation in Python. It covers core differences in syntax, including explicit variable declarations, character arrays for strings, and input/output operations using stdio.h.
+
+The examples demonstrate how to write C programs that mirror Python functionality, such as formatted printing, integer and string input, and file reading. This lecture sets the stage for the course's later exploration of building higher-level languages from C primitives.

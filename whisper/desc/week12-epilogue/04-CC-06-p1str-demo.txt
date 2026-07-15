@@ -1,0 +1,7 @@
+Reference Counting in C String Implementation for Python 1
+
+reference counting, string implementation, C, Python 1, chunked arrays
+
+The lecture provides a code walkthrough of a C implementation for strings that uses reference counting, as seen in early Python versions (Python 1). This implementation employs chunked arrays of characters to allocate memory efficiently without copying data.
+
+The reference count mechanism increments when a string is assigned to a new variable and decrements during deletion. When the count reaches zero, the memory is freed, enabling multiple variables to share the same string data without memory leaks.

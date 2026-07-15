@@ -1,0 +1,7 @@
+1978 C Programming Book Chapter 1: Tutorial Introduction
+
+c, programming, 1978, kernighan, ritchie, hello world, variables, arithmetic, control flow, functions, input output, symbolic constants, arrays, strings
+
+Charles Severance's lecture provides an overview of Chapter 1 from the 1978 C Programming book by Kernighan and Ritchie. The chapter introduces fundamental C concepts including the hello world program, variable and constant declarations, arithmetic operations, control flow structures (while and for loops), function definitions, input/output using printf and getchar, symbolic constants via #define, and character arrays with null termination.
+
+The lecture emphasizes that this historical perspective on C (1978) is distinct from modern C and serves as a resource for understanding the language's evolution. The book's design choices, such as separating input/output operations from the language core, were intended to ensure portability and were influential in the development of portable software and operating systems.

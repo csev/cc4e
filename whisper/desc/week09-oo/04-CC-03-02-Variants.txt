@@ -1,0 +1,7 @@
+Object-Oriented Programming Language Evolution: C++, Java, JavaScript, PHP, and C#
+
+object oriented programming, language evolution, c++, java, javascript, php, csharp, constructor, instance variables, this, self, new operator
+
+The lecture traces the historical evolution of object-oriented programming syntax across major languages, including C++ (1980), Java (1995), JavaScript (1995), PHP (2000), and C# (2001). C++ implemented OOP via preprocessor transformations with instance variables as global within the class, while Java introduced the this keyword for explicit instance variable access. JavaScript uses first-class functions and anonymous methods without a class keyword, and PHP evolved from a procedural language to OOP with syntax conventions such as $ for variables and the arrow operator.
+
+Key differences in syntax conventions are highlighted: C++ uses instance variables without this or self, Java uses this for instance variables, and JavaScript relies on this within methods. The new operator for instance creation is common across these languages, and the dot syntax for accessing instance methods and variables varies by language (e.g., PHP uses the arrow operator instead of dot).

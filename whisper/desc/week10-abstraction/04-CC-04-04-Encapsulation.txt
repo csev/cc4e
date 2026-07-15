@@ -1,0 +1,7 @@
+C Map Implementation Using Encapsulation and Function Pointers
+
+C, encapsulation, function_pointers, map, linked_list, memory_management
+
+This lecture demonstrates refactoring C code into a class with encapsulation. The map structure uses a linked list of MapEntry nodes, each containing a public key (char*) and value (int). Private members are indicated by double underscores (e.g., __head, __tail).
+
+The class defines function pointers for public methods (put, get, size, dump, del) that point to implementation functions. The constructor initializes these pointers, and the destructor frees dynamically allocated keys and MapEntry nodes in sequence. A dump function is used for debugging during development.

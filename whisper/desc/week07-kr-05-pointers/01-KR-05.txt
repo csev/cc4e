@@ -1,0 +1,7 @@
+Kernighan and Ritchie Chapter 5: Pointers and Program Structure
+
+pointers, pointer arithmetic, call by reference, buffer overflow, c programming, kernighan and ritchie
+
+Chapter 5 of Kernighan and Ritchie's C programming book focuses on functions and program structure, with a detailed explanation of pointers. The lecture covers pointer arithmetic, dereferencing using the * operator, and addressing using the & operator. It also examines the historical evolution of pointers, including the introduction of the void pointer in modern C.
+
+Buffer overflow is a critical security vulnerability in C that occurs when data exceeds the allocated memory for strings. The lecture demonstrates this using the get_s function, where input data can overwrite adjacent memory, leading to program crashes or security issues. Understanding pointers is essential for preventing such vulnerabilities and for low-level programming tasks.

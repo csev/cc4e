@@ -1,0 +1,7 @@
+Python 1.0 Dictionary Implementation with Open Hashing
+
+python1.0, dictionary, openhashing, linearprobing, rehashing, dnode
+
+The lecture details the Python 1.0 dictionary implementation by Guido van Rossum from 1989-1991, which uses open hashing. This implementation stores key-value pairs in an array without linked lists and resolves collisions using linear probing through circular iteration.
+
+The dictionary structure includes fields for the current item count, allocated array size, and an array of DNode structures (each containing key and value pointers). When the array becomes full, the implementation triggers rehashing by doubling the array size and reinserting all items.

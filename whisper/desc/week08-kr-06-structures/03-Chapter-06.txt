@@ -1,0 +1,7 @@
+C Structures: Understanding Data Organization in the 1978 Book
+
+c, structures, pointers, linked lists, binary trees, hash tables, bit fields, unions, type definitions
+
+This lecture covers Chapter 6 of the 1978 C Programming book by Kernighan and Ritchie. The chapter introduces C structures as collections of variables grouped under a single name, detailing their declaration, initialization, and member access using the dot operator. It also explains nested structures, arrays of structures, and self-referential structures for linked lists.
+
+The chapter further covers binary trees for efficient word counting and hash tables for table lookup, demonstrating hashing techniques and implementation. Additionally, it discusses bit fields for compact storage, unions for storing multiple data types in one memory location, and type definitions for creating aliases for complex types.

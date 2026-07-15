@@ -1,0 +1,7 @@
+C Structures, Pointers, and Linked Lists
+
+C, structures, pointers, linked lists, dynamic memory, malloc, sizeof, unions
+
+The lecture covers C structures as user-defined types that group variables of different types. Structures are accessed using the dot operator. Pointers to structures enable the use of the arrow operator (-›) for accessing members. The lecture also explains dynamic memory allocation with malloc and sizeof, and demonstrates the implementation of both singly and doubly linked lists.
+
+The lecture introduces unions, which share the same memory space for different data types. Unions are useful in network protocols and bit manipulation. The lecture emphasizes the importance of visualizing linked lists to avoid memory errors during implementation.

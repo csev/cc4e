@@ -1,0 +1,7 @@
+Building a Python Dictionary Class Using C Linked Lists
+
+python, dictionary, linked list, key value pair, malloc, free, c, data structures
+
+This lecture details the implementation of a Python dictionary class in C using a linked list structure. The dictionary object includes head and tail pointers and a count field. Keys and values are dynamically allocated character arrays via malloc and then copied into the node.
+
+The put method updates existing keys by freeing the old value and allocating a new one, or adds new keys and values as new nodes. The get method returns the value for a key or null if not found. This linked list implementation is a simplified version of Python's dictionary, which in reality uses hash maps for efficiency.

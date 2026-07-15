@@ -1,0 +1,7 @@
+C Standard I/O Library: Functions and File Operations
+
+stdio.h, standard input, standard output, file operations, printf, scanf, error handling
+
+The lecture covers the standard I/O library in C, which provides essential functions for interacting with the operating system environment. This library includes standard input and output operations, file handling, and formatted I/O, designed to be portable and efficient across different operating systems.
+
+The library supports file operations through functions like fopen and fclose, and formatted input/output using printf and scanf. Error handling is managed via stderr and the exit function, ensuring diagnostic messages appear on the terminal even when output is redirected to files or pipelines.

@@ -1,0 +1,7 @@
+C Programming for Everybody: History and Foundations
+
+C, programming, history, Kernighan, Ritchie, classic, Unix, portability, compiler, computer architecture
+
+This course examines the classic C programming language as presented in the 1978 book by Brian W. Kernighan and Dennis M. Ritchie. C was used to develop operating systems such as Unix, Minix, and Linux, and it underpins modern programming languages including Perl, Python, Java, JavaScript, and Ruby. Early internet infrastructure, including TCP/IP networking and the first web browsers and servers, was also implemented in C.
+
+The course focuses on C's historical role in enabling portable software by allowing recompilation to new hardware platforms once a C compiler was available. This foundational aspect of C makes it a key bridge in computing history, with the course material presented under fair use for educational purposes.

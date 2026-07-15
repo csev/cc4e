@@ -1,0 +1,7 @@
+C++ Built on C: Pragmatic Engineering at Bell Labs
+
+C, C++, object-oriented programming, Bell Labs, pragmatic engineering, language compatibility, Simula
+
+Bjarne Stroustrup joined Bell Labs in 1979 after completing his PhD at Cambridge. He aimed to develop a simulation language by incorporating object-oriented concepts from Simula, one of the first object-oriented languages, onto the C programming language, which was the standard at Bell Labs.
+
+The initial implementation of C++ was designed as a translation to C to ensure portability and compatibility with existing infrastructure. This pragmatic engineering decision allowed C code to be processed by the C++ compiler without modification, facilitating adoption. Over time, features from C++ were retrofitted into C, and the translation mechanism used pointers to structures for object-oriented programming without significant overhead.

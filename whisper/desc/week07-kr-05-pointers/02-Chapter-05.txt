@@ -1,0 +1,7 @@
+Kernighan and Ritchie Chapter 5: Pointers and Arrays in C
+
+pointers, arrays, pointer arithmetic, function pointers, multidimensional arrays, command line arguments, arrays of pointers
+
+This lecture covers Chapter 5 of the 1978 C Programming book by Kernighan and Ritchie. It explains the concepts of pointers, including their definition as variables storing addresses, pointer arithmetic, and the relationship between pointers and arrays. The chapter also covers the use of pointers in function arguments, multidimensional arrays, and command line arguments.
+
+The lecture further discusses arrays of pointers and function pointers, which enable flexible sorting and comparison mechanisms. It emphasizes the historical context of the 1978 C language design, highlighting features that contributed to portability and efficiency.

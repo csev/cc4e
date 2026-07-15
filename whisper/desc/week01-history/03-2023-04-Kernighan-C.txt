@@ -1,0 +1,7 @@
+Bell Labs' Development of the C Programming Language
+
+Bell Labs, C, PL1, BCPL, B, portability, compiler design
+
+Bell Labs, a research institution with approximately 1200 PhD-level researchers in Murray Hill, New Jersey, fostered a problem-rich environment where stable funding came from AT&T's long-distance telephone service. The development of programming languages at Bell Labs began with PL1, a high-level language that proved inadequate, leading to the adoption of BCPL by Martin Richards from Cambridge University. BCPL was then simplified into the B language, which was interpreted and typeless but more expressive than PL1.
+
+The C programming language, developed by Ken Thompson and Dennis Ritchie, incorporated static typing to enable manipulation of characters and integers, addressing the typeless limitations of B. To ensure portability across diverse hardware, including PDP-11, Interdata, and GE 635 systems, Steve Johnson created a compiler that separated the language front end from machine-specific code generation. The first C book by Dennis Ritchie was published in 1978, and the NCC standard was developed around 1988, establishing C as a mature language for practical use by that time.

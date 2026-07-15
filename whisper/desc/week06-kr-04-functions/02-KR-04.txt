@@ -1,0 +1,7 @@
+Stack Frames, Call by Value, and Recursion in C
+
+stack frame, call by value, call by reference, recursion, c preprocessor, register variables, stack overflow
+
+This chapter explains the implementation of functions in C, focusing on stack frames and the call stack. It details how stack frames store parameters and automatic variables during function execution and differentiates between call by value and call by reference mechanisms.
+
+The lecture also covers recursion and its stack-based implementation, noting potential stack overflow issues. Additionally, the C preprocessor is introduced as a source code translator for conditional compilation and portability across multiple operating systems.

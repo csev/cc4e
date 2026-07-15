@@ -1,0 +1,7 @@
+C Programming Language History
+
+C programming, Unix, C history, C standardization, C89, C90, Rust
+
+The lecture provides historical context for the C programming language, tracing its origins to the early 1970s. The pivotal 1978 publication of "The C Programming Language" by Kernighan and Ritchie summarized over a decade of research into creating portable programming languages and operating systems, with C designed for low-level system programming.
+
+The course covers the standardization of C (C89 and C90) and its influence on modern programming languages. C remains foundational for systems programming, with derivatives including Java, C#, and Python. The lecture identifies Rust as a potential future language that provides memory safety without sacrificing low-level hardware access.

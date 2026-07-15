@@ -1,0 +1,7 @@
+Python 3.7 Dictionary Internal Structure and Insert Order
+
+Python, dictionary, Python_3_7, internal_structures, insert_order, hash_table, load_factor, rehashing, linear_probing
+
+The lecture details the changes in Python dictionary internal data structures from versions 0.01 to 3.6 to Python 3.7. In Python 3.7, dictionaries employ a linear array for key-value pairs (items) and a separate integer array (index) that is twice the size of the items array. This design ensures a load factor of 50% or less, reducing wastage compared to earlier versions which had a load factor of 0.7.
+
+This structure maintains insert order as a side effect of the linear array. The index array handles hash indexing and conflict resolution using linear probing. Rehashing is simplified by extending the items array and rebuilding the index array, avoiding the complex rehashing mechanisms required in earlier dictionary implementations.

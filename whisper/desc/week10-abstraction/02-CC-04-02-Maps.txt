@@ -1,0 +1,7 @@
+Map Abstraction and Iterator Patterns Across Programming Languages
+
+key-value collections, map, iterator pattern, Python dictionary, PHP arrays, C++ std::map, Java Map interface, abstraction, key-value store
+
+This lecture compares how different programming languages implement key-value collections through the map abstraction. Each language provides a distinct name for this concept: Python uses dictionaries, PHP uses arrays, C++ uses std::map, and Java uses the Map interface. The lecture examines the iterator pattern as a common abstraction for efficiently traversing these collections without creating full memory copies.
+
+The implementation details for each language are demonstrated. Python dictionaries use an iterator that returns key-value pairs via next(). PHP arrays are iterated using foreach with safe access via the null coalesce operator (??). C++ std::map iterators are accessed via begin() and end() with type inference using auto. Java's Map interface provides an entry set iterator that uses getKey() and getValue() methods. Each language offers a consistent abstraction for key-value storage while differing in internal implementation and type handling.
