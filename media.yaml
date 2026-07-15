@@ -39,7 +39,7 @@ entries:
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week01-history/03-2023-04-Kernighan-C.m4v:
     title: DJ Bell Labs' Development of the C Programming Language (8:29)
-    youtube_id: null
+    youtube_id: v8uLDu7LAEc
     kaltura_id: null
     size: 451028549
     md5: c4c79495cc5f9afad8cdc1d54d7ab70e
@@ -129,7 +129,7 @@ entries:
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week04-kr-02-types/02-KR-02.m4v:
     title: DJ Historical Context of C Integer Division and Base Conversion (21:08)
-    youtube_id: null
+    youtube_id: 420uNP1AC84
     kaltura_id: null
     size: 511752318
     md5: ad599ae3866a715ce6bc81f1b7563a70
@@ -294,7 +294,7 @@ entries:
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week09-oo/02-2023-04-Kernighan-Plus.m4v:
     title: 'DJ C++ Built on C: Pragmatic Engineering at Bell Labs (5:59)'
-    youtube_id: null
+    youtube_id: CtAysS8AlsE
     kaltura_id: null
     size: 317877121
     md5: 503f0a6b38384ee7661ab45ab843a951
@@ -309,7 +309,7 @@ entries:
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week09-oo/03-2011-11-10-Bjarne.m4v:
     title: DJ C++ Reliability in Critical Infrastructure (15:23)
-    youtube_id: null
+    youtube_id: 9fJ5rZhw4Fc
     kaltura_id: null
     size: 864190979
     md5: 1333bcb91da88122a418392ee1751652
@@ -564,7 +564,7 @@ entries:
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week12-epilogue/01-CC-06-01.m4v:
     title: DJ How Python Data Structures Were Built Using Kernighan and Ritchie Chapter 6 (9:12)
-    youtube_id: null
+    youtube_id: Jdu7vQbyTu4
     kaltura_id: null
     size: 347032841
     md5: b9a590dd020a9d1c43736740c3b52e70
@@ -579,7 +579,7 @@ entries:
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week12-epilogue/02-2024-02-04-Guido-Impl.m4v:
     title: 'DJ Early Python Design: Lexer, Parser, and Core Data Structures (18:30)'
-    youtube_id: null
+    youtube_id: yJ-D9IkLK3Y
     kaltura_id: null
     size: 979848448
     md5: 6327296628a515f147c2c710ed038931
@@ -594,7 +594,7 @@ entries:
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week12-epilogue/03-CC-06-02.m4v:
     title: 'DJ Python 1.0 List and Dictionary: Extendable Arrays, Not Linked Lists (12:20)'
-    youtube_id: null
+    youtube_id: R0DInCT6SOQ
     kaltura_id: null
     size: 510279473
     md5: e8ceaddf10314dc65a7edd9d9b111f48
@@ -609,7 +609,7 @@ entries:
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week12-epilogue/04-CC-06-p1str-demo.m4v:
     title: DJ Reference Counting in C String Implementation for Python 1 (9:23)
-    youtube_id: null
+    youtube_id: g-Zq9Oj24IE
     kaltura_id: null
     size: 154136984
     md5: 358ccb245a604adcb4c16f71657bd849
@@ -624,7 +624,7 @@ entries:
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week12-epilogue/05-CC-06-p1list-demo.m4v:
     title: DJ Python 0.01 List Implementation Compared to Carnegie and Ritchie Linked List (14:24)
-    youtube_id: null
+    youtube_id: f-AdH22VF34
     kaltura_id: null
     size: 215437553
     md5: 9214eccb1746f65038a5273709182b2d
@@ -639,7 +639,7 @@ entries:
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week12-epilogue/06-CC-06-03.m4v:
     title: DJ Python 1.0 Dictionary Implementation with Open Hashing (13:39)
-    youtube_id: null
+    youtube_id: 7N02xXVNfs4
     kaltura_id: null
     size: 347640914
     md5: 6f39fcbe102d9322f01b82c71e55759c
@@ -654,7 +654,7 @@ entries:
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week12-epilogue/07-CC-06-p1dict-demo.m4v:
     title: DJ Comparison of Kernighan and Ritchie and Python 1.0 Dictionary Implementations (39:28)
-    youtube_id: null
+    youtube_id: Evau1mKsMvM
     kaltura_id: null
     size: 582023136
     md5: ee8f8ccff4c82703cc80f4666936cf1c
@@ -669,7 +669,7 @@ entries:
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week12-epilogue/08-CC-06-p3dict-demo.m4v:
     title: DJ Python 3.7 Dictionary Internal Structure and Insert Order (23:22)
-    youtube_id: null
+    youtube_id: eCtkUg5lMcg
     kaltura_id: null
     size: 349031883
     md5: 6d05971dacfcacd5fc7e4b843d2c29c0
@@ -684,7 +684,7 @@ entries:
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week12-epilogue/09-CC-06-04.m4v:
     title: DJ Python 3.7 Introduces Insert Order Preservation in Dictionaries (11:12)
-    youtube_id: null
+    youtube_id: UcwlMNym0pc
     kaltura_id: null
     size: 377163339
     md5: f0bccaa5689be26d17249deba0b63960
@@ -699,7 +699,7 @@ entries:
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week12-epilogue/10-2024-02-04-Guido-OO.m4v:
     title: DJ Python's First Six Months Without User-Defined Classes (15:39)
-    youtube_id: null
+    youtube_id: fU8BmX2Clsk
     kaltura_id: null
     size: 830393953
     md5: 79190aa9d12b59b20c0de19f3682fb8d
