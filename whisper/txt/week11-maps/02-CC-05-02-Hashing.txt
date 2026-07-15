@@ -26,7 +26,7 @@
  and Java's hash maps, and it builds on linked lists.
  Surprisingly, it's really easy to build a hash map
  if you understand linked lists.
- And so it's covered in chapters 6.5.1 and 6.6 in Kernigan and Ritchie.
+ And so it's covered in chapters 6.5.1 and 6.6 in Kernighan and Ritchie.
  6.5.2 is literally the hardest part of the book.
  And that's why we kind of start with 6.6
  and then kind of go back to 6.5.
@@ -35,12 +35,12 @@
  So our list map is pretty simple.
  We've got the entries in the map, which are key value,
  which we've decided are going to stay public.
- We've got the pre even the next for the map entry,
+ We've got the pre even the next for the MapEntry,
  which is just, you know, we're going to link these things together.
  And then the list map itself, it's got a head and it's got a tail
  and maybe a count and a few other things,
  and then the methods, et cetera, because we've done encapsulation.
- So the hash map entry, if you look at it, it's pretty much identical.
+ So the HashMapEntry, if you look at it, it's pretty much identical.
  And that's because the entries in a hash map
  are just part of a linked list.
  The key to the hash map is there's multiple linked lists.

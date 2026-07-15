@@ -1,7 +1,7 @@
 WEBVTT
 
 00:00:00.000 --> 00:00:16.000
- Welcome to C Programming for Everybody. My name is Charles Severance and this is my reading of the 1978 C programming book written by Brian Kernigan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
+ Welcome to C Programming for Everybody. My name is Charles Severance and this is my reading of the 1978 C programming book written by Brian Kernighan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
 
 00:00:16.000 --> 00:00:27.000
  Chapter 0. Introduction. C is a general purpose programming language. It has been closely associated with the Unix system since it was developed on that system.
@@ -40,13 +40,13 @@ WEBVTT
  The more difficult problem is after a series of calls to malloc and free, the heap space becomes fragmented and some cleanup is needed. This cleanup is called garbage collection. Efficient memory allocation and garbage collection has been the subject of decades of computer science research.
 
 00:03:46.000 --> 00:04:08.000
- The Java language has built a number of increasingly effective garbage collection approaches over the years. Kernigan and Ritchie, in one simple paragraph, define most of the problem as out of scope for the C language, which makes it a bit challenging for us to make good use of dynamic memory allocation in C, but when we do it properly, it performs very well.
+ The Java language has built a number of increasingly effective garbage collection approaches over the years. Kernighan and Ritchie, in one simple paragraph, define most of the problem as out of scope for the C language, which makes it a bit challenging for us to make good use of dynamic memory allocation in C, but when we do it properly, it performs very well.
 
 00:04:08.000 --> 00:04:25.000
  If you are currently using a language like Java, Python, or PHP, every time you create a new string through concatenation without thinking about memory allocation, remember to appreciate the decades of work by computer scientists that made it easy for you.
 
 00:04:25.000 --> 00:04:34.000
- Kernigan and Ritchie knew that garbage collection was difficult, so they left it out of the C language and put it into a runtime library.
+ Kernighan and Ritchie knew that garbage collection was difficult, so they left it out of the C language and put it into a runtime library.
 
 00:04:34.000 --> 00:04:50.000
  Back to Chapter 0. Similarly, C offers only straightforward single thread control flow constructions, tests, loops, grouping, and subprograms, but not multiprogramming, parallel operations, synchronization, or coroutines.
@@ -202,7 +202,7 @@ WEBVTT
  Appendix A also describes implementation differences on the major C systems.
 
 00:17:37.000 --> 00:17:50.000
- This recording of Chapter 0 of the 1978 C Programming Book, written by Brian Kernigan and Dennis Ritchie, is part of my C Programming for Everybody course, where I teach C from a historical perspective.
+ This recording of Chapter 0 of the 1978 C Programming Book, written by Brian Kernighan and Dennis Ritchie, is part of my C Programming for Everybody course, where I teach C from a historical perspective.
 
 00:17:50.000 --> 00:17:54.000
  My name is Charles Severance, and I'm the teacher of the course.

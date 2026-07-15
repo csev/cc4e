@@ -3,7 +3,7 @@
  and I'm your instructor for this course.
  This course and website is dedicated to learning
  the classic version of C programming language
- from the 1978 book written by Brian W. Kernigan
+ from the 1978 book written by Brian W. Kernighan
  and Dennis M. Ritchie.
  This book places the reader in the middle
  of the 1970s transition from a hardware-centered

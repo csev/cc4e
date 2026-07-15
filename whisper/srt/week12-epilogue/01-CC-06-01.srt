@@ -220,7 +220,7 @@
 
 56
 00:05:31,920 --> 00:05:37,280
- following Kernigan and Ritchie, is we used the key computed a hash which is a large integer generally
+ following Kernighan and Ritchie, is we used the key computed a hash which is a large integer generally
 
 57
 00:05:37,280 --> 00:05:43,840
@@ -296,7 +296,7 @@
 
 75
 00:07:31,440 --> 00:07:37,040
- I started looking at it less from a C and KNR, Kernigan-Ritchie perspective, and more from a
+ I started looking at it less from a C and KNR, Kernighan-Ritchie perspective, and more from a
 
 76
 00:07:37,040 --> 00:07:43,840
@@ -320,7 +320,7 @@
 
 81
 00:08:08,880 --> 00:08:17,280
- about the influence that Kernigan and Richie chapter 6 had on his design of Python and in
+ about the influence that Kernighan and Ritchie chapter 6 had on his design of Python and in
 
 82
 00:08:17,280 --> 00:08:23,360
@@ -328,7 +328,7 @@
 
 83
 00:08:23,360 --> 00:08:31,120
- Kernigan and Richie chapter 6 and so up next we have the first of two interviews with Guido
+ Kernighan and Ritchie chapter 6 and so up next we have the first of two interviews with Guido
 
 84
 00:08:31,120 --> 00:08:36,960
@@ -340,7 +340,7 @@
 
 86
 00:08:44,400 --> 00:08:51,440
- of the Kernigan and Richie c-book which was signed and I left it with him and saying you know skim
+ of the Kernighan and Ritchie c-book which was signed and I left it with him and saying you know skim
 
 87
 00:08:51,440 --> 00:09:11,680

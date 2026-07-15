@@ -53,7 +53,7 @@
  that takes the key and creates a large pseudo-random number which means it's deterministic but it's
  widely distributed with the idea of to limit collisions. So John Smith and Joe Smith hopefully
  will hash differently even though they're very close, right? And so the way we did this, again,
- following Kernigan and Ritchie, is we used the key computed a hash which is a large integer generally
+ following Kernighan and Ritchie, is we used the key computed a hash which is a large integer generally
  but then we modulo it based on the number of buckets and so the buckets are in a sense four
  linked lists. And if we wanted to write this code in a way, we could have kind of used the list object
  and said here and be a little bit less repetitive but we just implemented the whole thing.
@@ -72,16 +72,16 @@
  code, you would see that a lot of it looks the same except we're starting with a head that has
  been chosen by a hash computation along with modulo based on the number of buckets. As I finished
  all that up and I finished the class up, I wondered, I began to really wonder. I looked,
- I started looking at it less from a C and KNR, Kernigan-Ritchie perspective, and more from a
+ I started looking at it less from a C and KNR, Kernighan-Ritchie perspective, and more from a
  Python perspective and I'm like did I just inadvertently do exactly what Guido van Rossum
  did? Did Guido van Rossum read this book like most of us did in the 70s and 80s and did he just say
  you know what I'm going to make a list object and it's going to be a linked list and I'm going to
  make a hash object and it's going to be a set of buckets, linked lists and buckets like everybody
  would do. So I decided I would ask Guido if I could come out to him and see him and talk to him
- about the influence that Kernigan and Richie chapter 6 had on his design of Python and in
+ about the influence that Kernighan and Ritchie chapter 6 had on his design of Python and in
  particular was my guess because I didn't look at the Python code to do this. I was really teaching
- Kernigan and Richie chapter 6 and so up next we have the first of two interviews with Guido
+ Kernighan and Ritchie chapter 6 and so up next we have the first of two interviews with Guido
  asking about how he built his structures and whether or not my structures that I had just
  guessed and assumed were even close and so we started the interview with me handing him a copy
- of the Kernigan and Richie c-book which was signed and I left it with him and saying you know skim
+ of the Kernighan and Ritchie c-book which was signed and I left it with him and saying you know skim
  through chapter 6 and tell me how chapter 6 affected how you built the original version of Python.

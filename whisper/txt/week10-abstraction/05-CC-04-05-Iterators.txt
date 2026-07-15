@@ -6,7 +6,7 @@
  able to write the same code over and over again. So at some level, what we're doing here is we're
  building a map implementation that can be a linked list, a hash map list, I mean, a hash-based map,
  a list-based map, or a tree-based map. And what we want is this code right here. This code
- should not change. We should say, hey, give me a map. We got a map entry, we got a map iterator.
+ should not change. We should say, hey, give me a map. We got a MapEntry, we got a map iterator.
  Those are all part of the contract that we have with the object, be it a linked list, tree, or map,
  a hash. We're going to do a put, put, put, put, dump, get, get. Now we're going to iterate. The hash
  won't even have like a-- it doesn't have a head. And the next, it's not going to work, right? So
@@ -17,9 +17,9 @@
  instance as a parameter, and give me back iterator. And then we write a while loop.
  And we say, hey, iterator, give me the next thing. It is up to the iterator to start at the beginning
  and then advance and move down. And when we get null, we break. If not, we print key and value
- from the cur. Now, cur is of type map entry. There's a map iter, iter next, and then
- cur is what we get back from iterator. So we get from iter, iter next, we get back a map entry.
- And so if you recall, key and value are public in the map entry. So I could have had you hide those
+ from the cur. Now, cur is of type MapEntry. There's a map iter, iter next, and then
+ cur is what we get back from iterator. So we get from iter, iter next, we get back a MapEntry.
+ And so if you recall, key and value are public in the MapEntry. So I could have had you hide those
  behind sort of getters and have a get key and whatever and name those underscore. But we're
  just going to leave them public attributes for now. If we were implementing Java-- I mean,
  right now, we're kind of hard coding this string key integer throughout. So it's going to be OK.

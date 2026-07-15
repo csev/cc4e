@@ -12,7 +12,7 @@
  Don't just like go, "Oh, I didn't understand what a hash list was. I'll just keep on not understanding and use chat GPT."
  It's like, "Well, I don't know what to do if that's how you're going to go through this assignment."
  But if you have and understand a working hash list, this is easy, easy, easy.
- We've been using list map find before, and all it does is it finds a hash map entry if it's already there.
+ We've been using list map find before, and all it does is it finds a HashMapEntry if it's already there.
  And so we send in the whole hash map self, which is very, you know, Python object-oriented pattern where the first parameter is always self.
  We have a key we're looking up, and then we're telling it to start in a particular bucket.
  And that's the real change. If you have hash list find, it doesn't have a bucket. Hash map find has a bucket.
@@ -54,7 +54,7 @@
  Current is an internal value and map is an internal value, which we're going to use to remember that map that we're an iterator for.
  And then we're going to have a next and a del. This is the constructor and we're saying make an iterator given a hash map.
  We make the iterator structure. We remember a pointer to the map in case we're going to need it later.
- The current bucket we're going to look at is zero and the current map entry is the head of the zero bucket.
+ The current bucket we're going to look at is zero and the current MapEntry is the head of the zero bucket.
  And then next and del are just capsulated methods, basically, and then we return it.
  Now, that first bucket may or may not be an empty list, right?
  So that first, you know, there might be just one bucket, the third bucket might have a list in it and zero, one and two won't have anything in it.

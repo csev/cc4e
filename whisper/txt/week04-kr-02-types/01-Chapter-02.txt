@@ -1,5 +1,5 @@
  Welcome to C Programming for Everybody. My name is Charles Severance and this is
- my reading of the 1978 C Programming book written by Brian Kernigan and Dennis
+ my reading of the 1978 C Programming book written by Brian Kernighan and Dennis
  Ritchie. At times I add my own interpretation of the material from a
  historical perspective. Chapter 2, Types, Operators, and Expressions. Variables and
  constants are the basic data objects manipulated in a program. Declarations
@@ -120,7 +120,7 @@
  The loop must be able to handle an empty file or no data at all.
  There are three ways to construct a read and process until EOF loop, and none of the approaches are ideal.
  The loop constructions that you can do are a top-tested loop with a priming read before the loop, a bottom-tested loop with a read as the first statement in the loop and an if-then-else as the rest of the body of the loop,
- a top-tested infinite loop with a priming read and a middle-tested exit, and a top-tested loop with a side-effect read in the test of the loop, which is the way that Kernigan and Ritchie chose to document in this chapter.
+ a top-tested infinite loop with a priming read and a middle-tested exit, and a top-tested loop with a side-effect read in the test of the loop, which is the way that Kernighan and Ritchie chose to document in this chapter.
  This serves to explain the syntax while open parentheses, open parentheses, C equals getchar, open parentheses, closed parentheses, not equal EOF, closed parentheses, open curly brace, body of the loop, closed curly brace.
  This construct is a top-tested loop, which most programmers prefer, and it folds the priming read and puts its value inside the variable C.
  But since getchar might also return EOF, we need to check if we actually receive no data at all and need to avoid executing the body of the loop or exit the loop.
@@ -194,7 +194,7 @@
  While open parenthesis open parenthesis s sub i plus plus equals t sub j plus plus close parenthesis not equal backslash zero close parenthesis semicolon.
  That code copies the rest of t into s close curly brace as each characters copied from t to s the post fix plus plus is applied to both i and j to make sure they are in position for the next pass through the loop.
  Section 2.9 bitwise logical operators c provides a number of operators for bit manipulation these may not be applied to float or double ampersand is bitwise and vertical bar is bitwise inclusive or.
- Carrot is bitwise exclusive or less than less than is left shift and greater than greater than is right shift and tilled is one compliments and it's a unary operator the bitwise and operator ampersand is often used to mask off some set of bits for example.
+ Caret is bitwise exclusive OR less than less than is left shift and greater than greater than is right shift and tilde is one's complement and it's a unary operator the bitwise and operator ampersand is often used to mask off some set of bits for example.
  c equals n ampersand zero one seven seven sets to zero all but the lower seven bits of n the bitwise or operator is used to turn bits on x equals x vertical bar mask sets to one the x bits that are set to one in mask.
  You should carefully distinguish the bitwise operator ampersand and vertical bar from the logical connectives double ampersand and double vertical bar which imply left to right evaluation of a truth value.
  For example if x is one and y is two then x single ampersand y is zero while x double ampersand y is one think about that for a moment.
@@ -246,12 +246,12 @@
  The cast multiplication bitwise and size of left with right to left associativity and multiplication division and modulo with left right associativity then plus and minus with left to right associativity.
  Then left shift which is less than less than and right shift which is right greater than greater than with left to right associativity.
  Then logical operators less than less than or equal to greater than or greater than or equal to with left to right associativity.
- Then comparison double equals not equal exclamation equal left to right. Then we have some bitwise operators the bitwise and with left to right associativity then the bitwise exclusive or with left right associativity which is a carrot.
+ Then comparison double equals not equal exclamation equal left to right. Then we have some bitwise operators the bitwise and with left to right associativity then the bitwise exclusive or with left right associativity which is a caret.
  Then the single vertical bar which is bitwise or with left to right associativity. Then we have ampersand ampersand which is and the logical and left to right associativity.
  Then double vertical bar which is the logical or with left to right associativity. Then the ternary operator which is question mark and colon with right to left associativity.
  Then the assignments equals plus equals minus equals etc. with right to left associativity and then the comma which we'll cover in the next chapter with left to right associativity.
  The operators dash greater than and dot are used to access members of structures. They'll be covered in chapter six along with size of and then in chapter five we'll discuss asterisk indirection and ampersand address of.
- Note that the precedence of the bitwise logical operators ampersand carrot and vertical bar falls below double equals and exclamation equals.
+ Note that the precedence of the bitwise logical operators ampersand, caret, and vertical bar falls below double equals and exclamation equals.
  This implies that this bit testing expressions like if parenthesis parenthesis x ampersand mass close parenthesis equal equals zero close parenthesis must be fully parenthesis to get proper results.
  As mentioned before expressions evolving one or more of the associative and commutative operators like multiply plus bitwise and bitwise or bitwise and bitwise exclusive or can be rearranged even when parenthesized.
  In most cases this makes no difference whatsoever in situations where it might explicit temporary variables can use to force a particular order of evaluation.
@@ -280,7 +280,7 @@
  With modern day compilers and optimizers you gain little performance by writing dense or obtuse code.
  Write the code, describe what you want done and let the compiler find the best way to do it.
  One of the reasons that a common senior project in many computer science degrees was to write a compiler is to make sure that all computer scientists understand that they can trust the compiler to generate great code.
- This work is based on the 1978 C programming book written by Brian W. Kernigan and Dennis M. Ritchie. Their book is copyright all rights reserved by AT&T but is used in this work under fair use because of the book's historical and scholarly significance, its lack of availability and the lack of an accessible version of the book.
+ This work is based on the 1978 C programming book written by Brian W. Kernighan and Dennis M. Ritchie. Their book is copyright all rights reserved by AT&T but is used in this work under fair use because of the book's historical and scholarly significance, its lack of availability and the lack of an accessible version of the book.
  The book is augmented in places to help understand its right place in historical context amidst the major changes of the 1970s and 1980s as computer science evolved from a hardware first vendor centered approach to a software centered approach where portable operating systems and applications written in C could run on any hardware.
  This is not the ideal book to learn C programming because the 1978 edition does not reflect the modern C language. Using an obsolete book gives us an opportunity to take students back in time and understand how the C language was evolving as it laid the groundwork for a future with portable applications.
  (gentle music)

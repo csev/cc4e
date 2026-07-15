@@ -154,7 +154,7 @@ WEBVTT
  the self is the pointer to the map. So it has a head and a next. And we're going to just go
 
 00:05:11.440 --> 00:05:16.080
- through it until cur is equal to null. We've got a map entry, which is the type. Now, we don't
+ through it until cur is equal to null. We've got a MapEntry, which is the type. Now, we don't
 
 00:05:16.080 --> 00:05:20.480
  double_thecur, because that's really just an automatic variable inside this function. That
@@ -211,7 +211,7 @@ WEBVTT
  entry struct. And we're going to get rid of that in a second. We're going to advance to the next
 
 00:06:52.400 --> 00:06:57.600
- one first, and then we're going to free the current map entry. And then we'll say current next, and
+ one first, and then we're going to free the current MapEntry. And then we'll say current next, and
 
 00:06:57.600 --> 00:07:00.480
  we're going to loop up. And so eventually, we're just going to go through the linked list
@@ -247,7 +247,7 @@ WEBVTT
  it's really simple. You just change the value and return. And if not, you add it to the end of the
 
 00:08:08.960 --> 00:08:13.520
- list. You construct a new map entry, and you add it to the end of the list. And so again,
+ list. You construct a new MapEntry, and you add it to the end of the list. And so again,
 
 00:08:13.520 --> 00:08:19.760
  I just hope by now you can knock these things out. And so that's basically it. I mean,

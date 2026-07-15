@@ -28,8 +28,8 @@
  like my Python for Everybody class,
  this course is going to be a little bit difficult.
  So let's start with a history of C.
- The book we're looking at, The Kernigan and Ritchie,
- a C programming language by Brian W. Kernigan
+ The book we're looking at, The Kernighan and Ritchie,
+ a C programming language by Brian W. Kernighan
  and Dennis M. Ritchie, was published in 1978.
  And the key thing is that it is a moment in history
  where everything changed.
@@ -179,7 +179,7 @@
  And that's because JavaScript and Java
  both inherited their for loop syntax from C.
  So I've got a couple of videos in this section.
- This is Brian Kernigan talking about
+ This is Brian Kernighan talking about
  the C programming language and it's a short video.
  I didn't produce this video, but it's a great little video.
  Another video is from the creator of C++, Bjorn Stroestrup.

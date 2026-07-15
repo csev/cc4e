@@ -112,7 +112,7 @@
 
 29
 00:01:19,240 --> 00:01:25,500
- And so it's covered in chapters 6.5.1 and 6.6 in Kernigan and Ritchie.
+ And so it's covered in chapters 6.5.1 and 6.6 in Kernighan and Ritchie.
 
 30
 00:01:25,640 --> 00:01:31,100
@@ -148,7 +148,7 @@
 
 38
 00:01:52,500 --> 00:01:56,040
- We've got the pre even the next for the map entry,
+ We've got the pre even the next for the MapEntry,
 
 39
 00:01:56,040 --> 00:01:59,140
@@ -168,7 +168,7 @@
 
 43
 00:02:07,180 --> 00:02:12,740
- So the hash map entry, if you look at it, it's pretty much identical.
+ So the HashMapEntry, if you look at it, it's pretty much identical.
 
 44
 00:02:12,740 --> 00:02:14,940

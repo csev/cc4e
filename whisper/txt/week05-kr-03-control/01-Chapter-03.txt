@@ -1,4 +1,4 @@
- Welcome to C Programming for Everybody. My name is Charles Severance. This is my reading of the 1978 C Programming book written by Brian Kernigan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
+ Welcome to C Programming for Everybody. My name is Charles Severance. This is my reading of the 1978 C Programming book written by Brian Kernighan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
  Chapter 3. Control Flow. The control flow statements of a language specify the order in which the computations are done. We have already met the most common control flow constructions of C in earlier examples. Here we will complete the set and be more precise about the ones discussed above.
  3.1 Statements and Blocks. An expression such as x=0 or i++ or printf(...) becomes a statement when it is followed by a semicolon, as in x=0; i++; printf(...);
  In C, the semicolon is a statement terminator rather than a separator as it is in ALGOL-like languages.
@@ -400,7 +400,7 @@
  because in the real world we build data oriented loops that usually do a lot more
  than get one character from standard input.
  My formulation of a data loop will upset the structured programming purists and
- probably upset Kernigan and Ritchie as well.
+ probably upset Kernighan and Ritchie as well.
  But I write code in the real world, so here is my version.
  Int, C semicolon.
  While open paren one close paren open curly brace, C equals get char.
@@ -424,7 +424,7 @@
  the function itself.
  As these data processing loops get more complex,
  the middle tested loop is a tried and true pattern.
- Even Kernigan and Ritchie point out its benefits above.
+ Even Kernighan and Ritchie point out its benefits above.
  And with that, I have now triggered endless coffee shop conversations
  about the best way to write a data handling loop.
  Section 3.9, go to's and labels.
@@ -469,7 +469,7 @@
  Although we are not dogmatic about the matter,
  it does seem that go to statements should be used sparingly, if at all.
  I would add, before we leave control flow, I need to say that I agree with
- structure programming experts, as well as Kernigan and
+ structure programming experts, as well as Kernighan and
  Ritchie, in that the go to is universally a bad idea.
  There are a lot of little details that make them a real problem.
  Things like how the stack works in function calls, and how code blocks

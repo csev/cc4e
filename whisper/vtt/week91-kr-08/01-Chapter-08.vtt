@@ -1,7 +1,7 @@
 WEBVTT
 
 00:00:00.000 --> 00:00:16.000
- Welcome to C Programming for Everybody. My name is Charles Severance. This is my reading of the 1978 C Programming book written by Brian Kernigan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
+ Welcome to C Programming for Everybody. My name is Charles Severance. This is my reading of the 1978 C Programming book written by Brian Kernighan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
 
 00:00:16.000 --> 00:00:26.000
  Chapter 8. The Unix System Interface. The material in this chapter is concerned with the interface between C programs and the Unix operating system.
@@ -589,13 +589,13 @@ WEBVTT
  From that point forward, hardware could evolve independently from software. With the systems programming language and operating systems patterns sorted, the previous 40 years have seen an amazing innovation in hardware capability and performance.
 
 00:34:26.000 --> 00:34:43.000
- This 1978 C programming book by Brian W. Kernigan and Dennis M. Ritchie was the big bang moment for modern computing and computer science. We owe them a debt of gratitude for making whatever we do today possible.
+ This 1978 C programming book by Brian W. Kernighan and Dennis M. Ritchie was the big bang moment for modern computing and computer science. We owe them a debt of gratitude for making whatever we do today possible.
 
 00:34:43.000 --> 00:34:58.000
  If you have made it to the end of this chapter in this book as your narrator, I would like to congratulate and thank you. It has been an honor to record and narrate a book of such historical significance for you. Cheers.
 
 00:34:58.000 --> 00:35:20.000
- This work is based on the 1978 C programming book written by Brian W. Kernigan and Dennis M. Ritchie. Their book is copyright all rights reserved by AT&T, but is used in this work under fair use because of the book's historical and scholarly significance, its lack of availability, and the lack of an accessible version of the book.
+ This work is based on the 1978 C programming book written by Brian W. Kernighan and Dennis M. Ritchie. Their book is copyright all rights reserved by AT&T, but is used in this work under fair use because of the book's historical and scholarly significance, its lack of availability, and the lack of an accessible version of the book.
 
 00:35:20.000 --> 00:35:40.000
  The book is augmented in places to help understand its right place in historical context amidst the major changes of the 1970s and 1980s as computer science evolved from a hardware-first vendor-centered approach to a software-centered approach where portable operating systems and applications written in C could run on any hardware.

@@ -4,7 +4,7 @@
 
 2
 00:00:05,460 --> 00:00:10,100
- my reading of the 1978 C Programming book written by Brian Kernigan and Dennis
+ my reading of the 1978 C Programming book written by Brian Kernighan and Dennis
 
 3
 00:00:10,100 --> 00:00:14,460
@@ -1000,7 +1000,7 @@
 
 251
 00:24:17,860 --> 00:24:23,300
- elegant and flexible. With Kernigan and Ritchie focused on keeping everything
+ elegant and flexible. With Kernighan and Ritchie focused on keeping everything
 
 252
 00:24:23,300 --> 00:24:27,460
@@ -1780,7 +1780,7 @@
 
 446
 00:43:05,700 --> 00:43:13,180
- second sample code on page 16 of the textbook. Pound include STDI.H, main
+ second sample code on page 16 of the textbook. Pound include stdio.h, main
 
 447
 00:43:13,180 --> 00:43:19,660
@@ -4020,7 +4020,7 @@
 
 1006
 01:37:52,780 --> 01:37:57,860
- the 1978 C programming book written by Brian W. Kernigan and Dennis M. Ritchie.
+ the 1978 C programming book written by Brian W. Kernighan and Dennis M. Ritchie.
 
 1007
 01:37:57,860 --> 01:38:03,340

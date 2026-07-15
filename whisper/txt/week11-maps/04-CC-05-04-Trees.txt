@@ -31,7 +31,7 @@
  and then we're ultimately going to find them together.
  We're going to put them together.
  So let's talk about what a tree is.
- A tree is a structure that the TreeMaP entry you see
+ A tree is a structure that the TreeMapEntry you see
  has a left and a right.
  So the things to the left are things
  where the key is lower than the current, right?
@@ -49,7 +49,7 @@
  And then there's a series of left and right choices
  that you make.
  And each entry has a left and a right.
- And the TreeMaP entry has a key value pair.
+ And the TreeMapEntry has a key value pair.
  And we're going to keep key and value as public,
  because it's just an entry.
  But now there is no next, right?
@@ -351,7 +351,7 @@
  has a head and a root.
  Because at the same time, tree map
  is both a tree and a linked list.
- And the map entry is going to have a next and a left
+ And the MapEntry is going to have a next and a left
  and a right.
  And again, you just almost keep these things
  separate in your mind.

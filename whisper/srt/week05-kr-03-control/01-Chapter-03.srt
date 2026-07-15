@@ -1,6 +1,6 @@
 1
 00:00:00,000 --> 00:00:17,000
- Welcome to C Programming for Everybody. My name is Charles Severance. This is my reading of the 1978 C Programming book written by Brian Kernigan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
+ Welcome to C Programming for Everybody. My name is Charles Severance. This is my reading of the 1978 C Programming book written by Brian Kernighan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
 
 2
 00:00:17,000 --> 00:00:37,000
@@ -1608,7 +1608,7 @@
 
 403
 00:40:23,120 --> 00:40:26,200
- probably upset Kernigan and Ritchie as well.
+ probably upset Kernighan and Ritchie as well.
 
 404
 00:40:26,200 --> 00:40:29,400
@@ -1704,7 +1704,7 @@
 
 427
 00:41:58,320 --> 00:42:01,240
- Even Kernigan and Ritchie point out its benefits above.
+ Even Kernighan and Ritchie point out its benefits above.
 
 428
 00:42:01,240 --> 00:42:07,600
@@ -1884,7 +1884,7 @@
 
 472
 00:45:14,880 --> 00:45:17,280
- structure programming experts, as well as Kernigan and
+ structure programming experts, as well as Kernighan and
 
 473
 00:45:17,280 --> 00:45:20,200

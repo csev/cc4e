@@ -24,7 +24,7 @@
 
 7
 00:01:47,000 --> 00:02:01,000
- But he didn't then go back to Chapter 6 of "Kernigan and Ritchie" and say, "Well, I'll just do it this way." Which is, again, I'm a computer scientist, and my instinct is like, Chapter 6 of "Kernigan and Ritchie" is just the ground truth. Why wouldn't you do that?
+ But he didn't then go back to Chapter 6 of "Kernighan and Ritchie" and say, "Well, I'll just do it this way." Which is, again, I'm a computer scientist, and my instinct is like, Chapter 6 of "Kernighan and Ritchie" is just the ground truth. Why wouldn't you do that?
 
 8
 00:02:01,000 --> 00:02:16,000
@@ -84,7 +84,7 @@
 
 22
 00:05:38,000 --> 00:05:54,000
- And so to some degree, if you were to go back and look at it and say, well, let's go back and add linked lists, you'd say no, because linked lists would have a really bad performance impact if we did them, in a sense, the way I did them when I was teaching you Chapter 6 of Kernigan and Ritchie.
+ And so to some degree, if you were to go back and look at it and say, well, let's go back and add linked lists, you'd say no, because linked lists would have a really bad performance impact if we did them, in a sense, the way I did them when I was teaching you Chapter 6 of Kernighan and Ritchie.
 
 23
 00:05:54,000 --> 00:06:05,000
@@ -92,7 +92,7 @@
 
 24
 00:06:05,000 --> 00:06:20,000
- So let's do a little bit of a review, and this sample code is available to you. So let's take a look at my reimplementation of a Python 1.0 list, not the Kernigan and Ritchie way, but the Guido way.
+ So let's do a little bit of a review, and this sample code is available to you. So let's take a look at my reimplementation of a Python 1.0 list, not the Kernighan and Ritchie way, but the Guido way.
 
 25
 00:06:20,000 --> 00:06:36,000
@@ -192,7 +192,7 @@
 
 49
 00:10:46,000 --> 00:10:53,000
- So there's two mallocs in here. In the Kernigan-Ritchie one, you malloc the node and then you malloc the string.
+ So there's two mallocs in here. In the Kernighan-Ritchie one, you malloc the node and then you malloc the string.
 
 50
 00:10:53,000 --> 00:11:00,000

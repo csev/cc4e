@@ -132,7 +132,7 @@
 
 34
 00:01:39,200 --> 00:01:45,400
- A tree is a structure that the TreeMaP entry you see
+ A tree is a structure that the TreeMapEntry you see
 
 35
 00:01:45,400 --> 00:01:47,120
@@ -204,7 +204,7 @@
 
 52
 00:02:28,560 --> 00:02:32,720
- And the TreeMaP entry has a key value pair.
+ And the TreeMapEntry has a key value pair.
 
 53
 00:02:32,720 --> 00:02:36,400
@@ -1412,7 +1412,7 @@
 
 354
 00:17:04,720 --> 00:17:09,760
- And the map entry is going to have a next and a left
+ And the MapEntry is going to have a next and a left
 
 355
 00:17:09,760 --> 00:17:10,800

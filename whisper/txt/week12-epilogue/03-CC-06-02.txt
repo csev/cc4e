@@ -4,7 +4,7 @@
  And so during that video, you can see me learning from Guido. The summary of this is that Guido really didn't use the linked list much at all. He didn't use the linked list for the list object and didn't use the linked list for the string object and didn't use the linked list for the dictionary object.
  Surprise, surprise. I was completely wrong. The Python 1.0 list and dictionary objects were extendable arrays of pointers and not linked list at all. While Guido was an expert in KNR Chapter 6, like most of us were, his much more recent work was in ABC and C++.
  And so he really wasn't looking at KNR for his data structure implementation. And more importantly, he was looking at ABC for his data structure implementation, or more specifically, he was looking at ABC and saying, "I don't like the way ABC did its data structure implementation."
- But he didn't then go back to Chapter 6 of "Kernigan and Ritchie" and say, "Well, I'll just do it this way." Which is, again, I'm a computer scientist, and my instinct is like, Chapter 6 of "Kernigan and Ritchie" is just the ground truth. Why wouldn't you do that?
+ But he didn't then go back to Chapter 6 of "Kernighan and Ritchie" and say, "Well, I'll just do it this way." Which is, again, I'm a computer scientist, and my instinct is like, Chapter 6 of "Kernighan and Ritchie" is just the ground truth. Why wouldn't you do that?
  So I think he started with lists as simple extendable arrays, which makes a lot of sense because you're either linearly looking them up, which is not the fastest way, or you're looking them up by position, like sub 5, and why not use arrays?
  Once you talk to him and he walks you through it, you're like, "Oh, yeah, I get it. I get it."
  But then the other thing is, is he didn't even use linked lists and dictionaries. And you can see me as I'm asking that question, like incredulously saying, "Please tell me that you used linked lists and dictionaries in buckets, like all the interview questions for the last 35 years."
@@ -19,9 +19,9 @@
  And so they put caches inside the CPUs that could keep up with the CPUs. But linked lists caused this bouncing, bounce, bounce, bounce, bounce, bounce, bouncing through memory that blew the cache.
  And so if you were to try to run a pure linked list-based operation with a 10,000-long list, it would perform terribly on a 1992, '93, '94 computer. But Guido wrote this thing in 1989 and '90.
  And so he wasn't like thinking, I've got to make a cache-efficient data structure. He's just like, I like arrays. But they turn out to be really good for cache architectures.
- And so to some degree, if you were to go back and look at it and say, well, let's go back and add linked lists, you'd say no, because linked lists would have a really bad performance impact if we did them, in a sense, the way I did them when I was teaching you Chapter 6 of Kernigan and Ritchie.
+ And so to some degree, if you were to go back and look at it and say, well, let's go back and add linked lists, you'd say no, because linked lists would have a really bad performance impact if we did them, in a sense, the way I did them when I was teaching you Chapter 6 of Kernighan and Ritchie.
  And so that's why it was-- you see the delight. I mean, I'm wrong when I'm talking to Guido. I'm wrong the whole time. But I'm learning. And I'm like, oh, that's so cool.
- So let's do a little bit of a review, and this sample code is available to you. So let's take a look at my reimplementation of a Python 1.0 list, not the Kernigan and Ritchie way, but the Guido way.
+ So let's do a little bit of a review, and this sample code is available to you. So let's take a look at my reimplementation of a Python 1.0 list, not the Kernighan and Ritchie way, but the Guido way.
  And what you find is you look at this code, and I'll get some code walkthroughs, and you can look at those later. But if you really spend some time and compare the linked list implementation to the extendable array implementation, you'll realize it's simpler.
  So for one thing, we only have one structure. It's the list. We have, again, how many allocated spaces are in the list, much like the string that we did. I did the string pretty close to how Guido did the string, but the list I got wrong.
  So you have an allocation in length, which is very much like the string that I did, and then an array of pointers. So that's what this char star star says. That's an array. The first star is an array. The second star is an array of what? It's a pointers to items.
@@ -46,7 +46,7 @@
  But that doesn't mean that just because it's something we know how to use that it's the right thing in all situations. And Guido chose to go elsewhere.
  And then if we look at the the code in the upper left, we're dynamically extending the pointers.
  There was no reallocation in my KR list of pen because I didn't need to because it would always alloc a new node.
- So there's two mallocs in here. In the Kernigan-Ritchie one, you malloc the node and then you malloc the string.
+ So there's two mallocs in here. In the Kernighan-Ritchie one, you malloc the node and then you malloc the string.
  Whereas in the Guido one, you just malloc the string and every once in a while you realloc the items.
  The part of linked list that always gets me and I just have to draw a picture every time I do it is that part in the middle of the KR list underscore append.
  And that's if self head equals null, self head equals new, if self tail not equal null, self tail next equals new, and then self tail equals new.

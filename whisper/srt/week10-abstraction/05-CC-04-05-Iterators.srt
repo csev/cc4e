@@ -32,7 +32,7 @@
 
 9
 00:00:57,840 --> 00:01:04,240
- should not change. We should say, hey, give me a map. We got a map entry, we got a map iterator.
+ should not change. We should say, hey, give me a map. We got a MapEntry, we got a map iterator.
 
 10
 00:01:04,240 --> 00:01:11,600
@@ -76,15 +76,15 @@
 
 20
 00:02:12,240 --> 00:02:19,840
- from the cur. Now, cur is of type map entry. There's a map iter, iter next, and then
+ from the cur. Now, cur is of type MapEntry. There's a map iter, iter next, and then
 
 21
 00:02:19,840 --> 00:02:25,280
- cur is what we get back from iterator. So we get from iter, iter next, we get back a map entry.
+ cur is what we get back from iterator. So we get from iter, iter next, we get back a MapEntry.
 
 22
 00:02:25,280 --> 00:02:32,800
- And so if you recall, key and value are public in the map entry. So I could have had you hide those
+ And so if you recall, key and value are public in the MapEntry. So I could have had you hide those
 
 23
 00:02:32,800 --> 00:02:37,920

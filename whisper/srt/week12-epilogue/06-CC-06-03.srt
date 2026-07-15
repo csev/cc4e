@@ -140,7 +140,7 @@
 
 36
 00:03:31,840 --> 00:03:36,320
- code, and then an array of denodes. Now remember that that's a struct. So if we look at the
+ code, and then an array of DNodes. Now remember that that's a struct. So if we look at the
 
 37
 00:03:36,320 --> 00:03:42,560
@@ -152,7 +152,7 @@
 
 39
 00:03:48,320 --> 00:03:55,280
- we allocate our two item array of struct denodes and then we have to mark them. We can't just assume
+ we allocate our two item array of struct DNodes and then we have to mark them. We can't just assume
 
 40
 00:03:55,280 --> 00:04:01,280
@@ -176,7 +176,7 @@
 
 45
 00:04:25,120 --> 00:04:32,640
- and gives us back a pointer to the denode in question. Now this pointer is either where that
+ and gives us back a pointer to the DNode in question. Now this pointer is either where that
 
 46
 00:04:32,640 --> 00:04:38,560
@@ -184,7 +184,7 @@
 
 47
 00:04:38,560 --> 00:04:44,800
- empty slot we don't have to allocate the denode because it's already the array. We just have to
+ empty slot we don't have to allocate the DNode because it's already the array. We just have to
 
 48
 00:04:44,800 --> 00:04:50,960

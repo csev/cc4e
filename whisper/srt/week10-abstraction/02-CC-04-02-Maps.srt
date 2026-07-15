@@ -440,7 +440,7 @@
 
 111
 00:06:25,280 --> 00:06:28,400
- not exactly a map string, it's a map entry.
+ not exactly a map string, it's a MapEntry.
 
 112
 00:06:28,400 --> 00:06:29,840
@@ -880,11 +880,11 @@
 
 221
 00:12:15,280 --> 00:12:18,240
- And then there's a map entry, which is one of the entries.
+ And then there's a MapEntry, which is one of the entries.
 
 222
 00:12:18,240 --> 00:12:22,480
- But this map entry is also kind of an iterator, right?
+ But this MapEntry is also kind of an iterator, right?
 
 223
 00:12:22,480 --> 00:12:25,040
@@ -912,7 +912,7 @@
 
 229
 00:12:43,680 --> 00:12:47,840
- And that map entry set does not construct a giant in memory list
+ And that MapEntry set does not construct a giant in memory list
 
 230
 00:12:47,840 --> 00:12:49,840
@@ -920,7 +920,7 @@
 
 231
 00:12:49,840 --> 00:12:54,800
- That actually creates a single map entry with the key and the value of the first one.
+ That actually creates a single MapEntry with the key and the value of the first one.
 
 232
 00:12:54,800 --> 00:12:56,080
@@ -952,7 +952,7 @@
 
 239
 00:13:06,160 --> 00:13:10,160
- Now, key and value are known in the map entry interface.
+ Now, key and value are known in the MapEntry interface.
 
 240
 00:13:10,160 --> 00:13:13,680
@@ -1008,7 +1008,7 @@
 
 253
 00:14:04,080 --> 00:14:06,240
- it's entry.getKey open print close print.
+ it's entry.getKey open paren close paren.
 
 254
 00:14:06,240 --> 00:14:09,840

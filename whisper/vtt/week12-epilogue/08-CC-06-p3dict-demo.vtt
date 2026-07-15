@@ -973,10 +973,10 @@ WEBVTT
  And so for me, as I think about the Python 3 dictionary and
 
 00:22:36.640 --> 00:22:41.520
- compare that to a classic Kernigan and
+ compare that to a classic Kernighan and
 
 00:22:41.520 --> 00:22:44.760
- Ritchie dictionary where the classic Kernigan and
+ Ritchie dictionary where the classic Kernighan and
 
 00:22:44.760 --> 00:22:51.840
  Ritchie dictionary was so complex on rehashing, that I didn't even write code for it.

@@ -1,5 +1,5 @@
  Welcome to C Programming for Everybody. My name is Charles Severance and this is
- my reading of the 1978 C Programming book written by Brian Kernigan and Dennis
+ my reading of the 1978 C Programming book written by Brian Kernighan and Dennis
  Ritchie. At times I add my own interpretation of the material from a
  historical perspective. Chapter 1, a tutorial introduction. Let us begin with
  a quick introduction to C. Our aim is to show the essential elements of the
@@ -248,7 +248,7 @@
  function. Many programmers feel that a print statement is a more elegant way to
  express printing, but from a compiler and language design perspective, a function
  call with a variable number of parameters is seen as technically more
- elegant and flexible. With Kernigan and Ritchie focused on keeping everything
+ elegant and flexible. With Kernighan and Ritchie focused on keeping everything
  small and portable, they opted to keep all input/output functionality in
  libraries. The syntax is a little more complex, but given how computing has
  changed in the past 30 years, it is the right choice. Section 1.3, the "for"
@@ -443,7 +443,7 @@
  Honeywell with very few changes. To cope with bigger numbers, you can use a double,
  which is a double length float. We will also use a for statement instead of a
  while to illustrate an alternate way to write a while loop. This code is the
- second sample code on page 16 of the textbook. Pound include STDI.H, main
+ second sample code on page 16 of the textbook. Pound include stdio.h, main
  open parenthesis, closed parenthesis, open curly brace, double NC semicolon, for
  open parenthesis, NC equals zero, semicolon, getchar open parenthesis, closed parenthesis, not
  equal EOF, semicolon, plus plus NC, closed parenthesis, and then a semicolon. A
@@ -1003,7 +1003,7 @@
  have this much C under control it will be well worth your effort to read on
  for the features covered in the next few chapters are where the power and
  expressiveness of the language begin to become apparent. This work is based on
- the 1978 C programming book written by Brian W. Kernigan and Dennis M. Ritchie.
+ the 1978 C programming book written by Brian W. Kernighan and Dennis M. Ritchie.
  Their book is copyright all rights reserved by AT&T but is used in this
  work under fair use because of the book's historical and scholarly
  significance, its lack of availability, and the lack of an accessible version of

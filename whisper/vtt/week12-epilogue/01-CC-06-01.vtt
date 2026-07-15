@@ -166,7 +166,7 @@ WEBVTT
  will hash differently even though they're very close, right? And so the way we did this, again,
 
 00:05:31.920 --> 00:05:37.280
- following Kernigan and Ritchie, is we used the key computed a hash which is a large integer generally
+ following Kernighan and Ritchie, is we used the key computed a hash which is a large integer generally
 
 00:05:37.280 --> 00:05:43.840
  but then we modulo it based on the number of buckets and so the buckets are in a sense four
@@ -223,7 +223,7 @@ WEBVTT
  all that up and I finished the class up, I wondered, I began to really wonder. I looked,
 
 00:07:31.440 --> 00:07:37.040
- I started looking at it less from a C and KNR, Kernigan-Ritchie perspective, and more from a
+ I started looking at it less from a C and KNR, Kernighan-Ritchie perspective, and more from a
 
 00:07:37.040 --> 00:07:43.840
  Python perspective and I'm like did I just inadvertently do exactly what Guido van Rossum
@@ -241,13 +241,13 @@ WEBVTT
  would do. So I decided I would ask Guido if I could come out to him and see him and talk to him
 
 00:08:08.880 --> 00:08:17.280
- about the influence that Kernigan and Richie chapter 6 had on his design of Python and in
+ about the influence that Kernighan and Ritchie chapter 6 had on his design of Python and in
 
 00:08:17.280 --> 00:08:23.360
  particular was my guess because I didn't look at the Python code to do this. I was really teaching
 
 00:08:23.360 --> 00:08:31.120
- Kernigan and Richie chapter 6 and so up next we have the first of two interviews with Guido
+ Kernighan and Ritchie chapter 6 and so up next we have the first of two interviews with Guido
 
 00:08:31.120 --> 00:08:36.960
  asking about how he built his structures and whether or not my structures that I had just
@@ -256,7 +256,7 @@ WEBVTT
  guessed and assumed were even close and so we started the interview with me handing him a copy
 
 00:08:44.400 --> 00:08:51.440
- of the Kernigan and Richie c-book which was signed and I left it with him and saying you know skim
+ of the Kernighan and Ritchie c-book which was signed and I left it with him and saying you know skim
 
 00:08:51.440 --> 00:09:11.680
  through chapter 6 and tell me how chapter 6 affected how you built the original version of Python.

@@ -7,7 +7,7 @@ WEBVTT
  epilogue code where we're comparing and contrasting the way I taught dictionaries, lists, and strings
 
 00:00:14.800 --> 00:00:22.480
- in the Kernigan and Ritchie Chapter 6 with how Guido van Rossum actually implemented dictionaries,
+ in the Kernighan and Ritchie Chapter 6 with how Guido van Rossum actually implemented dictionaries,
 
 00:00:22.480 --> 00:00:27.840
  lists, and strings, and we're going to look at dictionaries here. So I've got two tabs open in
@@ -22,7 +22,7 @@ WEBVTT
  which is the version that I wrote, kind of cleaned up and adapted for this, the version that I wrote
 
 00:00:52.240 --> 00:01:00.640
- as we covered it in Kernigan Ritchie Chapter 6, and if we look at the very allocation and, I mean,
+ as we covered it in Kernighan and Ritchie Chapter 6, and if we look at the very allocation and, I mean,
 
 00:01:00.640 --> 00:01:08.560
  the structures at the top, we have a D node, a dictionary node, and we have in the dictionary
@@ -37,7 +37,7 @@ WEBVTT
  difference between the dictionary node in my code is that I am going to, every one is going to be
 
 00:01:28.400 --> 00:01:34.160
- part of a linked list, because if you recall in my code in Kernigan and Ritchie, as it's described,
+ part of a linked list, because if you recall in my code in Kernighan and Ritchie, as it's described,
 
 00:01:34.160 --> 00:01:41.440
  it is an array of linked lists, and so in this case I just have four heads and four tails that
@@ -631,7 +631,7 @@ WEBVTT
  So this is the bit. Okay. I'll come back to this. Okay. This is the tricky bit.
 
 00:25:55.280 --> 00:26:02.320
- Now I never did this in Kernigan and Ritchie. I don't think I have to check,
+ Now I never did this in Kernighan and Ritchie. I don't think I have to check,
 
 00:26:03.280 --> 00:26:10.080
  but this is called rehashing and this is when our length is greater than or equal to 70%
@@ -889,13 +889,13 @@ WEBVTT
  copy the key and the value and increment the length. And so this whole realloc thing is kind
 
 00:36:21.440 --> 00:36:25.760
- of new. I don't think I did this when I did the Kernigan and Ritchie, because the way Kernigan
+ of new. I don't think I did this when I did the Kernighan and Ritchie, because the way Kernighan
 
 00:36:25.760 --> 00:36:30.640
  and Ritchie does it, you can just keep extending those linked lists. Like if you look, so if we
 
 00:36:30.640 --> 00:36:36.320
- look at the underscore put in the Kernigan and Ritchie code, you'll see I do a get bucket, right?
+ look at the underscore put in the Kernighan and Ritchie code, you'll see I do a get bucket, right?
 
 00:36:38.560 --> 00:36:47.040
  And I find the bucket. And if I, if it matches, there's always a bucket in this one, because it's
@@ -928,7 +928,7 @@ WEBVTT
  little bit more complex than what the Python one implementation was. And so with that, I think I
 
 00:37:47.920 --> 00:37:55.120
- pretty much have covered the essential differences between the Kernigan and Ritchie dictionary code
+ pretty much have covered the essential differences between the Kernighan and Ritchie dictionary code
 
 00:37:55.120 --> 00:38:06.320
  that I wrote and the basic approach, you know, the basic approach using an array of D node items.

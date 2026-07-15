@@ -1,16 +1,16 @@
  So welcome to another code walkthrough for C Programming for Everybody. This is another in our
  epilogue code where we're comparing and contrasting the way I taught dictionaries, lists, and strings
- in the Kernigan and Ritchie Chapter 6 with how Guido van Rossum actually implemented dictionaries,
+ in the Kernighan and Ritchie Chapter 6 with how Guido van Rossum actually implemented dictionaries,
  lists, and strings, and we're going to look at dictionaries here. So I've got two tabs open in
  my text editor. I've got one that's p1dict.c, which is the Python 1 implementation, which is my
  approximation of Guido's approach, my simplification of Guido's approach, and then I have the krdict,
  which is the version that I wrote, kind of cleaned up and adapted for this, the version that I wrote
- as we covered it in Kernigan Ritchie Chapter 6, and if we look at the very allocation and, I mean,
+ as we covered it in Kernighan and Ritchie Chapter 6, and if we look at the very allocation and, I mean,
  the structures at the top, we have a D node, a dictionary node, and we have in the dictionary
  node in my implementation is got a next pointer, and so it's got a key and a value. We're going to
  character, we're going to string keys and integer values just to keep our mallocs down, but the
  difference between the dictionary node in my code is that I am going to, every one is going to be
- part of a linked list, because if you recall in my code in Kernigan and Ritchie, as it's described,
+ part of a linked list, because if you recall in my code in Kernighan and Ritchie, as it's described,
  it is an array of linked lists, and so in this case I just have four heads and four tails that
  point to the head of a linked list, and so that means that every D node has got to be either the
  beginning, middle, or end of a linked list, and so it's got to have the D nodes have to have a star
@@ -208,7 +208,7 @@
  give us back to us. But old key is going to be null, which means this one is available, which is cool.
  Okay. Now actually this to do is not a to do anymore. Right now it's going to be an ignore.
  So this is the bit. Okay. I'll come back to this. Okay. This is the tricky bit.
- Now I never did this in Kernigan and Ritchie. I don't think I have to check,
+ Now I never did this in Kernighan and Ritchie. I don't think I have to check,
  but this is called rehashing and this is when our length is greater than or equal to 70%
  of our allocation, which means this array is more than 70% full. That's when we're going to do this
  reallocation. Okay. But I'm going to ignore that whole if statement for now. I'll come back. So
@@ -294,9 +294,9 @@
  is me debugging and leaving this in, you know, just to make sure like, oh man, that is impossible,
  should never happen. But I'm going to say very bad news. So it finds a slot and then we just
  copy the key and the value and increment the length. And so this whole realloc thing is kind
- of new. I don't think I did this when I did the Kernigan and Ritchie, because the way Kernigan
+ of new. I don't think I did this when I did the Kernighan and Ritchie, because the way Kernighan
  and Ritchie does it, you can just keep extending those linked lists. Like if you look, so if we
- look at the underscore put in the Kernigan and Ritchie code, you'll see I do a get bucket, right?
+ look at the underscore put in the Kernighan and Ritchie code, you'll see I do a get bucket, right?
  And I find the bucket. And if I, if it matches, there's always a bucket in this one, because it's
  the buckets are pointers to link lists. So there's always a bucket. There's no resolution by linear
  collision resolution. So old is, oh, if we find it, we just copy the value and this I had integer
@@ -307,7 +307,7 @@
  these chains. I didn't write it. So the reallocation would be sort of in the middle of put and it'd be
  very complex code. And it would be actually probably be about the same complexity, maybe a
  little bit more complex than what the Python one implementation was. And so with that, I think I
- pretty much have covered the essential differences between the Kernigan and Ritchie dictionary code
+ pretty much have covered the essential differences between the Kernighan and Ritchie dictionary code
  that I wrote and the basic approach, you know, the basic approach using an array of D node items.
  And if we look at find a linear collision resolution and the linear collision resolution,
  let's do this. I'll put a comment in here. Linear and underscore find.

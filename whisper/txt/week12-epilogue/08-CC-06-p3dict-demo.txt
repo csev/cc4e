@@ -322,8 +322,8 @@
  Z is in 0, Sakai is in sub 1, and sally is in sub 2.
  And so that's insert order, and everything works pretty well.
  And so for me, as I think about the Python 3 dictionary and
- compare that to a classic Kernigan and
- Ritchie dictionary where the classic Kernigan and
+ compare that to a classic Kernighan and
+ Ritchie dictionary where the classic Kernighan and
  Ritchie dictionary was so complex on rehashing, that I didn't even write code for it.
  I'm like, let's pretend that's not a problem, okay?
  And now I can tell you in the Python 3 code, I can tell you,

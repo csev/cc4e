@@ -1,6 +1,6 @@
 1
 00:00:00,000 --> 00:00:16,000
- Welcome to C Programming for Everybody. My name is Charles Severance and this is my reading of the 1978 C programming book written by Brian Kernigan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
+ Welcome to C Programming for Everybody. My name is Charles Severance and this is my reading of the 1978 C programming book written by Brian Kernighan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
 
 2
 00:00:16,000 --> 00:00:28,000
@@ -76,7 +76,7 @@
 
 20
 00:03:39,000 --> 00:03:53,000
- GetChar returns the value "eof" when it encounters end of file on whatever input is being read. The standard library defines the symbolic "eof" constant to be -1, with a pound defined in the file "stdio.h".
+ GetChar returns the value "eof" when it encounters end of file on whatever input is being read. The standard library defines the symbolic "eof" constant to be -1, with a pound define in the file "stdio.h".
 
 21
 00:03:53,000 --> 00:04:01,000
@@ -1132,7 +1132,7 @@
 
 284
 00:44:43,000 --> 00:44:51,000
- this work is based on the 1978 c programming book written by brian w kerningan and dennis m richey
+ this work is based on the 1978 c programming book written by brian w Kernighan and dennis m richey
 
 285
 00:44:51,000 --> 00:45:01,000

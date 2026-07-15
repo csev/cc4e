@@ -1,6 +1,6 @@
 1
 00:00:00,000 --> 00:00:04,140
- - Hello, and welcome to chapter one of Kernigan and Ritchie.
+ - Hello, and welcome to chapter one of Kernighan and Ritchie.
 
 2
 00:00:04,140 --> 00:00:05,460

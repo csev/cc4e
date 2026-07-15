@@ -1,7 +1,7 @@
 WEBVTT
 
 00:00:00.000 --> 00:00:16.000
- Welcome to C Programming for Everybody. My name is Charles Severance and this is my reading of the 1978 C programming book written by Brian Kernigan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
+ Welcome to C Programming for Everybody. My name is Charles Severance and this is my reading of the 1978 C programming book written by Brian Kernighan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
 
 00:00:16.000 --> 00:00:28.000
  Chapter 4, Functions in Program Structure. Functions break large computing tasks into smaller ones and enable people to build on what others have done instead of starting over from scratch.
@@ -37,7 +37,7 @@ WEBVTT
  We use 0 rather than 1 as the starting position in "s" because C arrays always begin in position 0. When we later need more sophisticated pattern matching, we only have to replace index. The rest of the code can remain the same.
 
 00:03:15.000 --> 00:03:28.000
- Recall that because the modern STDL.h defines a getline function, whenever the book writes this function to teach a feature of functions, we rename it to get_line.
+ Recall that because the modern stdio.h defines a getline function, whenever the book writes this function to teach a feature of functions, we rename it to get_line.
 
 00:03:28.000 --> 00:03:36.000
  Given this much design, filling in the details of the program is straightforward. Here's the whole thing, so you can see how the pieces fit together.
@@ -949,7 +949,7 @@ WEBVTT
  and ungetch and their shared variables as follows this is on page 79 of the textbook we can see the
 
 00:51:14.840 --> 00:51:26.360
- code at www.cc4e.com/code and go to page 79 pound include stdi.h pound defined buff size 100
+ code at www.cc4e.com/code and go to page 79 pound include stdio.h pound define buff size 100
 
 00:51:26.360 --> 00:51:34.360
  char buff open square bracket buff size closed square bracket semicolon int buff p equals zero
@@ -1168,7 +1168,7 @@ WEBVTT
  code that i wrote to play with the register keyword to mostly convince myself it was pointless to use
 
 00:59:49.800 --> 00:59:58.840
- it but here we go pound include stdio.h int main open print close print open curly brace
+ it but here we go pound include stdio.h int main open paren close paren open curly brace
 
 00:59:59.960 --> 01:00:08.680
  int compute semicolon register int iter semicolon scan f open print double quote percent d
@@ -1453,7 +1453,7 @@ WEBVTT
  the first version of print d follows this pattern this is sample code on page 85 of the textbook
 
 01:10:59.960 --> 01:11:13.560
- you can view the sample code at www.cc4e.com/code page 85 example one pound include stdl.h print d
+ you can view the sample code at www.cc4e.com/code page 85 example one pound include stdio.h print d
 
 01:11:13.560 --> 01:11:22.680
  open paren and close paren int n open curly brace char s open square bracket 10 close square
@@ -1588,7 +1588,7 @@ WEBVTT
  often a line or two of this form appears at the very beginning of each source file to include
 
 01:16:50.040 --> 01:16:55.240
- common pound defined statements and external declarations for global variables pound includes
+ common pound define statements and external declarations for global variables pound includes
 
 01:16:55.240 --> 01:17:01.000
  may be nested pound include is the preferred way to tie declarations together for a large problem
@@ -1966,7 +1966,7 @@ WEBVTT
  solve the difficult data storage and allocation problems for you this work is based on the 1978
 
 01:30:22.200 --> 01:30:28.200
- c programming book written by brian w kerningan and denis m richie their book is copyright all
+ c programming book written by brian w Kernighan and denis m richie their book is copyright all
 
 01:30:28.200 --> 01:30:34.520
  rights reserved by at&t but is used in this work under fair use because of the book's historical

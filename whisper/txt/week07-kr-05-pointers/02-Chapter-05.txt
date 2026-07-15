@@ -1,10 +1,10 @@
- Welcome to C Programming for Everybody. My name is Charles Severance. This is my reading of the 1978 C Programming book written by Brian Kernigan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
+ Welcome to C Programming for Everybody. My name is Charles Severance. This is my reading of the 1978 C Programming book written by Brian Kernighan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
  Chapter 5, Pointers and Arrays
  Before we start Chapter 5, a quick note from your narrator. From time to time, I have been adding some of my interpretation to this book.
  But I won't be adding anything to this chapter. I think that sections 5.1 through 5.6 contain some of the most elegantly written text in the book.
  The concepts are clearly stated, and the example code is short, direct, and easy to understand.
  Pointers are the essential difference between C and any other modern programming language, so pay close attention to this chapter and make sure that you understand it before continuing.
- This chapter is as strong now as it was in 1978, and so without further ado, we read and listen as Kernigan and Ritchie teach us about pointers and arrays.
+ This chapter is as strong now as it was in 1978, and so without further ado, we read and listen as Kernighan and Ritchie teach us about pointers and arrays.
  A pointer is a variable that contains the address of another variable. Pointers are very much used in C, partly because they are sometimes the only way to express a computation,
  and partly because they usually lead to more compact and efficient code than can be obtained in other ways.
  Pointers have been lumped with a go-to statement as a marvelous way to create impossible-to-understand programs. This is certainly true when they are used carelessly,
@@ -133,7 +133,7 @@
  Free P merely sets Alec P to P if P is inside Alec buff.
  This next code example is on page 97 of the textbook.
  You can see the code at www.cc4e.com/code.
- #include sddio.h #define null 0 (it's a pointer value for in the error report)
+ #include stdio.h #define null 0 (it's a pointer value for in the error report)
  #define alec_size 1000 (the size of the available space)
  static char alec_buff open square bracket alec_size close square bracket semicolon
  static char char star alec_p = alec_buff next free position initialized to the start of the array
@@ -479,7 +479,7 @@
  The final step is to add the function swap which exchanges the two pointers. This is adapted directly from what we presented earlier in the chapter.
  Swap open paren px comma py close paren char star px open square bracket close square bracket comma star py open square bracket close square bracket semicolon open curly brace char star temp semicolon temp equals star px semicolon star px equals star py semicolon star py equals temp semicolon close curly brace.
  There are a variety of other options that can be added to the sorting program. Some make challenging exercises.
- This work is based on the 1978 C programming book written by Brian W. Kernigan and Dennis M. Ritchie. Their book is copyright all rights reserved by AT&T, but is used in this work under fair use because of the book's historical and scholarly significance, its lack of availability, and the lack of an accessible version of the book.
+ This work is based on the 1978 C programming book written by Brian W. Kernighan and Dennis M. Ritchie. Their book is copyright all rights reserved by AT&T, but is used in this work under fair use because of the book's historical and scholarly significance, its lack of availability, and the lack of an accessible version of the book.
  The book is augmented in places to help understand its right place in historical context amidst the major changes of the 1970s and 1980s as computer science evolved from a hardware-first vendor-centered approach to a software-centered approach where portable operating systems and applications written in C could run on any hardware.
  This is not the ideal book to learn C programming because the 1978 edition does not reflect the modern C language. Using an obsolete book gives us an opportunity to take students back in time and understand how the C language was evolving as it laid the groundwork for a future with portable applications.
  [music]

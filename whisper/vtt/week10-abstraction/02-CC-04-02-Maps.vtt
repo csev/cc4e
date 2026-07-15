@@ -331,7 +331,7 @@ WEBVTT
  And so it creates this current pointer, which is a pointer to--
 
 00:06:25.280 --> 00:06:28.400
- not exactly a map string, it's a map entry.
+ not exactly a map string, it's a MapEntry.
 
 00:06:28.400 --> 00:06:29.840
  But we don't care about that.
@@ -661,10 +661,10 @@ WEBVTT
  And so there's a map string integer, which is the whole map.
 
 00:12:15.280 --> 00:12:18.240
- And then there's a map entry, which is one of the entries.
+ And then there's a MapEntry, which is one of the entries.
 
 00:12:18.240 --> 00:12:22.480
- But this map entry is also kind of an iterator, right?
+ But this MapEntry is also kind of an iterator, right?
 
 00:12:22.480 --> 00:12:25.040
  So we're going to iterate and move forward.
@@ -685,13 +685,13 @@ WEBVTT
  And we call map.entry set, which is I want a set of all the entries.
 
 00:12:43.680 --> 00:12:47.840
- And that map entry set does not construct a giant in memory list
+ And that MapEntry set does not construct a giant in memory list
 
 00:12:47.840 --> 00:12:49.840
  and then go through it.
 
 00:12:49.840 --> 00:12:54.800
- That actually creates a single map entry with the key and the value of the first one.
+ That actually creates a single MapEntry with the key and the value of the first one.
 
 00:12:54.800 --> 00:12:56.080
  And then you hit it again.
@@ -715,7 +715,7 @@ WEBVTT
  And the entry itself does have a key and a value.
 
 00:13:06.160 --> 00:13:10.160
- Now, key and value are known in the map entry interface.
+ Now, key and value are known in the MapEntry interface.
 
 00:13:10.160 --> 00:13:13.680
  So you say entry.getKey and entry.getValue.
@@ -757,7 +757,7 @@ WEBVTT
  But making it so that instead of it being entry.key,
 
 00:14:04.080 --> 00:14:06.240
- it's entry.getKey open print close print.
+ it's entry.getKey open paren close paren.
 
 00:14:06.240 --> 00:14:09.840
  That's a very Java way of thinking about this.

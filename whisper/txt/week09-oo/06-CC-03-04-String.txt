@@ -10,8 +10,8 @@
  an expandable string class rather than a character array of fixed length. So we're going to
  create in C using our little convention of naming a string class and so if we look at the code what
  we're going to try to do here is we're going to basically emulate the Python syntax but in C.
- So we're going to start by making a structure, pyster structure, we're going to get a pointer
- back, we're going to name that x, we're going to call the constructor pyster new, we're going to
+ So we're going to start by making a structure, PyStr structure, we're going to get a pointer
+ back, we're going to name that x, we're going to call the constructor PyStr new, we're going to
  dump it, we're going to have a little dumper, we're going to append an H to it, we're going to dump
  it again, then we're going to append a whole string. Now H in C is a character and "lo world"
  is a multi-character string and so we're appending many characters. We're going to dump that then
@@ -28,8 +28,8 @@
  heavy but in the syntax on the on the other side which is the the Python is pretty light
  but the idea is is that in Python we never had to worry about over making a string too long or too
  short or having buffer overrun or anything like that. So as we dive in we have to realize that
- part of the job of this pyster object is to handle all memory allocation on our behalf so we as
- programmers can write much simpler code. Okay so now we are going to build the pyster class. We're
+ part of the job of this PyStr object is to handle all memory allocation on our behalf so we as
+ programmers can write much simpler code. Okay so now we are going to build the PyStr class. We're
  going to create a structure called pyster and in that we're going to have three things the length
  of the string we have how much data we've got allocated in the string and then char data is
  the actual character array and so we have to have a character array inside of it. We're not we're
@@ -52,10 +52,10 @@
  that stuff and then just to be good we throw backslash zero at the zero position in that
  allocated character we don't know what the rest of them are we just know that the first one is zero
  and then we return the pointer to the structure not the pointer to the data the pointer to the
- structure and this gets called inside the main as struct pyster star x equals pyster new and when
+ structure and this gets called inside the main as struct PyStr star x equals PyStr new and when
  we're done we get back this cool little two pieces of data that have been dynamically allocated and
  it's all it's all ready for us to do cool stuff with we got the struct we've got the constructor
- and then we've got the destructor which is pyster del and that again passes in self now we're calling
+ and then we've got the destructor which is PyStr del and that again passes in self now we're calling
  free now if you recall there are two allocated things one is the data which is the character
  array that we've got we've got to get rid of that and then we got to get rid of the object itself
  and so at the end of del we have given back all of the data that we've alloc'd now one thing
@@ -63,8 +63,8 @@
  supposed to access self anymore after that point i'm i'm sure there could be some data just laying
  in there that's not been ruined but you just don't know and so that's why we have to free self
  arrow data before we free self just because it's just wrong to do that in the other order and so
- we do a pyster dump and in that we dump out the length we dump out how much we've allocated so far
- and what the data is in it so far and then pyster len pyster len returns an integer and it takes
+ we do a PyStr dump and in that we dump out the length we dump out how much we've allocated so far
+ and what the data is in it so far and then PyStr len PyStr len returns an integer and it takes
  self as a parameter the key to this is it returns self length and you might ask why it is that we
  don't just let our calling code access self length and this again is encapsulation we don't want to
  reveal the fact that we're keeping track of length in this variable because we don't want the calling
@@ -85,16 +85,16 @@
  then we have a sign which is uh got two parameters one is self and one is a pointer to a character
  string now i'm not going to give you these lines of code i'm going to give you an assignment to
  write these lines of code i'm going to show you how they're supposed to work but i'm not going to
- give you the code so i'm telling you that pyster append is about 10 lines of code pyster append s
+ give you the code so i'm telling you that PyStr append is about 10 lines of code PyStr append_s
  is just one line of code it's a for loop pyster assign is about three lines of code so pyster
- append s calls pyster append and pyster assign calls pyster append s and so we do a lot of reuse
+ append s calls PyStr append and pyster assign calls PyStr append_s and so we do a lot of reuse
  here so let's take a look at how these are going to be used in our main program we say struct pyster
- star x equals pyster new which is give me a new string object and then we're going to append a
+ star x equals PyStr new which is give me a new string object and then we're going to append a
  single character h to it and then we're going to append s a multi-character string and we're going
  to dump it each time and then we're going to overwrite our object with a completely new string
  and so the key thing is you have got to build this this is what you're going to build okay but
  i'm talking a little bit about how to do it so let's walk through what you might need to do in
- pyster append now recall that when we set this thing up we created length we allocated 10 characters
+ PyStr append now recall that when we set this thing up we created length we allocated 10 characters
  and a 10 character array and had data point to that 10 character array and we remembered that we
  had 10 characters so the first thing that append does is it checks if the the the length is greater
  than what we've allocated meaning that you know if we're going to put in character zero like the
@@ -143,7 +143,7 @@
  because appending nine character string is the same as appending nine characters not appending one
  character time nine times then assign assigning a completely new string which means that you got to
  you got to take length back and you got to set some things and you got to check the size and
- do a whole bunch of stuff and then we're going to ask the pyster underscore stir to give us back a
+ do a whole bunch of stuff and then we're going to ask the PyStr underscore str to give us back a
  printable string and then we're going to ask the pister underscore length to tell us how long this
  thing is and so you get to write some code not too much code probably 15 lines of code but it is code
  that you will need to think deeply about and you're going to need to understand the structures you're

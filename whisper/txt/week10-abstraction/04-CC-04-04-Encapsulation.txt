@@ -49,7 +49,7 @@
  again, has to do with efficiency. But you probably have most of the code you need for map_put,
  map_get, map_size, map_dump, and map_del. So map_dump is pretty simple. If we look at this,
  the self is the pointer to the map. So it has a head and a next. And we're going to just go
- through it until cur is equal to null. We've got a map entry, which is the type. Now, we don't
+ through it until cur is equal to null. We've got a MapEntry, which is the type. Now, we don't
  double_thecur, because that's really just an automatic variable inside this function. That
  has nothing to do with the outside world. And you'll notice that we're just access double_head.
  We're accessing double_next, because we're in the class. And so those are private, but they're
@@ -68,7 +68,7 @@
  but by now, it should make sense. We're going to free the key, because remember, that's a string
  pointer that we malloced. We do not need to free the value. That's just actually part of the map
  entry struct. And we're going to get rid of that in a second. We're going to advance to the next
- one first, and then we're going to free the current map entry. And then we'll say current next, and
+ one first, and then we're going to free the current MapEntry. And then we'll say current next, and
  we're going to loop up. And so eventually, we're just going to go through the linked list
  and free the key, and then free the entry itself. And we've given back all of our data.
  And then we're all done with that. We actually free the 10 words or so that is the map structure.
@@ -80,7 +80,7 @@
  but if you think about it, if you get map find, and you've done this before, you've used a find
  like method to find the thing in the linked list, and you update it. If you found it,
  it's really simple. You just change the value and return. And if not, you add it to the end of the
- list. You construct a new map entry, and you add it to the end of the list. And so again,
+ list. You construct a new MapEntry, and you add it to the end of the list. And so again,
  I just hope by now you can knock these things out. And so that's basically it. I mean,
  if you really think this was a very simple section where all we're doing is changing
  from globally named functions, we're enforcing the rules of private, double underscore,

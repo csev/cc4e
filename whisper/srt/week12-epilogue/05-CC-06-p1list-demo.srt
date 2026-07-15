@@ -108,7 +108,7 @@
 
 28
 00:03:15,200 --> 00:03:23,700
- But just think about the complexity of linked lists the way I did them in Kernigan and Richey, my Kernigan and Richey chapter six.
+ But just think about the complexity of linked lists the way I did them in Kernighan and Ritchie, my Kernighan and Ritchie Chapter 6.
 
 29
 00:03:23,700 --> 00:03:28,900
@@ -140,7 +140,7 @@
 
 36
 00:03:57,900 --> 00:04:05,800
- And so the key to this main code is that in a sense, here's the Kernigan Richey main code,
+ And so the key to this main code is that in a sense, here's the Kernighan and Ritchie main code,
 
 37
 00:04:05,800 --> 00:04:12,700
@@ -316,15 +316,15 @@
 
 80
 00:07:21,800 --> 00:07:28,000
- So we're going to add 10. We're going to increase the Alex size and then we're going to call realic.
+ So we're going to add 10. We're going to increase the alloc size and then we're going to call realloc.
 
 81
 00:07:28,000 --> 00:07:37,100
- And realic is going to take the array of items and say how big that was, free it, move it, whatever.
+ And realloc is going to take the array of items and say how big that was, free it, move it, whatever.
 
 82
 00:07:37,100 --> 00:07:41,200
- Extend it depending on what realic is, how realic is working.
+ Extend it depending on what realloc is, how realloc is working.
 
 83
 00:07:41,200 --> 00:07:48,900
@@ -332,15 +332,15 @@
 
 84
 00:07:48,900 --> 00:07:54,900
- Now, realic will also so there's two things in it and we extended 12.
+ Now, realloc will also so there's two things in it and we extended 12.
 
 85
 00:07:54,900 --> 00:07:57,300
- Realic will copy the two things.
+ realloc will copy the two things.
 
 86
 00:07:57,300 --> 00:08:04,100
- So we don't have to do any copying because realic copies the first two things because it knows that items is too long.
+ So we don't have to do any copying because realloc copies the first two things because it knows that items is too long.
 
 87
 00:08:04,100 --> 00:08:08,200
@@ -352,15 +352,15 @@
 
 89
 00:08:10,400 --> 00:08:17,000
- And so I think Guido really liked the realic and a lot of C programmers don't like realic and he did.
+ And so I think Guido really liked the realloc and a lot of C programmers don't like realloc and he did.
 
 90
 00:08:17,000 --> 00:08:21,600
- He's like, look, realic says it's going to do this and I want to do this.
+ He's like, look, realloc says it's going to do this and I want to do this.
 
 91
 00:08:21,600 --> 00:08:24,300
- So react realic, do your job.
+ So realloc, realloc, do your job.
 
 92
 00:08:24,300 --> 00:08:33,600
@@ -368,7 +368,7 @@
 
 93
 00:08:33,600 --> 00:08:40,500
- I just didn't think about realic as a useful thing and Guido clearly felt like realic is the answer.
+ I just didn't think about realloc as a useful thing and Guido clearly felt like realloc is the answer.
 
 94
 00:08:40,500 --> 00:08:44,400
@@ -376,7 +376,7 @@
 
 95
 00:08:44,400 --> 00:08:48,400
- So you just realic it and say, look, here's an array of this two, I want it to be 12.
+ So you just realloc it and say, look, here's an array of this two, I want it to be 12.
 
 96
 00:08:48,400 --> 00:08:50,000
@@ -468,7 +468,7 @@
 
 118
 00:10:25,000 --> 00:10:34,700
- That is like really basic chapter 4, chapter 5 stuff in Kernigan and Ritchie.
+ That is like really basic chapter 4, chapter 5 stuff in Kernighan and Ritchie.
 
 119
 00:10:34,700 --> 00:10:36,700
@@ -492,7 +492,7 @@
 
 124
 00:10:48,300 --> 00:10:58,800
- Now, when I showed you the same thing in Kernigan and Ritchie chapter 6, I had this for in KRList_Print.
+ Now, when I showed you the same thing in Kernighan and Ritchie Chapter 6, I had this for in KRList_Print.
 
 125
 00:10:58,800 --> 00:11:05,100

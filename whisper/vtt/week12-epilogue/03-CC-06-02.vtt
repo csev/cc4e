@@ -19,7 +19,7 @@ WEBVTT
  And so he really wasn't looking at KNR for his data structure implementation. And more importantly, he was looking at ABC for his data structure implementation, or more specifically, he was looking at ABC and saying, "I don't like the way ABC did its data structure implementation."
 
 00:01:47.000 --> 00:02:01.000
- But he didn't then go back to Chapter 6 of "Kernigan and Ritchie" and say, "Well, I'll just do it this way." Which is, again, I'm a computer scientist, and my instinct is like, Chapter 6 of "Kernigan and Ritchie" is just the ground truth. Why wouldn't you do that?
+ But he didn't then go back to Chapter 6 of "Kernighan and Ritchie" and say, "Well, I'll just do it this way." Which is, again, I'm a computer scientist, and my instinct is like, Chapter 6 of "Kernighan and Ritchie" is just the ground truth. Why wouldn't you do that?
 
 00:02:01.000 --> 00:02:16.000
  So I think he started with lists as simple extendable arrays, which makes a lot of sense because you're either linearly looking them up, which is not the fastest way, or you're looking them up by position, like sub 5, and why not use arrays?
@@ -64,13 +64,13 @@ WEBVTT
  And so he wasn't like thinking, I've got to make a cache-efficient data structure. He's just like, I like arrays. But they turn out to be really good for cache architectures.
 
 00:05:38.000 --> 00:05:54.000
- And so to some degree, if you were to go back and look at it and say, well, let's go back and add linked lists, you'd say no, because linked lists would have a really bad performance impact if we did them, in a sense, the way I did them when I was teaching you Chapter 6 of Kernigan and Ritchie.
+ And so to some degree, if you were to go back and look at it and say, well, let's go back and add linked lists, you'd say no, because linked lists would have a really bad performance impact if we did them, in a sense, the way I did them when I was teaching you Chapter 6 of Kernighan and Ritchie.
 
 00:05:54.000 --> 00:06:05.000
  And so that's why it was-- you see the delight. I mean, I'm wrong when I'm talking to Guido. I'm wrong the whole time. But I'm learning. And I'm like, oh, that's so cool.
 
 00:06:05.000 --> 00:06:20.000
- So let's do a little bit of a review, and this sample code is available to you. So let's take a look at my reimplementation of a Python 1.0 list, not the Kernigan and Ritchie way, but the Guido way.
+ So let's do a little bit of a review, and this sample code is available to you. So let's take a look at my reimplementation of a Python 1.0 list, not the Kernighan and Ritchie way, but the Guido way.
 
 00:06:20.000 --> 00:06:36.000
  And what you find is you look at this code, and I'll get some code walkthroughs, and you can look at those later. But if you really spend some time and compare the linked list implementation to the extendable array implementation, you'll realize it's simpler.
@@ -145,7 +145,7 @@ WEBVTT
  There was no reallocation in my KR list of pen because I didn't need to because it would always alloc a new node.
 
 00:10:46.000 --> 00:10:53.000
- So there's two mallocs in here. In the Kernigan-Ritchie one, you malloc the node and then you malloc the string.
+ So there's two mallocs in here. In the Kernighan-Ritchie one, you malloc the node and then you malloc the string.
 
 00:10:53.000 --> 00:11:00.000
  Whereas in the Guido one, you just malloc the string and every once in a while you realloc the items.

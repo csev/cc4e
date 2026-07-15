@@ -25,7 +25,7 @@
  So we've got we've got space for two and we have zero.
  And that's an array that we know Alec tells us how long the array is and length tells us how much of the array we've used.
  And just to go back, I'll try not to compare and contrast too much.
- But just think about the complexity of linked lists the way I did them in Kernigan and Richey, my Kernigan and Richey chapter six.
+ But just think about the complexity of linked lists the way I did them in Kernighan and Ritchie, my Kernighan and Ritchie Chapter 6.
  You have this thing called head. You have this thing called tail, which is null and count is zero.
  And again, for those of us who know linked list, this is obvious.
  It's what you do. But an array is simpler than a linked list.
@@ -33,7 +33,7 @@
  OK, OK, OK, OK. So that's what we're what we've got when we're done with our constructor.
  We've got an array of two pointers, two characters. Allocated to and length one.
  So let's go take a look at let's take a look at the main code right now.
- And so the key to this main code is that in a sense, here's the Kernigan Richey main code,
+ And so the key to this main code is that in a sense, here's the Kernighan and Ritchie main code,
  because this is like an interface and an abstraction, the main code should be pretty much the same.
  And the main code pretty much is the same, meaning that we create a linked list, we append some stuff to it,
  we print the list, we check the length, we look something up and then we delete it.
@@ -77,22 +77,22 @@
  And that you can have sub zero and sub one in a two long array.
  And so all we're going to do then is we're going to have chunking and Guido mentioned chunking in the video.
  We're going to chunk it to add 10. And so we're going to basically extend from two to 10.
- So we're going to add 10. We're going to increase the Alex size and then we're going to call realic.
- And realic is going to take the array of items and say how big that was, free it, move it, whatever.
- Extend it depending on what realic is, how realic is working.
+ So we're going to add 10. We're going to increase the alloc size and then we're going to call realloc.
+ And realloc is going to take the array of items and say how big that was, free it, move it, whatever.
+ Extend it depending on what realloc is, how realloc is working.
  And we're going to say, OK, we want to have 12 of these things now, 12 and that becomes our new items.
- Now, realic will also so there's two things in it and we extended 12.
- Realic will copy the two things.
- So we don't have to do any copying because realic copies the first two things because it knows that items is too long.
+ Now, realloc will also so there's two things in it and we extended 12.
+ realloc will copy the two things.
+ So we don't have to do any copying because realloc copies the first two things because it knows that items is too long.
  And so it copies the first two things and then gives us 10 more.
  So there's no copy code here.
- And so I think Guido really liked the realic and a lot of C programmers don't like realic and he did.
- He's like, look, realic says it's going to do this and I want to do this.
- So react realic, do your job.
+ And so I think Guido really liked the realloc and a lot of C programmers don't like realloc and he did.
+ He's like, look, realloc says it's going to do this and I want to do this.
+ So realloc, realloc, do your job.
  And so I think back to my own time as a software developer, I just felt because again, we were taught linked list, linked list, linked list.
- I just didn't think about realic as a useful thing and Guido clearly felt like realic is the answer.
+ I just didn't think about realloc as a useful thing and Guido clearly felt like realloc is the answer.
  And it lets him have this simple array mentality.
- So you just realic it and say, look, here's an array of this two, I want it to be 12.
+ So you just realloc it and say, look, here's an array of this two, I want it to be 12.
  Help me and we're done.
  And so that's really simple code.
  I think very easy to understand.
@@ -115,13 +115,13 @@
  OK.
  So the key to this is the for loop in P1_List_Print.
  The for loop is for i equals 0, semicolon, i less than self length, let's take that blank out, i less than self length, i plus plus.
- That is like really basic chapter 4, chapter 5 stuff in Kernigan and Ritchie.
+ That is like really basic chapter 4, chapter 5 stuff in Kernighan and Ritchie.
  So it's just an array.
  So you write a simple incremented for loop.
  It's fast, cash efficient.
  It's beautifully simple, right?
  So in this print, this is obvious.
- Now, when I showed you the same thing in Kernigan and Ritchie chapter 6, I had this for in KRList_Print.
+ Now, when I showed you the same thing in Kernighan and Ritchie Chapter 6, I had this for in KRList_Print.
  It says for ker equals self arrow head, ker not equal null, ker equals ker next.
  And I apologize for this line.
  I'm like, you will eventually write this because it's an idiom.

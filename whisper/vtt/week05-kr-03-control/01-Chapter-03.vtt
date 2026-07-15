@@ -1,7 +1,7 @@
 WEBVTT
 
 00:00:00.000 --> 00:00:17.000
- Welcome to C Programming for Everybody. My name is Charles Severance. This is my reading of the 1978 C Programming book written by Brian Kernigan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
+ Welcome to C Programming for Everybody. My name is Charles Severance. This is my reading of the 1978 C Programming book written by Brian Kernighan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
 
 00:00:17.000 --> 00:00:37.000
  Chapter 3. Control Flow. The control flow statements of a language specify the order in which the computations are done. We have already met the most common control flow constructions of C in earlier examples. Here we will complete the set and be more precise about the ones discussed above.
@@ -1207,7 +1207,7 @@ WEBVTT
  My formulation of a data loop will upset the structured programming purists and
 
 00:40:23.120 --> 00:40:26.200
- probably upset Kernigan and Ritchie as well.
+ probably upset Kernighan and Ritchie as well.
 
 00:40:26.200 --> 00:40:29.400
  But I write code in the real world, so here is my version.
@@ -1279,7 +1279,7 @@ WEBVTT
  the middle tested loop is a tried and true pattern.
 
 00:41:58.320 --> 00:42:01.240
- Even Kernigan and Ritchie point out its benefits above.
+ Even Kernighan and Ritchie point out its benefits above.
 
 00:42:01.240 --> 00:42:07.600
  And with that, I have now triggered endless coffee shop conversations
@@ -1414,7 +1414,7 @@ WEBVTT
  I would add, before we leave control flow, I need to say that I agree with
 
 00:45:14.880 --> 00:45:17.280
- structure programming experts, as well as Kernigan and
+ structure programming experts, as well as Kernighan and
 
 00:45:17.280 --> 00:45:20.200
  Ritchie, in that the go to is universally a bad idea.

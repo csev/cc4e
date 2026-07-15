@@ -1,4 +1,4 @@
- Welcome to C Programming for Everybody. My name is Charles Severance and this is my reading of the 1978 C programming book written by Brian Kernigan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
+ Welcome to C Programming for Everybody. My name is Charles Severance and this is my reading of the 1978 C programming book written by Brian Kernighan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
  Chapter 4, Functions in Program Structure. Functions break large computing tasks into smaller ones and enable people to build on what others have done instead of starting over from scratch.
  Appropriate functions can often hide details of operation from parts of the program that don't need to know about them, thus clarifying the whole and easing the pain of making changes.
  C has been designed to make functions efficient and easy to use. C programs generally consist of numerous small functions rather than a few big ones. A program may reside on one or more source files in any convenient way. The source files may be compiled separately and loaded together, along with previously compiled functions from libraries. We will not go into that process here, since the details vary according to the local system.
@@ -10,7 +10,7 @@
  While there is another line is getline, a function we wrote in Chapter 1, and printit is printf, which someone has already provided for us. This means that we need to only write a routine which decides if the line contains an occurrence of the pattern.
  We can solve that problem by stealing a design from PL1. The function index(s,t) returns the position, or index, in the string "s" where the string "t" begins, or -1 if "s" doesn't contain "t".
  We use 0 rather than 1 as the starting position in "s" because C arrays always begin in position 0. When we later need more sophisticated pattern matching, we only have to replace index. The rest of the code can remain the same.
- Recall that because the modern STDL.h defines a getline function, whenever the book writes this function to teach a feature of functions, we rename it to get_line.
+ Recall that because the modern stdio.h defines a getline function, whenever the book writes this function to teach a feature of functions, we rename it to get_line.
  Given this much design, filling in the details of the program is straightforward. Here's the whole thing, so you can see how the pieces fit together.
  For now, the pattern to be searched for is a literal string in the argument of index, which is not the most general of mechanisms.
  We will return shortly to a discussion of how to initialize character arrays, and in Chapter 5, we will show how to make the pattern a parameter that is set when the program is run.
@@ -314,7 +314,7 @@
  current character in the buffer since the buffer and index are shared by getch and ungetch and must
  retain their values between calls they must be external to both routines thus we can write getch
  and ungetch and their shared variables as follows this is on page 79 of the textbook we can see the
- code at www.cc4e.com/code and go to page 79 pound include stdi.h pound defined buff size 100
+ code at www.cc4e.com/code and go to page 79 pound include stdio.h pound define buff size 100
  char buff open square bracket buff size closed square bracket semicolon int buff p equals zero
  semicolon those were the external variables outside any function here's the first function
  getch open paren closed paren open curly brace return open parentheses open parentheses buff p
@@ -387,7 +387,7 @@
  language and write everything else in c so here's an example that's not in the textbook it's on page
  81 if it were in the textbook you can see this code at www.cc4e.com/code page 81 and this is
  code that i wrote to play with the register keyword to mostly convince myself it was pointless to use
- it but here we go pound include stdio.h int main open print close print open curly brace
+ it but here we go pound include stdio.h int main open paren close paren open curly brace
  int compute semicolon register int iter semicolon scan f open print double quote percent d
  close quote comma ampersand compute close parentheses semicolon print f open parentheses
  double quote compute space percent d backslash n double quote comma compute close parentheses semicolon
@@ -482,7 +482,7 @@
  in the other way around there are two solutions to this problem one is to store the digits in an array
  as they are generated and then print them in reverse order as we did in chapter 3 with i2a
  the first version of print d follows this pattern this is sample code on page 85 of the textbook
- you can view the sample code at www.cc4e.com/code page 85 example one pound include stdl.h print d
+ you can view the sample code at www.cc4e.com/code page 85 example one pound include stdio.h print d
  open paren and close paren int n open curly brace char s open square bracket 10 close square
  bracket semicolon and i semicolon if parenthesis n less than zero parenthesis open curly brace put
  char open paren single quote dash single quote close paren semicolon n equals minus n semicolon
@@ -527,7 +527,7 @@
  provides a file inclusion feature any line that looks like pound include space double quote file
  name double quote is replaced by the contents of the file name the quotes are indeed mandatory
  often a line or two of this form appears at the very beginning of each source file to include
- common pound defined statements and external declarations for global variables pound includes
+ common pound define statements and external declarations for global variables pound includes
  may be nested pound include is the preferred way to tie declarations together for a large problem
  and in a large program it guarantees that all the source files will be supplied with the same
  definitions and variable declarations thus eliminating a particularly nasty kind of bug
@@ -653,7 +653,7 @@
  to be solved and that is why the compiler and low level runtime elements of language like php
  javascript and java are usually written in c so the builders of those languages can
  solve the difficult data storage and allocation problems for you this work is based on the 1978
- c programming book written by brian w kerningan and denis m richie their book is copyright all
+ c programming book written by brian w Kernighan and denis m richie their book is copyright all
  rights reserved by at&t but is used in this work under fair use because of the book's historical
  and scholarly significance its lack of availability and the lack of an accessible version of the book
  the book is augmented in places to help understand its right place in a historical context amidst the

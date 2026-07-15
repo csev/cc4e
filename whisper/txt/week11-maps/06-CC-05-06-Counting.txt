@@ -17,7 +17,7 @@
  number of times that large word was shown. So fast forward. Here we go. Now you by now have built
  a tree map, hopefully. So now what we're going to do is we're going to use your tree map code and
  we're going to implement this count. So we're going to have a tree map, call the constructor for it.
- That's our dictionary. We're going to have the tree map entry that we're going to need to use to
+ That's our dictionary. We're going to have the TreeMapEntry that we're going to need to use to
  go through the iterator. We're going to have a tree map iterator. We're going to create,
  because we don't have strings, we're going to create a 100 item array name char array and word.
  And yes, it's dangerous. We're just not going to be too mean to our code and blow it up, but we
@@ -42,7 +42,7 @@
  And then we delete the map. And so that's the miles to go before I sleep.
  Been a long time, but the end is really the beginning. These are the most basic data
  structures. These are the classic data structures. These are the data structures from chapter 6 of
- Kernigan and Ritchie. These are the data structures for 40 plus years that people have been learning
+ Kernighan and Ritchie. These are the data structures for 40 plus years that people have been learning
  about. Once you get good, and I hope you have taken the time to get really good at these data
  structures, because what these are is they're like the omelet of cooking. They're easy. It seems like
  everyone knows how to do them. But until you know how to do the easy stuff, you can't understand
@@ -52,7 +52,7 @@
  because the authors, when I did it back in grad school, there was only three authors, not four
  authors. CLR, and this is a thick book, a very thick book. And what you're going to find is this
  is a very well-written book. And if you know everything in this course, you should be able
- to open this book up to Warshell's algorithm and write an implementation of C, Warshell's algorithm,
+ to open this book up to Warshall's algorithm and write an implementation of C, Warshall's algorithm,
  because you know how to allocate things, you know how to create structures with pointers in them,
  and you know how to deallocate them. And if you learn every lesson in this course, you can start,
  you can almost open anywhere, alpha, beta, pruning, all kinds of things. You just open it up

@@ -100,7 +100,7 @@ WEBVTT
  So let's talk about what a tree is.
 
 00:01:39.200 --> 00:01:45.400
- A tree is a structure that the TreeMaP entry you see
+ A tree is a structure that the TreeMapEntry you see
 
 00:01:45.400 --> 00:01:47.120
  has a left and a right.
@@ -154,7 +154,7 @@ WEBVTT
  And each entry has a left and a right.
 
 00:02:28.560 --> 00:02:32.720
- And the TreeMaP entry has a key value pair.
+ And the TreeMapEntry has a key value pair.
 
 00:02:32.720 --> 00:02:36.400
  And we're going to keep key and value as public,
@@ -1060,7 +1060,7 @@ WEBVTT
  is both a tree and a linked list.
 
 00:17:04.720 --> 00:17:09.760
- And the map entry is going to have a next and a left
+ And the MapEntry is going to have a next and a left
 
 00:17:09.760 --> 00:17:10.800
  and a right.

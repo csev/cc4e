@@ -91,10 +91,10 @@ WEBVTT
  So let's start with a history of C.
 
 00:01:17.420 --> 00:01:19.980
- The book we're looking at, The Kernigan and Ritchie,
+ The book we're looking at, The Kernighan and Ritchie,
 
 00:01:21.720 --> 00:01:25.900
- a C programming language by Brian W. Kernigan
+ a C programming language by Brian W. Kernighan
 
 00:01:25.900 --> 00:01:30.060
  and Dennis M. Ritchie, was published in 1978.
@@ -544,7 +544,7 @@ WEBVTT
  So I've got a couple of videos in this section.
 
 00:08:51.120 --> 00:08:54.240
- This is Brian Kernigan talking about
+ This is Brian Kernighan talking about
 
 00:08:54.240 --> 00:08:56.840
  the C programming language and it's a short video.

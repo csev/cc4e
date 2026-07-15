@@ -4,7 +4,7 @@ WEBVTT
  Welcome to C Programming for Everybody. My name is Charles Severance and this is
 
 00:00:05.460 --> 00:00:10.100
- my reading of the 1978 C Programming book written by Brian Kernigan and Dennis
+ my reading of the 1978 C Programming book written by Brian Kernighan and Dennis
 
 00:00:10.100 --> 00:00:14.460
  Ritchie. At times I add my own interpretation of the material from a
@@ -751,7 +751,7 @@ WEBVTT
  call with a variable number of parameters is seen as technically more
 
 00:24:17.860 --> 00:24:23.300
- elegant and flexible. With Kernigan and Ritchie focused on keeping everything
+ elegant and flexible. With Kernighan and Ritchie focused on keeping everything
 
 00:24:23.300 --> 00:24:27.460
  small and portable, they opted to keep all input/output functionality in
@@ -1336,7 +1336,7 @@ WEBVTT
  while to illustrate an alternate way to write a while loop. This code is the
 
 00:43:05.700 --> 00:43:13.180
- second sample code on page 16 of the textbook. Pound include STDI.H, main
+ second sample code on page 16 of the textbook. Pound include stdio.h, main
 
 00:43:13.180 --> 00:43:19.660
  open parenthesis, closed parenthesis, open curly brace, double NC semicolon, for
@@ -3016,7 +3016,7 @@ WEBVTT
  expressiveness of the language begin to become apparent. This work is based on
 
 01:37:52.780 --> 01:37:57.860
- the 1978 C programming book written by Brian W. Kernigan and Dennis M. Ritchie.
+ the 1978 C programming book written by Brian W. Kernighan and Dennis M. Ritchie.
 
 01:37:57.860 --> 01:38:03.340
  Their book is copyright all rights reserved by AT&T but is used in this

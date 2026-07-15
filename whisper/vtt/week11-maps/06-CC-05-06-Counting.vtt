@@ -58,7 +58,7 @@ WEBVTT
  we're going to implement this count. So we're going to have a tree map, call the constructor for it.
 
 00:02:12.560 --> 00:02:17.120
- That's our dictionary. We're going to have the tree map entry that we're going to need to use to
+ That's our dictionary. We're going to have the TreeMapEntry that we're going to need to use to
 
 00:02:17.120 --> 00:02:21.600
  go through the iterator. We're going to have a tree map iterator. We're going to create,
@@ -133,7 +133,7 @@ WEBVTT
  structures. These are the classic data structures. These are the data structures from chapter 6 of
 
 00:04:52.720 --> 00:05:01.760
- Kernigan and Ritchie. These are the data structures for 40 plus years that people have been learning
+ Kernighan and Ritchie. These are the data structures for 40 plus years that people have been learning
 
 00:05:01.760 --> 00:05:08.000
  about. Once you get good, and I hope you have taken the time to get really good at these data
@@ -163,7 +163,7 @@ WEBVTT
  is a very well-written book. And if you know everything in this course, you should be able
 
 00:06:05.760 --> 00:06:13.440
- to open this book up to Warshell's algorithm and write an implementation of C, Warshell's algorithm,
+ to open this book up to Warshall's algorithm and write an implementation of C, Warshall's algorithm,
 
 00:06:13.440 --> 00:06:18.400
  because you know how to allocate things, you know how to create structures with pointers in them,

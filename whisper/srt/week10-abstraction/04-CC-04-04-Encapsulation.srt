@@ -204,7 +204,7 @@
 
 52
 00:05:11,440 --> 00:05:16,080
- through it until cur is equal to null. We've got a map entry, which is the type. Now, we don't
+ through it until cur is equal to null. We've got a MapEntry, which is the type. Now, we don't
 
 53
 00:05:16,080 --> 00:05:20,480
@@ -280,7 +280,7 @@
 
 71
 00:06:52,400 --> 00:06:57,600
- one first, and then we're going to free the current map entry. And then we'll say current next, and
+ one first, and then we're going to free the current MapEntry. And then we'll say current next, and
 
 72
 00:06:57,600 --> 00:07:00,480
@@ -328,7 +328,7 @@
 
 83
 00:08:08,960 --> 00:08:13,520
- list. You construct a new map entry, and you add it to the end of the list. And so again,
+ list. You construct a new MapEntry, and you add it to the end of the list. And so again,
 
 84
 00:08:13,520 --> 00:08:19,760

@@ -1,7 +1,7 @@
 WEBVTT
 
 00:00:00.000 --> 00:00:16.000
- Welcome to C Programming for Everybody. My name is Charles Severance and this is my reading of the 1978 C Programming book written by Brian Kernigan and Dennis Ritchie. At times I add my own interpretation of the material from a historical perspective.
+ Welcome to C Programming for Everybody. My name is Charles Severance and this is my reading of the 1978 C Programming book written by Brian Kernighan and Dennis Ritchie. At times I add my own interpretation of the material from a historical perspective.
 
 00:00:16.000 --> 00:00:26.000
  Chapter 6, Structures. A structure is a collection of one or more variables, possibly of different types, grouped together under a single name for convenient handling.
@@ -259,7 +259,7 @@ WEBVTT
  Here's the first example on page 125 of the textbook. You can see this at www.cc4e.com/code.
 
 00:19:19.040 --> 00:19:42.040
- #include sddio.h, #define maxword 20, #define letter quote a quote, main open paren close paren, open curly brace, int n comma t semicolon, char word open square bracket maxword close square bracket semicolon.
+ #include stdio.h, #define maxword 20, #define letter quote a quote, main open paren close paren, open curly brace, int n comma t semicolon, char word open square bracket maxword close square bracket semicolon.
 
 00:19:42.040 --> 00:19:52.040
  While open paren open paren t equals get word open paren word comma maxword close paren close paren not equal eof close paren.
@@ -742,13 +742,13 @@ WEBVTT
  Second, what declarations can cope with the fact that alloc necessarily returns different kinds of pointers? Alignment requirements can generally be satisfied easily at the cost of some wasted space merely by ensuring the allocator always returns a pointer that meets all alignment restrictions.
 
 00:54:27.040 --> 00:54:41.040
- For an example, in the PDB-11, it is sufficient that alloc always returns an even pointer since any type of object may be stored at an even address. The only cost is a wasted character on the odd length requests.
+ For an example, in the PDP-11, it is sufficient that alloc always returns an even pointer since any type of object may be stored at an even address. The only cost is a wasted character on the odd length requests.
 
 00:54:41.040 --> 00:54:58.040
  Similar actions are taken on other machines. Thus, the implementation of alloc may not be portable, but its usage is. The alloc of Chapter 5 does not guarantee any particular alignment. In Chapter 8, we'll show how to do the job right.
 
 00:54:58.040 --> 00:55:18.040
- As an aside, by now you know that when the authors mention the PDB-11, they are sharing some aspects of the challenge of making C work on previous generation computers with short memory words and small amounts of memory, and at the same time making them work well on the incoming generation of computers with larger words and more memory.
+ As an aside, by now you know that when the authors mention the PDP-11, they are sharing some aspects of the challenge of making C work on previous generation computers with short memory words and small amounts of memory, and at the same time making them work well on the incoming generation of computers with larger words and more memory.
 
 00:55:18.040 --> 00:55:31.040
  The research thought and care that went into making sure the C code was portable across multiple generations of computer hardware is on display in the previous paragraph.
@@ -1069,13 +1069,13 @@ WEBVTT
  Now back to the text. Imagine a fragment of a compiler that manipulates a symbol table. Each identifier in a program has certain information associated with it for example, whether or not it's a keyword, whether or not it's external and or static and so on.
 
 01:12:16.040 --> 01:12:37.040
- The most compact way to encode such information is a set of one bit flags in a single char or int. The usual way this is done is define a set of masks corresponding to the relevant bit positions as in pound defined keyword 01, pound defined external 02, and pound defined static 04.
+ The most compact way to encode such information is a set of one bit flags in a single char or int. The usual way this is done is define a set of masks corresponding to the relevant bit positions as in pound define keyword 01, pound define external 02, and pound define static 04.
 
 01:12:37.040 --> 01:12:50.040
  The numbers of course must be powers of 2 so that the shifting works. Then accessing the bits become a matter of bit fiddling with shifting, masking, and complementing operators which were described in Chapter 2.
 
 01:12:50.040 --> 01:13:09.040
- Certain idioms appear frequently flags vertical par equals external vertical bar static turns on the external and static bits and flags while flags ampersand equal tilled open paren external or static close paren semicolon turns them off.
+ Certain idioms appear frequently flags vertical par equals external vertical bar static turns on the external and static bits and flags while flags ampersand equal tilde open paren external or static close paren semicolon turns them off.
 
 01:13:09.040 --> 01:13:23.040
  And if open paren open paren flags ampersand paren external vertical bar static close paren close paren equal equal zero dot dot dot is true if both bits are off.
@@ -1264,7 +1264,7 @@ WEBVTT
  Finally, there's always the possibility that in the future, a compiler or some other program such as lint may make use of the information contained in type def declaration to perform some extra checking on the program.
 
 01:25:19.040 --> 01:25:27.040
- This work is based on the 1978 C programming book written by Brian W. Kernigan and Dennis M. Ritchie.
+ This work is based on the 1978 C programming book written by Brian W. Kernighan and Dennis M. Ritchie.
 
 01:25:27.040 --> 01:25:41.040
  Their book is copyright all rights reserved by AT&T, but is used in this work under fair use because of the book's historical and scholarly significance, its lack of availability, and the lack of an accessible version of the book.

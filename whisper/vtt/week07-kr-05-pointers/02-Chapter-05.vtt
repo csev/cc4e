@@ -1,7 +1,7 @@
 WEBVTT
 
 00:00:00.000 --> 00:00:17.000
- Welcome to C Programming for Everybody. My name is Charles Severance. This is my reading of the 1978 C Programming book written by Brian Kernigan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
+ Welcome to C Programming for Everybody. My name is Charles Severance. This is my reading of the 1978 C Programming book written by Brian Kernighan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
 
 00:00:17.000 --> 00:00:21.000
  Chapter 5, Pointers and Arrays
@@ -19,7 +19,7 @@ WEBVTT
  Pointers are the essential difference between C and any other modern programming language, so pay close attention to this chapter and make sure that you understand it before continuing.
 
 00:01:00.000 --> 00:01:13.000
- This chapter is as strong now as it was in 1978, and so without further ado, we read and listen as Kernigan and Ritchie teach us about pointers and arrays.
+ This chapter is as strong now as it was in 1978, and so without further ado, we read and listen as Kernighan and Ritchie teach us about pointers and arrays.
 
 00:01:13.000 --> 00:01:25.000
  A pointer is a variable that contains the address of another variable. Pointers are very much used in C, partly because they are sometimes the only way to express a computation,
@@ -406,7 +406,7 @@ WEBVTT
  You can see the code at www.cc4e.com/code.
 
 00:25:25.000 --> 00:25:33.000
- #include sddio.h #define null 0 (it's a pointer value for in the error report)
+ #include stdio.h #define null 0 (it's a pointer value for in the error report)
 
 00:25:33.000 --> 00:25:38.000
  #define alec_size 1000 (the size of the available space)
@@ -1444,7 +1444,7 @@ WEBVTT
  There are a variety of other options that can be added to the sorting program. Some make challenging exercises.
 
 01:29:15.000 --> 01:29:37.000
- This work is based on the 1978 C programming book written by Brian W. Kernigan and Dennis M. Ritchie. Their book is copyright all rights reserved by AT&T, but is used in this work under fair use because of the book's historical and scholarly significance, its lack of availability, and the lack of an accessible version of the book.
+ This work is based on the 1978 C programming book written by Brian W. Kernighan and Dennis M. Ritchie. Their book is copyright all rights reserved by AT&T, but is used in this work under fair use because of the book's historical and scholarly significance, its lack of availability, and the lack of an accessible version of the book.
 
 01:29:37.000 --> 01:29:58.000
  The book is augmented in places to help understand its right place in historical context amidst the major changes of the 1970s and 1980s as computer science evolved from a hardware-first vendor-centered approach to a software-centered approach where portable operating systems and applications written in C could run on any hardware.

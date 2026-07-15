@@ -38,7 +38,7 @@
  one of which is not there.
  And I get a null back in that situation.
  I guess I was a little C like in my get code.
- And then I dump it out and I do a struct denode loop
+ And then I dump it out and I do a struct DNode loop
  go from the head until it's null and I print out the key
  and the value from each of those dictionary nodes.
  And then I delete it at the end.
@@ -89,8 +89,8 @@
  Similarly, we have a print that's going to be pretty
  and I want you to match exactly the output of the Python.
  And so it turns out that we can make a method called find,
- which returns a denode rather than get returns a string
- and find returns a denode.
+ which returns a DNode rather than get returns a string
+ and find returns a DNode.
  And then we can use find both in get and in put.
  Now we use it pretty much in get to go find it
  and then return the value because we have the key.
@@ -143,7 +143,7 @@
  And we allocate and copy the value and put those in key.
  And then next is null and head and tail point to this thing.
  So we've allocated three things.
- We've allocated a denode.
+ We've allocated a DNode.
  And we've allocated two character arrays using malloc.
  So then let's say we're going to run the next line of code,
  which is setting the key z to w.

@@ -120,11 +120,11 @@
 
 31
 00:01:17,420 --> 00:01:19,980
- The book we're looking at, The Kernigan and Ritchie,
+ The book we're looking at, The Kernighan and Ritchie,
 
 32
 00:01:21,720 --> 00:01:25,900
- a C programming language by Brian W. Kernigan
+ a C programming language by Brian W. Kernighan
 
 33
 00:01:25,900 --> 00:01:30,060
@@ -724,7 +724,7 @@
 
 182
 00:08:51,120 --> 00:08:54,240
- This is Brian Kernigan talking about
+ This is Brian Kernighan talking about
 
 183
 00:08:54,240 --> 00:08:56,840

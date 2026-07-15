@@ -1,6 +1,6 @@
 1
 00:00:00,000 --> 00:00:17,000
- Welcome to C Programming for Everybody. My name is Charles Severance. This is my reading of the 1978 C Programming book written by Brian Kernigan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
+ Welcome to C Programming for Everybody. My name is Charles Severance. This is my reading of the 1978 C Programming book written by Brian Kernighan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
 
 2
 00:00:17,000 --> 00:00:21,000
@@ -24,7 +24,7 @@
 
 7
 00:01:00,000 --> 00:01:13,000
- This chapter is as strong now as it was in 1978, and so without further ado, we read and listen as Kernigan and Ritchie teach us about pointers and arrays.
+ This chapter is as strong now as it was in 1978, and so without further ado, we read and listen as Kernighan and Ritchie teach us about pointers and arrays.
 
 8
 00:01:13,000 --> 00:01:25,000
@@ -540,7 +540,7 @@
 
 136
 00:25:25,000 --> 00:25:33,000
- #include sddio.h #define null 0 (it's a pointer value for in the error report)
+ #include stdio.h #define null 0 (it's a pointer value for in the error report)
 
 137
 00:25:33,000 --> 00:25:38,000
@@ -1924,7 +1924,7 @@
 
 482
 01:29:15,000 --> 01:29:37,000
- This work is based on the 1978 C programming book written by Brian W. Kernigan and Dennis M. Ritchie. Their book is copyright all rights reserved by AT&T, but is used in this work under fair use because of the book's historical and scholarly significance, its lack of availability, and the lack of an accessible version of the book.
+ This work is based on the 1978 C programming book written by Brian W. Kernighan and Dennis M. Ritchie. Their book is copyright all rights reserved by AT&T, but is used in this work under fair use because of the book's historical and scholarly significance, its lack of availability, and the lack of an accessible version of the book.
 
 483
 01:29:37,000 --> 01:29:58,000

@@ -108,7 +108,7 @@
  Auto is a type, but it's an automatic type.
  And it knows that this mp is a map string int.
  And so it creates this current pointer, which is a pointer to--
- not exactly a map string, it's a map entry.
+ not exactly a map string, it's a MapEntry.
  But we don't care about that.
  There's actually a type.
  Curr, the variable curr, has a type.
@@ -218,17 +218,17 @@
  It's an abstract interface to the entry inside of a map.
  Each entry that's got to match the string integer that's in the map.
  And so there's a map string integer, which is the whole map.
- And then there's a map entry, which is one of the entries.
- But this map entry is also kind of an iterator, right?
+ And then there's a MapEntry, which is one of the entries.
+ But this MapEntry is also kind of an iterator, right?
  So we're going to iterate and move forward.
  So it's not just the key and the value.
  It's really the key and the value and the position.
  But we don't see the position.
  All we know is we use this for syntax, which is kind of like a for in in Python.
  And we call map.entry set, which is I want a set of all the entries.
- And that map entry set does not construct a giant in memory list
+ And that MapEntry set does not construct a giant in memory list
  and then go through it.
- That actually creates a single map entry with the key and the value of the first one.
+ That actually creates a single MapEntry with the key and the value of the first one.
  And then you hit it again.
  And it gives you the second one.
  You hit it again.
@@ -236,7 +236,7 @@
  And pretty soon it gives you null.
  Which means that the loop is going to stop.
  And the entry itself does have a key and a value.
- Now, key and value are known in the map entry interface.
+ Now, key and value are known in the MapEntry interface.
  So you say entry.getKey and entry.getValue.
  Now, they're using methods to give us back the key and the value
  versus in previous things you saw attributes being used in the iterators.
@@ -250,7 +250,7 @@
  And so by putting these things in what Java calls getters and setters,
  in this case we're not seeing a setter so much.
  But making it so that instead of it being entry.key,
- it's entry.getKey open print close print.
+ it's entry.getKey open paren close paren.
  That's a very Java way of thinking about this.
  So we started by talking about a simple Python dictionary where we fill it up,
  we use get, then we create an iterator,

@@ -1,4 +1,4 @@
- Welcome to C Programming for Everybody. My name is Charles Severance and this is my reading of the 1978 C programming book written by Brian Kernigan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
+ Welcome to C Programming for Everybody. My name is Charles Severance and this is my reading of the 1978 C programming book written by Brian Kernighan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
  Chapter 7, Input and Output. Input and output facilities are not part of the C language so we've de-emphasized them in our presentation thus far.
  Nonetheless, real programs do interact with their environment in much more complicated ways than those we've shown before.
  In this chapter, we will describe the standard IO library, a set of functions designed to provide a standard IO system for C programs.
@@ -17,7 +17,7 @@
  The switching of input is done in such a way that "prog" is oblivious to the change. In particular, the string "less than in" file is not included in the command line arguments in argv.
  The input switching is also invisible if the input comes from another program, a pipe mechanism.
  The command line "otherprog |prog" runs two programs, "otherprog" and "prog", and arranges for the standard input for "prog" to come from the standard output of "otherprog".
- GetChar returns the value "eof" when it encounters end of file on whatever input is being read. The standard library defines the symbolic "eof" constant to be -1, with a pound defined in the file "stdio.h".
+ GetChar returns the value "eof" when it encounters end of file on whatever input is being read. The standard library defines the symbolic "eof" constant to be -1, with a pound define in the file "stdio.h".
  But text should be written in terms of "eof", not -1, so as to be independent of the specific value.
  For output, putChar("C") puts the character "C" on the standard output, which is also by default the terminal, or screen.
  The output can be directed to a file by using "greater than". If "prog" uses putChar, "prog > outfile" will write the standard output onto "outfile" instead of the terminal.
@@ -281,7 +281,7 @@
  open-paren int close-paren close-paren semicolon c free open-paren p close-paren free space pointed to by p where p is originally obtained by a call to c alloc
  there are no restrictions on the order in which space is freed but it is a ghastly error to free something not obtained by calling c alloc
  chapter 8 shows the implementation of a storage allocator like c alloc in which the allocated blocks may be freed in any order
- this work is based on the 1978 c programming book written by brian w kerningan and dennis m richey
+ this work is based on the 1978 c programming book written by brian w Kernighan and dennis m richey
  their book is copyright all rights reserved by at&t but is used in this work under fair use because of the book's historical and scholarly significance
  its lack of availability and the lack of an accessible version of the book the book is augmented in places to help understand its right place in historical context
  amidst the major changes of the 1970s and 1980s as computer science evolved from a hardware-first vendor-centered approach to a software-centered approach

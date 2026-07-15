@@ -76,7 +76,7 @@
 
 20
 00:02:12,560 --> 00:02:17,120
- That's our dictionary. We're going to have the tree map entry that we're going to need to use to
+ That's our dictionary. We're going to have the TreeMapEntry that we're going to need to use to
 
 21
 00:02:17,120 --> 00:02:21,600
@@ -176,7 +176,7 @@
 
 45
 00:04:52,720 --> 00:05:01,760
- Kernigan and Ritchie. These are the data structures for 40 plus years that people have been learning
+ Kernighan and Ritchie. These are the data structures for 40 plus years that people have been learning
 
 46
 00:05:01,760 --> 00:05:08,000
@@ -216,7 +216,7 @@
 
 55
 00:06:05,760 --> 00:06:13,440
- to open this book up to Warshell's algorithm and write an implementation of C, Warshell's algorithm,
+ to open this book up to Warshall's algorithm and write an implementation of C, Warshall's algorithm,
 
 56
 00:06:13,440 --> 00:06:18,400

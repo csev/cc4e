@@ -121,7 +121,7 @@ WEBVTT
  I guess I was a little C like in my get code.
 
 00:01:52.200 --> 00:01:57.120
- And then I dump it out and I do a struct denode loop
+ And then I dump it out and I do a struct DNode loop
 
 00:01:57.120 --> 00:02:00.200
  go from the head until it's null and I print out the key
@@ -274,10 +274,10 @@ WEBVTT
  And so it turns out that we can make a method called find,
 
 00:04:02.800 --> 00:04:07.200
- which returns a denode rather than get returns a string
+ which returns a DNode rather than get returns a string
 
 00:04:07.200 --> 00:04:09.400
- and find returns a denode.
+ and find returns a DNode.
 
 00:04:09.400 --> 00:04:14.400
  And then we can use find both in get and in put.
@@ -436,7 +436,7 @@ WEBVTT
  So we've allocated three things.
 
 00:06:30.480 --> 00:06:33.040
- We've allocated a denode.
+ We've allocated a DNode.
 
 00:06:33.040 --> 00:06:38.680
  And we've allocated two character arrays using malloc.

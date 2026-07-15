@@ -56,7 +56,7 @@
 
 15
 00:01:18,720 --> 00:01:25,840
- We've been using list map find before, and all it does is it finds a hash map entry if it's already there.
+ We've been using list map find before, and all it does is it finds a HashMapEntry if it's already there.
 
 16
 00:01:25,840 --> 00:01:32,960
@@ -224,7 +224,7 @@
 
 57
 00:06:37,640 --> 00:06:46,000
- The current bucket we're going to look at is zero and the current map entry is the head of the zero bucket.
+ The current bucket we're going to look at is zero and the current MapEntry is the head of the zero bucket.
 
 58
 00:06:46,000 --> 00:06:50,240

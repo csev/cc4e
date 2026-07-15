@@ -48,11 +48,11 @@
 
 13
 00:01:17,600 --> 00:01:22,640
- So we're going to start by making a structure, pyster structure, we're going to get a pointer
+ So we're going to start by making a structure, PyStr structure, we're going to get a pointer
 
 14
 00:01:22,640 --> 00:01:26,800
- back, we're going to name that x, we're going to call the constructor pyster new, we're going to
+ back, we're going to name that x, we're going to call the constructor PyStr new, we're going to
 
 15
 00:01:26,800 --> 00:01:32,000
@@ -120,11 +120,11 @@
 
 31
 00:03:08,960 --> 00:03:16,560
- part of the job of this pyster object is to handle all memory allocation on our behalf so we as
+ part of the job of this PyStr object is to handle all memory allocation on our behalf so we as
 
 32
 00:03:16,560 --> 00:03:25,040
- programmers can write much simpler code. Okay so now we are going to build the pyster class. We're
+ programmers can write much simpler code. Okay so now we are going to build the PyStr class. We're
 
 33
 00:03:25,040 --> 00:03:29,600
@@ -216,7 +216,7 @@
 
 55
 00:05:32,480 --> 00:05:39,920
- structure and this gets called inside the main as struct pyster star x equals pyster new and when
+ structure and this gets called inside the main as struct PyStr star x equals PyStr new and when
 
 56
 00:05:39,920 --> 00:05:45,600
@@ -228,7 +228,7 @@
 
 58
 00:05:51,600 --> 00:05:58,400
- and then we've got the destructor which is pyster del and that again passes in self now we're calling
+ and then we've got the destructor which is PyStr del and that again passes in self now we're calling
 
 59
 00:05:58,400 --> 00:06:04,400
@@ -260,11 +260,11 @@
 
 66
 00:06:39,200 --> 00:06:45,120
- we do a pyster dump and in that we dump out the length we dump out how much we've allocated so far
+ we do a PyStr dump and in that we dump out the length we dump out how much we've allocated so far
 
 67
 00:06:45,120 --> 00:06:51,600
- and what the data is in it so far and then pyster len pyster len returns an integer and it takes
+ and what the data is in it so far and then PyStr len PyStr len returns an integer and it takes
 
 68
 00:06:51,600 --> 00:06:56,960
@@ -348,7 +348,7 @@
 
 88
 00:08:43,280 --> 00:08:50,160
- give you the code so i'm telling you that pyster append is about 10 lines of code pyster append s
+ give you the code so i'm telling you that PyStr append is about 10 lines of code PyStr append_s
 
 89
 00:08:50,160 --> 00:08:55,760
@@ -356,7 +356,7 @@
 
 90
 00:08:55,760 --> 00:09:02,560
- append s calls pyster append and pyster assign calls pyster append s and so we do a lot of reuse
+ append s calls PyStr append and pyster assign calls PyStr append_s and so we do a lot of reuse
 
 91
 00:09:02,560 --> 00:09:07,680
@@ -364,7 +364,7 @@
 
 92
 00:09:07,680 --> 00:09:13,600
- star x equals pyster new which is give me a new string object and then we're going to append a
+ star x equals PyStr new which is give me a new string object and then we're going to append a
 
 93
 00:09:13,600 --> 00:09:19,440
@@ -384,7 +384,7 @@
 
 97
 00:09:37,360 --> 00:09:45,040
- pyster append now recall that when we set this thing up we created length we allocated 10 characters
+ PyStr append now recall that when we set this thing up we created length we allocated 10 characters
 
 98
 00:09:45,040 --> 00:09:50,000
@@ -580,7 +580,7 @@
 
 146
 00:15:01,040 --> 00:15:07,440
- do a whole bunch of stuff and then we're going to ask the pyster underscore stir to give us back a
+ do a whole bunch of stuff and then we're going to ask the PyStr underscore str to give us back a
 
 147
 00:15:07,440 --> 00:15:13,360

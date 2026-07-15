@@ -1,7 +1,7 @@
 WEBVTT
 
 00:00:00.000 --> 00:00:16.000
- Welcome to C Programming for Everybody. My name is Charles Severance and this is my reading of the 1978 C programming book written by Brian Kernigan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
+ Welcome to C Programming for Everybody. My name is Charles Severance and this is my reading of the 1978 C programming book written by Brian Kernighan and Dennis Ritchie. At times, I add my own interpretation of the material from a historical perspective.
 
 00:00:16.000 --> 00:00:28.000
  Chapter 7, Input and Output. Input and output facilities are not part of the C language so we've de-emphasized them in our presentation thus far.
@@ -58,7 +58,7 @@ WEBVTT
  The command line "otherprog |prog" runs two programs, "otherprog" and "prog", and arranges for the standard input for "prog" to come from the standard output of "otherprog".
 
 00:03:39.000 --> 00:03:53.000
- GetChar returns the value "eof" when it encounters end of file on whatever input is being read. The standard library defines the symbolic "eof" constant to be -1, with a pound defined in the file "stdio.h".
+ GetChar returns the value "eof" when it encounters end of file on whatever input is being read. The standard library defines the symbolic "eof" constant to be -1, with a pound define in the file "stdio.h".
 
 00:03:53.000 --> 00:04:01.000
  But text should be written in terms of "eof", not -1, so as to be independent of the specific value.
@@ -850,7 +850,7 @@ WEBVTT
  chapter 8 shows the implementation of a storage allocator like c alloc in which the allocated blocks may be freed in any order
 
 00:44:43.000 --> 00:44:51.000
- this work is based on the 1978 c programming book written by brian w kerningan and dennis m richey
+ this work is based on the 1978 c programming book written by brian w Kernighan and dennis m richey
 
 00:44:51.000 --> 00:45:01.000
  their book is copyright all rights reserved by at&t but is used in this work under fair use because of the book's historical and scholarly significance

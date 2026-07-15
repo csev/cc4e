@@ -1,4 +1,4 @@
- Hello, and welcome to our lecture on Kernigan and Ritchie Chapter 5, putting some context around it.
+ Hello, and welcome to our lecture on Kernighan and Ritchie Chapter 5, putting some context around it.
  Chapter 5 is Functions and Program Structure.
  So, the first thing I want to call your attention to is Section 5.1.
  I actually think that Section 5.1 is the most poignant and beautiful section in the book.

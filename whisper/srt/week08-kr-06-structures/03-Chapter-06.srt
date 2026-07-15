@@ -1,6 +1,6 @@
 1
 00:00:00,000 --> 00:00:16,000
- Welcome to C Programming for Everybody. My name is Charles Severance and this is my reading of the 1978 C Programming book written by Brian Kernigan and Dennis Ritchie. At times I add my own interpretation of the material from a historical perspective.
+ Welcome to C Programming for Everybody. My name is Charles Severance and this is my reading of the 1978 C Programming book written by Brian Kernighan and Dennis Ritchie. At times I add my own interpretation of the material from a historical perspective.
 
 2
 00:00:16,000 --> 00:00:26,000
@@ -344,7 +344,7 @@
 
 87
 00:19:19,040 --> 00:19:42,040
- #include sddio.h, #define maxword 20, #define letter quote a quote, main open paren close paren, open curly brace, int n comma t semicolon, char word open square bracket maxword close square bracket semicolon.
+ #include stdio.h, #define maxword 20, #define letter quote a quote, main open paren close paren, open curly brace, int n comma t semicolon, char word open square bracket maxword close square bracket semicolon.
 
 88
 00:19:42,040 --> 00:19:52,040
@@ -988,7 +988,7 @@
 
 248
 00:54:27,040 --> 00:54:41,040
- For an example, in the PDB-11, it is sufficient that alloc always returns an even pointer since any type of object may be stored at an even address. The only cost is a wasted character on the odd length requests.
+ For an example, in the PDP-11, it is sufficient that alloc always returns an even pointer since any type of object may be stored at an even address. The only cost is a wasted character on the odd length requests.
 
 249
 00:54:41,040 --> 00:54:58,040
@@ -996,7 +996,7 @@
 
 250
 00:54:58,040 --> 00:55:18,040
- As an aside, by now you know that when the authors mention the PDB-11, they are sharing some aspects of the challenge of making C work on previous generation computers with short memory words and small amounts of memory, and at the same time making them work well on the incoming generation of computers with larger words and more memory.
+ As an aside, by now you know that when the authors mention the PDP-11, they are sharing some aspects of the challenge of making C work on previous generation computers with short memory words and small amounts of memory, and at the same time making them work well on the incoming generation of computers with larger words and more memory.
 
 251
 00:55:18,040 --> 00:55:31,040
@@ -1424,7 +1424,7 @@
 
 357
 01:12:16,040 --> 01:12:37,040
- The most compact way to encode such information is a set of one bit flags in a single char or int. The usual way this is done is define a set of masks corresponding to the relevant bit positions as in pound defined keyword 01, pound defined external 02, and pound defined static 04.
+ The most compact way to encode such information is a set of one bit flags in a single char or int. The usual way this is done is define a set of masks corresponding to the relevant bit positions as in pound define keyword 01, pound define external 02, and pound define static 04.
 
 358
 01:12:37,040 --> 01:12:50,040
@@ -1432,7 +1432,7 @@
 
 359
 01:12:50,040 --> 01:13:09,040
- Certain idioms appear frequently flags vertical par equals external vertical bar static turns on the external and static bits and flags while flags ampersand equal tilled open paren external or static close paren semicolon turns them off.
+ Certain idioms appear frequently flags vertical par equals external vertical bar static turns on the external and static bits and flags while flags ampersand equal tilde open paren external or static close paren semicolon turns them off.
 
 360
 01:13:09,040 --> 01:13:23,040
@@ -1684,7 +1684,7 @@
 
 422
 01:25:19,040 --> 01:25:27,040
- This work is based on the 1978 C programming book written by Brian W. Kernigan and Dennis M. Ritchie.
+ This work is based on the 1978 C programming book written by Brian W. Kernighan and Dennis M. Ritchie.
 
 423
 01:25:27,040 --> 01:25:41,040

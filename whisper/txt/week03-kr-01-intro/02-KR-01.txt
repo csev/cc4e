@@ -1,4 +1,4 @@
- - Hello, and welcome to chapter one of Kernigan and Ritchie.
+ - Hello, and welcome to chapter one of Kernighan and Ritchie.
  My name's Charles Severance, and of course,
  I'm your professor for this course that's about history.
  So, welcome to this course.
