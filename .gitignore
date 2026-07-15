@@ -1,15 +1,51 @@
-a.out
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.idea
 *.swp
+*.bak
+*.zip
+~*
+ehthumbs.db
+Thumbs.db
+
+# Course / build artifacts #
+############################
+a.out
 *.o
 *.s
-*.bak
 *.jar
 *.class
-.DS_Store
 cc4e-private
 jail
-tsugi
-mod/*
 enable.php
-~*
+solutions
+tmp
+config.php
+upgrading.php
+error_log
+phpDocumentor.phar
+phpunit.phar
+phpunit.xml
+composer.phar
+.tmp_phpdoc
+.out_phpdoc
+_files
+local
+exercises
+samples
+mod
+tsugi
+__pycache__
+cron.txt
 
+# media-util / YouTube secrets #
+###############################
+.whisper-tmp
+youtube/client_secret.json
+youtube/youtube-oauth-token.json
+**/client_secret*.json

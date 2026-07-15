@@ -4,18 +4,20 @@ whisper_root: /Users/csev/htdocs/cc4e/whisper
 youtube_dir: /Users/csev/htdocs/cc4e/youtube
 youtube_playlist: https://www.youtube.com/playlist?list=PLlRFEj9H3Oj5NbaFb1b2n8lib01uNPWLa
 course_hint: C Programming for Everybody, CC4E, C, UNIX, Kernighan, Ritchie, Dr. Chuck, Chuck Severance
+title_prefix: null
 extra_tags: cc4e, cc4e-lecture
 extra_description: For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
 entries:
   week01-history/01-00-about.m4v:
-    title: 'DJ C Programming for Everybody: History and Foundations (2:44)'
+    title: Welcome to C Programming for Everybody
+    ai_title: 'C Programming for Everybody: History and Foundations (2:44)'
     youtube_id: XteaWkvontg
     kaltura_id: null
     size: 136421731
     md5: 283b239b79540382135e264d344c7d69
     duration: 164
     duration_text: 02:44
-    tags: C, programming, history, Kernighan, Ritchie, classic, Unix, portability, compiler, computer architecture, cc4e, cc4e-lecture
+    tags: programming, history, Kernighan, Ritchie, classic, Unix, portability, compiler, computer architecture, cc4e, cc4e-lecture
     description: |
       This course examines the classic C programming language as presented in the 1978 book by Brian W. Kernighan and Dennis M. Ritchie. C was used to develop operating systems such as Unix, Minix, and Linux, and it underpins modern programming languages including Perl, Python, Java, JavaScript, and Ruby. Early internet infrastructure, including TCP/IP networking and the first web browsers and servers, was also implemented in C.
 
@@ -23,7 +25,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week01-history/02-CC-01-History-Max.m4v:
-    title: DJ C Programming Language History (32:31)
+    title: A History of C, UNIX, and Computation before and after 1978
+    ai_title: C Programming Language History (32:31)
     youtube_id: VZ2N0MuAUGA
     kaltura_id: null
     size: 1733762151
@@ -38,14 +41,15 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week01-history/03-2023-04-Kernighan-C.m4v:
-    title: DJ Bell Labs' Development of the C Programming Language (8:29)
+    title: Brian Kernighan - Building C at Bell Labs
+    ai_title: Bell Labs' Development of the C Programming Language (8:29)
     youtube_id: v8uLDu7LAEc
     kaltura_id: null
     size: 451028549
     md5: c4c79495cc5f9afad8cdc1d54d7ab70e
     duration: 509
     duration_text: 08:29
-    tags: Bell Labs, C, PL1, BCPL, B, portability, compiler design, cc4e, cc4e-lecture
+    tags: Bell Labs, PL1, BCPL, portability, compiler design, cc4e, cc4e-lecture
     description: |
       Bell Labs, a research institution with approximately 1200 PhD-level researchers in Murray Hill, New Jersey, fostered a problem-rich environment where stable funding came from AT&T's long-distance telephone service. The development of programming languages at Bell Labs began with PL1, a high-level language that proved inadequate, leading to the adoption of BCPL by Martin Richards from Cambridge University. BCPL was then simplified into the B language, which was interpreted and typeless but more expressive than PL1.
 
@@ -53,14 +57,15 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week01-history/04-Chapter-00.m4v:
-    title: DJ C Language Design Principles from the 1978 Kernighan and Ritchie Book (18:03)
+    title: Chapter 0 - Introduction (Video)
+    ai_title: C Language Design Principles from the 1978 Kernighan and Ritchie Book (18:03)
     youtube_id: XSEGkAOxKZ4
     kaltura_id: null
     size: 1100840832
     md5: 87f0d205b4eb671729ab0f7ba7acc653
     duration: 1083
     duration_text: 18:03
-    tags: C, low-level language, dynamic memory allocation, heap, memory fragmentation, portability, pointers, call by reference, Lint, Unix, cc4e, cc4e-lecture
+    tags: low-level language, dynamic memory allocation, heap, memory fragmentation, portability, pointers, call by reference, Lint, Unix, cc4e, cc4e-lecture
     description: |
       The lecture covers Chapter 0 of the 1978 C Programming book by Kernighan and Ritchie. It explains that C is a low-level language dealing with fundamental computer objects such as characters, integers, and addresses. The language provides no built-in heap or garbage collection, requiring manual memory management via malloc and free functions. This design choice, while a strength, can lead to memory leaks and fragmentation if the programmer forgets to free allocated memory.
 
@@ -68,14 +73,15 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week02-python/01-CC-02-Python.m4v:
-    title: DJ C Programming for Python Developers (41:21)
+    title: From Python to C - The Rosetta Stone Lecture
+    ai_title: C Programming for Python Developers (41:21)
     youtube_id: M4aPIiX3k9I
     kaltura_id: null
     size: 1491517404
     md5: 2ca075bd672afee057cac117c5de2b39
     duration: 2481
     duration_text: 41:21
-    tags: C, Python, variables, loops, input, output, strings, character arrays, cc4e, cc4e-lecture
+    tags: Python, variables, loops, input, output, strings, character arrays, cc4e, cc4e-lecture
     description: |
       This lecture provides a translation from Python to C for students with a solid foundation in Python. It covers core differences in syntax, including explicit variable declarations, character arrays for strings, and input/output operations using stdio.h.
 
@@ -83,14 +89,15 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week03-kr-01-intro/01-Chapter-01.m4v:
-    title: 'DJ 1978 C Programming Book Chapter 1: Tutorial Introduction (1:39:09)'
+    title: 'A Reading of Chapter 1: A Tutorial Introduction'
+    ai_title: '1978 C Programming Book Chapter 1: Tutorial Introduction (1:39:09)'
     youtube_id: rPwBgsSnxCw
     kaltura_id: null
     size: 1096848633
     md5: 0de81977364ff9caa760c53cb4deed9f
     duration: 5949
     duration_text: 01:39:09
-    tags: c, programming, 1978, kernighan, ritchie, hello world, variables, arithmetic, control flow, functions, input output, symbolic constants, arrays, strings, cc4e, cc4e-lecture
+    tags: programming, 1978, kernighan, ritchie, hello world, variables, arithmetic, control flow, functions, input output, symbolic constants, arrays, strings, cc4e, cc4e-lecture
     description: |
       Charles Severance's lecture provides an overview of Chapter 1 from the 1978 C Programming book by Kernighan and Ritchie. The chapter introduces fundamental C concepts including the hello world program, variable and constant declarations, arithmetic operations, control flow structures (while and for loops), function definitions, input/output using printf and getchar, symbolic constants via #define, and character arrays with null termination.
 
@@ -98,7 +105,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week03-kr-01-intro/02-KR-01.m4v:
-    title: 'DJ Kernighan and Ritchie Chapter 1: C Character Arrays (14:11)'
+    title: 'Lecture: Historical Context For Chapter 1: A Tutorial Introduction'
+    ai_title: 'Kernighan and Ritchie Chapter 1: C Character Arrays (14:11)'
     youtube_id: tlroPQSX5Ss
     kaltura_id: null
     size: 372384303
@@ -113,7 +121,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week04-kr-02-types/01-Chapter-02.m4v:
-    title: 'DJ C Programming Chapter 2: Types, Operators, and Expressions (1978) (1:03:26)'
+    title: 'A Reading of Chapter 2: Types, Operators, and Expressions'
+    ai_title: 'C Programming Chapter 2: Types, Operators, and Expressions (1978) (1:03:26)'
     youtube_id: q0Ql0jhTPDU
     kaltura_id: null
     size: 2096703402
@@ -128,14 +137,15 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week04-kr-02-types/02-KR-02.m4v:
-    title: DJ Historical Context of C Integer Division and Base Conversion (21:08)
+    title: 'Lecture: Historical Context For Chapter 2: Types, Operators, and Expressions'
+    ai_title: Historical Context of C Integer Division and Base Conversion (21:08)
     youtube_id: 420uNP1AC84
     kaltura_id: null
     size: 511752318
     md5: ad599ae3866a715ce6bc81f1b7563a70
     duration: 1268
     duration_text: 21:08
-    tags: C, integer division, truncation, base conversion, hexadecimal, octal, bitwise operations, masking, shifting, endianness, cc4e, cc4e-lecture
+    tags: integer division, truncation, base conversion, hexadecimal, octal, bitwise operations, masking, shifting, endianness, cc4e, cc4e-lecture
     description: |
       This lecture covers the historical context of C programming, focusing on data types and storage allocation. It explains the historical roots of integer division truncation in C and how this influenced the transition from Python 2 to Python 3, where integer division in Python 2 truncated but in Python 3 it returned a float. The lecture also discusses base conversion between octal and hexadecimal and their use in representing binary data.
 
@@ -143,14 +153,15 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week05-kr-03-control/01-Chapter-03.m4v:
-    title: 'DJ C Control Flow Statements: Chapter 3 of 1978 Kernighan and Ritchie Book (47:56)'
+    title: A Reading of Chapter 3 - Control Flow
+    ai_title: 'C Control Flow Statements: Chapter 3 of 1978 Kernighan and Ritchie Book (47:56)'
     youtube_id: 5YZd9lebqDo
     kaltura_id: null
     size: 1413813730
     md5: f36b63ee2291ad337232b8384ca7a640
     duration: 2876
     duration_text: 47:56
-    tags: control flow, C, if-else, switch, while, for, do-while, break, continue, go to, labels, cc4e, cc4e-lecture
+    tags: control flow, if-else, switch, while, for, do-while, break, continue, go to, labels, cc4e, cc4e-lecture
     description: |
       This lecture covers Chapter 3 of the 1978 C Programming book by Kernighan and Ritchie. It explains control flow statements including statements and blocks, if/else constructs, else if patterns, switch statements, and loop structures (while, for, do while).
 
@@ -158,7 +169,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week05-kr-03-control/02-KR-03.m4v:
-    title: 'DJ C Language: Semicolon Usage, Else If, Switch Statements, and Comma Operator (11:56)'
+    title: 'Lecture: Historical Context For Chapter 3 - Control Flow'
+    ai_title: 'C Language: Semicolon Usage, Else If, Switch Statements, and Comma Operator (11:56)'
     youtube_id: -mIMYytS020
     kaltura_id: null
     size: 308304714
@@ -173,7 +185,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week06-kr-04-functions/01-Chapter-04.m4v:
-    title: 'DJ C Programming Chapter 4: Functions, Scope, and Variables (1:31:37)'
+    title: A Reading of Chapter 4 - Functions and Program Structure
+    ai_title: 'C Programming Chapter 4: Functions, Scope, and Variables (1:31:37)'
     youtube_id: 4dyBj0Jm914
     kaltura_id: null
     size: 2987882031
@@ -188,7 +201,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week06-kr-04-functions/02-KR-04.m4v:
-    title: DJ Stack Frames, Call by Value, and Recursion in C (30:19)
+    title: 'Lecture: Historical Context For Chapter 4 - Functions and Program Structure'
+    ai_title: Stack Frames, Call by Value, and Recursion in C (30:19)
     youtube_id: r3v5igV_CnU
     kaltura_id: null
     size: 908472713
@@ -203,7 +217,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week07-kr-05-pointers/01-KR-05.m4v:
-    title: 'DJ Kernighan and Ritchie Chapter 5: Pointers and Program Structure (21:34)'
+    title: 'Lecture: Historical Context For Chapter 5 - Pointers and Arrays'
+    ai_title: 'Kernighan and Ritchie Chapter 5: Pointers and Program Structure (21:34)'
     youtube_id: 2RKRXVL-oks
     kaltura_id: null
     size: 722603313
@@ -218,7 +233,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week07-kr-05-pointers/02-Chapter-05.m4v:
-    title: 'DJ Kernighan and Ritchie Chapter 5: Pointers and Arrays in C (1:30:34)'
+    title: A Reading of Chapter 5 - Pointers and Arrays
+    ai_title: 'Kernighan and Ritchie Chapter 5: Pointers and Arrays in C (1:30:34)'
     youtube_id: f3RB6XW48q4
     kaltura_id: null
     size: 2304339754
@@ -233,14 +249,15 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week08-kr-06-structures/01-KR-06-Frost.m4v:
-    title: 'DJ Chapter 6: C Structures and Data Structures (5:23)'
+    title: 'Lecture: Looking at Chapter 6 of K&R C Using a Poem'
+    ai_title: 'Chapter 6: C Structures and Data Structures (5:23)'
     youtube_id: dSgt1uEqe9s
     kaltura_id: null
     size: 282883436
     md5: a568d560fe21e2493e04b7d89f43ee61
     duration: 323
     duration_text: 05:23
-    tags: C, structures, data structures, computer science, cc4e, cc4e-lecture
+    tags: structures, data structures, computer science, cc4e, cc4e-lecture
     description: |
       This lecture covers Chapter 6 of a computer science course, which introduces C structures as a mechanism for grouping multiple data types into a single new type. Sections 6.1 through 6.4 focus on the core C language, while section 6.5 transitions to data structures—the practical applications of structures in computer science.
 
@@ -248,14 +265,15 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week08-kr-06-structures/02-KR-06-Structures.m4v:
-    title: DJ C Structures, Pointers, and Linked Lists (26:17)
+    title: 'Lecture: Chapter 6 of K&R C  - Structures (1978 Edition)'
+    ai_title: C Structures, Pointers, and Linked Lists (26:17)
     youtube_id: 1MtzsZmcVFE
     kaltura_id: null
     size: 627568197
     md5: 34505bf25de65a1c69a28bf759bc2af8
     duration: 1577
     duration_text: 26:17
-    tags: C, structures, pointers, linked lists, dynamic memory, malloc, sizeof, unions, cc4e, cc4e-lecture
+    tags: structures, pointers, linked lists, dynamic memory, malloc, sizeof, unions, cc4e, cc4e-lecture
     description: |
       The lecture covers C structures as user-defined types that group variables of different types. Structures are accessed using the dot operator. Pointers to structures enable the use of the arrow operator (-›) for accessing members. The lecture also explains dynamic memory allocation with malloc and sizeof, and demonstrates the implementation of both singly and doubly linked lists.
 
@@ -263,14 +281,15 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week08-kr-06-structures/03-Chapter-06.m4v:
-    title: 'DJ C Structures: Understanding Data Organization in the 1978 Book (1:26:37)'
+    title: A Reading of Chapter 6 - Structures
+    ai_title: 'C Structures: Understanding Data Organization in the 1978 Book (1:26:37)'
     youtube_id: U6yCkIckOqY
     kaltura_id: null
     size: 2454234157
     md5: cbd5feaa51ae445040920a7702d483c3
     duration: 5197
     duration_text: 01:26:37
-    tags: c, structures, pointers, linked lists, binary trees, hash tables, bit fields, unions, type definitions, cc4e, cc4e-lecture
+    tags: structures, pointers, linked lists, binary trees, hash tables, bit fields, unions, type definitions, cc4e, cc4e-lecture
     description: |
       This lecture covers Chapter 6 of the 1978 C Programming book by Kernighan and Ritchie. The chapter introduces C structures as collections of variables grouped under a single name, detailing their declaration, initialization, and member access using the dot operator. It also explains nested structures, arrays of structures, and self-referential structures for linked lists.
 
@@ -278,7 +297,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week09-oo/01-CC-03-01-Objects.m4v:
-    title: 'DJ Object Oriented Patterns: Historical Evolution and C Implementation (11:11)'
+    title: Object Oriented Programming - A Historical Perspective
+    ai_title: 'Object Oriented Patterns: Historical Evolution and C Implementation (11:11)'
     youtube_id: GXkwKNEiYEI
     kaltura_id: null
     size: 370997919
@@ -293,14 +313,15 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week09-oo/02-2023-04-Kernighan-Plus.m4v:
-    title: 'DJ C++ Built on C: Pragmatic Engineering at Bell Labs (5:59)'
+    title: Brian Kernighan - C and C++ at Bell Labs
+    ai_title: 'C++ Built on C: Pragmatic Engineering at Bell Labs (5:59)'
     youtube_id: CtAysS8AlsE
     kaltura_id: null
     size: 317877121
     md5: 503f0a6b38384ee7661ab45ab843a951
     duration: 359
     duration_text: 05:59
-    tags: C, C++, object-oriented programming, Bell Labs, pragmatic engineering, language compatibility, Simula, cc4e, cc4e-lecture
+    tags: C++, object-oriented programming, Bell Labs, pragmatic engineering, language compatibility, Simula, cc4e, cc4e-lecture
     description: |
       Bjarne Stroustrup joined Bell Labs in 1979 after completing his PhD at Cambridge. He aimed to develop a simulation language by incorporating object-oriented concepts from Simula, one of the first object-oriented languages, onto the C programming language, which was the standard at Bell Labs.
 
@@ -308,7 +329,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week09-oo/03-2011-11-10-Bjarne.m4v:
-    title: DJ C++ Reliability in Critical Infrastructure (15:23)
+    title: 'C++ Bjarne Stroustrup: Inventing C++'
+    ai_title: C++ Reliability in Critical Infrastructure (15:23)
     youtube_id: 9fJ5rZhw4Fc
     kaltura_id: null
     size: 864190979
@@ -323,7 +345,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week09-oo/04-CC-03-02-Variants.m4v:
-    title: 'DJ Object-Oriented Programming Language Evolution: C++, Java, JavaScript, PHP, and C# (12:39)'
+    title: Comparing Object Oriented Programming Approaches Across Languages
+    ai_title: 'Object-Oriented Programming Language Evolution: C++, Java, JavaScript, PHP, and C# (12:39)'
     youtube_id: 4_gXh8ezVYA
     kaltura_id: null
     size: 268632563
@@ -338,14 +361,15 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week09-oo/05-CC-03-03-Objects.m4v:
-    title: DJ Building Point Objects in C Without OOP Support (9:03)
+    title: Implementing Python-like Object Oriented Patterns in C
+    ai_title: Building Point Objects in C Without OOP Support (9:03)
     youtube_id: NLcouCpM8-s
     kaltura_id: null
     size: 219648987
     md5: 018ac2b4869a33cc743708572a9c70d2
     duration: 543
     duration_text: 09:03
-    tags: C, structures, function pointers, memory allocation, constructor, destructor, object-oriented programming, Python, C++, cc4e, cc4e-lecture
+    tags: structures, function pointers, memory allocation, constructor, destructor, object-oriented programming, Python, C++, cc4e, cc4e-lecture
     description: |
       This lecture details building a point object in C without native object-oriented support. It uses a structure with two double values (x and y) and three function pointers for methods (dump, del, origin). The structure is fixed at 40 bytes (8 bytes per double and 8 bytes per function pointer).
 
@@ -353,14 +377,15 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week09-oo/06-CC-03-04-String.m4v:
-    title: DJ Implementing Python String Behavior in C with Dynamic Memory Management (15:48)
+    title: Implementing the Python String (str) Class in C
+    ai_title: Implementing Python String Behavior in C with Dynamic Memory Management (15:48)
     youtube_id: dMfpD94g6Ho
     kaltura_id: null
     size: 517266848
     md5: 491dda8321deecfc680dcbb9393ebd23
     duration: 948
     duration_text: 15:48
-    tags: C, Python string, object-oriented, memory allocation, realloc, encapsulation, string buffer, cc4e, cc4e-lecture
+    tags: Python string, object-oriented, memory allocation, realloc, encapsulation, string buffer, cc4e, cc4e-lecture
     description: |
       This lecture explains how to create a C string class that replicates Python's string functionality. The class uses a structure with fields for string length, allocated buffer size, and the character data array. The implementation handles memory allocation and deallocation internally to avoid manual memory management.
 
@@ -368,14 +393,15 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week09-oo/07-CC-03-05-List.m4v:
-    title: DJ Python List Class Implementation in C (9:47)
+    title: Implementing the Python List (list) Class in C
+    ai_title: Python List Class Implementation in C (9:47)
     youtube_id: SX6A66WcFbg
     kaltura_id: null
     size: 274107881
     md5: d34601c162e3bb5aabaf352b65041083
     duration: 587
     duration_text: 09:47
-    tags: C, Python, list, linked list, memory management, dynamic allocation, destructor, PyList, node, pointer, printf, cc4e, cc4e-lecture
+    tags: Python, list, linked list, memory management, dynamic allocation, destructor, PyList, node, pointer, printf, cc4e, cc4e-lecture
     description: |
       This lecture details the implementation of a Python list class in C using a linked list structure. The PyList object contains head and tail pointers and a count field. The implementation appends strings, prints the list, checks the length, and performs index lookups, returning negative one for missing elements.
 
@@ -383,14 +409,15 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week09-oo/08-CC-03-06-Dict.m4v:
-    title: DJ Building a Python Dictionary Class Using C Linked Lists (10:18)
+    title: Implementing the Python Dictionary (dict) Class in C
+    ai_title: Building a Python Dictionary Class Using C Linked Lists (10:18)
     youtube_id: 1vozbTuYSGw
     kaltura_id: null
     size: 316413056
     md5: e2d933a3b09b1187400a886dfa648fdc
     duration: 618
     duration_text: 10:18
-    tags: python, dictionary, linked list, key value pair, malloc, free, c, data structures, cc4e, cc4e-lecture
+    tags: python, dictionary, linked list, key value pair, malloc, free, data structures, cc4e, cc4e-lecture
     description: |
       This lecture details the implementation of a Python dictionary class in C using a linked list structure. The dictionary object includes head and tail pointers and a count field. Keys and values are dynamically allocated character arrays via malloc and then copied into the node.
 
@@ -398,7 +425,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week10-abstraction/01-CC-04-01-Boundary.m4v:
-    title: DJ Reducing Leaky Abstractions in Python Object Implementations (12:22)
+    title: Implementing Encapsulation and Interfaces in C
+    ai_title: Reducing Leaky Abstractions in Python Object Implementations (12:22)
     youtube_id: kMVmO0BpoMw
     kaltura_id: null
     size: 376232412
@@ -413,7 +441,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week10-abstraction/02-CC-04-02-Maps.m4v:
-    title: DJ Map Abstraction and Iterator Patterns Across Programming Languages (14:52)
+    title: Exploring the Map Abstraction across Languages
+    ai_title: Map Abstraction and Iterator Patterns Across Programming Languages (14:52)
     youtube_id: pK_AOOKqhX8
     kaltura_id: null
     size: 514666320
@@ -428,7 +457,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week10-abstraction/03-CC-04-03-CPP.m4v:
-    title: DJ C++ Operator Overloading and Its Impact on Python and Java (21:33)
+    title: A Quick Look at Unique Aspects of the C++ Object Oriented Pattern
+    ai_title: C++ Operator Overloading and Its Impact on Python and Java (21:33)
     youtube_id: VCrE9jYJBQo
     kaltura_id: null
     size: 882614639
@@ -443,14 +473,15 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week10-abstraction/04-CC-04-04-Encapsulation.m4v:
-    title: DJ C Map Implementation Using Encapsulation and Function Pointers (9:07)
+    title: Implementing Encapsulation in C-Based Objects
+    ai_title: C Map Implementation Using Encapsulation and Function Pointers (9:07)
     youtube_id: _HfYsyTi-tA
     kaltura_id: null
     size: 292554768
     md5: 4461a9aaa11b2f8832513dadd23b1d42
     duration: 547
     duration_text: 09:07
-    tags: C, encapsulation, function_pointers, map, linked_list, memory_management, cc4e, cc4e-lecture
+    tags: encapsulation, function_pointers, map, linked_list, memory_management, cc4e, cc4e-lecture
     description: |
       This lecture demonstrates refactoring C code into a class with encapsulation. The map structure uses a linked list of MapEntry nodes, each containing a public key (char*) and value (int). Private members are indicated by double underscores (e.g., __head, __tail).
 
@@ -458,7 +489,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week10-abstraction/05-CC-04-05-Iterators.m4v:
-    title: DJ Iterators for Uniform Data Structure Iteration (13:00)
+    title: Building an Iterator Abstraction in C
+    ai_title: Iterators for Uniform Data Structure Iteration (13:00)
     youtube_id: Wfln7WdYkN4
     kaltura_id: null
     size: 528584899
@@ -473,14 +505,15 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week11-maps/01-CC-05-01-Intro.m4v:
-    title: DJ Implementing HashMap and TreeMap in C (6:33)
+    title: 'Introduction: Building a HashMap and LinkedTreeMap in C'
+    ai_title: Implementing HashMap and TreeMap in C (6:33)
     youtube_id: ZlFzDecW9TM
     kaltura_id: null
     size: 272106857
     md5: 54e77d8de375d36ac1b7a248be33b22f
     duration: 393
     duration_text: 06:33
-    tags: HashMap, TreeMap, C, Data structures, Hash table, cc4e, cc4e-lecture
+    tags: HashMap, TreeMap, Data structures, Hash table, cc4e, cc4e-lecture
     description: |
       This lecture covers the implementation of two map data structures in C: a hash map and a tree map. The course previously developed an unordered linked list-based hash map abstraction, and now implements a sorted tree map structure.
 
@@ -488,7 +521,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week11-maps/02-CC-05-02-Hashing.m4v:
-    title: DJ Hash Map Implementation Using Linked Lists and Hashing (8:48)
+    title: Understanding Hash Computations
+    ai_title: Hash Map Implementation Using Linked Lists and Hashing (8:48)
     youtube_id: 7u6LStDRY0E
     kaltura_id: null
     size: 278207118
@@ -503,7 +537,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week11-maps/03-CC-05-03-HashMap.m4v:
-    title: DJ Building a Hash Map from List Map with Minimal Changes (15:55)
+    title: Building a HashMap object in C
+    ai_title: Building a Hash Map from List Map with Minimal Changes (15:55)
     youtube_id: _if6yo7twCc
     kaltura_id: null
     size: 475350491
@@ -518,7 +553,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week11-maps/04-CC-05-04-Trees.m4v:
-    title: 'DJ Sorted Linked TreeMap: Binary Tree for Lookup and Linked List for Iteration (17:56)'
+    title: Using Binary Trees as Data Structures
+    ai_title: 'Sorted Linked TreeMap: Binary Tree for Lookup and Linked List for Iteration (17:56)'
     youtube_id: QWD3c4mZ-tU
     kaltura_id: null
     size: 599430452
@@ -533,7 +569,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week11-maps/05-CC-05-05-LinkedTreeMap.m4v:
-    title: 'DJ TreeMap put: Simultaneous maintenance of sorted linked list and binary search tree (14:15)'
+    title: Inserting Data Into a LinkedTreeMap in C
+    ai_title: 'TreeMap put: Simultaneous maintenance of sorted linked list and binary search tree (14:15)'
     youtube_id: ACF-H4nQ5Pc
     kaltura_id: null
     size: 448355962
@@ -548,7 +585,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week11-maps/06-CC-05-06-Counting.m4v:
-    title: DJ Implementing Word Count in C Using Tree Map (7:11)
+    title: Counting Words in Python and in C using a LinkedHashMap
+    ai_title: Implementing Word Count in C Using Tree Map (7:11)
     youtube_id: g6Ew4vCPuSs
     kaltura_id: null
     size: 235987385
@@ -563,7 +601,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week12-epilogue/01-CC-06-01.m4v:
-    title: DJ How Python Data Structures Were Built Using Kernighan and Ritchie Chapter 6 (9:12)
+    title: Welcome to the CC4E Epilogue (9:12)
+    ai_title: How Python Data Structures Were Built Using Kernighan and Ritchie Chapter 6 (9:12)
     youtube_id: Jdu7vQbyTu4
     kaltura_id: null
     size: 347032841
@@ -578,7 +617,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week12-epilogue/02-2024-02-04-Guido-Impl.m4v:
-    title: 'DJ Early Python Design: Lexer, Parser, and Core Data Structures (18:30)'
+    title: 'Guido van Rossum: Inside the Object Implementations in Python (18:31)'
+    ai_title: 'Early Python Design: Lexer, Parser, and Core Data Structures (18:30)'
     youtube_id: yJ-D9IkLK3Y
     kaltura_id: null
     size: 979848448
@@ -593,7 +633,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week12-epilogue/03-CC-06-02.m4v:
-    title: 'DJ Python 1.0 List and Dictionary: Extendable Arrays, Not Linked Lists (12:20)'
+    title: Looking at Guido's Implementation of String and List Classes in Python 0.0.9 (12:20)
+    ai_title: 'Python 1.0 List and Dictionary: Extendable Arrays, Not Linked Lists (12:20)'
     youtube_id: R0DInCT6SOQ
     kaltura_id: null
     size: 510279473
@@ -608,14 +649,15 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week12-epilogue/04-CC-06-p1str-demo.m4v:
-    title: DJ Reference Counting in C String Implementation for Python 1 (9:23)
+    title: 'Code Walkthrough: Exploring Reference Counting in the Python String Object (9:24)'
+    ai_title: Reference Counting in C String Implementation for Python 1 (9:23)
     youtube_id: g-Zq9Oj24IE
     kaltura_id: null
     size: 154136984
     md5: 358ccb245a604adcb4c16f71657bd849
     duration: 563
     duration_text: 09:23
-    tags: reference counting, string implementation, C, Python 1, chunked arrays, cc4e, cc4e-lecture
+    tags: reference counting, string implementation, Python 1, chunked arrays, cc4e, cc4e-lecture
     description: |
       The lecture provides a code walkthrough of a C implementation for strings that uses reference counting, as seen in early Python versions (Python 1). This implementation employs chunked arrays of characters to allocate memory efficiently without copying data.
 
@@ -623,7 +665,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week12-epilogue/05-CC-06-p1list-demo.m4v:
-    title: DJ Python 0.01 List Implementation Compared to Carnegie and Ritchie Linked List (14:24)
+    title: 'Code Walkthrough: Building the Python 0.0.9 list() Implementation (14:24)'
+    ai_title: Python 0.01 List Implementation Compared to Carnegie and Ritchie Linked List (14:24)
     youtube_id: f-AdH22VF34
     kaltura_id: null
     size: 215437553
@@ -638,7 +681,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week12-epilogue/06-CC-06-03.m4v:
-    title: DJ Python 1.0 Dictionary Implementation with Open Hashing (13:39)
+    title: Looking at Guido's Implementation of the Dictionary Class in Python 0.0.9 (13:40)
+    ai_title: Python 1.0 Dictionary Implementation with Open Hashing (13:39)
     youtube_id: 7N02xXVNfs4
     kaltura_id: null
     size: 347640914
@@ -653,7 +697,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week12-epilogue/07-CC-06-p1dict-demo.m4v:
-    title: DJ Comparison of Kernighan and Ritchie and Python 1.0 Dictionary Implementations (39:28)
+    title: 'Code Walkthrough: Building the Python 0.0.9 dict() Implementation (39:27)'
+    ai_title: Comparison of Kernighan and Ritchie and Python 1.0 Dictionary Implementations (39:28)
     youtube_id: Evau1mKsMvM
     kaltura_id: null
     size: 582023136
@@ -668,7 +713,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week12-epilogue/08-CC-06-p3dict-demo.m4v:
-    title: DJ Python 3.7 Dictionary Internal Structure and Insert Order (23:22)
+    title: 'Code Walkthrough: Building the Python 3.7 dict() Implementation (23:22)'
+    ai_title: Python 3.7 Dictionary Internal Structure and Insert Order (23:22)
     youtube_id: eCtkUg5lMcg
     kaltura_id: null
     size: 349031883
@@ -683,7 +729,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week12-epilogue/09-CC-06-04.m4v:
-    title: DJ Python 3.7 Introduces Insert Order Preservation in Dictionaries (11:12)
+    title: Looking at the Python 3.7 re-implementation of the Dictionary class (11:12)
+    ai_title: Python 3.7 Introduces Insert Order Preservation in Dictionaries (11:12)
     youtube_id: UcwlMNym0pc
     kaltura_id: null
     size: 377163339
@@ -698,7 +745,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week12-epilogue/10-2024-02-04-Guido-OO.m4v:
-    title: DJ Python's First Six Months Without User-Defined Classes (15:39)
+    title: 'Guido van Rossum: Designing the Python Object Oriented Pattern (15:40)'
+    ai_title: Python's First Six Months Without User-Defined Classes (15:39)
     youtube_id: fU8BmX2Clsk
     kaltura_id: null
     size: 830393953
@@ -713,7 +761,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week90-kr-07/01-Chapter-07.m4v:
-    title: 'DJ C Standard I/O Library: Functions and File Operations (46:02)'
+    title: A Reading of Chapter 7 - Input / Output
+    ai_title: 'C Standard I/O Library: Functions and File Operations (46:02)'
     youtube_id: p0utHe1VCKM
     kaltura_id: null
     size: 1434516942
@@ -728,7 +777,8 @@ entries:
 
       For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
   week91-kr-08/01-Chapter-08.m4v:
-    title: 'DJ C Programming: Unix System Interface (1978 Edition) (36:17)'
+    title: A Reading of Chapter 8 - The UNIX System Interface
+    ai_title: 'C Programming: Unix System Interface (1978 Edition) (36:17)'
     youtube_id: Au1eiiceVks
     kaltura_id: null
     size: 1250912528
