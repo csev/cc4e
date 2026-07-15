@@ -1,0 +1,744 @@
+course_root: /Users/csev/htdocs/cc4e
+media_root: /Volumes/2026-05-5TB-A-Rsync/Desktop/teach/cc4e-media
+whisper_root: /Users/csev/htdocs/cc4e/whisper
+youtube_dir: /Users/csev/htdocs/cc4e/youtube
+youtube_playlist: https://www.youtube.com/playlist?list=PLlRFEj9H3Oj5NbaFb1b2n8lib01uNPWLa
+course_hint: C Programming for Everybody, CC4E, C, UNIX, Kernighan, Ritchie, Dr. Chuck, Chuck Severance
+extra_tags: cc4e, cc4e-lecture
+extra_description: For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+entries:
+  week01-history/01-00-about.m4v:
+    title: 'DJ C Programming for Everybody: History and Foundations (2:44)'
+    youtube_id: XteaWkvontg
+    kaltura_id: null
+    size: 136421731
+    md5: 283b239b79540382135e264d344c7d69
+    duration: 164
+    duration_text: 02:44
+    tags: C, programming, history, Kernighan, Ritchie, classic, Unix, portability, compiler, computer architecture, cc4e, cc4e-lecture
+    description: |
+      This course examines the classic C programming language as presented in the 1978 book by Brian W. Kernighan and Dennis M. Ritchie. C was used to develop operating systems such as Unix, Minix, and Linux, and it underpins modern programming languages including Perl, Python, Java, JavaScript, and Ruby. Early internet infrastructure, including TCP/IP networking and the first web browsers and servers, was also implemented in C.
+
+      The course focuses on C's historical role in enabling portable software by allowing recompilation to new hardware platforms once a C compiler was available. This foundational aspect of C makes it a key bridge in computing history, with the course material presented under fair use for educational purposes.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week01-history/02-CC-01-History-Max.m4v:
+    title: DJ C Programming Language History (32:31)
+    youtube_id: VZ2N0MuAUGA
+    kaltura_id: null
+    size: 1733762151
+    md5: ee6dbacbbcf61f6d2c2f566feb6a10a1
+    duration: 1951
+    duration_text: 32:31
+    tags: C programming, Unix, C history, C standardization, C89, C90, Rust, cc4e, cc4e-lecture
+    description: |
+      The lecture provides historical context for the C programming language, tracing its origins to the early 1970s. The pivotal 1978 publication of "The C Programming Language" by Kernighan and Ritchie summarized over a decade of research into creating portable programming languages and operating systems, with C designed for low-level system programming.
+
+      The course covers the standardization of C (C89 and C90) and its influence on modern programming languages. C remains foundational for systems programming, with derivatives including Java, C#, and Python. The lecture identifies Rust as a potential future language that provides memory safety without sacrificing low-level hardware access.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week01-history/03-2023-04-Kernighan-C.m4v:
+    title: DJ Bell Labs' Development of the C Programming Language (8:29)
+    youtube_id: null
+    kaltura_id: null
+    size: 451028549
+    md5: c4c79495cc5f9afad8cdc1d54d7ab70e
+    duration: 509
+    duration_text: 08:29
+    tags: Bell Labs, C, PL1, BCPL, B, portability, compiler design, cc4e, cc4e-lecture
+    description: |
+      Bell Labs, a research institution with approximately 1200 PhD-level researchers in Murray Hill, New Jersey, fostered a problem-rich environment where stable funding came from AT&T's long-distance telephone service. The development of programming languages at Bell Labs began with PL1, a high-level language that proved inadequate, leading to the adoption of BCPL by Martin Richards from Cambridge University. BCPL was then simplified into the B language, which was interpreted and typeless but more expressive than PL1.
+
+      The C programming language, developed by Ken Thompson and Dennis Ritchie, incorporated static typing to enable manipulation of characters and integers, addressing the typeless limitations of B. To ensure portability across diverse hardware, including PDP-11, Interdata, and GE 635 systems, Steve Johnson created a compiler that separated the language front end from machine-specific code generation. The first C book by Dennis Ritchie was published in 1978, and the NCC standard was developed around 1988, establishing C as a mature language for practical use by that time.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week01-history/04-Chapter-00.m4v:
+    title: DJ C Language Design Principles from the 1978 Kernighan and Ritchie Book (18:03)
+    youtube_id: XSEGkAOxKZ4
+    kaltura_id: null
+    size: 1100840832
+    md5: 87f0d205b4eb671729ab0f7ba7acc653
+    duration: 1083
+    duration_text: 18:03
+    tags: C, low-level language, dynamic memory allocation, heap, memory fragmentation, portability, pointers, call by reference, Lint, Unix, cc4e, cc4e-lecture
+    description: |
+      The lecture covers Chapter 0 of the 1978 C Programming book by Kernighan and Ritchie. It explains that C is a low-level language dealing with fundamental computer objects such as characters, integers, and addresses. The language provides no built-in heap or garbage collection, requiring manual memory management via malloc and free functions. This design choice, while a strength, can lead to memory leaks and fragmentation if the programmer forgets to free allocated memory.
+
+      The book highlights C's portability across hardware platforms, as demonstrated by Unix systems running on both PDP-11 and Interdata 832 architectures with minimal code changes. C's minimal design philosophy, influenced by BCPL and B, includes features such as pointers for address arithmetic and call-by-value semantics, with call-by-reference achieved through explicit pointers. The lecture also notes the Lint tool as a static analysis utility for type checking and portability.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week02-python/01-CC-02-Python.m4v:
+    title: DJ C Programming for Python Developers (41:21)
+    youtube_id: M4aPIiX3k9I
+    kaltura_id: null
+    size: 1491517404
+    md5: 2ca075bd672afee057cac117c5de2b39
+    duration: 2481
+    duration_text: 41:21
+    tags: C, Python, variables, loops, input, output, strings, character arrays, cc4e, cc4e-lecture
+    description: |
+      This lecture provides a translation from Python to C for students with a solid foundation in Python. It covers core differences in syntax, including explicit variable declarations, character arrays for strings, and input/output operations using stdio.h.
+
+      The examples demonstrate how to write C programs that mirror Python functionality, such as formatted printing, integer and string input, and file reading. This lecture sets the stage for the course's later exploration of building higher-level languages from C primitives.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week03-kr-01-intro/01-Chapter-01.m4v:
+    title: 'DJ 1978 C Programming Book Chapter 1: Tutorial Introduction (1:39:09)'
+    youtube_id: rPwBgsSnxCw
+    kaltura_id: null
+    size: 1096848633
+    md5: 0de81977364ff9caa760c53cb4deed9f
+    duration: 5949
+    duration_text: 01:39:09
+    tags: c, programming, 1978, kernighan, ritchie, hello world, variables, arithmetic, control flow, functions, input output, symbolic constants, arrays, strings, cc4e, cc4e-lecture
+    description: |
+      Charles Severance's lecture provides an overview of Chapter 1 from the 1978 C Programming book by Kernighan and Ritchie. The chapter introduces fundamental C concepts including the hello world program, variable and constant declarations, arithmetic operations, control flow structures (while and for loops), function definitions, input/output using printf and getchar, symbolic constants via #define, and character arrays with null termination.
+
+      The lecture emphasizes that this historical perspective on C (1978) is distinct from modern C and serves as a resource for understanding the language's evolution. The book's design choices, such as separating input/output operations from the language core, were intended to ensure portability and were influential in the development of portable software and operating systems.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week03-kr-01-intro/02-KR-01.m4v:
+    title: 'DJ Kernighan and Ritchie Chapter 1: C Character Arrays (14:11)'
+    youtube_id: tlroPQSX5Ss
+    kaltura_id: null
+    size: 372384303
+    md5: b08546166799181f77e164920f58f095
+    duration: 851
+    duration_text: 14:11
+    tags: C programming, character arrays, string termination, null terminator, Kernighan and Ritchie, cc4e, cc4e-lecture
+    description: |
+      This lecture covers the first chapter of Kernighan and Ritchie's C programming textbook, explaining that C uses character arrays (not string objects) for text data. Each string in C requires a null terminator (the character zero) to mark its end, and the chapter introduces static array allocation and call-by-value function parameters.
+
+      The lecture emphasizes the security risks of buffer overflows in C when character arrays are accessed beyond their allocated size. It also encourages learners to complete the in-place string reversal exercise to understand low-level memory management and string operations.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week04-kr-02-types/01-Chapter-02.m4v:
+    title: 'DJ C Programming Chapter 2: Types, Operators, and Expressions (1978) (1:03:26)'
+    youtube_id: q0Ql0jhTPDU
+    kaltura_id: null
+    size: 2096703402
+    md5: 374335f784a6c41dd0a553e5f8ef8fb6
+    duration: 3806
+    duration_text: 01:03:26
+    tags: variable names, data types, char, int, float, double, operators, expressions, constants, type conversions, bitwise operators, arithmetic operators, relational operators, logical operators, assignment operators, ternary operator, precedence, associativity, cc4e, cc4e-lecture
+    description: |
+      This lecture covers Chapter 2 of the 1978 C Programming book by Kernighan and Ritchie, detailing variable naming rules, data types (char, int, float, double), and their machine-dependent sizes. It explains arithmetic operators, relational and logical operators, type conversions, and the use of constants and string literals.
+
+      The lecture highlights the historical context of the 1978 C standard, including machine-specific data sizes (e.g., char as 8 bits on PDP-11, 9 bits on Honeywell 6000), the Year 2038 problem arising from 32-bit integer overflow in Unix timestamps, and the application of bitwise operators in low-level programming.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week04-kr-02-types/02-KR-02.m4v:
+    title: DJ Historical Context of C Integer Division and Base Conversion (21:08)
+    youtube_id: null
+    kaltura_id: null
+    size: 511752318
+    md5: ad599ae3866a715ce6bc81f1b7563a70
+    duration: 1268
+    duration_text: 21:08
+    tags: C, integer division, truncation, base conversion, hexadecimal, octal, bitwise operations, masking, shifting, endianness, cc4e, cc4e-lecture
+    description: |
+      This lecture covers the historical context of C programming, focusing on data types and storage allocation. It explains the historical roots of integer division truncation in C and how this influenced the transition from Python 2 to Python 3, where integer division in Python 2 truncated but in Python 3 it returned a float. The lecture also discusses base conversion between octal and hexadecimal and their use in representing binary data.
+
+      The lecture details the shift from word-oriented to byte-oriented systems in C's development, starting from the B language. It describes masking and shifting operations used in early systems (e.g., on the CDC 6500) to handle characters and touches on endianness (big-endian vs. little-endian) and its impact on memory representation.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week05-kr-03-control/01-Chapter-03.m4v:
+    title: 'DJ C Control Flow Statements: Chapter 3 of 1978 Kernighan and Ritchie Book (47:56)'
+    youtube_id: 5YZd9lebqDo
+    kaltura_id: null
+    size: 1413813730
+    md5: f36b63ee2291ad337232b8384ca7a640
+    duration: 2876
+    duration_text: 47:56
+    tags: control flow, C, if-else, switch, while, for, do-while, break, continue, go to, labels, cc4e, cc4e-lecture
+    description: |
+      This lecture covers Chapter 3 of the 1978 C Programming book by Kernighan and Ritchie. It explains control flow statements including statements and blocks, if/else constructs, else if patterns, switch statements, and loop structures (while, for, do while).
+
+      The lecture also details break and continue statements, as well as go to and labels, highlighting their historical use in C and the book's significance in the evolution of portable C applications during the 1970s.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week05-kr-03-control/02-KR-03.m4v:
+    title: 'DJ C Language: Semicolon Usage, Else If, Switch Statements, and Comma Operator (11:56)'
+    youtube_id: -mIMYytS020
+    kaltura_id: null
+    size: 308304714
+    md5: 72a521e4ca4e67822f89fdb4f2caca77
+    duration: 716
+    duration_text: 11:56
+    tags: semicolon, else if, switch, comma operator, Python, Java, PHP, shell scripting, cc4e, cc4e-lecture
+    description: |
+      This lecture covers the semicolon's function as a statement terminator in C, its use as a separator in Python and shell scripting, the distinction between C's else if (two keywords) and Python's elif (a single keyword), the historical context for the C switch statement (designed to replace jump tables in assembly), and the comma operator for combining expressions in for loops.
+
+      The lecture also addresses the tendency for brevity in early C code, noting that it can lead to "obtuse" code. Severance emphasizes that while such succinctness was common, modern compilers and best practices discourage writing obtuse code.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week06-kr-04-functions/01-Chapter-04.m4v:
+    title: 'DJ C Programming Chapter 4: Functions, Scope, and Variables (1:31:37)'
+    youtube_id: 4dyBj0Jm914
+    kaltura_id: null
+    size: 2987882031
+    md5: e8fc36bc545f1f01abf613c392b9caa1
+    duration: 5497
+    duration_text: 01:31:37
+    tags: functions, scope, variables, external variables, static variables, register variables, recursion, initialization, c preprocessor, cc4e, cc4e-lecture
+    description: |
+      This lecture covers Chapter 4 of the 1978 C Programming book by Kernighan and Ritchie, detailing the structure of functions, scope rules, and variable storage classes. It explains how functions are defined, the differences between external and automatic variables, static variables, and register variables.
+
+      The chapter also addresses variable initialization, recursion, and the C preprocessor including macros and file inclusion, providing historical context for early C programming practices.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week06-kr-04-functions/02-KR-04.m4v:
+    title: DJ Stack Frames, Call by Value, and Recursion in C (30:19)
+    youtube_id: r3v5igV_CnU
+    kaltura_id: null
+    size: 908472713
+    md5: 75e9371027690be0437d274170d7940d
+    duration: 1819
+    duration_text: 30:19
+    tags: stack frame, call by value, call by reference, recursion, c preprocessor, register variables, stack overflow, cc4e, cc4e-lecture
+    description: |
+      This chapter explains the implementation of functions in C, focusing on stack frames and the call stack. It details how stack frames store parameters and automatic variables during function execution and differentiates between call by value and call by reference mechanisms.
+
+      The lecture also covers recursion and its stack-based implementation, noting potential stack overflow issues. Additionally, the C preprocessor is introduced as a source code translator for conditional compilation and portability across multiple operating systems.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week07-kr-05-pointers/01-KR-05.m4v:
+    title: 'DJ Kernighan and Ritchie Chapter 5: Pointers and Program Structure (21:34)'
+    youtube_id: 2RKRXVL-oks
+    kaltura_id: null
+    size: 722603313
+    md5: f9c7bad7224ba8c57065f4f212ab35cd
+    duration: 1294
+    duration_text: 21:34
+    tags: pointers, pointer arithmetic, call by reference, buffer overflow, c programming, kernighan and ritchie, cc4e, cc4e-lecture
+    description: |
+      Chapter 5 of Kernighan and Ritchie's C programming book focuses on functions and program structure, with a detailed explanation of pointers. The lecture covers pointer arithmetic, dereferencing using the * operator, and addressing using the & operator. It also examines the historical evolution of pointers, including the introduction of the void pointer in modern C.
+
+      Buffer overflow is a critical security vulnerability in C that occurs when data exceeds the allocated memory for strings. The lecture demonstrates this using the get_s function, where input data can overwrite adjacent memory, leading to program crashes or security issues. Understanding pointers is essential for preventing such vulnerabilities and for low-level programming tasks.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week07-kr-05-pointers/02-Chapter-05.m4v:
+    title: 'DJ Kernighan and Ritchie Chapter 5: Pointers and Arrays in C (1:30:34)'
+    youtube_id: f3RB6XW48q4
+    kaltura_id: null
+    size: 2304339754
+    md5: dbb72d3b6dad5bbf697cad3e1d1981e5
+    duration: 5434
+    duration_text: 01:30:34
+    tags: pointers, arrays, pointer arithmetic, function pointers, multidimensional arrays, command line arguments, arrays of pointers, cc4e, cc4e-lecture
+    description: |
+      This lecture covers Chapter 5 of the 1978 C Programming book by Kernighan and Ritchie. It explains the concepts of pointers, including their definition as variables storing addresses, pointer arithmetic, and the relationship between pointers and arrays. The chapter also covers the use of pointers in function arguments, multidimensional arrays, and command line arguments.
+
+      The lecture further discusses arrays of pointers and function pointers, which enable flexible sorting and comparison mechanisms. It emphasizes the historical context of the 1978 C language design, highlighting features that contributed to portability and efficiency.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week08-kr-06-structures/01-KR-06-Frost.m4v:
+    title: 'DJ Chapter 6: C Structures and Data Structures (5:23)'
+    youtube_id: dSgt1uEqe9s
+    kaltura_id: null
+    size: 282883436
+    md5: a568d560fe21e2493e04b7d89f43ee61
+    duration: 323
+    duration_text: 05:23
+    tags: C, structures, data structures, computer science, cc4e, cc4e-lecture
+    description: |
+      This lecture covers Chapter 6 of a computer science course, which introduces C structures as a mechanism for grouping multiple data types into a single new type. Sections 6.1 through 6.4 focus on the core C language, while section 6.5 transitions to data structures—the practical applications of structures in computer science.
+
+      The speaker warns that the concepts become more complex after section 6.4, and students are encouraged to take time to understand the core structures concepts to avoid falling behind in the subsequent data structures material.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week08-kr-06-structures/02-KR-06-Structures.m4v:
+    title: DJ C Structures, Pointers, and Linked Lists (26:17)
+    youtube_id: 1MtzsZmcVFE
+    kaltura_id: null
+    size: 627568197
+    md5: 34505bf25de65a1c69a28bf759bc2af8
+    duration: 1577
+    duration_text: 26:17
+    tags: C, structures, pointers, linked lists, dynamic memory, malloc, sizeof, unions, cc4e, cc4e-lecture
+    description: |
+      The lecture covers C structures as user-defined types that group variables of different types. Structures are accessed using the dot operator. Pointers to structures enable the use of the arrow operator (-›) for accessing members. The lecture also explains dynamic memory allocation with malloc and sizeof, and demonstrates the implementation of both singly and doubly linked lists.
+
+      The lecture introduces unions, which share the same memory space for different data types. Unions are useful in network protocols and bit manipulation. The lecture emphasizes the importance of visualizing linked lists to avoid memory errors during implementation.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week08-kr-06-structures/03-Chapter-06.m4v:
+    title: 'DJ C Structures: Understanding Data Organization in the 1978 Book (1:26:37)'
+    youtube_id: U6yCkIckOqY
+    kaltura_id: null
+    size: 2454234157
+    md5: cbd5feaa51ae445040920a7702d483c3
+    duration: 5197
+    duration_text: 01:26:37
+    tags: c, structures, pointers, linked lists, binary trees, hash tables, bit fields, unions, type definitions, cc4e, cc4e-lecture
+    description: |
+      This lecture covers Chapter 6 of the 1978 C Programming book by Kernighan and Ritchie. The chapter introduces C structures as collections of variables grouped under a single name, detailing their declaration, initialization, and member access using the dot operator. It also explains nested structures, arrays of structures, and self-referential structures for linked lists.
+
+      The chapter further covers binary trees for efficient word counting and hash tables for table lookup, demonstrating hashing techniques and implementation. Additionally, it discusses bit fields for compact storage, unions for storing multiple data types in one memory location, and type definitions for creating aliases for complex types.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week09-oo/01-CC-03-01-Objects.m4v:
+    title: 'DJ Object Oriented Patterns: Historical Evolution and C Implementation (11:11)'
+    youtube_id: GXkwKNEiYEI
+    kaltura_id: null
+    size: 370997919
+    md5: a8cfd74ba1ae7cf8c6b6c437ad6c9d82
+    duration: 671
+    duration_text: 11:11
+    tags: object oriented patterns, historical perspective, c implementation, python, c++, java, javascript, php, scheme, lisp, simula 67, algol 60, fortran, cc4e, cc4e-lecture
+    description: |
+      This lecture reviews fundamental object-oriented programming concepts including classes, instances, attributes, and methods, emphasizing that object orientation is a conceptual model rather than a syntax. It demonstrates how C serves as the foundational language for implementing object-oriented features in modern languages such as Python.
+
+      The lecture traces the historical evolution of object-oriented programming from early languages like Fortran (1955) and ALGOL 60 (1960) through Simula 67, Lisp, and Scheme to contemporary languages including C++, Java, JavaScript, PHP, and C#. It notes that Python implemented object orientation in 1991, PHP added object-oriented features in 2000, and JavaScript adopted a more pure object-oriented pattern inspired by Scheme.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week09-oo/02-2023-04-Kernighan-Plus.m4v:
+    title: 'DJ C++ Built on C: Pragmatic Engineering at Bell Labs (5:59)'
+    youtube_id: null
+    kaltura_id: null
+    size: 317877121
+    md5: 503f0a6b38384ee7661ab45ab843a951
+    duration: 359
+    duration_text: 05:59
+    tags: C, C++, object-oriented programming, Bell Labs, pragmatic engineering, language compatibility, Simula, cc4e, cc4e-lecture
+    description: |
+      Bjarne Stroustrup joined Bell Labs in 1979 after completing his PhD at Cambridge. He aimed to develop a simulation language by incorporating object-oriented concepts from Simula, one of the first object-oriented languages, onto the C programming language, which was the standard at Bell Labs.
+
+      The initial implementation of C++ was designed as a translation to C to ensure portability and compatibility with existing infrastructure. This pragmatic engineering decision allowed C code to be processed by the C++ compiler without modification, facilitating adoption. Over time, features from C++ were retrofitted into C, and the translation mechanism used pointers to structures for object-oriented programming without significant overhead.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week09-oo/03-2011-11-10-Bjarne.m4v:
+    title: DJ C++ Reliability in Critical Infrastructure (15:23)
+    youtube_id: null
+    kaltura_id: null
+    size: 864190979
+    md5: 1333bcb91da88122a418392ee1751652
+    duration: 923
+    duration_text: 15:23
+    tags: critical infrastructure, C++11, constexpr, uniform initialization, embedded systems, high-performance computing, cc4e, cc4e-lecture
+    description: |
+      The lecture identifies C++ as particularly useful for critical infrastructure systems where failure can cause significant harm to individuals or society. The speaker emphasizes the need for reliable software through strongly typed interfaces, compact data structures, and algorithmic correctness to prevent catastrophic outcomes. Examples include space missions and telecommunications systems, where a single error such as unit mismatch in a Mars probe can lead to massive financial and operational damage.
+
+      The lecture highlights C++11 features that enhance reliability in critical infrastructure applications, including constexpr for compile-time constant expressions and uniform initialization syntax. These features improve code safety and performance in embedded and high-performance computing contexts. The speaker also notes that C++ requires specialized training for critical systems development, as the language's rigor is inappropriate for less critical applications.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week09-oo/04-CC-03-02-Variants.m4v:
+    title: 'DJ Object-Oriented Programming Language Evolution: C++, Java, JavaScript, PHP, and C# (12:39)'
+    youtube_id: 4_gXh8ezVYA
+    kaltura_id: null
+    size: 268632563
+    md5: ef4521fe21811b37d7d065c3f0adbeec
+    duration: 759
+    duration_text: 12:39
+    tags: object oriented programming, language evolution, c++, java, javascript, php, csharp, constructor, instance variables, this, self, new operator, cc4e, cc4e-lecture
+    description: |
+      The lecture traces the historical evolution of object-oriented programming syntax across major languages, including C++ (1980), Java (1995), JavaScript (1995), PHP (2000), and C# (2001). C++ implemented OOP via preprocessor transformations with instance variables as global within the class, while Java introduced the this keyword for explicit instance variable access. JavaScript uses first-class functions and anonymous methods without a class keyword, and PHP evolved from a procedural language to OOP with syntax conventions such as $ for variables and the arrow operator.
+
+      Key differences in syntax conventions are highlighted: C++ uses instance variables without this or self, Java uses this for instance variables, and JavaScript relies on this within methods. The new operator for instance creation is common across these languages, and the dot syntax for accessing instance methods and variables varies by language (e.g., PHP uses the arrow operator instead of dot).
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week09-oo/05-CC-03-03-Objects.m4v:
+    title: DJ Building Point Objects in C Without OOP Support (9:03)
+    youtube_id: NLcouCpM8-s
+    kaltura_id: null
+    size: 219648987
+    md5: 018ac2b4869a33cc743708572a9c70d2
+    duration: 543
+    duration_text: 09:03
+    tags: C, structures, function pointers, memory allocation, constructor, destructor, object-oriented programming, Python, C++, cc4e, cc4e-lecture
+    description: |
+      This lecture details building a point object in C without native object-oriented support. It uses a structure with two double values (x and y) and three function pointers for methods (dump, del, origin). The structure is fixed at 40 bytes (8 bytes per double and 8 bytes per function pointer).
+
+      This implementation illustrates how Python's early OOP layer was designed in 1991 by Guido van Rossum using C structures and function pointers. It also shows the historical parallel with C++, which initially transformed OOP syntax into C code.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week09-oo/06-CC-03-04-String.m4v:
+    title: DJ Implementing Python String Behavior in C with Dynamic Memory Management (15:48)
+    youtube_id: dMfpD94g6Ho
+    kaltura_id: null
+    size: 517266848
+    md5: 491dda8321deecfc680dcbb9393ebd23
+    duration: 948
+    duration_text: 15:48
+    tags: C, Python string, object-oriented, memory allocation, realloc, encapsulation, string buffer, cc4e, cc4e-lecture
+    description: |
+      This lecture explains how to create a C string class that replicates Python's string functionality. The class uses a structure with fields for string length, allocated buffer size, and the character data array. The implementation handles memory allocation and deallocation internally to avoid manual memory management.
+
+      The lecture covers the design of the PyStr class, including a constructor, methods for appending single characters and strings, and a buffer expansion mechanism using realloc. Encapsulation is enforced by hiding internal state and providing controlled access through methods, ensuring safe string operations without buffer overflows.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week09-oo/07-CC-03-05-List.m4v:
+    title: DJ Python List Class Implementation in C (9:47)
+    youtube_id: SX6A66WcFbg
+    kaltura_id: null
+    size: 274107881
+    md5: d34601c162e3bb5aabaf352b65041083
+    duration: 587
+    duration_text: 09:47
+    tags: C, Python, list, linked list, memory management, dynamic allocation, destructor, PyList, node, pointer, printf, cc4e, cc4e-lecture
+    description: |
+      This lecture details the implementation of a Python list class in C using a linked list structure. The PyList object contains head and tail pointers and a count field. The implementation appends strings, prints the list, checks the length, and performs index lookups, returning negative one for missing elements.
+
+      The destructor traverses the linked list from head to tail, freeing each node's string data before the node itself to avoid memory leaks. The list printing method uses printf to output the list in Python-like format without string concatenation, and the lecture covers the implementation of the len, index, and append methods.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week09-oo/08-CC-03-06-Dict.m4v:
+    title: DJ Building a Python Dictionary Class Using C Linked Lists (10:18)
+    youtube_id: 1vozbTuYSGw
+    kaltura_id: null
+    size: 316413056
+    md5: e2d933a3b09b1187400a886dfa648fdc
+    duration: 618
+    duration_text: 10:18
+    tags: python, dictionary, linked list, key value pair, malloc, free, c, data structures, cc4e, cc4e-lecture
+    description: |
+      This lecture details the implementation of a Python dictionary class in C using a linked list structure. The dictionary object includes head and tail pointers and a count field. Keys and values are dynamically allocated character arrays via malloc and then copied into the node.
+
+      The put method updates existing keys by freeing the old value and allocating a new one, or adds new keys and values as new nodes. The get method returns the value for a key or null if not found. This linked list implementation is a simplified version of Python's dictionary, which in reality uses hash maps for efficiency.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week10-abstraction/01-CC-04-01-Boundary.m4v:
+    title: DJ Reducing Leaky Abstractions in Python Object Implementations (12:22)
+    youtube_id: kMVmO0BpoMw
+    kaltura_id: null
+    size: 376232412
+    md5: ccc0b90daa0be26b6c6cd1978cf3063a
+    duration: 742
+    duration_text: 12:22
+    tags: abstraction, encapsulation, leaky abstractions, python, interface, access control, cc4e, cc4e-lecture
+    description: |
+      This lecture focuses on improving Python object implementations by moving methods into the structure to reduce leaks in abstraction. This approach ensures that calling code does not need to inspect internal implementation details, such as the underlying linked list structure.
+
+      The lecture compares Python and PHP string handling to highlight naming convention inconsistencies, such as PHP's strpos and str_replace functions having different parameter orders. It also explains Python's double underscore convention for private methods and access control mechanisms in C++ and Java.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week10-abstraction/02-CC-04-02-Maps.m4v:
+    title: DJ Map Abstraction and Iterator Patterns Across Programming Languages (14:52)
+    youtube_id: pK_AOOKqhX8
+    kaltura_id: null
+    size: 514666320
+    md5: 9dde916204574863a778c556289dfbff
+    duration: 892
+    duration_text: 14:52
+    tags: key-value collections, map, iterator pattern, Python dictionary, PHP arrays, C++ std::map, Java Map interface, abstraction, key-value store, cc4e, cc4e-lecture
+    description: |
+      This lecture compares how different programming languages implement key-value collections through the map abstraction. Each language provides a distinct name for this concept: Python uses dictionaries, PHP uses arrays, C++ uses std::map, and Java uses the Map interface. The lecture examines the iterator pattern as a common abstraction for efficiently traversing these collections without creating full memory copies.
+
+      The implementation details for each language are demonstrated. Python dictionaries use an iterator that returns key-value pairs via next(). PHP arrays are iterated using foreach with safe access via the null coalesce operator (??). C++ std::map iterators are accessed via begin() and end() with type inference using auto. Java's Map interface provides an entry set iterator that uses getKey() and getValue() methods. Each language offers a consistent abstraction for key-value storage while differing in internal implementation and type handling.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week10-abstraction/03-CC-04-03-CPP.m4v:
+    title: DJ C++ Operator Overloading and Its Impact on Python and Java (21:33)
+    youtube_id: VCrE9jYJBQo
+    kaltura_id: null
+    size: 882614639
+    md5: 4e72a080adc040eb4d7d93c1fdbc1d39
+    duration: 1293
+    duration_text: 21:33
+    tags: operator overloading, c++, python, java, syntax transformation, references, garbage collection, cc4e, cc4e-lecture
+    description: |
+      C++ was released in 1980 and became a pivotal language in unifying object-oriented and procedural programming paradigms. The lecture explains how C++'s operator overloading mechanisms, such as the [] operator for maps, influenced the design of later languages including Python and Java.
+
+      Python implemented a syntax transformation to achieve the [] operator behavior without references, while Java opted for explicit methods (put and get) to avoid reference semantics that could complicate garbage collection. These design choices reflect trade-offs between language flexibility and safety that shaped modern language development.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week10-abstraction/04-CC-04-04-Encapsulation.m4v:
+    title: DJ C Map Implementation Using Encapsulation and Function Pointers (9:07)
+    youtube_id: _HfYsyTi-tA
+    kaltura_id: null
+    size: 292554768
+    md5: 4461a9aaa11b2f8832513dadd23b1d42
+    duration: 547
+    duration_text: 09:07
+    tags: C, encapsulation, function_pointers, map, linked_list, memory_management, cc4e, cc4e-lecture
+    description: |
+      This lecture demonstrates refactoring C code into a class with encapsulation. The map structure uses a linked list of MapEntry nodes, each containing a public key (char*) and value (int). Private members are indicated by double underscores (e.g., __head, __tail).
+
+      The class defines function pointers for public methods (put, get, size, dump, del) that point to implementation functions. The constructor initializes these pointers, and the destructor frees dynamically allocated keys and MapEntry nodes in sequence. A dump function is used for debugging during development.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week10-abstraction/05-CC-04-05-Iterators.m4v:
+    title: DJ Iterators for Uniform Data Structure Iteration (13:00)
+    youtube_id: Wfln7WdYkN4
+    kaltura_id: null
+    size: 528584899
+    md5: 30b9447b1a0d13c914403a9ad07eddea
+    duration: 780
+    duration_text: 13:00
+    tags: iterators, abstraction, linked list, hash map, tree map, iterator pattern, next method, encapsulation, cc4e, cc4e-lecture
+    description: |
+      The lecture explains how iterators provide a consistent interface for iterating over diverse data structures including linked lists, hash maps, and tree maps without requiring changes to iteration code. This abstraction allows the same loop implementation to work across different underlying structures while hiding implementation details like head pointers or internal traversal mechanics.
+
+      The iterator pattern uses a `next` method that returns the next element or null when finished. Calling code creates an iterator from the data structure and uses a loop that repeatedly calls `next` until null is returned, ensuring the internal state of the iteration remains encapsulated and enabling seamless switching between data structure implementations.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week11-maps/01-CC-05-01-Intro.m4v:
+    title: DJ Implementing HashMap and TreeMap in C (6:33)
+    youtube_id: ZlFzDecW9TM
+    kaltura_id: null
+    size: 272106857
+    md5: 54e77d8de375d36ac1b7a248be33b22f
+    duration: 393
+    duration_text: 06:33
+    tags: HashMap, TreeMap, C, Data structures, Hash table, cc4e, cc4e-lecture
+    description: |
+      This lecture covers the implementation of two map data structures in C: a hash map and a tree map. The course previously developed an unordered linked list-based hash map abstraction, and now implements a sorted tree map structure.
+
+      The lecture emphasizes the challenges of writing these implementations from scratch, including managing linked lists for the hash map and tree nodes for the tree map. Debugging is difficult, but the exercise is designed to reinforce understanding through iterative problem-solving.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week11-maps/02-CC-05-02-Hashing.m4v:
+    title: DJ Hash Map Implementation Using Linked Lists and Hashing (8:48)
+    youtube_id: 7u6LStDRY0E
+    kaltura_id: null
+    size: 278207118
+    md5: 525caa89fee8a513ec6a96db3cbabc10
+    duration: 528
+    duration_text: 08:48
+    tags: hash map, linked list, hash function, bucket, modulo, cc4e, cc4e-lecture
+    description: |
+      This lecture explains a hash map implementation that uses linked lists for each bucket. The structure distributes key-value pairs across multiple buckets based on a hash function, which is derived from a list map by extending the single linked list to multiple linked lists.
+
+      The hash function processes each character in the key by shifting the current hash value left and then performing an exclusive OR with the character. The final hash value is reduced modulo the number of buckets to assign the key to a specific bucket. This method may result in collisions with random data.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week11-maps/03-CC-05-03-HashMap.m4v:
+    title: DJ Building a Hash Map from List Map with Minimal Changes (15:55)
+    youtube_id: _if6yo7twCc
+    kaltura_id: null
+    size: 475350491
+    md5: 85ef8b3889ec8efcd91e206150bc2fbb
+    duration: 955
+    duration_text: 15:55
+    tags: hash_map, list_map, linked_list, bucket, iterator, hash_function, cc4e, cc4e-lecture
+    description: |
+      This lecture details how to implement a hash map by minimal modifications to a list map. The hash map uses an array of eight buckets, each containing a linked list. The find method now requires a bucket index, and the get and put methods compute the bucket index from the key.
+
+      The hash map iterator traverses buckets sequentially, skipping empty linked lists. It maintains a current bucket index and a pointer to the current entry. When the current entry is null, the iterator advances to the next non-empty bucket. This design handles key distribution without rehashing.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week11-maps/04-CC-05-04-Trees.m4v:
+    title: 'DJ Sorted Linked TreeMap: Binary Tree for Lookup and Linked List for Iteration (17:56)'
+    youtube_id: QWD3c4mZ-tU
+    kaltura_id: null
+    size: 599430452
+    md5: c68876b5525d66e4e681dd9c4b874570
+    duration: 1076
+    duration_text: 17:56
+    tags: TreeMap, binary tree, linked list, sorted key-value store, iteration, depth-first search, recursive dump, cc4e, cc4e-lecture
+    description: |
+      The lecture details the implementation of a sorted linked TreeMap that combines a binary tree for fast key lookups with a linked list to support iteration. This structure maintains keys in sorted order, enabling logarithmic time complexity for key operations while providing ordered traversal. Each TreeMapEntry contains key, value, left, and right pointers to enforce the tree structure.
+
+      The implementation includes a recursive depth-first search function for visualizing the tree structure, which prints nodes with indentation levels. To support iteration without a stack, the TreeMap concurrently maintains a sorted linked list, ensuring keys can be traversed in order without additional stack management.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week11-maps/05-CC-05-05-LinkedTreeMap.m4v:
+    title: 'DJ TreeMap put: Simultaneous maintenance of sorted linked list and binary search tree (14:15)'
+    youtube_id: ACF-H4nQ5Pc
+    kaltura_id: null
+    size: 448355962
+    md5: b8dd812dd6b0a46a790037be22c1fc86
+    duration: 855
+    duration_text: 14:15
+    tags: TreeMap, sorted linked list, binary search tree, put method, simultaneous update, gap insertion, cc4e, cc4e-lecture
+    description: |
+      This lecture explains the implementation of the TreeMap put method that simultaneously maintains a sorted linked list and a binary search tree. It uses left and right pointers to track the gap (the largest key less than and smallest key greater than the new key) during tree traversal, enabling efficient insertion into the linked list without additional cost.
+
+      The implementation handles edge cases including insertion at the beginning (when left is null), insertion at the end (when right is null), and updating existing keys. The binary search tree supports fast lookups in logarithmic time, while the linked list supports iteration in linear time.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week11-maps/06-CC-05-06-Counting.m4v:
+    title: DJ Implementing Word Count in C Using Tree Map (7:11)
+    youtube_id: g6Ew4vCPuSs
+    kaltura_id: null
+    size: 235987385
+    md5: 99b861254e41368c986f4b81fd07be59
+    duration: 431
+    duration_text: 07:11
+    tags: tree map, c programming, file i/o, word count, dictionary, iterator, tolower, cc4e, cc4e-lecture
+    description: |
+      This lecture implements a word count program in C using a tree map data structure. The program reads a file, converts each word to lowercase using `tolower` from `ctype.h`, and maintains counts in a dictionary. It then uses an iterator to find and output the most frequent word.
+
+      The lecture emphasizes that foundational data structures are essential for programming. These structures, as covered in chapter 6 of Kernighan and Ritchie's work, enable learners to implement complex algorithms after mastering core concepts.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week12-epilogue/01-CC-06-01.m4v:
+    title: DJ How Python Data Structures Were Built Using Kernighan and Ritchie Chapter 6 (9:12)
+    youtube_id: null
+    kaltura_id: null
+    size: 347032841
+    md5: b9a590dd020a9d1c43736740c3b52e70
+    duration: 552
+    duration_text: 09:12
+    tags: python, string class, list class, dictionary class, kernighan and ritchie, chapter 6, linked list, hash table, cc4e, cc4e-lecture
+    description: |
+      In the epilogue lecture of the C Programming for Everybody course, the instructor implemented Python string, list, and dictionary classes using techniques from Chapter 6 of Kernighan and Ritchie's C Programming book. The string class employs a dynamic array with chunking and realloc for extension, the list class is a linked list with head and tail pointers, and the dictionary class uses a hash table with buckets implemented as linked lists.
+
+      The instructor questioned whether Guido van Rossum had been influenced by the same book when designing Python's core data structures, leading to an interview with Guido to explore the potential impact of Kernighan and Ritchie Chapter 6 on the original Python design.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week12-epilogue/02-2024-02-04-Guido-Impl.m4v:
+    title: 'DJ Early Python Design: Lexer, Parser, and Core Data Structures (18:30)'
+    youtube_id: null
+    kaltura_id: null
+    size: 979848448
+    md5: 6327296628a515f147c2c710ed038931
+    duration: 1110
+    duration_text: 18:30
+    tags: python, design, lexer, parser, reference_counting, string, list, dictionary, open_hashing, cc4e, cc4e-lecture
+    description: |
+      The creator of Python began implementation with a lexer and parser, drawing from experience with the ABC language. He implemented reference counting for memory management and decided all data types should be objects, avoiding ABC's tree-based structures.
+
+      Strings were designed as immutable objects with linear buffers including null terminators for C interoperability. Lists used mutable arrays of object pointers, while dictionaries initially employed open hashing from Knuth's algorithms but were later optimized by a Japanese developer for space efficiency and insertion order.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week12-epilogue/03-CC-06-02.m4v:
+    title: 'DJ Python 1.0 List and Dictionary: Extendable Arrays, Not Linked Lists (12:20)'
+    youtube_id: null
+    kaltura_id: null
+    size: 510279473
+    md5: e8ceaddf10314dc65a7edd9d9b111f48
+    duration: 740
+    duration_text: 12:20
+    tags: python1.0, extendable arrays, linked lists, data structures, cache efficiency, memory allocation, cc4e, cc4e-lecture
+    description: |
+      The speaker corrects the misconception that Guido van Rossum used linked lists in Python 1.0's core data structures. Instead, Python 1.0 list and dictionary objects were implemented as extendable arrays of pointers.
+
+      This array-based implementation was more cache-efficient for the hardware of the early 1990s, when CPUs and main memory had comparable speeds. The contiguous memory layout minimized cache misses compared to linked lists, which would have caused repeated bouncing through memory.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week12-epilogue/04-CC-06-p1str-demo.m4v:
+    title: DJ Reference Counting in C String Implementation for Python 1 (9:23)
+    youtube_id: null
+    kaltura_id: null
+    size: 154136984
+    md5: 358ccb245a604adcb4c16f71657bd849
+    duration: 563
+    duration_text: 09:23
+    tags: reference counting, string implementation, C, Python 1, chunked arrays, cc4e, cc4e-lecture
+    description: |
+      The lecture provides a code walkthrough of a C implementation for strings that uses reference counting, as seen in early Python versions (Python 1). This implementation employs chunked arrays of characters to allocate memory efficiently without copying data.
+
+      The reference count mechanism increments when a string is assigned to a new variable and decrements during deletion. When the count reaches zero, the memory is freed, enabling multiple variables to share the same string data without memory leaks.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week12-epilogue/05-CC-06-p1list-demo.m4v:
+    title: DJ Python 0.01 List Implementation Compared to Carnegie and Ritchie Linked List (14:24)
+    youtube_id: null
+    kaltura_id: null
+    size: 215437553
+    md5: 9214eccb1746f65038a5273709182b2d
+    duration: 864
+    duration_text: 14:24
+    tags: python list, linked list, array of pointers, realloc, dynamic resizing, c programming, carnegie and ritchie, python 0.01, cc4e, cc4e-lecture
+    description: |
+      The lecture compares the list data structure implementation in Python 0.01 with the linked list implementation from the book "Carnegie and Ritchie" Chapter 6. In Python 0.01, lists are implemented as arrays of pointers to characters allocated via malloc with an initial size of two elements. The Carnegie and Ritchie implementation uses a linked list with head and tail pointers, where each node contains a string pointer and a next pointer.
+
+      The key technical difference lies in the dynamic resizing mechanism. The Python implementation extends the array using realloc when the current size is exceeded, copying existing elements and adding the new element without pointer manipulation. This approach avoids the linked list pointer operations required in the Carnegie and Ritchie implementation.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week12-epilogue/06-CC-06-03.m4v:
+    title: DJ Python 1.0 Dictionary Implementation with Open Hashing (13:39)
+    youtube_id: null
+    kaltura_id: null
+    size: 347640914
+    md5: 6f39fcbe102d9322f01b82c71e55759c
+    duration: 819
+    duration_text: 13:39
+    tags: python1.0, dictionary, openhashing, linearprobing, rehashing, dnode, cc4e, cc4e-lecture
+    description: |
+      The lecture details the Python 1.0 dictionary implementation by Guido van Rossum from 1989-1991, which uses open hashing. This implementation stores key-value pairs in an array without linked lists and resolves collisions using linear probing through circular iteration.
+
+      The dictionary structure includes fields for the current item count, allocated array size, and an array of DNode structures (each containing key and value pointers). When the array becomes full, the implementation triggers rehashing by doubling the array size and reinserting all items.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week12-epilogue/07-CC-06-p1dict-demo.m4v:
+    title: DJ Comparison of Kernighan and Ritchie and Python 1.0 Dictionary Implementations (39:28)
+    youtube_id: null
+    kaltura_id: null
+    size: 582023136
+    md5: ee8f8ccff4c82703cc80f4666936cf1c
+    duration: 2368
+    duration_text: 39:28
+    tags: hash tables, open hashing, linear probing, collision resolution, rehashing, Kernighan and Ritchie, Python 1.0, cc4e, cc4e-lecture
+    description: |
+      This lecture compares two dictionary implementations: the author's adaptation of Kernighan and Ritchie Chapter 6 (using an array of linked lists) and the Python 1.0 implementation (a single array of key-value nodes with linear probing for collisions).
+
+      Both implementations use open hashing for collision resolution and rehash when the load factor is at or above 70% by doubling the array size and reinserting all items. The Python 1.0 implementation is a simplified approximation of Guido van Rossum's original dictionary design.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week12-epilogue/08-CC-06-p3dict-demo.m4v:
+    title: DJ Python 3.7 Dictionary Internal Structure and Insert Order (23:22)
+    youtube_id: null
+    kaltura_id: null
+    size: 349031883
+    md5: 6d05971dacfcacd5fc7e4b843d2c29c0
+    duration: 1402
+    duration_text: 23:22
+    tags: Python, dictionary, Python_3_7, internal_structures, insert_order, hash_table, load_factor, rehashing, linear_probing, cc4e, cc4e-lecture
+    description: |
+      The lecture details the changes in Python dictionary internal data structures from versions 0.01 to 3.6 to Python 3.7. In Python 3.7, dictionaries employ a linear array for key-value pairs (items) and a separate integer array (index) that is twice the size of the items array. This design ensures a load factor of 50% or less, reducing wastage compared to earlier versions which had a load factor of 0.7.
+
+      This structure maintains insert order as a side effect of the linear array. The index array handles hash indexing and conflict resolution using linear probing. Rehashing is simplified by extending the items array and rebuilding the index array, avoiding the complex rehashing mechanisms required in earlier dictionary implementations.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week12-epilogue/09-CC-06-04.m4v:
+    title: DJ Python 3.7 Introduces Insert Order Preservation in Dictionaries (11:12)
+    youtube_id: null
+    kaltura_id: null
+    size: 377163339
+    md5: f0bccaa5689be26d17249deba0b63960
+    duration: 672
+    duration_text: 11:12
+    tags: python, 3.7, dictionaries, insert order, hash table, rehashing, load factor, modula 3, abc, cc4e, cc4e-lecture
+    description: |
+      Python 3.7 introduced insert order preservation for dictionaries by decoupling the hash index from the key-value store. This change resolved the inconsistent iteration order in Python 3.6, where dictionary order was pseudo-random and could change during rehashing. The implementation maintains an integer array (index) that points to the positions of key-value pairs in a list (items), ensuring iteration order matches insertion sequence while supporting efficient hash-based lookups.
+
+      Guido van Rossum designed Python using C after finding C++ experiments disappointing. ABC influenced Python with implicit iteration and reference counting, while Modula 3 contributed the self mechanism for object-oriented programming.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week12-epilogue/10-2024-02-04-Guido-OO.m4v:
+    title: DJ Python's First Six Months Without User-Defined Classes (15:39)
+    youtube_id: null
+    kaltura_id: null
+    size: 830393953
+    md5: 79190aa9d12b59b20c0de19f3682fb8d
+    duration: 939
+    duration_text: 15:39
+    tags: Python, Modula 3, reference counting, class, function pointers, cc4e, cc4e-lecture
+    description: |
+      Python's initial implementation, developed by Guido van Rossum, lacked user-defined classes for the first six months. The language used a structure-based approach inspired by Modula 3, where objects were represented as structures containing function pointers. This design avoided the need for a class keyword until later development.
+
+      The implementation employed manual reference counting, a technique from ABC, to manage memory. This approach avoided the pitfalls of automatic reference counting in C++, which the creator found error-prone. Python added a cyclic garbage collector after about a decade to address memory leaks from object cycles.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week90-kr-07/01-Chapter-07.m4v:
+    title: 'DJ C Standard I/O Library: Functions and File Operations (46:02)'
+    youtube_id: p0utHe1VCKM
+    kaltura_id: null
+    size: 1434516942
+    md5: d3af934db673449376f5a02341c50e96
+    duration: 2762
+    duration_text: 46:02
+    tags: stdio.h, standard input, standard output, file operations, printf, scanf, error handling, cc4e, cc4e-lecture
+    description: |
+      The lecture covers the standard I/O library in C, which provides essential functions for interacting with the operating system environment. This library includes standard input and output operations, file handling, and formatted I/O, designed to be portable and efficient across different operating systems.
+
+      The library supports file operations through functions like fopen and fclose, and formatted input/output using printf and scanf. Error handling is managed via stderr and the exit function, ensuring diagnostic messages appear on the terminal even when output is redirected to files or pipelines.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
+  week91-kr-08/01-Chapter-08.m4v:
+    title: 'DJ C Programming: Unix System Interface (1978 Edition) (36:17)'
+    youtube_id: Au1eiiceVks
+    kaltura_id: null
+    size: 1250912528
+    md5: a217dea64151925927ebe2d0c669caa9
+    duration: 2177
+    duration_text: 36:17
+    tags: file descriptors, read system call, write system call, open, create, close, unlink, lseek, file I/O, buffered I/O, unbuffered I/O, C programming, Unix, Kernighan Ritchie, cc4e, cc4e-lecture
+    description: |
+      This lecture covers Chapter 8 of the 1978 C Programming book by Brian Kernighan and Dennis Ritchie, which details the interface between C programs and the Unix operating system. The chapter explains that all input and output in Unix is handled through file descriptors (0 for standard input, 1 for standard output, 2 for standard error), and describes the low-level read and write system calls for direct file operations. It also covers the open, create, close, and unlink functions for file management.
+
+      The chapter further details random access using lseek, the implementation of standard library functions such as fopen and getc using file descriptors, and the historical context of C as a systems programming language. This 1978 book was foundational for modern computing, providing a portable approach to systems programming that influenced the development of later languages including Python, PHP, and Java.
+
+      For more materials, auto graders, and more courses, please see www.masterprogrammer.com.
