@@ -228,7 +228,9 @@ function cc4e_emcc($user_id, $code, $input, $main=null, $note=null)
         $retval->note = $note;
     }
 
-    $emcc_options = '-ansi -Wno-fortify-source -Wno-implicit-function-declaration -Wno-return-type -Wno-deprecated-non-prototype -Wno-pointer-to-int-cast -Wno-int-conversion -Wno-deprecated-declarations';
+    // -Wno-unknown-warning-option must come first so older emcc (for example 3.1.5)
+    // ignores newer -Wno-* flags instead of failing the compile on that warning.
+    $emcc_options = '-Wno-unknown-warning-option -ansi -Wno-fortify-source -Wno-implicit-function-declaration -Wno-return-type -Wno-deprecated-non-prototype -Wno-pointer-to-int-cast -Wno-int-conversion -Wno-deprecated-declarations';
     $emcc_options = U::get($CFG->extensions, 'emcc_options', $emcc_options);
     $emcc_path = U::get($CFG->extensions, 'emcc_path', "/opt/homebrew/bin/emcc");
 
