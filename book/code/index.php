@@ -5,51 +5,23 @@ if ( !isset($_COOKIE['secret']) || $_COOKIE['secret'] != '42' ) {
     return;
 }
 
-if ( ! function_exists('endsWith') ) {
-function endsWith($haystack, $needle) {
-    // search forward starting from end minus needle length characters
-    return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== FALSE);
-}
-}
+require_once "../../tsugi/config.php";
+require_once "../../sandbox/sandbox.php";
 
-$stdout = False;
-$stderr = False;
-$return_value = False;
+$stdout = '';
+$stderr = '';
+$return_value = false;
 
 if ( isset($_POST['code']) ) {
-$descriptorspec = array(
-   0 => array("pipe", "r"),  // stdin is a pipe that the child will read from
-   1 => array("pipe", "w"),  // stdout is a pipe that the child will write to
-   2 => array("pipe", "w") // stderr is a file to write to
-);
-
-$cwd = '/tmp';
-$env = array(
-    'some_option' => 'aeiou',
-    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-);
-
-$process = proc_open('gcc -ansi -x c -c -', $descriptorspec, $pipes, $cwd, $env);
-
-if (is_resource($process)) {
-    // $pipes now looks like this:
-    // 0 => writeable handle connected to child stdin
-    // 1 => readable handle connected to child stdout
-    // Any error output will be appended to /tmp/error-output.txt
-
-    fwrite($pipes[0], $_POST['code']);
-    fclose($pipes[0]);
-
-    $stdout = stream_get_contents($pipes[1]);
-    fclose($pipes[1]);
-    $stderr = stream_get_contents($pipes[2]);
-    fclose($pipes[2]);
-
-    // It is important that you close any pipes before calling
-    // proc_close in order to avoid a deadlock
-    $return_value = proc_close($process);
-
-}
+    $emcc = $CFG->getExtension('emcc_path', '/opt/homebrew/bin/emcc');
+    $out = tempnam(sys_get_temp_dir(), 'cc4e');
+    $command = $emcc . ' -c -ansi -x c -o ' . escapeshellarg($out) . ' -';
+    $pipe = cc4e_pipe($command, $_POST['code'], sys_get_temp_dir(), null, 10.0);
+    @unlink($out);
+    $stdout = is_string($pipe->stdout) ? $pipe->stdout : '';
+    $stderr = is_string($pipe->stderr) ? $pipe->stderr : '';
+    $return_value = $pipe->status;
+    if ( $return_value === false ) $return_value = 1;
 }
 
 $url = $_SERVER['REQUEST_URI'];
@@ -60,11 +32,10 @@ $code = false;
 if ( isset($_POST['code']) ) $code = $_POST['code'];
 if ( ! $code && count($pieces) >= 2 ) {
    $file = $pieces[count($pieces)-1];
-   if ( strpos($file, '/') !== false ) $file = false;
-   if ( strpos($file, '..') !== false ) $file = false;
-   if ( strpos($file, '\\') !== false ) $file = false;
-   if ( ! file_exists($file) ) $file = false;
-   $code = file_get_contents($file);
+   if ( $file === '' || strpos($file, '/') !== false || strpos($file, '..') !== false || strpos($file, '\\') !== false || ! is_file($file) ) {
+       $file = false;
+   }
+   if ( is_string($file) ) $code = file_get_contents($file);
 }
 
 $lines = $code ? count(explode("\n", $code)) : 15;
@@ -90,12 +61,12 @@ if ( $return_value !== False ) {
     if ( $return_value === 0 ) {
         echo('<p style="color:green;">Your code compiled successfully.  </p>'."\n");
         echo('<pre style="color:white; background-color:black;">'."\n");
-        echo("$ gcc -ansi hello.c\n");
+        echo("$ emcc -ansi -c hello.c\n");
         if ( strlen($stdout) > 0 ) echo(htmlentities($stdout));
         echo("\n</pre>\n");
     } else {
         echo('<pre style="color:white; background-color:black;">'."\n");
-        echo("$ gcc -ansi hello.c\n");
+        echo("$ emcc -ansi -c hello.c\n");
         if ( strlen($stdout) > 0 ) echo(htmlentities($stdout));
         if ( strlen($stderr) > 0 ) echo(htmlentities($stderr));
         echo("\n</pre>\n");
@@ -126,7 +97,7 @@ main() {
 <?php } ?>
 </textarea>
 </form>
-Executing code needs more security and is coming soon.
+This page uses Emscripten to check that the code compiles. Run a program from the playground.
 </p>
 <h1>
 C Programming for Everybody (<a href="../..">CC4E</a>)
