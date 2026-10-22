@@ -21,6 +21,7 @@ function tempdir() {
 
 $tempdir = tempdir();
 $tempdir = "/tmp/zap";
+if ( ! is_dir($tempdir) ) mkdir($tempdir, 0777, true);
 $input = $tempdir . "/student.c";
 file_put_contents($input, $code);
 

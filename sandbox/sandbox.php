@@ -130,6 +130,11 @@ function cc4e_pipe($command, $stdin, $cwd, $env, $timeout)
 
     } else {
         $retval->failure = 'resource';
+        $retval->stdout = '';
+        $retval->stderr = 'Could not start the compiler';
+        if ( is_string($cwd) && ! is_dir($cwd) ) {
+            $retval->stderr = 'Could not start the compiler because the working directory does not exist';
+        }
     }
     $retval->ellapsed = (microtime(true) - $begin);
 
@@ -201,8 +206,20 @@ function cc4e_emcc($user_id, $code, $input, $main=null, $note=null)
 
     $now = str_replace('@', 'T', gmdate("Y-m-d@H-i-s"));
     $retval->now = $now;
+    // macOS clears /tmp on reboot, so the configured folder may not exist yet.
+    if ( ! is_dir($emcc_folder) && ! mkdir($emcc_folder, 0777, true) && ! is_dir($emcc_folder) ) {
+        $retval->pipe = new \stdClass();
+        $retval->pipe->stdout = '';
+        $retval->pipe->stderr = "Could not create compiler folder ".$emcc_folder;
+        return $retval;
+    }
     $tempdir = $emcc_folder . '/' . $now . '-' . substr(md5(uniqid()),0,5);
-    mkdir($tempdir);
+    if ( ! mkdir($tempdir) && ! is_dir($tempdir) ) {
+        $retval->pipe = new \stdClass();
+        $retval->pipe->stdout = '';
+        $retval->pipe->stderr = "Could not create compiler working directory ".$tempdir;
+        return $retval;
+    }
 
     $student_code = $tempdir . "/student.c";
     file_put_contents($student_code, $code);
@@ -227,10 +244,16 @@ function cc4e_emcc($user_id, $code, $input, $main=null, $note=null)
     $retval->user_id = $user_id;
 
     $hexfolder = bin2hex($tempdir);
-    if ( strlen($retval->pipe->stderr) < 1 ) {
+    $stderr = $retval->pipe->stderr ?? '';
+    if ( ! is_string($stderr) ) $stderr = '';
+    $compiled_js = $tempdir . '/a.out.js';
+    $compiled_wasm = $tempdir . '/a.out.wasm';
+    if ( strlen($stderr) < 1 && is_file($compiled_js) && is_file($compiled_wasm) ) {
         $retval->js = $CFG->apphome . '/emcompile/load.php/' . $hexfolder . '/a.out.js';
         $retval->wasm = $CFG->apphome . '/emcompile/load.php/' . $hexfolder . '/a.out.wasm';
         $retval->hasmain = true;
+    } else if ( strlen($stderr) < 1 ) {
+        $retval->pipe->stderr = "Compiler did not produce a program";
     }
 
     $json = json_encode($retval, JSON_PRETTY_PRINT);
