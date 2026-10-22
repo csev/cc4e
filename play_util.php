@@ -39,22 +39,11 @@ function cc4e_play_errors($retval) {
     } else if ( isset($retval->reject) && is_string($retval->reject) ) {
         echo('<p style="color:red;">'.htmlentities($retval->reject).'</p>'."\n");
         return true;
-    } else if ( isset($retval->allowed) && $retval->allowed === false ) {
-        $disallowed = "";
-        if ( isset($retval->disallowed) && is_array($retval->disallowed) && count($retval->disallowed) > 0 ) {
-            $disallowed = implode(', ',$retval->disallowed);
-        }
-        echo('<p style="color:red;">Your program used disallowed function(s) '.htmlentities($disallowed).'</p>'."\n");
-
-        return true;
     } else if ( isset($retval->hasmain) && $retval->hasmain === false ) {
         echo('<p style="color:blue;">Compile only: You need a main() for your code to be run</p>'."\n");
         return true;
     } else if ( isset($retval->pipe->stdout) && strlen($retval->pipe->stdout) > 0 ) {
         return false;
-    } else if ( isset($retval->minimum) && $retval->minimum === false ) {
-         echo('<p style="color:red;">Your program did not produce any output</p>'."\n");
-        return true;
     }
     return false;
 }
@@ -109,11 +98,6 @@ function cc4e_play_debug($retval) {
 Debug output:
 <?php
 echo(htmlentities(json_encode($retval, JSON_PRETTY_PRINT), ENT_NOQUOTES));
-
-if ( isset($retval->assembly->stdout) && is_string($retval->assembly->stdout) ) {
-    echo("\n\n------ Assembly --------\n");
-    echo(htmlentities($retval->assembly->stdout, ENT_NOQUOTES));
-}
 ?>
 </pre>
 <?php } ?> 
