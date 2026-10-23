@@ -5,6 +5,6 @@ function semifunc($x)
         $x = $x + 1;
         $x = $x / 2;
     }
-    echo(x);
+    echo($x);
 }
 

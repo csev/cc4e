@@ -13,6 +13,9 @@
 #
 #
 
+/**
+ * @phpstan-consistent-constructor
+ */
 class Parsedown
 {
     # ~
