@@ -1,0 +1,55 @@
+# Static analysis for PHP 8.4 and 8.5. No web server is involved.
+# Tsugi is scanned for symbols only; its own code is not reported.
+# Locally, the gitignored tsugi/ checkout must be present.
+# Run: composer phpstan
+includes:
+    - vendor/phpstan/phpstan-deprecation-rules/rules.neon
+
+parameters:
+    level: 3
+    phpVersion:
+        min: 80400   # PHP 8.4
+        max: 80500   # PHP 8.5
+    stubFiles:
+        - phpstan-stubs.php
+    scanFiles:
+        - phpstan-stubs.php
+        - tsugi/lib/include/setup.php
+        - tsugi/lib/include/setup_i18n.php
+    scanDirectories:
+        - tsugi/lib/src
+        - tsugi/koseu/src
+    paths:
+        - index.php
+        - nav.php
+        - buildmenu.php
+        - top.php
+        - footer.php
+        - privacy.php
+        - sanity.php
+        - tsugi.php
+        - tsugi_settings.php
+        - coursesredirect.php
+        - play.php
+        - play_util.php
+        - materials.php
+        - compilers.php
+        - clear.php
+        - podcast.php
+        - service.php
+        - em_run.php
+        - sandbox
+        - emcompile
+        - book
+        - lectures
+        - code
+        - tools
+        - archive
+    reportUnmatchedIgnoredErrors: true
+    checkMaybeUndefinedVariables: false
+    # Tsugi still ships these APIs. They are deprecated inside Tsugi, not by PHP.
+    ignoreErrors:
+        -
+            message: '#deprecated class (Tsugi\\Core\\Settings|Koseu\\Core\\Application)#'
+        -
+            message: '#deprecated method ltiCustomGet\(\)#'

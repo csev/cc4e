@@ -72,5 +72,4 @@ or similar.
         Github</a> under a Creative Commons or Apache 2.0 license.
     </p>
 
-<?php include("footer.php"); ?>
-
+<?php include("footer.php");
