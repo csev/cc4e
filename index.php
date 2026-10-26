@@ -64,9 +64,6 @@ require_once "top.php";
 require_once "nav.php";
 ?>
 <div id="container">
-<div class="alert alert-warning" role="alert">
-This server has been upgraded. If you see anything broken, let me know. -- Chuck 22-Oct-26
-</div>
 <div style="margin-left: 10px; float:right">
 <iframe width="400" height="225" src="https://www.youtube.com/embed/XteaWkvontg?list=PLlRFEj9H3Oj5NbaFb1b2n8lib01uNPWLa&rel=0" frameborder="0" allowfullscreen title="C Programming for Everybody introductory video"></iframe>
 </div>
