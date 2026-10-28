@@ -49,8 +49,8 @@ function buildMenu() {
         $submenu->addLink('Materials', $R.'materials');
         $submenu->addLink('LMS Integration', $T . 'settings');
 
-        if ( isset($CFG->google_classroom_secret) ) {
-            $submenu->addLink('Google Classroom', $T.'gclass/login');
+        if ( isset($CFG->google_classroom_secret) && (int) ($_SESSION['gc_count'] ?? 0) > 0 ) {
+            $submenu->addLink('Google Classes', $T.'gclass/courses');
         }
         $submenu->addLink('Old Courses', $R . 'archive');
         $submenu->addLink('Free App Store', 'https://www.tsugicloud.org');
