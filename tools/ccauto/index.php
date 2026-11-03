@@ -163,7 +163,9 @@ $code = U::get($_SESSION, 'code');
 $retval = U::get($_SESSION, 'retval');
 $actual = U::get($_SESSION, 'actual');
 
-if ( is_object($retval) && is_object($retval->pipe) && strlen(U::get($_POST, "emcc_output", '')) > 0 ) {
+// isset, not strlen: a program that prints nothing still POSTs emcc_output="".
+// Leaving that POST unhandled makes bodyStart die with "Unhandled POST request".
+if ( is_object($retval) && is_object($retval->pipe) && isset($_POST['emcc_output']) ) {
     $_SESSION['actual'] = U::get($_POST, 'emcc_output', '');
     cc4e_emcc_get_output($retval, $displayname, $email, $LAUNCH->user->id);
     $_SESSION['retval'] = $retval;

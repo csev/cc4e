@@ -269,7 +269,8 @@ function cc4e_emcc_get_output($retval, $displayname, $email, $user_id)
 {
     if ( ! is_object($retval) ) return;
     if ( ! is_object($retval->pipe) ) return;
-    if ( strlen(U::get($_POST, "emcc_output", '')) < 1 ) return;
+    // Present-but-empty is a finished run that printed nothing.
+    if ( ! isset($_POST['emcc_output']) ) return;
 
     $tempdir = $retval->tempdir ?? '';
     if ( strlen($tempdir) < 1 || ! is_dir($tempdir) ) {

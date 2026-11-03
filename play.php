@@ -34,7 +34,7 @@ if ( isset($_POST['new_compile']) ) {
 
 $retval = U::get($_SESSION, 'retval');
 
-if ( is_object($retval) && is_object($retval->pipe) && strlen(U::get($_POST, "emcc_output", '')) > 0 ) {
+if ( is_object($retval) && is_object($retval->pipe) && isset($_POST['emcc_output']) ) {
     cc4e_emcc_get_output($retval, $displayname, $email, $_SESSION['id']);
     $_SESSION['retval'] = $retval;
 }
